@@ -1,0 +1,8 @@
+( defplan Minigrid Prob01
+  ( !PICK-UP r000 k000 c000)
+  ( !OPEN r000 d000 c000 c001 k000)
+  ( !MOVE-TO r000 c000 c001 d000)
+  ( !PICK-UP r000 p000 c001)
+  ( !MOVE-TO r000 c001 c000 d000)
+  ( !DROP r000 p000 c000)
+)
