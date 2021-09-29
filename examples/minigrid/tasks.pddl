@@ -4,16 +4,30 @@
   ( :task Deliver-Pkg
     :parameters
     (
-      ?p - obj
-      ?r - room
+      ?parcel - obj
+      ?room - room
     )
     :precondition
-    ( and
-      ( is-package ?p )
+    (
     )
     :effect
     ( and
-      ( obj-in ?p ?r )
+      ( obj-in ?parcel ?room )
+    )
+  )
+
+  ( :task Pick-Up-Obj
+    :parameters
+    (
+      ?robot - robot
+      ?obj - obj
+    )
+    :precondition
+    (
+    )
+    :effect
+    ( and
+      ( on-robot ?obj ?robot )
     )
   )
 

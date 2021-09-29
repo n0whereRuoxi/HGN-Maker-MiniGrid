@@ -74,34 +74,34 @@ int main( int argc, char * argv[] )
       throw e;
     }
 
-    State * l_pCurState = new State( *l_pProblem->GetCInitState() );
-    for( unsigned int i = 0; i < l_pSolution->GetPlanLength(); i++ )
-    {
-      FormulaP l_pPrecs( l_pSolution->GetCOperator( i )->GetCPreconditions()->AfterSubstitution( *l_pSolution->GetCSubstitution( i ), 0 ) );
-      if( !l_pCurState->IsConsistent( l_pPrecs ) )
-      {
-	std::cout << "FAILURE: Invalid action #" << i << ".\n";
-	delete l_pCurState;
-	delete l_pSolution;
-	exit( 2 );
-      }
+  //   State * l_pCurState = new State( *l_pProblem->GetCInitState() );
+  //   for( unsigned int i = 0; i < l_pSolution->GetPlanLength(); i++ )
+  //   {
+  //     FormulaP l_pPrecs( l_pSolution->GetCOperator( i )->GetCPreconditions()->AfterSubstitution( *l_pSolution->GetCSubstitution( i ), 0 ) );
+  //     if( !l_pCurState->IsConsistent( l_pPrecs ) )
+  //     {
+	// std::cout << "FAILURE: Invalid action #" << i << ".\n";
+	// delete l_pCurState;
+	// delete l_pSolution;
+	// exit( 2 );
+  //     }
 
-      State * l_pNewState = l_pCurState->NextState( l_pSolution->GetCOperator( i ), l_pSolution->GetCSubstitution( i ) );
-      delete l_pCurState;
-      l_pCurState = l_pNewState;
-    }
+  //     State * l_pNewState = l_pCurState->NextState( l_pSolution->GetCOperator( i ), l_pSolution->GetCSubstitution( i ) );
+  //     delete l_pCurState;
+  //     l_pCurState = l_pNewState;
+  //   }
 
-    if( !l_pCurState->IsConsistent( l_pProblem->GetCGoals() ) )
-    {
-      std::cout << "FAILURE: Does not achieve goals.\n";
-      delete l_pCurState;
-      delete l_pSolution;
-      exit( 3 );
-    }
+  //   if( !l_pCurState->IsConsistent( l_pProblem->GetCGoals() ) )
+  //   {
+  //     std::cout << "FAILURE: Does not achieve goals.\n";
+  //     delete l_pCurState;
+  //     delete l_pSolution;
+  //     exit( 3 );
+  //   }
 
     std::cout << "SUCCESS\n";
-    delete l_pCurState;
-    delete l_pSolution;
+    // delete l_pCurState;
+    // delete l_pSolution;
 
     return 0;
 

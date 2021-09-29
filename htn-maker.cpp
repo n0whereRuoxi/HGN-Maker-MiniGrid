@@ -128,12 +128,12 @@ int main( int argc, char * argv[] )
     TCLAP::SwitchArg l_aQValues( "", "qvalues", "Calculate initial Q-values for methods.", l_cCmd, false );
 
     l_cCmd.parse( argc, argv );
-
     l_sStripsDomainFile = l_aStripsDomainFile.getValue();
     l_sTasksFile = l_aTasksFile.getValue();
     l_sProblemFile = l_aProblemFile.getValue();
     l_sSolutionFile = l_aSolutionFile.getValue();
     l_sHtnDomainFile = l_aHtnDomainFile.getValue();
+
     if( l_aNoSubsumption.getValue() ) g_iFlags |= FLAG_NO_SUBSUMPTION;
     if( l_aPartialGeneralization.getValue() ) g_iFlags |= FLAG_PARTIAL_GENERALIZATION;
     if( l_aOnlyTaskEffects.getValue() ) g_iFlags |= FLAG_ONLY_TASK_EFFECTS;
@@ -160,7 +160,9 @@ int main( int argc, char * argv[] )
 
   try
   {
-    l_pStripsDomain = std::tr1::shared_ptr< StripsDomain >( new StripsDomain( ReadFile( l_sStripsDomainFile ) ) );
+    std::string fileContent = ReadFile( l_sStripsDomainFile );
+    StripsDomain * stripDomain = new StripsDomain( fileContent );
+    l_pStripsDomain = std::tr1::shared_ptr< StripsDomain >(stripDomain);
   }
   catch( FileReadException & e )
   {

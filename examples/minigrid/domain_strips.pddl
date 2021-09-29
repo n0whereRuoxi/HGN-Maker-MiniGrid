@@ -1,100 +1,97 @@
 ( define ( domain minigrid )
-
   ( :requirements :strips :typing :equality )
-
-  ( :types robot room door obj)
+  ( :types robot room obj door )
   ( :predicates
     ( robot-in ?a - robot ?b - room )
     ( obj-in ?c - obj ?d - room )
     ( on-robot ?e - obj ?f - robot )
-    ( door-between ?i - door ?j - room ?k - room)
-    ( open ?l - door )
-    ( locked ?m - door )
-    ( is-key ?n - obj )
-    ( is-package ?o - obj )
+    ( door-on ?g - door ?h - room )
+    ( open ?j - door )
+    ( locked ?k - door )
+    ( key ?l - obj )
+    ( parcel ?m - obj )
   )
-  
+
   ( :action !PICK-UP
     :parameters
     (
-      ?r - robot
-      ?o - obj
-      ?c -room
+      ?robot - robot
+      ?obj - obj
+      ?room -room
     )
     :precondition
     ( and
-      ( robot-in ?r ?c )
-      ( obj-in ?o ?c )
+      ( robot-in ?robot ?room )
+      ( obj-in ?obj ?room )
     )
     :effect
-    ( and      
-      ( not ( obj-in ?o ?c ) )
-      ( on-robot ?o ?r )
+    ( and
+      ( not ( obj-in ?obj ?room ) )
+      ( on-robot ?obj ?robot )
     )
   )
-
+  
   ( :action !MOVE-TO
     :parameters
     (
-      ?r - robot
+      ?robot - robot
       ?c1 - room
       ?c2 - room
-      ?d - door
+      ?door - door
     )
     :precondition
     ( and
-      ( robot-in ?r ?c1 )
-      ( door-between ?d ?c1 ?c2 )
-      ( open ?d )
+      ( robot-in ?robot ?c1 )
+      ( door-on ?door ?c1)
+      ( door-on ?door ?c2)
+      ( open ?door )
     )
     :effect
     ( and
-      ( not ( robot-in ?r ?c1 ) )
-      ( robot-in ?r ?c2 )
+      ( not ( robot-in ?robot ?c1 ) )
+      ( robot-in ?robot ?c2 )
     )
   )
 
   ( :action !DROP
     :parameters
     (
-      ?r - robot
-      ?o - obj
-      ?c -room
+      ?robot - robot
+      ?obj - obj
+      ?room -room
     )
     :precondition
     ( and
-      ( robot-in ?r ?c )
-      ( on-robot ?o ?r )
+      ( robot-in ?robot ?room )
+      ( on-robot ?obj ?robot )
     )
     :effect
     ( and      
-      ( obj-in ?o ?c )
-      ( not ( on-robot ?o ?r ) )
+      ( obj-in ?obj ?room )
+      ( not ( on-robot ?obj ?robot ) )
     )
-  )
+  )  
 
   ( :action !OPEN
     :parameters
     (
-      ?r - robot
-      ?d - door
+      ?robot - robot
+      ?door - door
       ?c1 -room
-      ?c2 -room
-      ?k - obj
+      ?key - obj
     )
     :precondition
     ( and
-      ( robot-in ?r ?c1 )
-      ( door-between ?d ?c1 ?c2 )
-      ( locked ?d )
-      ( on-robot ?k ?r )
-      ( is-key ?k )
+      ( robot-in ?robot ?c1 )
+      ( door-on ?door ?c1)
+      ( locked ?door )
+      ( on-robot ?key ?robot )
+      ( key ?key )
     )
     :effect
     ( and      
-      ( not ( locked ?d ) )
-      ( open ?d )
+      ( not ( locked ?door ) )
+      ( open ?door )
     )
   )
-
 )

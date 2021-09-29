@@ -17,10 +17,10 @@
     ( robot-in r000 c000 )
     ( obj-in k000 c000 )
     ( obj-in p000 c001 )
-    ( door-between d000 c000 c001 )
+    ( door-on d000 c000 )
+    ( door-on d000 c001 )
     ( locked d000 )
-    ( is-key k000 )
-    ( is-package p000 )
+    ( key k000 )
   )
 
   ( :tasks
