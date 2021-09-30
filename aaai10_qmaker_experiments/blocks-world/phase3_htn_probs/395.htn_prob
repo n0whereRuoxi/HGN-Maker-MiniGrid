@@ -1,0 +1,113 @@
+( define ( htn-problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :htn :typing :equality )
+  ( :objects
+    b001 - block
+    b017 - block
+    b039 - block
+    b011 - block
+    b005 - block
+    b036 - block
+    b041 - block
+    b002 - block
+    b020 - block
+    b019 - block
+    b032 - block
+    b018 - block
+    b037 - block
+    b015 - block
+    b028 - block
+    b004 - block
+    b003 - block
+    b024 - block
+    b012 - block
+    b007 - block
+    b031 - block
+    b014 - block
+    b027 - block
+    b026 - block
+    b000 - block
+    b006 - block
+    b034 - block
+    b035 - block
+    b013 - block
+    b025 - block
+    b016 - block
+    b008 - block
+    b021 - block
+    b029 - block
+    b040 - block
+    b033 - block
+    b038 - block
+    b030 - block
+    b010 - block
+    b022 - block
+    b023 - block
+    b009 - block
+  )
+
+  ( :init
+    ( on-table b001 )
+    ( on b017 b001 )
+    ( on b039 b017 )
+    ( on b011 b039 )
+    ( on b005 b011 )
+    ( clear b005 )
+    ( on-table b036 )
+    ( on b041 b036 )
+    ( on b002 b041 )
+    ( on b020 b002 )
+    ( clear b020 )
+    ( on-table b019 )
+    ( on b032 b019 )
+    ( on b018 b032 )
+    ( on b037 b018 )
+    ( on b015 b037 )
+    ( clear b015 )
+    ( on-table b028 )
+    ( on b004 b028 )
+    ( on b003 b004 )
+    ( on b024 b003 )
+    ( on b012 b024 )
+    ( clear b012 )
+    ( on-table b007 )
+    ( on b031 b007 )
+    ( on b014 b031 )
+    ( clear b014 )
+    ( on-table b027 )
+    ( on b026 b027 )
+    ( on b000 b026 )
+    ( on b006 b000 )
+    ( clear b006 )
+    ( on-table b034 )
+    ( on b035 b034 )
+    ( clear b035 )
+    ( on-table b013 )
+    ( on b025 b013 )
+    ( clear b025 )
+    ( on-table b016 )
+    ( on b008 b016 )
+    ( on b021 b008 )
+    ( on b029 b021 )
+    ( clear b029 )
+    ( on-table b040 )
+    ( on b033 b040 )
+    ( on b038 b033 )
+    ( clear b038 )
+    ( on-table b030 )
+    ( on b010 b030 )
+    ( on b022 b010 )
+    ( on b023 b022 )
+    ( on b009 b023 )
+    ( clear b009 )
+    ( hand-empty )
+  )
+  ( :tasks
+    ( make-on-table b004 )
+    ( make-on b002 b004 )
+    ( make-on b003 b002 )
+    ( make-on b000 b003 )
+    ( make-on b001 b000 )
+  )
+)
+

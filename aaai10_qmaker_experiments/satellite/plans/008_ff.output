@@ -1,0 +1,60 @@
+
+ff: parsing domain file
+domain 'SATELLITE' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:   19 into depth [1]
+                                  16            [1]
+                                  15            [1]
+                                  14            [1]
+                                  13            [1]
+                                  12            [1][2]
+                                  11            [1]
+                                  10            [1]
+                                   9            [1]
+                                   8            [1][2]
+                                   7            [1]
+                                   6            [1]
+                                   5            [1]
+                                   4            [1][2]
+                                   3            [1]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: TURN_TO SAT000 DIR001 DIR000
+        1: TURN_TO SAT001 DIR000 DIR001
+        2: SWITCH_ON INST001-000 SAT001
+        3: CALIBRATE SAT001 INST001-000 DIR000
+        4: TAKE_IMAGE SAT001 DIR000 INST001-000 MODE004
+        5: SWITCH_ON INST000-001 SAT000
+        6: TURN_TO SAT002 DIR001 DIR000
+        7: CALIBRATE SAT000 INST000-001 DIR001
+        8: TURN_TO SAT000 DIR002 DIR001
+        9: TAKE_IMAGE SAT000 DIR002 INST000-001 MODE003
+       10: SWITCH_ON INST002-002 SAT002
+       11: SWITCH_ON INST003-001 SAT003
+       12: CALIBRATE SAT003 INST003-001 DIR001
+       13: TURN_TO SAT003 DIR002 DIR001
+       14: TAKE_IMAGE SAT003 DIR002 INST003-001 MODE000
+       15: TURN_TO SAT002 DIR002 DIR001
+       16: CALIBRATE SAT002 INST002-002 DIR002
+       17: TAKE_IMAGE SAT002 DIR002 INST002-002 MODE001
+       18: TURN_TO SAT002 DIR001 DIR002
+       19: TAKE_IMAGE SAT002 DIR001 INST002-002 MODE001
+     
+
+time spent:    0.00 seconds instantiating 108 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 74 facts and 108 actions
+               0.00 seconds creating final representation with 74 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 54 states, to a max depth of 2
+               0.00 seconds total time
+

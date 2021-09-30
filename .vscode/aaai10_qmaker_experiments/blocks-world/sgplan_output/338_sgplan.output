@@ -1,0 +1,42 @@
+#
+# (C) Copyright 2008, University of Illinois, Urbana-Champaign
+#
+# All rights reserved. Use of this software is permitted ONLY for
+# non-commercial research purposes, and it may be copied only
+# for that use only. All copies must include this copyright message.
+# This software is made available AS IS, and neither the authors
+# nor the University of Illinois, make any warranty about the
+# software or its performance.
+#
+
+Parsing domain file
+ domain 'BLOCKS4' defined
+Parsing problem file
+ problem 'PROBNAME' defined
+
+
+
+checking for cyclic := effects --- OK.
+
+
+; Time 0.20
+; ParsingTime 0.12
+; NrActions 14
+; MakeSpan
+; MetricValue
+; PlanningTechnique Modified-FF(enforced hill-climbing search) as the subplanner
+
+0.001: (UNSTACK B034 B033) [1]
+1.002: (PUTDOWN B034) [1]
+2.003: (UNSTACK B025 B029) [1]
+3.004: (PUTDOWN B025) [1]
+4.005: (UNSTACK B029 B028) [1]
+5.006: (STACK B029 B019) [1]
+6.007: (UNSTACK B033 B032) [1]
+7.008: (STACK B033 B028) [1]
+8.009: (UNSTACK B033 B028) [1]
+9.010: (STACK B033 B011) [1]
+10.011: (UNSTACK B028 B026) [1]
+11.012: (PUTDOWN B028) [1]
+12.013: (UNSTACK B033 B011) [1]
+13.014: (STACK B033 B028) [1]

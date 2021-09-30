@@ -1,0 +1,60 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    7 into depth [1][2]
+                                   6            [1][2]
+                                   5            [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B039 B041
+        1: STACK B039 B029
+        2: UNSTACK B041 B035
+        3: STACK B041 B014
+        4: UNSTACK B035 B040
+        5: STACK B035 B031
+        6: UNSTACK B042 B043
+        7: STACK B042 B003
+        8: UNSTACK B043 B036
+        9: STACK B043 B038
+       10: UNSTACK B040 B037
+       11: STACK B040 B036
+       12: UNSTACK B035 B031
+       13: STACK B035 B040
+       14: PICKUP B037
+       15: STACK B037 B035
+       16: UNSTACK B042 B003
+       17: STACK B042 B037
+     
+
+time spent:    0.00 seconds instantiating 3960 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 2069 facts and 3960 actions
+               0.01 seconds creating final representation with 2069 relevant facts
+               0.00 seconds building connectivity graph
+               0.05 seconds searching, evaluating 38 states, to a max depth of 2
+               0.06 seconds total time
+

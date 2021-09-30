@@ -1,0 +1,110 @@
+( define ( problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    b007 - block
+    b001 - block
+    b000 - block
+    b005 - block
+    b003 - block
+    b033 - block
+    b035 - block
+    b026 - block
+    b036 - block
+    b027 - block
+    b041 - block
+    b034 - block
+    b040 - block
+    b031 - block
+    b038 - block
+    b039 - block
+    b037 - block
+    b014 - block
+    b016 - block
+    b021 - block
+    b010 - block
+    b011 - block
+    b015 - block
+    b017 - block
+    b018 - block
+    b012 - block
+    b013 - block
+    b029 - block
+    b028 - block
+    b030 - block
+    b025 - block
+    b032 - block
+    b009 - block
+    b002 - block
+    b006 - block
+    b004 - block
+    b008 - block
+    b019 - block
+    b020 - block
+    b024 - block
+    b022 - block
+    b023 - block
+  )
+
+  ( :init
+    ( on-table b007 )
+    ( on b001 b007 )
+    ( on b000 b001 )
+    ( on b005 b000 )
+    ( on b003 b005 )
+    ( clear b003 )
+    ( on-table b033 )
+    ( on b035 b033 )
+    ( on b026 b035 )
+    ( on b036 b026 )
+    ( on b027 b036 )
+    ( clear b027 )
+    ( on-table b041 )
+    ( on b034 b041 )
+    ( clear b034 )
+    ( on-table b040 )
+    ( on b031 b040 )
+    ( on b038 b031 )
+    ( on b039 b038 )
+    ( on b037 b039 )
+    ( clear b037 )
+    ( on-table b014 )
+    ( on b016 b014 )
+    ( on b021 b016 )
+    ( on b010 b021 )
+    ( on b011 b010 )
+    ( clear b011 )
+    ( on-table b015 )
+    ( on b017 b015 )
+    ( on b018 b017 )
+    ( on b012 b018 )
+    ( on b013 b012 )
+    ( clear b013 )
+    ( on-table b029 )
+    ( on b028 b029 )
+    ( on b030 b028 )
+    ( on b025 b030 )
+    ( on b032 b025 )
+    ( clear b032 )
+    ( on-table b009 )
+    ( on b002 b009 )
+    ( on b006 b002 )
+    ( on b004 b006 )
+    ( on b008 b004 )
+    ( clear b008 )
+    ( on-table b019 )
+    ( on b020 b019 )
+    ( on b024 b020 )
+    ( on b022 b024 )
+    ( on b023 b022 )
+    ( clear b023 )
+    ( hand-empty )
+  )
+  ( :goal
+    ( and
+      ( on-table b036 )
+    )
+  )
+)
+

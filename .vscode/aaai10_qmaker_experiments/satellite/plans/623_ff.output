@@ -1,0 +1,51 @@
+
+ff: parsing domain file
+domain 'SATELLITE' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:   13 into depth [1][2]
+                                  12            [1]
+                                  11            [1]
+                                  10            [1]
+                                   9            [1]
+                                   8            [1]
+                                   7            [1]
+                                   6            [1]
+                                   5            [1]
+                                   4            [1][2]
+                                   3            [1]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: SWITCH_ON INST000-002 SAT000
+        1: CALIBRATE SAT000 INST000-002 DIR004
+        2: TURN_TO SAT000 DIR000 DIR004
+        3: TAKE_IMAGE SAT000 DIR000 INST000-002 MODE001
+        4: TURN_TO SAT001 DIR004 DIR005
+        5: SWITCH_ON INST001-002 SAT001
+        6: SWITCH_ON INST002-001 SAT002
+        7: CALIBRATE SAT002 INST002-001 DIR002
+        8: TURN_TO SAT002 DIR003 DIR002
+        9: TAKE_IMAGE SAT002 DIR003 INST002-001 MODE002
+       10: TURN_TO SAT001 DIR001 DIR004
+       11: CALIBRATE SAT001 INST001-002 DIR001
+       12: TAKE_IMAGE SAT001 DIR001 INST001-002 MODE000
+       13: TURN_TO SAT001 DIR004 DIR001
+       14: TAKE_IMAGE SAT001 DIR004 INST001-002 MODE000
+     
+
+time spent:    0.00 seconds instantiating 198 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 75 facts and 198 actions
+               0.00 seconds creating final representation with 75 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 34 states, to a max depth of 2
+               0.00 seconds total time
+

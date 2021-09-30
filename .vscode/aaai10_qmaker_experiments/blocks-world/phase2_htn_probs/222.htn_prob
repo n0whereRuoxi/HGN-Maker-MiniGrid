@@ -1,0 +1,61 @@
+( define ( htn-problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :htn :typing :equality )
+  ( :objects
+    b007 - block
+    b010 - block
+    b011 - block
+    b009 - block
+    b002 - block
+    b004 - block
+    b000 - block
+    b008 - block
+    b005 - block
+    b012 - block
+    b013 - block
+    b003 - block
+    b006 - block
+    b001 - block
+  )
+
+  ( :init
+    ( on-table b007 )
+    ( on b010 b007 )
+    ( clear b010 )
+    ( on-table b011 )
+    ( clear b011 )
+    ( on-table b009 )
+    ( clear b009 )
+    ( on-table b002 )
+    ( on b004 b002 )
+    ( on b000 b004 )
+    ( on b008 b000 )
+    ( on b005 b008 )
+    ( clear b005 )
+    ( on-table b012 )
+    ( on b013 b012 )
+    ( clear b013 )
+    ( on-table b003 )
+    ( on b006 b003 )
+    ( on b001 b006 )
+    ( clear b001 )
+    ( hand-empty )
+  )
+  ( :tasks
+    ( make-on-table b008 )
+    ( make-on b013 b008 )
+    ( make-on-table b009 )
+    ( make-on b011 b009 )
+    ( make-on b005 b011 )
+    ( make-on b007 b005 )
+    ( make-on-table b001 )
+    ( make-on b012 b001 )
+    ( make-on b004 b012 )
+    ( make-on b006 b004 )
+    ( make-on b002 b006 )
+    ( make-on-table b010 )
+    ( make-on b003 b010 )
+    ( make-on b000 b003 )
+  )
+)
+

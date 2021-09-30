@@ -1,0 +1,81 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    4 into depth [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    7 into depth [1][2]
+                                   6            [1][2]
+                                   5            [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    5 into depth [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B004 B010
+        1: STACK B004 B011
+        2: UNSTACK B010 B012
+        3: STACK B010 B004
+        4: UNSTACK B012 B013
+        5: PUTDOWN B012
+        6: UNSTACK B010 B004
+        7: STACK B010 B009
+        8: UNSTACK B004 B011
+        9: STACK B004 B010
+       10: UNSTACK B011 B008
+       11: STACK B011 B004
+       12: UNSTACK B008 B018
+       13: STACK B008 B011
+       14: UNSTACK B018 B006
+       15: STACK B018 B008
+       16: PICKUP B006
+       17: STACK B006 B012
+       18: UNSTACK B015 B005
+       19: STACK B015 B006
+       20: UNSTACK B018 B008
+       21: STACK B018 B013
+       22: UNSTACK B008 B011
+       23: STACK B008 B018
+       24: UNSTACK B011 B004
+       25: STACK B011 B008
+       26: UNSTACK B004 B010
+       27: STACK B004 B015
+       28: UNSTACK B005 B007
+       29: STACK B005 B004
+     
+
+time spent:    0.00 seconds instantiating 840 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 461 facts and 840 actions
+               0.00 seconds creating final representation with 461 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 35 states, to a max depth of 2
+               0.00 seconds total time
+

@@ -1,0 +1,63 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B005 B004
+        1: STACK B005 B006
+        2: UNSTACK B003 B000
+        3: STACK B003 B004
+        4: UNSTACK B005 B006
+        5: STACK B005 B000
+        6: UNSTACK B006 B002
+        7: PUTDOWN B006
+        8: UNSTACK B005 B000
+        9: STACK B005 B003
+       10: PICKUP B002
+       11: STACK B002 B006
+       12: PICKUP B001
+       13: STACK B001 B005
+       14: PICKUP B000
+       15: STACK B000 B001
+     
+
+time spent:    0.00 seconds instantiating 112 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 71 facts and 112 actions
+               0.00 seconds creating final representation with 71 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 29 states, to a max depth of 2
+               0.00 seconds total time
+

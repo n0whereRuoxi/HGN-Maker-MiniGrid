@@ -1,0 +1,49 @@
+( define ( problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    b001 - block
+    b003 - block
+    b006 - block
+    b005 - block
+    b000 - block
+    b004 - block
+    b007 - block
+    b002 - block
+  )
+
+  ( :init
+    ( on-table b001 )
+    ( clear b001 )
+    ( on-table b003 )
+    ( on b006 b003 )
+    ( on b005 b006 )
+    ( clear b005 )
+    ( on-table b000 )
+    ( clear b000 )
+    ( on-table b004 )
+    ( on b007 b004 )
+    ( clear b007 )
+    ( on-table b002 )
+    ( clear b002 )
+    ( hand-empty )
+  )
+  ( :goal
+    ( and
+      ( on-table b007 )
+      ( on b001 b007 )
+      ( on b004 b001 )
+      ( clear b004 )
+      ( on-table b002 )
+      ( clear b002 )
+      ( on-table b003 )
+      ( on b006 b003 )
+      ( on b000 b006 )
+      ( clear b000 )
+      ( on-table b005 )
+      ( clear b005 )
+    )
+  )
+)
+

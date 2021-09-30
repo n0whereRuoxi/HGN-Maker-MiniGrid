@@ -1,0 +1,60 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    6 into depth [1][2]
+                                   5            [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    5 into depth [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B001 B004
+        1: PUTDOWN B001
+        2: UNSTACK B033 B031
+        3: STACK B033 B028
+        4: UNSTACK B031 B030
+        5: STACK B031 B037
+        6: UNSTACK B030 B034
+        7: STACK B030 B015
+        8: UNSTACK B034 B032
+        9: STACK B034 B017
+       10: PICKUP B032
+       11: STACK B032 B001
+       12: UNSTACK B034 B017
+       13: STACK B034 B022
+       14: UNSTACK B017 B018
+       15: STACK B017 B031
+       16: UNSTACK B018 B019
+       17: STACK B018 B017
+       18: UNSTACK B019 B000
+       19: STACK B019 B032
+     
+
+time spent:    0.00 seconds instantiating 2964 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 1559 facts and 2964 actions
+               0.00 seconds creating final representation with 1559 relevant facts
+               0.01 seconds building connectivity graph
+               0.03 seconds searching, evaluating 23 states, to a max depth of 2
+               0.04 seconds total time
+

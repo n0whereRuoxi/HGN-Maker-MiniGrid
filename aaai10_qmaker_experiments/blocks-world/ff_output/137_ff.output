@@ -1,0 +1,60 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    4 into depth [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B010 B004
+        1: STACK B010 B007
+        2: UNSTACK B004 B009
+        3: PUTDOWN B004
+        4: UNSTACK B013 B011
+        5: STACK B013 B010
+        6: UNSTACK B011 B014
+        7: STACK B011 B009
+        8: UNSTACK B014 B015
+        9: STACK B014 B004
+       10: UNSTACK B013 B010
+       11: STACK B013 B011
+       12: UNSTACK B010 B007
+       13: STACK B010 B014
+       14: UNSTACK B000 B003
+       15: STACK B000 B007
+       16: PICKUP B003
+       17: STACK B003 B010
+     
+
+time spent:    0.00 seconds instantiating 544 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 305 facts and 544 actions
+               0.00 seconds creating final representation with 305 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 22 states, to a max depth of 2
+               0.00 seconds total time
+

@@ -1,0 +1,53 @@
+
+ff: parsing domain file
+domain 'SATELLITE' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:   17 into depth [1]
+                                  15            [1]
+                                  12            [1][2]
+                                  11            [1]
+                                  10            [1]
+                                   9            [1]
+                                   8            [1]
+                                   7            [1]
+                                   6            [1]
+                                   5            [1]
+                                   4            [1][2]
+                                   3            [1]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: TURN_TO SAT001 DIR001 DIR004
+        1: TURN_TO SAT003 DIR005 DIR003
+        2: SWITCH_ON INST000-002 SAT000
+        3: SWITCH_ON INST001-001 SAT001
+        4: CALIBRATE SAT001 INST001-001 DIR001
+        5: TURN_TO SAT001 DIR004 DIR001
+        6: TAKE_IMAGE SAT001 DIR004 INST001-001 MODE000
+        7: TURN_TO SAT001 DIR002 DIR004
+        8: TAKE_IMAGE SAT001 DIR002 INST001-001 MODE000
+        9: TURN_TO SAT001 DIR003 DIR002
+       10: TAKE_IMAGE SAT001 DIR003 INST001-001 MODE000
+       11: TURN_TO SAT000 DIR000 DIR002
+       12: CALIBRATE SAT000 INST000-002 DIR000
+       13: TAKE_IMAGE SAT000 DIR000 INST000-002 MODE002
+       14: TURN_TO SAT000 DIR002 DIR000
+       15: TAKE_IMAGE SAT000 DIR002 INST000-002 MODE002
+     
+
+time spent:    0.00 seconds instantiating 396 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 132 facts and 396 actions
+               0.00 seconds creating final representation with 132 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 39 states, to a max depth of 2
+               0.00 seconds total time
+

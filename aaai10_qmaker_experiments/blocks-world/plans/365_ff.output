@@ -1,0 +1,76 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    6 into depth [1]
+
+Enforced Hill-climbing failed !
+switching to Best-first Search now.
+
+advancing to distance :   16
+                          15
+                          14
+                          13
+                          12
+                          11
+                          10
+                           9
+                           8
+                           7
+                           6
+                           5
+                           4
+                           3
+                           2
+                           0
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B005 B004
+        1: STACK B005 B001
+        2: UNSTACK B004 B003
+        3: PUTDOWN B004
+        4: PICKUP B007
+        5: STACK B007 B003
+        6: UNSTACK B000 B006
+        7: STACK B000 B005
+        8: UNSTACK B006 B002
+        9: PUTDOWN B006
+       10: PICKUP B002
+       11: STACK B002 B004
+       12: UNSTACK B007 B003
+       13: STACK B007 B002
+       14: PICKUP B003
+       15: STACK B003 B006
+       16: UNSTACK B007 B002
+       17: STACK B007 B003
+       18: UNSTACK B000 B005
+       19: PUTDOWN B000
+       20: UNSTACK B005 B001
+       21: PUTDOWN B005
+       22: PICKUP B001
+       23: STACK B001 B002
+       24: PICKUP B005
+       25: STACK B005 B001
+       26: PICKUP B000
+       27: STACK B000 B005
+     
+
+time spent:    0.00 seconds instantiating 180 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 109 facts and 180 actions
+               0.00 seconds creating final representation with 109 relevant facts
+               0.00 seconds building connectivity graph
+               0.01 seconds searching, evaluating 236 states, to a max depth of 2
+               0.01 seconds total time
+

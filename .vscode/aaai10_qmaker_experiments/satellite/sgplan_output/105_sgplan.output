@@ -1,0 +1,35 @@
+#
+# (C) Copyright 2008, University of Illinois, Urbana-Champaign
+#
+# All rights reserved. Use of this software is permitted ONLY for
+# non-commercial research purposes, and it may be copied only
+# for that use only. All copies must include this copyright message.
+# This software is made available AS IS, and neither the authors
+# nor the University of Illinois, make any warranty about the
+# software or its performance.
+#
+
+Parsing domain file
+ domain 'SATELLITE' defined
+Parsing problem file
+ problem 'PROBNAME' defined
+
+
+
+checking for cyclic := effects --- OK.
+
+
+
+
+Solution found.
+
+; Time 0.09
+; ParsingTime 0.00
+; NrActions 4
+; MakeSpan
+; MetricValue
+
+	 0.00100:  (TURN_TO SAT000 DIR007 DIR001)[1.00000]
+	 1.00200:  (SWITCH_ON INST000-000 SAT000)[1.00000]
+	 2.00300:  (CALIBRATE SAT000 INST000-000 DIR007)[1.00000]
+	 3.00400:  (TAKE_IMAGE SAT000 DIR007 INST000-000 MODE001)[1.00000]

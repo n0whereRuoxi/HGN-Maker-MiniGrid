@@ -1,0 +1,2276 @@
+( define ( domain Blocks4 )
+  ( :requirements :strips :typing :equality :htn :method-ids :q-values )
+  ( :types block )
+  ( :predicates
+    ( ON-TABLE ?B - BLOCK )
+    ( ON ?B1 - BLOCK ?B2 - BLOCK )
+    ( CLEAR ?B - BLOCK )
+    ( HAND-EMPTY )
+    ( HOLDING ?B - BLOCK )
+  )
+  ( :action !PICKUP
+    :parameters
+    (
+      ?B - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?B ) ( CLEAR ?B ) ( HAND-EMPTY ) )
+    :effect
+    ( and ( not ( ON-TABLE ?B ) ) ( not ( CLEAR ?B ) ) ( not ( HAND-EMPTY ) ) ( HOLDING ?B ) )
+    :cost ( 1 )
+  )
+  ( :action !PUTDOWN
+    :parameters
+    (
+      ?B - BLOCK
+    )
+    :precondition
+    ( and ( HOLDING ?B ) )
+    :effect
+    ( and ( not ( HOLDING ?B ) ) ( HAND-EMPTY ) ( ON-TABLE ?B ) ( CLEAR ?B ) )
+    :cost ( 1 )
+  )
+  ( :action !UNSTACK
+    :parameters
+    (
+      ?B1 - BLOCK
+      ?B2 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?B1 ?B2 ) ( CLEAR ?B1 ) ( HAND-EMPTY ) )
+    :effect
+    ( and ( not ( ON ?B1 ?B2 ) ) ( not ( CLEAR ?B1 ) ) ( not ( HAND-EMPTY ) ) ( CLEAR ?B2 ) ( HOLDING ?B1 ) )
+    :cost ( 1 )
+  )
+  ( :action !STACK
+    :parameters
+    (
+      ?B1 - BLOCK
+      ?B2 - BLOCK
+    )
+    :precondition
+    ( and ( HOLDING ?B1 ) ( CLEAR ?B2 ) )
+    :effect
+    ( and ( not ( HOLDING ?B1 ) ) ( not ( CLEAR ?B2 ) ) ( HAND-EMPTY ) ( ON ?B1 ?B2 ) ( CLEAR ?B1 ) )
+    :cost ( 1 )
+  )
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?GOAL - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?GOAL ) )
+    :subtasks
+    (  )
+    :id ( 100 )
+    :q-value ( 0 )
+    :q-count ( 0 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?TOP - BLOCK
+      ?BOTTOM - BLOCK
+    )
+    :precondition
+    ( and ( ON ?TOP ?BOTTOM ) )
+    :subtasks
+    (  )
+    :id ( 101 )
+    :q-value ( 0 )
+    :q-count ( 0 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2 - BLOCK
+      ?AUTO_3 - BLOCK
+    )
+    :precondition
+    ( and ( HOLDING ?AUTO_2 ) ( CLEAR ?AUTO_3 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_2 ?AUTO_3 ) )
+    :id ( 102 )
+    :q-value ( 1 )
+    :q-count ( 39 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_6 - BLOCK
+      ?AUTO_7 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_11 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_7 ) ( ON ?AUTO_6 ?AUTO_11 ) ( CLEAR ?AUTO_6 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_6 ?AUTO_11 )
+      ( MAKE-ON ?AUTO_6 ?AUTO_7 ) )
+    :id ( 103 )
+    :q-value ( 2 )
+    :q-count ( 26 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_13 - BLOCK
+    )
+    :precondition
+    ( and ( HOLDING ?AUTO_13 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_13 ) )
+    :id ( 104 )
+    :q-value ( 1 )
+    :q-count ( 18 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_15 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_18 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_15 ?AUTO_18 ) ( CLEAR ?AUTO_15 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_15 ?AUTO_18 )
+      ( MAKE-ON-TABLE ?AUTO_15 ) )
+    :id ( 105 )
+    :q-value ( 2 )
+    :q-count ( 18 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_19 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_21 - BLOCK
+      ?AUTO_22 - BLOCK
+      ?AUTO_23 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_19 ?AUTO_21 ) ( CLEAR ?AUTO_19 ) ( HOLDING ?AUTO_22 ) ( CLEAR ?AUTO_23 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_22 ?AUTO_23 )
+      ( MAKE-ON-TABLE ?AUTO_19 ) )
+    :id ( 106 )
+    :q-value ( 3 )
+    :q-count ( 5 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_24 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_25 - BLOCK
+      ?AUTO_28 - BLOCK
+      ?AUTO_27 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_24 ?AUTO_25 ) ( CLEAR ?AUTO_28 ) ( ON ?AUTO_27 ?AUTO_24 ) ( CLEAR ?AUTO_27 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_27 ?AUTO_24 )
+      ( MAKE-ON-TABLE ?AUTO_24 ) )
+    :id ( 107 )
+    :q-value ( 4 )
+    :q-count ( 10 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_38 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_40 - BLOCK
+      ?AUTO_41 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_38 ?AUTO_40 ) ( CLEAR ?AUTO_38 ) ( HOLDING ?AUTO_41 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_41 )
+      ( MAKE-ON-TABLE ?AUTO_38 ) )
+    :id ( 110 )
+    :q-value ( 3 )
+    :q-count ( 9 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_48 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_50 - BLOCK
+      ?AUTO_51 - BLOCK
+      ?AUTO_52 - BLOCK
+      ?AUTO_53 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_48 ?AUTO_50 ) ( ON ?AUTO_51 ?AUTO_48 ) ( CLEAR ?AUTO_51 ) ( HOLDING ?AUTO_52 ) ( CLEAR ?AUTO_53 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_52 ?AUTO_53 )
+      ( MAKE-ON-TABLE ?AUTO_48 ) )
+    :id ( 112 )
+    :q-value ( 5 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_54 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_55 - BLOCK
+      ?AUTO_58 - BLOCK
+      ?AUTO_59 - BLOCK
+      ?AUTO_57 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_54 ?AUTO_55 ) ( ON ?AUTO_58 ?AUTO_54 ) ( CLEAR ?AUTO_59 ) ( ON ?AUTO_57 ?AUTO_58 ) ( CLEAR ?AUTO_57 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_57 ?AUTO_58 )
+      ( MAKE-ON-TABLE ?AUTO_54 ) )
+    :id ( 113 )
+    :q-value ( 6 )
+    :q-count ( 5 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_90 - BLOCK
+      ?AUTO_91 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_94 - BLOCK
+      ?AUTO_95 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_91 ) ( ON ?AUTO_90 ?AUTO_94 ) ( CLEAR ?AUTO_90 ) ( HOLDING ?AUTO_95 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_95 )
+      ( MAKE-ON ?AUTO_90 ?AUTO_91 ) )
+    :id ( 119 )
+    :q-value ( 3 )
+    :q-count ( 4 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_96 - BLOCK
+      ?AUTO_97 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_98 - BLOCK
+      ?AUTO_99 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_97 ) ( ON ?AUTO_96 ?AUTO_98 ) ( ON ?AUTO_99 ?AUTO_96 ) ( CLEAR ?AUTO_99 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_99 ?AUTO_96 )
+      ( MAKE-ON ?AUTO_96 ?AUTO_97 ) )
+    :id ( 120 )
+    :q-value ( 4 )
+    :q-count ( 7 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_104 - BLOCK
+      ?AUTO_105 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_108 - BLOCK
+      ?AUTO_106 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_104 ?AUTO_108 ) ( ON ?AUTO_106 ?AUTO_104 ) ( CLEAR ?AUTO_106 ) ( HOLDING ?AUTO_105 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_105 )
+      ( MAKE-ON ?AUTO_104 ?AUTO_105 ) )
+    :id ( 121 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_113 - BLOCK
+      ?AUTO_114 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_116 - BLOCK
+      ?AUTO_115 - BLOCK
+      ?AUTO_119 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_114 ) ( ON ?AUTO_113 ?AUTO_116 ) ( ON ?AUTO_115 ?AUTO_113 ) ( CLEAR ?AUTO_115 ) ( HOLDING ?AUTO_119 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_119 )
+      ( MAKE-ON ?AUTO_113 ?AUTO_114 ) )
+    :id ( 122 )
+    :q-value ( 5 )
+    :q-count ( 4 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_120 - BLOCK
+      ?AUTO_121 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_124 - BLOCK
+      ?AUTO_125 - BLOCK
+      ?AUTO_126 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_120 ?AUTO_124 ) ( ON ?AUTO_125 ?AUTO_120 ) ( CLEAR ?AUTO_125 ) ( ON ?AUTO_126 ?AUTO_121 ) ( CLEAR ?AUTO_126 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_126 ?AUTO_121 )
+      ( MAKE-ON ?AUTO_120 ?AUTO_121 ) )
+    :id ( 123 )
+    :q-value ( 6 )
+    :q-count ( 5 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_129 - BLOCK
+      ?AUTO_130 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_135 - BLOCK
+      ?AUTO_134 - BLOCK
+      ?AUTO_132 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_129 ?AUTO_135 ) ( ON ?AUTO_134 ?AUTO_130 ) ( CLEAR ?AUTO_134 ) ( HOLDING ?AUTO_132 ) ( CLEAR ?AUTO_129 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_132 ?AUTO_129 )
+      ( MAKE-ON ?AUTO_129 ?AUTO_130 ) )
+    :id ( 124 )
+    :q-value ( 7 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_138 - BLOCK
+      ?AUTO_139 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_144 - BLOCK
+      ?AUTO_141 - BLOCK
+      ?AUTO_142 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_138 ?AUTO_144 ) ( ON ?AUTO_141 ?AUTO_139 ) ( CLEAR ?AUTO_138 ) ( ON ?AUTO_142 ?AUTO_141 ) ( CLEAR ?AUTO_142 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_142 ?AUTO_141 )
+      ( MAKE-ON ?AUTO_138 ?AUTO_139 ) )
+    :id ( 125 )
+    :q-value ( 6.57143 )
+    :q-count ( 7 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_159 - BLOCK
+      ?AUTO_160 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_163 - BLOCK
+      ?AUTO_164 - BLOCK
+      ?AUTO_165 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_160 ) ( ON ?AUTO_159 ?AUTO_163 ) ( CLEAR ?AUTO_159 ) ( HOLDING ?AUTO_164 ) ( CLEAR ?AUTO_165 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_164 ?AUTO_165 )
+      ( MAKE-ON ?AUTO_159 ?AUTO_160 ) )
+    :id ( 128 )
+    :q-value ( 3 )
+    :q-count ( 15 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_166 - BLOCK
+      ?AUTO_167 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_170 - BLOCK
+      ?AUTO_171 - BLOCK
+      ?AUTO_172 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_166 ?AUTO_170 ) ( CLEAR ?AUTO_166 ) ( CLEAR ?AUTO_171 ) ( ON ?AUTO_172 ?AUTO_167 ) ( CLEAR ?AUTO_172 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_172 ?AUTO_167 )
+      ( MAKE-ON ?AUTO_166 ?AUTO_167 ) )
+    :id ( 129 )
+    :q-value ( 4 )
+    :q-count ( 8 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_175 - BLOCK
+      ?AUTO_176 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_179 - BLOCK
+      ?AUTO_178 - BLOCK
+      ?AUTO_181 - BLOCK
+      ?AUTO_182 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_175 ?AUTO_179 ) ( CLEAR ?AUTO_175 ) ( CLEAR ?AUTO_178 ) ( ON ?AUTO_181 ?AUTO_176 ) ( CLEAR ?AUTO_181 ) ( HOLDING ?AUTO_182 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_182 )
+      ( MAKE-ON ?AUTO_175 ?AUTO_176 ) )
+    :id ( 130 )
+    :q-value ( 5 )
+    :q-count ( 3 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_193 - BLOCK
+      ?AUTO_194 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_200 - BLOCK
+      ?AUTO_198 - BLOCK
+      ?AUTO_195 - BLOCK
+      ?AUTO_196 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_193 ?AUTO_200 ) ( CLEAR ?AUTO_193 ) ( ON ?AUTO_198 ?AUTO_194 ) ( ON ?AUTO_195 ?AUTO_198 ) ( CLEAR ?AUTO_195 ) ( HOLDING ?AUTO_196 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_196 )
+      ( MAKE-ON ?AUTO_193 ?AUTO_194 ) )
+    :id ( 132 )
+    :q-value ( 7.4 )
+    :q-count ( 5 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_202 - BLOCK
+      ?AUTO_203 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_208 - BLOCK
+      ?AUTO_209 - BLOCK
+      ?AUTO_205 - BLOCK
+      ?AUTO_207 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_202 ?AUTO_208 ) ( ON ?AUTO_209 ?AUTO_203 ) ( ON ?AUTO_205 ?AUTO_209 ) ( CLEAR ?AUTO_205 ) ( ON ?AUTO_207 ?AUTO_202 ) ( CLEAR ?AUTO_207 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_207 ?AUTO_202 )
+      ( MAKE-ON ?AUTO_202 ?AUTO_203 ) )
+    :id ( 133 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_212 - BLOCK
+      ?AUTO_213 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_214 - BLOCK
+      ?AUTO_217 - BLOCK
+      ?AUTO_218 - BLOCK
+      ?AUTO_215 - BLOCK
+      ?AUTO_220 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_212 ?AUTO_214 ) ( ON ?AUTO_217 ?AUTO_213 ) ( ON ?AUTO_218 ?AUTO_217 ) ( CLEAR ?AUTO_218 ) ( ON ?AUTO_215 ?AUTO_212 ) ( CLEAR ?AUTO_215 ) ( HOLDING ?AUTO_220 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_220 )
+      ( MAKE-ON ?AUTO_212 ?AUTO_213 ) )
+    :id ( 134 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_221 - BLOCK
+      ?AUTO_222 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_227 - BLOCK
+      ?AUTO_228 - BLOCK
+      ?AUTO_229 - BLOCK
+      ?AUTO_224 - BLOCK
+      ?AUTO_223 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_221 ?AUTO_227 ) ( ON ?AUTO_228 ?AUTO_222 ) ( ON ?AUTO_229 ?AUTO_228 ) ( CLEAR ?AUTO_229 ) ( ON ?AUTO_224 ?AUTO_221 ) ( ON ?AUTO_223 ?AUTO_224 ) ( CLEAR ?AUTO_223 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_223 ?AUTO_224 )
+      ( MAKE-ON ?AUTO_221 ?AUTO_222 ) )
+    :id ( 135 )
+    :q-value ( 10 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_232 - BLOCK
+      ?AUTO_233 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_240 - BLOCK
+      ?AUTO_237 - BLOCK
+      ?AUTO_236 - BLOCK
+      ?AUTO_239 - BLOCK
+      ?AUTO_238 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_232 ?AUTO_240 ) ( ON ?AUTO_237 ?AUTO_233 ) ( ON ?AUTO_236 ?AUTO_232 ) ( ON ?AUTO_239 ?AUTO_236 ) ( CLEAR ?AUTO_239 ) ( HOLDING ?AUTO_238 ) ( CLEAR ?AUTO_237 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_238 ?AUTO_237 )
+      ( MAKE-ON ?AUTO_232 ?AUTO_233 ) )
+    :id ( 136 )
+    :q-value ( 11 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_243 - BLOCK
+      ?AUTO_244 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_251 - BLOCK
+      ?AUTO_249 - BLOCK
+      ?AUTO_248 - BLOCK
+      ?AUTO_250 - BLOCK
+      ?AUTO_247 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_243 ?AUTO_251 ) ( ON ?AUTO_249 ?AUTO_244 ) ( ON ?AUTO_248 ?AUTO_243 ) ( ON ?AUTO_250 ?AUTO_248 ) ( CLEAR ?AUTO_249 ) ( ON ?AUTO_247 ?AUTO_250 ) ( CLEAR ?AUTO_247 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_247 ?AUTO_250 )
+      ( MAKE-ON ?AUTO_243 ?AUTO_244 ) )
+    :id ( 137 )
+    :q-value ( 12 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_260 - BLOCK
+      ?AUTO_261 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_261 ) ( ON-TABLE ?AUTO_260 ) ( CLEAR ?AUTO_260 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !PICKUP ?AUTO_260 )
+      ( MAKE-ON ?AUTO_260 ?AUTO_261 ) )
+    :id ( 139 )
+    :q-value ( 2 )
+    :q-count ( 13 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_265 - BLOCK
+      ?AUTO_266 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_269 - BLOCK
+      ?AUTO_270 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_266 ) ( ON-TABLE ?AUTO_265 ) ( CLEAR ?AUTO_265 ) ( HOLDING ?AUTO_269 ) ( CLEAR ?AUTO_270 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_269 ?AUTO_270 )
+      ( MAKE-ON ?AUTO_265 ?AUTO_266 ) )
+    :id ( 140 )
+    :q-value ( 3 )
+    :q-count ( 8 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_271 - BLOCK
+      ?AUTO_272 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_275 - BLOCK
+      ?AUTO_276 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_272 ) ( ON-TABLE ?AUTO_271 ) ( CLEAR ?AUTO_275 ) ( ON ?AUTO_276 ?AUTO_271 ) ( CLEAR ?AUTO_276 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_276 ?AUTO_271 )
+      ( MAKE-ON ?AUTO_271 ?AUTO_272 ) )
+    :id ( 141 )
+    :q-value ( 4 )
+    :q-count ( 7 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_279 - BLOCK
+      ?AUTO_280 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_284 - BLOCK
+      ?AUTO_283 - BLOCK
+      ?AUTO_285 - BLOCK
+      ?AUTO_286 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_280 ) ( ON-TABLE ?AUTO_279 ) ( CLEAR ?AUTO_284 ) ( ON ?AUTO_283 ?AUTO_279 ) ( CLEAR ?AUTO_283 ) ( HOLDING ?AUTO_285 ) ( CLEAR ?AUTO_286 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_285 ?AUTO_286 )
+      ( MAKE-ON ?AUTO_279 ?AUTO_280 ) )
+    :id ( 142 )
+    :q-value ( 5 )
+    :q-count ( 5 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_295 - BLOCK
+      ?AUTO_296 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_297 - BLOCK
+      ?AUTO_301 - BLOCK
+      ?AUTO_300 - BLOCK
+      ?AUTO_302 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_296 ) ( ON-TABLE ?AUTO_295 ) ( CLEAR ?AUTO_297 ) ( ON ?AUTO_301 ?AUTO_295 ) ( CLEAR ?AUTO_300 ) ( ON ?AUTO_302 ?AUTO_301 ) ( CLEAR ?AUTO_302 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_302 ?AUTO_301 )
+      ( MAKE-ON ?AUTO_295 ?AUTO_296 ) )
+    :id ( 143 )
+    :q-value ( 6 )
+    :q-count ( 4 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_305 - BLOCK
+      ?AUTO_306 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_309 - BLOCK
+      ?AUTO_312 - BLOCK
+      ?AUTO_311 - BLOCK
+      ?AUTO_310 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_305 ) ( CLEAR ?AUTO_309 ) ( ON ?AUTO_312 ?AUTO_305 ) ( CLEAR ?AUTO_311 ) ( ON ?AUTO_310 ?AUTO_312 ) ( CLEAR ?AUTO_310 ) ( HOLDING ?AUTO_306 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_306 )
+      ( MAKE-ON ?AUTO_305 ?AUTO_306 ) )
+    :id ( 144 )
+    :q-value ( 7 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_314 - BLOCK
+      ?AUTO_315 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_321 - BLOCK
+      ?AUTO_317 - BLOCK
+      ?AUTO_318 - BLOCK
+      ?AUTO_319 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_314 ) ( CLEAR ?AUTO_321 ) ( ON ?AUTO_317 ?AUTO_314 ) ( CLEAR ?AUTO_318 ) ( ON ?AUTO_319 ?AUTO_317 ) ( ON ?AUTO_315 ?AUTO_319 ) ( CLEAR ?AUTO_315 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_315 ?AUTO_319 )
+      ( MAKE-ON ?AUTO_314 ?AUTO_315 ) )
+    :id ( 145 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_324 - BLOCK
+      ?AUTO_325 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_329 - BLOCK
+      ?AUTO_330 - BLOCK
+      ?AUTO_331 - BLOCK
+      ?AUTO_333 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_324 ) ( ON ?AUTO_329 ?AUTO_324 ) ( ON ?AUTO_330 ?AUTO_329 ) ( ON ?AUTO_325 ?AUTO_330 ) ( CLEAR ?AUTO_325 ) ( HOLDING ?AUTO_331 ) ( CLEAR ?AUTO_333 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_331 ?AUTO_333 )
+      ( MAKE-ON ?AUTO_324 ?AUTO_325 ) )
+    :id ( 146 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_334 - BLOCK
+      ?AUTO_335 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_340 - BLOCK
+      ?AUTO_337 - BLOCK
+      ?AUTO_341 - BLOCK
+      ?AUTO_339 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_334 ) ( ON ?AUTO_340 ?AUTO_334 ) ( ON ?AUTO_337 ?AUTO_340 ) ( ON ?AUTO_335 ?AUTO_337 ) ( CLEAR ?AUTO_341 ) ( ON ?AUTO_339 ?AUTO_335 ) ( CLEAR ?AUTO_339 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_339 ?AUTO_335 )
+      ( MAKE-ON ?AUTO_334 ?AUTO_335 ) )
+    :id ( 147 )
+    :q-value ( 10 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_367 - BLOCK
+      ?AUTO_368 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_372 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_367 ) ( CLEAR ?AUTO_367 ) ( HOLDING ?AUTO_368 ) ( CLEAR ?AUTO_372 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_368 ?AUTO_372 )
+      ( MAKE-ON ?AUTO_367 ?AUTO_368 ) )
+    :id ( 151 )
+    :q-value ( 3 )
+    :q-count ( 4 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_412 - BLOCK
+      ?AUTO_413 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_415 - BLOCK
+      ?AUTO_418 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_412 ?AUTO_415 ) ( CLEAR ?AUTO_412 ) ( HOLDING ?AUTO_413 ) ( CLEAR ?AUTO_418 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_413 ?AUTO_418 )
+      ( MAKE-ON ?AUTO_412 ?AUTO_413 ) )
+    :id ( 155 )
+    :q-value ( 3 )
+    :q-count ( 6 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_476 - BLOCK
+      ?AUTO_477 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_480 - BLOCK
+      ?AUTO_481 - BLOCK
+      ?AUTO_482 - BLOCK
+      ?AUTO_483 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_477 ) ( ON ?AUTO_476 ?AUTO_480 ) ( ON ?AUTO_481 ?AUTO_476 ) ( CLEAR ?AUTO_481 ) ( HOLDING ?AUTO_482 ) ( CLEAR ?AUTO_483 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_482 ?AUTO_483 )
+      ( MAKE-ON ?AUTO_476 ?AUTO_477 ) )
+    :id ( 166 )
+    :q-value ( 5 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_484 - BLOCK
+      ?AUTO_485 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_489 - BLOCK
+      ?AUTO_490 - BLOCK
+      ?AUTO_486 - BLOCK
+      ?AUTO_491 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_485 ) ( ON ?AUTO_484 ?AUTO_489 ) ( ON ?AUTO_490 ?AUTO_484 ) ( CLEAR ?AUTO_486 ) ( ON ?AUTO_491 ?AUTO_490 ) ( CLEAR ?AUTO_491 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_491 ?AUTO_490 )
+      ( MAKE-ON ?AUTO_484 ?AUTO_485 ) )
+    :id ( 167 )
+    :q-value ( 6 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_515 - BLOCK
+      ?AUTO_516 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_517 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_515 ?AUTO_517 ) ( CLEAR ?AUTO_515 ) ( HOLDING ?AUTO_516 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_516 )
+      ( MAKE-ON ?AUTO_515 ?AUTO_516 ) )
+    :id ( 171 )
+    :q-value ( 3 )
+    :q-count ( 5 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_562 - BLOCK
+      ?AUTO_563 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_565 - BLOCK
+      ?AUTO_566 - BLOCK
+      ?AUTO_568 - BLOCK
+      ?AUTO_570 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_562 ?AUTO_565 ) ( CLEAR ?AUTO_566 ) ( ON ?AUTO_568 ?AUTO_562 ) ( CLEAR ?AUTO_568 ) ( HOLDING ?AUTO_563 ) ( CLEAR ?AUTO_570 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_563 ?AUTO_570 )
+      ( MAKE-ON ?AUTO_562 ?AUTO_563 ) )
+    :id ( 177 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_591 - BLOCK
+      ?AUTO_592 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_593 - BLOCK
+      ?AUTO_596 - BLOCK
+      ?AUTO_598 - BLOCK
+      ?AUTO_595 - BLOCK
+      ?AUTO_599 - BLOCK
+      ?AUTO_600 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_591 ?AUTO_593 ) ( CLEAR ?AUTO_596 ) ( ON ?AUTO_598 ?AUTO_591 ) ( CLEAR ?AUTO_598 ) ( ON ?AUTO_595 ?AUTO_592 ) ( CLEAR ?AUTO_595 ) ( HOLDING ?AUTO_599 ) ( CLEAR ?AUTO_600 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_599 ?AUTO_600 )
+      ( MAKE-ON ?AUTO_591 ?AUTO_592 ) )
+    :id ( 180 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_601 - BLOCK
+      ?AUTO_602 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_603 - BLOCK
+      ?AUTO_608 - BLOCK
+      ?AUTO_604 - BLOCK
+      ?AUTO_607 - BLOCK
+      ?AUTO_610 - BLOCK
+      ?AUTO_609 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_601 ?AUTO_603 ) ( CLEAR ?AUTO_608 ) ( ON ?AUTO_604 ?AUTO_601 ) ( CLEAR ?AUTO_604 ) ( ON ?AUTO_607 ?AUTO_602 ) ( CLEAR ?AUTO_610 ) ( ON ?AUTO_609 ?AUTO_607 ) ( CLEAR ?AUTO_609 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_609 ?AUTO_607 )
+      ( MAKE-ON ?AUTO_601 ?AUTO_602 ) )
+    :id ( 181 )
+    :q-value ( 8 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_641 - BLOCK
+      ?AUTO_642 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_646 - BLOCK
+      ?AUTO_647 - BLOCK
+      ?AUTO_643 - BLOCK
+      ?AUTO_648 - BLOCK
+      ?AUTO_649 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_641 ?AUTO_646 ) ( CLEAR ?AUTO_641 ) ( CLEAR ?AUTO_647 ) ( ON ?AUTO_643 ?AUTO_642 ) ( CLEAR ?AUTO_643 ) ( HOLDING ?AUTO_648 ) ( CLEAR ?AUTO_649 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_648 ?AUTO_649 )
+      ( MAKE-ON ?AUTO_641 ?AUTO_642 ) )
+    :id ( 186 )
+    :q-value ( 5 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_661 - BLOCK
+      ?AUTO_662 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_666 - BLOCK
+      ?AUTO_669 - BLOCK
+      ?AUTO_668 - BLOCK
+      ?AUTO_664 - BLOCK
+      ?AUTO_665 - BLOCK
+      ?AUTO_671 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_661 ?AUTO_666 ) ( CLEAR ?AUTO_661 ) ( ON ?AUTO_669 ?AUTO_662 ) ( CLEAR ?AUTO_668 ) ( ON ?AUTO_664 ?AUTO_669 ) ( CLEAR ?AUTO_664 ) ( HOLDING ?AUTO_665 ) ( CLEAR ?AUTO_671 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_665 ?AUTO_671 )
+      ( MAKE-ON ?AUTO_661 ?AUTO_662 ) )
+    :id ( 188 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_678 - BLOCK
+      ?AUTO_679 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_684 - BLOCK
+      ?AUTO_685 - BLOCK
+      ?AUTO_680 - BLOCK
+      ?AUTO_681 - BLOCK
+      ?AUTO_686 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_684 ) ( ON ?AUTO_685 ?AUTO_679 ) ( CLEAR ?AUTO_680 ) ( ON ?AUTO_681 ?AUTO_685 ) ( CLEAR ?AUTO_681 ) ( HOLDING ?AUTO_678 ) ( CLEAR ?AUTO_686 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_678 ?AUTO_686 )
+      ( MAKE-ON ?AUTO_678 ?AUTO_679 ) )
+    :id ( 189 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_747 - BLOCK
+      ?AUTO_748 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_754 - BLOCK
+      ?AUTO_753 - BLOCK
+      ?AUTO_755 - BLOCK
+      ?AUTO_752 - BLOCK
+      ?AUTO_751 - BLOCK
+      ?AUTO_756 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_747 ?AUTO_754 ) ( CLEAR ?AUTO_753 ) ( ON ?AUTO_755 ?AUTO_747 ) ( CLEAR ?AUTO_755 ) ( CLEAR ?AUTO_752 ) ( ON ?AUTO_751 ?AUTO_748 ) ( CLEAR ?AUTO_751 ) ( HOLDING ?AUTO_756 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_756 )
+      ( MAKE-ON ?AUTO_747 ?AUTO_748 ) )
+    :id ( 196 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_771 - BLOCK
+      ?AUTO_772 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_778 - BLOCK
+      ?AUTO_774 - BLOCK
+      ?AUTO_776 - BLOCK
+      ?AUTO_777 - BLOCK
+      ?AUTO_780 - BLOCK
+      ?AUTO_773 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_771 ?AUTO_778 ) ( CLEAR ?AUTO_771 ) ( ON ?AUTO_774 ?AUTO_772 ) ( CLEAR ?AUTO_776 ) ( ON ?AUTO_777 ?AUTO_774 ) ( CLEAR ?AUTO_780 ) ( ON ?AUTO_773 ?AUTO_777 ) ( CLEAR ?AUTO_773 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_773 ?AUTO_777 )
+      ( MAKE-ON ?AUTO_771 ?AUTO_772 ) )
+    :id ( 198 )
+    :q-value ( 8 )
+    :q-count ( 3 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_826 - BLOCK
+      ?AUTO_827 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_828 - BLOCK
+      ?AUTO_833 - BLOCK
+      ?AUTO_830 - BLOCK
+      ?AUTO_829 - BLOCK
+      ?AUTO_834 - BLOCK
+      ?AUTO_835 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_827 ) ( ON-TABLE ?AUTO_826 ) ( CLEAR ?AUTO_828 ) ( ON ?AUTO_833 ?AUTO_826 ) ( CLEAR ?AUTO_830 ) ( ON ?AUTO_829 ?AUTO_833 ) ( CLEAR ?AUTO_829 ) ( HOLDING ?AUTO_834 ) ( CLEAR ?AUTO_835 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_834 ?AUTO_835 )
+      ( MAKE-ON ?AUTO_826 ?AUTO_827 ) )
+    :id ( 205 )
+    :q-value ( 7 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_838 - BLOCK
+      ?AUTO_839 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_841 - BLOCK
+      ?AUTO_842 - BLOCK
+      ?AUTO_840 - BLOCK
+      ?AUTO_843 - BLOCK
+      ?AUTO_847 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_838 ) ( CLEAR ?AUTO_841 ) ( ON ?AUTO_842 ?AUTO_838 ) ( CLEAR ?AUTO_840 ) ( ON ?AUTO_843 ?AUTO_842 ) ( CLEAR ?AUTO_843 ) ( HOLDING ?AUTO_839 ) ( CLEAR ?AUTO_847 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_839 ?AUTO_847 )
+      ( MAKE-ON ?AUTO_838 ?AUTO_839 ) )
+    :id ( 206 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_951 - BLOCK
+      ?AUTO_952 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_956 - BLOCK
+      ?AUTO_953 - BLOCK
+      ?AUTO_958 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_951 ) ( CLEAR ?AUTO_956 ) ( ON ?AUTO_953 ?AUTO_951 ) ( CLEAR ?AUTO_953 ) ( HOLDING ?AUTO_952 ) ( CLEAR ?AUTO_958 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_952 ?AUTO_958 )
+      ( MAKE-ON ?AUTO_951 ?AUTO_952 ) )
+    :id ( 215 )
+    :q-value ( 5 )
+    :q-count ( 3 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_969 - BLOCK
+      ?AUTO_970 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_971 - BLOCK
+      ?AUTO_976 - BLOCK
+      ?AUTO_974 - BLOCK
+      ?AUTO_973 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_969 ) ( CLEAR ?AUTO_971 ) ( ON ?AUTO_976 ?AUTO_969 ) ( CLEAR ?AUTO_976 ) ( CLEAR ?AUTO_974 ) ( ON ?AUTO_973 ?AUTO_970 ) ( CLEAR ?AUTO_973 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_973 ?AUTO_970 )
+      ( MAKE-ON ?AUTO_969 ?AUTO_970 ) )
+    :id ( 217 )
+    :q-value ( 6 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_979 - BLOCK
+      ?AUTO_980 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_984 - BLOCK
+      ?AUTO_986 - BLOCK
+      ?AUTO_985 - BLOCK
+      ?AUTO_983 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_979 ) ( CLEAR ?AUTO_984 ) ( CLEAR ?AUTO_986 ) ( ON ?AUTO_985 ?AUTO_980 ) ( CLEAR ?AUTO_985 ) ( HOLDING ?AUTO_983 ) ( CLEAR ?AUTO_979 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_983 ?AUTO_979 )
+      ( MAKE-ON ?AUTO_979 ?AUTO_980 ) )
+    :id ( 218 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_989 - BLOCK
+      ?AUTO_990 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_995 - BLOCK
+      ?AUTO_991 - BLOCK
+      ?AUTO_992 - BLOCK
+      ?AUTO_993 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_989 ) ( CLEAR ?AUTO_995 ) ( CLEAR ?AUTO_991 ) ( ON ?AUTO_992 ?AUTO_990 ) ( CLEAR ?AUTO_989 ) ( ON ?AUTO_993 ?AUTO_992 ) ( CLEAR ?AUTO_993 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_993 ?AUTO_992 )
+      ( MAKE-ON ?AUTO_989 ?AUTO_990 ) )
+    :id ( 219 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_999 - BLOCK
+      ?AUTO_1000 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1005 - BLOCK
+      ?AUTO_1001 - BLOCK
+      ?AUTO_1002 - BLOCK
+      ?AUTO_1006 - BLOCK
+      ?AUTO_1007 - BLOCK
+      ?AUTO_1008 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_999 ) ( CLEAR ?AUTO_1005 ) ( CLEAR ?AUTO_1001 ) ( ON ?AUTO_1002 ?AUTO_1000 ) ( CLEAR ?AUTO_999 ) ( ON ?AUTO_1006 ?AUTO_1002 ) ( CLEAR ?AUTO_1006 ) ( HOLDING ?AUTO_1007 ) ( CLEAR ?AUTO_1008 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1007 ?AUTO_1008 )
+      ( MAKE-ON ?AUTO_999 ?AUTO_1000 ) )
+    :id ( 220 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1009 - BLOCK
+      ?AUTO_1010 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1017 - BLOCK
+      ?AUTO_1014 - BLOCK
+      ?AUTO_1013 - BLOCK
+      ?AUTO_1015 - BLOCK
+      ?AUTO_1011 - BLOCK
+      ?AUTO_1018 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1009 ) ( CLEAR ?AUTO_1017 ) ( CLEAR ?AUTO_1014 ) ( ON ?AUTO_1013 ?AUTO_1010 ) ( ON ?AUTO_1015 ?AUTO_1013 ) ( CLEAR ?AUTO_1015 ) ( CLEAR ?AUTO_1011 ) ( ON ?AUTO_1018 ?AUTO_1009 ) ( CLEAR ?AUTO_1018 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1018 ?AUTO_1009 )
+      ( MAKE-ON ?AUTO_1009 ?AUTO_1010 ) )
+    :id ( 221 )
+    :q-value ( 10 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1021 - BLOCK
+      ?AUTO_1022 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1029 - BLOCK
+      ?AUTO_1030 - BLOCK
+      ?AUTO_1024 - BLOCK
+      ?AUTO_1027 - BLOCK
+      ?AUTO_1023 - BLOCK
+      ?AUTO_1028 - BLOCK
+      ?AUTO_1032 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1021 ) ( CLEAR ?AUTO_1029 ) ( ON ?AUTO_1030 ?AUTO_1022 ) ( ON ?AUTO_1024 ?AUTO_1030 ) ( CLEAR ?AUTO_1024 ) ( CLEAR ?AUTO_1027 ) ( ON ?AUTO_1023 ?AUTO_1021 ) ( CLEAR ?AUTO_1023 ) ( HOLDING ?AUTO_1028 ) ( CLEAR ?AUTO_1032 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1028 ?AUTO_1032 )
+      ( MAKE-ON ?AUTO_1021 ?AUTO_1022 ) )
+    :id ( 222 )
+    :q-value ( 11 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1033 - BLOCK
+      ?AUTO_1034 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1036 - BLOCK
+      ?AUTO_1039 - BLOCK
+      ?AUTO_1037 - BLOCK
+      ?AUTO_1042 - BLOCK
+      ?AUTO_1038 - BLOCK
+      ?AUTO_1043 - BLOCK
+      ?AUTO_1041 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1033 ) ( CLEAR ?AUTO_1036 ) ( ON ?AUTO_1039 ?AUTO_1034 ) ( ON ?AUTO_1037 ?AUTO_1039 ) ( CLEAR ?AUTO_1037 ) ( CLEAR ?AUTO_1042 ) ( ON ?AUTO_1038 ?AUTO_1033 ) ( CLEAR ?AUTO_1043 ) ( ON ?AUTO_1041 ?AUTO_1038 ) ( CLEAR ?AUTO_1041 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1041 ?AUTO_1038 )
+      ( MAKE-ON ?AUTO_1033 ?AUTO_1034 ) )
+    :id ( 223 )
+    :q-value ( 12 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1046 - BLOCK
+      ?AUTO_1047 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1054 - BLOCK
+      ?AUTO_1051 - BLOCK
+      ?AUTO_1053 - BLOCK
+      ?AUTO_1048 - BLOCK
+      ?AUTO_1056 - BLOCK
+      ?AUTO_1049 - BLOCK
+      ?AUTO_1050 - BLOCK
+      ?AUTO_1058 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1046 ) ( CLEAR ?AUTO_1054 ) ( ON ?AUTO_1051 ?AUTO_1047 ) ( ON ?AUTO_1053 ?AUTO_1051 ) ( CLEAR ?AUTO_1053 ) ( ON ?AUTO_1048 ?AUTO_1046 ) ( CLEAR ?AUTO_1056 ) ( ON ?AUTO_1049 ?AUTO_1048 ) ( CLEAR ?AUTO_1049 ) ( HOLDING ?AUTO_1050 ) ( CLEAR ?AUTO_1058 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1050 ?AUTO_1058 )
+      ( MAKE-ON ?AUTO_1046 ?AUTO_1047 ) )
+    :id ( 224 )
+    :q-value ( 13 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1065 - BLOCK
+      ?AUTO_1066 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1072 - BLOCK
+      ?AUTO_1075 - BLOCK
+      ?AUTO_1068 - BLOCK
+      ?AUTO_1070 - BLOCK
+      ?AUTO_1073 - BLOCK
+      ?AUTO_1071 - BLOCK
+      ?AUTO_1074 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1065 ) ( CLEAR ?AUTO_1072 ) ( ON ?AUTO_1075 ?AUTO_1066 ) ( CLEAR ?AUTO_1068 ) ( ON ?AUTO_1070 ?AUTO_1065 ) ( CLEAR ?AUTO_1073 ) ( ON ?AUTO_1071 ?AUTO_1070 ) ( CLEAR ?AUTO_1071 ) ( HOLDING ?AUTO_1074 ) ( CLEAR ?AUTO_1075 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1074 ?AUTO_1075 )
+      ( MAKE-ON ?AUTO_1065 ?AUTO_1066 ) )
+    :id ( 225 )
+    :q-value ( 13 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1078 - BLOCK
+      ?AUTO_1079 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1085 - BLOCK
+      ?AUTO_1080 - BLOCK
+      ?AUTO_1087 - BLOCK
+      ?AUTO_1084 - BLOCK
+      ?AUTO_1086 - BLOCK
+      ?AUTO_1081 - BLOCK
+      ?AUTO_1083 - BLOCK
+      ?AUTO_1090 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1078 ) ( CLEAR ?AUTO_1085 ) ( ON ?AUTO_1080 ?AUTO_1079 ) ( CLEAR ?AUTO_1087 ) ( ON ?AUTO_1084 ?AUTO_1078 ) ( CLEAR ?AUTO_1086 ) ( ON ?AUTO_1081 ?AUTO_1084 ) ( CLEAR ?AUTO_1081 ) ( CLEAR ?AUTO_1080 ) ( ON ?AUTO_1083 ?AUTO_1090 ) ( CLEAR ?AUTO_1083 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1083 ?AUTO_1090 )
+      ( MAKE-ON ?AUTO_1078 ?AUTO_1079 ) )
+    :id ( 226 )
+    :q-value ( 14 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1218 - BLOCK
+      ?AUTO_1219 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1223 - BLOCK
+      ?AUTO_1221 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1218 ?AUTO_1223 ) ( CLEAR ?AUTO_1221 ) ( ON ?AUTO_1219 ?AUTO_1218 ) ( CLEAR ?AUTO_1219 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1219 ?AUTO_1218 )
+      ( MAKE-ON ?AUTO_1218 ?AUTO_1219 ) )
+    :id ( 246 )
+    :q-value ( 4 )
+    :q-count ( 3 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1226 - BLOCK
+      ?AUTO_1227 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1229 - BLOCK
+      ?AUTO_1228 - BLOCK
+      ?AUTO_1232 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1226 ?AUTO_1229 ) ( CLEAR ?AUTO_1228 ) ( ON ?AUTO_1227 ?AUTO_1226 ) ( CLEAR ?AUTO_1227 ) ( HOLDING ?AUTO_1232 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_1232 )
+      ( MAKE-ON ?AUTO_1226 ?AUTO_1227 ) )
+    :id ( 247 )
+    :q-value ( 5 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1312 - BLOCK
+      ?AUTO_1313 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1318 - BLOCK
+      ?AUTO_1317 - BLOCK
+      ?AUTO_1316 - BLOCK
+      ?AUTO_1319 - BLOCK
+      ?AUTO_1320 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1312 ) ( ON ?AUTO_1318 ?AUTO_1312 ) ( CLEAR ?AUTO_1318 ) ( CLEAR ?AUTO_1317 ) ( ON ?AUTO_1316 ?AUTO_1313 ) ( CLEAR ?AUTO_1316 ) ( HOLDING ?AUTO_1319 ) ( CLEAR ?AUTO_1320 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1319 ?AUTO_1320 )
+      ( MAKE-ON ?AUTO_1312 ?AUTO_1313 ) )
+    :id ( 257 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1321 - BLOCK
+      ?AUTO_1322 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1325 - BLOCK
+      ?AUTO_1326 - BLOCK
+      ?AUTO_1328 - BLOCK
+      ?AUTO_1329 - BLOCK
+      ?AUTO_1327 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1321 ) ( ON ?AUTO_1325 ?AUTO_1321 ) ( CLEAR ?AUTO_1325 ) ( CLEAR ?AUTO_1326 ) ( ON ?AUTO_1328 ?AUTO_1322 ) ( CLEAR ?AUTO_1329 ) ( ON ?AUTO_1327 ?AUTO_1328 ) ( CLEAR ?AUTO_1327 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1327 ?AUTO_1328 )
+      ( MAKE-ON ?AUTO_1321 ?AUTO_1322 ) )
+    :id ( 258 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_1355 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1357 - BLOCK
+      ?AUTO_1358 - BLOCK
+      ?AUTO_1359 - BLOCK
+      ?AUTO_1360 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1355 ?AUTO_1357 ) ( CLEAR ?AUTO_1358 ) ( ON ?AUTO_1359 ?AUTO_1355 ) ( CLEAR ?AUTO_1359 ) ( HOLDING ?AUTO_1360 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_1360 )
+      ( MAKE-ON-TABLE ?AUTO_1355 ) )
+    :id ( 263 )
+    :q-value ( 5 )
+    :q-count ( 5 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1391 - BLOCK
+      ?AUTO_1392 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1395 - BLOCK
+      ?AUTO_1396 - BLOCK
+      ?AUTO_1397 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1391 ?AUTO_1395 ) ( ON ?AUTO_1392 ?AUTO_1391 ) ( CLEAR ?AUTO_1392 ) ( HOLDING ?AUTO_1396 ) ( CLEAR ?AUTO_1397 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1396 ?AUTO_1397 )
+      ( MAKE-ON ?AUTO_1391 ?AUTO_1392 ) )
+    :id ( 268 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1481 - BLOCK
+      ?AUTO_1482 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1484 - BLOCK
+      ?AUTO_1486 - BLOCK
+      ?AUTO_1485 - BLOCK
+      ?AUTO_1489 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1481 ?AUTO_1484 ) ( ON ?AUTO_1486 ?AUTO_1481 ) ( ON ?AUTO_1485 ?AUTO_1486 ) ( CLEAR ?AUTO_1485 ) ( HOLDING ?AUTO_1482 ) ( CLEAR ?AUTO_1489 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1482 ?AUTO_1489 )
+      ( MAKE-ON ?AUTO_1481 ?AUTO_1482 ) )
+    :id ( 275 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1533 - BLOCK
+      ?AUTO_1534 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1536 - BLOCK
+      ?AUTO_1538 - BLOCK
+      ?AUTO_1539 - BLOCK
+      ?AUTO_1541 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1533 ?AUTO_1536 ) ( ON ?AUTO_1538 ?AUTO_1534 ) ( CLEAR ?AUTO_1538 ) ( CLEAR ?AUTO_1533 ) ( ON ?AUTO_1539 ?AUTO_1541 ) ( CLEAR ?AUTO_1539 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1539 ?AUTO_1541 )
+      ( MAKE-ON ?AUTO_1533 ?AUTO_1534 ) )
+    :id ( 280 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1542 - BLOCK
+      ?AUTO_1543 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1547 - BLOCK
+      ?AUTO_1548 - BLOCK
+      ?AUTO_1549 - BLOCK
+      ?AUTO_1546 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1547 ?AUTO_1543 ) ( CLEAR ?AUTO_1547 ) ( ON ?AUTO_1548 ?AUTO_1549 ) ( CLEAR ?AUTO_1548 ) ( HOLDING ?AUTO_1542 ) ( CLEAR ?AUTO_1546 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1542 ?AUTO_1546 )
+      ( MAKE-ON ?AUTO_1542 ?AUTO_1543 ) )
+    :id ( 281 )
+    :q-value ( 7 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1591 - BLOCK
+      ?AUTO_1592 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1597 - BLOCK
+      ?AUTO_1594 - BLOCK
+      ?AUTO_1593 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_1597 ) ( ON ?AUTO_1594 ?AUTO_1592 ) ( CLEAR ?AUTO_1593 ) ( ON ?AUTO_1591 ?AUTO_1594 ) ( CLEAR ?AUTO_1591 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1591 ?AUTO_1594 )
+      ( MAKE-ON ?AUTO_1591 ?AUTO_1592 ) )
+    :id ( 287 )
+    :q-value ( 6 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1600 - BLOCK
+      ?AUTO_1601 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1605 - BLOCK
+      ?AUTO_1603 - BLOCK
+      ?AUTO_1602 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_1605 ) ( ON ?AUTO_1603 ?AUTO_1601 ) ( ON ?AUTO_1600 ?AUTO_1603 ) ( CLEAR ?AUTO_1600 ) ( HOLDING ?AUTO_1602 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_1602 )
+      ( MAKE-ON ?AUTO_1600 ?AUTO_1601 ) )
+    :id ( 288 )
+    :q-value ( 7 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1608 - BLOCK
+      ?AUTO_1609 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1614 - BLOCK
+      ?AUTO_1612 - BLOCK
+      ?AUTO_1610 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_1614 ) ( ON ?AUTO_1612 ?AUTO_1609 ) ( ON ?AUTO_1608 ?AUTO_1612 ) ( ON ?AUTO_1610 ?AUTO_1608 ) ( CLEAR ?AUTO_1610 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1610 ?AUTO_1608 )
+      ( MAKE-ON ?AUTO_1608 ?AUTO_1609 ) )
+    :id ( 289 )
+    :q-value ( 8 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1617 - BLOCK
+      ?AUTO_1618 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1622 - BLOCK
+      ?AUTO_1620 - BLOCK
+      ?AUTO_1621 - BLOCK
+      ?AUTO_1625 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_1622 ?AUTO_1618 ) ( ON ?AUTO_1617 ?AUTO_1622 ) ( ON ?AUTO_1620 ?AUTO_1617 ) ( CLEAR ?AUTO_1620 ) ( HOLDING ?AUTO_1621 ) ( CLEAR ?AUTO_1625 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1621 ?AUTO_1625 )
+      ( MAKE-ON ?AUTO_1617 ?AUTO_1618 ) )
+    :id ( 290 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1665 - BLOCK
+      ?AUTO_1666 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1670 - BLOCK
+      ?AUTO_1668 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1665 ) ( CLEAR ?AUTO_1665 ) ( CLEAR ?AUTO_1670 ) ( ON ?AUTO_1668 ?AUTO_1666 ) ( CLEAR ?AUTO_1668 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1668 ?AUTO_1666 )
+      ( MAKE-ON ?AUTO_1665 ?AUTO_1666 ) )
+    :id ( 294 )
+    :q-value ( 4 )
+    :q-count ( 3 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1673 - BLOCK
+      ?AUTO_1674 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1675 - BLOCK
+      ?AUTO_1676 - BLOCK
+      ?AUTO_1679 - BLOCK
+      ?AUTO_1680 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1673 ) ( CLEAR ?AUTO_1673 ) ( CLEAR ?AUTO_1675 ) ( ON ?AUTO_1676 ?AUTO_1674 ) ( CLEAR ?AUTO_1676 ) ( HOLDING ?AUTO_1679 ) ( CLEAR ?AUTO_1680 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1679 ?AUTO_1680 )
+      ( MAKE-ON ?AUTO_1673 ?AUTO_1674 ) )
+    :id ( 295 )
+    :q-value ( 5 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1687 - BLOCK
+      ?AUTO_1688 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1687 ) ( CLEAR ?AUTO_1687 ) ( HOLDING ?AUTO_1688 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_1688 )
+      ( MAKE-ON ?AUTO_1687 ?AUTO_1688 ) )
+    :id ( 296 )
+    :q-value ( 3 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1708 - BLOCK
+      ?AUTO_1709 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1713 - BLOCK
+      ?AUTO_1714 - BLOCK
+      ?AUTO_1710 - BLOCK
+      ?AUTO_1715 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1708 ) ( CLEAR ?AUTO_1713 ) ( ON ?AUTO_1714 ?AUTO_1709 ) ( CLEAR ?AUTO_1714 ) ( CLEAR ?AUTO_1710 ) ( ON ?AUTO_1715 ?AUTO_1708 ) ( CLEAR ?AUTO_1715 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1715 ?AUTO_1708 )
+      ( MAKE-ON ?AUTO_1708 ?AUTO_1709 ) )
+    :id ( 297 )
+    :q-value ( 6 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1731 - BLOCK
+      ?AUTO_1732 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1737 - BLOCK
+      ?AUTO_1735 - BLOCK
+      ?AUTO_1736 - BLOCK
+      ?AUTO_1739 - BLOCK
+      ?AUTO_1738 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_1732 ) ( ON-TABLE ?AUTO_1731 ) ( ON ?AUTO_1737 ?AUTO_1731 ) ( CLEAR ?AUTO_1735 ) ( ON ?AUTO_1736 ?AUTO_1737 ) ( CLEAR ?AUTO_1739 ) ( ON ?AUTO_1738 ?AUTO_1736 ) ( CLEAR ?AUTO_1738 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1738 ?AUTO_1736 )
+      ( MAKE-ON ?AUTO_1731 ?AUTO_1732 ) )
+    :id ( 299 )
+    :q-value ( 8 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1868 - BLOCK
+      ?AUTO_1869 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1872 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1868 ) ( CLEAR ?AUTO_1872 ) ( ON ?AUTO_1869 ?AUTO_1868 ) ( CLEAR ?AUTO_1869 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1869 ?AUTO_1868 )
+      ( MAKE-ON ?AUTO_1868 ?AUTO_1869 ) )
+    :id ( 307 )
+    :q-value ( 4 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1875 - BLOCK
+      ?AUTO_1876 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1879 - BLOCK
+      ?AUTO_1880 - BLOCK
+      ?AUTO_1881 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1875 ) ( CLEAR ?AUTO_1879 ) ( ON ?AUTO_1876 ?AUTO_1875 ) ( CLEAR ?AUTO_1876 ) ( HOLDING ?AUTO_1880 ) ( CLEAR ?AUTO_1881 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1880 ?AUTO_1881 )
+      ( MAKE-ON ?AUTO_1875 ?AUTO_1876 ) )
+    :id ( 308 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1906 - BLOCK
+      ?AUTO_1907 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1911 - BLOCK
+      ?AUTO_1908 - BLOCK
+      ?AUTO_1912 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1906 ) ( CLEAR ?AUTO_1911 ) ( ON ?AUTO_1908 ?AUTO_1906 ) ( CLEAR ?AUTO_1912 ) ( ON ?AUTO_1907 ?AUTO_1908 ) ( CLEAR ?AUTO_1907 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1907 ?AUTO_1908 )
+      ( MAKE-ON ?AUTO_1906 ?AUTO_1907 ) )
+    :id ( 311 )
+    :q-value ( 6 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1915 - BLOCK
+      ?AUTO_1916 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1921 - BLOCK
+      ?AUTO_1917 - BLOCK
+      ?AUTO_1918 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1915 ) ( CLEAR ?AUTO_1921 ) ( ON ?AUTO_1917 ?AUTO_1915 ) ( ON ?AUTO_1916 ?AUTO_1917 ) ( CLEAR ?AUTO_1916 ) ( HOLDING ?AUTO_1918 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_1918 )
+      ( MAKE-ON ?AUTO_1915 ?AUTO_1916 ) )
+    :id ( 312 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1923 - BLOCK
+      ?AUTO_1924 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1928 - BLOCK
+      ?AUTO_1925 - BLOCK
+      ?AUTO_1926 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1923 ) ( CLEAR ?AUTO_1928 ) ( ON ?AUTO_1925 ?AUTO_1923 ) ( ON ?AUTO_1924 ?AUTO_1925 ) ( ON ?AUTO_1926 ?AUTO_1924 ) ( CLEAR ?AUTO_1926 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_1926 ?AUTO_1924 )
+      ( MAKE-ON ?AUTO_1923 ?AUTO_1924 ) )
+    :id ( 313 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_1932 - BLOCK
+      ?AUTO_1933 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_1936 - BLOCK
+      ?AUTO_1937 - BLOCK
+      ?AUTO_1938 - BLOCK
+      ?AUTO_1939 - BLOCK
+      ?AUTO_1940 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_1932 ) ( CLEAR ?AUTO_1936 ) ( ON ?AUTO_1937 ?AUTO_1932 ) ( ON ?AUTO_1933 ?AUTO_1937 ) ( ON ?AUTO_1938 ?AUTO_1933 ) ( CLEAR ?AUTO_1938 ) ( HOLDING ?AUTO_1939 ) ( CLEAR ?AUTO_1940 ) )
+    :subtasks
+    ( ( !STACK ?AUTO_1939 ?AUTO_1940 )
+      ( MAKE-ON ?AUTO_1932 ?AUTO_1933 ) )
+    :id ( 314 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_2023 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2027 - BLOCK
+      ?AUTO_2024 - BLOCK
+      ?AUTO_2026 - BLOCK
+      ?AUTO_2028 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_2023 ?AUTO_2027 ) ( ON ?AUTO_2024 ?AUTO_2023 ) ( ON ?AUTO_2026 ?AUTO_2024 ) ( CLEAR ?AUTO_2026 ) ( HOLDING ?AUTO_2028 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2028 )
+      ( MAKE-ON-TABLE ?AUTO_2023 ) )
+    :id ( 333 )
+    :q-value ( 7 )
+    :q-count ( 2 )
+  )
+
+  ( :method MAKE-ON-TABLE
+    :parameters
+    (
+      ?AUTO_2029 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2032 - BLOCK
+      ?AUTO_2030 - BLOCK
+      ?AUTO_2033 - BLOCK
+      ?AUTO_2034 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_2029 ?AUTO_2032 ) ( ON ?AUTO_2030 ?AUTO_2029 ) ( ON ?AUTO_2033 ?AUTO_2030 ) ( ON ?AUTO_2034 ?AUTO_2033 ) ( CLEAR ?AUTO_2034 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_2034 ?AUTO_2033 )
+      ( MAKE-ON-TABLE ?AUTO_2029 ) )
+    :id ( 334 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2048 - BLOCK
+      ?AUTO_2049 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2052 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_2049 ) ( ON-TABLE ?AUTO_2048 ) ( CLEAR ?AUTO_2048 ) ( HOLDING ?AUTO_2052 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2052 )
+      ( MAKE-ON ?AUTO_2048 ?AUTO_2049 ) )
+    :id ( 337 )
+    :q-value ( 3 )
+    :q-count ( 3 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2060 - BLOCK
+      ?AUTO_2061 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2062 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_2062 ?AUTO_2061 ) ( CLEAR ?AUTO_2062 ) ( HOLDING ?AUTO_2060 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2060 )
+      ( MAKE-ON ?AUTO_2060 ?AUTO_2061 ) )
+    :id ( 339 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2087 - BLOCK
+      ?AUTO_2088 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2089 - BLOCK
+      ?AUTO_2091 - BLOCK
+      ?AUTO_2093 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_2089 ?AUTO_2088 ) ( ON ?AUTO_2087 ?AUTO_2089 ) ( ON ?AUTO_2091 ?AUTO_2087 ) ( CLEAR ?AUTO_2091 ) ( HOLDING ?AUTO_2093 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2093 )
+      ( MAKE-ON ?AUTO_2087 ?AUTO_2088 ) )
+    :id ( 343 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2094 - BLOCK
+      ?AUTO_2095 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2096 - BLOCK
+      ?AUTO_2097 - BLOCK
+      ?AUTO_2098 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_2096 ?AUTO_2095 ) ( ON ?AUTO_2094 ?AUTO_2096 ) ( ON ?AUTO_2097 ?AUTO_2094 ) ( ON ?AUTO_2098 ?AUTO_2097 ) ( CLEAR ?AUTO_2098 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_2098 ?AUTO_2097 )
+      ( MAKE-ON ?AUTO_2094 ?AUTO_2095 ) )
+    :id ( 344 )
+    :q-value ( 10 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2175 - BLOCK
+      ?AUTO_2176 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2179 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_2175 ) ( ON ?AUTO_2176 ?AUTO_2175 ) ( CLEAR ?AUTO_2176 ) ( HOLDING ?AUTO_2179 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2179 )
+      ( MAKE-ON ?AUTO_2175 ?AUTO_2176 ) )
+    :id ( 359 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2181 - BLOCK
+      ?AUTO_2182 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2183 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_2181 ) ( ON ?AUTO_2182 ?AUTO_2181 ) ( ON ?AUTO_2183 ?AUTO_2182 ) ( CLEAR ?AUTO_2183 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_2183 ?AUTO_2182 )
+      ( MAKE-ON ?AUTO_2181 ?AUTO_2182 ) )
+    :id ( 360 )
+    :q-value ( 6 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2188 - BLOCK
+      ?AUTO_2189 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2190 - BLOCK
+      ?AUTO_2193 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_2188 ) ( ON ?AUTO_2189 ?AUTO_2188 ) ( ON ?AUTO_2190 ?AUTO_2189 ) ( CLEAR ?AUTO_2190 ) ( HOLDING ?AUTO_2193 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2193 )
+      ( MAKE-ON ?AUTO_2188 ?AUTO_2189 ) )
+    :id ( 361 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2295 - BLOCK
+      ?AUTO_2296 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2298 - BLOCK
+      ?AUTO_2300 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_2296 ) ( ON-TABLE ?AUTO_2295 ) ( ON ?AUTO_2298 ?AUTO_2295 ) ( CLEAR ?AUTO_2298 ) ( HOLDING ?AUTO_2300 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2300 )
+      ( MAKE-ON ?AUTO_2295 ?AUTO_2296 ) )
+    :id ( 383 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2309 - BLOCK
+      ?AUTO_2310 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2312 - BLOCK
+      ?AUTO_2313 - BLOCK
+      ?AUTO_2315 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_2310 ) ( ON-TABLE ?AUTO_2309 ) ( ON ?AUTO_2312 ?AUTO_2309 ) ( ON ?AUTO_2313 ?AUTO_2312 ) ( CLEAR ?AUTO_2313 ) ( HOLDING ?AUTO_2315 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2315 )
+      ( MAKE-ON ?AUTO_2309 ?AUTO_2310 ) )
+    :id ( 385 )
+    :q-value ( 7 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2325 - BLOCK
+      ?AUTO_2326 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2331 - BLOCK
+      ?AUTO_2328 - BLOCK
+      ?AUTO_2327 - BLOCK
+      ?AUTO_2332 - BLOCK
+    )
+    :precondition
+    ( and ( CLEAR ?AUTO_2326 ) ( ON-TABLE ?AUTO_2325 ) ( ON ?AUTO_2331 ?AUTO_2325 ) ( ON ?AUTO_2328 ?AUTO_2331 ) ( ON ?AUTO_2327 ?AUTO_2328 ) ( CLEAR ?AUTO_2327 ) ( HOLDING ?AUTO_2332 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2332 )
+      ( MAKE-ON ?AUTO_2325 ?AUTO_2326 ) )
+    :id ( 387 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2333 - BLOCK
+      ?AUTO_2334 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2339 - BLOCK
+      ?AUTO_2336 - BLOCK
+      ?AUTO_2337 - BLOCK
+      ?AUTO_2340 - BLOCK
+    )
+    :precondition
+    ( and ( ON-TABLE ?AUTO_2333 ) ( ON ?AUTO_2339 ?AUTO_2333 ) ( ON ?AUTO_2336 ?AUTO_2339 ) ( ON ?AUTO_2337 ?AUTO_2336 ) ( CLEAR ?AUTO_2337 ) ( ON ?AUTO_2340 ?AUTO_2334 ) ( CLEAR ?AUTO_2340 ) ( HAND-EMPTY ) )
+    :subtasks
+    ( ( !UNSTACK ?AUTO_2340 ?AUTO_2334 )
+      ( MAKE-ON ?AUTO_2333 ?AUTO_2334 ) )
+    :id ( 388 )
+    :q-value ( 10 )
+    :q-count ( 1 )
+  )
+
+  ( :method MAKE-ON
+    :parameters
+    (
+      ?AUTO_2412 - BLOCK
+      ?AUTO_2413 - BLOCK
+    )
+    :vars
+    (
+      ?AUTO_2414 - BLOCK
+      ?AUTO_2418 - BLOCK
+      ?AUTO_2416 - BLOCK
+      ?AUTO_2415 - BLOCK
+      ?AUTO_2420 - BLOCK
+    )
+    :precondition
+    ( and ( ON ?AUTO_2412 ?AUTO_2414 ) ( CLEAR ?AUTO_2412 ) ( ON ?AUTO_2418 ?AUTO_2413 ) ( ON ?AUTO_2416 ?AUTO_2418 ) ( ON ?AUTO_2415 ?AUTO_2416 ) ( CLEAR ?AUTO_2415 ) ( HOLDING ?AUTO_2420 ) )
+    :subtasks
+    ( ( !PUTDOWN ?AUTO_2420 )
+      ( MAKE-ON ?AUTO_2412 ?AUTO_2413 ) )
+    :id ( 398 )
+    :q-value ( 9 )
+    :q-count ( 1 )
+  )
+
+)
+

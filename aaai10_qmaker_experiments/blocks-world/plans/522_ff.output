@@ -1,0 +1,68 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    4 into depth [1]
+
+Enforced Hill-climbing failed !
+switching to Best-first Search now.
+
+advancing to distance :   12
+                          11
+                          10
+                           9
+                           8
+                           7
+                           6
+                           5
+                           3
+                           2
+                           0
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B000 B003
+        1: STACK B000 B004
+        2: UNSTACK B002 B005
+        3: STACK B002 B003
+        4: UNSTACK B005 B007
+        5: PUTDOWN B005
+        6: UNSTACK B000 B004
+        7: STACK B000 B007
+        8: UNSTACK B004 B006
+        9: STACK B004 B005
+       10: PICKUP B006
+       11: STACK B006 B001
+       12: UNSTACK B000 B007
+       13: STACK B000 B004
+       14: UNSTACK B002 B003
+       15: STACK B002 B007
+       16: PICKUP B003
+       17: STACK B003 B006
+       18: UNSTACK B002 B007
+       19: STACK B002 B003
+     
+
+time spent:    0.00 seconds instantiating 144 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 89 facts and 144 actions
+               0.00 seconds creating final representation with 89 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 133 states, to a max depth of 2
+               0.00 seconds total time
+

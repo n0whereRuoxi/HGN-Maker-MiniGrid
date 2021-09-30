@@ -1,0 +1,66 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    7 into depth [1][2]
+                                   6            [1][2]
+                                   5            [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    4 into depth [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B027 B009
+        1: STACK B027 B029
+        2: UNSTACK B009 B012
+        3: STACK B009 B006
+        4: UNSTACK B012 B013
+        5: STACK B012 B024
+        6: UNSTACK B020 B007
+        7: STACK B020 B019
+        8: UNSTACK B007 B008
+        9: STACK B007 B035
+       10: PICKUP B013
+       11: STACK B013 B008
+       12: UNSTACK B012 B024
+       13: STACK B012 B013
+       14: PICKUP B014
+       15: STACK B014 B012
+       16: UNSTACK B017 B010
+       17: STACK B017 B024
+       18: UNSTACK B010 B005
+       19: STACK B010 B003
+       20: UNSTACK B005 B036
+       21: STACK B005 B014
+     
+
+time spent:    0.00 seconds instantiating 2964 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 1559 facts and 2964 actions
+               0.00 seconds creating final representation with 1559 relevant facts
+               0.01 seconds building connectivity graph
+               0.03 seconds searching, evaluating 43 states, to a max depth of 2
+               0.04 seconds total time
+

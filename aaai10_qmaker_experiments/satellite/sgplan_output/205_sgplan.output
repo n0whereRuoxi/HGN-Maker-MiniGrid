@@ -1,0 +1,53 @@
+#
+# (C) Copyright 2008, University of Illinois, Urbana-Champaign
+#
+# All rights reserved. Use of this software is permitted ONLY for
+# non-commercial research purposes, and it may be copied only
+# for that use only. All copies must include this copyright message.
+# This software is made available AS IS, and neither the authors
+# nor the University of Illinois, make any warranty about the
+# software or its performance.
+#
+
+Parsing domain file
+ domain 'SATELLITE' defined
+Parsing problem file
+ problem 'PROBNAME' defined
+
+
+
+checking for cyclic := effects --- OK.
+
+
+
+
+
+
+
+
+
+
+Solution found.
+
+; Time 0.20
+; ParsingTime 0.00
+; NrActions 16
+; MakeSpan
+; MetricValue
+
+	 0.00100:  (SWITCH_ON INST000-001 SAT000)[1.00000]
+	 1.00200:  (CALIBRATE SAT000 INST000-001 DIR004)[1.00000]
+	 2.00300:  (TURN_TO SAT000 DIR022 DIR004)[1.00000]
+	 3.00400:  (TAKE_IMAGE SAT000 DIR022 INST000-001 MODE001)[1.00000]
+	 4.00500:  (TURN_TO SAT001 DIR000 DIR003)[1.00000]
+	 5.00600:  (SWITCH_ON INST001-002 SAT001)[1.00000]
+	 6.00700:  (CALIBRATE SAT001 INST001-002 DIR000)[1.00000]
+	 7.00800:  (TURN_TO SAT001 DIR020 DIR000)[1.00000]
+	 8.00900:  (TAKE_IMAGE SAT001 DIR020 INST001-002 MODE002)[1.00000]
+	 9.01000:  (TURN_TO SAT003 DIR013 DIR023)[1.00000]
+	 10.01100:  (SWITCH_ON INST003-003 SAT003)[1.00000]
+	 11.01200:  (CALIBRATE SAT003 INST003-003 DIR013)[1.00000]
+	 12.01300:  (TURN_TO SAT003 DIR012 DIR013)[1.00000]
+	 13.01400:  (TAKE_IMAGE SAT003 DIR012 INST003-003 MODE000)[1.00000]
+	 14.01500:  (TURN_TO SAT001 DIR016 DIR020)[1.00000]
+	 15.01600:  (TAKE_IMAGE SAT001 DIR016 INST001-002 MODE002)[1.00000]

@@ -1,0 +1,64 @@
+#
+# (C) Copyright 2008, University of Illinois, Urbana-Champaign
+#
+# All rights reserved. Use of this software is permitted ONLY for
+# non-commercial research purposes, and it may be copied only
+# for that use only. All copies must include this copyright message.
+# This software is made available AS IS, and neither the authors
+# nor the University of Illinois, make any warranty about the
+# software or its performance.
+#
+
+Parsing domain file
+ domain 'BLOCKS4' defined
+Parsing problem file
+ problem 'PROBNAME' defined
+
+
+
+checking for cyclic := effects --- OK.
+
+
+; Time 0.10
+; ParsingTime 0.05
+; NrActions 36
+; MakeSpan
+; MetricValue
+; PlanningTechnique Modified-FF(enforced hill-climbing search) as the subplanner
+
+0.001: (UNSTACK B012 B011) [1]
+1.002: (PUTDOWN B012) [1]
+2.003: (UNSTACK B011 B014) [1]
+3.004: (PUTDOWN B011) [1]
+4.005: (UNSTACK B014 B002) [1]
+5.006: (STACK B014 B015) [1]
+6.007: (UNSTACK B003 B008) [1]
+7.008: (STACK B003 B002) [1]
+8.009: (UNSTACK B003 B002) [1]
+9.010: (PUTDOWN B003) [1]
+10.011: (UNSTACK B014 B015) [1]
+11.012: (PUTDOWN B014) [1]
+12.013: (UNSTACK B015 B005) [1]
+13.014: (STACK B015 B014) [1]
+14.015: (UNSTACK B005 B006) [1]
+15.016: (STACK B005 B015) [1]
+16.017: (UNSTACK B002 B001) [1]
+17.018: (STACK B002 B006) [1]
+18.019: (UNSTACK B002 B006) [1]
+19.020: (STACK B002 B001) [1]
+20.021: (PICKUP B006) [1]
+21.022: (STACK B006 B005) [1]
+22.023: (UNSTACK B006 B005) [1]
+23.024: (STACK B006 B003) [1]
+24.025: (UNSTACK B002 B001) [1]
+25.026: (STACK B002 B006) [1]
+26.027: (UNSTACK B005 B015) [1]
+27.028: (STACK B005 B001) [1]
+28.029: (UNSTACK B002 B006) [1]
+29.030: (PUTDOWN B002) [1]
+30.031: (UNSTACK B006 B003) [1]
+31.032: (STACK B006 B005) [1]
+32.033: (PICKUP B002) [1]
+33.034: (STACK B002 B006) [1]
+34.035: (PICKUP B003) [1]
+35.036: (STACK B003 B002) [1]

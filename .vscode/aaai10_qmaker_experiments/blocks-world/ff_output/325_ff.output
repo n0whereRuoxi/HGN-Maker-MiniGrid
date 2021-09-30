@@ -1,0 +1,60 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    7 into depth [1][2]
+                                   6            [1][2]
+                                   5            [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B005 B003
+        1: STACK B005 B018
+        2: UNSTACK B003 B008
+        3: STACK B003 B031
+        4: UNSTACK B021 B023
+        5: STACK B021 B026
+        6: UNSTACK B008 B004
+        7: STACK B008 B021
+        8: UNSTACK B004 B011
+        9: STACK B004 B033
+       10: PICKUP B023
+       11: STACK B023 B011
+       12: UNSTACK B030 B019
+       13: STACK B030 B020
+       14: PICKUP B019
+       15: STACK B019 B023
+       16: UNSTACK B004 B033
+       17: STACK B004 B008
+       18: UNSTACK B033 B000
+       19: STACK B033 B019
+     
+
+time spent:    0.00 seconds instantiating 2664 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 1405 facts and 2664 actions
+               0.00 seconds creating final representation with 1405 relevant facts
+               0.01 seconds building connectivity graph
+               0.03 seconds searching, evaluating 38 states, to a max depth of 2
+               0.04 seconds total time
+

@@ -1,0 +1,78 @@
+#
+# (C) Copyright 2008, University of Illinois, Urbana-Champaign
+#
+# All rights reserved. Use of this software is permitted ONLY for
+# non-commercial research purposes, and it may be copied only
+# for that use only. All copies must include this copyright message.
+# This software is made available AS IS, and neither the authors
+# nor the University of Illinois, make any warranty about the
+# software or its performance.
+#
+
+Parsing domain file
+ domain 'BLOCKS4' defined
+Parsing problem file
+ problem 'PROBNAME' defined
+
+
+
+checking for cyclic := effects --- OK.
+
+
+; Time 0.60
+; ParsingTime 0.12
+; NrActions 50
+; MakeSpan
+; MetricValue
+; PlanningTechnique Modified-FF(enforced hill-climbing search) as the subplanner
+
+0.001: (UNSTACK B006 B003) [1]
+1.002: (PUTDOWN B006) [1]
+2.003: (UNSTACK B003 B012) [1]
+3.004: (PUTDOWN B003) [1]
+4.005: (UNSTACK B012 B015) [1]
+5.006: (PUTDOWN B012) [1]
+6.007: (UNSTACK B015 B010) [1]
+7.008: (STACK B015 B012) [1]
+8.009: (PICKUP B010) [1]
+9.010: (STACK B010 B006) [1]
+10.011: (UNSTACK B010 B006) [1]
+11.012: (STACK B010 B021) [1]
+12.013: (UNSTACK B007 B013) [1]
+13.014: (STACK B007 B010) [1]
+14.015: (UNSTACK B013 B011) [1]
+15.016: (STACK B013 B015) [1]
+16.017: (UNSTACK B011 B016) [1]
+17.018: (STACK B011 B003) [1]
+18.019: (PICKUP B006) [1]
+19.020: (STACK B006 B016) [1]
+20.021: (UNSTACK B006 B016) [1]
+21.022: (STACK B006 B011) [1]
+22.023: (UNSTACK B001 B002) [1]
+23.024: (PUTDOWN B001) [1]
+24.025: (UNSTACK B002 B000) [1]
+25.026: (PUTDOWN B002) [1]
+26.027: (UNSTACK B000 B005) [1]
+27.028: (PUTDOWN B000) [1]
+28.029: (UNSTACK B005 B004) [1]
+29.030: (STACK B005 B006) [1]
+30.031: (UNSTACK B016 B014) [1]
+31.032: (STACK B016 B004) [1]
+32.033: (UNSTACK B016 B004) [1]
+33.034: (STACK B016 B035) [1]
+34.035: (PICKUP B004) [1]
+35.036: (STACK B004 B005) [1]
+36.037: (UNSTACK B004 B005) [1]
+37.038: (PUTDOWN B004) [1]
+38.039: (UNSTACK B005 B006) [1]
+39.040: (PUTDOWN B005) [1]
+40.041: (PICKUP B004) [1]
+41.042: (STACK B004 B005) [1]
+42.043: (UNSTACK B016 B035) [1]
+43.044: (STACK B016 B004) [1]
+44.045: (UNSTACK B006 B011) [1]
+45.046: (STACK B006 B016) [1]
+46.047: (UNSTACK B007 B010) [1]
+47.048: (STACK B007 B014) [1]
+48.049: (UNSTACK B010 B021) [1]
+49.050: (STACK B010 B006) [1]

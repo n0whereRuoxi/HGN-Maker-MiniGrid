@@ -1,0 +1,21 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+ff: found legal plan as follows
+
+step 
+
+time spent:    0.00 seconds instantiating 312 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 181 facts and 312 actions
+               0.00 seconds creating final representation with 181 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 2 states, to a max depth of 0
+               0.00 seconds total time
+

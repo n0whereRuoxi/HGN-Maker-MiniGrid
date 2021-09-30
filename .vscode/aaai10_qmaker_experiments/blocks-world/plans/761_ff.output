@@ -1,0 +1,73 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    6 into depth [1][2]
+                                   5            [1][2][3]
+
+Enforced Hill-climbing failed !
+switching to Best-first Search now.
+
+advancing to distance :   16
+                          15
+                          14
+                          13
+                          12
+                          10
+                           9
+                           8
+                           7
+                           6
+                           5
+                           4
+                           3
+                           2
+                           0
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B007 B009
+        1: PUTDOWN B007
+        2: UNSTACK B009 B002
+        3: PUTDOWN B009
+        4: UNSTACK B002 B008
+        5: STACK B002 B005
+        6: PICKUP B008
+        7: STACK B008 B002
+        8: UNSTACK B006 B001
+        9: STACK B006 B008
+       10: UNSTACK B001 B004
+       11: STACK B001 B007
+       12: UNSTACK B004 B000
+       13: PUTDOWN B004
+       14: UNSTACK B000 B003
+       15: PUTDOWN B000
+       16: UNSTACK B006 B008
+       17: STACK B006 B000
+       18: UNSTACK B001 B007
+       19: STACK B001 B008
+       20: PICKUP B007
+       21: STACK B007 B003
+       22: UNSTACK B001 B008
+       23: STACK B001 B007
+       24: UNSTACK B006 B000
+       25: STACK B006 B008
+       26: PICKUP B000
+       27: STACK B000 B001
+       28: UNSTACK B006 B008
+       29: STACK B006 B000
+     
+
+time spent:    0.00 seconds instantiating 220 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 131 facts and 220 actions
+               0.00 seconds creating final representation with 131 relevant facts
+               0.00 seconds building connectivity graph
+               0.02 seconds searching, evaluating 643 states, to a max depth of 3
+               0.02 seconds total time
+

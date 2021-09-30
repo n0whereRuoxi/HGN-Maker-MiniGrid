@@ -1,0 +1,50 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    5 into depth [1]
+
+Enforced Hill-climbing failed !
+switching to Best-first Search now.
+
+advancing to distance :    9
+                           8
+                           7
+                           6
+                           5
+                           4
+                           3
+                           2
+                           0
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B006 B002
+        1: PUTDOWN B006
+        2: UNSTACK B002 B004
+        3: PUTDOWN B002
+        4: UNSTACK B004 B000
+        5: PUTDOWN B004
+        6: UNSTACK B000 B001
+        7: PUTDOWN B000
+        8: PICKUP B004
+        9: STACK B004 B001
+       10: UNSTACK B005 B003
+       11: STACK B005 B000
+       12: PICKUP B002
+       13: STACK B002 B004
+     
+
+time spent:    0.00 seconds instantiating 144 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 89 facts and 144 actions
+               0.00 seconds creating final representation with 89 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 237 states, to a max depth of 1
+               0.00 seconds total time
+

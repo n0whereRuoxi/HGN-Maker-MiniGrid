@@ -1,0 +1,90 @@
+#
+# (C) Copyright 2008, University of Illinois, Urbana-Champaign
+#
+# All rights reserved. Use of this software is permitted ONLY for
+# non-commercial research purposes, and it may be copied only
+# for that use only. All copies must include this copyright message.
+# This software is made available AS IS, and neither the authors
+# nor the University of Illinois, make any warranty about the
+# software or its performance.
+#
+
+Parsing domain file
+ domain 'BLOCKS4' defined
+Parsing problem file
+ problem 'PROBNAME' defined
+
+
+
+checking for cyclic := effects --- OK.
+
+
+; Time 1.40
+; ParsingTime 0.16
+; NrActions 62
+; MakeSpan
+; MetricValue
+; PlanningTechnique Modified-FF(enforced hill-climbing search) as the subplanner
+
+0.001: (UNSTACK B039 B036) [1]
+1.002: (PUTDOWN B039) [1]
+2.003: (UNSTACK B036 B038) [1]
+3.004: (PUTDOWN B036) [1]
+4.005: (UNSTACK B038 B037) [1]
+5.006: (PUTDOWN B038) [1]
+6.007: (UNSTACK B037 B035) [1]
+7.008: (STACK B037 B025) [1]
+8.009: (PICKUP B035) [1]
+9.010: (STACK B035 B036) [1]
+10.011: (UNSTACK B035 B036) [1]
+11.012: (STACK B035 B032) [1]
+12.013: (UNSTACK B037 B025) [1]
+13.014: (PUTDOWN B037) [1]
+14.015: (UNSTACK B025 B028) [1]
+15.016: (STACK B025 B035) [1]
+16.017: (UNSTACK B028 B029) [1]
+17.018: (STACK B028 B037) [1]
+18.019: (UNSTACK B029 B027) [1]
+19.020: (PUTDOWN B029) [1]
+20.021: (UNSTACK B027 B026) [1]
+21.022: (STACK B027 B029) [1]
+22.023: (PICKUP B036) [1]
+23.024: (STACK B036 B026) [1]
+24.025: (UNSTACK B036 B026) [1]
+25.026: (STACK B036 B027) [1]
+26.027: (UNSTACK B023 B021) [1]
+27.028: (STACK B023 B038) [1]
+28.029: (UNSTACK B021 B022) [1]
+29.030: (STACK B021 B028) [1]
+30.031: (PICKUP B026) [1]
+31.032: (STACK B026 B022) [1]
+32.033: (UNSTACK B026 B022) [1]
+33.034: (STACK B026 B023) [1]
+34.035: (UNSTACK B025 B035) [1]
+35.036: (STACK B025 B026) [1]
+36.037: (UNSTACK B035 B032) [1]
+37.038: (STACK B035 B021) [1]
+38.039: (UNSTACK B032 B034) [1]
+39.040: (STACK B032 B025) [1]
+40.041: (UNSTACK B022 B020) [1]
+41.042: (STACK B022 B034) [1]
+42.043: (UNSTACK B022 B034) [1]
+43.044: (STACK B022 B004) [1]
+44.045: (UNSTACK B034 B031) [1]
+45.046: (PUTDOWN B034) [1]
+46.047: (UNSTACK B022 B004) [1]
+47.048: (STACK B022 B034) [1]
+48.049: (UNSTACK B035 B021) [1]
+49.050: (STACK B035 B036) [1]
+50.051: (UNSTACK B032 B025) [1]
+51.052: (STACK B032 B020) [1]
+52.053: (UNSTACK B025 B026) [1]
+53.054: (STACK B025 B031) [1]
+54.055: (UNSTACK B026 B023) [1]
+55.056: (STACK B026 B022) [1]
+56.057: (UNSTACK B035 B036) [1]
+57.058: (STACK B035 B032) [1]
+58.059: (UNSTACK B036 B027) [1]
+59.060: (STACK B036 B026) [1]
+60.061: (UNSTACK B035 B032) [1]
+61.062: (STACK B035 B036) [1]

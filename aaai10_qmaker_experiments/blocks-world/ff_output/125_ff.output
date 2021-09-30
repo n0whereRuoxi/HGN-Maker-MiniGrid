@@ -1,0 +1,69 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    4 into depth [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    3 into depth [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    2 into depth [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    5 into depth [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B009 B008
+        1: STACK B009 B000
+        2: UNSTACK B008 B010
+        3: STACK B008 B014
+        4: UNSTACK B010 B013
+        5: PUTDOWN B010
+        6: UNSTACK B006 B007
+        7: STACK B006 B015
+        8: PICKUP B007
+        9: STACK B007 B010
+       10: UNSTACK B009 B000
+       11: STACK B009 B007
+       12: UNSTACK B012 B005
+       13: STACK B012 B009
+       14: UNSTACK B006 B015
+       15: STACK B006 B000
+       16: UNSTACK B015 B003
+       17: STACK B015 B008
+       18: UNSTACK B003 B004
+       19: STACK B003 B015
+       20: PICKUP B004
+       21: STACK B004 B012
+     
+
+time spent:    0.00 seconds instantiating 544 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 305 facts and 544 actions
+               0.00 seconds creating final representation with 305 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 27 states, to a max depth of 2
+               0.00 seconds total time
+

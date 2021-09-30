@@ -1,0 +1,78 @@
+( define ( problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    b013 - block
+    b024 - block
+    b022 - block
+    b014 - block
+    b023 - block
+    b019 - block
+    b005 - block
+    b003 - block
+    b004 - block
+    b017 - block
+    b009 - block
+    b020 - block
+    b007 - block
+    b021 - block
+    b015 - block
+    b006 - block
+    b002 - block
+    b000 - block
+    b016 - block
+    b008 - block
+    b018 - block
+    b012 - block
+    b011 - block
+    b010 - block
+    b001 - block
+    b025 - block
+  )
+
+  ( :init
+    ( on-table b013 )
+    ( on b024 b013 )
+    ( on b022 b024 )
+    ( on b014 b022 )
+    ( on b023 b014 )
+    ( clear b023 )
+    ( on-table b019 )
+    ( on b005 b019 )
+    ( on b003 b005 )
+    ( on b004 b003 )
+    ( on b017 b004 )
+    ( clear b017 )
+    ( on-table b009 )
+    ( on b020 b009 )
+    ( on b007 b020 )
+    ( on b021 b007 )
+    ( on b015 b021 )
+    ( clear b015 )
+    ( on-table b006 )
+    ( on b002 b006 )
+    ( on b000 b002 )
+    ( on b016 b000 )
+    ( on b008 b016 )
+    ( clear b008 )
+    ( on-table b018 )
+    ( on b012 b018 )
+    ( on b011 b012 )
+    ( on b010 b011 )
+    ( on b001 b010 )
+    ( clear b001 )
+    ( on-table b025 )
+    ( clear b025 )
+    ( hand-empty )
+  )
+  ( :goal
+    ( and
+      ( on-table b022 )
+      ( on b003 b022 )
+      ( on b015 b003 )
+      ( on b023 b015 )
+    )
+  )
+)
+

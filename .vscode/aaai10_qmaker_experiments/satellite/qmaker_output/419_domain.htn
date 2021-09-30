@@ -1,0 +1,675 @@
+( define ( domain satellite )
+  ( :requirements :strips :typing :equality :htn :method-ids :q-values )
+  ( :types direction instrument mode satellite )
+  ( :predicates
+    ( ON_BOARD ?I - INSTRUMENT ?S - SATELLITE )
+    ( SUPPORTS ?I - INSTRUMENT ?M - MODE )
+    ( POINTING ?S - SATELLITE ?D - DIRECTION )
+    ( POWER_AVAIL ?S - SATELLITE )
+    ( POWER_ON ?I - INSTRUMENT )
+    ( CALIBRATED ?I - INSTRUMENT )
+    ( NOT_CALIBRATED ?I - INSTRUMENT )
+    ( HAVE_IMAGE ?D - DIRECTION ?M - MODE )
+    ( CALIBRATION_TARGET ?I - INSTRUMENT ?D - DIRECTION )
+  )
+  ( :action !TURN_TO
+    :parameters
+    (
+      ?S - SATELLITE
+      ?D_NEW - DIRECTION
+      ?D_PREV - DIRECTION
+    )
+    :precondition
+    ( and ( POINTING ?S ?D_PREV ) ( not ( = ?D_NEW ?D_PREV ) ) )
+    :effect
+    ( and ( POINTING ?S ?D_NEW ) ( not ( POINTING ?S ?D_PREV ) ) )
+    :cost ( 1 )
+  )
+  ( :action !SWITCH_ON
+    :parameters
+    (
+      ?I - INSTRUMENT
+      ?S - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?I ?S ) ( POWER_AVAIL ?S ) )
+    :effect
+    ( and ( POWER_ON ?I ) ( NOT_CALIBRATED ?I ) ( not ( CALIBRATED ?I ) ) ( not ( POWER_AVAIL ?S ) ) )
+    :cost ( 1 )
+  )
+  ( :action !SWITCH_OFF
+    :parameters
+    (
+      ?I - INSTRUMENT
+      ?S - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?I ?S ) ( POWER_ON ?I ) )
+    :effect
+    ( and ( POWER_AVAIL ?S ) ( not ( POWER_ON ?I ) ) )
+    :cost ( 1 )
+  )
+  ( :action !CALIBRATE
+    :parameters
+    (
+      ?S - SATELLITE
+      ?I - INSTRUMENT
+      ?D - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?I ?S ) ( CALIBRATION_TARGET ?I ?D ) ( POINTING ?S ?D ) ( POWER_ON ?I ) ( NOT_CALIBRATED ?I ) )
+    :effect
+    ( and ( CALIBRATED ?I ) ( not ( NOT_CALIBRATED ?I ) ) )
+    :cost ( 1 )
+  )
+  ( :action !TAKE_IMAGE
+    :parameters
+    (
+      ?S - SATELLITE
+      ?D - DIRECTION
+      ?I - INSTRUMENT
+      ?M - MODE
+    )
+    :precondition
+    ( and ( CALIBRATED ?I ) ( ON_BOARD ?I ?S ) ( SUPPORTS ?I ?M ) ( POWER_ON ?I ) ( POINTING ?S ?D ) ( POWER_ON ?I ) )
+    :effect
+    ( and ( HAVE_IMAGE ?D ?M ) )
+    :cost ( 1 )
+  )
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?DIR - DIRECTION
+      ?MODE - MODE
+    )
+    :precondition
+    ( and ( HAVE_IMAGE ?DIR ?MODE ) )
+    :subtasks
+    (  )
+    :id ( 100 )
+    :q-value ( 0 )
+    :q-count ( 0 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_2 - DIRECTION
+      ?AUTO_3 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4 - INSTRUMENT
+      ?AUTO_5 - SATELLITE
+    )
+    :precondition
+    ( and ( CALIBRATED ?AUTO_4 ) ( ON_BOARD ?AUTO_4 ?AUTO_5 ) ( SUPPORTS ?AUTO_4 ?AUTO_3 ) ( POWER_ON ?AUTO_4 ) ( POINTING ?AUTO_5 ?AUTO_2 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5 ?AUTO_2 ?AUTO_4 ?AUTO_3 ) )
+    :id ( 101 )
+    :q-value ( 1 )
+    :q-count ( 1173 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_8 - DIRECTION
+      ?AUTO_9 - MODE
+    )
+    :vars
+    (
+      ?AUTO_13 - INSTRUMENT
+      ?AUTO_10 - SATELLITE
+      ?AUTO_16 - DIRECTION
+    )
+    :precondition
+    ( and ( CALIBRATED ?AUTO_13 ) ( ON_BOARD ?AUTO_13 ?AUTO_10 ) ( SUPPORTS ?AUTO_13 ?AUTO_9 ) ( POWER_ON ?AUTO_13 ) ( POINTING ?AUTO_10 ?AUTO_16 ) ( not ( = ?AUTO_8 ?AUTO_16 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_10 ?AUTO_8 ?AUTO_16 )
+      ( GET_IMAGE ?AUTO_8 ?AUTO_9 ) )
+    :id ( 102 )
+    :q-value ( 2 )
+    :q-count ( 857 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_17 - DIRECTION
+      ?AUTO_18 - MODE
+    )
+    :vars
+    (
+      ?AUTO_21 - INSTRUMENT
+      ?AUTO_22 - SATELLITE
+      ?AUTO_23 - DIRECTION
+      ?AUTO_25 - SATELLITE
+      ?AUTO_26 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_21 ?AUTO_22 ) ( SUPPORTS ?AUTO_21 ?AUTO_18 ) ( POWER_ON ?AUTO_21 ) ( POINTING ?AUTO_22 ?AUTO_23 ) ( not ( = ?AUTO_17 ?AUTO_23 ) ) ( ON_BOARD ?AUTO_21 ?AUTO_25 ) ( CALIBRATION_TARGET ?AUTO_21 ?AUTO_26 ) ( POINTING ?AUTO_25 ?AUTO_26 ) ( NOT_CALIBRATED ?AUTO_21 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_25 ?AUTO_21 ?AUTO_26 )
+      ( GET_IMAGE ?AUTO_17 ?AUTO_18 ) )
+    :id ( 103 )
+    :q-value ( 3 )
+    :q-count ( 678 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_27 - DIRECTION
+      ?AUTO_28 - MODE
+    )
+    :vars
+    (
+      ?AUTO_33 - INSTRUMENT
+      ?AUTO_35 - SATELLITE
+      ?AUTO_31 - DIRECTION
+      ?AUTO_38 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_33 ?AUTO_35 ) ( SUPPORTS ?AUTO_33 ?AUTO_28 ) ( POWER_ON ?AUTO_33 ) ( not ( = ?AUTO_27 ?AUTO_31 ) ) ( CALIBRATION_TARGET ?AUTO_33 ?AUTO_31 ) ( NOT_CALIBRATED ?AUTO_33 ) ( POINTING ?AUTO_35 ?AUTO_38 ) ( not ( = ?AUTO_31 ?AUTO_38 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_35 ?AUTO_31 ?AUTO_38 )
+      ( GET_IMAGE ?AUTO_27 ?AUTO_28 ) )
+    :id ( 104 )
+    :q-value ( 4 )
+    :q-count ( 285 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_41 - DIRECTION
+      ?AUTO_42 - MODE
+    )
+    :vars
+    (
+      ?AUTO_47 - INSTRUMENT
+      ?AUTO_43 - SATELLITE
+      ?AUTO_44 - DIRECTION
+      ?AUTO_48 - DIRECTION
+      ?AUTO_50 - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_47 ?AUTO_43 ) ( SUPPORTS ?AUTO_47 ?AUTO_42 ) ( not ( = ?AUTO_41 ?AUTO_44 ) ) ( CALIBRATION_TARGET ?AUTO_47 ?AUTO_44 ) ( POINTING ?AUTO_43 ?AUTO_48 ) ( not ( = ?AUTO_44 ?AUTO_48 ) ) ( ON_BOARD ?AUTO_47 ?AUTO_50 ) ( POWER_AVAIL ?AUTO_50 ) )
+    :subtasks
+    ( ( !SWITCH_ON ?AUTO_47 ?AUTO_50 )
+      ( GET_IMAGE ?AUTO_41 ?AUTO_42 ) )
+    :id ( 105 )
+    :q-value ( 5 )
+    :q-count ( 239 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_59 - DIRECTION
+      ?AUTO_60 - MODE
+    )
+    :vars
+    (
+      ?AUTO_63 - INSTRUMENT
+      ?AUTO_64 - SATELLITE
+      ?AUTO_66 - SATELLITE
+      ?AUTO_67 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_63 ?AUTO_64 ) ( SUPPORTS ?AUTO_63 ?AUTO_60 ) ( POWER_ON ?AUTO_63 ) ( POINTING ?AUTO_64 ?AUTO_59 ) ( ON_BOARD ?AUTO_63 ?AUTO_66 ) ( CALIBRATION_TARGET ?AUTO_63 ?AUTO_67 ) ( POINTING ?AUTO_66 ?AUTO_67 ) ( NOT_CALIBRATED ?AUTO_63 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_66 ?AUTO_63 ?AUTO_67 )
+      ( GET_IMAGE ?AUTO_59 ?AUTO_60 ) )
+    :id ( 107 )
+    :q-value ( 2 )
+    :q-count ( 316 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_68 - DIRECTION
+      ?AUTO_69 - MODE
+    )
+    :vars
+    (
+      ?AUTO_72 - INSTRUMENT
+      ?AUTO_73 - SATELLITE
+      ?AUTO_74 - SATELLITE
+      ?AUTO_75 - DIRECTION
+      ?AUTO_77 - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_72 ?AUTO_73 ) ( SUPPORTS ?AUTO_72 ?AUTO_69 ) ( POINTING ?AUTO_73 ?AUTO_68 ) ( ON_BOARD ?AUTO_72 ?AUTO_74 ) ( CALIBRATION_TARGET ?AUTO_72 ?AUTO_75 ) ( POINTING ?AUTO_74 ?AUTO_75 ) ( ON_BOARD ?AUTO_72 ?AUTO_77 ) ( POWER_AVAIL ?AUTO_77 ) )
+    :subtasks
+    ( ( !SWITCH_ON ?AUTO_72 ?AUTO_77 )
+      ( GET_IMAGE ?AUTO_68 ?AUTO_69 ) )
+    :id ( 108 )
+    :q-value ( 3 )
+    :q-count ( 247 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_107 - DIRECTION
+      ?AUTO_108 - MODE
+    )
+    :vars
+    (
+      ?AUTO_110 - INSTRUMENT
+      ?AUTO_109 - SATELLITE
+      ?AUTO_113 - DIRECTION
+      ?AUTO_114 - SATELLITE
+      ?AUTO_115 - DIRECTION
+      ?AUTO_117 - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_110 ?AUTO_109 ) ( SUPPORTS ?AUTO_110 ?AUTO_108 ) ( POINTING ?AUTO_109 ?AUTO_113 ) ( not ( = ?AUTO_107 ?AUTO_113 ) ) ( ON_BOARD ?AUTO_110 ?AUTO_114 ) ( CALIBRATION_TARGET ?AUTO_110 ?AUTO_115 ) ( POINTING ?AUTO_114 ?AUTO_115 ) ( ON_BOARD ?AUTO_110 ?AUTO_117 ) ( POWER_AVAIL ?AUTO_117 ) )
+    :subtasks
+    ( ( !SWITCH_ON ?AUTO_110 ?AUTO_117 )
+      ( GET_IMAGE ?AUTO_107 ?AUTO_108 ) )
+    :id ( 112 )
+    :q-value ( 4 )
+    :q-count ( 385 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_195 - DIRECTION
+      ?AUTO_194 - MODE
+    )
+    :vars
+    (
+      ?AUTO_201 - INSTRUMENT
+      ?AUTO_198 - SATELLITE
+      ?AUTO_197 - DIRECTION
+      ?AUTO_196 - DIRECTION
+      ?AUTO_199 - SATELLITE
+      ?AUTO_203 - INSTRUMENT
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_201 ?AUTO_198 ) ( SUPPORTS ?AUTO_201 ?AUTO_194 ) ( not ( = ?AUTO_195 ?AUTO_197 ) ) ( CALIBRATION_TARGET ?AUTO_201 ?AUTO_197 ) ( POINTING ?AUTO_198 ?AUTO_196 ) ( not ( = ?AUTO_197 ?AUTO_196 ) ) ( ON_BOARD ?AUTO_201 ?AUTO_199 ) ( ON_BOARD ?AUTO_203 ?AUTO_199 ) ( POWER_ON ?AUTO_203 ) )
+    :subtasks
+    ( ( !SWITCH_OFF ?AUTO_203 ?AUTO_199 )
+      ( GET_IMAGE ?AUTO_195 ?AUTO_194 ) )
+    :id ( 121 )
+    :q-value ( 6 )
+    :q-count ( 49 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_291 - DIRECTION
+      ?AUTO_290 - MODE
+    )
+    :vars
+    (
+      ?AUTO_294 - INSTRUMENT
+      ?AUTO_297 - SATELLITE
+      ?AUTO_295 - DIRECTION
+      ?AUTO_293 - SATELLITE
+      ?AUTO_302 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_294 ?AUTO_297 ) ( SUPPORTS ?AUTO_294 ?AUTO_290 ) ( not ( = ?AUTO_291 ?AUTO_295 ) ) ( CALIBRATION_TARGET ?AUTO_294 ?AUTO_295 ) ( ON_BOARD ?AUTO_294 ?AUTO_293 ) ( POWER_AVAIL ?AUTO_293 ) ( POINTING ?AUTO_297 ?AUTO_302 ) ( not ( = ?AUTO_295 ?AUTO_302 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_297 ?AUTO_295 ?AUTO_302 )
+      ( GET_IMAGE ?AUTO_291 ?AUTO_290 ) )
+    :id ( 130 )
+    :q-value ( 5 )
+    :q-count ( 150 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_398 - DIRECTION
+      ?AUTO_392 - MODE
+    )
+    :vars
+    (
+      ?AUTO_395 - INSTRUMENT
+      ?AUTO_397 - SATELLITE
+      ?AUTO_401 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_395 ?AUTO_397 ) ( SUPPORTS ?AUTO_395 ?AUTO_392 ) ( POWER_ON ?AUTO_395 ) ( CALIBRATION_TARGET ?AUTO_395 ?AUTO_398 ) ( NOT_CALIBRATED ?AUTO_395 ) ( POINTING ?AUTO_397 ?AUTO_401 ) ( not ( = ?AUTO_398 ?AUTO_401 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_397 ?AUTO_398 ?AUTO_401 )
+      ( GET_IMAGE ?AUTO_398 ?AUTO_392 ) )
+    :id ( 140 )
+    :q-value ( 3 )
+    :q-count ( 69 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_412 - DIRECTION
+      ?AUTO_413 - MODE
+    )
+    :vars
+    (
+      ?AUTO_417 - INSTRUMENT
+      ?AUTO_414 - SATELLITE
+      ?AUTO_418 - DIRECTION
+      ?AUTO_420 - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_417 ?AUTO_414 ) ( SUPPORTS ?AUTO_417 ?AUTO_413 ) ( CALIBRATION_TARGET ?AUTO_417 ?AUTO_412 ) ( POINTING ?AUTO_414 ?AUTO_418 ) ( not ( = ?AUTO_412 ?AUTO_418 ) ) ( ON_BOARD ?AUTO_417 ?AUTO_420 ) ( POWER_AVAIL ?AUTO_420 ) )
+    :subtasks
+    ( ( !SWITCH_ON ?AUTO_417 ?AUTO_420 )
+      ( GET_IMAGE ?AUTO_412 ?AUTO_413 ) )
+    :id ( 141 )
+    :q-value ( 4 )
+    :q-count ( 56 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_638 - DIRECTION
+      ?AUTO_639 - MODE
+    )
+    :vars
+    (
+      ?AUTO_641 - INSTRUMENT
+      ?AUTO_646 - SATELLITE
+      ?AUTO_642 - DIRECTION
+      ?AUTO_644 - SATELLITE
+      ?AUTO_643 - DIRECTION
+      ?AUTO_647 - SATELLITE
+      ?AUTO_648 - INSTRUMENT
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_641 ?AUTO_646 ) ( SUPPORTS ?AUTO_641 ?AUTO_639 ) ( POINTING ?AUTO_646 ?AUTO_642 ) ( not ( = ?AUTO_638 ?AUTO_642 ) ) ( ON_BOARD ?AUTO_641 ?AUTO_644 ) ( CALIBRATION_TARGET ?AUTO_641 ?AUTO_643 ) ( POINTING ?AUTO_644 ?AUTO_643 ) ( ON_BOARD ?AUTO_641 ?AUTO_647 ) ( ON_BOARD ?AUTO_648 ?AUTO_647 ) ( POWER_ON ?AUTO_648 ) )
+    :subtasks
+    ( ( !SWITCH_OFF ?AUTO_648 ?AUTO_647 )
+      ( GET_IMAGE ?AUTO_638 ?AUTO_639 ) )
+    :id ( 161 )
+    :q-value ( 5 )
+    :q-count ( 16 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_652 - DIRECTION
+      ?AUTO_653 - MODE
+    )
+    :vars
+    (
+      ?AUTO_659 - INSTRUMENT
+      ?AUTO_656 - SATELLITE
+      ?AUTO_660 - DIRECTION
+      ?AUTO_654 - SATELLITE
+      ?AUTO_655 - INSTRUMENT
+      ?AUTO_665 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_659 ?AUTO_656 ) ( SUPPORTS ?AUTO_659 ?AUTO_653 ) ( not ( = ?AUTO_652 ?AUTO_660 ) ) ( CALIBRATION_TARGET ?AUTO_659 ?AUTO_660 ) ( ON_BOARD ?AUTO_659 ?AUTO_654 ) ( ON_BOARD ?AUTO_655 ?AUTO_654 ) ( POWER_ON ?AUTO_655 ) ( POINTING ?AUTO_656 ?AUTO_665 ) ( not ( = ?AUTO_660 ?AUTO_665 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_656 ?AUTO_660 ?AUTO_665 )
+      ( GET_IMAGE ?AUTO_652 ?AUTO_653 ) )
+    :id ( 162 )
+    :q-value ( 6 )
+    :q-count ( 9 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_857 - DIRECTION
+      ?AUTO_858 - MODE
+    )
+    :vars
+    (
+      ?AUTO_863 - INSTRUMENT
+      ?AUTO_859 - SATELLITE
+      ?AUTO_860 - DIRECTION
+      ?AUTO_865 - SATELLITE
+      ?AUTO_866 - INSTRUMENT
+      ?AUTO_861 - DIRECTION
+      ?AUTO_868 - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_863 ?AUTO_859 ) ( SUPPORTS ?AUTO_863 ?AUTO_858 ) ( not ( = ?AUTO_857 ?AUTO_860 ) ) ( CALIBRATION_TARGET ?AUTO_863 ?AUTO_860 ) ( ON_BOARD ?AUTO_863 ?AUTO_865 ) ( ON_BOARD ?AUTO_866 ?AUTO_865 ) ( POINTING ?AUTO_859 ?AUTO_861 ) ( not ( = ?AUTO_860 ?AUTO_861 ) ) ( ON_BOARD ?AUTO_866 ?AUTO_868 ) ( POWER_AVAIL ?AUTO_868 ) )
+    :subtasks
+    ( ( !SWITCH_ON ?AUTO_866 ?AUTO_868 )
+      ( GET_IMAGE ?AUTO_857 ?AUTO_858 ) )
+    :id ( 180 )
+    :q-value ( 7 )
+    :q-count ( 7 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_908 - DIRECTION
+      ?AUTO_905 - MODE
+    )
+    :vars
+    (
+      ?AUTO_910 - INSTRUMENT
+      ?AUTO_911 - SATELLITE
+      ?AUTO_912 - SATELLITE
+      ?AUTO_915 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_910 ?AUTO_911 ) ( SUPPORTS ?AUTO_910 ?AUTO_905 ) ( CALIBRATION_TARGET ?AUTO_910 ?AUTO_908 ) ( ON_BOARD ?AUTO_910 ?AUTO_912 ) ( POWER_AVAIL ?AUTO_912 ) ( POINTING ?AUTO_911 ?AUTO_915 ) ( not ( = ?AUTO_908 ?AUTO_915 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_911 ?AUTO_908 ?AUTO_915 )
+      ( GET_IMAGE ?AUTO_908 ?AUTO_905 ) )
+    :id ( 184 )
+    :q-value ( 4 )
+    :q-count ( 115 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_916 - DIRECTION
+      ?AUTO_917 - MODE
+    )
+    :vars
+    (
+      ?AUTO_918 - INSTRUMENT
+      ?AUTO_920 - SATELLITE
+      ?AUTO_919 - SATELLITE
+      ?AUTO_923 - DIRECTION
+      ?AUTO_924 - INSTRUMENT
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_918 ?AUTO_920 ) ( SUPPORTS ?AUTO_918 ?AUTO_917 ) ( CALIBRATION_TARGET ?AUTO_918 ?AUTO_916 ) ( ON_BOARD ?AUTO_918 ?AUTO_919 ) ( POINTING ?AUTO_920 ?AUTO_923 ) ( not ( = ?AUTO_916 ?AUTO_923 ) ) ( ON_BOARD ?AUTO_924 ?AUTO_919 ) ( POWER_ON ?AUTO_924 ) )
+    :subtasks
+    ( ( !SWITCH_OFF ?AUTO_924 ?AUTO_919 )
+      ( GET_IMAGE ?AUTO_916 ?AUTO_917 ) )
+    :id ( 185 )
+    :q-value ( 5 )
+    :q-count ( 11 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_928 - DIRECTION
+      ?AUTO_929 - MODE
+    )
+    :vars
+    (
+      ?AUTO_933 - INSTRUMENT
+      ?AUTO_934 - SATELLITE
+      ?AUTO_932 - SATELLITE
+      ?AUTO_935 - DIRECTION
+      ?AUTO_930 - INSTRUMENT
+      ?AUTO_939 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_933 ?AUTO_934 ) ( SUPPORTS ?AUTO_933 ?AUTO_929 ) ( CALIBRATION_TARGET ?AUTO_933 ?AUTO_928 ) ( ON_BOARD ?AUTO_933 ?AUTO_932 ) ( not ( = ?AUTO_928 ?AUTO_935 ) ) ( ON_BOARD ?AUTO_930 ?AUTO_932 ) ( POWER_ON ?AUTO_930 ) ( POINTING ?AUTO_934 ?AUTO_939 ) ( not ( = ?AUTO_935 ?AUTO_939 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_934 ?AUTO_935 ?AUTO_939 )
+      ( GET_IMAGE ?AUTO_928 ?AUTO_929 ) )
+    :id ( 186 )
+    :q-value ( 6 )
+    :q-count ( 4 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_1047 - DIRECTION
+      ?AUTO_1048 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1052 - INSTRUMENT
+      ?AUTO_1055 - SATELLITE
+      ?AUTO_1053 - SATELLITE
+      ?AUTO_1054 - DIRECTION
+      ?AUTO_1050 - SATELLITE
+      ?AUTO_1056 - INSTRUMENT
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_1052 ?AUTO_1055 ) ( SUPPORTS ?AUTO_1052 ?AUTO_1048 ) ( POINTING ?AUTO_1055 ?AUTO_1047 ) ( ON_BOARD ?AUTO_1052 ?AUTO_1053 ) ( CALIBRATION_TARGET ?AUTO_1052 ?AUTO_1054 ) ( POINTING ?AUTO_1053 ?AUTO_1054 ) ( ON_BOARD ?AUTO_1052 ?AUTO_1050 ) ( ON_BOARD ?AUTO_1056 ?AUTO_1050 ) ( POWER_ON ?AUTO_1056 ) )
+    :subtasks
+    ( ( !SWITCH_OFF ?AUTO_1056 ?AUTO_1050 )
+      ( GET_IMAGE ?AUTO_1047 ?AUTO_1048 ) )
+    :id ( 197 )
+    :q-value ( 4 )
+    :q-count ( 8 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_1257 - DIRECTION
+      ?AUTO_1258 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1266 - INSTRUMENT
+      ?AUTO_1263 - SATELLITE
+      ?AUTO_1264 - DIRECTION
+      ?AUTO_1260 - SATELLITE
+      ?AUTO_1261 - DIRECTION
+      ?AUTO_1259 - INSTRUMENT
+      ?AUTO_1269 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_1266 ?AUTO_1263 ) ( SUPPORTS ?AUTO_1266 ?AUTO_1258 ) ( not ( = ?AUTO_1257 ?AUTO_1264 ) ) ( CALIBRATION_TARGET ?AUTO_1266 ?AUTO_1264 ) ( ON_BOARD ?AUTO_1266 ?AUTO_1260 ) ( not ( = ?AUTO_1264 ?AUTO_1261 ) ) ( ON_BOARD ?AUTO_1259 ?AUTO_1260 ) ( POWER_ON ?AUTO_1259 ) ( POINTING ?AUTO_1263 ?AUTO_1269 ) ( not ( = ?AUTO_1261 ?AUTO_1269 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_1263 ?AUTO_1261 ?AUTO_1269 )
+      ( GET_IMAGE ?AUTO_1257 ?AUTO_1258 ) )
+    :id ( 215 )
+    :q-value ( 7 )
+    :q-count ( 14 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_1571 - DIRECTION
+      ?AUTO_1572 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1577 - INSTRUMENT
+      ?AUTO_1575 - SATELLITE
+      ?AUTO_1574 - DIRECTION
+      ?AUTO_1579 - DIRECTION
+      ?AUTO_1580 - SATELLITE
+      ?AUTO_1578 - INSTRUMENT
+      ?AUTO_1581 - DIRECTION
+      ?AUTO_1583 - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_1577 ?AUTO_1575 ) ( SUPPORTS ?AUTO_1577 ?AUTO_1572 ) ( not ( = ?AUTO_1571 ?AUTO_1574 ) ) ( CALIBRATION_TARGET ?AUTO_1577 ?AUTO_1574 ) ( not ( = ?AUTO_1574 ?AUTO_1579 ) ) ( ON_BOARD ?AUTO_1577 ?AUTO_1580 ) ( ON_BOARD ?AUTO_1578 ?AUTO_1580 ) ( POINTING ?AUTO_1575 ?AUTO_1581 ) ( not ( = ?AUTO_1579 ?AUTO_1581 ) ) ( ON_BOARD ?AUTO_1578 ?AUTO_1583 ) ( POWER_AVAIL ?AUTO_1583 ) )
+    :subtasks
+    ( ( !SWITCH_ON ?AUTO_1578 ?AUTO_1583 )
+      ( GET_IMAGE ?AUTO_1571 ?AUTO_1572 ) )
+    :id ( 238 )
+    :q-value ( 8 )
+    :q-count ( 1 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_1635 - DIRECTION
+      ?AUTO_1636 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1641 - INSTRUMENT
+      ?AUTO_1638 - SATELLITE
+      ?AUTO_1643 - DIRECTION
+      ?AUTO_1640 - DIRECTION
+      ?AUTO_1637 - SATELLITE
+      ?AUTO_1646 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_1641 ?AUTO_1638 ) ( SUPPORTS ?AUTO_1641 ?AUTO_1636 ) ( not ( = ?AUTO_1635 ?AUTO_1643 ) ) ( CALIBRATION_TARGET ?AUTO_1641 ?AUTO_1643 ) ( not ( = ?AUTO_1643 ?AUTO_1640 ) ) ( ON_BOARD ?AUTO_1641 ?AUTO_1637 ) ( POWER_AVAIL ?AUTO_1637 ) ( POINTING ?AUTO_1638 ?AUTO_1646 ) ( not ( = ?AUTO_1640 ?AUTO_1646 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_1638 ?AUTO_1640 ?AUTO_1646 )
+      ( GET_IMAGE ?AUTO_1635 ?AUTO_1636 ) )
+    :id ( 244 )
+    :q-value ( 6 )
+    :q-count ( 1 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_1803 - DIRECTION
+      ?AUTO_1797 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1804 - INSTRUMENT
+      ?AUTO_1805 - SATELLITE
+      ?AUTO_1800 - SATELLITE
+      ?AUTO_1801 - INSTRUMENT
+      ?AUTO_1809 - DIRECTION
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_1804 ?AUTO_1805 ) ( SUPPORTS ?AUTO_1804 ?AUTO_1797 ) ( CALIBRATION_TARGET ?AUTO_1804 ?AUTO_1803 ) ( ON_BOARD ?AUTO_1804 ?AUTO_1800 ) ( ON_BOARD ?AUTO_1801 ?AUTO_1800 ) ( POWER_ON ?AUTO_1801 ) ( POINTING ?AUTO_1805 ?AUTO_1809 ) ( not ( = ?AUTO_1803 ?AUTO_1809 ) ) )
+    :subtasks
+    ( ( !TURN_TO ?AUTO_1805 ?AUTO_1803 ?AUTO_1809 )
+      ( GET_IMAGE ?AUTO_1803 ?AUTO_1797 ) )
+    :id ( 259 )
+    :q-value ( 5 )
+    :q-count ( 1 )
+  )
+
+  ( :method GET_IMAGE
+    :parameters
+    (
+      ?AUTO_1813 - DIRECTION
+      ?AUTO_1812 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1820 - INSTRUMENT
+      ?AUTO_1817 - SATELLITE
+      ?AUTO_1815 - SATELLITE
+      ?AUTO_1819 - INSTRUMENT
+      ?AUTO_1816 - DIRECTION
+      ?AUTO_1822 - SATELLITE
+    )
+    :precondition
+    ( and ( ON_BOARD ?AUTO_1820 ?AUTO_1817 ) ( SUPPORTS ?AUTO_1820 ?AUTO_1812 ) ( CALIBRATION_TARGET ?AUTO_1820 ?AUTO_1813 ) ( ON_BOARD ?AUTO_1820 ?AUTO_1815 ) ( ON_BOARD ?AUTO_1819 ?AUTO_1815 ) ( POINTING ?AUTO_1817 ?AUTO_1816 ) ( not ( = ?AUTO_1813 ?AUTO_1816 ) ) ( ON_BOARD ?AUTO_1819 ?AUTO_1822 ) ( POWER_AVAIL ?AUTO_1822 ) )
+    :subtasks
+    ( ( !SWITCH_ON ?AUTO_1819 ?AUTO_1822 )
+      ( GET_IMAGE ?AUTO_1813 ?AUTO_1812 ) )
+    :id ( 260 )
+    :q-value ( 6 )
+    :q-count ( 1 )
+  )
+
+)
+

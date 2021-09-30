@@ -1,0 +1,48 @@
+
+ff: parsing domain file
+domain 'BLOCKS4' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:    5 into depth [1][2]
+                                   4            [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+Cueing down from goal distance:    4 into depth [1][2]
+                                   3            [1][2]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: UNSTACK B014 B005
+        1: STACK B014 B015
+        2: UNSTACK B005 B016
+        3: STACK B005 B014
+        4: UNSTACK B016 B013
+        5: STACK B016 B005
+        6: UNSTACK B013 B018
+        7: PUTDOWN B013
+        8: UNSTACK B010 B006
+        9: STACK B010 B012
+       10: UNSTACK B006 B002
+       11: STACK B006 B016
+       12: UNSTACK B002 B009
+       13: STACK B002 B013
+     
+
+time spent:    0.00 seconds instantiating 840 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 461 facts and 840 actions
+               0.00 seconds creating final representation with 461 relevant facts
+               0.00 seconds building connectivity graph
+               0.00 seconds searching, evaluating 16 states, to a max depth of 2
+               0.00 seconds total time
+

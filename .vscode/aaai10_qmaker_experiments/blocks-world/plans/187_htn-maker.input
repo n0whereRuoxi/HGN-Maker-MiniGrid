@@ -1,0 +1,10 @@
+( defplan blocks4 dummy
+  ( !UNSTACK B000 B002 )
+  ( !PUTDOWN B000 )
+  ( !PICKUP B001 )
+  ( !STACK B001 B002 )
+  ( !UNSTACK B005 B003 )
+  ( !STACK B005 B000 )
+  ( !PICKUP B004 )
+  ( !STACK B004 B001 )
+)

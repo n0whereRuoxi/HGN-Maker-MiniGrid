@@ -1,0 +1,7 @@
+terminate called after throwing an instance of 'std::bad_alloc'
+  what():  St9bad_alloc
+sh: line 1:   334 Aborted                 ./htn-solver2 htn_domain_novalues.pddl htn_probs/011.htn_prob
+
+real	0m44.654s
+user	0m38.809s
+sys	0m5.843s

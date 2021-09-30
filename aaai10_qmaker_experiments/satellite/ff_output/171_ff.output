@@ -1,0 +1,50 @@
+
+ff: parsing domain file
+domain 'SATELLITE' defined
+ ... done.
+ff: parsing problem file
+problem 'PROBNAME' defined
+ ... done.
+
+
+
+Cueing down from goal distance:   13 into depth [1]
+                                  12            [1][2]
+                                  11            [1]
+                                  10            [1]
+                                   9            [1]
+                                   8            [1]
+                                   7            [1]
+                                   6            [1]
+                                   5            [1]
+                                   4            [1]
+                                   3            [1]
+                                   2            [1]
+                                   1            [1]
+                                   0            
+
+ff: found legal plan as follows
+
+step    0: TURN_TO SAT000 DIR006 DIR008
+        1: SWITCH_ON INST000-001 SAT000
+        2: TURN_TO SAT002 DIR018 DIR016
+        3: CALIBRATE SAT000 INST000-001 DIR006
+        4: TURN_TO SAT000 DIR010 DIR006
+        5: TAKE_IMAGE SAT000 DIR010 INST000-001 MODE002
+        6: TURN_TO SAT000 DIR011 DIR010
+        7: TAKE_IMAGE SAT000 DIR011 INST000-001 MODE002
+        8: SWITCH_ON INST002-001 SAT002
+        9: CALIBRATE SAT002 INST002-001 DIR018
+       10: TURN_TO SAT002 DIR011 DIR018
+       11: TAKE_IMAGE SAT002 DIR011 INST002-001 MODE000
+       12: TURN_TO SAT002 DIR019 DIR011
+       13: TAKE_IMAGE SAT002 DIR019 INST002-001 MODE000
+     
+
+time spent:    0.00 seconds instantiating 2740 easy, 0 hard action templates
+               0.00 seconds reachability analysis, yielding 266 facts and 2740 actions
+               0.01 seconds creating final representation with 266 relevant facts
+               0.00 seconds building connectivity graph
+               0.02 seconds searching, evaluating 32 states, to a max depth of 2
+               0.03 seconds total time
+
