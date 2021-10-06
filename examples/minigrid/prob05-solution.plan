@@ -1,0 +1,5 @@
+( defplan Minigrid Prob01
+  ( !MOVE-TO r000 c001 c000 d000)
+  ( !MOVE-TO r000 c000 c001 d000)
+  ( !MOVE-TO r000 c001 c002 d001)
+)

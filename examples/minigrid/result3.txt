@@ -1,0 +1,1516 @@
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41d20
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41d20
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41db0
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41d20
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41ae0
+0x7ffdc5d41b70
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41db0
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41ae0
+0x7ffdc5d41b70
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41ae0
+0x7ffdc5d41b70
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41ae0
+0x7ffdc5d41b70
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d418a0
+0x7ffdc5d41930
+0x7ffdc5d419c0
+0x7ffdc5d41a50
+0x7ffdc5d41ae0
+0x7ffdc5d41b70
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41db0
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d418a0
+0x7ffdc5d41930
+0x7ffdc5d419c0
+0x7ffdc5d41a50
+0x7ffdc5d41ae0
+0x7ffdc5d41b70
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41db0
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+0x7ffdc5d42080
+0x7ffdc5d42110
+0x7ffdc5d41ae0
+0x7ffdc5d41b70
+0x7ffdc5d41c00
+0x7ffdc5d41c90
+0x7ffdc5d41d20
+0x7ffdc5d41e40
+0x7ffdc5d41ed0
+0x7ffdc5d41f60
+0x7ffdc5d41ff0
+( define ( domain minigrid )
+  ( :requirements :strips :typing :equality :htn )
+  ( :types door obj robot room )
+  ( :predicates
+    ( ROBOT-IN ?a - ROBOT ?b - ROOM )
+    ( OBJ-IN ?c - OBJ ?d - ROOM )
+    ( ON-ROBOT ?e - OBJ ?f - ROBOT )
+    ( DOOR-ON ?g - DOOR ?h - ROOM )
+    ( OPEN ?j - DOOR )
+    ( LOCKED ?k - DOOR )
+    ( KEY ?l - OBJ )
+    ( PARCEL ?m - OBJ )
+  )
+  ( :action !PICK-UP
+    :parameters
+    (
+      ?robot - ROBOT
+      ?obj - OBJ
+      ?room - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?room ) ( OBJ-IN ?obj ?room ) )
+    :effect
+    ( and ( not ( OBJ-IN ?obj ?room ) ) ( ON-ROBOT ?obj ?robot ) )
+  )
+  ( :action !MOVE-TO
+    :parameters
+    (
+      ?robot - ROBOT
+      ?c1 - ROOM
+      ?c2 - ROOM
+      ?door - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?c1 ) ( DOOR-ON ?door ?c1 ) ( DOOR-ON ?door ?c2 ) ( OPEN ?door ) )
+    :effect
+    ( and ( not ( ROBOT-IN ?robot ?c1 ) ) ( ROBOT-IN ?robot ?c2 ) )
+  )
+  ( :action !DROP
+    :parameters
+    (
+      ?robot - ROBOT
+      ?obj - OBJ
+      ?room - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?room ) ( ON-ROBOT ?obj ?robot ) )
+    :effect
+    ( and ( OBJ-IN ?obj ?room ) ( not ( ON-ROBOT ?obj ?robot ) ) )
+  )
+  ( :action !OPEN
+    :parameters
+    (
+      ?robot - ROBOT
+      ?door - DOOR
+      ?c1 - ROOM
+      ?key - OBJ
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?c1 ) ( DOOR-ON ?door ?c1 ) ( LOCKED ?door ) ( ON-ROBOT ?key ?robot ) ( KEY ?key ) )
+    :effect
+    ( and ( not ( LOCKED ?door ) ) ( OPEN ?door ) )
+  )
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_2 - ROBOT
+      ?auto_3 - ROOM
+    )
+    :vars
+    (
+      ?auto_5 - ROOM
+      ?auto_6 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_2 ?auto_5 ) ( DOOR-ON ?auto_6 ?auto_5 ) ( DOOR-ON ?auto_6 ?auto_3 ) ( OPEN ?auto_6 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_2 ?auto_5 ?auto_3 ?auto_6 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_10 - ROBOT
+      ?auto_11 - OBJ
+    )
+    :vars
+    (
+      ?auto_13 - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_10 ?auto_13 ) ( OBJ-IN ?auto_11 ?auto_13 ) )
+    :subtasks
+    ( ( !PICK-UP ?auto_10 ?auto_11 ?auto_13 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_15 - ROBOT
+      ?auto_16 - OBJ
+    )
+    :vars
+    (
+      ?auto_17 - ROOM
+      ?auto_22 - ROOM
+      ?auto_23 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_16 ?auto_17 ) ( ROBOT-IN ?auto_15 ?auto_22 ) ( DOOR-ON ?auto_23 ?auto_22 ) ( DOOR-ON ?auto_23 ?auto_17 ) ( OPEN ?auto_23 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_15 ?auto_17 )
+      ( PICK-UP-OBJ ?auto_15 ?auto_16 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_26 - ROBOT
+      ?auto_27 - ROOM
+    )
+    :vars
+    (
+      ?auto_29 - ROOM
+      ?auto_30 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_26 ?auto_29 ) ( DOOR-ON ?auto_30 ?auto_29 ) ( DOOR-ON ?auto_30 ?auto_27 ) ( OPEN ?auto_30 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_26 ?auto_29 ?auto_27 ?auto_30 ) )
+  )
+
+  ( :method OPEN_DOOR
+    :parameters
+    (
+      ?auto_37 - DOOR
+    )
+    :vars
+    (
+      ?auto_38 - ROBOT
+      ?auto_39 - ROOM
+      ?auto_41 - OBJ
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_38 ?auto_39 ) ( DOOR-ON ?auto_37 ?auto_39 ) ( LOCKED ?auto_37 ) ( ON-ROBOT ?auto_41 ?auto_38 ) ( KEY ?auto_41 ) )
+    :subtasks
+    ( ( !OPEN ?auto_38 ?auto_37 ?auto_39 ?auto_41 ) )
+  )
+
+  ( :method OPEN_DOOR
+    :parameters
+    (
+      ?auto_42 - DOOR
+    )
+    :vars
+    (
+      ?auto_44 - ROOM
+      ?auto_46 - OBJ
+      ?auto_45 - ROBOT
+      ?auto_48 - ROOM
+      ?auto_49 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_42 ?auto_44 ) ( LOCKED ?auto_42 ) ( ON-ROBOT ?auto_46 ?auto_45 ) ( KEY ?auto_46 ) ( ROBOT-IN ?auto_45 ?auto_48 ) ( DOOR-ON ?auto_49 ?auto_48 ) ( DOOR-ON ?auto_49 ?auto_44 ) ( OPEN ?auto_49 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_45 ?auto_44 )
+      ( OPEN_DOOR ?auto_42 ) )
+  )
+
+  ( :method OPEN_DOOR
+    :parameters
+    (
+      ?auto_51 - DOOR
+    )
+    :vars
+    (
+      ?auto_53 - ROOM
+      ?auto_52 - OBJ
+      ?auto_55 - ROBOT
+      ?auto_56 - ROOM
+      ?auto_54 - DOOR
+      ?auto_58 - ROOM
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_51 ?auto_53 ) ( LOCKED ?auto_51 ) ( KEY ?auto_52 ) ( ROBOT-IN ?auto_55 ?auto_56 ) ( DOOR-ON ?auto_54 ?auto_56 ) ( DOOR-ON ?auto_54 ?auto_53 ) ( OPEN ?auto_54 ) ( ROBOT-IN ?auto_55 ?auto_58 ) ( OBJ-IN ?auto_52 ?auto_58 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_55 ?auto_52 )
+      ( OPEN_DOOR ?auto_51 ) )
+  )
+
+  ( :method OPEN_DOOR
+    :parameters
+    (
+      ?auto_61 - DOOR
+    )
+    :vars
+    (
+      ?auto_67 - ROOM
+      ?auto_62 - OBJ
+      ?auto_63 - DOOR
+      ?auto_66 - ROOM
+      ?auto_64 - ROBOT
+      ?auto_71 - ROOM
+      ?auto_72 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_61 ?auto_67 ) ( LOCKED ?auto_61 ) ( KEY ?auto_62 ) ( DOOR-ON ?auto_63 ?auto_66 ) ( DOOR-ON ?auto_63 ?auto_67 ) ( OPEN ?auto_63 ) ( OBJ-IN ?auto_62 ?auto_66 ) ( ROBOT-IN ?auto_64 ?auto_71 ) ( DOOR-ON ?auto_72 ?auto_71 ) ( DOOR-ON ?auto_72 ?auto_66 ) ( OPEN ?auto_72 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_64 ?auto_66 )
+      ( OPEN_DOOR ?auto_61 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_75 - ROBOT
+      ?auto_76 - ROOM
+    )
+    :vars
+    (
+      ?auto_78 - ROOM
+      ?auto_79 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_75 ?auto_78 ) ( DOOR-ON ?auto_79 ?auto_78 ) ( DOOR-ON ?auto_79 ?auto_76 ) ( OPEN ?auto_79 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_75 ?auto_78 ?auto_76 ?auto_79 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_81 - ROBOT
+      ?auto_82 - ROOM
+    )
+    :vars
+    (
+      ?auto_85 - ROOM
+      ?auto_86 - DOOR
+      ?auto_89 - ROBOT
+      ?auto_88 - ROOM
+      ?auto_90 - OBJ
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_81 ?auto_85 ) ( DOOR-ON ?auto_86 ?auto_85 ) ( DOOR-ON ?auto_86 ?auto_82 ) ( ROBOT-IN ?auto_89 ?auto_88 ) ( DOOR-ON ?auto_86 ?auto_88 ) ( LOCKED ?auto_86 ) ( ON-ROBOT ?auto_90 ?auto_89 ) ( KEY ?auto_90 ) )
+    :subtasks
+    ( ( OPEN_DOOR ?auto_86 )
+      ( MOVE-TO ?auto_81 ?auto_82 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_99 - ROBOT
+      ?auto_92 - ROOM
+    )
+    :vars
+    (
+      ?auto_96 - DOOR
+      ?auto_93 - ROOM
+      ?auto_94 - OBJ
+      ?auto_101 - ROOM
+      ?auto_102 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_96 ?auto_93 ) ( DOOR-ON ?auto_96 ?auto_92 ) ( LOCKED ?auto_96 ) ( ON-ROBOT ?auto_94 ?auto_99 ) ( KEY ?auto_94 ) ( ROBOT-IN ?auto_99 ?auto_101 ) ( DOOR-ON ?auto_102 ?auto_101 ) ( DOOR-ON ?auto_102 ?auto_93 ) ( OPEN ?auto_102 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_99 ?auto_93 )
+      ( MOVE-TO ?auto_99 ?auto_92 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_104 - ROBOT
+      ?auto_105 - ROOM
+    )
+    :vars
+    (
+      ?auto_109 - DOOR
+      ?auto_106 - ROOM
+      ?auto_108 - OBJ
+      ?auto_111 - ROOM
+      ?auto_107 - DOOR
+      ?auto_113 - ROOM
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_109 ?auto_106 ) ( DOOR-ON ?auto_109 ?auto_105 ) ( LOCKED ?auto_109 ) ( KEY ?auto_108 ) ( ROBOT-IN ?auto_104 ?auto_111 ) ( DOOR-ON ?auto_107 ?auto_111 ) ( DOOR-ON ?auto_107 ?auto_106 ) ( OPEN ?auto_107 ) ( ROBOT-IN ?auto_104 ?auto_113 ) ( OBJ-IN ?auto_108 ?auto_113 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_104 ?auto_108 )
+      ( MOVE-TO ?auto_104 ?auto_105 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_116 - ROBOT
+      ?auto_117 - ROOM
+    )
+    :vars
+    (
+      ?auto_121 - DOOR
+      ?auto_119 - ROOM
+      ?auto_122 - OBJ
+      ?auto_120 - DOOR
+      ?auto_123 - ROOM
+      ?auto_128 - ROOM
+      ?auto_129 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_121 ?auto_119 ) ( DOOR-ON ?auto_121 ?auto_117 ) ( LOCKED ?auto_121 ) ( KEY ?auto_122 ) ( DOOR-ON ?auto_120 ?auto_123 ) ( DOOR-ON ?auto_120 ?auto_119 ) ( OPEN ?auto_120 ) ( OBJ-IN ?auto_122 ?auto_123 ) ( ROBOT-IN ?auto_116 ?auto_128 ) ( DOOR-ON ?auto_129 ?auto_128 ) ( DOOR-ON ?auto_129 ?auto_123 ) ( OPEN ?auto_129 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_116 ?auto_123 )
+      ( MOVE-TO ?auto_116 ?auto_117 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_132 - ROBOT
+      ?auto_133 - OBJ
+    )
+    :vars
+    (
+      ?auto_135 - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_132 ?auto_135 ) ( OBJ-IN ?auto_133 ?auto_135 ) )
+    :subtasks
+    ( ( !PICK-UP ?auto_132 ?auto_133 ?auto_135 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_137 - ROBOT
+      ?auto_138 - OBJ
+    )
+    :vars
+    (
+      ?auto_140 - ROOM
+      ?auto_144 - ROOM
+      ?auto_145 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_138 ?auto_140 ) ( ROBOT-IN ?auto_137 ?auto_144 ) ( DOOR-ON ?auto_145 ?auto_144 ) ( DOOR-ON ?auto_145 ?auto_140 ) ( OPEN ?auto_145 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_137 ?auto_140 )
+      ( PICK-UP-OBJ ?auto_137 ?auto_138 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_146 - ROBOT
+      ?auto_147 - OBJ
+    )
+    :vars
+    (
+      ?auto_152 - ROOM
+      ?auto_151 - ROOM
+      ?auto_148 - DOOR
+      ?auto_155 - ROBOT
+      ?auto_154 - ROOM
+      ?auto_156 - OBJ
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_147 ?auto_152 ) ( ROBOT-IN ?auto_146 ?auto_151 ) ( DOOR-ON ?auto_148 ?auto_151 ) ( DOOR-ON ?auto_148 ?auto_152 ) ( ROBOT-IN ?auto_155 ?auto_154 ) ( DOOR-ON ?auto_148 ?auto_154 ) ( LOCKED ?auto_148 ) ( ON-ROBOT ?auto_156 ?auto_155 ) ( KEY ?auto_156 ) )
+    :subtasks
+    ( ( OPEN_DOOR ?auto_148 )
+      ( PICK-UP-OBJ ?auto_146 ?auto_147 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_160 - ROBOT
+      ?auto_158 - OBJ
+    )
+    :vars
+    (
+      ?auto_162 - ROOM
+      ?auto_161 - DOOR
+      ?auto_164 - ROOM
+      ?auto_159 - OBJ
+      ?auto_168 - ROOM
+      ?auto_169 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_158 ?auto_162 ) ( DOOR-ON ?auto_161 ?auto_164 ) ( DOOR-ON ?auto_161 ?auto_162 ) ( LOCKED ?auto_161 ) ( ON-ROBOT ?auto_159 ?auto_160 ) ( KEY ?auto_159 ) ( ROBOT-IN ?auto_160 ?auto_168 ) ( DOOR-ON ?auto_169 ?auto_168 ) ( DOOR-ON ?auto_169 ?auto_164 ) ( OPEN ?auto_169 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_160 ?auto_164 )
+      ( PICK-UP-OBJ ?auto_160 ?auto_158 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_171 - ROBOT
+      ?auto_172 - OBJ
+    )
+    :vars
+    (
+      ?auto_179 - ROOM
+      ?auto_176 - DOOR
+      ?auto_174 - ROOM
+      ?auto_175 - OBJ
+      ?auto_173 - ROOM
+      ?auto_177 - DOOR
+      ?auto_181 - ROOM
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_172 ?auto_179 ) ( DOOR-ON ?auto_176 ?auto_174 ) ( DOOR-ON ?auto_176 ?auto_179 ) ( LOCKED ?auto_176 ) ( KEY ?auto_175 ) ( ROBOT-IN ?auto_171 ?auto_173 ) ( DOOR-ON ?auto_177 ?auto_173 ) ( DOOR-ON ?auto_177 ?auto_174 ) ( OPEN ?auto_177 ) ( ROBOT-IN ?auto_171 ?auto_181 ) ( OBJ-IN ?auto_175 ?auto_181 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_171 ?auto_175 )
+      ( PICK-UP-OBJ ?auto_171 ?auto_172 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_184 - ROBOT
+      ?auto_185 - OBJ
+    )
+    :vars
+    (
+      ?auto_189 - ROOM
+      ?auto_187 - DOOR
+      ?auto_188 - ROOM
+      ?auto_191 - OBJ
+      ?auto_186 - DOOR
+      ?auto_190 - ROOM
+      ?auto_197 - ROOM
+      ?auto_198 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_185 ?auto_189 ) ( DOOR-ON ?auto_187 ?auto_188 ) ( DOOR-ON ?auto_187 ?auto_189 ) ( LOCKED ?auto_187 ) ( KEY ?auto_191 ) ( DOOR-ON ?auto_186 ?auto_190 ) ( DOOR-ON ?auto_186 ?auto_188 ) ( OPEN ?auto_186 ) ( OBJ-IN ?auto_191 ?auto_190 ) ( ROBOT-IN ?auto_184 ?auto_197 ) ( DOOR-ON ?auto_198 ?auto_197 ) ( DOOR-ON ?auto_198 ?auto_190 ) ( OPEN ?auto_198 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_184 ?auto_190 )
+      ( PICK-UP-OBJ ?auto_184 ?auto_185 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_201 - ROBOT
+      ?auto_202 - ROOM
+    )
+    :vars
+    (
+      ?auto_204 - ROOM
+      ?auto_205 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_201 ?auto_204 ) ( DOOR-ON ?auto_205 ?auto_204 ) ( DOOR-ON ?auto_205 ?auto_202 ) ( OPEN ?auto_205 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_201 ?auto_204 ?auto_202 ?auto_205 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_222 - OBJ
+      ?auto_221 - ROOM
+    )
+    :vars
+    (
+      ?auto_223 - ROBOT
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_223 ?auto_221 ) ( ON-ROBOT ?auto_222 ?auto_223 ) )
+    :subtasks
+    ( ( !DROP ?auto_223 ?auto_222 ?auto_221 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_227 - OBJ
+      ?auto_226 - ROOM
+    )
+    :vars
+    (
+      ?auto_228 - ROBOT
+      ?auto_233 - ROOM
+      ?auto_232 - DOOR
+    )
+    :precondition
+    ( and ( ON-ROBOT ?auto_227 ?auto_228 ) ( ROBOT-IN ?auto_228 ?auto_233 ) ( DOOR-ON ?auto_232 ?auto_233 ) ( DOOR-ON ?auto_232 ?auto_226 ) ( OPEN ?auto_232 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_228 ?auto_226 )
+      ( DELIVER-PKG ?auto_227 ?auto_226 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_236 - OBJ
+      ?auto_235 - ROOM
+    )
+    :vars
+    (
+      ?auto_239 - ROBOT
+      ?auto_240 - ROOM
+      ?auto_238 - DOOR
+      ?auto_243 - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_239 ?auto_240 ) ( DOOR-ON ?auto_238 ?auto_240 ) ( DOOR-ON ?auto_238 ?auto_235 ) ( OPEN ?auto_238 ) ( ROBOT-IN ?auto_239 ?auto_243 ) ( OBJ-IN ?auto_236 ?auto_243 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_239 ?auto_236 )
+      ( DELIVER-PKG ?auto_236 ?auto_235 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_246 - OBJ
+      ?auto_245 - ROOM
+    )
+    :vars
+    (
+      ?auto_251 - DOOR
+      ?auto_252 - ROOM
+      ?auto_247 - ROBOT
+      ?auto_255 - ROOM
+      ?auto_256 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_251 ?auto_252 ) ( DOOR-ON ?auto_251 ?auto_245 ) ( OPEN ?auto_251 ) ( OBJ-IN ?auto_246 ?auto_252 ) ( ROBOT-IN ?auto_247 ?auto_255 ) ( DOOR-ON ?auto_256 ?auto_255 ) ( DOOR-ON ?auto_256 ?auto_252 ) ( OPEN ?auto_256 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_247 ?auto_252 )
+      ( DELIVER-PKG ?auto_246 ?auto_245 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_258 - OBJ
+      ?auto_257 - ROOM
+    )
+    :vars
+    (
+      ?auto_260 - DOOR
+      ?auto_262 - ROOM
+      ?auto_263 - ROBOT
+      ?auto_259 - ROOM
+      ?auto_268 - ROBOT
+      ?auto_267 - ROOM
+      ?auto_269 - OBJ
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_260 ?auto_262 ) ( DOOR-ON ?auto_260 ?auto_257 ) ( OBJ-IN ?auto_258 ?auto_262 ) ( ROBOT-IN ?auto_263 ?auto_259 ) ( DOOR-ON ?auto_260 ?auto_259 ) ( ROBOT-IN ?auto_268 ?auto_267 ) ( DOOR-ON ?auto_260 ?auto_267 ) ( LOCKED ?auto_260 ) ( ON-ROBOT ?auto_269 ?auto_268 ) ( KEY ?auto_269 ) )
+    :subtasks
+    ( ( OPEN_DOOR ?auto_260 )
+      ( DELIVER-PKG ?auto_258 ?auto_257 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_271 - OBJ
+      ?auto_270 - ROOM
+    )
+    :vars
+    (
+      ?auto_276 - DOOR
+      ?auto_278 - ROOM
+      ?auto_277 - ROOM
+      ?auto_275 - OBJ
+      ?auto_272 - ROBOT
+      ?auto_282 - ROOM
+      ?auto_283 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_276 ?auto_278 ) ( DOOR-ON ?auto_276 ?auto_270 ) ( OBJ-IN ?auto_271 ?auto_278 ) ( DOOR-ON ?auto_276 ?auto_277 ) ( LOCKED ?auto_276 ) ( ON-ROBOT ?auto_275 ?auto_272 ) ( KEY ?auto_275 ) ( ROBOT-IN ?auto_272 ?auto_282 ) ( DOOR-ON ?auto_283 ?auto_282 ) ( DOOR-ON ?auto_283 ?auto_277 ) ( OPEN ?auto_283 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_272 ?auto_277 )
+      ( DELIVER-PKG ?auto_271 ?auto_270 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_286 - OBJ
+      ?auto_285 - ROOM
+    )
+    :vars
+    (
+      ?auto_287 - DOOR
+      ?auto_292 - ROOM
+      ?auto_290 - ROOM
+      ?auto_288 - OBJ
+      ?auto_289 - ROBOT
+      ?auto_291 - ROOM
+      ?auto_295 - DOOR
+      ?auto_296 - ROOM
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_287 ?auto_292 ) ( DOOR-ON ?auto_287 ?auto_285 ) ( OBJ-IN ?auto_286 ?auto_292 ) ( DOOR-ON ?auto_287 ?auto_290 ) ( LOCKED ?auto_287 ) ( KEY ?auto_288 ) ( ROBOT-IN ?auto_289 ?auto_291 ) ( DOOR-ON ?auto_295 ?auto_291 ) ( DOOR-ON ?auto_295 ?auto_290 ) ( OPEN ?auto_295 ) ( ROBOT-IN ?auto_289 ?auto_296 ) ( OBJ-IN ?auto_288 ?auto_296 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_289 ?auto_288 )
+      ( DELIVER-PKG ?auto_286 ?auto_285 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_300 - OBJ
+      ?auto_299 - ROOM
+    )
+    :vars
+    (
+      ?auto_305 - DOOR
+      ?auto_310 - ROOM
+      ?auto_304 - ROOM
+      ?auto_303 - OBJ
+      ?auto_301 - DOOR
+      ?auto_306 - ROOM
+      ?auto_309 - ROBOT
+      ?auto_313 - ROOM
+      ?auto_314 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_305 ?auto_310 ) ( DOOR-ON ?auto_305 ?auto_299 ) ( OBJ-IN ?auto_300 ?auto_310 ) ( DOOR-ON ?auto_305 ?auto_304 ) ( LOCKED ?auto_305 ) ( KEY ?auto_303 ) ( DOOR-ON ?auto_301 ?auto_306 ) ( DOOR-ON ?auto_301 ?auto_304 ) ( OPEN ?auto_301 ) ( OBJ-IN ?auto_303 ?auto_306 ) ( ROBOT-IN ?auto_309 ?auto_313 ) ( DOOR-ON ?auto_314 ?auto_313 ) ( DOOR-ON ?auto_314 ?auto_306 ) ( OPEN ?auto_314 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_309 ?auto_306 )
+      ( DELIVER-PKG ?auto_300 ?auto_299 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_317 - ROBOT
+      ?auto_318 - ROOM
+    )
+    :vars
+    (
+      ?auto_320 - ROOM
+      ?auto_321 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_317 ?auto_320 ) ( DOOR-ON ?auto_321 ?auto_320 ) ( DOOR-ON ?auto_321 ?auto_318 ) ( OPEN ?auto_321 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_317 ?auto_320 ?auto_318 ?auto_321 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_325 - ROBOT
+      ?auto_326 - ROOM
+    )
+    :vars
+    (
+      ?auto_329 - DOOR
+      ?auto_327 - ROOM
+      ?auto_333 - ROOM
+      ?auto_332 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_329 ?auto_327 ) ( DOOR-ON ?auto_329 ?auto_326 ) ( OPEN ?auto_329 ) ( ROBOT-IN ?auto_325 ?auto_333 ) ( DOOR-ON ?auto_332 ?auto_333 ) ( DOOR-ON ?auto_332 ?auto_327 ) ( OPEN ?auto_332 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_325 ?auto_327 )
+      ( MOVE-TO ?auto_325 ?auto_326 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_349 - ROBOT
+      ?auto_350 - OBJ
+    )
+    :vars
+    (
+      ?auto_352 - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_349 ?auto_352 ) ( OBJ-IN ?auto_350 ?auto_352 ) )
+    :subtasks
+    ( ( !PICK-UP ?auto_349 ?auto_350 ?auto_352 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_354 - ROBOT
+      ?auto_355 - OBJ
+    )
+    :vars
+    (
+      ?auto_358 - ROOM
+      ?auto_360 - ROOM
+      ?auto_361 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_355 ?auto_358 ) ( ROBOT-IN ?auto_354 ?auto_360 ) ( DOOR-ON ?auto_361 ?auto_360 ) ( DOOR-ON ?auto_361 ?auto_358 ) ( OPEN ?auto_361 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_354 ?auto_358 )
+      ( PICK-UP-OBJ ?auto_354 ?auto_355 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_365 - ROBOT
+      ?auto_366 - OBJ
+    )
+    :vars
+    (
+      ?auto_369 - ROOM
+      ?auto_371 - DOOR
+      ?auto_370 - ROOM
+      ?auto_374 - ROOM
+      ?auto_373 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_366 ?auto_369 ) ( DOOR-ON ?auto_371 ?auto_370 ) ( DOOR-ON ?auto_371 ?auto_369 ) ( OPEN ?auto_371 ) ( ROBOT-IN ?auto_365 ?auto_374 ) ( DOOR-ON ?auto_373 ?auto_374 ) ( DOOR-ON ?auto_373 ?auto_370 ) ( OPEN ?auto_373 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_365 ?auto_370 )
+      ( PICK-UP-OBJ ?auto_365 ?auto_366 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_390 - ROBOT
+      ?auto_391 - ROOM
+    )
+    :vars
+    (
+      ?auto_393 - ROOM
+      ?auto_394 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_390 ?auto_393 ) ( DOOR-ON ?auto_394 ?auto_393 ) ( DOOR-ON ?auto_394 ?auto_391 ) ( OPEN ?auto_394 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_390 ?auto_393 ?auto_391 ?auto_394 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_419 - OBJ
+      ?auto_418 - ROOM
+    )
+    :vars
+    (
+      ?auto_420 - ROBOT
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_420 ?auto_418 ) ( ON-ROBOT ?auto_419 ?auto_420 ) )
+    :subtasks
+    ( ( !DROP ?auto_420 ?auto_419 ?auto_418 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_424 - OBJ
+      ?auto_423 - ROOM
+    )
+    :vars
+    (
+      ?auto_427 - ROBOT
+      ?auto_430 - ROOM
+      ?auto_431 - DOOR
+    )
+    :precondition
+    ( and ( ON-ROBOT ?auto_424 ?auto_427 ) ( ROBOT-IN ?auto_427 ?auto_430 ) ( DOOR-ON ?auto_431 ?auto_430 ) ( DOOR-ON ?auto_431 ?auto_423 ) ( OPEN ?auto_431 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_427 ?auto_423 )
+      ( DELIVER-PKG ?auto_424 ?auto_423 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_433 - OBJ
+      ?auto_432 - ROOM
+    )
+    :vars
+    (
+      ?auto_438 - ROBOT
+      ?auto_434 - ROOM
+      ?auto_435 - DOOR
+      ?auto_441 - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_438 ?auto_434 ) ( DOOR-ON ?auto_435 ?auto_434 ) ( DOOR-ON ?auto_435 ?auto_432 ) ( OPEN ?auto_435 ) ( ROBOT-IN ?auto_438 ?auto_441 ) ( OBJ-IN ?auto_433 ?auto_441 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_438 ?auto_433 )
+      ( DELIVER-PKG ?auto_433 ?auto_432 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_443 - OBJ
+      ?auto_442 - ROOM
+    )
+    :vars
+    (
+      ?auto_448 - DOOR
+      ?auto_444 - ROOM
+      ?auto_449 - ROBOT
+      ?auto_451 - ROOM
+      ?auto_452 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_448 ?auto_444 ) ( DOOR-ON ?auto_448 ?auto_442 ) ( OPEN ?auto_448 ) ( OBJ-IN ?auto_443 ?auto_444 ) ( ROBOT-IN ?auto_449 ?auto_451 ) ( DOOR-ON ?auto_452 ?auto_451 ) ( DOOR-ON ?auto_452 ?auto_444 ) ( OPEN ?auto_452 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_449 ?auto_444 )
+      ( DELIVER-PKG ?auto_443 ?auto_442 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_457 - OBJ
+      ?auto_456 - ROOM
+    )
+    :vars
+    (
+      ?auto_460 - DOOR
+      ?auto_462 - ROOM
+      ?auto_461 - DOOR
+      ?auto_459 - ROOM
+      ?auto_458 - ROBOT
+      ?auto_467 - ROOM
+      ?auto_466 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_460 ?auto_462 ) ( DOOR-ON ?auto_460 ?auto_456 ) ( OPEN ?auto_460 ) ( OBJ-IN ?auto_457 ?auto_462 ) ( DOOR-ON ?auto_461 ?auto_459 ) ( DOOR-ON ?auto_461 ?auto_462 ) ( OPEN ?auto_461 ) ( ROBOT-IN ?auto_458 ?auto_467 ) ( DOOR-ON ?auto_466 ?auto_467 ) ( DOOR-ON ?auto_466 ?auto_459 ) ( OPEN ?auto_466 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_458 ?auto_459 )
+      ( DELIVER-PKG ?auto_457 ?auto_456 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_483 - ROBOT
+      ?auto_484 - ROOM
+    )
+    :vars
+    (
+      ?auto_486 - ROOM
+      ?auto_487 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_483 ?auto_486 ) ( DOOR-ON ?auto_487 ?auto_486 ) ( DOOR-ON ?auto_487 ?auto_484 ) ( OPEN ?auto_487 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_483 ?auto_486 ?auto_484 ?auto_487 ) )
+  )
+
+  ( :method OPEN_DOOR
+    :parameters
+    (
+      ?auto_514 - DOOR
+    )
+    :vars
+    (
+      ?auto_515 - ROBOT
+      ?auto_516 - ROOM
+      ?auto_518 - OBJ
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_515 ?auto_516 ) ( DOOR-ON ?auto_514 ?auto_516 ) ( LOCKED ?auto_514 ) ( ON-ROBOT ?auto_518 ?auto_515 ) ( KEY ?auto_518 ) )
+    :subtasks
+    ( ( !OPEN ?auto_515 ?auto_514 ?auto_516 ?auto_518 ) )
+  )
+
+  ( :method OPEN_DOOR
+    :parameters
+    (
+      ?auto_519 - DOOR
+    )
+    :vars
+    (
+      ?auto_521 - ROOM
+      ?auto_523 - OBJ
+      ?auto_522 - ROBOT
+      ?auto_526 - ROOM
+      ?auto_527 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_519 ?auto_521 ) ( LOCKED ?auto_519 ) ( ON-ROBOT ?auto_523 ?auto_522 ) ( KEY ?auto_523 ) ( ROBOT-IN ?auto_522 ?auto_526 ) ( DOOR-ON ?auto_527 ?auto_526 ) ( DOOR-ON ?auto_527 ?auto_521 ) ( OPEN ?auto_527 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_522 ?auto_521 )
+      ( OPEN_DOOR ?auto_519 ) )
+  )
+
+  ( :method OPEN_DOOR
+    :parameters
+    (
+      ?auto_533 - DOOR
+    )
+    :vars
+    (
+      ?auto_537 - ROOM
+      ?auto_536 - OBJ
+      ?auto_538 - ROBOT
+      ?auto_535 - DOOR
+      ?auto_534 - ROOM
+      ?auto_542 - ROOM
+      ?auto_541 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_533 ?auto_537 ) ( LOCKED ?auto_533 ) ( ON-ROBOT ?auto_536 ?auto_538 ) ( KEY ?auto_536 ) ( DOOR-ON ?auto_535 ?auto_534 ) ( DOOR-ON ?auto_535 ?auto_537 ) ( OPEN ?auto_535 ) ( ROBOT-IN ?auto_538 ?auto_542 ) ( DOOR-ON ?auto_541 ?auto_542 ) ( DOOR-ON ?auto_541 ?auto_534 ) ( OPEN ?auto_541 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_538 ?auto_534 )
+      ( OPEN_DOOR ?auto_533 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_552 - ROBOT
+      ?auto_553 - ROOM
+    )
+    :vars
+    (
+      ?auto_555 - ROOM
+      ?auto_556 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_552 ?auto_555 ) ( DOOR-ON ?auto_556 ?auto_555 ) ( DOOR-ON ?auto_556 ?auto_553 ) ( OPEN ?auto_556 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_552 ?auto_555 ?auto_553 ?auto_556 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_558 - ROBOT
+      ?auto_559 - ROOM
+    )
+    :vars
+    (
+      ?auto_562 - ROOM
+      ?auto_563 - DOOR
+      ?auto_566 - ROBOT
+      ?auto_565 - ROOM
+      ?auto_567 - OBJ
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_558 ?auto_562 ) ( DOOR-ON ?auto_563 ?auto_562 ) ( DOOR-ON ?auto_563 ?auto_559 ) ( ROBOT-IN ?auto_566 ?auto_565 ) ( DOOR-ON ?auto_563 ?auto_565 ) ( LOCKED ?auto_563 ) ( ON-ROBOT ?auto_567 ?auto_566 ) ( KEY ?auto_567 ) )
+    :subtasks
+    ( ( OPEN_DOOR ?auto_563 )
+      ( MOVE-TO ?auto_558 ?auto_559 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_576 - ROBOT
+      ?auto_569 - ROOM
+    )
+    :vars
+    (
+      ?auto_572 - DOOR
+      ?auto_571 - ROOM
+      ?auto_573 - OBJ
+      ?auto_579 - ROOM
+      ?auto_580 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_572 ?auto_571 ) ( DOOR-ON ?auto_572 ?auto_569 ) ( LOCKED ?auto_572 ) ( ON-ROBOT ?auto_573 ?auto_576 ) ( KEY ?auto_573 ) ( ROBOT-IN ?auto_576 ?auto_579 ) ( DOOR-ON ?auto_580 ?auto_579 ) ( DOOR-ON ?auto_580 ?auto_571 ) ( OPEN ?auto_580 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_576 ?auto_571 )
+      ( MOVE-TO ?auto_576 ?auto_569 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_591 - ROBOT
+      ?auto_592 - ROOM
+    )
+    :vars
+    (
+      ?auto_595 - DOOR
+      ?auto_599 - ROOM
+      ?auto_598 - OBJ
+      ?auto_596 - DOOR
+      ?auto_593 - ROOM
+      ?auto_602 - ROOM
+      ?auto_601 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_595 ?auto_599 ) ( DOOR-ON ?auto_595 ?auto_592 ) ( LOCKED ?auto_595 ) ( ON-ROBOT ?auto_598 ?auto_591 ) ( KEY ?auto_598 ) ( DOOR-ON ?auto_596 ?auto_593 ) ( DOOR-ON ?auto_596 ?auto_599 ) ( OPEN ?auto_596 ) ( ROBOT-IN ?auto_591 ?auto_602 ) ( DOOR-ON ?auto_601 ?auto_602 ) ( DOOR-ON ?auto_601 ?auto_593 ) ( OPEN ?auto_601 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_591 ?auto_593 )
+      ( MOVE-TO ?auto_591 ?auto_592 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_618 - ROBOT
+      ?auto_619 - OBJ
+    )
+    :vars
+    (
+      ?auto_621 - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_618 ?auto_621 ) ( OBJ-IN ?auto_619 ?auto_621 ) )
+    :subtasks
+    ( ( !PICK-UP ?auto_618 ?auto_619 ?auto_621 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_623 - ROBOT
+      ?auto_624 - OBJ
+    )
+    :vars
+    (
+      ?auto_626 - ROOM
+      ?auto_630 - ROOM
+      ?auto_631 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_624 ?auto_626 ) ( ROBOT-IN ?auto_623 ?auto_630 ) ( DOOR-ON ?auto_631 ?auto_630 ) ( DOOR-ON ?auto_631 ?auto_626 ) ( OPEN ?auto_631 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_623 ?auto_626 )
+      ( PICK-UP-OBJ ?auto_623 ?auto_624 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_632 - ROBOT
+      ?auto_633 - OBJ
+    )
+    :vars
+    (
+      ?auto_635 - ROOM
+      ?auto_634 - ROOM
+      ?auto_636 - DOOR
+      ?auto_641 - ROBOT
+      ?auto_640 - ROOM
+      ?auto_642 - OBJ
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_633 ?auto_635 ) ( ROBOT-IN ?auto_632 ?auto_634 ) ( DOOR-ON ?auto_636 ?auto_634 ) ( DOOR-ON ?auto_636 ?auto_635 ) ( ROBOT-IN ?auto_641 ?auto_640 ) ( DOOR-ON ?auto_636 ?auto_640 ) ( LOCKED ?auto_636 ) ( ON-ROBOT ?auto_642 ?auto_641 ) ( KEY ?auto_642 ) )
+    :subtasks
+    ( ( OPEN_DOOR ?auto_636 )
+      ( PICK-UP-OBJ ?auto_632 ?auto_633 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_648 - ROBOT
+      ?auto_644 - OBJ
+    )
+    :vars
+    (
+      ?auto_649 - ROOM
+      ?auto_650 - DOOR
+      ?auto_646 - ROOM
+      ?auto_645 - OBJ
+      ?auto_655 - ROOM
+      ?auto_656 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_644 ?auto_649 ) ( DOOR-ON ?auto_650 ?auto_646 ) ( DOOR-ON ?auto_650 ?auto_649 ) ( LOCKED ?auto_650 ) ( ON-ROBOT ?auto_645 ?auto_648 ) ( KEY ?auto_645 ) ( ROBOT-IN ?auto_648 ?auto_655 ) ( DOOR-ON ?auto_656 ?auto_655 ) ( DOOR-ON ?auto_656 ?auto_646 ) ( OPEN ?auto_656 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_648 ?auto_646 )
+      ( PICK-UP-OBJ ?auto_648 ?auto_644 ) )
+  )
+
+  ( :method PICK-UP-OBJ
+    :parameters
+    (
+      ?auto_667 - ROBOT
+      ?auto_668 - OBJ
+    )
+    :vars
+    (
+      ?auto_669 - ROOM
+      ?auto_674 - DOOR
+      ?auto_675 - ROOM
+      ?auto_670 - OBJ
+      ?auto_673 - DOOR
+      ?auto_672 - ROOM
+      ?auto_679 - ROOM
+      ?auto_678 - DOOR
+    )
+    :precondition
+    ( and ( OBJ-IN ?auto_668 ?auto_669 ) ( DOOR-ON ?auto_674 ?auto_675 ) ( DOOR-ON ?auto_674 ?auto_669 ) ( LOCKED ?auto_674 ) ( ON-ROBOT ?auto_670 ?auto_667 ) ( KEY ?auto_670 ) ( DOOR-ON ?auto_673 ?auto_672 ) ( DOOR-ON ?auto_673 ?auto_675 ) ( OPEN ?auto_673 ) ( ROBOT-IN ?auto_667 ?auto_679 ) ( DOOR-ON ?auto_678 ?auto_679 ) ( DOOR-ON ?auto_678 ?auto_672 ) ( OPEN ?auto_678 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_667 ?auto_672 )
+      ( PICK-UP-OBJ ?auto_667 ?auto_668 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_695 - ROBOT
+      ?auto_696 - ROOM
+    )
+    :vars
+    (
+      ?auto_698 - ROOM
+      ?auto_699 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_695 ?auto_698 ) ( DOOR-ON ?auto_699 ?auto_698 ) ( DOOR-ON ?auto_699 ?auto_696 ) ( OPEN ?auto_699 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_695 ?auto_698 ?auto_696 ?auto_699 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_735 - ROBOT
+      ?auto_736 - ROOM
+    )
+    :vars
+    (
+      ?auto_738 - ROOM
+      ?auto_739 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_735 ?auto_738 ) ( DOOR-ON ?auto_739 ?auto_738 ) ( DOOR-ON ?auto_739 ?auto_736 ) ( OPEN ?auto_739 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_735 ?auto_738 ?auto_736 ?auto_739 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_741 - ROBOT
+      ?auto_742 - ROOM
+    )
+    :vars
+    (
+      ?auto_746 - DOOR
+      ?auto_745 - ROOM
+      ?auto_748 - ROOM
+      ?auto_749 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_746 ?auto_745 ) ( DOOR-ON ?auto_746 ?auto_742 ) ( OPEN ?auto_746 ) ( ROBOT-IN ?auto_741 ?auto_748 ) ( DOOR-ON ?auto_749 ?auto_748 ) ( DOOR-ON ?auto_749 ?auto_745 ) ( OPEN ?auto_749 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_741 ?auto_745 )
+      ( MOVE-TO ?auto_741 ?auto_742 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_786 - OBJ
+      ?auto_785 - ROOM
+    )
+    :vars
+    (
+      ?auto_787 - ROBOT
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_787 ?auto_785 ) ( ON-ROBOT ?auto_786 ?auto_787 ) )
+    :subtasks
+    ( ( !DROP ?auto_787 ?auto_786 ?auto_785 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_791 - OBJ
+      ?auto_790 - ROOM
+    )
+    :vars
+    (
+      ?auto_794 - ROBOT
+      ?auto_797 - ROOM
+      ?auto_798 - DOOR
+    )
+    :precondition
+    ( and ( ON-ROBOT ?auto_791 ?auto_794 ) ( ROBOT-IN ?auto_794 ?auto_797 ) ( DOOR-ON ?auto_798 ?auto_797 ) ( DOOR-ON ?auto_798 ?auto_790 ) ( OPEN ?auto_798 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_794 ?auto_790 )
+      ( DELIVER-PKG ?auto_791 ?auto_790 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_800 - OBJ
+      ?auto_799 - ROOM
+    )
+    :vars
+    (
+      ?auto_802 - ROBOT
+      ?auto_803 - DOOR
+      ?auto_804 - ROOM
+      ?auto_807 - ROOM
+      ?auto_808 - DOOR
+    )
+    :precondition
+    ( and ( ON-ROBOT ?auto_800 ?auto_802 ) ( DOOR-ON ?auto_803 ?auto_804 ) ( DOOR-ON ?auto_803 ?auto_799 ) ( OPEN ?auto_803 ) ( ROBOT-IN ?auto_802 ?auto_807 ) ( DOOR-ON ?auto_808 ?auto_807 ) ( DOOR-ON ?auto_808 ?auto_804 ) ( OPEN ?auto_808 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_802 ?auto_804 )
+      ( DELIVER-PKG ?auto_800 ?auto_799 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_811 - OBJ
+      ?auto_810 - ROOM
+    )
+    :vars
+    (
+      ?auto_818 - DOOR
+      ?auto_817 - ROOM
+      ?auto_813 - ROBOT
+      ?auto_812 - ROOM
+      ?auto_816 - DOOR
+      ?auto_820 - ROOM
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_818 ?auto_817 ) ( DOOR-ON ?auto_818 ?auto_810 ) ( OPEN ?auto_818 ) ( ROBOT-IN ?auto_813 ?auto_812 ) ( DOOR-ON ?auto_816 ?auto_812 ) ( DOOR-ON ?auto_816 ?auto_817 ) ( OPEN ?auto_816 ) ( ROBOT-IN ?auto_813 ?auto_820 ) ( OBJ-IN ?auto_811 ?auto_820 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_813 ?auto_811 )
+      ( DELIVER-PKG ?auto_811 ?auto_810 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_823 - OBJ
+      ?auto_822 - ROOM
+    )
+    :vars
+    (
+      ?auto_826 - DOOR
+      ?auto_831 - ROOM
+      ?auto_828 - DOOR
+      ?auto_825 - ROOM
+      ?auto_824 - ROBOT
+      ?auto_834 - ROOM
+      ?auto_835 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_826 ?auto_831 ) ( DOOR-ON ?auto_826 ?auto_822 ) ( OPEN ?auto_826 ) ( DOOR-ON ?auto_828 ?auto_825 ) ( DOOR-ON ?auto_828 ?auto_831 ) ( OPEN ?auto_828 ) ( OBJ-IN ?auto_823 ?auto_825 ) ( ROBOT-IN ?auto_824 ?auto_834 ) ( DOOR-ON ?auto_835 ?auto_834 ) ( DOOR-ON ?auto_835 ?auto_825 ) ( OPEN ?auto_835 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_824 ?auto_825 )
+      ( DELIVER-PKG ?auto_823 ?auto_822 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_837 - OBJ
+      ?auto_836 - ROOM
+    )
+    :vars
+    (
+      ?auto_840 - DOOR
+      ?auto_845 - ROOM
+      ?auto_839 - DOOR
+      ?auto_843 - ROOM
+      ?auto_841 - ROBOT
+      ?auto_842 - ROOM
+      ?auto_849 - ROBOT
+      ?auto_848 - ROOM
+      ?auto_850 - OBJ
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_840 ?auto_845 ) ( DOOR-ON ?auto_840 ?auto_836 ) ( OPEN ?auto_840 ) ( DOOR-ON ?auto_839 ?auto_843 ) ( DOOR-ON ?auto_839 ?auto_845 ) ( OBJ-IN ?auto_837 ?auto_843 ) ( ROBOT-IN ?auto_841 ?auto_842 ) ( DOOR-ON ?auto_839 ?auto_842 ) ( ROBOT-IN ?auto_849 ?auto_848 ) ( DOOR-ON ?auto_839 ?auto_848 ) ( LOCKED ?auto_839 ) ( ON-ROBOT ?auto_850 ?auto_849 ) ( KEY ?auto_850 ) )
+    :subtasks
+    ( ( OPEN_DOOR ?auto_839 )
+      ( DELIVER-PKG ?auto_837 ?auto_836 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_852 - OBJ
+      ?auto_851 - ROOM
+    )
+    :vars
+    (
+      ?auto_861 - DOOR
+      ?auto_854 - ROOM
+      ?auto_853 - DOOR
+      ?auto_855 - ROOM
+      ?auto_856 - ROOM
+      ?auto_857 - OBJ
+      ?auto_858 - ROBOT
+      ?auto_866 - ROOM
+      ?auto_867 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_861 ?auto_854 ) ( DOOR-ON ?auto_861 ?auto_851 ) ( OPEN ?auto_861 ) ( DOOR-ON ?auto_853 ?auto_855 ) ( DOOR-ON ?auto_853 ?auto_854 ) ( OBJ-IN ?auto_852 ?auto_855 ) ( DOOR-ON ?auto_853 ?auto_856 ) ( LOCKED ?auto_853 ) ( ON-ROBOT ?auto_857 ?auto_858 ) ( KEY ?auto_857 ) ( ROBOT-IN ?auto_858 ?auto_866 ) ( DOOR-ON ?auto_867 ?auto_866 ) ( DOOR-ON ?auto_867 ?auto_856 ) ( OPEN ?auto_867 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_858 ?auto_856 )
+      ( DELIVER-PKG ?auto_852 ?auto_851 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_879 - OBJ
+      ?auto_878 - ROOM
+    )
+    :vars
+    (
+      ?auto_890 - DOOR
+      ?auto_889 - ROOM
+      ?auto_883 - DOOR
+      ?auto_885 - ROOM
+      ?auto_880 - ROOM
+      ?auto_887 - OBJ
+      ?auto_881 - ROBOT
+      ?auto_882 - DOOR
+      ?auto_886 - ROOM
+      ?auto_893 - ROOM
+      ?auto_892 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_890 ?auto_889 ) ( DOOR-ON ?auto_890 ?auto_878 ) ( OPEN ?auto_890 ) ( DOOR-ON ?auto_883 ?auto_885 ) ( DOOR-ON ?auto_883 ?auto_889 ) ( OBJ-IN ?auto_879 ?auto_885 ) ( DOOR-ON ?auto_883 ?auto_880 ) ( LOCKED ?auto_883 ) ( ON-ROBOT ?auto_887 ?auto_881 ) ( KEY ?auto_887 ) ( DOOR-ON ?auto_882 ?auto_886 ) ( DOOR-ON ?auto_882 ?auto_880 ) ( OPEN ?auto_882 ) ( ROBOT-IN ?auto_881 ?auto_893 ) ( DOOR-ON ?auto_892 ?auto_893 ) ( DOOR-ON ?auto_892 ?auto_886 ) ( OPEN ?auto_892 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_881 ?auto_886 )
+      ( DELIVER-PKG ?auto_879 ?auto_878 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_904 - OBJ
+      ?auto_903 - ROOM
+    )
+    :vars
+    (
+      ?auto_906 - DOOR
+      ?auto_916 - ROOM
+      ?auto_917 - DOOR
+      ?auto_907 - ROOM
+      ?auto_914 - ROOM
+      ?auto_905 - OBJ
+      ?auto_910 - DOOR
+      ?auto_915 - ROOM
+      ?auto_911 - ROBOT
+      ?auto_913 - ROOM
+      ?auto_912 - DOOR
+      ?auto_918 - ROOM
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_906 ?auto_916 ) ( DOOR-ON ?auto_906 ?auto_903 ) ( OPEN ?auto_906 ) ( DOOR-ON ?auto_917 ?auto_907 ) ( DOOR-ON ?auto_917 ?auto_916 ) ( OBJ-IN ?auto_904 ?auto_907 ) ( DOOR-ON ?auto_917 ?auto_914 ) ( LOCKED ?auto_917 ) ( KEY ?auto_905 ) ( DOOR-ON ?auto_910 ?auto_915 ) ( DOOR-ON ?auto_910 ?auto_914 ) ( OPEN ?auto_910 ) ( ROBOT-IN ?auto_911 ?auto_913 ) ( DOOR-ON ?auto_912 ?auto_913 ) ( DOOR-ON ?auto_912 ?auto_915 ) ( OPEN ?auto_912 ) ( ROBOT-IN ?auto_911 ?auto_918 ) ( OBJ-IN ?auto_905 ?auto_918 ) )
+    :subtasks
+    ( ( PICK-UP-OBJ ?auto_911 ?auto_905 )
+      ( DELIVER-PKG ?auto_904 ?auto_903 ) )
+  )
+
+  ( :method DELIVER-PKG
+    :parameters
+    (
+      ?auto_922 - OBJ
+      ?auto_921 - ROOM
+    )
+    :vars
+    (
+      ?auto_936 - DOOR
+      ?auto_928 - ROOM
+      ?auto_929 - DOOR
+      ?auto_933 - ROOM
+      ?auto_930 - ROOM
+      ?auto_934 - OBJ
+      ?auto_935 - DOOR
+      ?auto_926 - ROOM
+      ?auto_931 - DOOR
+      ?auto_932 - ROOM
+      ?auto_927 - ROBOT
+      ?auto_939 - ROOM
+      ?auto_940 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_936 ?auto_928 ) ( DOOR-ON ?auto_936 ?auto_921 ) ( OPEN ?auto_936 ) ( DOOR-ON ?auto_929 ?auto_933 ) ( DOOR-ON ?auto_929 ?auto_928 ) ( OBJ-IN ?auto_922 ?auto_933 ) ( DOOR-ON ?auto_929 ?auto_930 ) ( LOCKED ?auto_929 ) ( KEY ?auto_934 ) ( DOOR-ON ?auto_935 ?auto_926 ) ( DOOR-ON ?auto_935 ?auto_930 ) ( OPEN ?auto_935 ) ( DOOR-ON ?auto_931 ?auto_932 ) ( DOOR-ON ?auto_931 ?auto_926 ) ( OPEN ?auto_931 ) ( OBJ-IN ?auto_934 ?auto_932 ) ( ROBOT-IN ?auto_927 ?auto_939 ) ( DOOR-ON ?auto_940 ?auto_939 ) ( DOOR-ON ?auto_940 ?auto_932 ) ( OPEN ?auto_940 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_927 ?auto_932 )
+      ( DELIVER-PKG ?auto_922 ?auto_921 ) )
+  )
+
+)
+

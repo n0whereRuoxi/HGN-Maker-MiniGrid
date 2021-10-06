@@ -387,7 +387,7 @@ void LearnFromSubsequences( unsigned int p_iInitState,
 			    unsigned int p_iFinalState,
 			    AnnotatedPlan * p_pPlan,
 			    HtnDomain * p_pDomain,
-			    const std::vector< PartialHtnMethod * > & p_vPartials )
+			    const std::vector<PartialHtnMethod*> &p_vPartials )
 {
   if( p_iInitState + 1 < p_iFinalState )
     LearnFromSubsequences( p_iInitState + 1,
@@ -434,40 +434,42 @@ void LearnFromExactSequence( unsigned int p_iInitState,
   l_pCurPartial->GetNewTaskVars();
   l_pCurPartial->MarkMethodStart( p_iInitState );
   bool l_bRecentHelped = false;
-
+  bool l_bDrop = false;
   if( g_iFlags & FLAG_DROP_UNNEEDED )
   {
     //todo Why are we doing this on instantiations, rather than just the list of methods in the domain?
-    bool l_bDrop = false;
+    
     for( int l_iCurMethod = p_pPlan->GetNumMethods() - 1;
-	 l_iCurMethod >= 0 && !l_bDrop;
-	 l_iCurMethod-- )
+	    l_iCurMethod >= 0 && !l_bDrop;
+	    l_iCurMethod-- )
     {
       if( p_pPlan->GetMethodAfterState( l_iCurMethod ) <= p_iFinalState && p_pPlan->GetMethodBeforeState( l_iCurMethod ) >= p_iInitState && CompareNoCase( p_pPlan->GetCMethod( l_iCurMethod )->GetCHead()->GetName(), l_pCurPartial->GetCTaskDescr()->GetCHead()->GetName() ) == 0 )
       {
-	Substitution l_Subs;
-	for( unsigned int l_iCurParam = 0;
-	     l_iCurParam < l_pCurPartial->GetCTaskDescr()->GetCHead()->GetNumParams();
-	     l_iCurParam++ )
-	{
-	  TermVariableP l_pVar = std::tr1::dynamic_pointer_cast< TermVariable >( p_pPlan->GetCMethod( l_iCurMethod )->GetCHead()->GetCParam( l_iCurParam ) );
-	  TermConstantP l_pTerm = std::tr1::dynamic_pointer_cast< TermConstant >( l_pCurPartial->GetCMasterSubs()->FindIndexByVar( std::tr1::dynamic_pointer_cast< TermVariable >( l_pCurPartial->GetCTaskSubs()->FindIndexByVar( std::tr1::dynamic_pointer_cast< TermVariable >( l_pCurPartial->GetCTaskDescr()->GetCHead()->GetCParam( l_iCurParam ) ) )->second ) )->second );
-	  l_Subs.AddPair( l_pVar, l_pTerm );
-	}
+	      Substitution l_Subs;
+	      for( unsigned int l_iCurParam = 0;
+	        l_iCurParam < l_pCurPartial->GetCTaskDescr()->GetCHead()->GetNumParams();
+	        l_iCurParam++ )
+	      {
+	        TermVariableP l_pVar = std::tr1::dynamic_pointer_cast< TermVariable >( p_pPlan->GetCMethod( l_iCurMethod )->GetCHead()->GetCParam( l_iCurParam ) );
+	        TermConstantP l_pTerm = std::tr1::dynamic_pointer_cast< TermConstant >( l_pCurPartial->GetCMasterSubs()->FindIndexByVar( std::tr1::dynamic_pointer_cast< TermVariable >( l_pCurPartial->GetCTaskSubs()->FindIndexByVar( std::tr1::dynamic_pointer_cast< TermVariable >( l_pCurPartial->GetCTaskDescr()->GetCHead()->GetCParam( l_iCurParam ) ) )->second ) )->second );
+	        l_Subs.AddPair( l_pVar, l_pTerm );
+	      }
 
-	std::set< TermVariableP > l_vRelVars;
-	std::vector<Substitution *> * l_pTemp = p_pPlan->GetCState( p_iInitState )->GetInstantiations( p_pPlan->GetCMethod( l_iCurMethod )->GetCPreconditions(), &l_Subs, l_vRelVars );
+	      std::set< TermVariableP > l_vRelVars;
+	      std::vector<Substitution *> * l_pTemp = p_pPlan->GetCState( p_iInitState )->GetInstantiations( p_pPlan->GetCMethod( l_iCurMethod )->GetCPreconditions(), &l_Subs, l_vRelVars );
 
-	if( l_pTemp->size() > 0 )
-	{
-	  l_bDrop = true;
-	  p_pPlan->AddMethodInst( p_pPlan->GetCMethod( l_iCurMethod ), l_pTemp->at( 0 ), p_iInitState, p_iFinalState, p_pPlan->GetCTaskDescr( l_iCurMethod ), p_pPlan->GetCMethodEffects( l_iCurMethod ), p_pPlan->GetMethodCost( l_iCurMethod ) );
-	  //todo This may not exactly be the correct cost to use here, since we would have been learning a method with higher cost.
+	      if( l_pTemp->size() > 0 )
+	      { 
+          for (Substitution * sub : *l_pTemp)
+            std::cout << &sub << '\n';
+	        l_bDrop = true;
+	        p_pPlan->AddMethodInst( p_pPlan->GetCMethod( l_iCurMethod ), l_pTemp->at( 0 ), p_iInitState, p_iFinalState, p_pPlan->GetCTaskDescr( l_iCurMethod ), p_pPlan->GetCMethodEffects( l_iCurMethod ), p_pPlan->GetMethodCost( l_iCurMethod ) );
+	        //todo This may not exactly be the correct cost to use here, since we would have been learning a method with higher cost.
 
-	  for( unsigned int i = 0; i < l_pTemp->size(); i++ )
-	    delete l_pTemp->at( i );
-	}
-	delete l_pTemp;
+	        for( unsigned int i = 0; i < l_pTemp->size(); i++ )
+	          delete l_pTemp->at( i );
+	      }
+	      delete l_pTemp;
       }
     }
     if( l_bDrop )
@@ -482,32 +484,31 @@ void LearnFromExactSequence( unsigned int p_iInitState,
     int l_iBestMethod = -1;
 
     for( unsigned int l_iCurMethod = 0; 
-	 l_iCurMethod < p_pPlan->GetNumMethods(); 
-	 l_iCurMethod++ )
+	    l_iCurMethod < p_pPlan->GetNumMethods(); 
+	    l_iCurMethod++ )
     {
       if( p_pPlan->GetMethodAfterState( l_iCurMethod ) == l_pCurPartial->GetCurrentStateNum() && p_pPlan->GetMethodBeforeState( l_iCurMethod ) >= p_iInitState + ( g_iFlags & FLAG_FORCE_OPS_FIRST ? 1 : 0 ) )
       {
-	bool l_bUseful = false;
-	FormulaConjP l_pMethodEffects( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCTaskDescr( l_iCurMethod )->GetCEffects()->AfterSubstitution( *p_pPlan->GetCMethodSub( l_iCurMethod ), 0 ) ) );
-
-	if( !( g_iFlags & FLAG_REQUIRE_NEW ) )
-	{
-	  if( l_pCurPartial->SuppliesPrec( l_pMethodEffects ) || l_pCurPartial->SuppliesEffect( l_pMethodEffects ) )
-	    l_bUseful = true;
-	}
-	else
-	{
-	  FormulaConjP l_pMethodPrecs( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCMethod( l_iCurMethod )->GetCPreconditions()->AfterSubstitution( *p_pPlan->GetCMethodSub( l_iCurMethod ), 0 ) ) );
-	  if( l_pCurPartial->SuppliesNewPrec( l_pMethodEffects, l_pMethodPrecs ) || l_pCurPartial->SuppliesNewEffect( l_pMethodEffects, l_pMethodPrecs ) )
-	    l_bUseful = true;
-	}
-	if( l_bUseful )
-	{
-	  if( l_iBestMethod == -1 || p_pPlan->GetMethodBeforeState( l_iCurMethod ) < p_pPlan->GetMethodBeforeState( l_iBestMethod ) || ( p_pPlan->GetMethodBeforeState( l_iCurMethod ) == p_pPlan->GetMethodBeforeState( l_iBestMethod ) && p_pPlan->GetCMethod( l_iCurMethod )->GetNumSubtasks() < p_pPlan->GetCMethod( l_iBestMethod )->GetNumSubtasks() ) )
-	  {
-	    l_iBestMethod = l_iCurMethod;
-	  }
-	}
+	      bool l_bUseful = false;
+	      FormulaConjP l_pMethodEffects( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCTaskDescr( l_iCurMethod )->GetCEffects()->AfterSubstitution( *p_pPlan->GetCMethodSub( l_iCurMethod ), 0 ) ) );
+	      if( !( g_iFlags & FLAG_REQUIRE_NEW ) )
+	      {
+	        if( l_pCurPartial->SuppliesPrec( l_pMethodEffects ) || l_pCurPartial->SuppliesEffect( l_pMethodEffects ) )
+	          l_bUseful = true;
+	      }
+	      else
+	      {
+	        FormulaConjP l_pMethodPrecs( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCMethod( l_iCurMethod )->GetCPreconditions()->AfterSubstitution( *p_pPlan->GetCMethodSub( l_iCurMethod ), 0 ) ) );
+	        if( l_pCurPartial->SuppliesNewPrec( l_pMethodEffects, l_pMethodPrecs ) || l_pCurPartial->SuppliesNewEffect( l_pMethodEffects, l_pMethodPrecs ) )
+	          l_bUseful = true;
+	      }
+	      if( l_bUseful )
+	      {
+	        if( l_iBestMethod == -1 || p_pPlan->GetMethodBeforeState( l_iCurMethod ) < p_pPlan->GetMethodBeforeState( l_iBestMethod ) || ( p_pPlan->GetMethodBeforeState( l_iCurMethod ) == p_pPlan->GetMethodBeforeState( l_iBestMethod ) && p_pPlan->GetCMethod( l_iCurMethod )->GetNumSubtasks() < p_pPlan->GetCMethod( l_iBestMethod )->GetNumSubtasks() ) )
+	        {
+	          l_iBestMethod = l_iCurMethod;
+	        }
+	      }
       }
     }
     if( l_iBestMethod != -1 )
@@ -521,22 +522,22 @@ void LearnFromExactSequence( unsigned int p_iInitState,
       FormulaConjP l_pOpEffects( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCOperator( l_pCurPartial->GetCurrentStateNum() - 1 )->GetCEffects()->AfterSubstitution( *p_pPlan->GetCSubstitution( l_pCurPartial->GetCurrentStateNum() - 1 ), 0 ) ) );
 
       if( l_pCurPartial->SuppliesPrec( l_pOpEffects ) || l_pCurPartial->SuppliesEffect( l_pOpEffects ) )
-	l_bUseful = true;
+	      l_bUseful = true;
       if( l_bUseful )
       {
-	l_pCurPartial->AddOperator( p_pPlan->GetCOperator( l_pCurPartial->GetCurrentStateNum() - 1 ), p_pPlan->GetCSubstitution( l_pCurPartial->GetCurrentStateNum() - 1 ), l_pCurPartial->GetCurrentStateNum() - 1, g_iFlags & FLAG_PARTIAL_GENERALIZATION );
-	l_bRecentHelped = true;
+	      l_pCurPartial->AddOperator( p_pPlan->GetCOperator( l_pCurPartial->GetCurrentStateNum() - 1 ), p_pPlan->GetCSubstitution( l_pCurPartial->GetCurrentStateNum() - 1 ), l_pCurPartial->GetCurrentStateNum() - 1, g_iFlags & FLAG_PARTIAL_GENERALIZATION );
+	      l_bRecentHelped = true;
       }
       else
       {
-	l_bRecentHelped = false;
-	if( l_pCurPartial->GetCurrentStateNum() == p_iFinalState )
-	{
-	  while( l_pCurPartial->GetCurrentStateNum() > p_iInitState )
-	    l_pCurPartial->Advance();
-	}
-	else
-	  l_pCurPartial->Advance();
+	      l_bRecentHelped = false;
+	      if( l_pCurPartial->GetCurrentStateNum() == p_iFinalState )
+	      {
+	        while( l_pCurPartial->GetCurrentStateNum() > p_iInitState )
+	          l_pCurPartial->Advance();
+	      }
+	      else
+	        l_pCurPartial->Advance();
       }
     }
   }
@@ -556,38 +557,39 @@ void LearnFromExactSequence( unsigned int p_iInitState,
       // If the preconditions of the method imply the desired effects, then the
       //  method serves no purpose.
       if( l_pNewMethod->GetCPreconditions()->Implies( l_pLiftedTaskEffects ) )
-	l_bDelete = true;
+	      l_bDelete = true;
       
       if( g_iFlags & FLAG_ND_CHECKERS )
-	l_pNewMethod->AddNdCheckers();
+	      l_pNewMethod->AddNdCheckers();
       if( g_iFlags & FLAG_VARIABLE_LINKAGE && !l_pNewMethod->SubtasksArePartiallyLinked() )
-	l_bDelete = true;
+	      l_bDelete = true;
       if( l_bDelete )
       {
-	delete l_pNewMethod;
+	      delete l_pNewMethod;
       }
       else
       {
-	if( p_pDomain->GetRequirements() & PDDL_REQ_METHOD_IDS )
-	{
-	  snprintf( g_cMethodIdStr, 8, "%d", ++g_iMaxMethodId );
-	  l_pNewMethod->SetId( g_cMethodIdStr );
-	}
-	std::tr1::shared_ptr< HtnTaskDescr > l_pNewTaskDescr( l_pCurPartial->GetCTaskDescr()->AfterSubstitution( *l_pCurPartial->GetCTaskSubs(), 0 ) );
-	FormulaConjP l_pMethodEffects( l_pCurPartial->GetActualEffects() );
+	      if( p_pDomain->GetRequirements() & PDDL_REQ_METHOD_IDS )
+	      {
+	        snprintf( g_cMethodIdStr, 8, "%d", ++g_iMaxMethodId );
+	        l_pNewMethod->SetId( g_cMethodIdStr );
+	      }
+	      std::tr1::shared_ptr< HtnTaskDescr > l_pNewTaskDescr( l_pCurPartial->GetCTaskDescr()->AfterSubstitution( *l_pCurPartial->GetCTaskSubs(), 0 ) );
+	      FormulaConjP l_pMethodEffects( l_pCurPartial->GetActualEffects() );
+	      p_pPlan->AddMethodInst( l_pNewMethod, l_pInstances->at( 0 ), l_pCurPartial->GetInitStateNum(), l_pCurPartial->GetFinalStateNum(), l_pNewTaskDescr, l_pMethodEffects, l_pNewMethod->GetQValue() );
 
-	p_pPlan->AddMethodInst( l_pNewMethod, l_pInstances->at( 0 ), l_pCurPartial->GetInitStateNum(), l_pCurPartial->GetFinalStateNum(), l_pNewTaskDescr, l_pMethodEffects, l_pNewMethod->GetQValue() );
-
-	if( l_pNewMethod->GetNumSubtasks() == 1 &&
-	    *l_pNewMethod->GetCSubtask( 0 )  == 
-	    *l_pNewMethod->GetCHead() )
-	  delete l_pNewMethod;
-	else if( g_iFlags & FLAG_QVALUES )
-	  DoQValueUpdate( p_pDomain, l_pNewMethod );
-	else if( !( g_iFlags & FLAG_NO_SUBSUMPTION ) )
-	  DoSubsumption( p_pDomain, l_pNewMethod );
-	else
-	  p_pDomain->AddMethod( l_pNewMethod );
+	      if( l_pNewMethod->GetNumSubtasks() == 1 &&
+	        *l_pNewMethod->GetCSubtask( 0 )  == 
+	        *l_pNewMethod->GetCHead() )
+	        delete l_pNewMethod;
+        else if (l_bDrop)
+          std::cout << "dropped method: \n" + l_pNewMethod->ToPddl( p_pDomain->GetRequirements() ) + "\n";
+	      else if( g_iFlags & FLAG_QVALUES )
+	        DoQValueUpdate( p_pDomain, l_pNewMethod );
+	      else if( !( g_iFlags & FLAG_NO_SUBSUMPTION ) )
+	        DoSubsumption( p_pDomain, l_pNewMethod );
+	      else
+          p_pDomain->AddMethod( l_pNewMethod );
       }
     }
     for( unsigned int l_iInst = 0; l_iInst < l_pInstances->size(); l_iInst++ )

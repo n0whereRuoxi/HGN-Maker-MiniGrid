@@ -1,0 +1,157 @@
+0x7ffc8cf8a2a0
+( define ( domain minigrid )
+  ( :requirements :strips :typing :equality :htn )
+  ( :types door obj robot room )
+  ( :predicates
+    ( ROBOT-IN ?a - ROBOT ?b - ROOM )
+    ( OBJ-IN ?c - OBJ ?d - ROOM )
+    ( ON-ROBOT ?e - OBJ ?f - ROBOT )
+    ( DOOR-ON ?g - DOOR ?h - ROOM )
+    ( OPEN ?j - DOOR )
+    ( LOCKED ?k - DOOR )
+    ( KEY ?l - OBJ )
+    ( PARCEL ?m - OBJ )
+  )
+  ( :action !PICK-UP
+    :parameters
+    (
+      ?robot - ROBOT
+      ?obj - OBJ
+      ?room - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?room ) ( OBJ-IN ?obj ?room ) )
+    :effect
+    ( and ( not ( OBJ-IN ?obj ?room ) ) ( ON-ROBOT ?obj ?robot ) )
+  )
+  ( :action !MOVE-TO
+    :parameters
+    (
+      ?robot - ROBOT
+      ?c1 - ROOM
+      ?c2 - ROOM
+      ?door - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?c1 ) ( DOOR-ON ?door ?c1 ) ( DOOR-ON ?door ?c2 ) ( OPEN ?door ) )
+    :effect
+    ( and ( not ( ROBOT-IN ?robot ?c1 ) ) ( ROBOT-IN ?robot ?c2 ) )
+  )
+  ( :action !DROP
+    :parameters
+    (
+      ?robot - ROBOT
+      ?obj - OBJ
+      ?room - ROOM
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?room ) ( ON-ROBOT ?obj ?robot ) )
+    :effect
+    ( and ( OBJ-IN ?obj ?room ) ( not ( ON-ROBOT ?obj ?robot ) ) )
+  )
+  ( :action !OPEN
+    :parameters
+    (
+      ?robot - ROBOT
+      ?door - DOOR
+      ?c1 - ROOM
+      ?key - OBJ
+    )
+    :precondition
+    ( and ( ROBOT-IN ?robot ?c1 ) ( DOOR-ON ?door ?c1 ) ( LOCKED ?door ) ( ON-ROBOT ?key ?robot ) ( KEY ?key ) )
+    :effect
+    ( and ( not ( LOCKED ?door ) ) ( OPEN ?door ) )
+  )
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_2 - ROBOT
+      ?auto_3 - ROOM
+    )
+    :vars
+    (
+      ?auto_5 - ROOM
+      ?auto_6 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_2 ?auto_5 ) ( DOOR-ON ?auto_6 ?auto_5 ) ( DOOR-ON ?auto_6 ?auto_3 ) ( OPEN ?auto_6 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_2 ?auto_5 ?auto_3 ?auto_6 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_10 - ROBOT
+      ?auto_11 - ROOM
+    )
+    :vars
+    (
+      ?auto_13 - ROOM
+      ?auto_14 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_10 ?auto_13 ) ( DOOR-ON ?auto_14 ?auto_13 ) ( DOOR-ON ?auto_14 ?auto_11 ) ( OPEN ?auto_14 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_10 ?auto_13 ?auto_11 ?auto_14 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_16 - ROBOT
+      ?auto_17 - ROOM
+    )
+    :vars
+    (
+      ?auto_20 - DOOR
+      ?auto_19 - ROOM
+      ?auto_24 - ROOM
+      ?auto_25 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_20 ?auto_19 ) ( DOOR-ON ?auto_20 ?auto_17 ) ( OPEN ?auto_20 ) ( ROBOT-IN ?auto_16 ?auto_24 ) ( DOOR-ON ?auto_25 ?auto_24 ) ( DOOR-ON ?auto_25 ?auto_19 ) ( OPEN ?auto_25 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_16 ?auto_19 )
+      ( MOVE-TO ?auto_16 ?auto_17 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_28 - ROBOT
+      ?auto_29 - ROOM
+    )
+    :vars
+    (
+      ?auto_31 - ROOM
+      ?auto_32 - DOOR
+    )
+    :precondition
+    ( and ( ROBOT-IN ?auto_28 ?auto_31 ) ( DOOR-ON ?auto_32 ?auto_31 ) ( DOOR-ON ?auto_32 ?auto_29 ) ( OPEN ?auto_32 ) )
+    :subtasks
+    ( ( !MOVE-TO ?auto_28 ?auto_31 ?auto_29 ?auto_32 ) )
+  )
+
+  ( :method MOVE-TO
+    :parameters
+    (
+      ?auto_34 - ROBOT
+      ?auto_35 - ROOM
+    )
+    :vars
+    (
+      ?auto_39 - DOOR
+      ?auto_38 - ROOM
+      ?auto_41 - ROOM
+      ?auto_42 - DOOR
+    )
+    :precondition
+    ( and ( DOOR-ON ?auto_39 ?auto_38 ) ( DOOR-ON ?auto_39 ?auto_35 ) ( OPEN ?auto_39 ) ( ROBOT-IN ?auto_34 ?auto_41 ) ( DOOR-ON ?auto_42 ?auto_41 ) ( DOOR-ON ?auto_42 ?auto_38 ) ( OPEN ?auto_42 ) )
+    :subtasks
+    ( ( MOVE-TO ?auto_34 ?auto_38 )
+      ( MOVE-TO ?auto_34 ?auto_35 ) )
+  )
+
+)
+

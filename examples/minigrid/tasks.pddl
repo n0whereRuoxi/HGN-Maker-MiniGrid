@@ -31,4 +31,33 @@
     )
   )
 
+  ( :task Open_Door
+    :parameters
+    (
+      ?door - door
+    )
+    :precondition
+    (
+    )
+    :effect
+    ( and
+      ( open ?door )
+    )
+  )
+
+
+  ( :task Move-To
+    :parameters
+    (
+      ?robot - robot
+      ?room - room
+    )
+    :precondition
+    (
+    )
+    :effect
+    ( and
+      ( robot-in ?robot ?room )
+    )
+  )
 )
