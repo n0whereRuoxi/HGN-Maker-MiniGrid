@@ -578,18 +578,25 @@ void LearnFromExactSequence( unsigned int p_iInitState,
 	      FormulaConjP l_pMethodEffects( l_pCurPartial->GetActualEffects() );
 	      p_pPlan->AddMethodInst( l_pNewMethod, l_pInstances->at( 0 ), l_pCurPartial->GetInitStateNum(), l_pCurPartial->GetFinalStateNum(), l_pNewTaskDescr, l_pMethodEffects, l_pNewMethod->GetQValue() );
 
-	      if( l_pNewMethod->GetNumSubtasks() == 1 &&
+	      if ( l_pNewMethod->GetNumSubtasks() == 1 &&
 	        *l_pNewMethod->GetCSubtask( 0 )  == 
 	        *l_pNewMethod->GetCHead() )
 	        delete l_pNewMethod;
-        else if (l_bDrop)
-          std::cout << "dropped method: \n" + l_pNewMethod->ToPddl( p_pDomain->GetRequirements() ) + "\n";
 	      else if( g_iFlags & FLAG_QVALUES )
 	        DoQValueUpdate( p_pDomain, l_pNewMethod );
 	      else if( !( g_iFlags & FLAG_NO_SUBSUMPTION ) )
 	        DoSubsumption( p_pDomain, l_pNewMethod );
 	      else
-          p_pDomain->AddMethod( l_pNewMethod );
+        {
+          if (l_bDrop)
+          {
+            std::cout << "starting state: " + std::to_string(p_iInitState) << "\n";
+            std::cout << "ending state: " + std::to_string(p_iFinalState) << "\n";
+            std::cout << "dropped method: \n" + l_pNewMethod->ToPddl( p_pDomain->GetRequirements() ) + "\n";
+          }
+          else
+            p_pDomain->AddMethod( l_pNewMethod );
+        }
       }
     }
     for( unsigned int l_iInst = 0; l_iInst < l_pInstances->size(); l_iInst++ )

@@ -1,20 +1,6 @@
 ( define 
   ( tasks Blocks4-tasks )
 
-  ( :task Make-On-Table
-    :parameters
-    (
-      ?block - block
-    )
-    :precondition
-    (
-    )
-    :effect
-    ( and
-      ( on-table ?block )
-    )
-  )
-
   ( :task Make-On
     :parameters
     (
@@ -27,6 +13,20 @@
     :effect
     ( and
       ( on ?above ?below )
+    )
+  )
+
+  ( :task Make-Clear
+    :parameters
+    (
+      ?theblock - block
+    )
+    :precondition
+    (
+    )
+    :effect
+    ( and
+      ( clear ?theblock)
     )
   )
 

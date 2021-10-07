@@ -154,10 +154,10 @@
       ( ROBOT-IN ?auto_735 ?auto_738 ) 
       ( DOOR-ON ?auto_739 ?auto_738 ) 
       ( DOOR-ON ?auto_739 ?auto_740 ) 
-      ( OPEN ?auto_739 ) 
+      ( OPEN ?auto_739 )
     )
     :subtasks
-    ( 
+    (
       ( !MOVE-TO ?auto_735 ?auto_738 ?auto_740 ?auto_739 ) 
       ( MOVE-TO ?auto_735 ?auto_736 ) 
     )
@@ -183,10 +183,35 @@
       ( LOCKED ?auto_739 ) 
     )
     :subtasks
-    ( 
-      ( OPEN ?auto_739)
+    (
+      ( OPEN-DOOR ?auto_739)
       ( !MOVE-TO ?auto_735 ?auto_738 ?auto_740 ?auto_739 ) 
       ( MOVE-TO ?auto_735 ?auto_736 ) 
+    )
+  )
+
+  ( :method OPEN-DOOR
+    :parameters
+    (
+      ?auto_739 -DOOR
+    )
+    :vars
+    (
+      ?auto_738 - ROOM
+      ?auto_740 - ROBOT
+      ?auto_741 - OBJ
+    )
+    :precondition
+    ( and
+      ( DOOR-ON ?auto_739 ?auto_738 ) 
+      ( LOCKED ?auto_739 ) 
+      ( KEY ?auto_741 )
+      ( ON-ROBOT ?auto_741 ?auto_740 )
+    )
+    :subtasks
+    (
+      ( MOVE-TO ?auto_740 ?auto_738 ) 
+      ( !OPEN ?auto_740 ?auto_739 ?auto_738 ?auto_741 )
     )
   )
 
