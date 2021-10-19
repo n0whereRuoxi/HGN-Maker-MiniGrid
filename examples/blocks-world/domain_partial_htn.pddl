@@ -113,4 +113,14 @@
     )
   )
 
+  ( :method Make-Clear
+    :parameters ( ?target - block )
+    :precondition
+    ( and
+      ( clear ?target )
+    )
+    :subtasks
+    (
+    )
+  )
 )
