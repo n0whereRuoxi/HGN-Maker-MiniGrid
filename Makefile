@@ -239,13 +239,13 @@ DIST_ARCHIVES = $(distdir).tar.gz
 GZIP_ENV = --best
 distuninstallcheck_listfiles = find . -type f -print
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/ruoxi/Documents/HGN-Maker-MiniGrid/missing --run aclocal-1.10
-AMTAR = ${SHELL} /home/ruoxi/Documents/HGN-Maker-MiniGrid/missing --run tar
+ACLOCAL = ${SHELL} /lustre/rli12314/HGN-Maker-MiniGrid/missing --run aclocal-1.10
+AMTAR = ${SHELL} /lustre/rli12314/HGN-Maker-MiniGrid/missing --run tar
 AR = ar
-AUTOCONF = ${SHELL} /home/ruoxi/Documents/HGN-Maker-MiniGrid/missing --run autoconf
-AUTOHEADER = ${SHELL} /home/ruoxi/Documents/HGN-Maker-MiniGrid/missing --run autoheader
-AUTOMAKE = ${SHELL} /home/ruoxi/Documents/HGN-Maker-MiniGrid/missing --run automake-1.10
-AWK = mawk
+AUTOCONF = ${SHELL} /lustre/rli12314/HGN-Maker-MiniGrid/missing --run autoconf
+AUTOHEADER = ${SHELL} /lustre/rli12314/HGN-Maker-MiniGrid/missing --run autoheader
+AUTOMAKE = ${SHELL} /lustre/rli12314/HGN-Maker-MiniGrid/missing --run automake-1.10
+AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
 CFLAGS = -g -O2
@@ -264,16 +264,16 @@ DOXYGEN_PAPER_SIZE =
 DSYMUTIL = 
 DX_CONFIG = doxygen.cfg
 DX_DOCDIR = doxygen-doc
-DX_DOT = /usr/bin/dot
-DX_DOXYGEN = /usr/bin/doxygen
+DX_DOT = 
+DX_DOXYGEN = 
 DX_DVIPS = 
 DX_EGREP = 
-DX_ENV =  SRCDIR='.' PROJECT='test' DOCDIR='doxygen-doc' VERSION='1.1' PERL_PATH='/usr/bin/perl' HAVE_DOT='YES' DOT_PATH='/usr/bin' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='YES' GENERATE_LATEX='NO'
+DX_ENV =  SRCDIR='.' PROJECT='test' DOCDIR='doxygen-doc' VERSION='1.1' HAVE_DOT='NO' GENERATE_MAN='NO' GENERATE_RTF='NO' GENERATE_XML='NO' GENERATE_HTMLHELP='NO' GENERATE_CHI='NO' GENERATE_HTML='NO' GENERATE_LATEX='NO'
 DX_FLAG_chi = 0
 DX_FLAG_chm = 0
-DX_FLAG_doc = 1
-DX_FLAG_dot = 1
-DX_FLAG_html = 1
+DX_FLAG_doc = 0
+DX_FLAG_dot = 0
+DX_FLAG_html = 0
 DX_FLAG_man = 0
 DX_FLAG_pdf = 0
 DX_FLAG_ps = 0
@@ -291,7 +291,7 @@ ECHO_N = -n
 ECHO_T = 
 EGREP = /usr/bin/grep -E
 EXEEXT = 
-F77 = f77
+F77 = gfortran
 FFLAGS = -g -O2
 GREP = /usr/bin/grep
 INSTALL = /usr/bin/install -c
@@ -305,7 +305,7 @@ LIBS =
 LIBTOOL = $(SHELL) $(top_builddir)/libtool
 LN_S = ln -s
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/ruoxi/Documents/HGN-Maker-MiniGrid/missing --run makeinfo
+MAKEINFO = ${SHELL} /lustre/rli12314/HGN-Maker-MiniGrid/missing --run makeinfo
 MKDIR_P = /usr/bin/mkdir -p
 NMEDIT = 
 OBJEXT = o
@@ -319,16 +319,16 @@ PATH_SEPARATOR = :
 RANLIB = ranlib
 SED = /usr/bin/sed
 SET_MAKE = 
-SHELL = /bin/bash
+SHELL = /bin/sh
 STRIP = strip
 VERSION = 1.1
-abs_builddir = /home/ruoxi/Documents/HGN-Maker-MiniGrid
-abs_srcdir = /home/ruoxi/Documents/HGN-Maker-MiniGrid
-abs_top_builddir = /home/ruoxi/Documents/HGN-Maker-MiniGrid
-abs_top_srcdir = /home/ruoxi/Documents/HGN-Maker-MiniGrid
+abs_builddir = /lustre/rli12314/HGN-Maker-MiniGrid
+abs_srcdir = /lustre/rli12314/HGN-Maker-MiniGrid
+abs_top_builddir = /lustre/rli12314/HGN-Maker-MiniGrid
+abs_top_srcdir = /lustre/rli12314/HGN-Maker-MiniGrid
 ac_ct_CC = gcc
 ac_ct_CXX = g++
-ac_ct_F77 = f77
+ac_ct_F77 = gfortran
 am__include = include
 am__leading_dot = .
 am__quote = 
@@ -354,7 +354,7 @@ host_vendor = unknown
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = $(SHELL) /home/ruoxi/Documents/HGN-Maker-MiniGrid/install-sh
+install_sh = $(SHELL) /lustre/rli12314/HGN-Maker-MiniGrid/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -584,29 +584,29 @@ add_ids_SOURCES = add-ids.cpp
 add_ids_LDADD = libhtntools.la
 id_strips_SOURCES = id-strips.cpp
 id_strips_LDADD = libhtntools.la
-DX_CLEAN_HTML = doxygen-doc/html
-#DX_CLEAN_CHM = doxygen-doc/chm
-##DX_CLEAN_CHI = doxygen-doc/ch-htn-tools.chi
-#DX_CLEAN_MAN = doxygen-doc/man
-#DX_CLEAN_RTF = doxygen-doc/rtf
-#DX_CLEAN_XML = doxygen-doc/xml
-#DX_CLEAN_PS = doxygen-doc/ch-htn-tools.ps
-#DX_PS_GOAL = doxygen-ps
-#DX_CLEAN_PDF = doxygen-doc/ch-htn-tools.pdf
-#DX_PDF_GOAL = doxygen-pdf
-#DX_CLEAN_LATEX = doxygen-doc/latex
-DX_CLEANFILES = \
-    doxygen-doc/ch-htn-tools.tag \
-    -r \
-    $(DX_CLEAN_HTML) \
-    $(DX_CLEAN_CHM) \
-    $(DX_CLEAN_CHI) \
-    $(DX_CLEAN_MAN) \
-    $(DX_CLEAN_RTF) \
-    $(DX_CLEAN_XML) \
-    $(DX_CLEAN_PS) \
-    $(DX_CLEAN_PDF) \
-    $(DX_CLEAN_LATEX)
+##DX_CLEAN_HTML = doxygen-doc/html
+##DX_CLEAN_CHM = doxygen-doc/chm
+###DX_CLEAN_CHI = doxygen-doc/ch-htn-tools.chi
+##DX_CLEAN_MAN = doxygen-doc/man
+##DX_CLEAN_RTF = doxygen-doc/rtf
+##DX_CLEAN_XML = doxygen-doc/xml
+##DX_CLEAN_PS = doxygen-doc/ch-htn-tools.ps
+##DX_PS_GOAL = doxygen-ps
+##DX_CLEAN_PDF = doxygen-doc/ch-htn-tools.pdf
+##DX_PDF_GOAL = doxygen-pdf
+##DX_CLEAN_LATEX = doxygen-doc/latex
+#DX_CLEANFILES = \
+#    doxygen-doc/ch-htn-tools.tag \
+#    -r \
+#    $(DX_CLEAN_HTML) \
+#    $(DX_CLEAN_CHM) \
+#    $(DX_CLEAN_CHI) \
+#    $(DX_CLEAN_MAN) \
+#    $(DX_CLEAN_RTF) \
+#    $(DX_CLEAN_XML) \
+#    $(DX_CLEAN_PS) \
+#    $(DX_CLEAN_PDF) \
+#    $(DX_CLEAN_LATEX)
 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -1549,51 +1549,51 @@ uninstall-am: uninstall-binPROGRAMS uninstall-libLTLIBRARIES
 	uninstall-libLTLIBRARIES
 
 
-#doxygen-ps: doxygen-doc/ch-htn-tools.ps
+##doxygen-ps: doxygen-doc/ch-htn-tools.ps
 
-#doxygen-doc/ch-htn-tools.ps: doxygen-doc/ch-htn-tools.tag
-#	cd doxygen-doc/latex; \
-#	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
-#	$(DX_LATEX) refman.tex; \
-#	$(MAKEINDEX_PATH) refman.idx; \
-#	$(DX_LATEX) refman.tex; \
-#	countdown=5; \
-#	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
-#	                  refman.log > /dev/null 2>&1 \
-#	   && test $$countdown -gt 0; do \
-#	    $(DX_LATEX) refman.tex; \
-#	    countdown=`expr $$countdown - 1`; \
-#	done; \
-#	$(DX_DVIPS) -o ../ch-htn-tools.ps refman.dvi
+##doxygen-doc/ch-htn-tools.ps: doxygen-doc/ch-htn-tools.tag
+##	cd doxygen-doc/latex; \
+##	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+##	$(DX_LATEX) refman.tex; \
+##	$(MAKEINDEX_PATH) refman.idx; \
+##	$(DX_LATEX) refman.tex; \
+##	countdown=5; \
+##	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+##	                  refman.log > /dev/null 2>&1 \
+##	   && test $$countdown -gt 0; do \
+##	    $(DX_LATEX) refman.tex; \
+##	    countdown=`expr $$countdown - 1`; \
+##	done; \
+##	$(DX_DVIPS) -o ../ch-htn-tools.ps refman.dvi
 
-#doxygen-pdf: doxygen-doc/ch-htn-tools.pdf
+##doxygen-pdf: doxygen-doc/ch-htn-tools.pdf
 
-#doxygen-doc/ch-htn-tools.pdf: doxygen-doc/ch-htn-tools.tag
-#	cd doxygen-doc/latex; \
-#	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
-#	$(DX_PDFLATEX) refman.tex; \
-#	$(DX_MAKEINDEX) refman.idx; \
-#	$(DX_PDFLATEX) refman.tex; \
-#	countdown=5; \
-#	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
-#	                  refman.log > /dev/null 2>&1 \
-#	   && test $$countdown -gt 0; do \
-#	    $(DX_PDFLATEX) refman.tex; \
-#	    countdown=`expr $$countdown - 1`; \
-#	done; \
-#	mv refman.pdf ../ch-htn-tools.pdf
+##doxygen-doc/ch-htn-tools.pdf: doxygen-doc/ch-htn-tools.tag
+##	cd doxygen-doc/latex; \
+##	rm -f *.aux *.toc *.idx *.ind *.ilg *.log *.out; \
+##	$(DX_PDFLATEX) refman.tex; \
+##	$(DX_MAKEINDEX) refman.idx; \
+##	$(DX_PDFLATEX) refman.tex; \
+##	countdown=5; \
+##	while $(DX_EGREP) 'Rerun (LaTeX|to get cross-references right)' \
+##	                  refman.log > /dev/null 2>&1 \
+##	   && test $$countdown -gt 0; do \
+##	    $(DX_PDFLATEX) refman.tex; \
+##	    countdown=`expr $$countdown - 1`; \
+##	done; \
+##	mv refman.pdf ../ch-htn-tools.pdf
 
-.PHONY: doxygen-run doxygen-doc $(DX_PS_GOAL) $(DX_PDF_GOAL)
+#.PHONY: doxygen-run doxygen-doc $(DX_PS_GOAL) $(DX_PDF_GOAL)
 
-.INTERMEDIATE: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
+#.INTERMEDIATE: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
 
-doxygen-run: doxygen-doc/ch-htn-tools.tag
+#doxygen-run: doxygen-doc/ch-htn-tools.tag
 
-doxygen-doc: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
+#doxygen-doc: doxygen-run $(DX_PS_GOAL) $(DX_PDF_GOAL)
 
-doxygen-doc/ch-htn-tools.tag: $(DX_CONFIG) $(pkginclude_HEADERS)
-	rm -rf doxygen-doc
-	$(DX_ENV) $(DX_DOXYGEN) $(srcdir)/$(DX_CONFIG)
+#doxygen-doc/ch-htn-tools.tag: $(DX_CONFIG) $(pkginclude_HEADERS)
+#	rm -rf doxygen-doc
+#	$(DX_ENV) $(DX_DOXYGEN) $(srcdir)/$(DX_CONFIG)
 # Tell versions [3.59,3.63) of GNU make to not export all variables.
 # Otherwise a system limit (for SysV at least) may be exceeded.
 .NOEXPORT:
