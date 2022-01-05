@@ -230,7 +230,7 @@ int main( int argc, char * argv[] )
   if( g_iFlags & FLAG_ND_CHECKERS )
     MakeTrivialNdCheckers( l_pHtnDomain );
 
-  LearnMethods( l_pStripsPlan,
+  LearnMethodsFromExactSequence(0, 1, l_pStripsPlan,
 		l_pHtnTaskList,
 		l_pHtnDomain );
 
@@ -287,6 +287,44 @@ std::vector< PartialHtnMethod * > * GetPartials( const HtnDomain * p_pDomain,
   }
 
   return l_pRet;
+}
+
+void LearnMethodsFromExactSequence( unsigned int p_iInitState, unsigned int p_iFinalState, AnnotatedPlan * p_pPlan, HtnTaskList * p_pTasks, HtnDomain * p_pHtnDomain )
+{
+  // Add new partial methods for tasks that may be ending in this state.
+  std::vector< PartialHtnMethod * > * l_pPartials = 
+    GetPartials( p_pHtnDomain,
+      p_pPlan,
+      p_pTasks,
+      p_iFinalState );
+
+  for( unsigned int i = 0; i < p_vPartials.size(); i++ )
+  {
+    bool l_bLearn = true;
+    if( g_iFlags & FLAG_HARD_SQUELCH )
+    {
+      for( unsigned int j = 0; j <= p_iInitState && l_bLearn; j++ )
+      {
+	      if( TrySolving( p_pPlan, 
+			    j,
+			    p_iFinalState,
+			    p_vPartials[i]->GetCTaskDescr(),
+          p_vPartials[i]->GetCTaskSubs(),
+          p_vPartials[i]->GetCMasterSubs(),
+          p_pHtnDomain ) )
+	      l_bLearn = false;
+      }
+    }
+    if( l_bLearn )
+      LearnFromExactSequence( p_iInitState,
+			      p_iFinalState,
+			      p_pPlan,
+			      p_pHtnDomain,
+			      p_vPartials[i] );
+  }
+  for( unsigned int l_iCurPartial = 0; l_iCurPartial < l_pPartials->size(); l_iCurPartial++ )
+    delete l_pPartials->at( l_iCurPartial );
+  delete l_pPartials;
 }
 
 void LearnMethods( AnnotatedPlan * p_pPlan,
