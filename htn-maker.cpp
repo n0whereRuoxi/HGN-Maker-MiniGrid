@@ -50,6 +50,10 @@ void LearnMethods( AnnotatedPlan * p_pPlan,
 		   HtnTaskList * p_pTasks,
 		   HtnDomain * p_pHtnDomain );
 
+void LearnMethodsFromExactSequence(unsigned int p_iInitState, unsigned int p_iFinalState, AnnotatedPlan * p_pPlan,
+                   HtnTaskList * p_pTasks,
+                   HtnDomain * p_pHtnDomain );
+
 void DoSubsumption( HtnDomain * p_pHtnDomain,
 		    HtnMethod * p_pNewMethod );
 
@@ -157,6 +161,9 @@ int main( int argc, char * argv[] )
   AnnotatedPlan * l_pStripsPlan = 0;
   HtnTaskList * l_pHtnTaskList = 0;
   HtnDomain * l_pHtnDomain = 0;
+  HtnTaskList * l_pHtnTaskClear = 0;
+  HtnTaskList * l_pHtnTaskMake1Pile = 0;
+  HtnTaskList * l_pHtnTaskMake2Pile = 0;
 
   try
   {
@@ -205,7 +212,10 @@ int main( int argc, char * argv[] )
 
   try
   {
-    l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sTasksFile ) );
+    l_pHtnTaskClear = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_clear.pddl" ) );
+    l_pHtnTaskMake1Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_1pile.pddl" ) );
+    l_pHtnTaskMake2Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_2pile.pddl" ) );
+
   }
   catch( FileReadException & e )
   {
@@ -230,9 +240,17 @@ int main( int argc, char * argv[] )
   if( g_iFlags & FLAG_ND_CHECKERS )
     MakeTrivialNdCheckers( l_pHtnDomain );
 
-  LearnMethodsFromExactSequence(0, 1, l_pStripsPlan,
-		l_pHtnTaskList,
+  LearnMethodsFromExactSequence(0, 3, l_pStripsPlan,
+		l_pHtnTaskClear,
 		l_pHtnDomain );
+
+  LearnMethodsFromExactSequence(0, 6, l_pStripsPlan,
+                l_pHtnTaskMake1Pile,
+                l_pHtnDomain );
+
+  LearnMethodsFromExactSequence(0, 10, l_pStripsPlan,
+                l_pHtnTaskMake2Pile,
+                l_pHtnDomain );
 
   std::cout << l_pHtnDomain->ToPddl() << "\n";
 
@@ -292,11 +310,12 @@ std::vector< PartialHtnMethod * > * GetPartials( const HtnDomain * p_pDomain,
 void LearnMethodsFromExactSequence( unsigned int p_iInitState, unsigned int p_iFinalState, AnnotatedPlan * p_pPlan, HtnTaskList * p_pTasks, HtnDomain * p_pHtnDomain )
 {
   // Add new partial methods for tasks that may be ending in this state.
-  std::vector< PartialHtnMethod * > * l_pPartials = 
-    GetPartials( p_pHtnDomain,
+  std::vector< PartialHtnMethod * > * l_pPartials = GetPartials( p_pHtnDomain,
       p_pPlan,
       p_pTasks,
       p_iFinalState );
+
+  std::vector< PartialHtnMethod * > p_vPartials = * l_pPartials; 
 
   for( unsigned int i = 0; i < p_vPartials.size(); i++ )
   {
@@ -520,26 +539,29 @@ void LearnFromExactSequence( unsigned int p_iInitState,
   while( l_pCurPartial->GetCurrentStateNum() > p_iInitState )
   {
     int l_iBestMethod = -1;
-
     for( unsigned int l_iCurMethod = 0; 
 	    l_iCurMethod < p_pPlan->GetNumMethods(); 
 	    l_iCurMethod++ )
     {
       if( p_pPlan->GetMethodAfterState( l_iCurMethod ) == l_pCurPartial->GetCurrentStateNum() && p_pPlan->GetMethodBeforeState( l_iCurMethod ) >= p_iInitState + ( g_iFlags & FLAG_FORCE_OPS_FIRST ? 1 : 0 ) )
       {
+              std::cout << p_iInitState << " " << p_iFinalState << " " << l_pCurPartial->GetCurrentStateNum() << " " << p_pPlan->GetNumMethods() << " " << l_iCurMethod << "\n";
+
 	      bool l_bUseful = false;
 	      FormulaConjP l_pMethodEffects( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCTaskDescr( l_iCurMethod )->GetCEffects()->AfterSubstitution( *p_pPlan->GetCMethodSub( l_iCurMethod ), 0 ) ) );
 	      if( !( g_iFlags & FLAG_REQUIRE_NEW ) )
 	      {
+		std::cout << "here 1 \n";
 	        if( l_pCurPartial->SuppliesPrec( l_pMethodEffects ) || l_pCurPartial->SuppliesEffect( l_pMethodEffects ) )
 	          l_bUseful = true;
+                std::cout << l_bUseful << "\n";
 	      }
 	      else
 	      {
 	        FormulaConjP l_pMethodPrecs( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCMethod( l_iCurMethod )->GetCPreconditions()->AfterSubstitution( *p_pPlan->GetCMethodSub( l_iCurMethod ), 0 ) ) );
 	        if( l_pCurPartial->SuppliesNewPrec( l_pMethodEffects, l_pMethodPrecs ) || l_pCurPartial->SuppliesNewEffect( l_pMethodEffects, l_pMethodPrecs ) )
 	          l_bUseful = true;
-	      }
+              }
 	      if( l_bUseful )
 	      {
 	        if( l_iBestMethod == -1 || p_pPlan->GetMethodBeforeState( l_iCurMethod ) < p_pPlan->GetMethodBeforeState( l_iBestMethod ) || ( p_pPlan->GetMethodBeforeState( l_iCurMethod ) == p_pPlan->GetMethodBeforeState( l_iBestMethod ) && p_pPlan->GetCMethod( l_iCurMethod )->GetNumSubtasks() < p_pPlan->GetCMethod( l_iBestMethod )->GetNumSubtasks() ) )

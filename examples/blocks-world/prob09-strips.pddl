@@ -23,7 +23,8 @@
     ( hand-empty )
   )
   ( :goal
-    (
+    ( and
+      ( clear b002 )
     )
   )
 )

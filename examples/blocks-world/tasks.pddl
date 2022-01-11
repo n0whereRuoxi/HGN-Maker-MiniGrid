@@ -1,7 +1,7 @@
 ( define 
   ( tasks Blocks4-tasks )
 
-  ( :task Make-On-Table
+  ( :task Make-1Pile
     :parameters
     (
       ?block - block
@@ -12,22 +12,23 @@
     :effect
     ( and
       ( on-table ?block )
+      ( clear ?block )
     )
   )
 
-  ( :task Make-On
+  ( :task Make-Clear
     :parameters
     (
-      ?above - block
-      ?below - block
+      ?theblock - block
     )
     :precondition
     (
     )
     :effect
     ( and
-      ( on ?above ?below )
+      ( clear ?theblock)
     )
   )
 
 )
+
