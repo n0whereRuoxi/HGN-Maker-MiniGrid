@@ -240,16 +240,16 @@ int main( int argc, char * argv[] )
   if( g_iFlags & FLAG_ND_CHECKERS )
     MakeTrivialNdCheckers( l_pHtnDomain );
 
-  LearnMethodsFromExactSequence(0, 3, l_pStripsPlan,
-		l_pHtnTaskClear,
-		l_pHtnDomain );
-
   LearnMethodsFromExactSequence(0, 6, l_pStripsPlan,
-                l_pHtnTaskMake1Pile,
+                l_pHtnTaskMake3Pile,
                 l_pHtnDomain );
 
-  LearnMethodsFromExactSequence(0, 10, l_pStripsPlan,
-                l_pHtnTaskMake2Pile,
+  LearnMethodsFromExactSequence(6, 12, l_pStripsPlan,
+                l_pHtnTaskMake3Pile,
+                l_pHtnDomain );
+
+  LearnMethodsFromExactSequence(0, 12, l_pStripsPlan,
+                l_pHtnTaskMake3Pile,
                 l_pHtnDomain );
 
   std::cout << l_pHtnDomain->ToPddl() << "\n";
