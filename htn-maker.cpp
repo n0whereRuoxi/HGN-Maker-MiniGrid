@@ -164,6 +164,7 @@ int main( int argc, char * argv[] )
   HtnTaskList * l_pHtnTaskClear = 0;
   HtnTaskList * l_pHtnTaskMake1Pile = 0;
   HtnTaskList * l_pHtnTaskMake2Pile = 0;
+  HtnTaskList * l_pHtnTaskMake3Pile = 0;
 
   try
   {
@@ -212,9 +213,11 @@ int main( int argc, char * argv[] )
 
   try
   {
-    l_pHtnTaskClear = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_clear.pddl" ) );
-    l_pHtnTaskMake1Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_1pile.pddl" ) );
-    l_pHtnTaskMake2Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_2pile.pddl" ) );
+    l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks.pddl" ) );
+//    l_pHtnTaskClear = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_clear.pddl" ) );
+//    l_pHtnTaskMake1Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_1pile.pddl" ) );
+//    l_pHtnTaskMake2Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_2pile.pddl" ) );
+//    l_pHtnTaskMake3Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_3pile.pddl" ) );
 
   }
   catch( FileReadException & e )
@@ -240,17 +243,9 @@ int main( int argc, char * argv[] )
   if( g_iFlags & FLAG_ND_CHECKERS )
     MakeTrivialNdCheckers( l_pHtnDomain );
 
-  LearnMethodsFromExactSequence(0, 6, l_pStripsPlan,
-                l_pHtnTaskMake3Pile,
-                l_pHtnDomain );
-
-  LearnMethodsFromExactSequence(6, 12, l_pStripsPlan,
-                l_pHtnTaskMake3Pile,
-                l_pHtnDomain );
-
-  LearnMethodsFromExactSequence(0, 12, l_pStripsPlan,
-                l_pHtnTaskMake3Pile,
-                l_pHtnDomain );
+  LearnMethods( l_pStripsPlan,
+		l_pHtnTaskList,
+		l_pHtnDomain );
 
   std::cout << l_pHtnDomain->ToPddl() << "\n";
 
