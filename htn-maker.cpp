@@ -214,10 +214,10 @@ int main( int argc, char * argv[] )
   try
   {
     l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks.pddl" ) );
-//    l_pHtnTaskClear = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_clear.pddl" ) );
-//    l_pHtnTaskMake1Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_1pile.pddl" ) );
-//    l_pHtnTaskMake2Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_2pile.pddl" ) );
-//    l_pHtnTaskMake3Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_3pile.pddl" ) );
+    l_pHtnTaskClear = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_clear.pddl" ) );
+    l_pHtnTaskMake1Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_1pile.pddl" ) );
+    l_pHtnTaskMake2Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_2pile.pddl" ) );
+    l_pHtnTaskMake3Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_3pile.pddl" ) );
 
   }
   catch( FileReadException & e )
@@ -248,6 +248,7 @@ int main( int argc, char * argv[] )
 		l_pHtnDomain );
 
   std::cout << l_pHtnDomain->ToPddl() << "\n";
+  std::cout << "Number of methods: " << l_pHtnDomain->GetNumMethods() << "\n";
 
   delete l_pHtnDomain;  
   delete l_pHtnTaskList;
@@ -540,16 +541,12 @@ void LearnFromExactSequence( unsigned int p_iInitState,
     {
       if( p_pPlan->GetMethodAfterState( l_iCurMethod ) == l_pCurPartial->GetCurrentStateNum() && p_pPlan->GetMethodBeforeState( l_iCurMethod ) >= p_iInitState + ( g_iFlags & FLAG_FORCE_OPS_FIRST ? 1 : 0 ) )
       {
-              std::cout << p_iInitState << " " << p_iFinalState << " " << l_pCurPartial->GetCurrentStateNum() << " " << p_pPlan->GetNumMethods() << " " << l_iCurMethod << "\n";
-
 	      bool l_bUseful = false;
 	      FormulaConjP l_pMethodEffects( std::tr1::dynamic_pointer_cast< FormulaConj >( p_pPlan->GetCTaskDescr( l_iCurMethod )->GetCEffects()->AfterSubstitution( *p_pPlan->GetCMethodSub( l_iCurMethod ), 0 ) ) );
 	      if( !( g_iFlags & FLAG_REQUIRE_NEW ) )
 	      {
-		std::cout << "here 1 \n";
 	        if( l_pCurPartial->SuppliesPrec( l_pMethodEffects ) || l_pCurPartial->SuppliesEffect( l_pMethodEffects ) )
 	          l_bUseful = true;
-                std::cout << l_bUseful << "\n";
 	      }
 	      else
 	      {
@@ -597,14 +594,17 @@ void LearnFromExactSequence( unsigned int p_iInitState,
     }
   }
 
+
   // Should I make a method?
   if( l_bRecentHelped )
   {
+    std::cout << "l_bRecentHelped\n";
     FormulaConjP l_pLiftedPrecs( std::tr1::dynamic_pointer_cast< FormulaConj >( l_pCurPartial->GetCTaskDescr()->GetCPreconditions()->AfterSubstitution( *l_pCurPartial->GetCTaskSubs(), 0 ) ) );
     std::set< TermVariableP > l_vRelVars;
     std::vector< Substitution * > * l_pInstances = p_pPlan->GetCState( p_iInitState )->GetInstantiations( l_pLiftedPrecs, l_pCurPartial->GetCMasterSubs(), l_vRelVars );
     if( !l_pInstances->empty() && l_pCurPartial->RemainingAddListSatisfied( p_pPlan->GetCState( p_iInitState ) ) )
     {
+      std::cout << "Yes, create a method\n";
       // Yes, create a method
       HtnMethod * l_pNewMethod = l_pCurPartial->CreateMethod( g_iFlags & FLAG_SOUNDNESS_CHECK, g_iFlags & FLAG_PARTIAL_GENERALIZATION, g_iFlags & FLAG_QVALUES );
       bool l_bDelete = false;
@@ -613,7 +613,7 @@ void LearnFromExactSequence( unsigned int p_iInitState,
       //  method serves no purpose.
       if( l_pNewMethod->GetCPreconditions()->Implies( l_pLiftedTaskEffects ) )
 	      l_bDelete = true;
-      
+      	std::cout << "l_bDelete = true\n";
       if( g_iFlags & FLAG_ND_CHECKERS )
 	      l_pNewMethod->AddNdCheckers();
       if( g_iFlags & FLAG_VARIABLE_LINKAGE && !l_pNewMethod->SubtasksArePartiallyLinked() )
@@ -624,6 +624,7 @@ void LearnFromExactSequence( unsigned int p_iInitState,
       }
       else
       {
+std::cout << "else\n";
 	      if( p_pDomain->GetRequirements() & PDDL_REQ_METHOD_IDS )
 	      {
 	        snprintf( g_cMethodIdStr, 8, "%d", ++g_iMaxMethodId );
@@ -642,15 +643,19 @@ void LearnFromExactSequence( unsigned int p_iInitState,
 	      else if( !( g_iFlags & FLAG_NO_SUBSUMPTION ) )
 	        DoSubsumption( p_pDomain, l_pNewMethod );
 	      else
-        {
-          if (l_bDrop)
-          {
-            std::cout << "starting state: " + std::to_string(p_iInitState) << "\n";
-            std::cout << "ending state: " + std::to_string(p_iFinalState) << "\n";
-            std::cout << "dropped method: \n" + l_pNewMethod->ToPddl( p_pDomain->GetRequirements() ) + "\n";
-          }
-          else
-            p_pDomain->AddMethod( l_pNewMethod );
+              {
+                if (l_bDrop)
+                {
+		  std::cout <<  "l_bDrop\n";
+                  std::cout << "starting state: " + std::to_string(p_iInitState) << "\n";
+                  std::cout << "ending state: " + std::to_string(p_iFinalState) << "\n";
+                  std::cout << "dropped method: \n" + l_pNewMethod->ToPddl( p_pDomain->GetRequirements() ) + "\n";
+                }
+                else
+                {
+		  std::cout << " p_pDomain->AddMethod( l_pNewMethod )\n";
+                  p_pDomain->AddMethod( l_pNewMethod );
+                }
         }
       }
     }
