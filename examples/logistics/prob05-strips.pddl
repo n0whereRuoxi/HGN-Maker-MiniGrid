@@ -1,9 +1,6 @@
 ( define ( problem probname )
-
   ( :domain logistics )
-
   ( :requirements :strips :typing :equality )
-
   ( :objects
     c000 - city
     t000-000 - truck
@@ -13,7 +10,6 @@
     p001 - obj
     p002 - obj
   )
-
   ( :init
     ( in-city l000-000 c000 )
     ( in-city l000-001 c000 )
@@ -23,7 +19,6 @@
     ( obj-at p001 l000-001 )
     ( obj-at p002 l000-002 )
   )
-
   ( :goal
     ( and
       ( obj-at p001 l000-000 )

@@ -17,7 +17,7 @@
     ( in-city l000-001 c000 )
     ( obj-at p001 l000-001 )
     ( in-city l000-002 c000 )
-    ( obj-at p001 l000-002 )
+    ( obj-at p002 l000-002 )
   )
   ( :goal
     ( and
