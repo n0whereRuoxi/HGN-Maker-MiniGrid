@@ -165,7 +165,11 @@ int main( int argc, char * argv[] )
   HtnTaskList * l_pHtnTaskMake1Pile = 0;
   HtnTaskList * l_pHtnTaskMake2Pile = 0;
   HtnTaskList * l_pHtnTaskMake3Pile = 0;
-
+  HtnTaskList * l_pHtnTaskMake4Pile = 0;
+  HtnTaskList * l_pHtnTaskDeliver1 = 0;
+  HtnTaskList * l_pHtnTaskDeliver2 = 0;
+  HtnTaskList * l_pHtnTaskDeliver3 = 0;
+  HtnTaskList * l_pHtnTaskDeliver4 = 0;
   try
   {
     std::string fileContent = ReadFile( l_sStripsDomainFile );
@@ -213,12 +217,16 @@ int main( int argc, char * argv[] )
 
   try
   {
-    l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks.pddl" ) );
-    l_pHtnTaskClear = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_clear.pddl" ) );
-    l_pHtnTaskMake1Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_1pile.pddl" ) );
-    l_pHtnTaskMake2Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_2pile.pddl" ) );
-    l_pHtnTaskMake3Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_3pile.pddl" ) );
-
+    l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sTasksFile ) );
+//    l_pHtnTaskClear = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_clear.pddl" ) );
+//    l_pHtnTaskMake1Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_1pile.pddl" ) );
+//    l_pHtnTaskMake2Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_2pile.pddl" ) );
+//    l_pHtnTaskMake3Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_3pile.pddl" ) );
+//    l_pHtnTaskMake4Pile = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "tasks_make_4pile.pddl" ) );
+//    l_pHtnTaskDeliver1 = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "task_deliver1.pddl" ) );
+//    l_pHtnTaskDeliver2 = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "task_deliver2.pddl" ) );
+//    l_pHtnTaskDeliver3 = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "task_deliver3.pddl" ) );
+//    l_pHtnTaskDeliver4 = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( "task_deliver4.pddl" ) );
   }
   catch( FileReadException & e )
   {
@@ -242,6 +250,103 @@ int main( int argc, char * argv[] )
 
   if( g_iFlags & FLAG_ND_CHECKERS )
     MakeTrivialNdCheckers( l_pHtnDomain );
+/*
+  LearnMethodsFromExactSequence(0,2, l_pStripsPlan,
+              l_pHtnTaskMake1Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(2,4, l_pStripsPlan,
+              l_pHtnTaskMake2Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(0,4, l_pStripsPlan,
+              l_pHtnTaskMake2Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(4,6, l_pStripsPlan,
+              l_pHtnTaskMake3Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(2,6, l_pStripsPlan,
+              l_pHtnTaskMake3Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(0,6, l_pStripsPlan,
+              l_pHtnTaskMake3Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(6,8, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(4,8, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(2,8, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(0,8, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(8,10, l_pStripsPlan,
+              l_pHtnTaskMake1Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(10,12, l_pStripsPlan,
+              l_pHtnTaskMake2Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(8,12, l_pStripsPlan,
+              l_pHtnTaskMake2Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(12,14, l_pStripsPlan,
+              l_pHtnTaskMake3Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(10,14, l_pStripsPlan,
+              l_pHtnTaskMake3Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(8,14, l_pStripsPlan,
+              l_pHtnTaskMake3Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(14,16, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(12,16, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(10,16, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(8,16, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+  LearnMethodsFromExactSequence(0,16, l_pStripsPlan,
+              l_pHtnTaskMake4Pile,
+              l_pHtnDomain );
+*/
+/*
+  LearnMethodsFromExactSequence(0,4, l_pStripsPlan,
+              l_pHtnTaskDeliver1,
+              l_pHtnDomain );
+
+  LearnMethodsFromExactSequence(4,8, l_pStripsPlan,
+              l_pHtnTaskDeliver1,
+              l_pHtnDomain );
+
+  LearnMethodsFromExactSequence(0,8, l_pStripsPlan,
+              l_pHtnTaskDeliver2,
+              l_pHtnDomain );
+*/
+/*
+  LearnMethodsFromExactSequence(8,12, l_pStripsPlan,
+              l_pHtnTaskDeliver1,
+              l_pHtnDomain );
+
+  LearnMethodsFromExactSequence(0,12, l_pStripsPlan,
+              l_pHtnTaskDeliver3,
+              l_pHtnDomain );
+
+
+  LearnMethodsFromExactSequence(12,16, l_pStripsPlan,
+              l_pHtnTaskDeliver1,
+              l_pHtnDomain );
+
+  LearnMethodsFromExactSequence(0,16, l_pStripsPlan,
+              l_pHtnTaskDeliver4,
+              l_pHtnDomain );
+
+*/
 
   LearnMethods( l_pStripsPlan,
 		l_pHtnTaskList,
