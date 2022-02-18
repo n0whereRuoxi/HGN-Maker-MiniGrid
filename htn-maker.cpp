@@ -97,7 +97,20 @@ unsigned long g_iFlags;
 unsigned int g_iMaxMethodId;
 char g_cMethodIdStr[8];
 
-void DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
+
+int main( int argc, char * argv[] )
+{
+  std::vector<int> l_vExpOriginal;
+  for (int i = 2; i < 7; i++) {
+    for (int j = 0; j < 3; j++) {
+      l_vExpOriginal.push_back(DoExperiment(i,j));
+    }
+  }
+  std::cout << l_vExpOriginal;
+}
+
+
+int DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
 {
 
   std::string l_sStripsDomainFile;
@@ -230,11 +243,7 @@ void DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
   delete l_pHtnTaskList;
   delete l_pStripsPlan;
 
-}
-
-int main( int argc, char * argv[] )
-{
-  DoExperiment(2,0);
+  return l_pHtnDomain->GetNumMethods()
 }
 
 std::vector< PartialHtnMethod * > * GetPartials( const HtnDomain * p_pDomain,
