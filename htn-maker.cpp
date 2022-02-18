@@ -574,13 +574,11 @@ void LearnFromExactSequence( unsigned int p_iInitState,
   // Should I make a method?
   if( l_bRecentHelped )
   {
-    std::cout << "l_bRecentHelped\n";
     FormulaConjP l_pLiftedPrecs( std::tr1::dynamic_pointer_cast< FormulaConj >( l_pCurPartial->GetCTaskDescr()->GetCPreconditions()->AfterSubstitution( *l_pCurPartial->GetCTaskSubs(), 0 ) ) );
     std::set< TermVariableP > l_vRelVars;
     std::vector< Substitution * > * l_pInstances = p_pPlan->GetCState( p_iInitState )->GetInstantiations( l_pLiftedPrecs, l_pCurPartial->GetCMasterSubs(), l_vRelVars );
     if( !l_pInstances->empty() && l_pCurPartial->RemainingAddListSatisfied( p_pPlan->GetCState( p_iInitState ) ) )
     {
-      std::cout << "Yes, create a method\n";
       // Yes, create a method
       HtnMethod * l_pNewMethod = l_pCurPartial->CreateMethod( g_iFlags & FLAG_SOUNDNESS_CHECK, g_iFlags & FLAG_PARTIAL_GENERALIZATION, g_iFlags & FLAG_QVALUES );
       bool l_bDelete = false;
@@ -589,7 +587,6 @@ void LearnFromExactSequence( unsigned int p_iInitState,
       //  method serves no purpose.
       if( l_pNewMethod->GetCPreconditions()->Implies( l_pLiftedTaskEffects ) )
 	      l_bDelete = true;
-      	std::cout << "l_bDelete = true\n";
       if( g_iFlags & FLAG_ND_CHECKERS )
 	      l_pNewMethod->AddNdCheckers();
       if( g_iFlags & FLAG_VARIABLE_LINKAGE && !l_pNewMethod->SubtasksArePartiallyLinked() )
@@ -600,7 +597,6 @@ void LearnFromExactSequence( unsigned int p_iInitState,
       }
       else
       {
-std::cout << "else\n";
 	      if( p_pDomain->GetRequirements() & PDDL_REQ_METHOD_IDS )
 	      {
 	        snprintf( g_cMethodIdStr, 8, "%d", ++g_iMaxMethodId );
@@ -619,20 +615,7 @@ std::cout << "else\n";
 	      else if( !( g_iFlags & FLAG_NO_SUBSUMPTION ) )
 	        DoSubsumption( p_pDomain, l_pNewMethod );
 	      else
-              {
-                if (l_bDrop)
-                {
-		  std::cout <<  "l_bDrop\n";
-                  std::cout << "starting state: " + std::to_string(p_iInitState) << "\n";
-                  std::cout << "ending state: " + std::to_string(p_iFinalState) << "\n";
-                  std::cout << "dropped method: \n" + l_pNewMethod->ToPddl( p_pDomain->GetRequirements() ) + "\n";
-                }
-                else
-                {
-		  std::cout << " p_pDomain->AddMethod( l_pNewMethod )\n";
-                  p_pDomain->AddMethod( l_pNewMethod );
-                }
-        }
+          p_pDomain->AddMethod( l_pNewMethod );
       }
     }
     for( unsigned int l_iInst = 0; l_iInst < l_pInstances->size(); l_iInst++ )
