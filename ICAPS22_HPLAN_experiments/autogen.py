@@ -6,19 +6,20 @@ def generateProblemsAndSolutions(num,times):
     for i in range(num):
         writeTask(i)
         for j in range(times):
-            locationsIdx = np.random.choice(range(1, 1000), random.randint(round((i+2)/2), (i+2)*2))
-            packagesIdx = np.random.choice(locationsIdx, i+2)
-            print(locationsIdx, packagesIdx)
-            writeProblem(j, locationsIdx, packagesIdx)
-            writeSolution(j, locationsIdx, packagesIdx)
+            locationsIdx = random.sample(range(1, 1000), random.randint(round((i+2)/2), (i+2)*2))
+            packagesIdx = random.sample(range(1, 1000), i+2)
+            packagesLoc = np.random.choice(locationsIdx, i+2)
+            print(locationsIdx, packagesIdx, packagesLoc)
+            writeProblem(j, locationsIdx, packagesIdx, packagesLoc)
+            writeSolution(j, packagesIdx, packagesLoc)
 
-def writeProblem(j, locationsIdx, packagesIdx):
+def writeProblem(j, locationsIdx, packagesIdx, packagesLoc):
     fname = 'logistics/problem{}-{}-strips.pddl'.format(len(packagesIdx), j)
     file = open(fname,"w") 
     writeHeader(file)
     writeObjects(file, locationsIdx, packagesIdx)
-    writeInit(file, locationsIdx, packagesIdx)
-    writeGoal(file, locationsIdx, packagesIdx)
+    writeInit(file, locationsIdx, packagesIdx, packagesLoc)
+    writeGoal(file, packagesIdx)
     file.write(")\n")
 
 def writeHeader(file):
@@ -37,18 +38,18 @@ def writeObjects(file, locationsIdx, packagesIdx):
         file.write("    p{} - obj\n".format(idx))
     file.write("  )\n")
 
-def writeInit(file, locationsIdx, packagesIdx):
+def writeInit(file, locationsIdx, packagesIdx, packagesLoc):
     file.write("  ( :init\n")
     file.write("    ( in-city l000-000 c000 )\n")
     file.write("    ( airport l000-000 )\n")
     file.write("    ( truck-at t000-000 l000-000 )\n")
     for idx in locationsIdx:
         file.write("    ( in-city l000-{} c000 )\n".format(idx))
-    for idx in packagesIdx:
-        file.write("    ( obj-at p{} l000-{} )\n".format(idx, idx))
+    for i in range(len(packagesIdx)):
+        file.write("    ( obj-at p{} l000-{} )\n".format(packagesIdx[i], packagesLoc[i]))
     file.write("  )\n")
 
-def writeGoal(file, locationsIdx, packagesIdx):
+def writeGoal(file, packagesIdx):
     file.write("  ( :goal\n")
     file.write("    ( and\n")
     for idx in packagesIdx:
@@ -64,15 +65,15 @@ def writeGoal(file, locationsIdx, packagesIdx):
 #     file.write("    )\n")
 #     file.write("  )\n")
 
-def writeSolution(j, locationsIdx, packagesIdx):
+def writeSolution(j, packagesIdx, packagesLoc):
     fname = 'logistics/problem{}-{}-solution.plan'.format(len(packagesIdx), j)
     file = open(fname,"w") 
     file.write("( defplan Logistics Prob{}-{}\n".format(len(packagesIdx), j))
-    for idx in packagesIdx:
-        file.write("  ( !Drive-Truck t000-000 l000-000 l000-{} c000 )\n".format(idx))
-        file.write("  ( !Load-Truck p{} t000-000 l000-{} )\n".format(idx, idx))
-        file.write("  ( !Drive-Truck t000-000 l000-{} l000-000 c000 )\n".format(idx))
-        file.write("  ( !Unload-Truck p{} t000-000 l000-000 )\n".format(idx))
+    for i in range(len(packagesIdx)):
+        file.write("  ( !Drive-Truck t000-000 l000-000 l000-{} c000 )\n".format(packagesLoc[i]))
+        file.write("  ( !Load-Truck p{} t000-000 l000-{} )\n".format(packagesIdx[i], packagesLoc[i]))
+        file.write("  ( !Drive-Truck t000-000 l000-{} l000-000 c000 )\n".format(packagesLoc[i]))
+        file.write("  ( !Unload-Truck p{} t000-000 l000-000 )\n".format(packagesIdx[i]))
     file.write(")\n")
 
 
