@@ -85,4 +85,5 @@
       ( obj-at ?obj4 ?dst )
       ( obj-at ?obj5 ?dst )
      )
-   )
+  )
+)

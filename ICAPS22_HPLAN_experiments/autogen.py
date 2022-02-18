@@ -84,7 +84,8 @@ def writeTask(n):
     file.write("  ( tasks logistics-tasks )\n")
     for i in range(n+2):
         writeTaskDeliverNPkg(file, i+1)
-    file.write("   )\n")
+    file.write("  )\n")
+    file.write(")\n")
 
 def writeTaskDeliverNPkg(file, n):
     file.write("   ( :task Deliver-{}Pkg\n".format(n))

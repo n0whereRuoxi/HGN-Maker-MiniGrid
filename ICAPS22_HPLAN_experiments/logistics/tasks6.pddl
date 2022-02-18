@@ -108,4 +108,5 @@
       ( obj-at ?obj5 ?dst )
       ( obj-at ?obj6 ?dst )
      )
-   )
+  )
+)

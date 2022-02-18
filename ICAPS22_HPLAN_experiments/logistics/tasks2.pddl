@@ -28,4 +28,5 @@
       ( obj-at ?obj1 ?dst )
       ( obj-at ?obj2 ?dst )
      )
-   )
+  )
+)
