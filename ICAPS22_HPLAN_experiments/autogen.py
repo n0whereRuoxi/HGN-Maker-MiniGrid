@@ -84,25 +84,25 @@ def writeTask(n):
     file.write("  ( tasks logistics-tasks )\n")
     for i in range(n+2):
         writeTaskDeliverNPkg(file, i+1)
-    file.write("  )\n")
     file.write(")\n")
 
 def writeTaskDeliverNPkg(file, n):
-    file.write("   ( :task Deliver-{}Pkg\n".format(n))
-    file.write("     :parameters\n")
-    file.write("     (\n")
+    file.write("  ( :task Deliver-{}Pkg\n".format(n))
+    file.write("    :parameters\n")
+    file.write("    (\n")
     for i in range(n):
-        file.write("       ?obj{} - obj\n".format(i+1))
-    file.write("       ?dst - location\n")
-    file.write("     )\n")
-    file.write("     :precondition\n")
-    file.write("     (\n")
-    file.write("     )\n")
-    file.write("     :effect\n")
-    file.write("     ( and\n")
+        file.write("      ?obj{} - obj\n".format(i+1))
+    file.write("      ?dst - location\n")
+    file.write("    )\n")
+    file.write("    :precondition\n")
+    file.write("    (\n")
+    file.write("    )\n")
+    file.write("    :effect\n")
+    file.write("    ( and\n")
     for i in range(n):
         file.write("      ( obj-at ?obj{} ?dst )\n".format(i+1))
-    file.write("     )\n")
+    file.write("    )\n")
+    file.write("  )\n")
 
 if __name__=="__main__":
     generateProblemsAndSolutions(5,3)
