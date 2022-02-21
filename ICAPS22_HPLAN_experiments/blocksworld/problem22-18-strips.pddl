@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b232 - block
-    b696 - block
-    b980 - block
-    b272 - block
-    b993 - block
-    b757 - block
-    b682 - block
-    b140 - block
-    b608 - block
-    b548 - block
-    b887 - block
-    b931 - block
-    b189 - block
-    b144 - block
-    b28 - block
-    b862 - block
-    b292 - block
-    b716 - block
-    b752 - block
-    b303 - block
-    b259 - block
-    b792 - block
-    b526 - block
+    b138 - block
+    b975 - block
+    b294 - block
+    b127 - block
+    b403 - block
+    b512 - block
+    b981 - block
+    b550 - block
+    b817 - block
+    b558 - block
+    b920 - block
+    b977 - block
+    b588 - block
+    b264 - block
+    b864 - block
+    b607 - block
+    b955 - block
+    b255 - block
+    b555 - block
+    b245 - block
+    b683 - block
+    b158 - block
+    b778 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b232 )
-    ( on b696 b232 )
-    ( on b980 b696 )
-    ( on b272 b980 )
-    ( on b993 b272 )
-    ( on b757 b993 )
-    ( on b682 b757 )
-    ( on b140 b682 )
-    ( on b608 b140 )
-    ( on b548 b608 )
-    ( on b887 b548 )
-    ( on b931 b887 )
-    ( on b189 b931 )
-    ( on b144 b189 )
-    ( on b28 b144 )
-    ( on b862 b28 )
-    ( on b292 b862 )
-    ( on b716 b292 )
-    ( on b752 b716 )
-    ( on b303 b752 )
-    ( on b259 b303 )
-    ( on b792 b259 )
-    ( on b526 b792 )
-    ( clear b526 )
+    ( on-table b138 )
+    ( on b975 b138 )
+    ( on b294 b975 )
+    ( on b127 b294 )
+    ( on b403 b127 )
+    ( on b512 b403 )
+    ( on b981 b512 )
+    ( on b550 b981 )
+    ( on b817 b550 )
+    ( on b558 b817 )
+    ( on b920 b558 )
+    ( on b977 b920 )
+    ( on b588 b977 )
+    ( on b264 b588 )
+    ( on b864 b264 )
+    ( on b607 b864 )
+    ( on b955 b607 )
+    ( on b255 b955 )
+    ( on b555 b255 )
+    ( on b245 b555 )
+    ( on b683 b245 )
+    ( on b158 b683 )
+    ( on b778 b158 )
+    ( clear b778 )
   )
   ( :goal
     ( and
-      ( clear b232 )
+      ( clear b138 )
     )
   )
 )

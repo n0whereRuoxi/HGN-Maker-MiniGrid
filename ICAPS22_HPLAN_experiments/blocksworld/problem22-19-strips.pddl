@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b672 - block
-    b424 - block
-    b619 - block
-    b776 - block
-    b325 - block
-    b255 - block
-    b822 - block
-    b806 - block
-    b818 - block
-    b575 - block
-    b367 - block
-    b251 - block
-    b419 - block
-    b812 - block
-    b113 - block
-    b726 - block
-    b190 - block
-    b357 - block
-    b431 - block
-    b395 - block
+    b287 - block
+    b45 - block
+    b166 - block
+    b727 - block
+    b562 - block
+    b6 - block
     b150 - block
-    b439 - block
-    b41 - block
+    b582 - block
+    b755 - block
+    b676 - block
+    b408 - block
+    b359 - block
+    b849 - block
+    b392 - block
+    b136 - block
+    b177 - block
+    b943 - block
+    b78 - block
+    b455 - block
+    b824 - block
+    b257 - block
+    b149 - block
+    b80 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b672 )
-    ( on b424 b672 )
-    ( on b619 b424 )
-    ( on b776 b619 )
-    ( on b325 b776 )
-    ( on b255 b325 )
-    ( on b822 b255 )
-    ( on b806 b822 )
-    ( on b818 b806 )
-    ( on b575 b818 )
-    ( on b367 b575 )
-    ( on b251 b367 )
-    ( on b419 b251 )
-    ( on b812 b419 )
-    ( on b113 b812 )
-    ( on b726 b113 )
-    ( on b190 b726 )
-    ( on b357 b190 )
-    ( on b431 b357 )
-    ( on b395 b431 )
-    ( on b150 b395 )
-    ( on b439 b150 )
-    ( on b41 b439 )
-    ( clear b41 )
+    ( on-table b287 )
+    ( on b45 b287 )
+    ( on b166 b45 )
+    ( on b727 b166 )
+    ( on b562 b727 )
+    ( on b6 b562 )
+    ( on b150 b6 )
+    ( on b582 b150 )
+    ( on b755 b582 )
+    ( on b676 b755 )
+    ( on b408 b676 )
+    ( on b359 b408 )
+    ( on b849 b359 )
+    ( on b392 b849 )
+    ( on b136 b392 )
+    ( on b177 b136 )
+    ( on b943 b177 )
+    ( on b78 b943 )
+    ( on b455 b78 )
+    ( on b824 b455 )
+    ( on b257 b824 )
+    ( on b149 b257 )
+    ( on b80 b149 )
+    ( clear b80 )
   )
   ( :goal
     ( and
-      ( clear b672 )
+      ( clear b287 )
     )
   )
 )

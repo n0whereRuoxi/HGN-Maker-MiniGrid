@@ -2,42 +2,42 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b629 - block
-    b810 - block
-    b944 - block
-    b364 - block
-    b317 - block
-    b852 - block
-    b848 - block
-    b860 - block
-    b990 - block
-    b831 - block
-    b678 - block
-    b643 - block
-    b326 - block
-    b85 - block
+    b999 - block
+    b531 - block
+    b442 - block
+    b826 - block
+    b252 - block
+    b367 - block
+    b649 - block
+    b206 - block
+    b3 - block
+    b658 - block
+    b765 - block
+    b861 - block
+    b914 - block
+    b913 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b629 )
-    ( on b810 b629 )
-    ( on b944 b810 )
-    ( on b364 b944 )
-    ( on b317 b364 )
-    ( on b852 b317 )
-    ( on b848 b852 )
-    ( on b860 b848 )
-    ( on b990 b860 )
-    ( on b831 b990 )
-    ( on b678 b831 )
-    ( on b643 b678 )
-    ( on b326 b643 )
-    ( on b85 b326 )
-    ( clear b85 )
+    ( on-table b999 )
+    ( on b531 b999 )
+    ( on b442 b531 )
+    ( on b826 b442 )
+    ( on b252 b826 )
+    ( on b367 b252 )
+    ( on b649 b367 )
+    ( on b206 b649 )
+    ( on b3 b206 )
+    ( on b658 b3 )
+    ( on b765 b658 )
+    ( on b861 b765 )
+    ( on b914 b861 )
+    ( on b913 b914 )
+    ( clear b913 )
   )
   ( :goal
     ( and
-      ( clear b629 )
+      ( clear b999 )
     )
   )
 )

@@ -113,4 +113,4 @@ def writeTaskMakeNPile(file, n):
     file.write("  )\n")
 
 if __name__=="__main__":
-    generateProblemsAndSolutions(30,20)
+    generateProblemsAndSolutions(50,20)

@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b851 - block
-    b390 - block
-    b207 - block
-    b682 - block
-    b312 - block
+    b164 - block
+    b475 - block
+    b267 - block
+    b534 - block
+    b93 - block
+    b521 - block
+    b930 - block
+    b268 - block
+    b117 - block
+    b456 - block
+    b823 - block
+    b889 - block
+    b251 - block
+    b728 - block
+    b80 - block
+    b567 - block
+    b860 - block
     b64 - block
-    b25 - block
-    b479 - block
-    b538 - block
-    b314 - block
-    b558 - block
-    b197 - block
-    b258 - block
-    b591 - block
-    b555 - block
-    b119 - block
-    b631 - block
-    b642 - block
-    b470 - block
+    b427 - block
+    b855 - block
+    b377 - block
+    b851 - block
     b632 - block
-    b112 - block
-    b358 - block
-    b704 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b851 )
-    ( on b390 b851 )
-    ( on b207 b390 )
-    ( on b682 b207 )
-    ( on b312 b682 )
-    ( on b64 b312 )
-    ( on b25 b64 )
-    ( on b479 b25 )
-    ( on b538 b479 )
-    ( on b314 b538 )
-    ( on b558 b314 )
-    ( on b197 b558 )
-    ( on b258 b197 )
-    ( on b591 b258 )
-    ( on b555 b591 )
-    ( on b119 b555 )
-    ( on b631 b119 )
-    ( on b642 b631 )
-    ( on b470 b642 )
-    ( on b632 b470 )
-    ( on b112 b632 )
-    ( on b358 b112 )
-    ( on b704 b358 )
-    ( clear b704 )
+    ( on-table b164 )
+    ( on b475 b164 )
+    ( on b267 b475 )
+    ( on b534 b267 )
+    ( on b93 b534 )
+    ( on b521 b93 )
+    ( on b930 b521 )
+    ( on b268 b930 )
+    ( on b117 b268 )
+    ( on b456 b117 )
+    ( on b823 b456 )
+    ( on b889 b823 )
+    ( on b251 b889 )
+    ( on b728 b251 )
+    ( on b80 b728 )
+    ( on b567 b80 )
+    ( on b860 b567 )
+    ( on b64 b860 )
+    ( on b427 b64 )
+    ( on b855 b427 )
+    ( on b377 b855 )
+    ( on b851 b377 )
+    ( on b632 b851 )
+    ( clear b632 )
   )
   ( :goal
     ( and
-      ( clear b851 )
+      ( clear b164 )
     )
   )
 )

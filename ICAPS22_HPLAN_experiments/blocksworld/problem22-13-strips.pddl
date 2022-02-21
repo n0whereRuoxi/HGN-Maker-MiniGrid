@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b693 - block
-    b287 - block
-    b91 - block
-    b294 - block
-    b184 - block
-    b284 - block
-    b840 - block
-    b518 - block
-    b213 - block
-    b414 - block
-    b35 - block
-    b103 - block
-    b557 - block
-    b560 - block
-    b413 - block
-    b344 - block
-    b36 - block
-    b54 - block
-    b309 - block
-    b395 - block
-    b22 - block
-    b975 - block
-    b830 - block
+    b989 - block
+    b481 - block
+    b991 - block
+    b330 - block
+    b236 - block
+    b832 - block
+    b892 - block
+    b12 - block
+    b769 - block
+    b995 - block
+    b643 - block
+    b741 - block
+    b361 - block
+    b894 - block
+    b944 - block
+    b463 - block
+    b239 - block
+    b529 - block
+    b80 - block
+    b2 - block
+    b456 - block
+    b796 - block
+    b257 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b693 )
-    ( on b287 b693 )
-    ( on b91 b287 )
-    ( on b294 b91 )
-    ( on b184 b294 )
-    ( on b284 b184 )
-    ( on b840 b284 )
-    ( on b518 b840 )
-    ( on b213 b518 )
-    ( on b414 b213 )
-    ( on b35 b414 )
-    ( on b103 b35 )
-    ( on b557 b103 )
-    ( on b560 b557 )
-    ( on b413 b560 )
-    ( on b344 b413 )
-    ( on b36 b344 )
-    ( on b54 b36 )
-    ( on b309 b54 )
-    ( on b395 b309 )
-    ( on b22 b395 )
-    ( on b975 b22 )
-    ( on b830 b975 )
-    ( clear b830 )
+    ( on-table b989 )
+    ( on b481 b989 )
+    ( on b991 b481 )
+    ( on b330 b991 )
+    ( on b236 b330 )
+    ( on b832 b236 )
+    ( on b892 b832 )
+    ( on b12 b892 )
+    ( on b769 b12 )
+    ( on b995 b769 )
+    ( on b643 b995 )
+    ( on b741 b643 )
+    ( on b361 b741 )
+    ( on b894 b361 )
+    ( on b944 b894 )
+    ( on b463 b944 )
+    ( on b239 b463 )
+    ( on b529 b239 )
+    ( on b80 b529 )
+    ( on b2 b80 )
+    ( on b456 b2 )
+    ( on b796 b456 )
+    ( on b257 b796 )
+    ( clear b257 )
   )
   ( :goal
     ( and
-      ( clear b693 )
+      ( clear b989 )
     )
   )
 )

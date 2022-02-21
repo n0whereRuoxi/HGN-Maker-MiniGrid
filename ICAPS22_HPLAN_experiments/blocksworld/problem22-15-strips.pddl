@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b304 - block
-    b896 - block
-    b611 - block
-    b392 - block
-    b370 - block
-    b291 - block
-    b851 - block
-    b62 - block
-    b422 - block
+    b824 - block
+    b580 - block
+    b531 - block
+    b481 - block
+    b753 - block
+    b538 - block
     b535 - block
-    b695 - block
-    b162 - block
-    b880 - block
-    b946 - block
-    b731 - block
-    b99 - block
-    b972 - block
-    b314 - block
-    b969 - block
-    b329 - block
-    b255 - block
-    b829 - block
-    b636 - block
+    b172 - block
+    b280 - block
+    b219 - block
+    b839 - block
+    b526 - block
+    b227 - block
+    b471 - block
+    b961 - block
+    b802 - block
+    b394 - block
+    b474 - block
+    b703 - block
+    b934 - block
+    b450 - block
+    b736 - block
+    b346 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b304 )
-    ( on b896 b304 )
-    ( on b611 b896 )
-    ( on b392 b611 )
-    ( on b370 b392 )
-    ( on b291 b370 )
-    ( on b851 b291 )
-    ( on b62 b851 )
-    ( on b422 b62 )
-    ( on b535 b422 )
-    ( on b695 b535 )
-    ( on b162 b695 )
-    ( on b880 b162 )
-    ( on b946 b880 )
-    ( on b731 b946 )
-    ( on b99 b731 )
-    ( on b972 b99 )
-    ( on b314 b972 )
-    ( on b969 b314 )
-    ( on b329 b969 )
-    ( on b255 b329 )
-    ( on b829 b255 )
-    ( on b636 b829 )
-    ( clear b636 )
+    ( on-table b824 )
+    ( on b580 b824 )
+    ( on b531 b580 )
+    ( on b481 b531 )
+    ( on b753 b481 )
+    ( on b538 b753 )
+    ( on b535 b538 )
+    ( on b172 b535 )
+    ( on b280 b172 )
+    ( on b219 b280 )
+    ( on b839 b219 )
+    ( on b526 b839 )
+    ( on b227 b526 )
+    ( on b471 b227 )
+    ( on b961 b471 )
+    ( on b802 b961 )
+    ( on b394 b802 )
+    ( on b474 b394 )
+    ( on b703 b474 )
+    ( on b934 b703 )
+    ( on b450 b934 )
+    ( on b736 b450 )
+    ( on b346 b736 )
+    ( clear b346 )
   )
   ( :goal
     ( and
-      ( clear b304 )
+      ( clear b824 )
     )
   )
 )

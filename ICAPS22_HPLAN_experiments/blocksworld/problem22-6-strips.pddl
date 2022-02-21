@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b269 - block
-    b865 - block
-    b806 - block
-    b868 - block
-    b870 - block
-    b60 - block
-    b177 - block
-    b458 - block
-    b985 - block
-    b469 - block
-    b327 - block
-    b840 - block
-    b506 - block
-    b884 - block
-    b324 - block
-    b381 - block
-    b994 - block
-    b810 - block
-    b303 - block
-    b62 - block
-    b78 - block
-    b514 - block
-    b536 - block
+    b326 - block
+    b214 - block
+    b446 - block
+    b640 - block
+    b378 - block
+    b751 - block
+    b939 - block
+    b242 - block
+    b901 - block
+    b406 - block
+    b861 - block
+    b924 - block
+    b405 - block
+    b674 - block
+    b593 - block
+    b429 - block
+    b322 - block
+    b831 - block
+    b346 - block
+    b145 - block
+    b981 - block
+    b435 - block
+    b236 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b269 )
-    ( on b865 b269 )
-    ( on b806 b865 )
-    ( on b868 b806 )
-    ( on b870 b868 )
-    ( on b60 b870 )
-    ( on b177 b60 )
-    ( on b458 b177 )
-    ( on b985 b458 )
-    ( on b469 b985 )
-    ( on b327 b469 )
-    ( on b840 b327 )
-    ( on b506 b840 )
-    ( on b884 b506 )
-    ( on b324 b884 )
-    ( on b381 b324 )
-    ( on b994 b381 )
-    ( on b810 b994 )
-    ( on b303 b810 )
-    ( on b62 b303 )
-    ( on b78 b62 )
-    ( on b514 b78 )
-    ( on b536 b514 )
-    ( clear b536 )
+    ( on-table b326 )
+    ( on b214 b326 )
+    ( on b446 b214 )
+    ( on b640 b446 )
+    ( on b378 b640 )
+    ( on b751 b378 )
+    ( on b939 b751 )
+    ( on b242 b939 )
+    ( on b901 b242 )
+    ( on b406 b901 )
+    ( on b861 b406 )
+    ( on b924 b861 )
+    ( on b405 b924 )
+    ( on b674 b405 )
+    ( on b593 b674 )
+    ( on b429 b593 )
+    ( on b322 b429 )
+    ( on b831 b322 )
+    ( on b346 b831 )
+    ( on b145 b346 )
+    ( on b981 b145 )
+    ( on b435 b981 )
+    ( on b236 b435 )
+    ( clear b236 )
   )
   ( :goal
     ( and
-      ( clear b269 )
+      ( clear b326 )
     )
   )
 )

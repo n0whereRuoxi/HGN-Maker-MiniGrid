@@ -2,20 +2,20 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b126 - block
-    b381 - block
-    b152 - block
+    b189 - block
+    b245 - block
+    b654 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b126 )
-    ( on b381 b126 )
-    ( on b152 b381 )
-    ( clear b152 )
+    ( on-table b189 )
+    ( on b245 b189 )
+    ( on b654 b245 )
+    ( clear b654 )
   )
   ( :goal
     ( and
-      ( clear b126 )
+      ( clear b189 )
     )
   )
 )
