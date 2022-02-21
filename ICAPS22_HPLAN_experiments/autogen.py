@@ -3,8 +3,10 @@ import math
 import numpy as np
 
 def generateProblemsAndSolutions(num,times):
+    writeOneTask(1)
     for i in range(num):
-        writeTask(i)
+        writeOneTask(i+2)
+        writeTasks(i)
         for j in range(times):
             locationsIdx = random.sample(range(1, 1000), random.randint(round((i+2)/2), (i+2)*2))
             packagesIdx = random.sample(range(1, 1000), i+2)
@@ -76,8 +78,15 @@ def writeSolution(j, packagesIdx, packagesLoc):
         file.write("  ( !Unload-Truck p{} t000-000 l000-000 )\n".format(packagesIdx[i]))
     file.write(")\n")
 
+def writeOneTask(num_pkg):
+    fname = 'logistics/task_deliver{}.pddl'.format(num_pkg)
+    file = open(fname,"w") 
+    file.write("( define\n")
+    file.write("  ( tasks logistics-tasks )\n")
+    writeTaskDeliverNPkg(file, num_pkg)
+    file.write(")\n")
 
-def writeTask(n):
+def writeTasks(n):
     fname = 'logistics/tasks{}.pddl'.format(n+2)
     file = open(fname,"w") 
     file.write("( define\n")
@@ -105,5 +114,5 @@ def writeTaskDeliverNPkg(file, n):
     file.write("  )\n")
 
 if __name__=="__main__":
-    generateProblemsAndSolutions(5,3)
+    generateProblemsAndSolutions(5,20)
 

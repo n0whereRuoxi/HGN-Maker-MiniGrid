@@ -137,11 +137,11 @@ htn_maker-htn-maker.o: htn-maker.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/8/bits/atomic_lockfree_defines.h \
  /usr/include/c++/8/backward/auto_ptr.h \
  /usr/include/c++/8/tr1/type_traits /usr/include/c++/8/tr1/shared_ptr.h \
- include/tclap/CmdLine.h include/tclap/SwitchArg.h include/tclap/Arg.h \
- config.h /usr/include/c++/8/list /usr/include/c++/8/bits/stl_list.h \
+ /usr/include/c++/8/ctime include/tclap/CmdLine.h \
+ include/tclap/SwitchArg.h include/tclap/Arg.h config.h \
+ /usr/include/c++/8/list /usr/include/c++/8/bits/stl_list.h \
  /usr/include/c++/8/bits/list.tcc /usr/include/c++/8/iomanip \
  /usr/include/c++/8/locale /usr/include/c++/8/bits/locale_facets_nonio.h \
- /usr/include/c++/8/ctime \
  /usr/include/c++/8/x86_64-redhat-linux/bits/time_members.h \
  /usr/include/c++/8/x86_64-redhat-linux/bits/messages_members.h \
  /usr/include/libintl.h /usr/include/c++/8/bits/codecvt.h \
@@ -162,8 +162,12 @@ htn_maker-htn-maker.o: htn-maker.cpp /usr/include/stdc-predef.h \
  include/tclap/CmdLineOutput.h include/tclap/VersionVisitor.h \
  include/tclap/IgnoreRestVisitor.h include/tclap/StdOutput.h \
  include/tclap/ValuesConstraint.h /usr/include/c++/8/stdlib.h \
- exception.hpp funcs.hpp term.hpp term_string.hpp term_constant.hpp \
- term_variable.hpp type_table.hpp /usr/include/c++/8/tr1/unordered_map \
+ /usr/include/c++/8/fstream \
+ /usr/include/c++/8/x86_64-redhat-linux/bits/basic_file.h \
+ /usr/include/c++/8/x86_64-redhat-linux/bits/c++io.h \
+ /usr/include/c++/8/bits/fstream.tcc exception.hpp funcs.hpp term.hpp \
+ term_string.hpp term_constant.hpp term_variable.hpp type_table.hpp \
+ /usr/include/c++/8/tr1/unordered_map \
  /usr/include/c++/8/tr1/functional_hash.h \
  /usr/include/c++/8/tr1/hashtable.h \
  /usr/include/c++/8/tr1/hashtable_policy.h \
@@ -583,6 +587,8 @@ htn_maker-htn-maker.o: htn-maker.cpp /usr/include/stdc-predef.h \
 
 /usr/include/c++/8/tr1/shared_ptr.h:
 
+/usr/include/c++/8/ctime:
+
 include/tclap/CmdLine.h:
 
 include/tclap/SwitchArg.h:
@@ -602,8 +608,6 @@ config.h:
 /usr/include/c++/8/locale:
 
 /usr/include/c++/8/bits/locale_facets_nonio.h:
-
-/usr/include/c++/8/ctime:
 
 /usr/include/c++/8/x86_64-redhat-linux/bits/time_members.h:
 
@@ -670,6 +674,14 @@ include/tclap/StdOutput.h:
 include/tclap/ValuesConstraint.h:
 
 /usr/include/c++/8/stdlib.h:
+
+/usr/include/c++/8/fstream:
+
+/usr/include/c++/8/x86_64-redhat-linux/bits/basic_file.h:
+
+/usr/include/c++/8/x86_64-redhat-linux/bits/c++io.h:
+
+/usr/include/c++/8/bits/fstream.tcc:
 
 exception.hpp:
 

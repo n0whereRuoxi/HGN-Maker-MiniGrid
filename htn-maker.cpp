@@ -5,9 +5,9 @@
 #include <cassert>
 #include <set>
 #include <tr1/memory>
-
+#include <ctime>
 #include <tclap/CmdLine.h>
-
+#include <fstream>
 #include "exception.hpp"
 #include "funcs.hpp"
 #include "term.hpp"
@@ -45,6 +45,7 @@
 #define FLAG_SOUNDNESS_CHECK            0x00000100
 #define FLAG_ND_CHECKERS                0x00000200
 #define FLAG_QVALUES                    0x00000400
+#define FLAG_CURRICULUM                 0x00000800
 
 void LearnMethods( AnnotatedPlan * p_pPlan,
 		   HtnTaskList * p_pTasks,
@@ -93,24 +94,100 @@ void LearnOneNdChecker( unsigned int p_iInitState,
 			const StripsSolution * p_pPlan,
 			HtnDomain * p_pDomain );
 
+HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int l_iTimesNumber);
+
+int DoExperiments(std::string l_sDomainName);
+
 unsigned long g_iFlags;
 unsigned int g_iMaxMethodId;
 char g_cMethodIdStr[8];
 
-
 int main( int argc, char * argv[] )
 {
-  std::vector<int> l_vExpOriginal;
-  for (int i = 2; i < 7; i++) {
-    for (int j = 0; j < 3; j++) {
-      l_vExpOriginal.push_back(DoExperiment(i,j));
+  std::string l_sDomainName;
+
+  TCLAP::CmdLine l_cCmd( "Learn an HTN domain from a plan trace", ' ', "1.1" );
+
+  TCLAP::UnlabeledValueArg<std::string> l_aDomain( "domain", "Which domain?", true, "not_spec", "domain", l_cCmd );
+
+  TCLAP::SwitchArg l_aCurriculum( "", "curriculum", "Use curriculum", l_cCmd, false );
+  TCLAP::SwitchArg l_aNoSubsumption( "", "no_subsumption", "Do not prune methods that are subsumed by another.", l_cCmd, false );
+  TCLAP::SwitchArg l_aPartialGeneralization( "", "partial_generalization", "F2Aorce any matching constants to matching variables.", l_cCmd, false );
+  TCLAP::SwitchArg l_aOnlyTaskEffects( "", "only_task_effects", "Remove only effects of task when adding a submethod.", l_cCmd, false );
+  TCLAP::SwitchArg l_aRequireNew( "", "require_new", "Require that subtasks provide a precondition that it does not also add.", l_cCmd, false );
+  TCLAP::SwitchArg l_aVariableLinkage( "", "var_linkage", "Require at least one var from each subtask to be linked to the method head.", l_cCmd, false );
+  TCLAP::SwitchArg l_aDropUnneeded( "", "drop_unneeded", "Drop unneeded methods.  That is, if the preconditions of a subtask are fulfilled, the subtask could just be called.  This is an attempt to avoid the infinite recursion problem.", l_cCmd, false );
+  TCLAP::SwitchArg l_aForceOpsFirst( "", "force_ops_first", "Force the first subtask of learned methods to be a primitive operator.", l_cCmd, false );
+  TCLAP::SwitchArg l_aHardSquelch( "", "hard_squelch", "Only learn from subsequence if cannot be solved by any extension of that sequence backward.", l_cCmd, false );
+  TCLAP::SwitchArg l_aSoundnessCheck( "", "soundness_check", "Include in methods a check to guarantee effects have been achieved.", l_cCmd, false );
+  TCLAP::SwitchArg l_aNdCheckers( "", "nd_checkers", "Generate methods to force the desired outcome of a non-deterministic operator.", l_cCmd, false );
+  TCLAP::SwitchArg l_aQValues( "", "qvalues", "Calculate initial Q-values for methods.", l_cCmd, false );
+  l_cCmd.parse( argc, argv );
+
+  l_sDomainName = l_aDomain.getValue();
+
+  if( l_aCurriculum.getValue() ) g_iFlags |= FLAG_CURRICULUM;
+  if( l_aNoSubsumption.getValue() ) g_iFlags |= FLAG_NO_SUBSUMPTION;
+  if( l_aPartialGeneralization.getValue() ) g_iFlags |= FLAG_PARTIAL_GENERALIZATION;
+  if( l_aOnlyTaskEffects.getValue() ) g_iFlags |= FLAG_ONLY_TASK_EFFECTS;
+  if( l_aRequireNew.getValue() ) g_iFlags |= FLAG_REQUIRE_NEW;
+  if( l_aVariableLinkage.getValue() ) g_iFlags |= FLAG_VARIABLE_LINKAGE;
+  if( l_aDropUnneeded.getValue() ) g_iFlags |= FLAG_DROP_UNNEEDED;
+  if( l_aForceOpsFirst.getValue() ) g_iFlags |= FLAG_FORCE_OPS_FIRST;
+  if( l_aHardSquelch.getValue() ) g_iFlags |= FLAG_HARD_SQUELCH;
+  if( l_aSoundnessCheck.getValue() ) g_iFlags |= FLAG_SOUNDNESS_CHECK;
+  if( l_aNdCheckers.getValue() ) g_iFlags |= FLAG_ND_CHECKERS;
+  if( l_aQValues.getValue() ) g_iFlags |= FLAG_QVALUES;
+
+  DoExperiments(l_sDomainName);
+}
+
+int DoExperiments(std::string l_sDomainName)
+{
+  std::ofstream myfile;
+  int l_iNumberOfProblems;
+  int l_iNumberOfRunsPerProblem = 20; 
+  std::string l_sResultFileName;
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/results";
+  if (l_sDomainName == "logistics") {
+    l_iNumberOfProblems = 6;
+    if (g_iFlags & FLAG_CURRICULUM){
+      if (g_iFlags & FLAG_NO_SUBSUMPTION)
+        l_sResultFileName = "/logistics_curriculum.txt";
+      else {
+        if (g_iFlags & FLAG_DROP_UNNEEDED)
+          l_sResultFileName = "/logistics_curriculum_prune.txt";
+        else return 0;
+      }
+    } 
+    else {
+      if (g_iFlags & FLAG_NO_SUBSUMPTION)
+        l_sResultFileName = "/logistics_original.txt";
+      else {
+        if (g_iFlags & FLAG_DROP_UNNEEDED)
+          l_sResultFileName = "/logistics_original_prune.txt";
+        else return 0; 
+      }
     }
   }
-  std::cout << l_vExpOriginal;
+  else return 0; // TO-DO
+  myfile.open (l_sRootDir + l_sResultFileName);
+  for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
+    for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
+      std::clock_t c_start = std::clock();
+      HtnDomain * l_pHtnDomain = DoOneExperiment(l_sDomainName, i, j);
+      int l_iNumMethods = l_pHtnDomain->GetNumMethods();
+      std::clock_t c_end = std::clock();
+      //if (i == 3 && j == 2) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
+      long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
+      myfile << i << "," << j << "," << l_iNumMethods << "," << time_elapsed_ms << std::endl;
+    }
+  }
+  myfile.close();
 }
 
 
-int DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
+HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int l_iTimesNumber)
 {
 
   std::string l_sStripsDomainFile;
@@ -119,23 +196,13 @@ int DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
   std::string l_sSolutionFile;
   std::string l_sHtnDomainFile;
 
-  l_sStripsDomainFile = "domain_strips.pddl";
-  l_sTasksFile = "tasks" + std::to_string(l_iProblemNumber) + ".pddl";
-  l_sProblemFile = "problem" + std::to_string(l_iProblemNumber) + "-" + std::to_string(l_iTimesNumber) + "-strips.pddl";
-  l_sSolutionFile = "problem" + std::to_string(l_iProblemNumber) + "-" + std::to_string(l_iTimesNumber) + "-solution.plan";;
-  l_sHtnDomainFile = "domain_partial_htn.pddl";
+  std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/logistics/";
 
-  g_iFlags |= FLAG_NO_SUBSUMPTION;
-  g_iFlags |= FLAG_PARTIAL_GENERALIZATION;
-  // g_iFlags |= FLAG_ONLY_TASK_EFFECTS;
-  // g_iFlags |= FLAG_REQUIRE_NEW;
-  // g_iFlags |= FLAG_VARIABLE_LINKAGE;
-  // g_iFlags |= FLAG_DROP_UNNEEDED;
-  // g_iFlags |= FLAG_FORCE_OPS_FIRST;
-  // g_iFlags |= FLAG_HARD_SQUELCH;
-  // g_iFlags |= FLAG_SOUNDNESS_CHECK;
-  // g_iFlags |= FLAG_ND_CHECKERS;
-  // g_iFlags |= FLAG_QVALUES;
+  l_sStripsDomainFile = l_sDir + "domain_strips.pddl";
+  l_sTasksFile = l_sDir + "tasks" + std::to_string(l_iProblemNumber) + ".pddl";
+  l_sProblemFile = l_sDir + "problem" + std::to_string(l_iProblemNumber) + "-" + std::to_string(l_iTimesNumber) + "-strips.pddl";
+  l_sSolutionFile = l_sDir + "problem" + std::to_string(l_iProblemNumber) + "-" + std::to_string(l_iTimesNumber) + "-solution.plan";;
+  l_sHtnDomainFile = l_sDir + "domain_partial_htn.pddl";
 
   std::tr1::shared_ptr< StripsDomain > l_pStripsDomain;
   std::tr1::shared_ptr< StripsProblem > l_pStripsProblem;
@@ -148,6 +215,9 @@ int DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
   HtnTaskList * l_pHtnTaskMake2Pile = 0;
   HtnTaskList * l_pHtnTaskMake3Pile = 0;
   HtnTaskList * l_pHtnTaskMake4Pile = 0;
+
+  std::vector<HtnTaskList *> l_vHtnTaskDeliverN;
+
   HtnTaskList * l_pHtnTaskDeliver1 = 0;
   HtnTaskList * l_pHtnTaskDeliver2 = 0;
   HtnTaskList * l_pHtnTaskDeliver3 = 0;
@@ -198,7 +268,24 @@ int DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
 
   try
   {
-    l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sTasksFile ) );
+    l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sTasksFile ) ); 
+    //import task files for curriculum
+    if (l_sDomainName == "logistics") {
+      try
+      {
+        std::cout << "Reading task files for logistics domain with curriculum: " << std::endl;
+        for (int i = 1; i < l_iProblemNumber + 1; i++) {
+          std::cout << "Reading task: task_deliver" + std::to_string(i) + ".pddl" << std::endl;
+          l_vHtnTaskDeliverN.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_deliver" + std::to_string(i) + ".pddl" ) ) );
+        }
+      }
+      catch( FileReadException & e )
+      {
+        e.SetFileName( l_sTasksFile );
+        throw e;
+      }
+    }
+    else return 0; // TO-DO
   }
   catch( FileReadException & e )
   {
@@ -223,27 +310,34 @@ int DoExperiment(int l_iProblemNumber, int l_iTimesNumber)
   if( g_iFlags & FLAG_ND_CHECKERS )
     MakeTrivialNdCheckers( l_pHtnDomain );
 
-  /*
-    LearnMethodsFromExactSequence(0,2, l_pStripsPlan,
-                l_pHtnTaskMake1Pile,
+  if (g_iFlags & FLAG_CURRICULUM) {
+    if (l_sDomainName == "logistics") {
+      LearnMethodsFromExactSequence(0,4, l_pStripsPlan,
+                l_vHtnTaskDeliverN[0],
                 l_pHtnDomain );
-    LearnMethodsFromExactSequence(2,4, l_pStripsPlan,
-                l_pHtnTaskMake2Pile,
+      for (int n = 2; n < l_iProblemNumber + 1; n++) {
+        LearnMethodsFromExactSequence(n*4-4, n*4, l_pStripsPlan,
+                l_vHtnTaskDeliverN[0],
                 l_pHtnDomain );
-  */
-
-  LearnMethods( l_pStripsPlan,
+        LearnMethodsFromExactSequence(0,n*4, l_pStripsPlan,
+                l_vHtnTaskDeliverN[n-1],
+                l_pHtnDomain );
+      }
+    }
+    else
+      return 0;
+  }
+  else 
+    LearnMethods( l_pStripsPlan,
 		l_pHtnTaskList,
 		l_pHtnDomain );
 
   // std::cout << l_pHtnDomain->ToPddl() << "\n";
-  std::cout << "Number of methods: " << l_pHtnDomain->GetNumMethods() << "\n";
 
-  delete l_pHtnDomain;  
   delete l_pHtnTaskList;
   delete l_pStripsPlan;
 
-  return l_pHtnDomain->GetNumMethods()
+  return l_pHtnDomain;
 }
 
 std::vector< PartialHtnMethod * > * GetPartials( const HtnDomain * p_pDomain,
@@ -499,7 +593,6 @@ void LearnFromExactSequence( unsigned int p_iInitState,
 	      if( l_pTemp->size() > 0 )
 	      { 
           for (Substitution * sub : *l_pTemp)
-            std::cout << &sub << '\n';
 	        l_bDrop = true;
 	        p_pPlan->AddMethodInst( p_pPlan->GetCMethod( l_iCurMethod ), l_pTemp->at( 0 ), p_iInitState, p_iFinalState, p_pPlan->GetCTaskDescr( l_iCurMethod ), p_pPlan->GetCMethodEffects( l_iCurMethod ), p_pPlan->GetMethodCost( l_iCurMethod ) );
 	        //todo This may not exactly be the correct cost to use here, since we would have been learning a method with higher cost.
