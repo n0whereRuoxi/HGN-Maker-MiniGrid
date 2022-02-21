@@ -3,41 +3,43 @@ import numpy as np
 import matplotlib.pyplot as plt
 import statistics
 
-fig, axs = plt.subplots(2)
-domain = "blocksworld"
+domains = ['blocksworld', 'logistics']
 curriculum = [True, False]
 prune = [True, False]
 plot = ['run_time', 'number_of_methods']
-for is_curriculum in curriculum:
-    for is_prune in prune:
-        with open("{}_{}{}.txt".format(domain, 'curriculum' if is_curriculum else 'original', '_prune' if is_prune else ''), newline='') as csvfile:
-            raw_results = csv.reader(csvfile, delimiter=',')
-            results = {}
-            for row in raw_results:
-                print(row)
-                if int(row[0]) not in results:
-                    results[int(row[0])] = [[int(row[2])], [float(row[3])]]
-                else:
-                    results[int(row[0])][0].append(int(row[2]))
-                    results[int(row[0])][1].append(float(row[3]))
-            print(results)
-            x = results.keys()
-            y_number_of_methods = [ statistics.mean(results[i][0]) for i in x]
-            e_number_of_methods = [ statistics.pstdev(results[i][0]) for i in x]
-            y_runtime = [ statistics.mean(results[i][1]) for i in x]
-            e_runtime = [ statistics.pstdev(results[i][1]) for i in x]
-            print(x)
-            print(y_number_of_methods)
-            print(e_number_of_methods)
-            print(y_runtime)
-            print(e_runtime)
+for domain in domains:
+    fig, axs = plt.subplots(2)
+    for is_curriculum in curriculum:
+        for is_prune in prune:
+            with open("{}_{}{}.txt".format(domain, 'curriculum' if is_curriculum else 'original', '_prune' if is_prune else ''), newline='') as csvfile:
+                raw_results = csv.reader(csvfile, delimiter=',')
+                results = {}
+                for row in raw_results:
+                    if int(row[0]) not in results:
+                        results[int(row[0])] = [[int(row[2])], [float(row[3])]]
+                    else:
+                        results[int(row[0])][0].append(int(row[2]))
+                        results[int(row[0])][1].append(float(row[3]))
+                # print(results)
+                x = results.keys()
+                y_number_of_methods = [ statistics.mean(results[i][0]) for i in x]
+                e_number_of_methods = [ statistics.pstdev(results[i][0]) for i in x]
+                y_runtime = [ statistics.mean(results[i][1]) for i in x]
+                e_runtime = [ statistics.pstdev(results[i][1]) for i in x]
+                # print(x)
+                # print(y_number_of_methods)
+                # print(e_number_of_methods)
+                # print(y_runtime)
+                # print(e_runtime)
 
-            axs[0].errorbar(x, y_number_of_methods, yerr=e_number_of_methods, label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''))
-            axs[1].errorbar(x, y_runtime, yerr=e_runtime, label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''))
-fig.suptitle('Blocks World domain')
-axs[0].legend()
-axs[0].set_ylabel('Number of methods ')
-axs[1].legend()
-axs[1].set_xlabel('Number of blocks')
-axs[1].set_ylabel('Run time (ms)')
-plt.show()
+                axs[0].errorbar(x, y_number_of_methods, yerr=e_number_of_methods, label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''))
+                axs[1].errorbar(x, y_runtime, yerr=e_runtime, label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''))
+    fig.suptitle('Blocks World domain' if domain == 'blocksworld' else 'Logistics domain')
+    axs[0].legend()
+    axs[0].set_ylabel('Number of methods ')
+    axs[1].legend()
+    axs[1].set_xlabel('Number of blocks')
+    axs[1].set_ylabel('Run time (ms)')
+    axs[0].set_yscale('log')
+    axs[1].set_yscale('log')
+    plt.show()
