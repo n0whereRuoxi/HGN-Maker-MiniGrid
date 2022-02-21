@@ -1,32 +1,27 @@
 ( define ( problem probname )
-  ( :domain logistics )
+  ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b739 - block
-    b393 - block
-    b173 - block
-    b21 - block
-    b422 - block
-    b546 - block
+    b868 - block
+    b340 - block
+    b466 - block
+    b58 - block
+    b946 - block
+    b341 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b739 )
-    ( on b393 b739 )
-    ( on b173 b393 )
-    ( on b21 b173 )
-    ( on b422 b21 )
-    ( on b546 b422 )
-    ( clear b546 )
+    ( on-table b868 )
+    ( on b340 b868 )
+    ( on b466 b340 )
+    ( on b58 b466 )
+    ( on b946 b58 )
+    ( on b341 b946 )
+    ( clear b341 )
   )
   ( :goal
     ( and
-      ( clear b739 )
-      ( clear b739 )
-      ( clear b739 )
-      ( clear b739 )
-      ( clear b739 )
-      ( clear b739 )
+      ( clear b868 )
     )
   )
 )

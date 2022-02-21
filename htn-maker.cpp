@@ -149,29 +149,32 @@ int DoExperiments(std::string l_sDomainName)
   int l_iNumberOfRunsPerProblem = 20; 
   std::string l_sResultFileName;
   std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/results";
-  if (l_sDomainName == "logistics") {
+
+  if (l_sDomainName == "logistics")
     l_iNumberOfProblems = 6;
-    if (g_iFlags & FLAG_CURRICULUM){
-      if (g_iFlags & FLAG_NO_SUBSUMPTION)
-        l_sResultFileName = "/logistics_curriculum.txt";
-      else {
-        if (g_iFlags & FLAG_DROP_UNNEEDED)
-          l_sResultFileName = "/logistics_curriculum_prune.txt";
-        else return 0;
-      }
-    } 
+  else l_iNumberOfProblems = 20;
+
+  if (g_iFlags & FLAG_CURRICULUM){
+    if (g_iFlags & FLAG_NO_SUBSUMPTION)
+      l_sResultFileName = "curriculum.txt";
     else {
-      if (g_iFlags & FLAG_NO_SUBSUMPTION)
-        l_sResultFileName = "/logistics_original.txt";
-      else {
-        if (g_iFlags & FLAG_DROP_UNNEEDED)
-          l_sResultFileName = "/logistics_original_prune.txt";
-        else return 0; 
-      }
+      if (g_iFlags & FLAG_DROP_UNNEEDED)
+        l_sResultFileName = "curriculum_prune.txt";
+      else return 0;
+    }
+  } 
+  else {
+    if (g_iFlags & FLAG_NO_SUBSUMPTION)
+      l_sResultFileName = "original.txt";
+    else {
+      if (g_iFlags & FLAG_DROP_UNNEEDED)
+        l_sResultFileName = "original_prune.txt";
+      else return 0; 
     }
   }
-  else return 0; // TO-DO
-  myfile.open (l_sRootDir + l_sResultFileName);
+
+  myfile.open (l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName);
+
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
       std::clock_t c_start = std::clock();
@@ -181,6 +184,7 @@ int DoExperiments(std::string l_sDomainName)
       //if (i == 3 && j == 2) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
       long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
       myfile << i << "," << j << "," << l_iNumMethods << "," << time_elapsed_ms << std::endl;
+      delete l_pHtnDomain;
     }
   }
   myfile.close();
@@ -189,14 +193,14 @@ int DoExperiments(std::string l_sDomainName)
 
 HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int l_iTimesNumber)
 {
-
+  std::cout << "Doing one experiment in " + l_sDomainName + " domain, problem " + std::to_string(l_iProblemNumber) + ", try " +std::to_string(l_iTimesNumber) << std::endl;
   std::string l_sStripsDomainFile;
   std::string l_sTasksFile;
   std::string l_sProblemFile;
   std::string l_sSolutionFile;
   std::string l_sHtnDomainFile;
 
-  std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/logistics/";
+  std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/" + l_sDomainName + "/";
 
   l_sStripsDomainFile = l_sDir + "domain_strips.pddl";
   l_sTasksFile = l_sDir + "tasks" + std::to_string(l_iProblemNumber) + ".pddl";
@@ -210,21 +214,13 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
   AnnotatedPlan * l_pStripsPlan = 0;
   HtnTaskList * l_pHtnTaskList = 0;
   HtnDomain * l_pHtnDomain = 0;
-  HtnTaskList * l_pHtnTaskClear = 0;
-  HtnTaskList * l_pHtnTaskMake1Pile = 0;
-  HtnTaskList * l_pHtnTaskMake2Pile = 0;
-  HtnTaskList * l_pHtnTaskMake3Pile = 0;
-  HtnTaskList * l_pHtnTaskMake4Pile = 0;
 
   std::vector<HtnTaskList *> l_vHtnTaskDeliverN;
-
-  HtnTaskList * l_pHtnTaskDeliver1 = 0;
-  HtnTaskList * l_pHtnTaskDeliver2 = 0;
-  HtnTaskList * l_pHtnTaskDeliver3 = 0;
-  HtnTaskList * l_pHtnTaskDeliver4 = 0;
+  std::vector<HtnTaskList *> l_vHtnTaskMakeNPile;
 
   try
   {
+    std::cout << "Reading strip domain file " << l_sStripsDomainFile << std::endl;
     std::string fileContent = ReadFile( l_sStripsDomainFile );
     StripsDomain * stripDomain = new StripsDomain( fileContent );
     l_pStripsDomain = std::tr1::shared_ptr< StripsDomain >(stripDomain);
@@ -237,6 +233,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
 
   try
   {
+    std::cout << "Reading strip problem file " << l_sProblemFile << std::endl;
     l_pStripsProblem = std::tr1::shared_ptr< StripsProblem >( new StripsProblem( ReadFile( l_sProblemFile ), l_pStripsDomain ) );
   }
   catch( FileReadException & e )
@@ -247,6 +244,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
 
   try
   {
+    std::cout << "Reading strip solution file " << l_sSolutionFile << std::endl;
     l_pStripsPlan = new AnnotatedPlan( l_pStripsProblem, ReadFile( l_sSolutionFile ) );
   }
   catch( FileReadException & e )
@@ -257,6 +255,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
 
   try
   {
+    std::cout << "Reading htn domain file " << l_sHtnDomainFile << std::endl;
     std::stringstream l_sDomainStream( ReadFile( l_sHtnDomainFile ) );
     l_pHtnDomain = HtnDomain::FromPddl( l_sDomainStream );
   }
@@ -268,24 +267,26 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
 
   try
   {
+    std::cout << "Reading task file " << l_sTasksFile << std::endl;
     l_pHtnTaskList = new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sTasksFile ) ); 
     //import task files for curriculum
+    if (g_iFlags & FLAG_CURRICULUM) {
+
     if (l_sDomainName == "logistics") {
-      try
-      {
-        std::cout << "Reading task files for logistics domain with curriculum: " << std::endl;
-        for (int i = 1; i < l_iProblemNumber + 1; i++) {
-          std::cout << "Reading task: task_deliver" + std::to_string(i) + ".pddl" << std::endl;
-          l_vHtnTaskDeliverN.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_deliver" + std::to_string(i) + ".pddl" ) ) );
-        }
-      }
-      catch( FileReadException & e )
-      {
-        e.SetFileName( l_sTasksFile );
-        throw e;
+      std::cout << "Reading task files for logistics domain with curriculum: " << std::endl;
+      for (int i = 1; i < l_iProblemNumber + 1; i++) {
+        std::cout << "Reading task: task_deliver" + std::to_string(i) + ".pddl" << std::endl;
+        l_vHtnTaskDeliverN.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_deliver" + std::to_string(i) + ".pddl" ) ) );
       }
     }
-    else return 0; // TO-DO
+    else {
+      std::cout << "Reading task files for blocksworld domain with curriculum: " << std::endl;
+      for (int i = 1; i < l_iProblemNumber + 1; i++) {
+        std::cout << "Reading task: task_Make-" + std::to_string(i) + "Pile.pddl" << std::endl;
+        l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Pile.pddl" ) ) );
+      }
+    }
+    }
   }
   catch( FileReadException & e )
   {
@@ -324,8 +325,21 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
                 l_pHtnDomain );
       }
     }
-    else
-      return 0;
+    else {
+      for (int i = 0; i < l_iProblemNumber; i++) {
+        for (int j = 0; j < i+1; j++) {
+          LearnMethodsFromExactSequence(i*2-j*2, i*2+2, l_pStripsPlan,
+                l_vHtnTaskMakeNPile[i],
+                l_pHtnDomain );
+          LearnMethodsFromExactSequence(l_iProblemNumber*2+i*2-j*2, l_iProblemNumber*2+i*2+2, l_pStripsPlan,
+                l_vHtnTaskMakeNPile[i],
+                l_pHtnDomain );
+        }
+      }
+      LearnMethodsFromExactSequence(0, l_iProblemNumber*4, l_pStripsPlan,
+            l_vHtnTaskMakeNPile[l_iProblemNumber-1],
+            l_pHtnDomain );
+    }
   }
   else 
     LearnMethods( l_pStripsPlan,

@@ -8,7 +8,7 @@ def generateProblemsAndSolutions(num,times):
         writeOneTask(i+2)
         writeTasks(i)
         for j in range(times):
-            blocksIdx = np.random.choice(range(1, 1000), i+3)
+            blocksIdx = np.random.choice(range(1, 1000), i+3, replace = False)
             print(blocksIdx)
             writeProblem(j, blocksIdx)
             writeSolution(j, blocksIdx)
@@ -24,7 +24,7 @@ def writeProblem(j, blocksIdx):
 
 def writeHeader(file):
     file.write("( define ( problem probname )\n")
-    file.write("  ( :domain logistics )\n")
+    file.write("  ( :domain blocks4 )\n")
     file.write("  ( :requirements :strips :typing :equality )\n")
 
 def writeObjects(file, blocksIdx):
@@ -45,8 +45,7 @@ def writeInit(file, blocksIdx):
 def writeGoal(file, blocksIdx):
     file.write("  ( :goal\n")
     file.write("    ( and\n")
-    for idx in blocksIdx:
-        file.write("      ( clear b{} )\n".format(blocksIdx[0]))
+    file.write("      ( clear b{} )\n".format(blocksIdx[0]))
     file.write("    )\n")
     file.write("  )\n")
 
@@ -114,4 +113,4 @@ def writeTaskMakeNPile(file, n):
     file.write("  )\n")
 
 if __name__=="__main__":
-    generateProblemsAndSolutions(5,20)
+    generateProblemsAndSolutions(30,20)
