@@ -41,6 +41,10 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 		     const HtnSolution * p_pPartial,
 		     unsigned int p_iDepth );
 
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile);
+
+int DoExperiments(std::string l_sDomainName);
+
 bool g_bShowTrace;
 bool g_bUseQValues;
 bool g_bUpdateQValues;
@@ -95,7 +99,6 @@ int DoExperiments(std::string l_sDomainName)
 
   std::string l_sDomainFile;
   std::string l_sProblemFile;
-  std::string l_sDomainName;
   int l_iNumberOfProblems;
   int l_iNumberOfRunsPerProblem; 
   std::string l_sResultFileName;
@@ -116,8 +119,10 @@ int DoExperiments(std::string l_sDomainName)
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
       l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
+      std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/" + l_sDomainName + "/";
+      l_sProblemFile = l_sDir + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-strips.pddl";
       std::clock_t c_start = std::clock();
-      DoOneExperiment(l_sDomainFile, i, j);
+      DoOneExperiment(l_sDomainFile, l_sProblemFile);
       std::clock_t c_end = std::clock();
       //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
       long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
@@ -126,11 +131,8 @@ int DoExperiments(std::string l_sDomainName)
 }
 
 
-void DoOneExperiment(std::string l_sDomainFile, int l_iProblemNumber, int l_iTimesNumber)
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile)
 {
-  std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/" + l_sDomainName + "/";
-  l_sProblemFile = l_sDir + "problem" + std::to_string(l_iProblemNumber) + "-" + std::to_string(l_iTimesNumber) + "-strips.pddl";
-
 
   std::tr1::shared_ptr< HtnDomain > l_pDomain;
   try
