@@ -53,15 +53,11 @@ int main( int argc, char * argv[] )
 #ifdef CATCH_EXCEPTS
   try{
 #endif//CATCH_EXCEPTS
-
-  std::string l_sDomainFile;
-  std::string l_sProblemFile;
+  std::string l_sDomainName;
   try
   {
     TCLAP::CmdLine l_cCmd( "Find an HTN plan", ' ', "1.1" );
-
-    TCLAP::UnlabeledValueArg<std::string> l_aDomainFile( "domain_file", "Path to the domain file.", true, "not_spec", "domain_file", l_cCmd );
-    TCLAP::UnlabeledValueArg<std::string> l_aProblemFile( "problem_file", "Path to the problem file.", true, "not_spec", "problem_file", l_cCmd );
+    TCLAP::UnlabeledValueArg<std::string> l_aDomain( "domain", "Which domain?", true, "not_spec", "domain", l_cCmd );
     TCLAP::SwitchArg l_aShowTrace( "t", "show_trace", "Show a full decomposition trace of the solution.", l_cCmd, false );
     TCLAP::SwitchArg l_aUseQValues( "q", "use_qvalues", "When decomposing a task, use the applicable method with lowest Q-value.", l_cCmd, false );
     TCLAP::SwitchArg l_aUpdateQValues( "u", "update_qvalues", "After finding a solution, update the Q-values of the methods used.", l_cCmd, false );
@@ -70,9 +66,8 @@ int main( int argc, char * argv[] )
     TCLAP::ValueArg<unsigned int> l_aMaxDepth( "m", "max_depth", "Only pursue decomposition trees below this depth.", false, 99999, "unsigned int", l_cCmd );
 
     l_cCmd.parse( argc, argv );
-
-    l_sDomainFile = l_aDomainFile.getValue();
-    l_sProblemFile = l_aProblemFile.getValue();
+    
+    l_sDomainName = l_aDomain.getValue();
     g_bShowTrace = l_aShowTrace.getValue();
     g_bUseQValues = l_aUseQValues.getValue();
     g_bUpdateQValues = l_aUpdateQValues.getValue();
@@ -85,6 +80,57 @@ int main( int argc, char * argv[] )
     std::cerr << "error: " << e.error() << " for arg " << e.argId() << std::endl;
     return 1;
   }
+
+
+  return 0;
+
+#ifdef CATCH_EXCEPTS
+  }catch( Exception & e ){ std::cerr << "\n" << e.ToStr() << "\n"; return 1; }
+#endif//CATCH_EXCEPTS
+}
+
+
+int DoExperiments(std::string l_sDomainName)
+{
+
+  std::string l_sDomainFile;
+  std::string l_sProblemFile;
+  std::string l_sDomainName;
+  int l_iNumberOfProblems;
+  int l_iNumberOfRunsPerProblem; 
+  std::string l_sResultFileName;
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/results_with_methods";
+
+  if (l_sDomainName == "logistics") {
+    l_iNumberOfProblems = 6;
+    l_iNumberOfRunsPerProblem = 5;
+  }
+  else {
+    l_iNumberOfProblems = 40;
+    l_iNumberOfRunsPerProblem = 20;
+  }
+  l_sResultFileName = "curriculum";
+  l_sResultFileName = "curriculum_prune";
+  l_sResultFileName = "original";
+  l_sResultFileName = "original_prune";
+  for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
+    for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
+      l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
+      std::clock_t c_start = std::clock();
+      DoOneExperiment(l_sDomainFile, i, j);
+      std::clock_t c_end = std::clock();
+      //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
+      long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
+    }
+  }
+}
+
+
+void DoOneExperiment(std::string l_sDomainFile, int l_iProblemNumber, int l_iTimesNumber)
+{
+  std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/" + l_sDomainName + "/";
+  l_sProblemFile = l_sDir + "problem" + std::to_string(l_iProblemNumber) + "-" + std::to_string(l_iTimesNumber) + "-strips.pddl";
+
 
   std::tr1::shared_ptr< HtnDomain > l_pDomain;
   try
@@ -128,11 +174,6 @@ int main( int argc, char * argv[] )
     fout.close();
   }
 
-  return 0;
-
-#ifdef CATCH_EXCEPTS
-  }catch( Exception & e ){ std::cerr << "\n" << e.ToStr() << "\n"; return 1; }
-#endif//CATCH_EXCEPTS
 }
 
 double DoThisQValue( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
