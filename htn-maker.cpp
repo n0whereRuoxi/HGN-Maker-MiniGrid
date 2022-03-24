@@ -145,35 +145,40 @@ int main( int argc, char * argv[] )
 int DoExperiments(std::string l_sDomainName)
 {
   std::ofstream myfile;
+  std::ofstream domainFile;
   int l_iNumberOfProblems;
-  int l_iNumberOfRunsPerProblem = 20; 
+  int l_iNumberOfRunsPerProblem; 
   std::string l_sResultFileName;
-  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/results";
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/results_with_methods";
 
-  if (l_sDomainName == "logistics")
+  if (l_sDomainName == "logistics") {
     l_iNumberOfProblems = 6;
-  else l_iNumberOfProblems = 20;
-
+    l_iNumberOfRunsPerProblem = 5;
+  }
+  else {
+    l_iNumberOfProblems = 40;
+    l_iNumberOfRunsPerProblem = 20;
+  }
   if (g_iFlags & FLAG_CURRICULUM){
     if (g_iFlags & FLAG_NO_SUBSUMPTION)
-      l_sResultFileName = "curriculum.txt";
+      l_sResultFileName = "curriculum";
     else {
       if (g_iFlags & FLAG_DROP_UNNEEDED)
-        l_sResultFileName = "curriculum_prune.txt";
+        l_sResultFileName = "curriculum_prune";
       else return 0;
     }
   } 
   else {
     if (g_iFlags & FLAG_NO_SUBSUMPTION)
-      l_sResultFileName = "original.txt";
+      l_sResultFileName = "original";
     else {
       if (g_iFlags & FLAG_DROP_UNNEEDED)
-        l_sResultFileName = "original_prune.txt";
+        l_sResultFileName = "original_prune";
       else return 0; 
     }
   }
 
-  myfile.open (l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName);
+  myfile.open (l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + ".txt");
 
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
@@ -181,10 +186,13 @@ int DoExperiments(std::string l_sDomainName)
       HtnDomain * l_pHtnDomain = DoOneExperiment(l_sDomainName, i, j);
       int l_iNumMethods = l_pHtnDomain->GetNumMethods();
       std::clock_t c_end = std::clock();
-      //if (i == 3 && j == 2) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
+//      if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
       long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
       myfile << i << "," << j << "," << l_iNumMethods << "," << time_elapsed_ms << std::endl;
+      domainFile.open (l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl");
+      domainFile << l_pHtnDomain->ToPddl() << std::endl;
       delete l_pHtnDomain;
+      domainFile.close();
     }
   }
   myfile.close();
