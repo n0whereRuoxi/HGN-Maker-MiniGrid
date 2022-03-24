@@ -1,0 +1,10 @@
+( defplan Logistics Prob2-1
+  ( !Drive-Truck t000-000 l000-000 l000-998 c000 )
+  ( !Load-Truck p657 t000-000 l000-998 )
+  ( !Drive-Truck t000-000 l000-998 l000-000 c000 )
+  ( !Unload-Truck p657 t000-000 l000-000 )
+  ( !Drive-Truck t000-000 l000-000 l000-451 c000 )
+  ( !Load-Truck p795 t000-000 l000-451 )
+  ( !Drive-Truck t000-000 l000-451 l000-000 c000 )
+  ( !Unload-Truck p795 t000-000 l000-000 )
+)

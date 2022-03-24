@@ -1,0 +1,10 @@
+( defplan Blocks4 Prob2-2
+  ( !Unstack b919 b441 )
+  ( !Putdown b919 )
+  ( !Unstack b441 b861 )
+  ( !Stack b441 b919 )
+  ( !Unstack b441 b919 )
+  ( !Putdown b441 )
+  ( !Pickup b919 )
+  ( !Stack b919 b441 )
+)
