@@ -1,3 +1,3 @@
 #!/bin/sh
-/lustre/rli12314/HGN-Maker-MiniGrid/htn-solver2 blocksworld 
+/lustre/rli12314/HGN-Maker-MiniGrid/htn-solver2 logistics 
 
