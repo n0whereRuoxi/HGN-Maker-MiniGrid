@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b663 - block
+    b629 - block
+    b829 - block
+    b222 - block
+    b899 - block
+    b743 - block
+    b82 - block
+    b583 - block
+    b575 - block
+    b955 - block
+    b625 - block
+    b688 - block
+    b606 - block
+    b694 - block
+    b478 - block
+    b712 - block
+    b696 - block
     b117 - block
-    b321 - block
-    b586 - block
-    b438 - block
-    b735 - block
-    b297 - block
-    b115 - block
-    b924 - block
-    b284 - block
-    b805 - block
-    b279 - block
-    b607 - block
-    b74 - block
-    b744 - block
-    b941 - block
-    b666 - block
-    b693 - block
-    b851 - block
-    b443 - block
-    b306 - block
-    b903 - block
-    b268 - block
+    b894 - block
+    b41 - block
+    b792 - block
+    b514 - block
+    b759 - block
+    b957 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b663 )
-    ( on b117 b663 )
-    ( on b321 b117 )
-    ( on b586 b321 )
-    ( on b438 b586 )
-    ( on b735 b438 )
-    ( on b297 b735 )
-    ( on b115 b297 )
-    ( on b924 b115 )
-    ( on b284 b924 )
-    ( on b805 b284 )
-    ( on b279 b805 )
-    ( on b607 b279 )
-    ( on b74 b607 )
-    ( on b744 b74 )
-    ( on b941 b744 )
-    ( on b666 b941 )
-    ( on b693 b666 )
-    ( on b851 b693 )
-    ( on b443 b851 )
-    ( on b306 b443 )
-    ( on b903 b306 )
-    ( on b268 b903 )
-    ( clear b268 )
+    ( on-table b629 )
+    ( on b829 b629 )
+    ( on b222 b829 )
+    ( on b899 b222 )
+    ( on b743 b899 )
+    ( on b82 b743 )
+    ( on b583 b82 )
+    ( on b575 b583 )
+    ( on b955 b575 )
+    ( on b625 b955 )
+    ( on b688 b625 )
+    ( on b606 b688 )
+    ( on b694 b606 )
+    ( on b478 b694 )
+    ( on b712 b478 )
+    ( on b696 b712 )
+    ( on b117 b696 )
+    ( on b894 b117 )
+    ( on b41 b894 )
+    ( on b792 b41 )
+    ( on b514 b792 )
+    ( on b759 b514 )
+    ( on b957 b759 )
+    ( clear b957 )
   )
   ( :goal
     ( and
-      ( clear b663 )
+      ( clear b629 )
     )
   )
 )

@@ -1,53 +1,53 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain blocks4 )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
-    b417 - block
-    b206 - block
-    b570 - block
-    b355 - block
-    b421 - block
-    b703 - block
-    b197 - block
+    b289 - block
+    b954 - block
+    b46 - block
+    b939 - block
+    b904 - block
+    b787 - block
+    b150 - block
+    b144 - block
+    b736 - block
+    b957 - block
+    b81 - block
+    b147 - block
+    b186 - block
+    b761 - block
     b879 - block
-    b740 - block
-    b391 - block
-    b805 - block
-    b873 - block
-    b272 - block
-    b48 - block
-    b117 - block
-    b68 - block
-    b344 - block
-    b856 - block
-    b558 - block
-    b612 - block
+    b56 - block
+    b2 - block
+    b655 - block
+    b446 - block
+    b672 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b417 )
-    ( on b206 b417 )
-    ( on b570 b206 )
-    ( on b355 b570 )
-    ( on b421 b355 )
-    ( on b703 b421 )
-    ( on b197 b703 )
-    ( on b879 b197 )
-    ( on b740 b879 )
-    ( on b391 b740 )
-    ( on b805 b391 )
-    ( on b873 b805 )
-    ( on b272 b873 )
-    ( on b48 b272 )
-    ( on b117 b48 )
-    ( on b68 b117 )
-    ( on b344 b68 )
-    ( on b856 b344 )
-    ( on b558 b856 )
-    ( on b612 b558 )
-    ( clear b612 )
+    ( on-table b289 )
+    ( on b954 b289 )
+    ( on b46 b954 )
+    ( on b939 b46 )
+    ( on b904 b939 )
+    ( on b787 b904 )
+    ( on b150 b787 )
+    ( on b144 b150 )
+    ( on b736 b144 )
+    ( on b957 b736 )
+    ( on b81 b957 )
+    ( on b147 b81 )
+    ( on b186 b147 )
+    ( on b761 b186 )
+    ( on b879 b761 )
+    ( on b56 b879 )
+    ( on b2 b56 )
+    ( on b655 b2 )
+    ( on b446 b655 )
+    ( on b672 b446 )
+    ( clear b672 )
   )
   ( :tasks
-    ( Make-19Pile b206 b570 b355 b421 b703 b197 b879 b740 b391 b805 b873 b272 b48 b117 b68 b344 b856 b558 b612 )
+    ( Make-19Pile b954 b46 b939 b904 b787 b150 b144 b736 b957 b81 b147 b186 b761 b879 b56 b2 b655 b446 b672 )
   )
 )

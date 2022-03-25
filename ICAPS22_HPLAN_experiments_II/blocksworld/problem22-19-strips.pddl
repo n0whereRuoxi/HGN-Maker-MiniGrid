@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b861 - block
-    b936 - block
-    b991 - block
-    b732 - block
-    b19 - block
-    b524 - block
-    b70 - block
-    b263 - block
-    b704 - block
-    b866 - block
-    b331 - block
-    b545 - block
-    b418 - block
-    b233 - block
-    b390 - block
-    b412 - block
-    b61 - block
-    b607 - block
-    b150 - block
-    b352 - block
-    b349 - block
-    b799 - block
-    b501 - block
+    b220 - block
+    b763 - block
+    b398 - block
+    b378 - block
+    b381 - block
+    b646 - block
+    b768 - block
+    b900 - block
+    b588 - block
+    b10 - block
+    b622 - block
+    b697 - block
+    b776 - block
+    b864 - block
+    b99 - block
+    b627 - block
+    b369 - block
+    b15 - block
+    b245 - block
+    b339 - block
+    b637 - block
+    b712 - block
+    b541 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b861 )
-    ( on b936 b861 )
-    ( on b991 b936 )
-    ( on b732 b991 )
-    ( on b19 b732 )
-    ( on b524 b19 )
-    ( on b70 b524 )
-    ( on b263 b70 )
-    ( on b704 b263 )
-    ( on b866 b704 )
-    ( on b331 b866 )
-    ( on b545 b331 )
-    ( on b418 b545 )
-    ( on b233 b418 )
-    ( on b390 b233 )
-    ( on b412 b390 )
-    ( on b61 b412 )
-    ( on b607 b61 )
-    ( on b150 b607 )
-    ( on b352 b150 )
-    ( on b349 b352 )
-    ( on b799 b349 )
-    ( on b501 b799 )
-    ( clear b501 )
+    ( on-table b220 )
+    ( on b763 b220 )
+    ( on b398 b763 )
+    ( on b378 b398 )
+    ( on b381 b378 )
+    ( on b646 b381 )
+    ( on b768 b646 )
+    ( on b900 b768 )
+    ( on b588 b900 )
+    ( on b10 b588 )
+    ( on b622 b10 )
+    ( on b697 b622 )
+    ( on b776 b697 )
+    ( on b864 b776 )
+    ( on b99 b864 )
+    ( on b627 b99 )
+    ( on b369 b627 )
+    ( on b15 b369 )
+    ( on b245 b15 )
+    ( on b339 b245 )
+    ( on b637 b339 )
+    ( on b712 b637 )
+    ( on b541 b712 )
+    ( clear b541 )
   )
   ( :goal
     ( and
-      ( clear b861 )
+      ( clear b220 )
     )
   )
 )

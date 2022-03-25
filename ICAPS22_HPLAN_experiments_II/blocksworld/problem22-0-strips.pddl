@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b692 - block
-    b177 - block
-    b756 - block
+    b326 - block
     b665 - block
-    b163 - block
-    b560 - block
-    b91 - block
-    b365 - block
-    b737 - block
-    b280 - block
-    b878 - block
-    b958 - block
-    b582 - block
-    b368 - block
-    b645 - block
-    b544 - block
-    b979 - block
-    b321 - block
-    b535 - block
-    b553 - block
-    b359 - block
-    b666 - block
-    b442 - block
+    b760 - block
+    b104 - block
+    b774 - block
+    b497 - block
+    b757 - block
+    b479 - block
+    b426 - block
+    b527 - block
+    b982 - block
+    b480 - block
+    b16 - block
+    b430 - block
+    b694 - block
+    b346 - block
+    b323 - block
+    b950 - block
+    b101 - block
+    b407 - block
+    b248 - block
+    b507 - block
+    b262 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b692 )
-    ( on b177 b692 )
-    ( on b756 b177 )
-    ( on b665 b756 )
-    ( on b163 b665 )
-    ( on b560 b163 )
-    ( on b91 b560 )
-    ( on b365 b91 )
-    ( on b737 b365 )
-    ( on b280 b737 )
-    ( on b878 b280 )
-    ( on b958 b878 )
-    ( on b582 b958 )
-    ( on b368 b582 )
-    ( on b645 b368 )
-    ( on b544 b645 )
-    ( on b979 b544 )
-    ( on b321 b979 )
-    ( on b535 b321 )
-    ( on b553 b535 )
-    ( on b359 b553 )
-    ( on b666 b359 )
-    ( on b442 b666 )
-    ( clear b442 )
+    ( on-table b326 )
+    ( on b665 b326 )
+    ( on b760 b665 )
+    ( on b104 b760 )
+    ( on b774 b104 )
+    ( on b497 b774 )
+    ( on b757 b497 )
+    ( on b479 b757 )
+    ( on b426 b479 )
+    ( on b527 b426 )
+    ( on b982 b527 )
+    ( on b480 b982 )
+    ( on b16 b480 )
+    ( on b430 b16 )
+    ( on b694 b430 )
+    ( on b346 b694 )
+    ( on b323 b346 )
+    ( on b950 b323 )
+    ( on b101 b950 )
+    ( on b407 b101 )
+    ( on b248 b407 )
+    ( on b507 b248 )
+    ( on b262 b507 )
+    ( clear b262 )
   )
   ( :goal
     ( and
-      ( clear b692 )
+      ( clear b326 )
     )
   )
 )

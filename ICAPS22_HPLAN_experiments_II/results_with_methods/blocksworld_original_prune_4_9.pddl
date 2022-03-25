@@ -239,13 +239,13 @@
     :vars
     (
       ?auto_10390 - BLOCK
-      ?auto_10392 - BLOCK
       ?auto_10391 - BLOCK
+      ?auto_10392 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_10388 ?auto_10389 ) ) ( ON ?auto_10389 ?auto_10390 ) ( not ( = ?auto_10388 ?auto_10390 ) ) ( not ( = ?auto_10389 ?auto_10390 ) ) ( ON ?auto_10388 ?auto_10389 ) ( CLEAR ?auto_10388 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_10392 ) ( ON ?auto_10391 ?auto_10392 ) ( ON ?auto_10390 ?auto_10391 ) ( not ( = ?auto_10392 ?auto_10391 ) ) ( not ( = ?auto_10392 ?auto_10390 ) ) ( not ( = ?auto_10392 ?auto_10389 ) ) ( not ( = ?auto_10392 ?auto_10388 ) ) ( not ( = ?auto_10391 ?auto_10390 ) ) ( not ( = ?auto_10391 ?auto_10389 ) ) ( not ( = ?auto_10391 ?auto_10388 ) ) )
+    ( and ( not ( = ?auto_10388 ?auto_10389 ) ) ( ON ?auto_10389 ?auto_10390 ) ( not ( = ?auto_10388 ?auto_10390 ) ) ( not ( = ?auto_10389 ?auto_10390 ) ) ( ON ?auto_10388 ?auto_10389 ) ( CLEAR ?auto_10388 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_10391 ) ( ON ?auto_10392 ?auto_10391 ) ( ON ?auto_10390 ?auto_10392 ) ( not ( = ?auto_10391 ?auto_10392 ) ) ( not ( = ?auto_10391 ?auto_10390 ) ) ( not ( = ?auto_10391 ?auto_10389 ) ) ( not ( = ?auto_10391 ?auto_10388 ) ) ( not ( = ?auto_10392 ?auto_10390 ) ) ( not ( = ?auto_10392 ?auto_10389 ) ) ( not ( = ?auto_10392 ?auto_10388 ) ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_10392 ?auto_10391 ?auto_10390 ?auto_10389 )
+    ( ( MAKE-4PILE ?auto_10391 ?auto_10392 ?auto_10390 ?auto_10389 )
       ( MAKE-2PILE ?auto_10388 ?auto_10389 ) )
   )
 
@@ -292,13 +292,13 @@
     )
     :vars
     (
-      ?auto_10601 - BLOCK
       ?auto_10600 - BLOCK
+      ?auto_10601 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10601 ?auto_10599 ) ( ON-TABLE ?auto_10598 ) ( ON ?auto_10599 ?auto_10598 ) ( not ( = ?auto_10598 ?auto_10599 ) ) ( not ( = ?auto_10598 ?auto_10601 ) ) ( not ( = ?auto_10599 ?auto_10601 ) ) ( not ( = ?auto_10598 ?auto_10600 ) ) ( not ( = ?auto_10599 ?auto_10600 ) ) ( not ( = ?auto_10601 ?auto_10600 ) ) ( ON ?auto_10600 ?auto_10601 ) ( CLEAR ?auto_10600 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_10600 ?auto_10599 ) ( ON-TABLE ?auto_10598 ) ( ON ?auto_10599 ?auto_10598 ) ( not ( = ?auto_10598 ?auto_10599 ) ) ( not ( = ?auto_10598 ?auto_10600 ) ) ( not ( = ?auto_10599 ?auto_10600 ) ) ( not ( = ?auto_10598 ?auto_10601 ) ) ( not ( = ?auto_10599 ?auto_10601 ) ) ( not ( = ?auto_10600 ?auto_10601 ) ) ( ON ?auto_10601 ?auto_10600 ) ( CLEAR ?auto_10601 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_10598 ?auto_10599 ?auto_10601 )
+    ( ( MAKE-3PILE ?auto_10598 ?auto_10599 ?auto_10600 )
       ( MAKE-2PILE ?auto_10598 ?auto_10599 ) )
   )
 
@@ -310,14 +310,14 @@
     )
     :vars
     (
-      ?auto_10412 - BLOCK
-      ?auto_10410 - BLOCK
       ?auto_10411 - BLOCK
+      ?auto_10410 - BLOCK
+      ?auto_10412 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10412 ?auto_10409 ) ( ON-TABLE ?auto_10408 ) ( ON ?auto_10409 ?auto_10408 ) ( not ( = ?auto_10408 ?auto_10409 ) ) ( not ( = ?auto_10408 ?auto_10412 ) ) ( not ( = ?auto_10409 ?auto_10412 ) ) ( not ( = ?auto_10408 ?auto_10410 ) ) ( not ( = ?auto_10408 ?auto_10411 ) ) ( not ( = ?auto_10409 ?auto_10410 ) ) ( not ( = ?auto_10409 ?auto_10411 ) ) ( not ( = ?auto_10412 ?auto_10410 ) ) ( not ( = ?auto_10412 ?auto_10411 ) ) ( not ( = ?auto_10410 ?auto_10411 ) ) ( ON ?auto_10410 ?auto_10412 ) ( CLEAR ?auto_10410 ) ( HOLDING ?auto_10411 ) )
+    ( and ( ON ?auto_10411 ?auto_10409 ) ( ON-TABLE ?auto_10408 ) ( ON ?auto_10409 ?auto_10408 ) ( not ( = ?auto_10408 ?auto_10409 ) ) ( not ( = ?auto_10408 ?auto_10411 ) ) ( not ( = ?auto_10409 ?auto_10411 ) ) ( not ( = ?auto_10408 ?auto_10410 ) ) ( not ( = ?auto_10408 ?auto_10412 ) ) ( not ( = ?auto_10409 ?auto_10410 ) ) ( not ( = ?auto_10409 ?auto_10412 ) ) ( not ( = ?auto_10411 ?auto_10410 ) ) ( not ( = ?auto_10411 ?auto_10412 ) ) ( not ( = ?auto_10410 ?auto_10412 ) ) ( ON ?auto_10410 ?auto_10411 ) ( CLEAR ?auto_10410 ) ( HOLDING ?auto_10412 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_10411 )
+    ( ( MAKE-1PILE ?auto_10412 )
       ( MAKE-2PILE ?auto_10408 ?auto_10409 ) )
   )
 
@@ -329,14 +329,14 @@
     )
     :vars
     (
-      ?auto_10415 - BLOCK
       ?auto_10416 - BLOCK
+      ?auto_10415 - BLOCK
       ?auto_10417 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10415 ?auto_10414 ) ( ON-TABLE ?auto_10413 ) ( ON ?auto_10414 ?auto_10413 ) ( not ( = ?auto_10413 ?auto_10414 ) ) ( not ( = ?auto_10413 ?auto_10415 ) ) ( not ( = ?auto_10414 ?auto_10415 ) ) ( not ( = ?auto_10413 ?auto_10416 ) ) ( not ( = ?auto_10413 ?auto_10417 ) ) ( not ( = ?auto_10414 ?auto_10416 ) ) ( not ( = ?auto_10414 ?auto_10417 ) ) ( not ( = ?auto_10415 ?auto_10416 ) ) ( not ( = ?auto_10415 ?auto_10417 ) ) ( not ( = ?auto_10416 ?auto_10417 ) ) ( ON ?auto_10416 ?auto_10415 ) ( ON ?auto_10417 ?auto_10416 ) ( CLEAR ?auto_10417 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_10416 ?auto_10414 ) ( ON-TABLE ?auto_10413 ) ( ON ?auto_10414 ?auto_10413 ) ( not ( = ?auto_10413 ?auto_10414 ) ) ( not ( = ?auto_10413 ?auto_10416 ) ) ( not ( = ?auto_10414 ?auto_10416 ) ) ( not ( = ?auto_10413 ?auto_10415 ) ) ( not ( = ?auto_10413 ?auto_10417 ) ) ( not ( = ?auto_10414 ?auto_10415 ) ) ( not ( = ?auto_10414 ?auto_10417 ) ) ( not ( = ?auto_10416 ?auto_10415 ) ) ( not ( = ?auto_10416 ?auto_10417 ) ) ( not ( = ?auto_10415 ?auto_10417 ) ) ( ON ?auto_10415 ?auto_10416 ) ( ON ?auto_10417 ?auto_10415 ) ( CLEAR ?auto_10417 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_10413 ?auto_10414 ?auto_10415 ?auto_10416 )
+    ( ( MAKE-4PILE ?auto_10413 ?auto_10414 ?auto_10416 ?auto_10415 )
       ( MAKE-2PILE ?auto_10413 ?auto_10414 ) )
   )
 
@@ -486,14 +486,14 @@
     )
     :vars
     (
-      ?auto_10456 - BLOCK
       ?auto_10457 - BLOCK
       ?auto_10455 - BLOCK
+      ?auto_10456 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10456 ?auto_10454 ) ( ON-TABLE ?auto_10454 ) ( not ( = ?auto_10454 ?auto_10456 ) ) ( CLEAR ?auto_10457 ) ( not ( = ?auto_10454 ?auto_10455 ) ) ( not ( = ?auto_10454 ?auto_10457 ) ) ( not ( = ?auto_10456 ?auto_10455 ) ) ( not ( = ?auto_10456 ?auto_10457 ) ) ( not ( = ?auto_10455 ?auto_10457 ) ) ( ON ?auto_10455 ?auto_10456 ) ( CLEAR ?auto_10455 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_10457 ?auto_10454 ) ( ON-TABLE ?auto_10454 ) ( not ( = ?auto_10454 ?auto_10457 ) ) ( CLEAR ?auto_10455 ) ( not ( = ?auto_10454 ?auto_10456 ) ) ( not ( = ?auto_10454 ?auto_10455 ) ) ( not ( = ?auto_10457 ?auto_10456 ) ) ( not ( = ?auto_10457 ?auto_10455 ) ) ( not ( = ?auto_10456 ?auto_10455 ) ) ( ON ?auto_10456 ?auto_10457 ) ( CLEAR ?auto_10456 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_10454 ?auto_10456 )
+    ( ( MAKE-2PILE ?auto_10454 ?auto_10457 )
       ( MAKE-1PILE ?auto_10454 ) )
   )
 
@@ -505,14 +505,14 @@
     :vars
     (
       ?auto_10460 - BLOCK
-      ?auto_10461 - BLOCK
       ?auto_10459 - BLOCK
+      ?auto_10461 - BLOCK
       ?auto_10462 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10460 ?auto_10458 ) ( ON-TABLE ?auto_10458 ) ( not ( = ?auto_10458 ?auto_10460 ) ) ( not ( = ?auto_10458 ?auto_10461 ) ) ( not ( = ?auto_10458 ?auto_10459 ) ) ( not ( = ?auto_10460 ?auto_10461 ) ) ( not ( = ?auto_10460 ?auto_10459 ) ) ( not ( = ?auto_10461 ?auto_10459 ) ) ( ON ?auto_10461 ?auto_10460 ) ( CLEAR ?auto_10461 ) ( HOLDING ?auto_10459 ) ( CLEAR ?auto_10462 ) ( ON-TABLE ?auto_10462 ) ( not ( = ?auto_10462 ?auto_10459 ) ) ( not ( = ?auto_10458 ?auto_10462 ) ) ( not ( = ?auto_10460 ?auto_10462 ) ) ( not ( = ?auto_10461 ?auto_10462 ) ) )
+    ( and ( ON ?auto_10460 ?auto_10458 ) ( ON-TABLE ?auto_10458 ) ( not ( = ?auto_10458 ?auto_10460 ) ) ( not ( = ?auto_10458 ?auto_10459 ) ) ( not ( = ?auto_10458 ?auto_10461 ) ) ( not ( = ?auto_10460 ?auto_10459 ) ) ( not ( = ?auto_10460 ?auto_10461 ) ) ( not ( = ?auto_10459 ?auto_10461 ) ) ( ON ?auto_10459 ?auto_10460 ) ( CLEAR ?auto_10459 ) ( HOLDING ?auto_10461 ) ( CLEAR ?auto_10462 ) ( ON-TABLE ?auto_10462 ) ( not ( = ?auto_10462 ?auto_10461 ) ) ( not ( = ?auto_10458 ?auto_10462 ) ) ( not ( = ?auto_10460 ?auto_10462 ) ) ( not ( = ?auto_10459 ?auto_10462 ) ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_10462 ?auto_10459 )
+    ( ( MAKE-2PILE ?auto_10462 ?auto_10461 )
       ( MAKE-1PILE ?auto_10458 ) )
   )
 
@@ -524,13 +524,13 @@
     :vars
     (
       ?auto_10688 - BLOCK
-      ?auto_10689 - BLOCK
       ?auto_10687 - BLOCK
+      ?auto_10689 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10688 ?auto_10686 ) ( ON-TABLE ?auto_10686 ) ( not ( = ?auto_10686 ?auto_10688 ) ) ( not ( = ?auto_10686 ?auto_10689 ) ) ( not ( = ?auto_10686 ?auto_10687 ) ) ( not ( = ?auto_10688 ?auto_10689 ) ) ( not ( = ?auto_10688 ?auto_10687 ) ) ( not ( = ?auto_10689 ?auto_10687 ) ) ( ON ?auto_10689 ?auto_10688 ) ( ON ?auto_10687 ?auto_10689 ) ( CLEAR ?auto_10687 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_10688 ?auto_10686 ) ( ON-TABLE ?auto_10686 ) ( not ( = ?auto_10686 ?auto_10688 ) ) ( not ( = ?auto_10686 ?auto_10687 ) ) ( not ( = ?auto_10686 ?auto_10689 ) ) ( not ( = ?auto_10688 ?auto_10687 ) ) ( not ( = ?auto_10688 ?auto_10689 ) ) ( not ( = ?auto_10687 ?auto_10689 ) ) ( ON ?auto_10687 ?auto_10688 ) ( ON ?auto_10689 ?auto_10687 ) ( CLEAR ?auto_10689 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_10686 ?auto_10688 ?auto_10689 )
+    ( ( MAKE-3PILE ?auto_10686 ?auto_10688 ?auto_10687 )
       ( MAKE-1PILE ?auto_10686 ) )
   )
 
@@ -543,13 +543,13 @@
     (
       ?auto_10471 - BLOCK
       ?auto_10469 - BLOCK
-      ?auto_10470 - BLOCK
       ?auto_10472 - BLOCK
+      ?auto_10470 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10471 ?auto_10468 ) ( ON-TABLE ?auto_10468 ) ( not ( = ?auto_10468 ?auto_10471 ) ) ( not ( = ?auto_10468 ?auto_10469 ) ) ( not ( = ?auto_10468 ?auto_10470 ) ) ( not ( = ?auto_10471 ?auto_10469 ) ) ( not ( = ?auto_10471 ?auto_10470 ) ) ( not ( = ?auto_10469 ?auto_10470 ) ) ( ON ?auto_10469 ?auto_10471 ) ( not ( = ?auto_10472 ?auto_10470 ) ) ( not ( = ?auto_10468 ?auto_10472 ) ) ( not ( = ?auto_10471 ?auto_10472 ) ) ( not ( = ?auto_10469 ?auto_10472 ) ) ( ON ?auto_10470 ?auto_10469 ) ( CLEAR ?auto_10470 ) ( HOLDING ?auto_10472 ) )
+    ( and ( ON ?auto_10471 ?auto_10468 ) ( ON-TABLE ?auto_10468 ) ( not ( = ?auto_10468 ?auto_10471 ) ) ( not ( = ?auto_10468 ?auto_10469 ) ) ( not ( = ?auto_10468 ?auto_10472 ) ) ( not ( = ?auto_10471 ?auto_10469 ) ) ( not ( = ?auto_10471 ?auto_10472 ) ) ( not ( = ?auto_10469 ?auto_10472 ) ) ( ON ?auto_10469 ?auto_10471 ) ( not ( = ?auto_10470 ?auto_10472 ) ) ( not ( = ?auto_10468 ?auto_10470 ) ) ( not ( = ?auto_10471 ?auto_10470 ) ) ( not ( = ?auto_10469 ?auto_10470 ) ) ( ON ?auto_10472 ?auto_10469 ) ( CLEAR ?auto_10472 ) ( HOLDING ?auto_10470 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_10472 )
+    ( ( MAKE-1PILE ?auto_10470 )
       ( MAKE-1PILE ?auto_10468 ) )
   )
 
@@ -561,14 +561,14 @@
     :vars
     (
       ?auto_10476 - BLOCK
-      ?auto_10475 - BLOCK
       ?auto_10477 - BLOCK
       ?auto_10474 - BLOCK
+      ?auto_10475 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10476 ?auto_10473 ) ( ON-TABLE ?auto_10473 ) ( not ( = ?auto_10473 ?auto_10476 ) ) ( not ( = ?auto_10473 ?auto_10475 ) ) ( not ( = ?auto_10473 ?auto_10477 ) ) ( not ( = ?auto_10476 ?auto_10475 ) ) ( not ( = ?auto_10476 ?auto_10477 ) ) ( not ( = ?auto_10475 ?auto_10477 ) ) ( ON ?auto_10475 ?auto_10476 ) ( not ( = ?auto_10474 ?auto_10477 ) ) ( not ( = ?auto_10473 ?auto_10474 ) ) ( not ( = ?auto_10476 ?auto_10474 ) ) ( not ( = ?auto_10475 ?auto_10474 ) ) ( ON ?auto_10477 ?auto_10475 ) ( ON ?auto_10474 ?auto_10477 ) ( CLEAR ?auto_10474 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_10476 ?auto_10473 ) ( ON-TABLE ?auto_10473 ) ( not ( = ?auto_10473 ?auto_10476 ) ) ( not ( = ?auto_10473 ?auto_10477 ) ) ( not ( = ?auto_10473 ?auto_10474 ) ) ( not ( = ?auto_10476 ?auto_10477 ) ) ( not ( = ?auto_10476 ?auto_10474 ) ) ( not ( = ?auto_10477 ?auto_10474 ) ) ( ON ?auto_10477 ?auto_10476 ) ( not ( = ?auto_10475 ?auto_10474 ) ) ( not ( = ?auto_10473 ?auto_10475 ) ) ( not ( = ?auto_10476 ?auto_10475 ) ) ( not ( = ?auto_10477 ?auto_10475 ) ) ( ON ?auto_10474 ?auto_10477 ) ( ON ?auto_10475 ?auto_10474 ) ( CLEAR ?auto_10475 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_10473 ?auto_10476 ?auto_10475 ?auto_10477 )
+    ( ( MAKE-4PILE ?auto_10473 ?auto_10476 ?auto_10477 ?auto_10474 )
       ( MAKE-1PILE ?auto_10473 ) )
   )
 
@@ -744,14 +744,14 @@
     )
     :vars
     (
-      ?auto_10567 - BLOCK
       ?auto_10566 - BLOCK
       ?auto_10568 - BLOCK
+      ?auto_10567 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10565 ?auto_10567 ) ( not ( = ?auto_10565 ?auto_10567 ) ) ( CLEAR ?auto_10566 ) ( not ( = ?auto_10565 ?auto_10568 ) ) ( not ( = ?auto_10565 ?auto_10566 ) ) ( not ( = ?auto_10567 ?auto_10568 ) ) ( not ( = ?auto_10567 ?auto_10566 ) ) ( not ( = ?auto_10568 ?auto_10566 ) ) ( ON ?auto_10568 ?auto_10565 ) ( CLEAR ?auto_10568 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_10567 ) )
+    ( and ( ON ?auto_10565 ?auto_10566 ) ( not ( = ?auto_10565 ?auto_10566 ) ) ( CLEAR ?auto_10568 ) ( not ( = ?auto_10565 ?auto_10567 ) ) ( not ( = ?auto_10565 ?auto_10568 ) ) ( not ( = ?auto_10566 ?auto_10567 ) ) ( not ( = ?auto_10566 ?auto_10568 ) ) ( not ( = ?auto_10567 ?auto_10568 ) ) ( ON ?auto_10567 ?auto_10565 ) ( CLEAR ?auto_10567 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_10566 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_10567 ?auto_10565 )
+    ( ( MAKE-2PILE ?auto_10566 ?auto_10565 )
       ( MAKE-1PILE ?auto_10565 ) )
   )
 
@@ -763,14 +763,14 @@
     :vars
     (
       ?auto_10572 - BLOCK
-      ?auto_10571 - BLOCK
       ?auto_10570 - BLOCK
+      ?auto_10571 - BLOCK
       ?auto_10573 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10569 ?auto_10572 ) ( not ( = ?auto_10569 ?auto_10572 ) ) ( not ( = ?auto_10569 ?auto_10571 ) ) ( not ( = ?auto_10569 ?auto_10570 ) ) ( not ( = ?auto_10572 ?auto_10571 ) ) ( not ( = ?auto_10572 ?auto_10570 ) ) ( not ( = ?auto_10571 ?auto_10570 ) ) ( ON ?auto_10571 ?auto_10569 ) ( CLEAR ?auto_10571 ) ( ON-TABLE ?auto_10572 ) ( HOLDING ?auto_10570 ) ( CLEAR ?auto_10573 ) ( ON-TABLE ?auto_10573 ) ( not ( = ?auto_10573 ?auto_10570 ) ) ( not ( = ?auto_10569 ?auto_10573 ) ) ( not ( = ?auto_10572 ?auto_10573 ) ) ( not ( = ?auto_10571 ?auto_10573 ) ) )
+    ( and ( ON ?auto_10569 ?auto_10572 ) ( not ( = ?auto_10569 ?auto_10572 ) ) ( not ( = ?auto_10569 ?auto_10570 ) ) ( not ( = ?auto_10569 ?auto_10571 ) ) ( not ( = ?auto_10572 ?auto_10570 ) ) ( not ( = ?auto_10572 ?auto_10571 ) ) ( not ( = ?auto_10570 ?auto_10571 ) ) ( ON ?auto_10570 ?auto_10569 ) ( CLEAR ?auto_10570 ) ( ON-TABLE ?auto_10572 ) ( HOLDING ?auto_10571 ) ( CLEAR ?auto_10573 ) ( ON-TABLE ?auto_10573 ) ( not ( = ?auto_10573 ?auto_10571 ) ) ( not ( = ?auto_10569 ?auto_10573 ) ) ( not ( = ?auto_10572 ?auto_10573 ) ) ( not ( = ?auto_10570 ?auto_10573 ) ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_10573 ?auto_10570 )
+    ( ( MAKE-2PILE ?auto_10573 ?auto_10571 )
       ( MAKE-1PILE ?auto_10569 ) )
   )
 
@@ -781,15 +781,15 @@
     )
     :vars
     (
+      ?auto_10578 - BLOCK
       ?auto_10576 - BLOCK
       ?auto_10577 - BLOCK
-      ?auto_10578 - BLOCK
       ?auto_10575 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10574 ?auto_10576 ) ( not ( = ?auto_10574 ?auto_10576 ) ) ( not ( = ?auto_10574 ?auto_10577 ) ) ( not ( = ?auto_10574 ?auto_10578 ) ) ( not ( = ?auto_10576 ?auto_10577 ) ) ( not ( = ?auto_10576 ?auto_10578 ) ) ( not ( = ?auto_10577 ?auto_10578 ) ) ( ON ?auto_10577 ?auto_10574 ) ( ON-TABLE ?auto_10576 ) ( CLEAR ?auto_10575 ) ( ON-TABLE ?auto_10575 ) ( not ( = ?auto_10575 ?auto_10578 ) ) ( not ( = ?auto_10574 ?auto_10575 ) ) ( not ( = ?auto_10576 ?auto_10575 ) ) ( not ( = ?auto_10577 ?auto_10575 ) ) ( ON ?auto_10578 ?auto_10577 ) ( CLEAR ?auto_10578 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_10574 ?auto_10578 ) ( not ( = ?auto_10574 ?auto_10578 ) ) ( not ( = ?auto_10574 ?auto_10576 ) ) ( not ( = ?auto_10574 ?auto_10577 ) ) ( not ( = ?auto_10578 ?auto_10576 ) ) ( not ( = ?auto_10578 ?auto_10577 ) ) ( not ( = ?auto_10576 ?auto_10577 ) ) ( ON ?auto_10576 ?auto_10574 ) ( ON-TABLE ?auto_10578 ) ( CLEAR ?auto_10575 ) ( ON-TABLE ?auto_10575 ) ( not ( = ?auto_10575 ?auto_10577 ) ) ( not ( = ?auto_10574 ?auto_10575 ) ) ( not ( = ?auto_10578 ?auto_10575 ) ) ( not ( = ?auto_10576 ?auto_10575 ) ) ( ON ?auto_10577 ?auto_10576 ) ( CLEAR ?auto_10577 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_10576 ?auto_10574 ?auto_10577 )
+    ( ( MAKE-3PILE ?auto_10578 ?auto_10574 ?auto_10576 )
       ( MAKE-1PILE ?auto_10574 ) )
   )
 
@@ -800,15 +800,15 @@
     )
     :vars
     (
-      ?auto_10582 - BLOCK
       ?auto_10580 - BLOCK
-      ?auto_10581 - BLOCK
       ?auto_10583 - BLOCK
+      ?auto_10582 - BLOCK
+      ?auto_10581 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10579 ?auto_10582 ) ( not ( = ?auto_10579 ?auto_10582 ) ) ( not ( = ?auto_10579 ?auto_10580 ) ) ( not ( = ?auto_10579 ?auto_10581 ) ) ( not ( = ?auto_10582 ?auto_10580 ) ) ( not ( = ?auto_10582 ?auto_10581 ) ) ( not ( = ?auto_10580 ?auto_10581 ) ) ( ON ?auto_10580 ?auto_10579 ) ( ON-TABLE ?auto_10582 ) ( not ( = ?auto_10583 ?auto_10581 ) ) ( not ( = ?auto_10579 ?auto_10583 ) ) ( not ( = ?auto_10582 ?auto_10583 ) ) ( not ( = ?auto_10580 ?auto_10583 ) ) ( ON ?auto_10581 ?auto_10580 ) ( CLEAR ?auto_10581 ) ( HOLDING ?auto_10583 ) )
+    ( and ( ON ?auto_10579 ?auto_10580 ) ( not ( = ?auto_10579 ?auto_10580 ) ) ( not ( = ?auto_10579 ?auto_10583 ) ) ( not ( = ?auto_10579 ?auto_10582 ) ) ( not ( = ?auto_10580 ?auto_10583 ) ) ( not ( = ?auto_10580 ?auto_10582 ) ) ( not ( = ?auto_10583 ?auto_10582 ) ) ( ON ?auto_10583 ?auto_10579 ) ( ON-TABLE ?auto_10580 ) ( not ( = ?auto_10581 ?auto_10582 ) ) ( not ( = ?auto_10579 ?auto_10581 ) ) ( not ( = ?auto_10580 ?auto_10581 ) ) ( not ( = ?auto_10583 ?auto_10581 ) ) ( ON ?auto_10582 ?auto_10583 ) ( CLEAR ?auto_10582 ) ( HOLDING ?auto_10581 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_10583 )
+    ( ( MAKE-1PILE ?auto_10581 )
       ( MAKE-1PILE ?auto_10579 ) )
   )
 
@@ -821,13 +821,13 @@
     (
       ?auto_10587 - BLOCK
       ?auto_10585 - BLOCK
-      ?auto_10588 - BLOCK
       ?auto_10586 - BLOCK
+      ?auto_10588 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10584 ?auto_10587 ) ( not ( = ?auto_10584 ?auto_10587 ) ) ( not ( = ?auto_10584 ?auto_10585 ) ) ( not ( = ?auto_10584 ?auto_10588 ) ) ( not ( = ?auto_10587 ?auto_10585 ) ) ( not ( = ?auto_10587 ?auto_10588 ) ) ( not ( = ?auto_10585 ?auto_10588 ) ) ( ON ?auto_10585 ?auto_10584 ) ( ON-TABLE ?auto_10587 ) ( not ( = ?auto_10586 ?auto_10588 ) ) ( not ( = ?auto_10584 ?auto_10586 ) ) ( not ( = ?auto_10587 ?auto_10586 ) ) ( not ( = ?auto_10585 ?auto_10586 ) ) ( ON ?auto_10588 ?auto_10585 ) ( ON ?auto_10586 ?auto_10588 ) ( CLEAR ?auto_10586 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_10584 ?auto_10587 ) ( not ( = ?auto_10584 ?auto_10587 ) ) ( not ( = ?auto_10584 ?auto_10585 ) ) ( not ( = ?auto_10584 ?auto_10586 ) ) ( not ( = ?auto_10587 ?auto_10585 ) ) ( not ( = ?auto_10587 ?auto_10586 ) ) ( not ( = ?auto_10585 ?auto_10586 ) ) ( ON ?auto_10585 ?auto_10584 ) ( ON-TABLE ?auto_10587 ) ( not ( = ?auto_10588 ?auto_10586 ) ) ( not ( = ?auto_10584 ?auto_10588 ) ) ( not ( = ?auto_10587 ?auto_10588 ) ) ( not ( = ?auto_10585 ?auto_10588 ) ) ( ON ?auto_10586 ?auto_10585 ) ( ON ?auto_10588 ?auto_10586 ) ( CLEAR ?auto_10588 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_10587 ?auto_10584 ?auto_10585 ?auto_10588 )
+    ( ( MAKE-4PILE ?auto_10587 ?auto_10584 ?auto_10585 ?auto_10586 )
       ( MAKE-1PILE ?auto_10584 ) )
   )
 
@@ -893,14 +893,14 @@
     )
     :vars
     (
-      ?auto_10643 - BLOCK
       ?auto_10644 - BLOCK
+      ?auto_10643 - BLOCK
       ?auto_10645 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_10641 ?auto_10642 ) ) ( not ( = ?auto_10641 ?auto_10643 ) ) ( not ( = ?auto_10642 ?auto_10643 ) ) ( ON ?auto_10641 ?auto_10644 ) ( CLEAR ?auto_10641 ) ( not ( = ?auto_10641 ?auto_10644 ) ) ( not ( = ?auto_10642 ?auto_10644 ) ) ( not ( = ?auto_10643 ?auto_10644 ) ) ( HOLDING ?auto_10642 ) ( CLEAR ?auto_10643 ) ( ON-TABLE ?auto_10645 ) ( ON ?auto_10643 ?auto_10645 ) ( not ( = ?auto_10645 ?auto_10643 ) ) ( not ( = ?auto_10645 ?auto_10642 ) ) ( not ( = ?auto_10641 ?auto_10645 ) ) ( not ( = ?auto_10644 ?auto_10645 ) ) )
+    ( and ( not ( = ?auto_10641 ?auto_10642 ) ) ( not ( = ?auto_10641 ?auto_10644 ) ) ( not ( = ?auto_10642 ?auto_10644 ) ) ( ON ?auto_10641 ?auto_10643 ) ( CLEAR ?auto_10641 ) ( not ( = ?auto_10641 ?auto_10643 ) ) ( not ( = ?auto_10642 ?auto_10643 ) ) ( not ( = ?auto_10644 ?auto_10643 ) ) ( HOLDING ?auto_10642 ) ( CLEAR ?auto_10644 ) ( ON-TABLE ?auto_10645 ) ( ON ?auto_10644 ?auto_10645 ) ( not ( = ?auto_10645 ?auto_10644 ) ) ( not ( = ?auto_10645 ?auto_10642 ) ) ( not ( = ?auto_10641 ?auto_10645 ) ) ( not ( = ?auto_10643 ?auto_10645 ) ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_10645 ?auto_10643 ?auto_10642 )
+    ( ( MAKE-3PILE ?auto_10645 ?auto_10644 ?auto_10642 )
       ( MAKE-2PILE ?auto_10641 ?auto_10642 ) )
   )
 
@@ -913,13 +913,13 @@
     :vars
     (
       ?auto_10648 - BLOCK
-      ?auto_10649 - BLOCK
       ?auto_10650 - BLOCK
+      ?auto_10649 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_10646 ?auto_10647 ) ) ( not ( = ?auto_10646 ?auto_10648 ) ) ( not ( = ?auto_10647 ?auto_10648 ) ) ( ON ?auto_10646 ?auto_10649 ) ( not ( = ?auto_10646 ?auto_10649 ) ) ( not ( = ?auto_10647 ?auto_10649 ) ) ( not ( = ?auto_10648 ?auto_10649 ) ) ( CLEAR ?auto_10648 ) ( ON-TABLE ?auto_10650 ) ( ON ?auto_10648 ?auto_10650 ) ( not ( = ?auto_10650 ?auto_10648 ) ) ( not ( = ?auto_10650 ?auto_10647 ) ) ( not ( = ?auto_10646 ?auto_10650 ) ) ( not ( = ?auto_10649 ?auto_10650 ) ) ( ON ?auto_10647 ?auto_10646 ) ( CLEAR ?auto_10647 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_10649 ) )
+    ( and ( not ( = ?auto_10646 ?auto_10647 ) ) ( not ( = ?auto_10646 ?auto_10648 ) ) ( not ( = ?auto_10647 ?auto_10648 ) ) ( ON ?auto_10646 ?auto_10650 ) ( not ( = ?auto_10646 ?auto_10650 ) ) ( not ( = ?auto_10647 ?auto_10650 ) ) ( not ( = ?auto_10648 ?auto_10650 ) ) ( CLEAR ?auto_10648 ) ( ON-TABLE ?auto_10649 ) ( ON ?auto_10648 ?auto_10649 ) ( not ( = ?auto_10649 ?auto_10648 ) ) ( not ( = ?auto_10649 ?auto_10647 ) ) ( not ( = ?auto_10646 ?auto_10649 ) ) ( not ( = ?auto_10650 ?auto_10649 ) ) ( ON ?auto_10647 ?auto_10646 ) ( CLEAR ?auto_10647 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_10650 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_10649 ?auto_10646 )
+    ( ( MAKE-2PILE ?auto_10650 ?auto_10646 )
       ( MAKE-2PILE ?auto_10646 ?auto_10647 ) )
   )
 
@@ -931,14 +931,14 @@
     )
     :vars
     (
-      ?auto_10654 - BLOCK
-      ?auto_10655 - BLOCK
       ?auto_10653 - BLOCK
+      ?auto_10655 - BLOCK
+      ?auto_10654 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_10651 ?auto_10652 ) ) ( not ( = ?auto_10651 ?auto_10654 ) ) ( not ( = ?auto_10652 ?auto_10654 ) ) ( ON ?auto_10651 ?auto_10655 ) ( not ( = ?auto_10651 ?auto_10655 ) ) ( not ( = ?auto_10652 ?auto_10655 ) ) ( not ( = ?auto_10654 ?auto_10655 ) ) ( ON-TABLE ?auto_10653 ) ( not ( = ?auto_10653 ?auto_10654 ) ) ( not ( = ?auto_10653 ?auto_10652 ) ) ( not ( = ?auto_10651 ?auto_10653 ) ) ( not ( = ?auto_10655 ?auto_10653 ) ) ( ON ?auto_10652 ?auto_10651 ) ( CLEAR ?auto_10652 ) ( ON-TABLE ?auto_10655 ) ( HOLDING ?auto_10654 ) ( CLEAR ?auto_10653 ) )
+    ( and ( not ( = ?auto_10651 ?auto_10652 ) ) ( not ( = ?auto_10651 ?auto_10653 ) ) ( not ( = ?auto_10652 ?auto_10653 ) ) ( ON ?auto_10651 ?auto_10655 ) ( not ( = ?auto_10651 ?auto_10655 ) ) ( not ( = ?auto_10652 ?auto_10655 ) ) ( not ( = ?auto_10653 ?auto_10655 ) ) ( ON-TABLE ?auto_10654 ) ( not ( = ?auto_10654 ?auto_10653 ) ) ( not ( = ?auto_10654 ?auto_10652 ) ) ( not ( = ?auto_10651 ?auto_10654 ) ) ( not ( = ?auto_10655 ?auto_10654 ) ) ( ON ?auto_10652 ?auto_10651 ) ( CLEAR ?auto_10652 ) ( ON-TABLE ?auto_10655 ) ( HOLDING ?auto_10653 ) ( CLEAR ?auto_10654 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_10653 ?auto_10654 )
+    ( ( MAKE-2PILE ?auto_10654 ?auto_10653 )
       ( MAKE-2PILE ?auto_10651 ?auto_10652 ) )
   )
 
@@ -950,14 +950,14 @@
     )
     :vars
     (
+      ?auto_10659 - BLOCK
       ?auto_10658 - BLOCK
       ?auto_10660 - BLOCK
-      ?auto_10659 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_10656 ?auto_10657 ) ) ( not ( = ?auto_10656 ?auto_10658 ) ) ( not ( = ?auto_10657 ?auto_10658 ) ) ( ON ?auto_10656 ?auto_10660 ) ( not ( = ?auto_10656 ?auto_10660 ) ) ( not ( = ?auto_10657 ?auto_10660 ) ) ( not ( = ?auto_10658 ?auto_10660 ) ) ( ON-TABLE ?auto_10659 ) ( not ( = ?auto_10659 ?auto_10658 ) ) ( not ( = ?auto_10659 ?auto_10657 ) ) ( not ( = ?auto_10656 ?auto_10659 ) ) ( not ( = ?auto_10660 ?auto_10659 ) ) ( ON ?auto_10657 ?auto_10656 ) ( ON-TABLE ?auto_10660 ) ( CLEAR ?auto_10659 ) ( ON ?auto_10658 ?auto_10657 ) ( CLEAR ?auto_10658 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_10656 ?auto_10657 ) ) ( not ( = ?auto_10656 ?auto_10659 ) ) ( not ( = ?auto_10657 ?auto_10659 ) ) ( ON ?auto_10656 ?auto_10658 ) ( not ( = ?auto_10656 ?auto_10658 ) ) ( not ( = ?auto_10657 ?auto_10658 ) ) ( not ( = ?auto_10659 ?auto_10658 ) ) ( ON-TABLE ?auto_10660 ) ( not ( = ?auto_10660 ?auto_10659 ) ) ( not ( = ?auto_10660 ?auto_10657 ) ) ( not ( = ?auto_10656 ?auto_10660 ) ) ( not ( = ?auto_10658 ?auto_10660 ) ) ( ON ?auto_10657 ?auto_10656 ) ( ON-TABLE ?auto_10658 ) ( CLEAR ?auto_10660 ) ( ON ?auto_10659 ?auto_10657 ) ( CLEAR ?auto_10659 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_10660 ?auto_10656 ?auto_10657 )
+    ( ( MAKE-3PILE ?auto_10658 ?auto_10656 ?auto_10657 )
       ( MAKE-2PILE ?auto_10656 ?auto_10657 ) )
   )
 
@@ -969,14 +969,14 @@
     )
     :vars
     (
-      ?auto_10663 - BLOCK
-      ?auto_10664 - BLOCK
       ?auto_10665 - BLOCK
+      ?auto_10664 - BLOCK
+      ?auto_10663 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_10661 ?auto_10662 ) ) ( not ( = ?auto_10661 ?auto_10663 ) ) ( not ( = ?auto_10662 ?auto_10663 ) ) ( ON ?auto_10661 ?auto_10664 ) ( not ( = ?auto_10661 ?auto_10664 ) ) ( not ( = ?auto_10662 ?auto_10664 ) ) ( not ( = ?auto_10663 ?auto_10664 ) ) ( not ( = ?auto_10665 ?auto_10663 ) ) ( not ( = ?auto_10665 ?auto_10662 ) ) ( not ( = ?auto_10661 ?auto_10665 ) ) ( not ( = ?auto_10664 ?auto_10665 ) ) ( ON ?auto_10662 ?auto_10661 ) ( ON-TABLE ?auto_10664 ) ( ON ?auto_10663 ?auto_10662 ) ( CLEAR ?auto_10663 ) ( HOLDING ?auto_10665 ) )
+    ( and ( not ( = ?auto_10661 ?auto_10662 ) ) ( not ( = ?auto_10661 ?auto_10665 ) ) ( not ( = ?auto_10662 ?auto_10665 ) ) ( ON ?auto_10661 ?auto_10664 ) ( not ( = ?auto_10661 ?auto_10664 ) ) ( not ( = ?auto_10662 ?auto_10664 ) ) ( not ( = ?auto_10665 ?auto_10664 ) ) ( not ( = ?auto_10663 ?auto_10665 ) ) ( not ( = ?auto_10663 ?auto_10662 ) ) ( not ( = ?auto_10661 ?auto_10663 ) ) ( not ( = ?auto_10664 ?auto_10663 ) ) ( ON ?auto_10662 ?auto_10661 ) ( ON-TABLE ?auto_10664 ) ( ON ?auto_10665 ?auto_10662 ) ( CLEAR ?auto_10665 ) ( HOLDING ?auto_10663 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_10665 )
+    ( ( MAKE-1PILE ?auto_10663 )
       ( MAKE-2PILE ?auto_10661 ?auto_10662 ) )
   )
 
@@ -1006,12 +1006,12 @@
     )
     :vars
     (
-      ?auto_10685 - BLOCK
       ?auto_10683 - BLOCK
+      ?auto_10685 - BLOCK
       ?auto_10684 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_10685 ?auto_10682 ) ( ON-TABLE ?auto_10682 ) ( not ( = ?auto_10682 ?auto_10685 ) ) ( not ( = ?auto_10682 ?auto_10683 ) ) ( not ( = ?auto_10682 ?auto_10684 ) ) ( not ( = ?auto_10685 ?auto_10683 ) ) ( not ( = ?auto_10685 ?auto_10684 ) ) ( not ( = ?auto_10683 ?auto_10684 ) ) ( ON ?auto_10683 ?auto_10685 ) ( CLEAR ?auto_10683 ) ( HOLDING ?auto_10684 ) )
+    ( and ( ON ?auto_10683 ?auto_10682 ) ( ON-TABLE ?auto_10682 ) ( not ( = ?auto_10682 ?auto_10683 ) ) ( not ( = ?auto_10682 ?auto_10685 ) ) ( not ( = ?auto_10682 ?auto_10684 ) ) ( not ( = ?auto_10683 ?auto_10685 ) ) ( not ( = ?auto_10683 ?auto_10684 ) ) ( not ( = ?auto_10685 ?auto_10684 ) ) ( ON ?auto_10685 ?auto_10683 ) ( CLEAR ?auto_10685 ) ( HOLDING ?auto_10684 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_10684 )
       ( MAKE-1PILE ?auto_10682 ) )

@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b614 - block
-    b157 - block
-    b555 - block
-    b68 - block
-    b652 - block
-    b377 - block
-    b600 - block
-    b735 - block
-    b936 - block
-    b315 - block
-    b887 - block
-    b187 - block
-    b501 - block
-    b100 - block
-    b175 - block
-    b787 - block
-    b354 - block
-    b7 - block
-    b765 - block
-    b337 - block
-    b283 - block
-    b905 - block
-    b794 - block
+    b108 - block
+    b196 - block
+    b556 - block
+    b640 - block
+    b464 - block
+    b238 - block
+    b808 - block
+    b774 - block
+    b413 - block
+    b475 - block
+    b387 - block
+    b440 - block
+    b24 - block
+    b72 - block
+    b996 - block
+    b884 - block
+    b863 - block
+    b261 - block
+    b133 - block
+    b771 - block
+    b642 - block
+    b158 - block
+    b846 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b614 )
-    ( on b157 b614 )
-    ( on b555 b157 )
-    ( on b68 b555 )
-    ( on b652 b68 )
-    ( on b377 b652 )
-    ( on b600 b377 )
-    ( on b735 b600 )
-    ( on b936 b735 )
-    ( on b315 b936 )
-    ( on b887 b315 )
-    ( on b187 b887 )
-    ( on b501 b187 )
-    ( on b100 b501 )
-    ( on b175 b100 )
-    ( on b787 b175 )
-    ( on b354 b787 )
-    ( on b7 b354 )
-    ( on b765 b7 )
-    ( on b337 b765 )
-    ( on b283 b337 )
-    ( on b905 b283 )
-    ( on b794 b905 )
-    ( clear b794 )
+    ( on-table b108 )
+    ( on b196 b108 )
+    ( on b556 b196 )
+    ( on b640 b556 )
+    ( on b464 b640 )
+    ( on b238 b464 )
+    ( on b808 b238 )
+    ( on b774 b808 )
+    ( on b413 b774 )
+    ( on b475 b413 )
+    ( on b387 b475 )
+    ( on b440 b387 )
+    ( on b24 b440 )
+    ( on b72 b24 )
+    ( on b996 b72 )
+    ( on b884 b996 )
+    ( on b863 b884 )
+    ( on b261 b863 )
+    ( on b133 b261 )
+    ( on b771 b133 )
+    ( on b642 b771 )
+    ( on b158 b642 )
+    ( on b846 b158 )
+    ( clear b846 )
   )
   ( :goal
     ( and
-      ( clear b614 )
+      ( clear b108 )
     )
   )
 )

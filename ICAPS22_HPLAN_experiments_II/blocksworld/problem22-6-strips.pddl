@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b101 - block
-    b653 - block
-    b666 - block
-    b173 - block
-    b880 - block
-    b472 - block
-    b190 - block
-    b151 - block
-    b698 - block
-    b149 - block
-    b926 - block
-    b39 - block
-    b259 - block
-    b823 - block
-    b806 - block
-    b66 - block
-    b249 - block
-    b333 - block
-    b43 - block
-    b912 - block
-    b954 - block
-    b557 - block
-    b351 - block
+    b175 - block
+    b978 - block
+    b252 - block
+    b966 - block
+    b413 - block
+    b678 - block
+    b31 - block
+    b493 - block
+    b184 - block
+    b68 - block
+    b17 - block
+    b134 - block
+    b447 - block
+    b571 - block
+    b748 - block
+    b816 - block
+    b494 - block
+    b711 - block
+    b674 - block
+    b510 - block
+    b395 - block
+    b59 - block
+    b546 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b101 )
-    ( on b653 b101 )
-    ( on b666 b653 )
-    ( on b173 b666 )
-    ( on b880 b173 )
-    ( on b472 b880 )
-    ( on b190 b472 )
-    ( on b151 b190 )
-    ( on b698 b151 )
-    ( on b149 b698 )
-    ( on b926 b149 )
-    ( on b39 b926 )
-    ( on b259 b39 )
-    ( on b823 b259 )
-    ( on b806 b823 )
-    ( on b66 b806 )
-    ( on b249 b66 )
-    ( on b333 b249 )
-    ( on b43 b333 )
-    ( on b912 b43 )
-    ( on b954 b912 )
-    ( on b557 b954 )
-    ( on b351 b557 )
-    ( clear b351 )
+    ( on-table b175 )
+    ( on b978 b175 )
+    ( on b252 b978 )
+    ( on b966 b252 )
+    ( on b413 b966 )
+    ( on b678 b413 )
+    ( on b31 b678 )
+    ( on b493 b31 )
+    ( on b184 b493 )
+    ( on b68 b184 )
+    ( on b17 b68 )
+    ( on b134 b17 )
+    ( on b447 b134 )
+    ( on b571 b447 )
+    ( on b748 b571 )
+    ( on b816 b748 )
+    ( on b494 b816 )
+    ( on b711 b494 )
+    ( on b674 b711 )
+    ( on b510 b674 )
+    ( on b395 b510 )
+    ( on b59 b395 )
+    ( on b546 b59 )
+    ( clear b546 )
   )
   ( :goal
     ( and
-      ( clear b101 )
+      ( clear b175 )
     )
   )
 )

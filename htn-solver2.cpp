@@ -49,11 +49,16 @@ bool g_bShowTrace;
 bool g_bUseQValues;
 bool g_bUpdateQValues;
 bool g_bRandomSelection;
+bool g_bCurriculum;
+bool g_bPrune;
 int g_iDebugLevel;
 unsigned int g_iMaxDepth;
 
 int main( int argc, char * argv[] )
 {
+
+  std::cout << "begin" << std::endl;
+
 #ifdef CATCH_EXCEPTS
   try{
 #endif//CATCH_EXCEPTS
@@ -63,6 +68,8 @@ int main( int argc, char * argv[] )
     TCLAP::CmdLine l_cCmd( "Find an HTN plan", ' ', "1.1" );
     TCLAP::UnlabeledValueArg<std::string> l_aDomain( "domain", "Which domain?", true, "not_spec", "domain", l_cCmd );
     TCLAP::SwitchArg l_aShowTrace( "t", "show_trace", "Show a full decomposition trace of the solution.", l_cCmd, false );
+    TCLAP::SwitchArg l_aCurriculum( "c", "curriculum", "Teachable-HTN-Maker.", l_cCmd, false );
+    TCLAP::SwitchArg l_aPrune( "p", "prune", "Prune methods.", l_cCmd, false );
     TCLAP::SwitchArg l_aUseQValues( "q", "use_qvalues", "When decomposing a task, use the applicable method with lowest Q-value.", l_cCmd, false );
     TCLAP::SwitchArg l_aUpdateQValues( "u", "update_qvalues", "After finding a solution, update the Q-values of the methods used.", l_cCmd, false );
     TCLAP::SwitchArg l_aRandomSelection( "r", "random_selection", "Select applicable methods in random order.", l_cCmd, false );
@@ -73,6 +80,8 @@ int main( int argc, char * argv[] )
     
     l_sDomainName = l_aDomain.getValue();
     g_bShowTrace = l_aShowTrace.getValue();
+    g_bCurriculum = l_aCurriculum.getValue();
+    g_bPrune = l_aPrune.getValue();
     g_bUseQValues = l_aUseQValues.getValue();
     g_bUpdateQValues = l_aUpdateQValues.getValue();
     g_bRandomSelection = l_aRandomSelection.getValue();
@@ -86,7 +95,7 @@ int main( int argc, char * argv[] )
   }
 
 
-  return 0;
+  return DoExperiments(l_sDomainName);
 
 #ifdef CATCH_EXCEPTS
   }catch( Exception & e ){ std::cerr << "\n" << e.ToStr() << "\n"; return 1; }
@@ -102,7 +111,7 @@ int DoExperiments(std::string l_sDomainName)
   int l_iNumberOfProblems;
   int l_iNumberOfRunsPerProblem; 
   std::string l_sResultFileName;
-  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/results_with_methods";
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_II";
 
   if (l_sDomainName == "logistics") {
     l_iNumberOfProblems = 6;
@@ -112,22 +121,37 @@ int DoExperiments(std::string l_sDomainName)
     l_iNumberOfProblems = 40;
     l_iNumberOfRunsPerProblem = 20;
   }
-  l_sResultFileName = "curriculum";
-  l_sResultFileName = "curriculum_prune";
-  l_sResultFileName = "original";
-  l_sResultFileName = "original_prune";
+
+  if (g_bCurriculum){
+    if (!g_bPrune)
+      l_sResultFileName = "curriculum";
+    else {
+      l_sResultFileName = "curriculum_prune";
+    }
+  } 
+  else {
+    if (!g_bPrune)
+      l_sResultFileName = "original";
+    else
+      l_sResultFileName = "original_prune";
+  }
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
-      l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
-      std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments/" + l_sDomainName + "/";
-      l_sProblemFile = l_sDir + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-strips.pddl";
+      if (i == 2 && j == 0) {
+      l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
+      l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
+      std::cout << l_sDomainFile << std::endl;
+      std::cout << l_sProblemFile << std::endl;
       std::clock_t c_start = std::clock();
       DoOneExperiment(l_sDomainFile, l_sProblemFile);
       std::clock_t c_end = std::clock();
       //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
       long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
+      std::cout << time_elapsed_ms << std::endl;
+      }
     }
   }
+  return 0;
 }
 
 

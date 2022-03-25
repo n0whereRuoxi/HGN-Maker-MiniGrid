@@ -1,33 +1,33 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain blocks4 )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
-    b825 - block
-    b361 - block
-    b278 - block
-    b797 - block
-    b900 - block
-    b984 - block
-    b429 - block
-    b479 - block
-    b483 - block
-    b269 - block
+    b511 - block
+    b944 - block
+    b508 - block
+    b907 - block
+    b654 - block
+    b501 - block
+    b134 - block
+    b555 - block
+    b745 - block
+    b213 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b825 )
-    ( on b361 b825 )
-    ( on b278 b361 )
-    ( on b797 b278 )
-    ( on b900 b797 )
-    ( on b984 b900 )
-    ( on b429 b984 )
-    ( on b479 b429 )
-    ( on b483 b479 )
-    ( on b269 b483 )
-    ( clear b269 )
+    ( on-table b511 )
+    ( on b944 b511 )
+    ( on b508 b944 )
+    ( on b907 b508 )
+    ( on b654 b907 )
+    ( on b501 b654 )
+    ( on b134 b501 )
+    ( on b555 b134 )
+    ( on b745 b555 )
+    ( on b213 b745 )
+    ( clear b213 )
   )
   ( :tasks
-    ( Make-9Pile b361 b278 b797 b900 b984 b429 b479 b483 b269 )
+    ( Make-9Pile b944 b508 b907 b654 b501 b134 b555 b745 b213 )
   )
 )

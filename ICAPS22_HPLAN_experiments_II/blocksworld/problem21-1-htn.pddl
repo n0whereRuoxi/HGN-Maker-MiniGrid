@@ -1,57 +1,57 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain blocks4 )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
-    b331 - block
-    b372 - block
-    b883 - block
-    b583 - block
-    b138 - block
-    b192 - block
-    b793 - block
-    b872 - block
-    b989 - block
-    b349 - block
-    b889 - block
-    b171 - block
-    b351 - block
-    b229 - block
-    b104 - block
-    b80 - block
-    b53 - block
-    b570 - block
-    b870 - block
-    b677 - block
-    b170 - block
-    b978 - block
+    b881 - block
+    b898 - block
+    b725 - block
+    b519 - block
+    b149 - block
+    b19 - block
+    b130 - block
+    b29 - block
+    b305 - block
+    b60 - block
+    b518 - block
+    b239 - block
+    b22 - block
+    b530 - block
+    b108 - block
+    b253 - block
+    b666 - block
+    b69 - block
+    b270 - block
+    b131 - block
+    b671 - block
+    b654 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b331 )
-    ( on b372 b331 )
-    ( on b883 b372 )
-    ( on b583 b883 )
-    ( on b138 b583 )
-    ( on b192 b138 )
-    ( on b793 b192 )
-    ( on b872 b793 )
-    ( on b989 b872 )
-    ( on b349 b989 )
-    ( on b889 b349 )
-    ( on b171 b889 )
-    ( on b351 b171 )
-    ( on b229 b351 )
-    ( on b104 b229 )
-    ( on b80 b104 )
-    ( on b53 b80 )
-    ( on b570 b53 )
-    ( on b870 b570 )
-    ( on b677 b870 )
-    ( on b170 b677 )
-    ( on b978 b170 )
-    ( clear b978 )
+    ( on-table b881 )
+    ( on b898 b881 )
+    ( on b725 b898 )
+    ( on b519 b725 )
+    ( on b149 b519 )
+    ( on b19 b149 )
+    ( on b130 b19 )
+    ( on b29 b130 )
+    ( on b305 b29 )
+    ( on b60 b305 )
+    ( on b518 b60 )
+    ( on b239 b518 )
+    ( on b22 b239 )
+    ( on b530 b22 )
+    ( on b108 b530 )
+    ( on b253 b108 )
+    ( on b666 b253 )
+    ( on b69 b666 )
+    ( on b270 b69 )
+    ( on b131 b270 )
+    ( on b671 b131 )
+    ( on b654 b671 )
+    ( clear b654 )
   )
   ( :tasks
-    ( Make-21Pile b372 b883 b583 b138 b192 b793 b872 b989 b349 b889 b171 b351 b229 b104 b80 b53 b570 b870 b677 b170 b978 )
+    ( Make-21Pile b898 b725 b519 b149 b19 b130 b29 b305 b60 b518 b239 b22 b530 b108 b253 b666 b69 b270 b131 b671 b654 )
   )
 )

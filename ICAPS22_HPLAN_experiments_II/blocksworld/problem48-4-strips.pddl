@@ -2,112 +2,112 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
+    b827 - block
+    b493 - block
+    b293 - block
+    b507 - block
+    b965 - block
+    b688 - block
+    b607 - block
+    b902 - block
+    b641 - block
+    b628 - block
+    b444 - block
+    b440 - block
+    b980 - block
     b682 - block
-    b320 - block
-    b886 - block
-    b894 - block
-    b723 - block
-    b476 - block
-    b322 - block
-    b818 - block
-    b188 - block
-    b66 - block
-    b831 - block
-    b548 - block
-    b515 - block
-    b60 - block
-    b158 - block
-    b170 - block
-    b460 - block
-    b745 - block
-    b281 - block
-    b112 - block
-    b396 - block
-    b675 - block
-    b58 - block
-    b125 - block
-    b270 - block
-    b703 - block
-    b311 - block
-    b835 - block
-    b38 - block
-    b360 - block
-    b746 - block
-    b215 - block
-    b979 - block
-    b664 - block
-    b543 - block
-    b223 - block
-    b169 - block
-    b249 - block
-    b72 - block
-    b944 - block
-    b755 - block
-    b372 - block
-    b693 - block
-    b450 - block
-    b243 - block
-    b18 - block
-    b950 - block
+    b294 - block
+    b815 - block
+    b116 - block
+    b817 - block
+    b864 - block
+    b596 - block
+    b8 - block
     b868 - block
-    b502 - block
+    b390 - block
+    b148 - block
+    b642 - block
+    b926 - block
+    b708 - block
+    b733 - block
+    b612 - block
+    b427 - block
+    b674 - block
+    b325 - block
+    b931 - block
+    b631 - block
+    b710 - block
+    b854 - block
+    b762 - block
+    b439 - block
+    b265 - block
+    b255 - block
+    b150 - block
+    b949 - block
+    b24 - block
+    b482 - block
+    b418 - block
+    b955 - block
+    b551 - block
+    b768 - block
+    b620 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b682 )
-    ( on b320 b682 )
-    ( on b886 b320 )
-    ( on b894 b886 )
-    ( on b723 b894 )
-    ( on b476 b723 )
-    ( on b322 b476 )
-    ( on b818 b322 )
-    ( on b188 b818 )
-    ( on b66 b188 )
-    ( on b831 b66 )
-    ( on b548 b831 )
-    ( on b515 b548 )
-    ( on b60 b515 )
-    ( on b158 b60 )
-    ( on b170 b158 )
-    ( on b460 b170 )
-    ( on b745 b460 )
-    ( on b281 b745 )
-    ( on b112 b281 )
-    ( on b396 b112 )
-    ( on b675 b396 )
-    ( on b58 b675 )
-    ( on b125 b58 )
-    ( on b270 b125 )
-    ( on b703 b270 )
-    ( on b311 b703 )
-    ( on b835 b311 )
-    ( on b38 b835 )
-    ( on b360 b38 )
-    ( on b746 b360 )
-    ( on b215 b746 )
-    ( on b979 b215 )
-    ( on b664 b979 )
-    ( on b543 b664 )
-    ( on b223 b543 )
-    ( on b169 b223 )
-    ( on b249 b169 )
-    ( on b72 b249 )
-    ( on b944 b72 )
-    ( on b755 b944 )
-    ( on b372 b755 )
-    ( on b693 b372 )
-    ( on b450 b693 )
-    ( on b243 b450 )
-    ( on b18 b243 )
-    ( on b950 b18 )
-    ( on b868 b950 )
-    ( on b502 b868 )
-    ( clear b502 )
+    ( on-table b827 )
+    ( on b493 b827 )
+    ( on b293 b493 )
+    ( on b507 b293 )
+    ( on b965 b507 )
+    ( on b688 b965 )
+    ( on b607 b688 )
+    ( on b902 b607 )
+    ( on b641 b902 )
+    ( on b628 b641 )
+    ( on b444 b628 )
+    ( on b440 b444 )
+    ( on b980 b440 )
+    ( on b682 b980 )
+    ( on b294 b682 )
+    ( on b815 b294 )
+    ( on b116 b815 )
+    ( on b817 b116 )
+    ( on b864 b817 )
+    ( on b596 b864 )
+    ( on b8 b596 )
+    ( on b868 b8 )
+    ( on b390 b868 )
+    ( on b148 b390 )
+    ( on b642 b148 )
+    ( on b926 b642 )
+    ( on b708 b926 )
+    ( on b733 b708 )
+    ( on b612 b733 )
+    ( on b427 b612 )
+    ( on b674 b427 )
+    ( on b325 b674 )
+    ( on b931 b325 )
+    ( on b631 b931 )
+    ( on b710 b631 )
+    ( on b854 b710 )
+    ( on b762 b854 )
+    ( on b439 b762 )
+    ( on b265 b439 )
+    ( on b255 b265 )
+    ( on b150 b255 )
+    ( on b949 b150 )
+    ( on b24 b949 )
+    ( on b482 b24 )
+    ( on b418 b482 )
+    ( on b955 b418 )
+    ( on b551 b955 )
+    ( on b768 b551 )
+    ( on b620 b768 )
+    ( clear b620 )
   )
   ( :goal
     ( and
-      ( clear b682 )
+      ( clear b827 )
     )
   )
 )

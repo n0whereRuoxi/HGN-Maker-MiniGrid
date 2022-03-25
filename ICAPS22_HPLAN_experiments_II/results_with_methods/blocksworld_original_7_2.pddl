@@ -186,13 +186,13 @@
     )
     :vars
     (
-      ?auto_81494 - BLOCK
       ?auto_81495 - BLOCK
+      ?auto_81494 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81494 ?auto_81493 ) ( ON-TABLE ?auto_81488 ) ( ON ?auto_81489 ?auto_81488 ) ( ON ?auto_81490 ?auto_81489 ) ( ON ?auto_81491 ?auto_81490 ) ( ON ?auto_81492 ?auto_81491 ) ( ON ?auto_81493 ?auto_81492 ) ( not ( = ?auto_81488 ?auto_81489 ) ) ( not ( = ?auto_81488 ?auto_81490 ) ) ( not ( = ?auto_81488 ?auto_81491 ) ) ( not ( = ?auto_81488 ?auto_81492 ) ) ( not ( = ?auto_81488 ?auto_81493 ) ) ( not ( = ?auto_81488 ?auto_81494 ) ) ( not ( = ?auto_81489 ?auto_81490 ) ) ( not ( = ?auto_81489 ?auto_81491 ) ) ( not ( = ?auto_81489 ?auto_81492 ) ) ( not ( = ?auto_81489 ?auto_81493 ) ) ( not ( = ?auto_81489 ?auto_81494 ) ) ( not ( = ?auto_81490 ?auto_81491 ) ) ( not ( = ?auto_81490 ?auto_81492 ) ) ( not ( = ?auto_81490 ?auto_81493 ) ) ( not ( = ?auto_81490 ?auto_81494 ) ) ( not ( = ?auto_81491 ?auto_81492 ) ) ( not ( = ?auto_81491 ?auto_81493 ) ) ( not ( = ?auto_81491 ?auto_81494 ) ) ( not ( = ?auto_81492 ?auto_81493 ) ) ( not ( = ?auto_81492 ?auto_81494 ) ) ( not ( = ?auto_81493 ?auto_81494 ) ) ( not ( = ?auto_81488 ?auto_81495 ) ) ( not ( = ?auto_81489 ?auto_81495 ) ) ( not ( = ?auto_81490 ?auto_81495 ) ) ( not ( = ?auto_81491 ?auto_81495 ) ) ( not ( = ?auto_81492 ?auto_81495 ) ) ( not ( = ?auto_81493 ?auto_81495 ) ) ( not ( = ?auto_81494 ?auto_81495 ) ) ( ON ?auto_81495 ?auto_81494 ) ( CLEAR ?auto_81495 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81495 ?auto_81493 ) ( ON-TABLE ?auto_81488 ) ( ON ?auto_81489 ?auto_81488 ) ( ON ?auto_81490 ?auto_81489 ) ( ON ?auto_81491 ?auto_81490 ) ( ON ?auto_81492 ?auto_81491 ) ( ON ?auto_81493 ?auto_81492 ) ( not ( = ?auto_81488 ?auto_81489 ) ) ( not ( = ?auto_81488 ?auto_81490 ) ) ( not ( = ?auto_81488 ?auto_81491 ) ) ( not ( = ?auto_81488 ?auto_81492 ) ) ( not ( = ?auto_81488 ?auto_81493 ) ) ( not ( = ?auto_81488 ?auto_81495 ) ) ( not ( = ?auto_81489 ?auto_81490 ) ) ( not ( = ?auto_81489 ?auto_81491 ) ) ( not ( = ?auto_81489 ?auto_81492 ) ) ( not ( = ?auto_81489 ?auto_81493 ) ) ( not ( = ?auto_81489 ?auto_81495 ) ) ( not ( = ?auto_81490 ?auto_81491 ) ) ( not ( = ?auto_81490 ?auto_81492 ) ) ( not ( = ?auto_81490 ?auto_81493 ) ) ( not ( = ?auto_81490 ?auto_81495 ) ) ( not ( = ?auto_81491 ?auto_81492 ) ) ( not ( = ?auto_81491 ?auto_81493 ) ) ( not ( = ?auto_81491 ?auto_81495 ) ) ( not ( = ?auto_81492 ?auto_81493 ) ) ( not ( = ?auto_81492 ?auto_81495 ) ) ( not ( = ?auto_81493 ?auto_81495 ) ) ( not ( = ?auto_81488 ?auto_81494 ) ) ( not ( = ?auto_81489 ?auto_81494 ) ) ( not ( = ?auto_81490 ?auto_81494 ) ) ( not ( = ?auto_81491 ?auto_81494 ) ) ( not ( = ?auto_81492 ?auto_81494 ) ) ( not ( = ?auto_81493 ?auto_81494 ) ) ( not ( = ?auto_81495 ?auto_81494 ) ) ( ON ?auto_81494 ?auto_81495 ) ( CLEAR ?auto_81494 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81488 ?auto_81489 ?auto_81490 ?auto_81491 ?auto_81492 ?auto_81493 ?auto_81494 )
+    ( ( MAKE-7PILE ?auto_81488 ?auto_81489 ?auto_81490 ?auto_81491 ?auto_81492 ?auto_81493 ?auto_81495 )
       ( MAKE-6PILE ?auto_81488 ?auto_81489 ?auto_81490 ?auto_81491 ?auto_81492 ?auto_81493 ) )
   )
 
@@ -251,16 +251,16 @@
     :vars
     (
       ?auto_81508 - BLOCK
-      ?auto_81512 - BLOCK
-      ?auto_81513 - BLOCK
-      ?auto_81510 - BLOCK
-      ?auto_81511 - BLOCK
       ?auto_81509 - BLOCK
+      ?auto_81513 - BLOCK
+      ?auto_81512 - BLOCK
+      ?auto_81511 - BLOCK
+      ?auto_81510 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_81506 ?auto_81507 ) ) ( ON ?auto_81507 ?auto_81508 ) ( not ( = ?auto_81506 ?auto_81508 ) ) ( not ( = ?auto_81507 ?auto_81508 ) ) ( ON ?auto_81506 ?auto_81507 ) ( CLEAR ?auto_81506 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_81512 ) ( ON ?auto_81513 ?auto_81512 ) ( ON ?auto_81510 ?auto_81513 ) ( ON ?auto_81511 ?auto_81510 ) ( ON ?auto_81509 ?auto_81511 ) ( ON ?auto_81508 ?auto_81509 ) ( not ( = ?auto_81512 ?auto_81513 ) ) ( not ( = ?auto_81512 ?auto_81510 ) ) ( not ( = ?auto_81512 ?auto_81511 ) ) ( not ( = ?auto_81512 ?auto_81509 ) ) ( not ( = ?auto_81512 ?auto_81508 ) ) ( not ( = ?auto_81512 ?auto_81507 ) ) ( not ( = ?auto_81512 ?auto_81506 ) ) ( not ( = ?auto_81513 ?auto_81510 ) ) ( not ( = ?auto_81513 ?auto_81511 ) ) ( not ( = ?auto_81513 ?auto_81509 ) ) ( not ( = ?auto_81513 ?auto_81508 ) ) ( not ( = ?auto_81513 ?auto_81507 ) ) ( not ( = ?auto_81513 ?auto_81506 ) ) ( not ( = ?auto_81510 ?auto_81511 ) ) ( not ( = ?auto_81510 ?auto_81509 ) ) ( not ( = ?auto_81510 ?auto_81508 ) ) ( not ( = ?auto_81510 ?auto_81507 ) ) ( not ( = ?auto_81510 ?auto_81506 ) ) ( not ( = ?auto_81511 ?auto_81509 ) ) ( not ( = ?auto_81511 ?auto_81508 ) ) ( not ( = ?auto_81511 ?auto_81507 ) ) ( not ( = ?auto_81511 ?auto_81506 ) ) ( not ( = ?auto_81509 ?auto_81508 ) ) ( not ( = ?auto_81509 ?auto_81507 ) ) ( not ( = ?auto_81509 ?auto_81506 ) ) )
+    ( and ( not ( = ?auto_81506 ?auto_81507 ) ) ( ON ?auto_81507 ?auto_81508 ) ( not ( = ?auto_81506 ?auto_81508 ) ) ( not ( = ?auto_81507 ?auto_81508 ) ) ( ON ?auto_81506 ?auto_81507 ) ( CLEAR ?auto_81506 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_81509 ) ( ON ?auto_81513 ?auto_81509 ) ( ON ?auto_81512 ?auto_81513 ) ( ON ?auto_81511 ?auto_81512 ) ( ON ?auto_81510 ?auto_81511 ) ( ON ?auto_81508 ?auto_81510 ) ( not ( = ?auto_81509 ?auto_81513 ) ) ( not ( = ?auto_81509 ?auto_81512 ) ) ( not ( = ?auto_81509 ?auto_81511 ) ) ( not ( = ?auto_81509 ?auto_81510 ) ) ( not ( = ?auto_81509 ?auto_81508 ) ) ( not ( = ?auto_81509 ?auto_81507 ) ) ( not ( = ?auto_81509 ?auto_81506 ) ) ( not ( = ?auto_81513 ?auto_81512 ) ) ( not ( = ?auto_81513 ?auto_81511 ) ) ( not ( = ?auto_81513 ?auto_81510 ) ) ( not ( = ?auto_81513 ?auto_81508 ) ) ( not ( = ?auto_81513 ?auto_81507 ) ) ( not ( = ?auto_81513 ?auto_81506 ) ) ( not ( = ?auto_81512 ?auto_81511 ) ) ( not ( = ?auto_81512 ?auto_81510 ) ) ( not ( = ?auto_81512 ?auto_81508 ) ) ( not ( = ?auto_81512 ?auto_81507 ) ) ( not ( = ?auto_81512 ?auto_81506 ) ) ( not ( = ?auto_81511 ?auto_81510 ) ) ( not ( = ?auto_81511 ?auto_81508 ) ) ( not ( = ?auto_81511 ?auto_81507 ) ) ( not ( = ?auto_81511 ?auto_81506 ) ) ( not ( = ?auto_81510 ?auto_81508 ) ) ( not ( = ?auto_81510 ?auto_81507 ) ) ( not ( = ?auto_81510 ?auto_81506 ) ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81512 ?auto_81513 ?auto_81510 ?auto_81511 ?auto_81509 ?auto_81508 ?auto_81507 )
+    ( ( MAKE-7PILE ?auto_81509 ?auto_81513 ?auto_81512 ?auto_81511 ?auto_81510 ?auto_81508 ?auto_81507 )
       ( MAKE-2PILE ?auto_81506 ?auto_81507 ) )
   )
 
@@ -338,12 +338,12 @@
     )
     :vars
     (
-      ?auto_81546 - BLOCK
       ?auto_81548 - BLOCK
+      ?auto_81546 - BLOCK
       ?auto_81547 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81546 ?auto_81545 ) ( ON-TABLE ?auto_81541 ) ( ON ?auto_81542 ?auto_81541 ) ( ON ?auto_81543 ?auto_81542 ) ( ON ?auto_81544 ?auto_81543 ) ( ON ?auto_81545 ?auto_81544 ) ( not ( = ?auto_81541 ?auto_81542 ) ) ( not ( = ?auto_81541 ?auto_81543 ) ) ( not ( = ?auto_81541 ?auto_81544 ) ) ( not ( = ?auto_81541 ?auto_81545 ) ) ( not ( = ?auto_81541 ?auto_81546 ) ) ( not ( = ?auto_81542 ?auto_81543 ) ) ( not ( = ?auto_81542 ?auto_81544 ) ) ( not ( = ?auto_81542 ?auto_81545 ) ) ( not ( = ?auto_81542 ?auto_81546 ) ) ( not ( = ?auto_81543 ?auto_81544 ) ) ( not ( = ?auto_81543 ?auto_81545 ) ) ( not ( = ?auto_81543 ?auto_81546 ) ) ( not ( = ?auto_81544 ?auto_81545 ) ) ( not ( = ?auto_81544 ?auto_81546 ) ) ( not ( = ?auto_81545 ?auto_81546 ) ) ( not ( = ?auto_81541 ?auto_81548 ) ) ( not ( = ?auto_81541 ?auto_81547 ) ) ( not ( = ?auto_81542 ?auto_81548 ) ) ( not ( = ?auto_81542 ?auto_81547 ) ) ( not ( = ?auto_81543 ?auto_81548 ) ) ( not ( = ?auto_81543 ?auto_81547 ) ) ( not ( = ?auto_81544 ?auto_81548 ) ) ( not ( = ?auto_81544 ?auto_81547 ) ) ( not ( = ?auto_81545 ?auto_81548 ) ) ( not ( = ?auto_81545 ?auto_81547 ) ) ( not ( = ?auto_81546 ?auto_81548 ) ) ( not ( = ?auto_81546 ?auto_81547 ) ) ( not ( = ?auto_81548 ?auto_81547 ) ) ( ON ?auto_81548 ?auto_81546 ) ( CLEAR ?auto_81548 ) ( HOLDING ?auto_81547 ) )
+    ( and ( ON ?auto_81548 ?auto_81545 ) ( ON-TABLE ?auto_81541 ) ( ON ?auto_81542 ?auto_81541 ) ( ON ?auto_81543 ?auto_81542 ) ( ON ?auto_81544 ?auto_81543 ) ( ON ?auto_81545 ?auto_81544 ) ( not ( = ?auto_81541 ?auto_81542 ) ) ( not ( = ?auto_81541 ?auto_81543 ) ) ( not ( = ?auto_81541 ?auto_81544 ) ) ( not ( = ?auto_81541 ?auto_81545 ) ) ( not ( = ?auto_81541 ?auto_81548 ) ) ( not ( = ?auto_81542 ?auto_81543 ) ) ( not ( = ?auto_81542 ?auto_81544 ) ) ( not ( = ?auto_81542 ?auto_81545 ) ) ( not ( = ?auto_81542 ?auto_81548 ) ) ( not ( = ?auto_81543 ?auto_81544 ) ) ( not ( = ?auto_81543 ?auto_81545 ) ) ( not ( = ?auto_81543 ?auto_81548 ) ) ( not ( = ?auto_81544 ?auto_81545 ) ) ( not ( = ?auto_81544 ?auto_81548 ) ) ( not ( = ?auto_81545 ?auto_81548 ) ) ( not ( = ?auto_81541 ?auto_81546 ) ) ( not ( = ?auto_81541 ?auto_81547 ) ) ( not ( = ?auto_81542 ?auto_81546 ) ) ( not ( = ?auto_81542 ?auto_81547 ) ) ( not ( = ?auto_81543 ?auto_81546 ) ) ( not ( = ?auto_81543 ?auto_81547 ) ) ( not ( = ?auto_81544 ?auto_81546 ) ) ( not ( = ?auto_81544 ?auto_81547 ) ) ( not ( = ?auto_81545 ?auto_81546 ) ) ( not ( = ?auto_81545 ?auto_81547 ) ) ( not ( = ?auto_81548 ?auto_81546 ) ) ( not ( = ?auto_81548 ?auto_81547 ) ) ( not ( = ?auto_81546 ?auto_81547 ) ) ( ON ?auto_81546 ?auto_81548 ) ( CLEAR ?auto_81546 ) ( HOLDING ?auto_81547 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_81547 )
       ( MAKE-5PILE ?auto_81541 ?auto_81542 ?auto_81543 ?auto_81544 ?auto_81545 ) )
@@ -360,14 +360,14 @@
     )
     :vars
     (
+      ?auto_81555 - BLOCK
       ?auto_81556 - BLOCK
       ?auto_81554 - BLOCK
-      ?auto_81555 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81556 ?auto_81553 ) ( ON-TABLE ?auto_81549 ) ( ON ?auto_81550 ?auto_81549 ) ( ON ?auto_81551 ?auto_81550 ) ( ON ?auto_81552 ?auto_81551 ) ( ON ?auto_81553 ?auto_81552 ) ( not ( = ?auto_81549 ?auto_81550 ) ) ( not ( = ?auto_81549 ?auto_81551 ) ) ( not ( = ?auto_81549 ?auto_81552 ) ) ( not ( = ?auto_81549 ?auto_81553 ) ) ( not ( = ?auto_81549 ?auto_81556 ) ) ( not ( = ?auto_81550 ?auto_81551 ) ) ( not ( = ?auto_81550 ?auto_81552 ) ) ( not ( = ?auto_81550 ?auto_81553 ) ) ( not ( = ?auto_81550 ?auto_81556 ) ) ( not ( = ?auto_81551 ?auto_81552 ) ) ( not ( = ?auto_81551 ?auto_81553 ) ) ( not ( = ?auto_81551 ?auto_81556 ) ) ( not ( = ?auto_81552 ?auto_81553 ) ) ( not ( = ?auto_81552 ?auto_81556 ) ) ( not ( = ?auto_81553 ?auto_81556 ) ) ( not ( = ?auto_81549 ?auto_81554 ) ) ( not ( = ?auto_81549 ?auto_81555 ) ) ( not ( = ?auto_81550 ?auto_81554 ) ) ( not ( = ?auto_81550 ?auto_81555 ) ) ( not ( = ?auto_81551 ?auto_81554 ) ) ( not ( = ?auto_81551 ?auto_81555 ) ) ( not ( = ?auto_81552 ?auto_81554 ) ) ( not ( = ?auto_81552 ?auto_81555 ) ) ( not ( = ?auto_81553 ?auto_81554 ) ) ( not ( = ?auto_81553 ?auto_81555 ) ) ( not ( = ?auto_81556 ?auto_81554 ) ) ( not ( = ?auto_81556 ?auto_81555 ) ) ( not ( = ?auto_81554 ?auto_81555 ) ) ( ON ?auto_81554 ?auto_81556 ) ( ON ?auto_81555 ?auto_81554 ) ( CLEAR ?auto_81555 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81555 ?auto_81553 ) ( ON-TABLE ?auto_81549 ) ( ON ?auto_81550 ?auto_81549 ) ( ON ?auto_81551 ?auto_81550 ) ( ON ?auto_81552 ?auto_81551 ) ( ON ?auto_81553 ?auto_81552 ) ( not ( = ?auto_81549 ?auto_81550 ) ) ( not ( = ?auto_81549 ?auto_81551 ) ) ( not ( = ?auto_81549 ?auto_81552 ) ) ( not ( = ?auto_81549 ?auto_81553 ) ) ( not ( = ?auto_81549 ?auto_81555 ) ) ( not ( = ?auto_81550 ?auto_81551 ) ) ( not ( = ?auto_81550 ?auto_81552 ) ) ( not ( = ?auto_81550 ?auto_81553 ) ) ( not ( = ?auto_81550 ?auto_81555 ) ) ( not ( = ?auto_81551 ?auto_81552 ) ) ( not ( = ?auto_81551 ?auto_81553 ) ) ( not ( = ?auto_81551 ?auto_81555 ) ) ( not ( = ?auto_81552 ?auto_81553 ) ) ( not ( = ?auto_81552 ?auto_81555 ) ) ( not ( = ?auto_81553 ?auto_81555 ) ) ( not ( = ?auto_81549 ?auto_81556 ) ) ( not ( = ?auto_81549 ?auto_81554 ) ) ( not ( = ?auto_81550 ?auto_81556 ) ) ( not ( = ?auto_81550 ?auto_81554 ) ) ( not ( = ?auto_81551 ?auto_81556 ) ) ( not ( = ?auto_81551 ?auto_81554 ) ) ( not ( = ?auto_81552 ?auto_81556 ) ) ( not ( = ?auto_81552 ?auto_81554 ) ) ( not ( = ?auto_81553 ?auto_81556 ) ) ( not ( = ?auto_81553 ?auto_81554 ) ) ( not ( = ?auto_81555 ?auto_81556 ) ) ( not ( = ?auto_81555 ?auto_81554 ) ) ( not ( = ?auto_81556 ?auto_81554 ) ) ( ON ?auto_81556 ?auto_81555 ) ( ON ?auto_81554 ?auto_81556 ) ( CLEAR ?auto_81554 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81549 ?auto_81550 ?auto_81551 ?auto_81552 ?auto_81553 ?auto_81556 ?auto_81554 )
+    ( ( MAKE-7PILE ?auto_81549 ?auto_81550 ?auto_81551 ?auto_81552 ?auto_81553 ?auto_81555 ?auto_81556 )
       ( MAKE-5PILE ?auto_81549 ?auto_81550 ?auto_81551 ?auto_81552 ?auto_81553 ) )
   )
 
@@ -430,15 +430,15 @@
     :vars
     (
       ?auto_81574 - BLOCK
-      ?auto_81578 - BLOCK
+      ?auto_81576 - BLOCK
       ?auto_81577 - BLOCK
       ?auto_81575 - BLOCK
-      ?auto_81576 - BLOCK
+      ?auto_81578 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81571 ) ( not ( = ?auto_81571 ?auto_81572 ) ) ( not ( = ?auto_81571 ?auto_81573 ) ) ( not ( = ?auto_81572 ?auto_81573 ) ) ( ON ?auto_81573 ?auto_81574 ) ( not ( = ?auto_81571 ?auto_81574 ) ) ( not ( = ?auto_81572 ?auto_81574 ) ) ( not ( = ?auto_81573 ?auto_81574 ) ) ( CLEAR ?auto_81571 ) ( ON ?auto_81572 ?auto_81573 ) ( CLEAR ?auto_81572 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_81578 ) ( ON ?auto_81577 ?auto_81578 ) ( ON ?auto_81575 ?auto_81577 ) ( ON ?auto_81576 ?auto_81575 ) ( ON ?auto_81574 ?auto_81576 ) ( not ( = ?auto_81578 ?auto_81577 ) ) ( not ( = ?auto_81578 ?auto_81575 ) ) ( not ( = ?auto_81578 ?auto_81576 ) ) ( not ( = ?auto_81578 ?auto_81574 ) ) ( not ( = ?auto_81578 ?auto_81573 ) ) ( not ( = ?auto_81578 ?auto_81572 ) ) ( not ( = ?auto_81577 ?auto_81575 ) ) ( not ( = ?auto_81577 ?auto_81576 ) ) ( not ( = ?auto_81577 ?auto_81574 ) ) ( not ( = ?auto_81577 ?auto_81573 ) ) ( not ( = ?auto_81577 ?auto_81572 ) ) ( not ( = ?auto_81575 ?auto_81576 ) ) ( not ( = ?auto_81575 ?auto_81574 ) ) ( not ( = ?auto_81575 ?auto_81573 ) ) ( not ( = ?auto_81575 ?auto_81572 ) ) ( not ( = ?auto_81576 ?auto_81574 ) ) ( not ( = ?auto_81576 ?auto_81573 ) ) ( not ( = ?auto_81576 ?auto_81572 ) ) ( not ( = ?auto_81571 ?auto_81578 ) ) ( not ( = ?auto_81571 ?auto_81577 ) ) ( not ( = ?auto_81571 ?auto_81575 ) ) ( not ( = ?auto_81571 ?auto_81576 ) ) )
+    ( and ( ON-TABLE ?auto_81571 ) ( not ( = ?auto_81571 ?auto_81572 ) ) ( not ( = ?auto_81571 ?auto_81573 ) ) ( not ( = ?auto_81572 ?auto_81573 ) ) ( ON ?auto_81573 ?auto_81574 ) ( not ( = ?auto_81571 ?auto_81574 ) ) ( not ( = ?auto_81572 ?auto_81574 ) ) ( not ( = ?auto_81573 ?auto_81574 ) ) ( CLEAR ?auto_81571 ) ( ON ?auto_81572 ?auto_81573 ) ( CLEAR ?auto_81572 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_81576 ) ( ON ?auto_81577 ?auto_81576 ) ( ON ?auto_81575 ?auto_81577 ) ( ON ?auto_81578 ?auto_81575 ) ( ON ?auto_81574 ?auto_81578 ) ( not ( = ?auto_81576 ?auto_81577 ) ) ( not ( = ?auto_81576 ?auto_81575 ) ) ( not ( = ?auto_81576 ?auto_81578 ) ) ( not ( = ?auto_81576 ?auto_81574 ) ) ( not ( = ?auto_81576 ?auto_81573 ) ) ( not ( = ?auto_81576 ?auto_81572 ) ) ( not ( = ?auto_81577 ?auto_81575 ) ) ( not ( = ?auto_81577 ?auto_81578 ) ) ( not ( = ?auto_81577 ?auto_81574 ) ) ( not ( = ?auto_81577 ?auto_81573 ) ) ( not ( = ?auto_81577 ?auto_81572 ) ) ( not ( = ?auto_81575 ?auto_81578 ) ) ( not ( = ?auto_81575 ?auto_81574 ) ) ( not ( = ?auto_81575 ?auto_81573 ) ) ( not ( = ?auto_81575 ?auto_81572 ) ) ( not ( = ?auto_81578 ?auto_81574 ) ) ( not ( = ?auto_81578 ?auto_81573 ) ) ( not ( = ?auto_81578 ?auto_81572 ) ) ( not ( = ?auto_81571 ?auto_81576 ) ) ( not ( = ?auto_81571 ?auto_81577 ) ) ( not ( = ?auto_81571 ?auto_81575 ) ) ( not ( = ?auto_81571 ?auto_81578 ) ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_81578 ?auto_81577 ?auto_81575 ?auto_81576 ?auto_81574 ?auto_81573 )
+    ( ( MAKE-6PILE ?auto_81576 ?auto_81577 ?auto_81575 ?auto_81578 ?auto_81574 ?auto_81573 )
       ( MAKE-3PILE ?auto_81571 ?auto_81572 ?auto_81573 ) )
   )
 
@@ -451,14 +451,14 @@
     )
     :vars
     (
-      ?auto_81585 - BLOCK
       ?auto_81584 - BLOCK
+      ?auto_81586 - BLOCK
       ?auto_81583 - BLOCK
       ?auto_81582 - BLOCK
-      ?auto_81586 - BLOCK
+      ?auto_81585 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_81579 ?auto_81580 ) ) ( not ( = ?auto_81579 ?auto_81581 ) ) ( not ( = ?auto_81580 ?auto_81581 ) ) ( ON ?auto_81581 ?auto_81585 ) ( not ( = ?auto_81579 ?auto_81585 ) ) ( not ( = ?auto_81580 ?auto_81585 ) ) ( not ( = ?auto_81581 ?auto_81585 ) ) ( ON ?auto_81580 ?auto_81581 ) ( CLEAR ?auto_81580 ) ( ON-TABLE ?auto_81584 ) ( ON ?auto_81583 ?auto_81584 ) ( ON ?auto_81582 ?auto_81583 ) ( ON ?auto_81586 ?auto_81582 ) ( ON ?auto_81585 ?auto_81586 ) ( not ( = ?auto_81584 ?auto_81583 ) ) ( not ( = ?auto_81584 ?auto_81582 ) ) ( not ( = ?auto_81584 ?auto_81586 ) ) ( not ( = ?auto_81584 ?auto_81585 ) ) ( not ( = ?auto_81584 ?auto_81581 ) ) ( not ( = ?auto_81584 ?auto_81580 ) ) ( not ( = ?auto_81583 ?auto_81582 ) ) ( not ( = ?auto_81583 ?auto_81586 ) ) ( not ( = ?auto_81583 ?auto_81585 ) ) ( not ( = ?auto_81583 ?auto_81581 ) ) ( not ( = ?auto_81583 ?auto_81580 ) ) ( not ( = ?auto_81582 ?auto_81586 ) ) ( not ( = ?auto_81582 ?auto_81585 ) ) ( not ( = ?auto_81582 ?auto_81581 ) ) ( not ( = ?auto_81582 ?auto_81580 ) ) ( not ( = ?auto_81586 ?auto_81585 ) ) ( not ( = ?auto_81586 ?auto_81581 ) ) ( not ( = ?auto_81586 ?auto_81580 ) ) ( not ( = ?auto_81579 ?auto_81584 ) ) ( not ( = ?auto_81579 ?auto_81583 ) ) ( not ( = ?auto_81579 ?auto_81582 ) ) ( not ( = ?auto_81579 ?auto_81586 ) ) ( HOLDING ?auto_81579 ) )
+    ( and ( not ( = ?auto_81579 ?auto_81580 ) ) ( not ( = ?auto_81579 ?auto_81581 ) ) ( not ( = ?auto_81580 ?auto_81581 ) ) ( ON ?auto_81581 ?auto_81584 ) ( not ( = ?auto_81579 ?auto_81584 ) ) ( not ( = ?auto_81580 ?auto_81584 ) ) ( not ( = ?auto_81581 ?auto_81584 ) ) ( ON ?auto_81580 ?auto_81581 ) ( CLEAR ?auto_81580 ) ( ON-TABLE ?auto_81586 ) ( ON ?auto_81583 ?auto_81586 ) ( ON ?auto_81582 ?auto_81583 ) ( ON ?auto_81585 ?auto_81582 ) ( ON ?auto_81584 ?auto_81585 ) ( not ( = ?auto_81586 ?auto_81583 ) ) ( not ( = ?auto_81586 ?auto_81582 ) ) ( not ( = ?auto_81586 ?auto_81585 ) ) ( not ( = ?auto_81586 ?auto_81584 ) ) ( not ( = ?auto_81586 ?auto_81581 ) ) ( not ( = ?auto_81586 ?auto_81580 ) ) ( not ( = ?auto_81583 ?auto_81582 ) ) ( not ( = ?auto_81583 ?auto_81585 ) ) ( not ( = ?auto_81583 ?auto_81584 ) ) ( not ( = ?auto_81583 ?auto_81581 ) ) ( not ( = ?auto_81583 ?auto_81580 ) ) ( not ( = ?auto_81582 ?auto_81585 ) ) ( not ( = ?auto_81582 ?auto_81584 ) ) ( not ( = ?auto_81582 ?auto_81581 ) ) ( not ( = ?auto_81582 ?auto_81580 ) ) ( not ( = ?auto_81585 ?auto_81584 ) ) ( not ( = ?auto_81585 ?auto_81581 ) ) ( not ( = ?auto_81585 ?auto_81580 ) ) ( not ( = ?auto_81579 ?auto_81586 ) ) ( not ( = ?auto_81579 ?auto_81583 ) ) ( not ( = ?auto_81579 ?auto_81582 ) ) ( not ( = ?auto_81579 ?auto_81585 ) ) ( HOLDING ?auto_81579 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_81579 )
       ( MAKE-3PILE ?auto_81579 ?auto_81580 ?auto_81581 ) )
@@ -473,16 +473,16 @@
     )
     :vars
     (
-      ?auto_81594 - BLOCK
       ?auto_81590 - BLOCK
-      ?auto_81591 - BLOCK
+      ?auto_81594 - BLOCK
       ?auto_81593 - BLOCK
+      ?auto_81591 - BLOCK
       ?auto_81592 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_81587 ?auto_81588 ) ) ( not ( = ?auto_81587 ?auto_81589 ) ) ( not ( = ?auto_81588 ?auto_81589 ) ) ( ON ?auto_81589 ?auto_81594 ) ( not ( = ?auto_81587 ?auto_81594 ) ) ( not ( = ?auto_81588 ?auto_81594 ) ) ( not ( = ?auto_81589 ?auto_81594 ) ) ( ON ?auto_81588 ?auto_81589 ) ( ON-TABLE ?auto_81590 ) ( ON ?auto_81591 ?auto_81590 ) ( ON ?auto_81593 ?auto_81591 ) ( ON ?auto_81592 ?auto_81593 ) ( ON ?auto_81594 ?auto_81592 ) ( not ( = ?auto_81590 ?auto_81591 ) ) ( not ( = ?auto_81590 ?auto_81593 ) ) ( not ( = ?auto_81590 ?auto_81592 ) ) ( not ( = ?auto_81590 ?auto_81594 ) ) ( not ( = ?auto_81590 ?auto_81589 ) ) ( not ( = ?auto_81590 ?auto_81588 ) ) ( not ( = ?auto_81591 ?auto_81593 ) ) ( not ( = ?auto_81591 ?auto_81592 ) ) ( not ( = ?auto_81591 ?auto_81594 ) ) ( not ( = ?auto_81591 ?auto_81589 ) ) ( not ( = ?auto_81591 ?auto_81588 ) ) ( not ( = ?auto_81593 ?auto_81592 ) ) ( not ( = ?auto_81593 ?auto_81594 ) ) ( not ( = ?auto_81593 ?auto_81589 ) ) ( not ( = ?auto_81593 ?auto_81588 ) ) ( not ( = ?auto_81592 ?auto_81594 ) ) ( not ( = ?auto_81592 ?auto_81589 ) ) ( not ( = ?auto_81592 ?auto_81588 ) ) ( not ( = ?auto_81587 ?auto_81590 ) ) ( not ( = ?auto_81587 ?auto_81591 ) ) ( not ( = ?auto_81587 ?auto_81593 ) ) ( not ( = ?auto_81587 ?auto_81592 ) ) ( ON ?auto_81587 ?auto_81588 ) ( CLEAR ?auto_81587 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_81587 ?auto_81588 ) ) ( not ( = ?auto_81587 ?auto_81589 ) ) ( not ( = ?auto_81588 ?auto_81589 ) ) ( ON ?auto_81589 ?auto_81590 ) ( not ( = ?auto_81587 ?auto_81590 ) ) ( not ( = ?auto_81588 ?auto_81590 ) ) ( not ( = ?auto_81589 ?auto_81590 ) ) ( ON ?auto_81588 ?auto_81589 ) ( ON-TABLE ?auto_81594 ) ( ON ?auto_81593 ?auto_81594 ) ( ON ?auto_81591 ?auto_81593 ) ( ON ?auto_81592 ?auto_81591 ) ( ON ?auto_81590 ?auto_81592 ) ( not ( = ?auto_81594 ?auto_81593 ) ) ( not ( = ?auto_81594 ?auto_81591 ) ) ( not ( = ?auto_81594 ?auto_81592 ) ) ( not ( = ?auto_81594 ?auto_81590 ) ) ( not ( = ?auto_81594 ?auto_81589 ) ) ( not ( = ?auto_81594 ?auto_81588 ) ) ( not ( = ?auto_81593 ?auto_81591 ) ) ( not ( = ?auto_81593 ?auto_81592 ) ) ( not ( = ?auto_81593 ?auto_81590 ) ) ( not ( = ?auto_81593 ?auto_81589 ) ) ( not ( = ?auto_81593 ?auto_81588 ) ) ( not ( = ?auto_81591 ?auto_81592 ) ) ( not ( = ?auto_81591 ?auto_81590 ) ) ( not ( = ?auto_81591 ?auto_81589 ) ) ( not ( = ?auto_81591 ?auto_81588 ) ) ( not ( = ?auto_81592 ?auto_81590 ) ) ( not ( = ?auto_81592 ?auto_81589 ) ) ( not ( = ?auto_81592 ?auto_81588 ) ) ( not ( = ?auto_81587 ?auto_81594 ) ) ( not ( = ?auto_81587 ?auto_81593 ) ) ( not ( = ?auto_81587 ?auto_81591 ) ) ( not ( = ?auto_81587 ?auto_81592 ) ) ( ON ?auto_81587 ?auto_81588 ) ( CLEAR ?auto_81587 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81590 ?auto_81591 ?auto_81593 ?auto_81592 ?auto_81594 ?auto_81589 ?auto_81588 )
+    ( ( MAKE-7PILE ?auto_81594 ?auto_81593 ?auto_81591 ?auto_81592 ?auto_81590 ?auto_81589 ?auto_81588 )
       ( MAKE-3PILE ?auto_81587 ?auto_81588 ?auto_81589 ) )
   )
 
@@ -556,15 +556,15 @@
     )
     :vars
     (
-      ?auto_81622 - BLOCK
-      ?auto_81623 - BLOCK
       ?auto_81624 - BLOCK
+      ?auto_81623 - BLOCK
+      ?auto_81622 - BLOCK
       ?auto_81625 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81622 ?auto_81621 ) ( ON-TABLE ?auto_81618 ) ( ON ?auto_81619 ?auto_81618 ) ( ON ?auto_81620 ?auto_81619 ) ( ON ?auto_81621 ?auto_81620 ) ( not ( = ?auto_81618 ?auto_81619 ) ) ( not ( = ?auto_81618 ?auto_81620 ) ) ( not ( = ?auto_81618 ?auto_81621 ) ) ( not ( = ?auto_81618 ?auto_81622 ) ) ( not ( = ?auto_81619 ?auto_81620 ) ) ( not ( = ?auto_81619 ?auto_81621 ) ) ( not ( = ?auto_81619 ?auto_81622 ) ) ( not ( = ?auto_81620 ?auto_81621 ) ) ( not ( = ?auto_81620 ?auto_81622 ) ) ( not ( = ?auto_81621 ?auto_81622 ) ) ( not ( = ?auto_81618 ?auto_81623 ) ) ( not ( = ?auto_81618 ?auto_81624 ) ) ( not ( = ?auto_81619 ?auto_81623 ) ) ( not ( = ?auto_81619 ?auto_81624 ) ) ( not ( = ?auto_81620 ?auto_81623 ) ) ( not ( = ?auto_81620 ?auto_81624 ) ) ( not ( = ?auto_81621 ?auto_81623 ) ) ( not ( = ?auto_81621 ?auto_81624 ) ) ( not ( = ?auto_81622 ?auto_81623 ) ) ( not ( = ?auto_81622 ?auto_81624 ) ) ( not ( = ?auto_81623 ?auto_81624 ) ) ( ON ?auto_81623 ?auto_81622 ) ( CLEAR ?auto_81623 ) ( HOLDING ?auto_81624 ) ( CLEAR ?auto_81625 ) ( ON-TABLE ?auto_81625 ) ( not ( = ?auto_81625 ?auto_81624 ) ) ( not ( = ?auto_81618 ?auto_81625 ) ) ( not ( = ?auto_81619 ?auto_81625 ) ) ( not ( = ?auto_81620 ?auto_81625 ) ) ( not ( = ?auto_81621 ?auto_81625 ) ) ( not ( = ?auto_81622 ?auto_81625 ) ) ( not ( = ?auto_81623 ?auto_81625 ) ) )
+    ( and ( ON ?auto_81624 ?auto_81621 ) ( ON-TABLE ?auto_81618 ) ( ON ?auto_81619 ?auto_81618 ) ( ON ?auto_81620 ?auto_81619 ) ( ON ?auto_81621 ?auto_81620 ) ( not ( = ?auto_81618 ?auto_81619 ) ) ( not ( = ?auto_81618 ?auto_81620 ) ) ( not ( = ?auto_81618 ?auto_81621 ) ) ( not ( = ?auto_81618 ?auto_81624 ) ) ( not ( = ?auto_81619 ?auto_81620 ) ) ( not ( = ?auto_81619 ?auto_81621 ) ) ( not ( = ?auto_81619 ?auto_81624 ) ) ( not ( = ?auto_81620 ?auto_81621 ) ) ( not ( = ?auto_81620 ?auto_81624 ) ) ( not ( = ?auto_81621 ?auto_81624 ) ) ( not ( = ?auto_81618 ?auto_81623 ) ) ( not ( = ?auto_81618 ?auto_81622 ) ) ( not ( = ?auto_81619 ?auto_81623 ) ) ( not ( = ?auto_81619 ?auto_81622 ) ) ( not ( = ?auto_81620 ?auto_81623 ) ) ( not ( = ?auto_81620 ?auto_81622 ) ) ( not ( = ?auto_81621 ?auto_81623 ) ) ( not ( = ?auto_81621 ?auto_81622 ) ) ( not ( = ?auto_81624 ?auto_81623 ) ) ( not ( = ?auto_81624 ?auto_81622 ) ) ( not ( = ?auto_81623 ?auto_81622 ) ) ( ON ?auto_81623 ?auto_81624 ) ( CLEAR ?auto_81623 ) ( HOLDING ?auto_81622 ) ( CLEAR ?auto_81625 ) ( ON-TABLE ?auto_81625 ) ( not ( = ?auto_81625 ?auto_81622 ) ) ( not ( = ?auto_81618 ?auto_81625 ) ) ( not ( = ?auto_81619 ?auto_81625 ) ) ( not ( = ?auto_81620 ?auto_81625 ) ) ( not ( = ?auto_81621 ?auto_81625 ) ) ( not ( = ?auto_81624 ?auto_81625 ) ) ( not ( = ?auto_81623 ?auto_81625 ) ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_81625 ?auto_81624 )
+    ( ( MAKE-2PILE ?auto_81625 ?auto_81622 )
       ( MAKE-4PILE ?auto_81618 ?auto_81619 ?auto_81620 ?auto_81621 ) )
   )
 
@@ -578,15 +578,15 @@
     )
     :vars
     (
-      ?auto_81630 - BLOCK
-      ?auto_81632 - BLOCK
       ?auto_81631 - BLOCK
+      ?auto_81632 - BLOCK
       ?auto_81633 - BLOCK
+      ?auto_81630 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81630 ?auto_81629 ) ( ON-TABLE ?auto_81626 ) ( ON ?auto_81627 ?auto_81626 ) ( ON ?auto_81628 ?auto_81627 ) ( ON ?auto_81629 ?auto_81628 ) ( not ( = ?auto_81626 ?auto_81627 ) ) ( not ( = ?auto_81626 ?auto_81628 ) ) ( not ( = ?auto_81626 ?auto_81629 ) ) ( not ( = ?auto_81626 ?auto_81630 ) ) ( not ( = ?auto_81627 ?auto_81628 ) ) ( not ( = ?auto_81627 ?auto_81629 ) ) ( not ( = ?auto_81627 ?auto_81630 ) ) ( not ( = ?auto_81628 ?auto_81629 ) ) ( not ( = ?auto_81628 ?auto_81630 ) ) ( not ( = ?auto_81629 ?auto_81630 ) ) ( not ( = ?auto_81626 ?auto_81632 ) ) ( not ( = ?auto_81626 ?auto_81631 ) ) ( not ( = ?auto_81627 ?auto_81632 ) ) ( not ( = ?auto_81627 ?auto_81631 ) ) ( not ( = ?auto_81628 ?auto_81632 ) ) ( not ( = ?auto_81628 ?auto_81631 ) ) ( not ( = ?auto_81629 ?auto_81632 ) ) ( not ( = ?auto_81629 ?auto_81631 ) ) ( not ( = ?auto_81630 ?auto_81632 ) ) ( not ( = ?auto_81630 ?auto_81631 ) ) ( not ( = ?auto_81632 ?auto_81631 ) ) ( ON ?auto_81632 ?auto_81630 ) ( CLEAR ?auto_81633 ) ( ON-TABLE ?auto_81633 ) ( not ( = ?auto_81633 ?auto_81631 ) ) ( not ( = ?auto_81626 ?auto_81633 ) ) ( not ( = ?auto_81627 ?auto_81633 ) ) ( not ( = ?auto_81628 ?auto_81633 ) ) ( not ( = ?auto_81629 ?auto_81633 ) ) ( not ( = ?auto_81630 ?auto_81633 ) ) ( not ( = ?auto_81632 ?auto_81633 ) ) ( ON ?auto_81631 ?auto_81632 ) ( CLEAR ?auto_81631 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81631 ?auto_81629 ) ( ON-TABLE ?auto_81626 ) ( ON ?auto_81627 ?auto_81626 ) ( ON ?auto_81628 ?auto_81627 ) ( ON ?auto_81629 ?auto_81628 ) ( not ( = ?auto_81626 ?auto_81627 ) ) ( not ( = ?auto_81626 ?auto_81628 ) ) ( not ( = ?auto_81626 ?auto_81629 ) ) ( not ( = ?auto_81626 ?auto_81631 ) ) ( not ( = ?auto_81627 ?auto_81628 ) ) ( not ( = ?auto_81627 ?auto_81629 ) ) ( not ( = ?auto_81627 ?auto_81631 ) ) ( not ( = ?auto_81628 ?auto_81629 ) ) ( not ( = ?auto_81628 ?auto_81631 ) ) ( not ( = ?auto_81629 ?auto_81631 ) ) ( not ( = ?auto_81626 ?auto_81632 ) ) ( not ( = ?auto_81626 ?auto_81633 ) ) ( not ( = ?auto_81627 ?auto_81632 ) ) ( not ( = ?auto_81627 ?auto_81633 ) ) ( not ( = ?auto_81628 ?auto_81632 ) ) ( not ( = ?auto_81628 ?auto_81633 ) ) ( not ( = ?auto_81629 ?auto_81632 ) ) ( not ( = ?auto_81629 ?auto_81633 ) ) ( not ( = ?auto_81631 ?auto_81632 ) ) ( not ( = ?auto_81631 ?auto_81633 ) ) ( not ( = ?auto_81632 ?auto_81633 ) ) ( ON ?auto_81632 ?auto_81631 ) ( CLEAR ?auto_81630 ) ( ON-TABLE ?auto_81630 ) ( not ( = ?auto_81630 ?auto_81633 ) ) ( not ( = ?auto_81626 ?auto_81630 ) ) ( not ( = ?auto_81627 ?auto_81630 ) ) ( not ( = ?auto_81628 ?auto_81630 ) ) ( not ( = ?auto_81629 ?auto_81630 ) ) ( not ( = ?auto_81631 ?auto_81630 ) ) ( not ( = ?auto_81632 ?auto_81630 ) ) ( ON ?auto_81633 ?auto_81632 ) ( CLEAR ?auto_81633 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_81626 ?auto_81627 ?auto_81628 ?auto_81629 ?auto_81630 ?auto_81632 )
+    ( ( MAKE-6PILE ?auto_81626 ?auto_81627 ?auto_81628 ?auto_81629 ?auto_81631 ?auto_81632 )
       ( MAKE-4PILE ?auto_81626 ?auto_81627 ?auto_81628 ?auto_81629 ) )
   )
 
@@ -600,15 +600,15 @@
     )
     :vars
     (
+      ?auto_81638 - BLOCK
       ?auto_81640 - BLOCK
       ?auto_81639 - BLOCK
       ?auto_81641 - BLOCK
-      ?auto_81638 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81640 ?auto_81637 ) ( ON-TABLE ?auto_81634 ) ( ON ?auto_81635 ?auto_81634 ) ( ON ?auto_81636 ?auto_81635 ) ( ON ?auto_81637 ?auto_81636 ) ( not ( = ?auto_81634 ?auto_81635 ) ) ( not ( = ?auto_81634 ?auto_81636 ) ) ( not ( = ?auto_81634 ?auto_81637 ) ) ( not ( = ?auto_81634 ?auto_81640 ) ) ( not ( = ?auto_81635 ?auto_81636 ) ) ( not ( = ?auto_81635 ?auto_81637 ) ) ( not ( = ?auto_81635 ?auto_81640 ) ) ( not ( = ?auto_81636 ?auto_81637 ) ) ( not ( = ?auto_81636 ?auto_81640 ) ) ( not ( = ?auto_81637 ?auto_81640 ) ) ( not ( = ?auto_81634 ?auto_81639 ) ) ( not ( = ?auto_81634 ?auto_81641 ) ) ( not ( = ?auto_81635 ?auto_81639 ) ) ( not ( = ?auto_81635 ?auto_81641 ) ) ( not ( = ?auto_81636 ?auto_81639 ) ) ( not ( = ?auto_81636 ?auto_81641 ) ) ( not ( = ?auto_81637 ?auto_81639 ) ) ( not ( = ?auto_81637 ?auto_81641 ) ) ( not ( = ?auto_81640 ?auto_81639 ) ) ( not ( = ?auto_81640 ?auto_81641 ) ) ( not ( = ?auto_81639 ?auto_81641 ) ) ( ON ?auto_81639 ?auto_81640 ) ( not ( = ?auto_81638 ?auto_81641 ) ) ( not ( = ?auto_81634 ?auto_81638 ) ) ( not ( = ?auto_81635 ?auto_81638 ) ) ( not ( = ?auto_81636 ?auto_81638 ) ) ( not ( = ?auto_81637 ?auto_81638 ) ) ( not ( = ?auto_81640 ?auto_81638 ) ) ( not ( = ?auto_81639 ?auto_81638 ) ) ( ON ?auto_81641 ?auto_81639 ) ( CLEAR ?auto_81641 ) ( HOLDING ?auto_81638 ) )
+    ( and ( ON ?auto_81638 ?auto_81637 ) ( ON-TABLE ?auto_81634 ) ( ON ?auto_81635 ?auto_81634 ) ( ON ?auto_81636 ?auto_81635 ) ( ON ?auto_81637 ?auto_81636 ) ( not ( = ?auto_81634 ?auto_81635 ) ) ( not ( = ?auto_81634 ?auto_81636 ) ) ( not ( = ?auto_81634 ?auto_81637 ) ) ( not ( = ?auto_81634 ?auto_81638 ) ) ( not ( = ?auto_81635 ?auto_81636 ) ) ( not ( = ?auto_81635 ?auto_81637 ) ) ( not ( = ?auto_81635 ?auto_81638 ) ) ( not ( = ?auto_81636 ?auto_81637 ) ) ( not ( = ?auto_81636 ?auto_81638 ) ) ( not ( = ?auto_81637 ?auto_81638 ) ) ( not ( = ?auto_81634 ?auto_81640 ) ) ( not ( = ?auto_81634 ?auto_81639 ) ) ( not ( = ?auto_81635 ?auto_81640 ) ) ( not ( = ?auto_81635 ?auto_81639 ) ) ( not ( = ?auto_81636 ?auto_81640 ) ) ( not ( = ?auto_81636 ?auto_81639 ) ) ( not ( = ?auto_81637 ?auto_81640 ) ) ( not ( = ?auto_81637 ?auto_81639 ) ) ( not ( = ?auto_81638 ?auto_81640 ) ) ( not ( = ?auto_81638 ?auto_81639 ) ) ( not ( = ?auto_81640 ?auto_81639 ) ) ( ON ?auto_81640 ?auto_81638 ) ( not ( = ?auto_81641 ?auto_81639 ) ) ( not ( = ?auto_81634 ?auto_81641 ) ) ( not ( = ?auto_81635 ?auto_81641 ) ) ( not ( = ?auto_81636 ?auto_81641 ) ) ( not ( = ?auto_81637 ?auto_81641 ) ) ( not ( = ?auto_81638 ?auto_81641 ) ) ( not ( = ?auto_81640 ?auto_81641 ) ) ( ON ?auto_81639 ?auto_81640 ) ( CLEAR ?auto_81639 ) ( HOLDING ?auto_81641 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_81638 )
+    ( ( MAKE-1PILE ?auto_81641 )
       ( MAKE-4PILE ?auto_81634 ?auto_81635 ?auto_81636 ?auto_81637 ) )
   )
 
@@ -622,15 +622,15 @@
     )
     :vars
     (
-      ?auto_81646 - BLOCK
       ?auto_81648 - BLOCK
-      ?auto_81647 - BLOCK
+      ?auto_81646 - BLOCK
       ?auto_81649 - BLOCK
+      ?auto_81647 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81646 ?auto_81645 ) ( ON-TABLE ?auto_81642 ) ( ON ?auto_81643 ?auto_81642 ) ( ON ?auto_81644 ?auto_81643 ) ( ON ?auto_81645 ?auto_81644 ) ( not ( = ?auto_81642 ?auto_81643 ) ) ( not ( = ?auto_81642 ?auto_81644 ) ) ( not ( = ?auto_81642 ?auto_81645 ) ) ( not ( = ?auto_81642 ?auto_81646 ) ) ( not ( = ?auto_81643 ?auto_81644 ) ) ( not ( = ?auto_81643 ?auto_81645 ) ) ( not ( = ?auto_81643 ?auto_81646 ) ) ( not ( = ?auto_81644 ?auto_81645 ) ) ( not ( = ?auto_81644 ?auto_81646 ) ) ( not ( = ?auto_81645 ?auto_81646 ) ) ( not ( = ?auto_81642 ?auto_81648 ) ) ( not ( = ?auto_81642 ?auto_81647 ) ) ( not ( = ?auto_81643 ?auto_81648 ) ) ( not ( = ?auto_81643 ?auto_81647 ) ) ( not ( = ?auto_81644 ?auto_81648 ) ) ( not ( = ?auto_81644 ?auto_81647 ) ) ( not ( = ?auto_81645 ?auto_81648 ) ) ( not ( = ?auto_81645 ?auto_81647 ) ) ( not ( = ?auto_81646 ?auto_81648 ) ) ( not ( = ?auto_81646 ?auto_81647 ) ) ( not ( = ?auto_81648 ?auto_81647 ) ) ( ON ?auto_81648 ?auto_81646 ) ( not ( = ?auto_81649 ?auto_81647 ) ) ( not ( = ?auto_81642 ?auto_81649 ) ) ( not ( = ?auto_81643 ?auto_81649 ) ) ( not ( = ?auto_81644 ?auto_81649 ) ) ( not ( = ?auto_81645 ?auto_81649 ) ) ( not ( = ?auto_81646 ?auto_81649 ) ) ( not ( = ?auto_81648 ?auto_81649 ) ) ( ON ?auto_81647 ?auto_81648 ) ( ON ?auto_81649 ?auto_81647 ) ( CLEAR ?auto_81649 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81648 ?auto_81645 ) ( ON-TABLE ?auto_81642 ) ( ON ?auto_81643 ?auto_81642 ) ( ON ?auto_81644 ?auto_81643 ) ( ON ?auto_81645 ?auto_81644 ) ( not ( = ?auto_81642 ?auto_81643 ) ) ( not ( = ?auto_81642 ?auto_81644 ) ) ( not ( = ?auto_81642 ?auto_81645 ) ) ( not ( = ?auto_81642 ?auto_81648 ) ) ( not ( = ?auto_81643 ?auto_81644 ) ) ( not ( = ?auto_81643 ?auto_81645 ) ) ( not ( = ?auto_81643 ?auto_81648 ) ) ( not ( = ?auto_81644 ?auto_81645 ) ) ( not ( = ?auto_81644 ?auto_81648 ) ) ( not ( = ?auto_81645 ?auto_81648 ) ) ( not ( = ?auto_81642 ?auto_81646 ) ) ( not ( = ?auto_81642 ?auto_81649 ) ) ( not ( = ?auto_81643 ?auto_81646 ) ) ( not ( = ?auto_81643 ?auto_81649 ) ) ( not ( = ?auto_81644 ?auto_81646 ) ) ( not ( = ?auto_81644 ?auto_81649 ) ) ( not ( = ?auto_81645 ?auto_81646 ) ) ( not ( = ?auto_81645 ?auto_81649 ) ) ( not ( = ?auto_81648 ?auto_81646 ) ) ( not ( = ?auto_81648 ?auto_81649 ) ) ( not ( = ?auto_81646 ?auto_81649 ) ) ( ON ?auto_81646 ?auto_81648 ) ( not ( = ?auto_81647 ?auto_81649 ) ) ( not ( = ?auto_81642 ?auto_81647 ) ) ( not ( = ?auto_81643 ?auto_81647 ) ) ( not ( = ?auto_81644 ?auto_81647 ) ) ( not ( = ?auto_81645 ?auto_81647 ) ) ( not ( = ?auto_81648 ?auto_81647 ) ) ( not ( = ?auto_81646 ?auto_81647 ) ) ( ON ?auto_81649 ?auto_81646 ) ( ON ?auto_81647 ?auto_81649 ) ( CLEAR ?auto_81647 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81642 ?auto_81643 ?auto_81644 ?auto_81645 ?auto_81646 ?auto_81648 ?auto_81647 )
+    ( ( MAKE-7PILE ?auto_81642 ?auto_81643 ?auto_81644 ?auto_81645 ?auto_81648 ?auto_81646 ?auto_81649 )
       ( MAKE-4PILE ?auto_81642 ?auto_81643 ?auto_81644 ?auto_81645 ) )
   )
 
@@ -718,13 +718,13 @@
     )
     :vars
     (
-      ?auto_81681 - BLOCK
-      ?auto_81682 - BLOCK
       ?auto_81683 - BLOCK
+      ?auto_81682 - BLOCK
       ?auto_81680 - BLOCK
+      ?auto_81681 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81676 ) ( not ( = ?auto_81676 ?auto_81677 ) ) ( not ( = ?auto_81676 ?auto_81678 ) ) ( not ( = ?auto_81676 ?auto_81679 ) ) ( not ( = ?auto_81677 ?auto_81678 ) ) ( not ( = ?auto_81677 ?auto_81679 ) ) ( not ( = ?auto_81678 ?auto_81679 ) ) ( ON ?auto_81679 ?auto_81681 ) ( not ( = ?auto_81676 ?auto_81681 ) ) ( not ( = ?auto_81677 ?auto_81681 ) ) ( not ( = ?auto_81678 ?auto_81681 ) ) ( not ( = ?auto_81679 ?auto_81681 ) ) ( ON ?auto_81678 ?auto_81679 ) ( CLEAR ?auto_81678 ) ( ON-TABLE ?auto_81682 ) ( ON ?auto_81683 ?auto_81682 ) ( ON ?auto_81680 ?auto_81683 ) ( ON ?auto_81681 ?auto_81680 ) ( not ( = ?auto_81682 ?auto_81683 ) ) ( not ( = ?auto_81682 ?auto_81680 ) ) ( not ( = ?auto_81682 ?auto_81681 ) ) ( not ( = ?auto_81682 ?auto_81679 ) ) ( not ( = ?auto_81682 ?auto_81678 ) ) ( not ( = ?auto_81683 ?auto_81680 ) ) ( not ( = ?auto_81683 ?auto_81681 ) ) ( not ( = ?auto_81683 ?auto_81679 ) ) ( not ( = ?auto_81683 ?auto_81678 ) ) ( not ( = ?auto_81680 ?auto_81681 ) ) ( not ( = ?auto_81680 ?auto_81679 ) ) ( not ( = ?auto_81680 ?auto_81678 ) ) ( not ( = ?auto_81676 ?auto_81682 ) ) ( not ( = ?auto_81676 ?auto_81683 ) ) ( not ( = ?auto_81676 ?auto_81680 ) ) ( not ( = ?auto_81677 ?auto_81682 ) ) ( not ( = ?auto_81677 ?auto_81683 ) ) ( not ( = ?auto_81677 ?auto_81680 ) ) ( HOLDING ?auto_81677 ) ( CLEAR ?auto_81676 ) )
+    ( and ( ON-TABLE ?auto_81676 ) ( not ( = ?auto_81676 ?auto_81677 ) ) ( not ( = ?auto_81676 ?auto_81678 ) ) ( not ( = ?auto_81676 ?auto_81679 ) ) ( not ( = ?auto_81677 ?auto_81678 ) ) ( not ( = ?auto_81677 ?auto_81679 ) ) ( not ( = ?auto_81678 ?auto_81679 ) ) ( ON ?auto_81679 ?auto_81683 ) ( not ( = ?auto_81676 ?auto_81683 ) ) ( not ( = ?auto_81677 ?auto_81683 ) ) ( not ( = ?auto_81678 ?auto_81683 ) ) ( not ( = ?auto_81679 ?auto_81683 ) ) ( ON ?auto_81678 ?auto_81679 ) ( CLEAR ?auto_81678 ) ( ON-TABLE ?auto_81682 ) ( ON ?auto_81680 ?auto_81682 ) ( ON ?auto_81681 ?auto_81680 ) ( ON ?auto_81683 ?auto_81681 ) ( not ( = ?auto_81682 ?auto_81680 ) ) ( not ( = ?auto_81682 ?auto_81681 ) ) ( not ( = ?auto_81682 ?auto_81683 ) ) ( not ( = ?auto_81682 ?auto_81679 ) ) ( not ( = ?auto_81682 ?auto_81678 ) ) ( not ( = ?auto_81680 ?auto_81681 ) ) ( not ( = ?auto_81680 ?auto_81683 ) ) ( not ( = ?auto_81680 ?auto_81679 ) ) ( not ( = ?auto_81680 ?auto_81678 ) ) ( not ( = ?auto_81681 ?auto_81683 ) ) ( not ( = ?auto_81681 ?auto_81679 ) ) ( not ( = ?auto_81681 ?auto_81678 ) ) ( not ( = ?auto_81676 ?auto_81682 ) ) ( not ( = ?auto_81676 ?auto_81680 ) ) ( not ( = ?auto_81676 ?auto_81681 ) ) ( not ( = ?auto_81677 ?auto_81682 ) ) ( not ( = ?auto_81677 ?auto_81680 ) ) ( not ( = ?auto_81677 ?auto_81681 ) ) ( HOLDING ?auto_81677 ) ( CLEAR ?auto_81676 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_81676 ?auto_81677 )
       ( MAKE-4PILE ?auto_81676 ?auto_81677 ?auto_81678 ?auto_81679 ) )
@@ -740,15 +740,15 @@
     )
     :vars
     (
+      ?auto_81691 - BLOCK
       ?auto_81689 - BLOCK
       ?auto_81690 - BLOCK
       ?auto_81688 - BLOCK
-      ?auto_81691 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81684 ) ( not ( = ?auto_81684 ?auto_81685 ) ) ( not ( = ?auto_81684 ?auto_81686 ) ) ( not ( = ?auto_81684 ?auto_81687 ) ) ( not ( = ?auto_81685 ?auto_81686 ) ) ( not ( = ?auto_81685 ?auto_81687 ) ) ( not ( = ?auto_81686 ?auto_81687 ) ) ( ON ?auto_81687 ?auto_81689 ) ( not ( = ?auto_81684 ?auto_81689 ) ) ( not ( = ?auto_81685 ?auto_81689 ) ) ( not ( = ?auto_81686 ?auto_81689 ) ) ( not ( = ?auto_81687 ?auto_81689 ) ) ( ON ?auto_81686 ?auto_81687 ) ( ON-TABLE ?auto_81690 ) ( ON ?auto_81688 ?auto_81690 ) ( ON ?auto_81691 ?auto_81688 ) ( ON ?auto_81689 ?auto_81691 ) ( not ( = ?auto_81690 ?auto_81688 ) ) ( not ( = ?auto_81690 ?auto_81691 ) ) ( not ( = ?auto_81690 ?auto_81689 ) ) ( not ( = ?auto_81690 ?auto_81687 ) ) ( not ( = ?auto_81690 ?auto_81686 ) ) ( not ( = ?auto_81688 ?auto_81691 ) ) ( not ( = ?auto_81688 ?auto_81689 ) ) ( not ( = ?auto_81688 ?auto_81687 ) ) ( not ( = ?auto_81688 ?auto_81686 ) ) ( not ( = ?auto_81691 ?auto_81689 ) ) ( not ( = ?auto_81691 ?auto_81687 ) ) ( not ( = ?auto_81691 ?auto_81686 ) ) ( not ( = ?auto_81684 ?auto_81690 ) ) ( not ( = ?auto_81684 ?auto_81688 ) ) ( not ( = ?auto_81684 ?auto_81691 ) ) ( not ( = ?auto_81685 ?auto_81690 ) ) ( not ( = ?auto_81685 ?auto_81688 ) ) ( not ( = ?auto_81685 ?auto_81691 ) ) ( CLEAR ?auto_81684 ) ( ON ?auto_81685 ?auto_81686 ) ( CLEAR ?auto_81685 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_81684 ) ( not ( = ?auto_81684 ?auto_81685 ) ) ( not ( = ?auto_81684 ?auto_81686 ) ) ( not ( = ?auto_81684 ?auto_81687 ) ) ( not ( = ?auto_81685 ?auto_81686 ) ) ( not ( = ?auto_81685 ?auto_81687 ) ) ( not ( = ?auto_81686 ?auto_81687 ) ) ( ON ?auto_81687 ?auto_81691 ) ( not ( = ?auto_81684 ?auto_81691 ) ) ( not ( = ?auto_81685 ?auto_81691 ) ) ( not ( = ?auto_81686 ?auto_81691 ) ) ( not ( = ?auto_81687 ?auto_81691 ) ) ( ON ?auto_81686 ?auto_81687 ) ( ON-TABLE ?auto_81689 ) ( ON ?auto_81690 ?auto_81689 ) ( ON ?auto_81688 ?auto_81690 ) ( ON ?auto_81691 ?auto_81688 ) ( not ( = ?auto_81689 ?auto_81690 ) ) ( not ( = ?auto_81689 ?auto_81688 ) ) ( not ( = ?auto_81689 ?auto_81691 ) ) ( not ( = ?auto_81689 ?auto_81687 ) ) ( not ( = ?auto_81689 ?auto_81686 ) ) ( not ( = ?auto_81690 ?auto_81688 ) ) ( not ( = ?auto_81690 ?auto_81691 ) ) ( not ( = ?auto_81690 ?auto_81687 ) ) ( not ( = ?auto_81690 ?auto_81686 ) ) ( not ( = ?auto_81688 ?auto_81691 ) ) ( not ( = ?auto_81688 ?auto_81687 ) ) ( not ( = ?auto_81688 ?auto_81686 ) ) ( not ( = ?auto_81684 ?auto_81689 ) ) ( not ( = ?auto_81684 ?auto_81690 ) ) ( not ( = ?auto_81684 ?auto_81688 ) ) ( not ( = ?auto_81685 ?auto_81689 ) ) ( not ( = ?auto_81685 ?auto_81690 ) ) ( not ( = ?auto_81685 ?auto_81688 ) ) ( CLEAR ?auto_81684 ) ( ON ?auto_81685 ?auto_81686 ) ( CLEAR ?auto_81685 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_81690 ?auto_81688 ?auto_81691 ?auto_81689 ?auto_81687 ?auto_81686 )
+    ( ( MAKE-6PILE ?auto_81689 ?auto_81690 ?auto_81688 ?auto_81691 ?auto_81687 ?auto_81686 )
       ( MAKE-4PILE ?auto_81684 ?auto_81685 ?auto_81686 ?auto_81687 ) )
   )
 
@@ -762,13 +762,13 @@
     )
     :vars
     (
-      ?auto_81696 - BLOCK
       ?auto_81697 - BLOCK
-      ?auto_81699 - BLOCK
       ?auto_81698 - BLOCK
+      ?auto_81696 - BLOCK
+      ?auto_81699 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_81692 ?auto_81693 ) ) ( not ( = ?auto_81692 ?auto_81694 ) ) ( not ( = ?auto_81692 ?auto_81695 ) ) ( not ( = ?auto_81693 ?auto_81694 ) ) ( not ( = ?auto_81693 ?auto_81695 ) ) ( not ( = ?auto_81694 ?auto_81695 ) ) ( ON ?auto_81695 ?auto_81696 ) ( not ( = ?auto_81692 ?auto_81696 ) ) ( not ( = ?auto_81693 ?auto_81696 ) ) ( not ( = ?auto_81694 ?auto_81696 ) ) ( not ( = ?auto_81695 ?auto_81696 ) ) ( ON ?auto_81694 ?auto_81695 ) ( ON-TABLE ?auto_81697 ) ( ON ?auto_81699 ?auto_81697 ) ( ON ?auto_81698 ?auto_81699 ) ( ON ?auto_81696 ?auto_81698 ) ( not ( = ?auto_81697 ?auto_81699 ) ) ( not ( = ?auto_81697 ?auto_81698 ) ) ( not ( = ?auto_81697 ?auto_81696 ) ) ( not ( = ?auto_81697 ?auto_81695 ) ) ( not ( = ?auto_81697 ?auto_81694 ) ) ( not ( = ?auto_81699 ?auto_81698 ) ) ( not ( = ?auto_81699 ?auto_81696 ) ) ( not ( = ?auto_81699 ?auto_81695 ) ) ( not ( = ?auto_81699 ?auto_81694 ) ) ( not ( = ?auto_81698 ?auto_81696 ) ) ( not ( = ?auto_81698 ?auto_81695 ) ) ( not ( = ?auto_81698 ?auto_81694 ) ) ( not ( = ?auto_81692 ?auto_81697 ) ) ( not ( = ?auto_81692 ?auto_81699 ) ) ( not ( = ?auto_81692 ?auto_81698 ) ) ( not ( = ?auto_81693 ?auto_81697 ) ) ( not ( = ?auto_81693 ?auto_81699 ) ) ( not ( = ?auto_81693 ?auto_81698 ) ) ( ON ?auto_81693 ?auto_81694 ) ( CLEAR ?auto_81693 ) ( HOLDING ?auto_81692 ) )
+    ( and ( not ( = ?auto_81692 ?auto_81693 ) ) ( not ( = ?auto_81692 ?auto_81694 ) ) ( not ( = ?auto_81692 ?auto_81695 ) ) ( not ( = ?auto_81693 ?auto_81694 ) ) ( not ( = ?auto_81693 ?auto_81695 ) ) ( not ( = ?auto_81694 ?auto_81695 ) ) ( ON ?auto_81695 ?auto_81697 ) ( not ( = ?auto_81692 ?auto_81697 ) ) ( not ( = ?auto_81693 ?auto_81697 ) ) ( not ( = ?auto_81694 ?auto_81697 ) ) ( not ( = ?auto_81695 ?auto_81697 ) ) ( ON ?auto_81694 ?auto_81695 ) ( ON-TABLE ?auto_81698 ) ( ON ?auto_81696 ?auto_81698 ) ( ON ?auto_81699 ?auto_81696 ) ( ON ?auto_81697 ?auto_81699 ) ( not ( = ?auto_81698 ?auto_81696 ) ) ( not ( = ?auto_81698 ?auto_81699 ) ) ( not ( = ?auto_81698 ?auto_81697 ) ) ( not ( = ?auto_81698 ?auto_81695 ) ) ( not ( = ?auto_81698 ?auto_81694 ) ) ( not ( = ?auto_81696 ?auto_81699 ) ) ( not ( = ?auto_81696 ?auto_81697 ) ) ( not ( = ?auto_81696 ?auto_81695 ) ) ( not ( = ?auto_81696 ?auto_81694 ) ) ( not ( = ?auto_81699 ?auto_81697 ) ) ( not ( = ?auto_81699 ?auto_81695 ) ) ( not ( = ?auto_81699 ?auto_81694 ) ) ( not ( = ?auto_81692 ?auto_81698 ) ) ( not ( = ?auto_81692 ?auto_81696 ) ) ( not ( = ?auto_81692 ?auto_81699 ) ) ( not ( = ?auto_81693 ?auto_81698 ) ) ( not ( = ?auto_81693 ?auto_81696 ) ) ( not ( = ?auto_81693 ?auto_81699 ) ) ( ON ?auto_81693 ?auto_81694 ) ( CLEAR ?auto_81693 ) ( HOLDING ?auto_81692 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_81692 )
       ( MAKE-4PILE ?auto_81692 ?auto_81693 ?auto_81694 ?auto_81695 ) )
@@ -784,15 +784,15 @@
     )
     :vars
     (
-      ?auto_81705 - BLOCK
       ?auto_81706 - BLOCK
       ?auto_81704 - BLOCK
+      ?auto_81705 - BLOCK
       ?auto_81707 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_81700 ?auto_81701 ) ) ( not ( = ?auto_81700 ?auto_81702 ) ) ( not ( = ?auto_81700 ?auto_81703 ) ) ( not ( = ?auto_81701 ?auto_81702 ) ) ( not ( = ?auto_81701 ?auto_81703 ) ) ( not ( = ?auto_81702 ?auto_81703 ) ) ( ON ?auto_81703 ?auto_81705 ) ( not ( = ?auto_81700 ?auto_81705 ) ) ( not ( = ?auto_81701 ?auto_81705 ) ) ( not ( = ?auto_81702 ?auto_81705 ) ) ( not ( = ?auto_81703 ?auto_81705 ) ) ( ON ?auto_81702 ?auto_81703 ) ( ON-TABLE ?auto_81706 ) ( ON ?auto_81704 ?auto_81706 ) ( ON ?auto_81707 ?auto_81704 ) ( ON ?auto_81705 ?auto_81707 ) ( not ( = ?auto_81706 ?auto_81704 ) ) ( not ( = ?auto_81706 ?auto_81707 ) ) ( not ( = ?auto_81706 ?auto_81705 ) ) ( not ( = ?auto_81706 ?auto_81703 ) ) ( not ( = ?auto_81706 ?auto_81702 ) ) ( not ( = ?auto_81704 ?auto_81707 ) ) ( not ( = ?auto_81704 ?auto_81705 ) ) ( not ( = ?auto_81704 ?auto_81703 ) ) ( not ( = ?auto_81704 ?auto_81702 ) ) ( not ( = ?auto_81707 ?auto_81705 ) ) ( not ( = ?auto_81707 ?auto_81703 ) ) ( not ( = ?auto_81707 ?auto_81702 ) ) ( not ( = ?auto_81700 ?auto_81706 ) ) ( not ( = ?auto_81700 ?auto_81704 ) ) ( not ( = ?auto_81700 ?auto_81707 ) ) ( not ( = ?auto_81701 ?auto_81706 ) ) ( not ( = ?auto_81701 ?auto_81704 ) ) ( not ( = ?auto_81701 ?auto_81707 ) ) ( ON ?auto_81701 ?auto_81702 ) ( ON ?auto_81700 ?auto_81701 ) ( CLEAR ?auto_81700 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_81700 ?auto_81701 ) ) ( not ( = ?auto_81700 ?auto_81702 ) ) ( not ( = ?auto_81700 ?auto_81703 ) ) ( not ( = ?auto_81701 ?auto_81702 ) ) ( not ( = ?auto_81701 ?auto_81703 ) ) ( not ( = ?auto_81702 ?auto_81703 ) ) ( ON ?auto_81703 ?auto_81706 ) ( not ( = ?auto_81700 ?auto_81706 ) ) ( not ( = ?auto_81701 ?auto_81706 ) ) ( not ( = ?auto_81702 ?auto_81706 ) ) ( not ( = ?auto_81703 ?auto_81706 ) ) ( ON ?auto_81702 ?auto_81703 ) ( ON-TABLE ?auto_81704 ) ( ON ?auto_81705 ?auto_81704 ) ( ON ?auto_81707 ?auto_81705 ) ( ON ?auto_81706 ?auto_81707 ) ( not ( = ?auto_81704 ?auto_81705 ) ) ( not ( = ?auto_81704 ?auto_81707 ) ) ( not ( = ?auto_81704 ?auto_81706 ) ) ( not ( = ?auto_81704 ?auto_81703 ) ) ( not ( = ?auto_81704 ?auto_81702 ) ) ( not ( = ?auto_81705 ?auto_81707 ) ) ( not ( = ?auto_81705 ?auto_81706 ) ) ( not ( = ?auto_81705 ?auto_81703 ) ) ( not ( = ?auto_81705 ?auto_81702 ) ) ( not ( = ?auto_81707 ?auto_81706 ) ) ( not ( = ?auto_81707 ?auto_81703 ) ) ( not ( = ?auto_81707 ?auto_81702 ) ) ( not ( = ?auto_81700 ?auto_81704 ) ) ( not ( = ?auto_81700 ?auto_81705 ) ) ( not ( = ?auto_81700 ?auto_81707 ) ) ( not ( = ?auto_81701 ?auto_81704 ) ) ( not ( = ?auto_81701 ?auto_81705 ) ) ( not ( = ?auto_81701 ?auto_81707 ) ) ( ON ?auto_81701 ?auto_81702 ) ( ON ?auto_81700 ?auto_81701 ) ( CLEAR ?auto_81700 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81706 ?auto_81704 ?auto_81707 ?auto_81705 ?auto_81703 ?auto_81702 ?auto_81701 )
+    ( ( MAKE-7PILE ?auto_81704 ?auto_81705 ?auto_81707 ?auto_81706 ?auto_81703 ?auto_81702 ?auto_81701 )
       ( MAKE-4PILE ?auto_81700 ?auto_81701 ?auto_81702 ?auto_81703 ) )
   )
 
@@ -843,11 +843,11 @@
     :vars
     (
       ?auto_81724 - BLOCK
-      ?auto_81726 - BLOCK
       ?auto_81725 - BLOCK
+      ?auto_81726 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81724 ?auto_81723 ) ( ON-TABLE ?auto_81721 ) ( ON ?auto_81722 ?auto_81721 ) ( ON ?auto_81723 ?auto_81722 ) ( not ( = ?auto_81721 ?auto_81722 ) ) ( not ( = ?auto_81721 ?auto_81723 ) ) ( not ( = ?auto_81721 ?auto_81724 ) ) ( not ( = ?auto_81722 ?auto_81723 ) ) ( not ( = ?auto_81722 ?auto_81724 ) ) ( not ( = ?auto_81723 ?auto_81724 ) ) ( CLEAR ?auto_81726 ) ( not ( = ?auto_81721 ?auto_81725 ) ) ( not ( = ?auto_81721 ?auto_81726 ) ) ( not ( = ?auto_81722 ?auto_81725 ) ) ( not ( = ?auto_81722 ?auto_81726 ) ) ( not ( = ?auto_81723 ?auto_81725 ) ) ( not ( = ?auto_81723 ?auto_81726 ) ) ( not ( = ?auto_81724 ?auto_81725 ) ) ( not ( = ?auto_81724 ?auto_81726 ) ) ( not ( = ?auto_81725 ?auto_81726 ) ) ( ON ?auto_81725 ?auto_81724 ) ( CLEAR ?auto_81725 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81724 ?auto_81723 ) ( ON-TABLE ?auto_81721 ) ( ON ?auto_81722 ?auto_81721 ) ( ON ?auto_81723 ?auto_81722 ) ( not ( = ?auto_81721 ?auto_81722 ) ) ( not ( = ?auto_81721 ?auto_81723 ) ) ( not ( = ?auto_81721 ?auto_81724 ) ) ( not ( = ?auto_81722 ?auto_81723 ) ) ( not ( = ?auto_81722 ?auto_81724 ) ) ( not ( = ?auto_81723 ?auto_81724 ) ) ( CLEAR ?auto_81725 ) ( not ( = ?auto_81721 ?auto_81726 ) ) ( not ( = ?auto_81721 ?auto_81725 ) ) ( not ( = ?auto_81722 ?auto_81726 ) ) ( not ( = ?auto_81722 ?auto_81725 ) ) ( not ( = ?auto_81723 ?auto_81726 ) ) ( not ( = ?auto_81723 ?auto_81725 ) ) ( not ( = ?auto_81724 ?auto_81726 ) ) ( not ( = ?auto_81724 ?auto_81725 ) ) ( not ( = ?auto_81726 ?auto_81725 ) ) ( ON ?auto_81726 ?auto_81724 ) ( CLEAR ?auto_81726 ) ( HAND-EMPTY ) )
     :subtasks
     ( ( MAKE-4PILE ?auto_81721 ?auto_81722 ?auto_81723 ?auto_81724 )
       ( MAKE-3PILE ?auto_81721 ?auto_81722 ?auto_81723 ) )
@@ -863,15 +863,15 @@
     :vars
     (
       ?auto_81732 - BLOCK
-      ?auto_81731 - BLOCK
       ?auto_81730 - BLOCK
-      ?auto_81734 - BLOCK
+      ?auto_81731 - BLOCK
       ?auto_81733 - BLOCK
+      ?auto_81734 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81732 ?auto_81729 ) ( ON-TABLE ?auto_81727 ) ( ON ?auto_81728 ?auto_81727 ) ( ON ?auto_81729 ?auto_81728 ) ( not ( = ?auto_81727 ?auto_81728 ) ) ( not ( = ?auto_81727 ?auto_81729 ) ) ( not ( = ?auto_81727 ?auto_81732 ) ) ( not ( = ?auto_81728 ?auto_81729 ) ) ( not ( = ?auto_81728 ?auto_81732 ) ) ( not ( = ?auto_81729 ?auto_81732 ) ) ( not ( = ?auto_81727 ?auto_81731 ) ) ( not ( = ?auto_81727 ?auto_81730 ) ) ( not ( = ?auto_81728 ?auto_81731 ) ) ( not ( = ?auto_81728 ?auto_81730 ) ) ( not ( = ?auto_81729 ?auto_81731 ) ) ( not ( = ?auto_81729 ?auto_81730 ) ) ( not ( = ?auto_81732 ?auto_81731 ) ) ( not ( = ?auto_81732 ?auto_81730 ) ) ( not ( = ?auto_81731 ?auto_81730 ) ) ( ON ?auto_81731 ?auto_81732 ) ( CLEAR ?auto_81731 ) ( HOLDING ?auto_81730 ) ( CLEAR ?auto_81734 ) ( ON-TABLE ?auto_81733 ) ( ON ?auto_81734 ?auto_81733 ) ( not ( = ?auto_81733 ?auto_81734 ) ) ( not ( = ?auto_81733 ?auto_81730 ) ) ( not ( = ?auto_81734 ?auto_81730 ) ) ( not ( = ?auto_81727 ?auto_81734 ) ) ( not ( = ?auto_81727 ?auto_81733 ) ) ( not ( = ?auto_81728 ?auto_81734 ) ) ( not ( = ?auto_81728 ?auto_81733 ) ) ( not ( = ?auto_81729 ?auto_81734 ) ) ( not ( = ?auto_81729 ?auto_81733 ) ) ( not ( = ?auto_81732 ?auto_81734 ) ) ( not ( = ?auto_81732 ?auto_81733 ) ) ( not ( = ?auto_81731 ?auto_81734 ) ) ( not ( = ?auto_81731 ?auto_81733 ) ) )
+    ( and ( ON ?auto_81732 ?auto_81729 ) ( ON-TABLE ?auto_81727 ) ( ON ?auto_81728 ?auto_81727 ) ( ON ?auto_81729 ?auto_81728 ) ( not ( = ?auto_81727 ?auto_81728 ) ) ( not ( = ?auto_81727 ?auto_81729 ) ) ( not ( = ?auto_81727 ?auto_81732 ) ) ( not ( = ?auto_81728 ?auto_81729 ) ) ( not ( = ?auto_81728 ?auto_81732 ) ) ( not ( = ?auto_81729 ?auto_81732 ) ) ( not ( = ?auto_81727 ?auto_81730 ) ) ( not ( = ?auto_81727 ?auto_81731 ) ) ( not ( = ?auto_81728 ?auto_81730 ) ) ( not ( = ?auto_81728 ?auto_81731 ) ) ( not ( = ?auto_81729 ?auto_81730 ) ) ( not ( = ?auto_81729 ?auto_81731 ) ) ( not ( = ?auto_81732 ?auto_81730 ) ) ( not ( = ?auto_81732 ?auto_81731 ) ) ( not ( = ?auto_81730 ?auto_81731 ) ) ( ON ?auto_81730 ?auto_81732 ) ( CLEAR ?auto_81730 ) ( HOLDING ?auto_81731 ) ( CLEAR ?auto_81733 ) ( ON-TABLE ?auto_81734 ) ( ON ?auto_81733 ?auto_81734 ) ( not ( = ?auto_81734 ?auto_81733 ) ) ( not ( = ?auto_81734 ?auto_81731 ) ) ( not ( = ?auto_81733 ?auto_81731 ) ) ( not ( = ?auto_81727 ?auto_81733 ) ) ( not ( = ?auto_81727 ?auto_81734 ) ) ( not ( = ?auto_81728 ?auto_81733 ) ) ( not ( = ?auto_81728 ?auto_81734 ) ) ( not ( = ?auto_81729 ?auto_81733 ) ) ( not ( = ?auto_81729 ?auto_81734 ) ) ( not ( = ?auto_81732 ?auto_81733 ) ) ( not ( = ?auto_81732 ?auto_81734 ) ) ( not ( = ?auto_81730 ?auto_81733 ) ) ( not ( = ?auto_81730 ?auto_81734 ) ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_81733 ?auto_81734 ?auto_81730 )
+    ( ( MAKE-3PILE ?auto_81734 ?auto_81733 ?auto_81731 )
       ( MAKE-3PILE ?auto_81727 ?auto_81728 ?auto_81729 ) )
   )
 
@@ -884,16 +884,16 @@
     )
     :vars
     (
-      ?auto_81741 - BLOCK
       ?auto_81738 - BLOCK
       ?auto_81742 - BLOCK
       ?auto_81740 - BLOCK
       ?auto_81739 - BLOCK
+      ?auto_81741 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81741 ?auto_81737 ) ( ON-TABLE ?auto_81735 ) ( ON ?auto_81736 ?auto_81735 ) ( ON ?auto_81737 ?auto_81736 ) ( not ( = ?auto_81735 ?auto_81736 ) ) ( not ( = ?auto_81735 ?auto_81737 ) ) ( not ( = ?auto_81735 ?auto_81741 ) ) ( not ( = ?auto_81736 ?auto_81737 ) ) ( not ( = ?auto_81736 ?auto_81741 ) ) ( not ( = ?auto_81737 ?auto_81741 ) ) ( not ( = ?auto_81735 ?auto_81738 ) ) ( not ( = ?auto_81735 ?auto_81742 ) ) ( not ( = ?auto_81736 ?auto_81738 ) ) ( not ( = ?auto_81736 ?auto_81742 ) ) ( not ( = ?auto_81737 ?auto_81738 ) ) ( not ( = ?auto_81737 ?auto_81742 ) ) ( not ( = ?auto_81741 ?auto_81738 ) ) ( not ( = ?auto_81741 ?auto_81742 ) ) ( not ( = ?auto_81738 ?auto_81742 ) ) ( ON ?auto_81738 ?auto_81741 ) ( CLEAR ?auto_81740 ) ( ON-TABLE ?auto_81739 ) ( ON ?auto_81740 ?auto_81739 ) ( not ( = ?auto_81739 ?auto_81740 ) ) ( not ( = ?auto_81739 ?auto_81742 ) ) ( not ( = ?auto_81740 ?auto_81742 ) ) ( not ( = ?auto_81735 ?auto_81740 ) ) ( not ( = ?auto_81735 ?auto_81739 ) ) ( not ( = ?auto_81736 ?auto_81740 ) ) ( not ( = ?auto_81736 ?auto_81739 ) ) ( not ( = ?auto_81737 ?auto_81740 ) ) ( not ( = ?auto_81737 ?auto_81739 ) ) ( not ( = ?auto_81741 ?auto_81740 ) ) ( not ( = ?auto_81741 ?auto_81739 ) ) ( not ( = ?auto_81738 ?auto_81740 ) ) ( not ( = ?auto_81738 ?auto_81739 ) ) ( ON ?auto_81742 ?auto_81738 ) ( CLEAR ?auto_81742 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81738 ?auto_81737 ) ( ON-TABLE ?auto_81735 ) ( ON ?auto_81736 ?auto_81735 ) ( ON ?auto_81737 ?auto_81736 ) ( not ( = ?auto_81735 ?auto_81736 ) ) ( not ( = ?auto_81735 ?auto_81737 ) ) ( not ( = ?auto_81735 ?auto_81738 ) ) ( not ( = ?auto_81736 ?auto_81737 ) ) ( not ( = ?auto_81736 ?auto_81738 ) ) ( not ( = ?auto_81737 ?auto_81738 ) ) ( not ( = ?auto_81735 ?auto_81742 ) ) ( not ( = ?auto_81735 ?auto_81740 ) ) ( not ( = ?auto_81736 ?auto_81742 ) ) ( not ( = ?auto_81736 ?auto_81740 ) ) ( not ( = ?auto_81737 ?auto_81742 ) ) ( not ( = ?auto_81737 ?auto_81740 ) ) ( not ( = ?auto_81738 ?auto_81742 ) ) ( not ( = ?auto_81738 ?auto_81740 ) ) ( not ( = ?auto_81742 ?auto_81740 ) ) ( ON ?auto_81742 ?auto_81738 ) ( CLEAR ?auto_81739 ) ( ON-TABLE ?auto_81741 ) ( ON ?auto_81739 ?auto_81741 ) ( not ( = ?auto_81741 ?auto_81739 ) ) ( not ( = ?auto_81741 ?auto_81740 ) ) ( not ( = ?auto_81739 ?auto_81740 ) ) ( not ( = ?auto_81735 ?auto_81739 ) ) ( not ( = ?auto_81735 ?auto_81741 ) ) ( not ( = ?auto_81736 ?auto_81739 ) ) ( not ( = ?auto_81736 ?auto_81741 ) ) ( not ( = ?auto_81737 ?auto_81739 ) ) ( not ( = ?auto_81737 ?auto_81741 ) ) ( not ( = ?auto_81738 ?auto_81739 ) ) ( not ( = ?auto_81738 ?auto_81741 ) ) ( not ( = ?auto_81742 ?auto_81739 ) ) ( not ( = ?auto_81742 ?auto_81741 ) ) ( ON ?auto_81740 ?auto_81742 ) ( CLEAR ?auto_81740 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_81735 ?auto_81736 ?auto_81737 ?auto_81741 ?auto_81738 )
+    ( ( MAKE-5PILE ?auto_81735 ?auto_81736 ?auto_81737 ?auto_81738 ?auto_81742 )
       ( MAKE-3PILE ?auto_81735 ?auto_81736 ?auto_81737 ) )
   )
 
@@ -906,16 +906,16 @@
     )
     :vars
     (
+      ?auto_81746 - BLOCK
+      ?auto_81750 - BLOCK
       ?auto_81749 - BLOCK
       ?auto_81747 - BLOCK
-      ?auto_81750 - BLOCK
-      ?auto_81746 - BLOCK
       ?auto_81748 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81749 ?auto_81745 ) ( ON-TABLE ?auto_81743 ) ( ON ?auto_81744 ?auto_81743 ) ( ON ?auto_81745 ?auto_81744 ) ( not ( = ?auto_81743 ?auto_81744 ) ) ( not ( = ?auto_81743 ?auto_81745 ) ) ( not ( = ?auto_81743 ?auto_81749 ) ) ( not ( = ?auto_81744 ?auto_81745 ) ) ( not ( = ?auto_81744 ?auto_81749 ) ) ( not ( = ?auto_81745 ?auto_81749 ) ) ( not ( = ?auto_81743 ?auto_81747 ) ) ( not ( = ?auto_81743 ?auto_81750 ) ) ( not ( = ?auto_81744 ?auto_81747 ) ) ( not ( = ?auto_81744 ?auto_81750 ) ) ( not ( = ?auto_81745 ?auto_81747 ) ) ( not ( = ?auto_81745 ?auto_81750 ) ) ( not ( = ?auto_81749 ?auto_81747 ) ) ( not ( = ?auto_81749 ?auto_81750 ) ) ( not ( = ?auto_81747 ?auto_81750 ) ) ( ON ?auto_81747 ?auto_81749 ) ( ON-TABLE ?auto_81746 ) ( not ( = ?auto_81746 ?auto_81748 ) ) ( not ( = ?auto_81746 ?auto_81750 ) ) ( not ( = ?auto_81748 ?auto_81750 ) ) ( not ( = ?auto_81743 ?auto_81748 ) ) ( not ( = ?auto_81743 ?auto_81746 ) ) ( not ( = ?auto_81744 ?auto_81748 ) ) ( not ( = ?auto_81744 ?auto_81746 ) ) ( not ( = ?auto_81745 ?auto_81748 ) ) ( not ( = ?auto_81745 ?auto_81746 ) ) ( not ( = ?auto_81749 ?auto_81748 ) ) ( not ( = ?auto_81749 ?auto_81746 ) ) ( not ( = ?auto_81747 ?auto_81748 ) ) ( not ( = ?auto_81747 ?auto_81746 ) ) ( ON ?auto_81750 ?auto_81747 ) ( CLEAR ?auto_81750 ) ( HOLDING ?auto_81748 ) ( CLEAR ?auto_81746 ) )
+    ( and ( ON ?auto_81746 ?auto_81745 ) ( ON-TABLE ?auto_81743 ) ( ON ?auto_81744 ?auto_81743 ) ( ON ?auto_81745 ?auto_81744 ) ( not ( = ?auto_81743 ?auto_81744 ) ) ( not ( = ?auto_81743 ?auto_81745 ) ) ( not ( = ?auto_81743 ?auto_81746 ) ) ( not ( = ?auto_81744 ?auto_81745 ) ) ( not ( = ?auto_81744 ?auto_81746 ) ) ( not ( = ?auto_81745 ?auto_81746 ) ) ( not ( = ?auto_81743 ?auto_81750 ) ) ( not ( = ?auto_81743 ?auto_81749 ) ) ( not ( = ?auto_81744 ?auto_81750 ) ) ( not ( = ?auto_81744 ?auto_81749 ) ) ( not ( = ?auto_81745 ?auto_81750 ) ) ( not ( = ?auto_81745 ?auto_81749 ) ) ( not ( = ?auto_81746 ?auto_81750 ) ) ( not ( = ?auto_81746 ?auto_81749 ) ) ( not ( = ?auto_81750 ?auto_81749 ) ) ( ON ?auto_81750 ?auto_81746 ) ( ON-TABLE ?auto_81747 ) ( not ( = ?auto_81747 ?auto_81748 ) ) ( not ( = ?auto_81747 ?auto_81749 ) ) ( not ( = ?auto_81748 ?auto_81749 ) ) ( not ( = ?auto_81743 ?auto_81748 ) ) ( not ( = ?auto_81743 ?auto_81747 ) ) ( not ( = ?auto_81744 ?auto_81748 ) ) ( not ( = ?auto_81744 ?auto_81747 ) ) ( not ( = ?auto_81745 ?auto_81748 ) ) ( not ( = ?auto_81745 ?auto_81747 ) ) ( not ( = ?auto_81746 ?auto_81748 ) ) ( not ( = ?auto_81746 ?auto_81747 ) ) ( not ( = ?auto_81750 ?auto_81748 ) ) ( not ( = ?auto_81750 ?auto_81747 ) ) ( ON ?auto_81749 ?auto_81750 ) ( CLEAR ?auto_81749 ) ( HOLDING ?auto_81748 ) ( CLEAR ?auto_81747 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_81746 ?auto_81748 )
+    ( ( MAKE-2PILE ?auto_81747 ?auto_81748 )
       ( MAKE-3PILE ?auto_81743 ?auto_81744 ?auto_81745 ) )
   )
 
@@ -928,16 +928,16 @@
     )
     :vars
     (
-      ?auto_81754 - BLOCK
-      ?auto_81755 - BLOCK
       ?auto_81758 - BLOCK
       ?auto_81757 - BLOCK
       ?auto_81756 - BLOCK
+      ?auto_81754 - BLOCK
+      ?auto_81755 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81754 ?auto_81753 ) ( ON-TABLE ?auto_81751 ) ( ON ?auto_81752 ?auto_81751 ) ( ON ?auto_81753 ?auto_81752 ) ( not ( = ?auto_81751 ?auto_81752 ) ) ( not ( = ?auto_81751 ?auto_81753 ) ) ( not ( = ?auto_81751 ?auto_81754 ) ) ( not ( = ?auto_81752 ?auto_81753 ) ) ( not ( = ?auto_81752 ?auto_81754 ) ) ( not ( = ?auto_81753 ?auto_81754 ) ) ( not ( = ?auto_81751 ?auto_81755 ) ) ( not ( = ?auto_81751 ?auto_81758 ) ) ( not ( = ?auto_81752 ?auto_81755 ) ) ( not ( = ?auto_81752 ?auto_81758 ) ) ( not ( = ?auto_81753 ?auto_81755 ) ) ( not ( = ?auto_81753 ?auto_81758 ) ) ( not ( = ?auto_81754 ?auto_81755 ) ) ( not ( = ?auto_81754 ?auto_81758 ) ) ( not ( = ?auto_81755 ?auto_81758 ) ) ( ON ?auto_81755 ?auto_81754 ) ( ON-TABLE ?auto_81757 ) ( not ( = ?auto_81757 ?auto_81756 ) ) ( not ( = ?auto_81757 ?auto_81758 ) ) ( not ( = ?auto_81756 ?auto_81758 ) ) ( not ( = ?auto_81751 ?auto_81756 ) ) ( not ( = ?auto_81751 ?auto_81757 ) ) ( not ( = ?auto_81752 ?auto_81756 ) ) ( not ( = ?auto_81752 ?auto_81757 ) ) ( not ( = ?auto_81753 ?auto_81756 ) ) ( not ( = ?auto_81753 ?auto_81757 ) ) ( not ( = ?auto_81754 ?auto_81756 ) ) ( not ( = ?auto_81754 ?auto_81757 ) ) ( not ( = ?auto_81755 ?auto_81756 ) ) ( not ( = ?auto_81755 ?auto_81757 ) ) ( ON ?auto_81758 ?auto_81755 ) ( CLEAR ?auto_81757 ) ( ON ?auto_81756 ?auto_81758 ) ( CLEAR ?auto_81756 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81758 ?auto_81753 ) ( ON-TABLE ?auto_81751 ) ( ON ?auto_81752 ?auto_81751 ) ( ON ?auto_81753 ?auto_81752 ) ( not ( = ?auto_81751 ?auto_81752 ) ) ( not ( = ?auto_81751 ?auto_81753 ) ) ( not ( = ?auto_81751 ?auto_81758 ) ) ( not ( = ?auto_81752 ?auto_81753 ) ) ( not ( = ?auto_81752 ?auto_81758 ) ) ( not ( = ?auto_81753 ?auto_81758 ) ) ( not ( = ?auto_81751 ?auto_81757 ) ) ( not ( = ?auto_81751 ?auto_81756 ) ) ( not ( = ?auto_81752 ?auto_81757 ) ) ( not ( = ?auto_81752 ?auto_81756 ) ) ( not ( = ?auto_81753 ?auto_81757 ) ) ( not ( = ?auto_81753 ?auto_81756 ) ) ( not ( = ?auto_81758 ?auto_81757 ) ) ( not ( = ?auto_81758 ?auto_81756 ) ) ( not ( = ?auto_81757 ?auto_81756 ) ) ( ON ?auto_81757 ?auto_81758 ) ( ON-TABLE ?auto_81754 ) ( not ( = ?auto_81754 ?auto_81755 ) ) ( not ( = ?auto_81754 ?auto_81756 ) ) ( not ( = ?auto_81755 ?auto_81756 ) ) ( not ( = ?auto_81751 ?auto_81755 ) ) ( not ( = ?auto_81751 ?auto_81754 ) ) ( not ( = ?auto_81752 ?auto_81755 ) ) ( not ( = ?auto_81752 ?auto_81754 ) ) ( not ( = ?auto_81753 ?auto_81755 ) ) ( not ( = ?auto_81753 ?auto_81754 ) ) ( not ( = ?auto_81758 ?auto_81755 ) ) ( not ( = ?auto_81758 ?auto_81754 ) ) ( not ( = ?auto_81757 ?auto_81755 ) ) ( not ( = ?auto_81757 ?auto_81754 ) ) ( ON ?auto_81756 ?auto_81757 ) ( CLEAR ?auto_81754 ) ( ON ?auto_81755 ?auto_81756 ) ( CLEAR ?auto_81755 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_81751 ?auto_81752 ?auto_81753 ?auto_81754 ?auto_81755 ?auto_81758 )
+    ( ( MAKE-6PILE ?auto_81751 ?auto_81752 ?auto_81753 ?auto_81758 ?auto_81757 ?auto_81756 )
       ( MAKE-3PILE ?auto_81751 ?auto_81752 ?auto_81753 ) )
   )
 
@@ -950,16 +950,16 @@
     )
     :vars
     (
+      ?auto_81765 - BLOCK
       ?auto_81764 - BLOCK
+      ?auto_81766 - BLOCK
       ?auto_81762 - BLOCK
       ?auto_81763 - BLOCK
-      ?auto_81766 - BLOCK
-      ?auto_81765 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81764 ?auto_81761 ) ( ON-TABLE ?auto_81759 ) ( ON ?auto_81760 ?auto_81759 ) ( ON ?auto_81761 ?auto_81760 ) ( not ( = ?auto_81759 ?auto_81760 ) ) ( not ( = ?auto_81759 ?auto_81761 ) ) ( not ( = ?auto_81759 ?auto_81764 ) ) ( not ( = ?auto_81760 ?auto_81761 ) ) ( not ( = ?auto_81760 ?auto_81764 ) ) ( not ( = ?auto_81761 ?auto_81764 ) ) ( not ( = ?auto_81759 ?auto_81762 ) ) ( not ( = ?auto_81759 ?auto_81763 ) ) ( not ( = ?auto_81760 ?auto_81762 ) ) ( not ( = ?auto_81760 ?auto_81763 ) ) ( not ( = ?auto_81761 ?auto_81762 ) ) ( not ( = ?auto_81761 ?auto_81763 ) ) ( not ( = ?auto_81764 ?auto_81762 ) ) ( not ( = ?auto_81764 ?auto_81763 ) ) ( not ( = ?auto_81762 ?auto_81763 ) ) ( ON ?auto_81762 ?auto_81764 ) ( not ( = ?auto_81766 ?auto_81765 ) ) ( not ( = ?auto_81766 ?auto_81763 ) ) ( not ( = ?auto_81765 ?auto_81763 ) ) ( not ( = ?auto_81759 ?auto_81765 ) ) ( not ( = ?auto_81759 ?auto_81766 ) ) ( not ( = ?auto_81760 ?auto_81765 ) ) ( not ( = ?auto_81760 ?auto_81766 ) ) ( not ( = ?auto_81761 ?auto_81765 ) ) ( not ( = ?auto_81761 ?auto_81766 ) ) ( not ( = ?auto_81764 ?auto_81765 ) ) ( not ( = ?auto_81764 ?auto_81766 ) ) ( not ( = ?auto_81762 ?auto_81765 ) ) ( not ( = ?auto_81762 ?auto_81766 ) ) ( ON ?auto_81763 ?auto_81762 ) ( ON ?auto_81765 ?auto_81763 ) ( CLEAR ?auto_81765 ) ( HOLDING ?auto_81766 ) )
+    ( and ( ON ?auto_81765 ?auto_81761 ) ( ON-TABLE ?auto_81759 ) ( ON ?auto_81760 ?auto_81759 ) ( ON ?auto_81761 ?auto_81760 ) ( not ( = ?auto_81759 ?auto_81760 ) ) ( not ( = ?auto_81759 ?auto_81761 ) ) ( not ( = ?auto_81759 ?auto_81765 ) ) ( not ( = ?auto_81760 ?auto_81761 ) ) ( not ( = ?auto_81760 ?auto_81765 ) ) ( not ( = ?auto_81761 ?auto_81765 ) ) ( not ( = ?auto_81759 ?auto_81764 ) ) ( not ( = ?auto_81759 ?auto_81766 ) ) ( not ( = ?auto_81760 ?auto_81764 ) ) ( not ( = ?auto_81760 ?auto_81766 ) ) ( not ( = ?auto_81761 ?auto_81764 ) ) ( not ( = ?auto_81761 ?auto_81766 ) ) ( not ( = ?auto_81765 ?auto_81764 ) ) ( not ( = ?auto_81765 ?auto_81766 ) ) ( not ( = ?auto_81764 ?auto_81766 ) ) ( ON ?auto_81764 ?auto_81765 ) ( not ( = ?auto_81762 ?auto_81763 ) ) ( not ( = ?auto_81762 ?auto_81766 ) ) ( not ( = ?auto_81763 ?auto_81766 ) ) ( not ( = ?auto_81759 ?auto_81763 ) ) ( not ( = ?auto_81759 ?auto_81762 ) ) ( not ( = ?auto_81760 ?auto_81763 ) ) ( not ( = ?auto_81760 ?auto_81762 ) ) ( not ( = ?auto_81761 ?auto_81763 ) ) ( not ( = ?auto_81761 ?auto_81762 ) ) ( not ( = ?auto_81765 ?auto_81763 ) ) ( not ( = ?auto_81765 ?auto_81762 ) ) ( not ( = ?auto_81764 ?auto_81763 ) ) ( not ( = ?auto_81764 ?auto_81762 ) ) ( ON ?auto_81766 ?auto_81764 ) ( ON ?auto_81763 ?auto_81766 ) ( CLEAR ?auto_81763 ) ( HOLDING ?auto_81762 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_81766 )
+    ( ( MAKE-1PILE ?auto_81762 )
       ( MAKE-3PILE ?auto_81759 ?auto_81760 ?auto_81761 ) )
   )
 
@@ -972,16 +972,16 @@
     )
     :vars
     (
-      ?auto_81773 - BLOCK
-      ?auto_81770 - BLOCK
       ?auto_81771 - BLOCK
-      ?auto_81774 - BLOCK
       ?auto_81772 - BLOCK
+      ?auto_81774 - BLOCK
+      ?auto_81770 - BLOCK
+      ?auto_81773 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81773 ?auto_81769 ) ( ON-TABLE ?auto_81767 ) ( ON ?auto_81768 ?auto_81767 ) ( ON ?auto_81769 ?auto_81768 ) ( not ( = ?auto_81767 ?auto_81768 ) ) ( not ( = ?auto_81767 ?auto_81769 ) ) ( not ( = ?auto_81767 ?auto_81773 ) ) ( not ( = ?auto_81768 ?auto_81769 ) ) ( not ( = ?auto_81768 ?auto_81773 ) ) ( not ( = ?auto_81769 ?auto_81773 ) ) ( not ( = ?auto_81767 ?auto_81770 ) ) ( not ( = ?auto_81767 ?auto_81771 ) ) ( not ( = ?auto_81768 ?auto_81770 ) ) ( not ( = ?auto_81768 ?auto_81771 ) ) ( not ( = ?auto_81769 ?auto_81770 ) ) ( not ( = ?auto_81769 ?auto_81771 ) ) ( not ( = ?auto_81773 ?auto_81770 ) ) ( not ( = ?auto_81773 ?auto_81771 ) ) ( not ( = ?auto_81770 ?auto_81771 ) ) ( ON ?auto_81770 ?auto_81773 ) ( not ( = ?auto_81774 ?auto_81772 ) ) ( not ( = ?auto_81774 ?auto_81771 ) ) ( not ( = ?auto_81772 ?auto_81771 ) ) ( not ( = ?auto_81767 ?auto_81772 ) ) ( not ( = ?auto_81767 ?auto_81774 ) ) ( not ( = ?auto_81768 ?auto_81772 ) ) ( not ( = ?auto_81768 ?auto_81774 ) ) ( not ( = ?auto_81769 ?auto_81772 ) ) ( not ( = ?auto_81769 ?auto_81774 ) ) ( not ( = ?auto_81773 ?auto_81772 ) ) ( not ( = ?auto_81773 ?auto_81774 ) ) ( not ( = ?auto_81770 ?auto_81772 ) ) ( not ( = ?auto_81770 ?auto_81774 ) ) ( ON ?auto_81771 ?auto_81770 ) ( ON ?auto_81772 ?auto_81771 ) ( ON ?auto_81774 ?auto_81772 ) ( CLEAR ?auto_81774 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81771 ?auto_81769 ) ( ON-TABLE ?auto_81767 ) ( ON ?auto_81768 ?auto_81767 ) ( ON ?auto_81769 ?auto_81768 ) ( not ( = ?auto_81767 ?auto_81768 ) ) ( not ( = ?auto_81767 ?auto_81769 ) ) ( not ( = ?auto_81767 ?auto_81771 ) ) ( not ( = ?auto_81768 ?auto_81769 ) ) ( not ( = ?auto_81768 ?auto_81771 ) ) ( not ( = ?auto_81769 ?auto_81771 ) ) ( not ( = ?auto_81767 ?auto_81772 ) ) ( not ( = ?auto_81767 ?auto_81774 ) ) ( not ( = ?auto_81768 ?auto_81772 ) ) ( not ( = ?auto_81768 ?auto_81774 ) ) ( not ( = ?auto_81769 ?auto_81772 ) ) ( not ( = ?auto_81769 ?auto_81774 ) ) ( not ( = ?auto_81771 ?auto_81772 ) ) ( not ( = ?auto_81771 ?auto_81774 ) ) ( not ( = ?auto_81772 ?auto_81774 ) ) ( ON ?auto_81772 ?auto_81771 ) ( not ( = ?auto_81770 ?auto_81773 ) ) ( not ( = ?auto_81770 ?auto_81774 ) ) ( not ( = ?auto_81773 ?auto_81774 ) ) ( not ( = ?auto_81767 ?auto_81773 ) ) ( not ( = ?auto_81767 ?auto_81770 ) ) ( not ( = ?auto_81768 ?auto_81773 ) ) ( not ( = ?auto_81768 ?auto_81770 ) ) ( not ( = ?auto_81769 ?auto_81773 ) ) ( not ( = ?auto_81769 ?auto_81770 ) ) ( not ( = ?auto_81771 ?auto_81773 ) ) ( not ( = ?auto_81771 ?auto_81770 ) ) ( not ( = ?auto_81772 ?auto_81773 ) ) ( not ( = ?auto_81772 ?auto_81770 ) ) ( ON ?auto_81774 ?auto_81772 ) ( ON ?auto_81773 ?auto_81774 ) ( ON ?auto_81770 ?auto_81773 ) ( CLEAR ?auto_81770 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81767 ?auto_81768 ?auto_81769 ?auto_81773 ?auto_81770 ?auto_81771 ?auto_81772 )
+    ( ( MAKE-7PILE ?auto_81767 ?auto_81768 ?auto_81769 ?auto_81771 ?auto_81772 ?auto_81774 ?auto_81773 )
       ( MAKE-3PILE ?auto_81767 ?auto_81768 ?auto_81769 ) )
   )
 
@@ -1073,12 +1073,12 @@
     )
     :vars
     (
-      ?auto_81810 - BLOCK
       ?auto_81812 - BLOCK
+      ?auto_81810 - BLOCK
       ?auto_81811 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81805 ) ( ON ?auto_81806 ?auto_81805 ) ( not ( = ?auto_81805 ?auto_81806 ) ) ( not ( = ?auto_81805 ?auto_81807 ) ) ( not ( = ?auto_81805 ?auto_81808 ) ) ( not ( = ?auto_81805 ?auto_81809 ) ) ( not ( = ?auto_81806 ?auto_81807 ) ) ( not ( = ?auto_81806 ?auto_81808 ) ) ( not ( = ?auto_81806 ?auto_81809 ) ) ( not ( = ?auto_81807 ?auto_81808 ) ) ( not ( = ?auto_81807 ?auto_81809 ) ) ( not ( = ?auto_81808 ?auto_81809 ) ) ( ON ?auto_81809 ?auto_81810 ) ( not ( = ?auto_81805 ?auto_81810 ) ) ( not ( = ?auto_81806 ?auto_81810 ) ) ( not ( = ?auto_81807 ?auto_81810 ) ) ( not ( = ?auto_81808 ?auto_81810 ) ) ( not ( = ?auto_81809 ?auto_81810 ) ) ( ON ?auto_81808 ?auto_81809 ) ( CLEAR ?auto_81808 ) ( ON-TABLE ?auto_81812 ) ( ON ?auto_81811 ?auto_81812 ) ( ON ?auto_81810 ?auto_81811 ) ( not ( = ?auto_81812 ?auto_81811 ) ) ( not ( = ?auto_81812 ?auto_81810 ) ) ( not ( = ?auto_81812 ?auto_81809 ) ) ( not ( = ?auto_81812 ?auto_81808 ) ) ( not ( = ?auto_81811 ?auto_81810 ) ) ( not ( = ?auto_81811 ?auto_81809 ) ) ( not ( = ?auto_81811 ?auto_81808 ) ) ( not ( = ?auto_81805 ?auto_81812 ) ) ( not ( = ?auto_81805 ?auto_81811 ) ) ( not ( = ?auto_81806 ?auto_81812 ) ) ( not ( = ?auto_81806 ?auto_81811 ) ) ( not ( = ?auto_81807 ?auto_81812 ) ) ( not ( = ?auto_81807 ?auto_81811 ) ) ( HOLDING ?auto_81807 ) ( CLEAR ?auto_81806 ) )
+    ( and ( ON-TABLE ?auto_81805 ) ( ON ?auto_81806 ?auto_81805 ) ( not ( = ?auto_81805 ?auto_81806 ) ) ( not ( = ?auto_81805 ?auto_81807 ) ) ( not ( = ?auto_81805 ?auto_81808 ) ) ( not ( = ?auto_81805 ?auto_81809 ) ) ( not ( = ?auto_81806 ?auto_81807 ) ) ( not ( = ?auto_81806 ?auto_81808 ) ) ( not ( = ?auto_81806 ?auto_81809 ) ) ( not ( = ?auto_81807 ?auto_81808 ) ) ( not ( = ?auto_81807 ?auto_81809 ) ) ( not ( = ?auto_81808 ?auto_81809 ) ) ( ON ?auto_81809 ?auto_81812 ) ( not ( = ?auto_81805 ?auto_81812 ) ) ( not ( = ?auto_81806 ?auto_81812 ) ) ( not ( = ?auto_81807 ?auto_81812 ) ) ( not ( = ?auto_81808 ?auto_81812 ) ) ( not ( = ?auto_81809 ?auto_81812 ) ) ( ON ?auto_81808 ?auto_81809 ) ( CLEAR ?auto_81808 ) ( ON-TABLE ?auto_81810 ) ( ON ?auto_81811 ?auto_81810 ) ( ON ?auto_81812 ?auto_81811 ) ( not ( = ?auto_81810 ?auto_81811 ) ) ( not ( = ?auto_81810 ?auto_81812 ) ) ( not ( = ?auto_81810 ?auto_81809 ) ) ( not ( = ?auto_81810 ?auto_81808 ) ) ( not ( = ?auto_81811 ?auto_81812 ) ) ( not ( = ?auto_81811 ?auto_81809 ) ) ( not ( = ?auto_81811 ?auto_81808 ) ) ( not ( = ?auto_81805 ?auto_81810 ) ) ( not ( = ?auto_81805 ?auto_81811 ) ) ( not ( = ?auto_81806 ?auto_81810 ) ) ( not ( = ?auto_81806 ?auto_81811 ) ) ( not ( = ?auto_81807 ?auto_81810 ) ) ( not ( = ?auto_81807 ?auto_81811 ) ) ( HOLDING ?auto_81807 ) ( CLEAR ?auto_81806 ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_81805 ?auto_81806 ?auto_81807 )
       ( MAKE-5PILE ?auto_81805 ?auto_81806 ?auto_81807 ?auto_81808 ?auto_81809 ) )
@@ -1095,14 +1095,14 @@
     )
     :vars
     (
-      ?auto_81820 - BLOCK
       ?auto_81818 - BLOCK
+      ?auto_81820 - BLOCK
       ?auto_81819 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81813 ) ( ON ?auto_81814 ?auto_81813 ) ( not ( = ?auto_81813 ?auto_81814 ) ) ( not ( = ?auto_81813 ?auto_81815 ) ) ( not ( = ?auto_81813 ?auto_81816 ) ) ( not ( = ?auto_81813 ?auto_81817 ) ) ( not ( = ?auto_81814 ?auto_81815 ) ) ( not ( = ?auto_81814 ?auto_81816 ) ) ( not ( = ?auto_81814 ?auto_81817 ) ) ( not ( = ?auto_81815 ?auto_81816 ) ) ( not ( = ?auto_81815 ?auto_81817 ) ) ( not ( = ?auto_81816 ?auto_81817 ) ) ( ON ?auto_81817 ?auto_81820 ) ( not ( = ?auto_81813 ?auto_81820 ) ) ( not ( = ?auto_81814 ?auto_81820 ) ) ( not ( = ?auto_81815 ?auto_81820 ) ) ( not ( = ?auto_81816 ?auto_81820 ) ) ( not ( = ?auto_81817 ?auto_81820 ) ) ( ON ?auto_81816 ?auto_81817 ) ( ON-TABLE ?auto_81818 ) ( ON ?auto_81819 ?auto_81818 ) ( ON ?auto_81820 ?auto_81819 ) ( not ( = ?auto_81818 ?auto_81819 ) ) ( not ( = ?auto_81818 ?auto_81820 ) ) ( not ( = ?auto_81818 ?auto_81817 ) ) ( not ( = ?auto_81818 ?auto_81816 ) ) ( not ( = ?auto_81819 ?auto_81820 ) ) ( not ( = ?auto_81819 ?auto_81817 ) ) ( not ( = ?auto_81819 ?auto_81816 ) ) ( not ( = ?auto_81813 ?auto_81818 ) ) ( not ( = ?auto_81813 ?auto_81819 ) ) ( not ( = ?auto_81814 ?auto_81818 ) ) ( not ( = ?auto_81814 ?auto_81819 ) ) ( not ( = ?auto_81815 ?auto_81818 ) ) ( not ( = ?auto_81815 ?auto_81819 ) ) ( CLEAR ?auto_81814 ) ( ON ?auto_81815 ?auto_81816 ) ( CLEAR ?auto_81815 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_81813 ) ( ON ?auto_81814 ?auto_81813 ) ( not ( = ?auto_81813 ?auto_81814 ) ) ( not ( = ?auto_81813 ?auto_81815 ) ) ( not ( = ?auto_81813 ?auto_81816 ) ) ( not ( = ?auto_81813 ?auto_81817 ) ) ( not ( = ?auto_81814 ?auto_81815 ) ) ( not ( = ?auto_81814 ?auto_81816 ) ) ( not ( = ?auto_81814 ?auto_81817 ) ) ( not ( = ?auto_81815 ?auto_81816 ) ) ( not ( = ?auto_81815 ?auto_81817 ) ) ( not ( = ?auto_81816 ?auto_81817 ) ) ( ON ?auto_81817 ?auto_81818 ) ( not ( = ?auto_81813 ?auto_81818 ) ) ( not ( = ?auto_81814 ?auto_81818 ) ) ( not ( = ?auto_81815 ?auto_81818 ) ) ( not ( = ?auto_81816 ?auto_81818 ) ) ( not ( = ?auto_81817 ?auto_81818 ) ) ( ON ?auto_81816 ?auto_81817 ) ( ON-TABLE ?auto_81820 ) ( ON ?auto_81819 ?auto_81820 ) ( ON ?auto_81818 ?auto_81819 ) ( not ( = ?auto_81820 ?auto_81819 ) ) ( not ( = ?auto_81820 ?auto_81818 ) ) ( not ( = ?auto_81820 ?auto_81817 ) ) ( not ( = ?auto_81820 ?auto_81816 ) ) ( not ( = ?auto_81819 ?auto_81818 ) ) ( not ( = ?auto_81819 ?auto_81817 ) ) ( not ( = ?auto_81819 ?auto_81816 ) ) ( not ( = ?auto_81813 ?auto_81820 ) ) ( not ( = ?auto_81813 ?auto_81819 ) ) ( not ( = ?auto_81814 ?auto_81820 ) ) ( not ( = ?auto_81814 ?auto_81819 ) ) ( not ( = ?auto_81815 ?auto_81820 ) ) ( not ( = ?auto_81815 ?auto_81819 ) ) ( CLEAR ?auto_81814 ) ( ON ?auto_81815 ?auto_81816 ) ( CLEAR ?auto_81815 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_81818 ?auto_81819 ?auto_81820 ?auto_81817 ?auto_81816 )
+    ( ( MAKE-5PILE ?auto_81820 ?auto_81819 ?auto_81818 ?auto_81817 ?auto_81816 )
       ( MAKE-5PILE ?auto_81813 ?auto_81814 ?auto_81815 ?auto_81816 ?auto_81817 ) )
   )
 
@@ -1117,12 +1117,12 @@
     )
     :vars
     (
+      ?auto_81827 - BLOCK
       ?auto_81828 - BLOCK
       ?auto_81826 - BLOCK
-      ?auto_81827 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81821 ) ( not ( = ?auto_81821 ?auto_81822 ) ) ( not ( = ?auto_81821 ?auto_81823 ) ) ( not ( = ?auto_81821 ?auto_81824 ) ) ( not ( = ?auto_81821 ?auto_81825 ) ) ( not ( = ?auto_81822 ?auto_81823 ) ) ( not ( = ?auto_81822 ?auto_81824 ) ) ( not ( = ?auto_81822 ?auto_81825 ) ) ( not ( = ?auto_81823 ?auto_81824 ) ) ( not ( = ?auto_81823 ?auto_81825 ) ) ( not ( = ?auto_81824 ?auto_81825 ) ) ( ON ?auto_81825 ?auto_81828 ) ( not ( = ?auto_81821 ?auto_81828 ) ) ( not ( = ?auto_81822 ?auto_81828 ) ) ( not ( = ?auto_81823 ?auto_81828 ) ) ( not ( = ?auto_81824 ?auto_81828 ) ) ( not ( = ?auto_81825 ?auto_81828 ) ) ( ON ?auto_81824 ?auto_81825 ) ( ON-TABLE ?auto_81826 ) ( ON ?auto_81827 ?auto_81826 ) ( ON ?auto_81828 ?auto_81827 ) ( not ( = ?auto_81826 ?auto_81827 ) ) ( not ( = ?auto_81826 ?auto_81828 ) ) ( not ( = ?auto_81826 ?auto_81825 ) ) ( not ( = ?auto_81826 ?auto_81824 ) ) ( not ( = ?auto_81827 ?auto_81828 ) ) ( not ( = ?auto_81827 ?auto_81825 ) ) ( not ( = ?auto_81827 ?auto_81824 ) ) ( not ( = ?auto_81821 ?auto_81826 ) ) ( not ( = ?auto_81821 ?auto_81827 ) ) ( not ( = ?auto_81822 ?auto_81826 ) ) ( not ( = ?auto_81822 ?auto_81827 ) ) ( not ( = ?auto_81823 ?auto_81826 ) ) ( not ( = ?auto_81823 ?auto_81827 ) ) ( ON ?auto_81823 ?auto_81824 ) ( CLEAR ?auto_81823 ) ( HOLDING ?auto_81822 ) ( CLEAR ?auto_81821 ) )
+    ( and ( ON-TABLE ?auto_81821 ) ( not ( = ?auto_81821 ?auto_81822 ) ) ( not ( = ?auto_81821 ?auto_81823 ) ) ( not ( = ?auto_81821 ?auto_81824 ) ) ( not ( = ?auto_81821 ?auto_81825 ) ) ( not ( = ?auto_81822 ?auto_81823 ) ) ( not ( = ?auto_81822 ?auto_81824 ) ) ( not ( = ?auto_81822 ?auto_81825 ) ) ( not ( = ?auto_81823 ?auto_81824 ) ) ( not ( = ?auto_81823 ?auto_81825 ) ) ( not ( = ?auto_81824 ?auto_81825 ) ) ( ON ?auto_81825 ?auto_81827 ) ( not ( = ?auto_81821 ?auto_81827 ) ) ( not ( = ?auto_81822 ?auto_81827 ) ) ( not ( = ?auto_81823 ?auto_81827 ) ) ( not ( = ?auto_81824 ?auto_81827 ) ) ( not ( = ?auto_81825 ?auto_81827 ) ) ( ON ?auto_81824 ?auto_81825 ) ( ON-TABLE ?auto_81828 ) ( ON ?auto_81826 ?auto_81828 ) ( ON ?auto_81827 ?auto_81826 ) ( not ( = ?auto_81828 ?auto_81826 ) ) ( not ( = ?auto_81828 ?auto_81827 ) ) ( not ( = ?auto_81828 ?auto_81825 ) ) ( not ( = ?auto_81828 ?auto_81824 ) ) ( not ( = ?auto_81826 ?auto_81827 ) ) ( not ( = ?auto_81826 ?auto_81825 ) ) ( not ( = ?auto_81826 ?auto_81824 ) ) ( not ( = ?auto_81821 ?auto_81828 ) ) ( not ( = ?auto_81821 ?auto_81826 ) ) ( not ( = ?auto_81822 ?auto_81828 ) ) ( not ( = ?auto_81822 ?auto_81826 ) ) ( not ( = ?auto_81823 ?auto_81828 ) ) ( not ( = ?auto_81823 ?auto_81826 ) ) ( ON ?auto_81823 ?auto_81824 ) ( CLEAR ?auto_81823 ) ( HOLDING ?auto_81822 ) ( CLEAR ?auto_81821 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_81821 ?auto_81822 )
       ( MAKE-5PILE ?auto_81821 ?auto_81822 ?auto_81823 ?auto_81824 ?auto_81825 ) )
@@ -1139,14 +1139,14 @@
     )
     :vars
     (
-      ?auto_81836 - BLOCK
       ?auto_81835 - BLOCK
       ?auto_81834 - BLOCK
+      ?auto_81836 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81829 ) ( not ( = ?auto_81829 ?auto_81830 ) ) ( not ( = ?auto_81829 ?auto_81831 ) ) ( not ( = ?auto_81829 ?auto_81832 ) ) ( not ( = ?auto_81829 ?auto_81833 ) ) ( not ( = ?auto_81830 ?auto_81831 ) ) ( not ( = ?auto_81830 ?auto_81832 ) ) ( not ( = ?auto_81830 ?auto_81833 ) ) ( not ( = ?auto_81831 ?auto_81832 ) ) ( not ( = ?auto_81831 ?auto_81833 ) ) ( not ( = ?auto_81832 ?auto_81833 ) ) ( ON ?auto_81833 ?auto_81836 ) ( not ( = ?auto_81829 ?auto_81836 ) ) ( not ( = ?auto_81830 ?auto_81836 ) ) ( not ( = ?auto_81831 ?auto_81836 ) ) ( not ( = ?auto_81832 ?auto_81836 ) ) ( not ( = ?auto_81833 ?auto_81836 ) ) ( ON ?auto_81832 ?auto_81833 ) ( ON-TABLE ?auto_81835 ) ( ON ?auto_81834 ?auto_81835 ) ( ON ?auto_81836 ?auto_81834 ) ( not ( = ?auto_81835 ?auto_81834 ) ) ( not ( = ?auto_81835 ?auto_81836 ) ) ( not ( = ?auto_81835 ?auto_81833 ) ) ( not ( = ?auto_81835 ?auto_81832 ) ) ( not ( = ?auto_81834 ?auto_81836 ) ) ( not ( = ?auto_81834 ?auto_81833 ) ) ( not ( = ?auto_81834 ?auto_81832 ) ) ( not ( = ?auto_81829 ?auto_81835 ) ) ( not ( = ?auto_81829 ?auto_81834 ) ) ( not ( = ?auto_81830 ?auto_81835 ) ) ( not ( = ?auto_81830 ?auto_81834 ) ) ( not ( = ?auto_81831 ?auto_81835 ) ) ( not ( = ?auto_81831 ?auto_81834 ) ) ( ON ?auto_81831 ?auto_81832 ) ( CLEAR ?auto_81829 ) ( ON ?auto_81830 ?auto_81831 ) ( CLEAR ?auto_81830 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_81829 ) ( not ( = ?auto_81829 ?auto_81830 ) ) ( not ( = ?auto_81829 ?auto_81831 ) ) ( not ( = ?auto_81829 ?auto_81832 ) ) ( not ( = ?auto_81829 ?auto_81833 ) ) ( not ( = ?auto_81830 ?auto_81831 ) ) ( not ( = ?auto_81830 ?auto_81832 ) ) ( not ( = ?auto_81830 ?auto_81833 ) ) ( not ( = ?auto_81831 ?auto_81832 ) ) ( not ( = ?auto_81831 ?auto_81833 ) ) ( not ( = ?auto_81832 ?auto_81833 ) ) ( ON ?auto_81833 ?auto_81835 ) ( not ( = ?auto_81829 ?auto_81835 ) ) ( not ( = ?auto_81830 ?auto_81835 ) ) ( not ( = ?auto_81831 ?auto_81835 ) ) ( not ( = ?auto_81832 ?auto_81835 ) ) ( not ( = ?auto_81833 ?auto_81835 ) ) ( ON ?auto_81832 ?auto_81833 ) ( ON-TABLE ?auto_81834 ) ( ON ?auto_81836 ?auto_81834 ) ( ON ?auto_81835 ?auto_81836 ) ( not ( = ?auto_81834 ?auto_81836 ) ) ( not ( = ?auto_81834 ?auto_81835 ) ) ( not ( = ?auto_81834 ?auto_81833 ) ) ( not ( = ?auto_81834 ?auto_81832 ) ) ( not ( = ?auto_81836 ?auto_81835 ) ) ( not ( = ?auto_81836 ?auto_81833 ) ) ( not ( = ?auto_81836 ?auto_81832 ) ) ( not ( = ?auto_81829 ?auto_81834 ) ) ( not ( = ?auto_81829 ?auto_81836 ) ) ( not ( = ?auto_81830 ?auto_81834 ) ) ( not ( = ?auto_81830 ?auto_81836 ) ) ( not ( = ?auto_81831 ?auto_81834 ) ) ( not ( = ?auto_81831 ?auto_81836 ) ) ( ON ?auto_81831 ?auto_81832 ) ( CLEAR ?auto_81829 ) ( ON ?auto_81830 ?auto_81831 ) ( CLEAR ?auto_81830 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_81835 ?auto_81834 ?auto_81836 ?auto_81833 ?auto_81832 ?auto_81831 )
+    ( ( MAKE-6PILE ?auto_81834 ?auto_81836 ?auto_81835 ?auto_81833 ?auto_81832 ?auto_81831 )
       ( MAKE-5PILE ?auto_81829 ?auto_81830 ?auto_81831 ?auto_81832 ?auto_81833 ) )
   )
 
@@ -1161,12 +1161,12 @@
     )
     :vars
     (
+      ?auto_81842 - BLOCK
       ?auto_81843 - BLOCK
       ?auto_81844 - BLOCK
-      ?auto_81842 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_81837 ?auto_81838 ) ) ( not ( = ?auto_81837 ?auto_81839 ) ) ( not ( = ?auto_81837 ?auto_81840 ) ) ( not ( = ?auto_81837 ?auto_81841 ) ) ( not ( = ?auto_81838 ?auto_81839 ) ) ( not ( = ?auto_81838 ?auto_81840 ) ) ( not ( = ?auto_81838 ?auto_81841 ) ) ( not ( = ?auto_81839 ?auto_81840 ) ) ( not ( = ?auto_81839 ?auto_81841 ) ) ( not ( = ?auto_81840 ?auto_81841 ) ) ( ON ?auto_81841 ?auto_81843 ) ( not ( = ?auto_81837 ?auto_81843 ) ) ( not ( = ?auto_81838 ?auto_81843 ) ) ( not ( = ?auto_81839 ?auto_81843 ) ) ( not ( = ?auto_81840 ?auto_81843 ) ) ( not ( = ?auto_81841 ?auto_81843 ) ) ( ON ?auto_81840 ?auto_81841 ) ( ON-TABLE ?auto_81844 ) ( ON ?auto_81842 ?auto_81844 ) ( ON ?auto_81843 ?auto_81842 ) ( not ( = ?auto_81844 ?auto_81842 ) ) ( not ( = ?auto_81844 ?auto_81843 ) ) ( not ( = ?auto_81844 ?auto_81841 ) ) ( not ( = ?auto_81844 ?auto_81840 ) ) ( not ( = ?auto_81842 ?auto_81843 ) ) ( not ( = ?auto_81842 ?auto_81841 ) ) ( not ( = ?auto_81842 ?auto_81840 ) ) ( not ( = ?auto_81837 ?auto_81844 ) ) ( not ( = ?auto_81837 ?auto_81842 ) ) ( not ( = ?auto_81838 ?auto_81844 ) ) ( not ( = ?auto_81838 ?auto_81842 ) ) ( not ( = ?auto_81839 ?auto_81844 ) ) ( not ( = ?auto_81839 ?auto_81842 ) ) ( ON ?auto_81839 ?auto_81840 ) ( ON ?auto_81838 ?auto_81839 ) ( CLEAR ?auto_81838 ) ( HOLDING ?auto_81837 ) )
+    ( and ( not ( = ?auto_81837 ?auto_81838 ) ) ( not ( = ?auto_81837 ?auto_81839 ) ) ( not ( = ?auto_81837 ?auto_81840 ) ) ( not ( = ?auto_81837 ?auto_81841 ) ) ( not ( = ?auto_81838 ?auto_81839 ) ) ( not ( = ?auto_81838 ?auto_81840 ) ) ( not ( = ?auto_81838 ?auto_81841 ) ) ( not ( = ?auto_81839 ?auto_81840 ) ) ( not ( = ?auto_81839 ?auto_81841 ) ) ( not ( = ?auto_81840 ?auto_81841 ) ) ( ON ?auto_81841 ?auto_81842 ) ( not ( = ?auto_81837 ?auto_81842 ) ) ( not ( = ?auto_81838 ?auto_81842 ) ) ( not ( = ?auto_81839 ?auto_81842 ) ) ( not ( = ?auto_81840 ?auto_81842 ) ) ( not ( = ?auto_81841 ?auto_81842 ) ) ( ON ?auto_81840 ?auto_81841 ) ( ON-TABLE ?auto_81843 ) ( ON ?auto_81844 ?auto_81843 ) ( ON ?auto_81842 ?auto_81844 ) ( not ( = ?auto_81843 ?auto_81844 ) ) ( not ( = ?auto_81843 ?auto_81842 ) ) ( not ( = ?auto_81843 ?auto_81841 ) ) ( not ( = ?auto_81843 ?auto_81840 ) ) ( not ( = ?auto_81844 ?auto_81842 ) ) ( not ( = ?auto_81844 ?auto_81841 ) ) ( not ( = ?auto_81844 ?auto_81840 ) ) ( not ( = ?auto_81837 ?auto_81843 ) ) ( not ( = ?auto_81837 ?auto_81844 ) ) ( not ( = ?auto_81838 ?auto_81843 ) ) ( not ( = ?auto_81838 ?auto_81844 ) ) ( not ( = ?auto_81839 ?auto_81843 ) ) ( not ( = ?auto_81839 ?auto_81844 ) ) ( ON ?auto_81839 ?auto_81840 ) ( ON ?auto_81838 ?auto_81839 ) ( CLEAR ?auto_81838 ) ( HOLDING ?auto_81837 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_81837 )
       ( MAKE-5PILE ?auto_81837 ?auto_81838 ?auto_81839 ?auto_81840 ?auto_81841 ) )
@@ -1183,14 +1183,14 @@
     )
     :vars
     (
-      ?auto_81850 - BLOCK
-      ?auto_81852 - BLOCK
       ?auto_81851 - BLOCK
+      ?auto_81852 - BLOCK
+      ?auto_81850 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_81845 ?auto_81846 ) ) ( not ( = ?auto_81845 ?auto_81847 ) ) ( not ( = ?auto_81845 ?auto_81848 ) ) ( not ( = ?auto_81845 ?auto_81849 ) ) ( not ( = ?auto_81846 ?auto_81847 ) ) ( not ( = ?auto_81846 ?auto_81848 ) ) ( not ( = ?auto_81846 ?auto_81849 ) ) ( not ( = ?auto_81847 ?auto_81848 ) ) ( not ( = ?auto_81847 ?auto_81849 ) ) ( not ( = ?auto_81848 ?auto_81849 ) ) ( ON ?auto_81849 ?auto_81850 ) ( not ( = ?auto_81845 ?auto_81850 ) ) ( not ( = ?auto_81846 ?auto_81850 ) ) ( not ( = ?auto_81847 ?auto_81850 ) ) ( not ( = ?auto_81848 ?auto_81850 ) ) ( not ( = ?auto_81849 ?auto_81850 ) ) ( ON ?auto_81848 ?auto_81849 ) ( ON-TABLE ?auto_81852 ) ( ON ?auto_81851 ?auto_81852 ) ( ON ?auto_81850 ?auto_81851 ) ( not ( = ?auto_81852 ?auto_81851 ) ) ( not ( = ?auto_81852 ?auto_81850 ) ) ( not ( = ?auto_81852 ?auto_81849 ) ) ( not ( = ?auto_81852 ?auto_81848 ) ) ( not ( = ?auto_81851 ?auto_81850 ) ) ( not ( = ?auto_81851 ?auto_81849 ) ) ( not ( = ?auto_81851 ?auto_81848 ) ) ( not ( = ?auto_81845 ?auto_81852 ) ) ( not ( = ?auto_81845 ?auto_81851 ) ) ( not ( = ?auto_81846 ?auto_81852 ) ) ( not ( = ?auto_81846 ?auto_81851 ) ) ( not ( = ?auto_81847 ?auto_81852 ) ) ( not ( = ?auto_81847 ?auto_81851 ) ) ( ON ?auto_81847 ?auto_81848 ) ( ON ?auto_81846 ?auto_81847 ) ( ON ?auto_81845 ?auto_81846 ) ( CLEAR ?auto_81845 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_81845 ?auto_81846 ) ) ( not ( = ?auto_81845 ?auto_81847 ) ) ( not ( = ?auto_81845 ?auto_81848 ) ) ( not ( = ?auto_81845 ?auto_81849 ) ) ( not ( = ?auto_81846 ?auto_81847 ) ) ( not ( = ?auto_81846 ?auto_81848 ) ) ( not ( = ?auto_81846 ?auto_81849 ) ) ( not ( = ?auto_81847 ?auto_81848 ) ) ( not ( = ?auto_81847 ?auto_81849 ) ) ( not ( = ?auto_81848 ?auto_81849 ) ) ( ON ?auto_81849 ?auto_81851 ) ( not ( = ?auto_81845 ?auto_81851 ) ) ( not ( = ?auto_81846 ?auto_81851 ) ) ( not ( = ?auto_81847 ?auto_81851 ) ) ( not ( = ?auto_81848 ?auto_81851 ) ) ( not ( = ?auto_81849 ?auto_81851 ) ) ( ON ?auto_81848 ?auto_81849 ) ( ON-TABLE ?auto_81852 ) ( ON ?auto_81850 ?auto_81852 ) ( ON ?auto_81851 ?auto_81850 ) ( not ( = ?auto_81852 ?auto_81850 ) ) ( not ( = ?auto_81852 ?auto_81851 ) ) ( not ( = ?auto_81852 ?auto_81849 ) ) ( not ( = ?auto_81852 ?auto_81848 ) ) ( not ( = ?auto_81850 ?auto_81851 ) ) ( not ( = ?auto_81850 ?auto_81849 ) ) ( not ( = ?auto_81850 ?auto_81848 ) ) ( not ( = ?auto_81845 ?auto_81852 ) ) ( not ( = ?auto_81845 ?auto_81850 ) ) ( not ( = ?auto_81846 ?auto_81852 ) ) ( not ( = ?auto_81846 ?auto_81850 ) ) ( not ( = ?auto_81847 ?auto_81852 ) ) ( not ( = ?auto_81847 ?auto_81850 ) ) ( ON ?auto_81847 ?auto_81848 ) ( ON ?auto_81846 ?auto_81847 ) ( ON ?auto_81845 ?auto_81846 ) ( CLEAR ?auto_81845 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81852 ?auto_81851 ?auto_81850 ?auto_81849 ?auto_81848 ?auto_81847 ?auto_81846 )
+    ( ( MAKE-7PILE ?auto_81852 ?auto_81850 ?auto_81851 ?auto_81849 ?auto_81848 ?auto_81847 ?auto_81846 )
       ( MAKE-5PILE ?auto_81845 ?auto_81846 ?auto_81847 ?auto_81848 ?auto_81849 ) )
   )
 
@@ -1238,11 +1238,11 @@
     :vars
     (
       ?auto_81866 - BLOCK
-      ?auto_81865 - BLOCK
       ?auto_81867 - BLOCK
+      ?auto_81865 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81866 ?auto_81864 ) ( ON-TABLE ?auto_81863 ) ( ON ?auto_81864 ?auto_81863 ) ( not ( = ?auto_81863 ?auto_81864 ) ) ( not ( = ?auto_81863 ?auto_81866 ) ) ( not ( = ?auto_81864 ?auto_81866 ) ) ( CLEAR ?auto_81865 ) ( not ( = ?auto_81863 ?auto_81867 ) ) ( not ( = ?auto_81863 ?auto_81865 ) ) ( not ( = ?auto_81864 ?auto_81867 ) ) ( not ( = ?auto_81864 ?auto_81865 ) ) ( not ( = ?auto_81866 ?auto_81867 ) ) ( not ( = ?auto_81866 ?auto_81865 ) ) ( not ( = ?auto_81867 ?auto_81865 ) ) ( ON ?auto_81867 ?auto_81866 ) ( CLEAR ?auto_81867 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81866 ?auto_81864 ) ( ON-TABLE ?auto_81863 ) ( ON ?auto_81864 ?auto_81863 ) ( not ( = ?auto_81863 ?auto_81864 ) ) ( not ( = ?auto_81863 ?auto_81866 ) ) ( not ( = ?auto_81864 ?auto_81866 ) ) ( CLEAR ?auto_81867 ) ( not ( = ?auto_81863 ?auto_81865 ) ) ( not ( = ?auto_81863 ?auto_81867 ) ) ( not ( = ?auto_81864 ?auto_81865 ) ) ( not ( = ?auto_81864 ?auto_81867 ) ) ( not ( = ?auto_81866 ?auto_81865 ) ) ( not ( = ?auto_81866 ?auto_81867 ) ) ( not ( = ?auto_81865 ?auto_81867 ) ) ( ON ?auto_81865 ?auto_81866 ) ( CLEAR ?auto_81865 ) ( HAND-EMPTY ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_81863 ?auto_81864 ?auto_81866 )
       ( MAKE-2PILE ?auto_81863 ?auto_81864 ) )
@@ -1256,17 +1256,17 @@
     )
     :vars
     (
-      ?auto_81871 - BLOCK
-      ?auto_81872 - BLOCK
       ?auto_81870 - BLOCK
+      ?auto_81872 - BLOCK
+      ?auto_81871 - BLOCK
       ?auto_81875 - BLOCK
       ?auto_81873 - BLOCK
       ?auto_81874 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81871 ?auto_81869 ) ( ON-TABLE ?auto_81868 ) ( ON ?auto_81869 ?auto_81868 ) ( not ( = ?auto_81868 ?auto_81869 ) ) ( not ( = ?auto_81868 ?auto_81871 ) ) ( not ( = ?auto_81869 ?auto_81871 ) ) ( not ( = ?auto_81868 ?auto_81872 ) ) ( not ( = ?auto_81868 ?auto_81870 ) ) ( not ( = ?auto_81869 ?auto_81872 ) ) ( not ( = ?auto_81869 ?auto_81870 ) ) ( not ( = ?auto_81871 ?auto_81872 ) ) ( not ( = ?auto_81871 ?auto_81870 ) ) ( not ( = ?auto_81872 ?auto_81870 ) ) ( ON ?auto_81872 ?auto_81871 ) ( CLEAR ?auto_81872 ) ( HOLDING ?auto_81870 ) ( CLEAR ?auto_81875 ) ( ON-TABLE ?auto_81873 ) ( ON ?auto_81874 ?auto_81873 ) ( ON ?auto_81875 ?auto_81874 ) ( not ( = ?auto_81873 ?auto_81874 ) ) ( not ( = ?auto_81873 ?auto_81875 ) ) ( not ( = ?auto_81873 ?auto_81870 ) ) ( not ( = ?auto_81874 ?auto_81875 ) ) ( not ( = ?auto_81874 ?auto_81870 ) ) ( not ( = ?auto_81875 ?auto_81870 ) ) ( not ( = ?auto_81868 ?auto_81875 ) ) ( not ( = ?auto_81868 ?auto_81873 ) ) ( not ( = ?auto_81868 ?auto_81874 ) ) ( not ( = ?auto_81869 ?auto_81875 ) ) ( not ( = ?auto_81869 ?auto_81873 ) ) ( not ( = ?auto_81869 ?auto_81874 ) ) ( not ( = ?auto_81871 ?auto_81875 ) ) ( not ( = ?auto_81871 ?auto_81873 ) ) ( not ( = ?auto_81871 ?auto_81874 ) ) ( not ( = ?auto_81872 ?auto_81875 ) ) ( not ( = ?auto_81872 ?auto_81873 ) ) ( not ( = ?auto_81872 ?auto_81874 ) ) )
+    ( and ( ON ?auto_81870 ?auto_81869 ) ( ON-TABLE ?auto_81868 ) ( ON ?auto_81869 ?auto_81868 ) ( not ( = ?auto_81868 ?auto_81869 ) ) ( not ( = ?auto_81868 ?auto_81870 ) ) ( not ( = ?auto_81869 ?auto_81870 ) ) ( not ( = ?auto_81868 ?auto_81872 ) ) ( not ( = ?auto_81868 ?auto_81871 ) ) ( not ( = ?auto_81869 ?auto_81872 ) ) ( not ( = ?auto_81869 ?auto_81871 ) ) ( not ( = ?auto_81870 ?auto_81872 ) ) ( not ( = ?auto_81870 ?auto_81871 ) ) ( not ( = ?auto_81872 ?auto_81871 ) ) ( ON ?auto_81872 ?auto_81870 ) ( CLEAR ?auto_81872 ) ( HOLDING ?auto_81871 ) ( CLEAR ?auto_81875 ) ( ON-TABLE ?auto_81873 ) ( ON ?auto_81874 ?auto_81873 ) ( ON ?auto_81875 ?auto_81874 ) ( not ( = ?auto_81873 ?auto_81874 ) ) ( not ( = ?auto_81873 ?auto_81875 ) ) ( not ( = ?auto_81873 ?auto_81871 ) ) ( not ( = ?auto_81874 ?auto_81875 ) ) ( not ( = ?auto_81874 ?auto_81871 ) ) ( not ( = ?auto_81875 ?auto_81871 ) ) ( not ( = ?auto_81868 ?auto_81875 ) ) ( not ( = ?auto_81868 ?auto_81873 ) ) ( not ( = ?auto_81868 ?auto_81874 ) ) ( not ( = ?auto_81869 ?auto_81875 ) ) ( not ( = ?auto_81869 ?auto_81873 ) ) ( not ( = ?auto_81869 ?auto_81874 ) ) ( not ( = ?auto_81870 ?auto_81875 ) ) ( not ( = ?auto_81870 ?auto_81873 ) ) ( not ( = ?auto_81870 ?auto_81874 ) ) ( not ( = ?auto_81872 ?auto_81875 ) ) ( not ( = ?auto_81872 ?auto_81873 ) ) ( not ( = ?auto_81872 ?auto_81874 ) ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_81873 ?auto_81874 ?auto_81875 ?auto_81870 )
+    ( ( MAKE-4PILE ?auto_81873 ?auto_81874 ?auto_81875 ?auto_81871 )
       ( MAKE-2PILE ?auto_81868 ?auto_81869 ) )
   )
 
@@ -1278,17 +1278,17 @@
     )
     :vars
     (
-      ?auto_81882 - BLOCK
-      ?auto_81878 - BLOCK
       ?auto_81883 - BLOCK
+      ?auto_81882 - BLOCK
       ?auto_81880 - BLOCK
       ?auto_81881 - BLOCK
       ?auto_81879 - BLOCK
+      ?auto_81878 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81882 ?auto_81877 ) ( ON-TABLE ?auto_81876 ) ( ON ?auto_81877 ?auto_81876 ) ( not ( = ?auto_81876 ?auto_81877 ) ) ( not ( = ?auto_81876 ?auto_81882 ) ) ( not ( = ?auto_81877 ?auto_81882 ) ) ( not ( = ?auto_81876 ?auto_81878 ) ) ( not ( = ?auto_81876 ?auto_81883 ) ) ( not ( = ?auto_81877 ?auto_81878 ) ) ( not ( = ?auto_81877 ?auto_81883 ) ) ( not ( = ?auto_81882 ?auto_81878 ) ) ( not ( = ?auto_81882 ?auto_81883 ) ) ( not ( = ?auto_81878 ?auto_81883 ) ) ( ON ?auto_81878 ?auto_81882 ) ( CLEAR ?auto_81880 ) ( ON-TABLE ?auto_81881 ) ( ON ?auto_81879 ?auto_81881 ) ( ON ?auto_81880 ?auto_81879 ) ( not ( = ?auto_81881 ?auto_81879 ) ) ( not ( = ?auto_81881 ?auto_81880 ) ) ( not ( = ?auto_81881 ?auto_81883 ) ) ( not ( = ?auto_81879 ?auto_81880 ) ) ( not ( = ?auto_81879 ?auto_81883 ) ) ( not ( = ?auto_81880 ?auto_81883 ) ) ( not ( = ?auto_81876 ?auto_81880 ) ) ( not ( = ?auto_81876 ?auto_81881 ) ) ( not ( = ?auto_81876 ?auto_81879 ) ) ( not ( = ?auto_81877 ?auto_81880 ) ) ( not ( = ?auto_81877 ?auto_81881 ) ) ( not ( = ?auto_81877 ?auto_81879 ) ) ( not ( = ?auto_81882 ?auto_81880 ) ) ( not ( = ?auto_81882 ?auto_81881 ) ) ( not ( = ?auto_81882 ?auto_81879 ) ) ( not ( = ?auto_81878 ?auto_81880 ) ) ( not ( = ?auto_81878 ?auto_81881 ) ) ( not ( = ?auto_81878 ?auto_81879 ) ) ( ON ?auto_81883 ?auto_81878 ) ( CLEAR ?auto_81883 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81883 ?auto_81877 ) ( ON-TABLE ?auto_81876 ) ( ON ?auto_81877 ?auto_81876 ) ( not ( = ?auto_81876 ?auto_81877 ) ) ( not ( = ?auto_81876 ?auto_81883 ) ) ( not ( = ?auto_81877 ?auto_81883 ) ) ( not ( = ?auto_81876 ?auto_81882 ) ) ( not ( = ?auto_81876 ?auto_81880 ) ) ( not ( = ?auto_81877 ?auto_81882 ) ) ( not ( = ?auto_81877 ?auto_81880 ) ) ( not ( = ?auto_81883 ?auto_81882 ) ) ( not ( = ?auto_81883 ?auto_81880 ) ) ( not ( = ?auto_81882 ?auto_81880 ) ) ( ON ?auto_81882 ?auto_81883 ) ( CLEAR ?auto_81881 ) ( ON-TABLE ?auto_81879 ) ( ON ?auto_81878 ?auto_81879 ) ( ON ?auto_81881 ?auto_81878 ) ( not ( = ?auto_81879 ?auto_81878 ) ) ( not ( = ?auto_81879 ?auto_81881 ) ) ( not ( = ?auto_81879 ?auto_81880 ) ) ( not ( = ?auto_81878 ?auto_81881 ) ) ( not ( = ?auto_81878 ?auto_81880 ) ) ( not ( = ?auto_81881 ?auto_81880 ) ) ( not ( = ?auto_81876 ?auto_81881 ) ) ( not ( = ?auto_81876 ?auto_81879 ) ) ( not ( = ?auto_81876 ?auto_81878 ) ) ( not ( = ?auto_81877 ?auto_81881 ) ) ( not ( = ?auto_81877 ?auto_81879 ) ) ( not ( = ?auto_81877 ?auto_81878 ) ) ( not ( = ?auto_81883 ?auto_81881 ) ) ( not ( = ?auto_81883 ?auto_81879 ) ) ( not ( = ?auto_81883 ?auto_81878 ) ) ( not ( = ?auto_81882 ?auto_81881 ) ) ( not ( = ?auto_81882 ?auto_81879 ) ) ( not ( = ?auto_81882 ?auto_81878 ) ) ( ON ?auto_81880 ?auto_81882 ) ( CLEAR ?auto_81880 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_81876 ?auto_81877 ?auto_81882 ?auto_81878 )
+    ( ( MAKE-4PILE ?auto_81876 ?auto_81877 ?auto_81883 ?auto_81882 )
       ( MAKE-2PILE ?auto_81876 ?auto_81877 ) )
   )
 
@@ -1300,17 +1300,17 @@
     )
     :vars
     (
-      ?auto_81889 - BLOCK
-      ?auto_81890 - BLOCK
-      ?auto_81886 - BLOCK
       ?auto_81887 - BLOCK
+      ?auto_81889 - BLOCK
+      ?auto_81886 - BLOCK
+      ?auto_81890 - BLOCK
       ?auto_81891 - BLOCK
       ?auto_81888 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81889 ?auto_81885 ) ( ON-TABLE ?auto_81884 ) ( ON ?auto_81885 ?auto_81884 ) ( not ( = ?auto_81884 ?auto_81885 ) ) ( not ( = ?auto_81884 ?auto_81889 ) ) ( not ( = ?auto_81885 ?auto_81889 ) ) ( not ( = ?auto_81884 ?auto_81890 ) ) ( not ( = ?auto_81884 ?auto_81886 ) ) ( not ( = ?auto_81885 ?auto_81890 ) ) ( not ( = ?auto_81885 ?auto_81886 ) ) ( not ( = ?auto_81889 ?auto_81890 ) ) ( not ( = ?auto_81889 ?auto_81886 ) ) ( not ( = ?auto_81890 ?auto_81886 ) ) ( ON ?auto_81890 ?auto_81889 ) ( ON-TABLE ?auto_81887 ) ( ON ?auto_81891 ?auto_81887 ) ( not ( = ?auto_81887 ?auto_81891 ) ) ( not ( = ?auto_81887 ?auto_81888 ) ) ( not ( = ?auto_81887 ?auto_81886 ) ) ( not ( = ?auto_81891 ?auto_81888 ) ) ( not ( = ?auto_81891 ?auto_81886 ) ) ( not ( = ?auto_81888 ?auto_81886 ) ) ( not ( = ?auto_81884 ?auto_81888 ) ) ( not ( = ?auto_81884 ?auto_81887 ) ) ( not ( = ?auto_81884 ?auto_81891 ) ) ( not ( = ?auto_81885 ?auto_81888 ) ) ( not ( = ?auto_81885 ?auto_81887 ) ) ( not ( = ?auto_81885 ?auto_81891 ) ) ( not ( = ?auto_81889 ?auto_81888 ) ) ( not ( = ?auto_81889 ?auto_81887 ) ) ( not ( = ?auto_81889 ?auto_81891 ) ) ( not ( = ?auto_81890 ?auto_81888 ) ) ( not ( = ?auto_81890 ?auto_81887 ) ) ( not ( = ?auto_81890 ?auto_81891 ) ) ( ON ?auto_81886 ?auto_81890 ) ( CLEAR ?auto_81886 ) ( HOLDING ?auto_81888 ) ( CLEAR ?auto_81891 ) )
+    ( and ( ON ?auto_81887 ?auto_81885 ) ( ON-TABLE ?auto_81884 ) ( ON ?auto_81885 ?auto_81884 ) ( not ( = ?auto_81884 ?auto_81885 ) ) ( not ( = ?auto_81884 ?auto_81887 ) ) ( not ( = ?auto_81885 ?auto_81887 ) ) ( not ( = ?auto_81884 ?auto_81889 ) ) ( not ( = ?auto_81884 ?auto_81886 ) ) ( not ( = ?auto_81885 ?auto_81889 ) ) ( not ( = ?auto_81885 ?auto_81886 ) ) ( not ( = ?auto_81887 ?auto_81889 ) ) ( not ( = ?auto_81887 ?auto_81886 ) ) ( not ( = ?auto_81889 ?auto_81886 ) ) ( ON ?auto_81889 ?auto_81887 ) ( ON-TABLE ?auto_81890 ) ( ON ?auto_81891 ?auto_81890 ) ( not ( = ?auto_81890 ?auto_81891 ) ) ( not ( = ?auto_81890 ?auto_81888 ) ) ( not ( = ?auto_81890 ?auto_81886 ) ) ( not ( = ?auto_81891 ?auto_81888 ) ) ( not ( = ?auto_81891 ?auto_81886 ) ) ( not ( = ?auto_81888 ?auto_81886 ) ) ( not ( = ?auto_81884 ?auto_81888 ) ) ( not ( = ?auto_81884 ?auto_81890 ) ) ( not ( = ?auto_81884 ?auto_81891 ) ) ( not ( = ?auto_81885 ?auto_81888 ) ) ( not ( = ?auto_81885 ?auto_81890 ) ) ( not ( = ?auto_81885 ?auto_81891 ) ) ( not ( = ?auto_81887 ?auto_81888 ) ) ( not ( = ?auto_81887 ?auto_81890 ) ) ( not ( = ?auto_81887 ?auto_81891 ) ) ( not ( = ?auto_81889 ?auto_81888 ) ) ( not ( = ?auto_81889 ?auto_81890 ) ) ( not ( = ?auto_81889 ?auto_81891 ) ) ( ON ?auto_81886 ?auto_81889 ) ( CLEAR ?auto_81886 ) ( HOLDING ?auto_81888 ) ( CLEAR ?auto_81891 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_81887 ?auto_81891 ?auto_81888 )
+    ( ( MAKE-3PILE ?auto_81890 ?auto_81891 ?auto_81888 )
       ( MAKE-2PILE ?auto_81884 ?auto_81885 ) )
   )
 
@@ -1322,17 +1322,17 @@
     )
     :vars
     (
-      ?auto_81897 - BLOCK
-      ?auto_81894 - BLOCK
-      ?auto_81898 - BLOCK
-      ?auto_81899 - BLOCK
-      ?auto_81895 - BLOCK
       ?auto_81896 - BLOCK
+      ?auto_81894 - BLOCK
+      ?auto_81897 - BLOCK
+      ?auto_81898 - BLOCK
+      ?auto_81895 - BLOCK
+      ?auto_81899 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81897 ?auto_81893 ) ( ON-TABLE ?auto_81892 ) ( ON ?auto_81893 ?auto_81892 ) ( not ( = ?auto_81892 ?auto_81893 ) ) ( not ( = ?auto_81892 ?auto_81897 ) ) ( not ( = ?auto_81893 ?auto_81897 ) ) ( not ( = ?auto_81892 ?auto_81894 ) ) ( not ( = ?auto_81892 ?auto_81898 ) ) ( not ( = ?auto_81893 ?auto_81894 ) ) ( not ( = ?auto_81893 ?auto_81898 ) ) ( not ( = ?auto_81897 ?auto_81894 ) ) ( not ( = ?auto_81897 ?auto_81898 ) ) ( not ( = ?auto_81894 ?auto_81898 ) ) ( ON ?auto_81894 ?auto_81897 ) ( ON-TABLE ?auto_81899 ) ( ON ?auto_81895 ?auto_81899 ) ( not ( = ?auto_81899 ?auto_81895 ) ) ( not ( = ?auto_81899 ?auto_81896 ) ) ( not ( = ?auto_81899 ?auto_81898 ) ) ( not ( = ?auto_81895 ?auto_81896 ) ) ( not ( = ?auto_81895 ?auto_81898 ) ) ( not ( = ?auto_81896 ?auto_81898 ) ) ( not ( = ?auto_81892 ?auto_81896 ) ) ( not ( = ?auto_81892 ?auto_81899 ) ) ( not ( = ?auto_81892 ?auto_81895 ) ) ( not ( = ?auto_81893 ?auto_81896 ) ) ( not ( = ?auto_81893 ?auto_81899 ) ) ( not ( = ?auto_81893 ?auto_81895 ) ) ( not ( = ?auto_81897 ?auto_81896 ) ) ( not ( = ?auto_81897 ?auto_81899 ) ) ( not ( = ?auto_81897 ?auto_81895 ) ) ( not ( = ?auto_81894 ?auto_81896 ) ) ( not ( = ?auto_81894 ?auto_81899 ) ) ( not ( = ?auto_81894 ?auto_81895 ) ) ( ON ?auto_81898 ?auto_81894 ) ( CLEAR ?auto_81895 ) ( ON ?auto_81896 ?auto_81898 ) ( CLEAR ?auto_81896 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81896 ?auto_81893 ) ( ON-TABLE ?auto_81892 ) ( ON ?auto_81893 ?auto_81892 ) ( not ( = ?auto_81892 ?auto_81893 ) ) ( not ( = ?auto_81892 ?auto_81896 ) ) ( not ( = ?auto_81893 ?auto_81896 ) ) ( not ( = ?auto_81892 ?auto_81894 ) ) ( not ( = ?auto_81892 ?auto_81897 ) ) ( not ( = ?auto_81893 ?auto_81894 ) ) ( not ( = ?auto_81893 ?auto_81897 ) ) ( not ( = ?auto_81896 ?auto_81894 ) ) ( not ( = ?auto_81896 ?auto_81897 ) ) ( not ( = ?auto_81894 ?auto_81897 ) ) ( ON ?auto_81894 ?auto_81896 ) ( ON-TABLE ?auto_81898 ) ( ON ?auto_81895 ?auto_81898 ) ( not ( = ?auto_81898 ?auto_81895 ) ) ( not ( = ?auto_81898 ?auto_81899 ) ) ( not ( = ?auto_81898 ?auto_81897 ) ) ( not ( = ?auto_81895 ?auto_81899 ) ) ( not ( = ?auto_81895 ?auto_81897 ) ) ( not ( = ?auto_81899 ?auto_81897 ) ) ( not ( = ?auto_81892 ?auto_81899 ) ) ( not ( = ?auto_81892 ?auto_81898 ) ) ( not ( = ?auto_81892 ?auto_81895 ) ) ( not ( = ?auto_81893 ?auto_81899 ) ) ( not ( = ?auto_81893 ?auto_81898 ) ) ( not ( = ?auto_81893 ?auto_81895 ) ) ( not ( = ?auto_81896 ?auto_81899 ) ) ( not ( = ?auto_81896 ?auto_81898 ) ) ( not ( = ?auto_81896 ?auto_81895 ) ) ( not ( = ?auto_81894 ?auto_81899 ) ) ( not ( = ?auto_81894 ?auto_81898 ) ) ( not ( = ?auto_81894 ?auto_81895 ) ) ( ON ?auto_81897 ?auto_81894 ) ( CLEAR ?auto_81895 ) ( ON ?auto_81899 ?auto_81897 ) ( CLEAR ?auto_81899 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_81892 ?auto_81893 ?auto_81897 ?auto_81894 ?auto_81898 )
+    ( ( MAKE-5PILE ?auto_81892 ?auto_81893 ?auto_81896 ?auto_81894 ?auto_81897 )
       ( MAKE-2PILE ?auto_81892 ?auto_81893 ) )
   )
 
@@ -1346,15 +1346,15 @@
     (
       ?auto_81905 - BLOCK
       ?auto_81904 - BLOCK
-      ?auto_81906 - BLOCK
       ?auto_81903 - BLOCK
+      ?auto_81906 - BLOCK
       ?auto_81907 - BLOCK
       ?auto_81902 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81905 ?auto_81901 ) ( ON-TABLE ?auto_81900 ) ( ON ?auto_81901 ?auto_81900 ) ( not ( = ?auto_81900 ?auto_81901 ) ) ( not ( = ?auto_81900 ?auto_81905 ) ) ( not ( = ?auto_81901 ?auto_81905 ) ) ( not ( = ?auto_81900 ?auto_81904 ) ) ( not ( = ?auto_81900 ?auto_81906 ) ) ( not ( = ?auto_81901 ?auto_81904 ) ) ( not ( = ?auto_81901 ?auto_81906 ) ) ( not ( = ?auto_81905 ?auto_81904 ) ) ( not ( = ?auto_81905 ?auto_81906 ) ) ( not ( = ?auto_81904 ?auto_81906 ) ) ( ON ?auto_81904 ?auto_81905 ) ( ON-TABLE ?auto_81903 ) ( not ( = ?auto_81903 ?auto_81907 ) ) ( not ( = ?auto_81903 ?auto_81902 ) ) ( not ( = ?auto_81903 ?auto_81906 ) ) ( not ( = ?auto_81907 ?auto_81902 ) ) ( not ( = ?auto_81907 ?auto_81906 ) ) ( not ( = ?auto_81902 ?auto_81906 ) ) ( not ( = ?auto_81900 ?auto_81902 ) ) ( not ( = ?auto_81900 ?auto_81903 ) ) ( not ( = ?auto_81900 ?auto_81907 ) ) ( not ( = ?auto_81901 ?auto_81902 ) ) ( not ( = ?auto_81901 ?auto_81903 ) ) ( not ( = ?auto_81901 ?auto_81907 ) ) ( not ( = ?auto_81905 ?auto_81902 ) ) ( not ( = ?auto_81905 ?auto_81903 ) ) ( not ( = ?auto_81905 ?auto_81907 ) ) ( not ( = ?auto_81904 ?auto_81902 ) ) ( not ( = ?auto_81904 ?auto_81903 ) ) ( not ( = ?auto_81904 ?auto_81907 ) ) ( ON ?auto_81906 ?auto_81904 ) ( ON ?auto_81902 ?auto_81906 ) ( CLEAR ?auto_81902 ) ( HOLDING ?auto_81907 ) ( CLEAR ?auto_81903 ) )
+    ( and ( ON ?auto_81905 ?auto_81901 ) ( ON-TABLE ?auto_81900 ) ( ON ?auto_81901 ?auto_81900 ) ( not ( = ?auto_81900 ?auto_81901 ) ) ( not ( = ?auto_81900 ?auto_81905 ) ) ( not ( = ?auto_81901 ?auto_81905 ) ) ( not ( = ?auto_81900 ?auto_81904 ) ) ( not ( = ?auto_81900 ?auto_81903 ) ) ( not ( = ?auto_81901 ?auto_81904 ) ) ( not ( = ?auto_81901 ?auto_81903 ) ) ( not ( = ?auto_81905 ?auto_81904 ) ) ( not ( = ?auto_81905 ?auto_81903 ) ) ( not ( = ?auto_81904 ?auto_81903 ) ) ( ON ?auto_81904 ?auto_81905 ) ( ON-TABLE ?auto_81906 ) ( not ( = ?auto_81906 ?auto_81907 ) ) ( not ( = ?auto_81906 ?auto_81902 ) ) ( not ( = ?auto_81906 ?auto_81903 ) ) ( not ( = ?auto_81907 ?auto_81902 ) ) ( not ( = ?auto_81907 ?auto_81903 ) ) ( not ( = ?auto_81902 ?auto_81903 ) ) ( not ( = ?auto_81900 ?auto_81902 ) ) ( not ( = ?auto_81900 ?auto_81906 ) ) ( not ( = ?auto_81900 ?auto_81907 ) ) ( not ( = ?auto_81901 ?auto_81902 ) ) ( not ( = ?auto_81901 ?auto_81906 ) ) ( not ( = ?auto_81901 ?auto_81907 ) ) ( not ( = ?auto_81905 ?auto_81902 ) ) ( not ( = ?auto_81905 ?auto_81906 ) ) ( not ( = ?auto_81905 ?auto_81907 ) ) ( not ( = ?auto_81904 ?auto_81902 ) ) ( not ( = ?auto_81904 ?auto_81906 ) ) ( not ( = ?auto_81904 ?auto_81907 ) ) ( ON ?auto_81903 ?auto_81904 ) ( ON ?auto_81902 ?auto_81903 ) ( CLEAR ?auto_81902 ) ( HOLDING ?auto_81907 ) ( CLEAR ?auto_81906 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_81903 ?auto_81907 )
+    ( ( MAKE-2PILE ?auto_81906 ?auto_81907 )
       ( MAKE-2PILE ?auto_81900 ?auto_81901 ) )
   )
 
@@ -1366,17 +1366,17 @@
     )
     :vars
     (
-      ?auto_81910 - BLOCK
-      ?auto_81912 - BLOCK
-      ?auto_81915 - BLOCK
       ?auto_81913 - BLOCK
-      ?auto_81911 - BLOCK
       ?auto_81914 - BLOCK
+      ?auto_81915 - BLOCK
+      ?auto_81912 - BLOCK
+      ?auto_81910 - BLOCK
+      ?auto_81911 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81910 ?auto_81909 ) ( ON-TABLE ?auto_81908 ) ( ON ?auto_81909 ?auto_81908 ) ( not ( = ?auto_81908 ?auto_81909 ) ) ( not ( = ?auto_81908 ?auto_81910 ) ) ( not ( = ?auto_81909 ?auto_81910 ) ) ( not ( = ?auto_81908 ?auto_81912 ) ) ( not ( = ?auto_81908 ?auto_81915 ) ) ( not ( = ?auto_81909 ?auto_81912 ) ) ( not ( = ?auto_81909 ?auto_81915 ) ) ( not ( = ?auto_81910 ?auto_81912 ) ) ( not ( = ?auto_81910 ?auto_81915 ) ) ( not ( = ?auto_81912 ?auto_81915 ) ) ( ON ?auto_81912 ?auto_81910 ) ( ON-TABLE ?auto_81913 ) ( not ( = ?auto_81913 ?auto_81911 ) ) ( not ( = ?auto_81913 ?auto_81914 ) ) ( not ( = ?auto_81913 ?auto_81915 ) ) ( not ( = ?auto_81911 ?auto_81914 ) ) ( not ( = ?auto_81911 ?auto_81915 ) ) ( not ( = ?auto_81914 ?auto_81915 ) ) ( not ( = ?auto_81908 ?auto_81914 ) ) ( not ( = ?auto_81908 ?auto_81913 ) ) ( not ( = ?auto_81908 ?auto_81911 ) ) ( not ( = ?auto_81909 ?auto_81914 ) ) ( not ( = ?auto_81909 ?auto_81913 ) ) ( not ( = ?auto_81909 ?auto_81911 ) ) ( not ( = ?auto_81910 ?auto_81914 ) ) ( not ( = ?auto_81910 ?auto_81913 ) ) ( not ( = ?auto_81910 ?auto_81911 ) ) ( not ( = ?auto_81912 ?auto_81914 ) ) ( not ( = ?auto_81912 ?auto_81913 ) ) ( not ( = ?auto_81912 ?auto_81911 ) ) ( ON ?auto_81915 ?auto_81912 ) ( ON ?auto_81914 ?auto_81915 ) ( CLEAR ?auto_81913 ) ( ON ?auto_81911 ?auto_81914 ) ( CLEAR ?auto_81911 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81913 ?auto_81909 ) ( ON-TABLE ?auto_81908 ) ( ON ?auto_81909 ?auto_81908 ) ( not ( = ?auto_81908 ?auto_81909 ) ) ( not ( = ?auto_81908 ?auto_81913 ) ) ( not ( = ?auto_81909 ?auto_81913 ) ) ( not ( = ?auto_81908 ?auto_81914 ) ) ( not ( = ?auto_81908 ?auto_81915 ) ) ( not ( = ?auto_81909 ?auto_81914 ) ) ( not ( = ?auto_81909 ?auto_81915 ) ) ( not ( = ?auto_81913 ?auto_81914 ) ) ( not ( = ?auto_81913 ?auto_81915 ) ) ( not ( = ?auto_81914 ?auto_81915 ) ) ( ON ?auto_81914 ?auto_81913 ) ( ON-TABLE ?auto_81912 ) ( not ( = ?auto_81912 ?auto_81910 ) ) ( not ( = ?auto_81912 ?auto_81911 ) ) ( not ( = ?auto_81912 ?auto_81915 ) ) ( not ( = ?auto_81910 ?auto_81911 ) ) ( not ( = ?auto_81910 ?auto_81915 ) ) ( not ( = ?auto_81911 ?auto_81915 ) ) ( not ( = ?auto_81908 ?auto_81911 ) ) ( not ( = ?auto_81908 ?auto_81912 ) ) ( not ( = ?auto_81908 ?auto_81910 ) ) ( not ( = ?auto_81909 ?auto_81911 ) ) ( not ( = ?auto_81909 ?auto_81912 ) ) ( not ( = ?auto_81909 ?auto_81910 ) ) ( not ( = ?auto_81913 ?auto_81911 ) ) ( not ( = ?auto_81913 ?auto_81912 ) ) ( not ( = ?auto_81913 ?auto_81910 ) ) ( not ( = ?auto_81914 ?auto_81911 ) ) ( not ( = ?auto_81914 ?auto_81912 ) ) ( not ( = ?auto_81914 ?auto_81910 ) ) ( ON ?auto_81915 ?auto_81914 ) ( ON ?auto_81911 ?auto_81915 ) ( CLEAR ?auto_81912 ) ( ON ?auto_81910 ?auto_81911 ) ( CLEAR ?auto_81910 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_81908 ?auto_81909 ?auto_81910 ?auto_81912 ?auto_81915 ?auto_81914 )
+    ( ( MAKE-6PILE ?auto_81908 ?auto_81909 ?auto_81913 ?auto_81914 ?auto_81915 ?auto_81911 )
       ( MAKE-2PILE ?auto_81908 ?auto_81909 ) )
   )
 
@@ -1388,17 +1388,17 @@
     )
     :vars
     (
+      ?auto_81918 - BLOCK
+      ?auto_81922 - BLOCK
       ?auto_81923 - BLOCK
+      ?auto_81920 - BLOCK
       ?auto_81921 - BLOCK
       ?auto_81919 - BLOCK
-      ?auto_81922 - BLOCK
-      ?auto_81918 - BLOCK
-      ?auto_81920 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81923 ?auto_81917 ) ( ON-TABLE ?auto_81916 ) ( ON ?auto_81917 ?auto_81916 ) ( not ( = ?auto_81916 ?auto_81917 ) ) ( not ( = ?auto_81916 ?auto_81923 ) ) ( not ( = ?auto_81917 ?auto_81923 ) ) ( not ( = ?auto_81916 ?auto_81921 ) ) ( not ( = ?auto_81916 ?auto_81919 ) ) ( not ( = ?auto_81917 ?auto_81921 ) ) ( not ( = ?auto_81917 ?auto_81919 ) ) ( not ( = ?auto_81923 ?auto_81921 ) ) ( not ( = ?auto_81923 ?auto_81919 ) ) ( not ( = ?auto_81921 ?auto_81919 ) ) ( ON ?auto_81921 ?auto_81923 ) ( not ( = ?auto_81922 ?auto_81918 ) ) ( not ( = ?auto_81922 ?auto_81920 ) ) ( not ( = ?auto_81922 ?auto_81919 ) ) ( not ( = ?auto_81918 ?auto_81920 ) ) ( not ( = ?auto_81918 ?auto_81919 ) ) ( not ( = ?auto_81920 ?auto_81919 ) ) ( not ( = ?auto_81916 ?auto_81920 ) ) ( not ( = ?auto_81916 ?auto_81922 ) ) ( not ( = ?auto_81916 ?auto_81918 ) ) ( not ( = ?auto_81917 ?auto_81920 ) ) ( not ( = ?auto_81917 ?auto_81922 ) ) ( not ( = ?auto_81917 ?auto_81918 ) ) ( not ( = ?auto_81923 ?auto_81920 ) ) ( not ( = ?auto_81923 ?auto_81922 ) ) ( not ( = ?auto_81923 ?auto_81918 ) ) ( not ( = ?auto_81921 ?auto_81920 ) ) ( not ( = ?auto_81921 ?auto_81922 ) ) ( not ( = ?auto_81921 ?auto_81918 ) ) ( ON ?auto_81919 ?auto_81921 ) ( ON ?auto_81920 ?auto_81919 ) ( ON ?auto_81918 ?auto_81920 ) ( CLEAR ?auto_81918 ) ( HOLDING ?auto_81922 ) )
+    ( and ( ON ?auto_81918 ?auto_81917 ) ( ON-TABLE ?auto_81916 ) ( ON ?auto_81917 ?auto_81916 ) ( not ( = ?auto_81916 ?auto_81917 ) ) ( not ( = ?auto_81916 ?auto_81918 ) ) ( not ( = ?auto_81917 ?auto_81918 ) ) ( not ( = ?auto_81916 ?auto_81922 ) ) ( not ( = ?auto_81916 ?auto_81923 ) ) ( not ( = ?auto_81917 ?auto_81922 ) ) ( not ( = ?auto_81917 ?auto_81923 ) ) ( not ( = ?auto_81918 ?auto_81922 ) ) ( not ( = ?auto_81918 ?auto_81923 ) ) ( not ( = ?auto_81922 ?auto_81923 ) ) ( ON ?auto_81922 ?auto_81918 ) ( not ( = ?auto_81920 ?auto_81921 ) ) ( not ( = ?auto_81920 ?auto_81919 ) ) ( not ( = ?auto_81920 ?auto_81923 ) ) ( not ( = ?auto_81921 ?auto_81919 ) ) ( not ( = ?auto_81921 ?auto_81923 ) ) ( not ( = ?auto_81919 ?auto_81923 ) ) ( not ( = ?auto_81916 ?auto_81919 ) ) ( not ( = ?auto_81916 ?auto_81920 ) ) ( not ( = ?auto_81916 ?auto_81921 ) ) ( not ( = ?auto_81917 ?auto_81919 ) ) ( not ( = ?auto_81917 ?auto_81920 ) ) ( not ( = ?auto_81917 ?auto_81921 ) ) ( not ( = ?auto_81918 ?auto_81919 ) ) ( not ( = ?auto_81918 ?auto_81920 ) ) ( not ( = ?auto_81918 ?auto_81921 ) ) ( not ( = ?auto_81922 ?auto_81919 ) ) ( not ( = ?auto_81922 ?auto_81920 ) ) ( not ( = ?auto_81922 ?auto_81921 ) ) ( ON ?auto_81923 ?auto_81922 ) ( ON ?auto_81919 ?auto_81923 ) ( ON ?auto_81921 ?auto_81919 ) ( CLEAR ?auto_81921 ) ( HOLDING ?auto_81920 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_81922 )
+    ( ( MAKE-1PILE ?auto_81920 )
       ( MAKE-2PILE ?auto_81916 ?auto_81917 ) )
   )
 
@@ -1410,17 +1410,17 @@
     )
     :vars
     (
-      ?auto_81927 - BLOCK
-      ?auto_81926 - BLOCK
-      ?auto_81931 - BLOCK
-      ?auto_81928 - BLOCK
       ?auto_81929 - BLOCK
+      ?auto_81928 - BLOCK
+      ?auto_81926 - BLOCK
+      ?auto_81927 - BLOCK
+      ?auto_81931 - BLOCK
       ?auto_81930 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_81927 ?auto_81925 ) ( ON-TABLE ?auto_81924 ) ( ON ?auto_81925 ?auto_81924 ) ( not ( = ?auto_81924 ?auto_81925 ) ) ( not ( = ?auto_81924 ?auto_81927 ) ) ( not ( = ?auto_81925 ?auto_81927 ) ) ( not ( = ?auto_81924 ?auto_81926 ) ) ( not ( = ?auto_81924 ?auto_81931 ) ) ( not ( = ?auto_81925 ?auto_81926 ) ) ( not ( = ?auto_81925 ?auto_81931 ) ) ( not ( = ?auto_81927 ?auto_81926 ) ) ( not ( = ?auto_81927 ?auto_81931 ) ) ( not ( = ?auto_81926 ?auto_81931 ) ) ( ON ?auto_81926 ?auto_81927 ) ( not ( = ?auto_81928 ?auto_81929 ) ) ( not ( = ?auto_81928 ?auto_81930 ) ) ( not ( = ?auto_81928 ?auto_81931 ) ) ( not ( = ?auto_81929 ?auto_81930 ) ) ( not ( = ?auto_81929 ?auto_81931 ) ) ( not ( = ?auto_81930 ?auto_81931 ) ) ( not ( = ?auto_81924 ?auto_81930 ) ) ( not ( = ?auto_81924 ?auto_81928 ) ) ( not ( = ?auto_81924 ?auto_81929 ) ) ( not ( = ?auto_81925 ?auto_81930 ) ) ( not ( = ?auto_81925 ?auto_81928 ) ) ( not ( = ?auto_81925 ?auto_81929 ) ) ( not ( = ?auto_81927 ?auto_81930 ) ) ( not ( = ?auto_81927 ?auto_81928 ) ) ( not ( = ?auto_81927 ?auto_81929 ) ) ( not ( = ?auto_81926 ?auto_81930 ) ) ( not ( = ?auto_81926 ?auto_81928 ) ) ( not ( = ?auto_81926 ?auto_81929 ) ) ( ON ?auto_81931 ?auto_81926 ) ( ON ?auto_81930 ?auto_81931 ) ( ON ?auto_81929 ?auto_81930 ) ( ON ?auto_81928 ?auto_81929 ) ( CLEAR ?auto_81928 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_81929 ?auto_81925 ) ( ON-TABLE ?auto_81924 ) ( ON ?auto_81925 ?auto_81924 ) ( not ( = ?auto_81924 ?auto_81925 ) ) ( not ( = ?auto_81924 ?auto_81929 ) ) ( not ( = ?auto_81925 ?auto_81929 ) ) ( not ( = ?auto_81924 ?auto_81928 ) ) ( not ( = ?auto_81924 ?auto_81926 ) ) ( not ( = ?auto_81925 ?auto_81928 ) ) ( not ( = ?auto_81925 ?auto_81926 ) ) ( not ( = ?auto_81929 ?auto_81928 ) ) ( not ( = ?auto_81929 ?auto_81926 ) ) ( not ( = ?auto_81928 ?auto_81926 ) ) ( ON ?auto_81928 ?auto_81929 ) ( not ( = ?auto_81927 ?auto_81931 ) ) ( not ( = ?auto_81927 ?auto_81930 ) ) ( not ( = ?auto_81927 ?auto_81926 ) ) ( not ( = ?auto_81931 ?auto_81930 ) ) ( not ( = ?auto_81931 ?auto_81926 ) ) ( not ( = ?auto_81930 ?auto_81926 ) ) ( not ( = ?auto_81924 ?auto_81930 ) ) ( not ( = ?auto_81924 ?auto_81927 ) ) ( not ( = ?auto_81924 ?auto_81931 ) ) ( not ( = ?auto_81925 ?auto_81930 ) ) ( not ( = ?auto_81925 ?auto_81927 ) ) ( not ( = ?auto_81925 ?auto_81931 ) ) ( not ( = ?auto_81929 ?auto_81930 ) ) ( not ( = ?auto_81929 ?auto_81927 ) ) ( not ( = ?auto_81929 ?auto_81931 ) ) ( not ( = ?auto_81928 ?auto_81930 ) ) ( not ( = ?auto_81928 ?auto_81927 ) ) ( not ( = ?auto_81928 ?auto_81931 ) ) ( ON ?auto_81926 ?auto_81928 ) ( ON ?auto_81930 ?auto_81926 ) ( ON ?auto_81931 ?auto_81930 ) ( ON ?auto_81927 ?auto_81931 ) ( CLEAR ?auto_81927 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_81924 ?auto_81925 ?auto_81927 ?auto_81926 ?auto_81931 ?auto_81930 ?auto_81929 )
+    ( ( MAKE-7PILE ?auto_81924 ?auto_81925 ?auto_81929 ?auto_81928 ?auto_81926 ?auto_81930 ?auto_81931 )
       ( MAKE-2PILE ?auto_81924 ?auto_81925 ) )
   )
 
@@ -1516,11 +1516,11 @@
     )
     :vars
     (
-      ?auto_81973 - BLOCK
       ?auto_81972 - BLOCK
+      ?auto_81973 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81966 ) ( ON ?auto_81967 ?auto_81966 ) ( ON ?auto_81968 ?auto_81967 ) ( not ( = ?auto_81966 ?auto_81967 ) ) ( not ( = ?auto_81966 ?auto_81968 ) ) ( not ( = ?auto_81966 ?auto_81969 ) ) ( not ( = ?auto_81966 ?auto_81970 ) ) ( not ( = ?auto_81966 ?auto_81971 ) ) ( not ( = ?auto_81967 ?auto_81968 ) ) ( not ( = ?auto_81967 ?auto_81969 ) ) ( not ( = ?auto_81967 ?auto_81970 ) ) ( not ( = ?auto_81967 ?auto_81971 ) ) ( not ( = ?auto_81968 ?auto_81969 ) ) ( not ( = ?auto_81968 ?auto_81970 ) ) ( not ( = ?auto_81968 ?auto_81971 ) ) ( not ( = ?auto_81969 ?auto_81970 ) ) ( not ( = ?auto_81969 ?auto_81971 ) ) ( not ( = ?auto_81970 ?auto_81971 ) ) ( ON ?auto_81971 ?auto_81973 ) ( not ( = ?auto_81966 ?auto_81973 ) ) ( not ( = ?auto_81967 ?auto_81973 ) ) ( not ( = ?auto_81968 ?auto_81973 ) ) ( not ( = ?auto_81969 ?auto_81973 ) ) ( not ( = ?auto_81970 ?auto_81973 ) ) ( not ( = ?auto_81971 ?auto_81973 ) ) ( ON ?auto_81970 ?auto_81971 ) ( CLEAR ?auto_81970 ) ( ON-TABLE ?auto_81972 ) ( ON ?auto_81973 ?auto_81972 ) ( not ( = ?auto_81972 ?auto_81973 ) ) ( not ( = ?auto_81972 ?auto_81971 ) ) ( not ( = ?auto_81972 ?auto_81970 ) ) ( not ( = ?auto_81966 ?auto_81972 ) ) ( not ( = ?auto_81967 ?auto_81972 ) ) ( not ( = ?auto_81968 ?auto_81972 ) ) ( not ( = ?auto_81969 ?auto_81972 ) ) ( HOLDING ?auto_81969 ) ( CLEAR ?auto_81968 ) )
+    ( and ( ON-TABLE ?auto_81966 ) ( ON ?auto_81967 ?auto_81966 ) ( ON ?auto_81968 ?auto_81967 ) ( not ( = ?auto_81966 ?auto_81967 ) ) ( not ( = ?auto_81966 ?auto_81968 ) ) ( not ( = ?auto_81966 ?auto_81969 ) ) ( not ( = ?auto_81966 ?auto_81970 ) ) ( not ( = ?auto_81966 ?auto_81971 ) ) ( not ( = ?auto_81967 ?auto_81968 ) ) ( not ( = ?auto_81967 ?auto_81969 ) ) ( not ( = ?auto_81967 ?auto_81970 ) ) ( not ( = ?auto_81967 ?auto_81971 ) ) ( not ( = ?auto_81968 ?auto_81969 ) ) ( not ( = ?auto_81968 ?auto_81970 ) ) ( not ( = ?auto_81968 ?auto_81971 ) ) ( not ( = ?auto_81969 ?auto_81970 ) ) ( not ( = ?auto_81969 ?auto_81971 ) ) ( not ( = ?auto_81970 ?auto_81971 ) ) ( ON ?auto_81971 ?auto_81972 ) ( not ( = ?auto_81966 ?auto_81972 ) ) ( not ( = ?auto_81967 ?auto_81972 ) ) ( not ( = ?auto_81968 ?auto_81972 ) ) ( not ( = ?auto_81969 ?auto_81972 ) ) ( not ( = ?auto_81970 ?auto_81972 ) ) ( not ( = ?auto_81971 ?auto_81972 ) ) ( ON ?auto_81970 ?auto_81971 ) ( CLEAR ?auto_81970 ) ( ON-TABLE ?auto_81973 ) ( ON ?auto_81972 ?auto_81973 ) ( not ( = ?auto_81973 ?auto_81972 ) ) ( not ( = ?auto_81973 ?auto_81971 ) ) ( not ( = ?auto_81973 ?auto_81970 ) ) ( not ( = ?auto_81966 ?auto_81973 ) ) ( not ( = ?auto_81967 ?auto_81973 ) ) ( not ( = ?auto_81968 ?auto_81973 ) ) ( not ( = ?auto_81969 ?auto_81973 ) ) ( HOLDING ?auto_81969 ) ( CLEAR ?auto_81968 ) )
     :subtasks
     ( ( MAKE-4PILE ?auto_81966 ?auto_81967 ?auto_81968 ?auto_81969 )
       ( MAKE-6PILE ?auto_81966 ?auto_81967 ?auto_81968 ?auto_81969 ?auto_81970 ?auto_81971 ) )
@@ -1538,13 +1538,13 @@
     )
     :vars
     (
-      ?auto_81981 - BLOCK
       ?auto_81980 - BLOCK
+      ?auto_81981 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81974 ) ( ON ?auto_81975 ?auto_81974 ) ( ON ?auto_81976 ?auto_81975 ) ( not ( = ?auto_81974 ?auto_81975 ) ) ( not ( = ?auto_81974 ?auto_81976 ) ) ( not ( = ?auto_81974 ?auto_81977 ) ) ( not ( = ?auto_81974 ?auto_81978 ) ) ( not ( = ?auto_81974 ?auto_81979 ) ) ( not ( = ?auto_81975 ?auto_81976 ) ) ( not ( = ?auto_81975 ?auto_81977 ) ) ( not ( = ?auto_81975 ?auto_81978 ) ) ( not ( = ?auto_81975 ?auto_81979 ) ) ( not ( = ?auto_81976 ?auto_81977 ) ) ( not ( = ?auto_81976 ?auto_81978 ) ) ( not ( = ?auto_81976 ?auto_81979 ) ) ( not ( = ?auto_81977 ?auto_81978 ) ) ( not ( = ?auto_81977 ?auto_81979 ) ) ( not ( = ?auto_81978 ?auto_81979 ) ) ( ON ?auto_81979 ?auto_81981 ) ( not ( = ?auto_81974 ?auto_81981 ) ) ( not ( = ?auto_81975 ?auto_81981 ) ) ( not ( = ?auto_81976 ?auto_81981 ) ) ( not ( = ?auto_81977 ?auto_81981 ) ) ( not ( = ?auto_81978 ?auto_81981 ) ) ( not ( = ?auto_81979 ?auto_81981 ) ) ( ON ?auto_81978 ?auto_81979 ) ( ON-TABLE ?auto_81980 ) ( ON ?auto_81981 ?auto_81980 ) ( not ( = ?auto_81980 ?auto_81981 ) ) ( not ( = ?auto_81980 ?auto_81979 ) ) ( not ( = ?auto_81980 ?auto_81978 ) ) ( not ( = ?auto_81974 ?auto_81980 ) ) ( not ( = ?auto_81975 ?auto_81980 ) ) ( not ( = ?auto_81976 ?auto_81980 ) ) ( not ( = ?auto_81977 ?auto_81980 ) ) ( CLEAR ?auto_81976 ) ( ON ?auto_81977 ?auto_81978 ) ( CLEAR ?auto_81977 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_81974 ) ( ON ?auto_81975 ?auto_81974 ) ( ON ?auto_81976 ?auto_81975 ) ( not ( = ?auto_81974 ?auto_81975 ) ) ( not ( = ?auto_81974 ?auto_81976 ) ) ( not ( = ?auto_81974 ?auto_81977 ) ) ( not ( = ?auto_81974 ?auto_81978 ) ) ( not ( = ?auto_81974 ?auto_81979 ) ) ( not ( = ?auto_81975 ?auto_81976 ) ) ( not ( = ?auto_81975 ?auto_81977 ) ) ( not ( = ?auto_81975 ?auto_81978 ) ) ( not ( = ?auto_81975 ?auto_81979 ) ) ( not ( = ?auto_81976 ?auto_81977 ) ) ( not ( = ?auto_81976 ?auto_81978 ) ) ( not ( = ?auto_81976 ?auto_81979 ) ) ( not ( = ?auto_81977 ?auto_81978 ) ) ( not ( = ?auto_81977 ?auto_81979 ) ) ( not ( = ?auto_81978 ?auto_81979 ) ) ( ON ?auto_81979 ?auto_81980 ) ( not ( = ?auto_81974 ?auto_81980 ) ) ( not ( = ?auto_81975 ?auto_81980 ) ) ( not ( = ?auto_81976 ?auto_81980 ) ) ( not ( = ?auto_81977 ?auto_81980 ) ) ( not ( = ?auto_81978 ?auto_81980 ) ) ( not ( = ?auto_81979 ?auto_81980 ) ) ( ON ?auto_81978 ?auto_81979 ) ( ON-TABLE ?auto_81981 ) ( ON ?auto_81980 ?auto_81981 ) ( not ( = ?auto_81981 ?auto_81980 ) ) ( not ( = ?auto_81981 ?auto_81979 ) ) ( not ( = ?auto_81981 ?auto_81978 ) ) ( not ( = ?auto_81974 ?auto_81981 ) ) ( not ( = ?auto_81975 ?auto_81981 ) ) ( not ( = ?auto_81976 ?auto_81981 ) ) ( not ( = ?auto_81977 ?auto_81981 ) ) ( CLEAR ?auto_81976 ) ( ON ?auto_81977 ?auto_81978 ) ( CLEAR ?auto_81977 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_81980 ?auto_81981 ?auto_81979 ?auto_81978 )
+    ( ( MAKE-4PILE ?auto_81981 ?auto_81980 ?auto_81979 ?auto_81978 )
       ( MAKE-6PILE ?auto_81974 ?auto_81975 ?auto_81976 ?auto_81977 ?auto_81978 ?auto_81979 ) )
   )
 
@@ -1582,13 +1582,13 @@
     )
     :vars
     (
-      ?auto_81996 - BLOCK
       ?auto_81997 - BLOCK
+      ?auto_81996 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81990 ) ( ON ?auto_81991 ?auto_81990 ) ( not ( = ?auto_81990 ?auto_81991 ) ) ( not ( = ?auto_81990 ?auto_81992 ) ) ( not ( = ?auto_81990 ?auto_81993 ) ) ( not ( = ?auto_81990 ?auto_81994 ) ) ( not ( = ?auto_81990 ?auto_81995 ) ) ( not ( = ?auto_81991 ?auto_81992 ) ) ( not ( = ?auto_81991 ?auto_81993 ) ) ( not ( = ?auto_81991 ?auto_81994 ) ) ( not ( = ?auto_81991 ?auto_81995 ) ) ( not ( = ?auto_81992 ?auto_81993 ) ) ( not ( = ?auto_81992 ?auto_81994 ) ) ( not ( = ?auto_81992 ?auto_81995 ) ) ( not ( = ?auto_81993 ?auto_81994 ) ) ( not ( = ?auto_81993 ?auto_81995 ) ) ( not ( = ?auto_81994 ?auto_81995 ) ) ( ON ?auto_81995 ?auto_81996 ) ( not ( = ?auto_81990 ?auto_81996 ) ) ( not ( = ?auto_81991 ?auto_81996 ) ) ( not ( = ?auto_81992 ?auto_81996 ) ) ( not ( = ?auto_81993 ?auto_81996 ) ) ( not ( = ?auto_81994 ?auto_81996 ) ) ( not ( = ?auto_81995 ?auto_81996 ) ) ( ON ?auto_81994 ?auto_81995 ) ( ON-TABLE ?auto_81997 ) ( ON ?auto_81996 ?auto_81997 ) ( not ( = ?auto_81997 ?auto_81996 ) ) ( not ( = ?auto_81997 ?auto_81995 ) ) ( not ( = ?auto_81997 ?auto_81994 ) ) ( not ( = ?auto_81990 ?auto_81997 ) ) ( not ( = ?auto_81991 ?auto_81997 ) ) ( not ( = ?auto_81992 ?auto_81997 ) ) ( not ( = ?auto_81993 ?auto_81997 ) ) ( ON ?auto_81993 ?auto_81994 ) ( CLEAR ?auto_81991 ) ( ON ?auto_81992 ?auto_81993 ) ( CLEAR ?auto_81992 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_81990 ) ( ON ?auto_81991 ?auto_81990 ) ( not ( = ?auto_81990 ?auto_81991 ) ) ( not ( = ?auto_81990 ?auto_81992 ) ) ( not ( = ?auto_81990 ?auto_81993 ) ) ( not ( = ?auto_81990 ?auto_81994 ) ) ( not ( = ?auto_81990 ?auto_81995 ) ) ( not ( = ?auto_81991 ?auto_81992 ) ) ( not ( = ?auto_81991 ?auto_81993 ) ) ( not ( = ?auto_81991 ?auto_81994 ) ) ( not ( = ?auto_81991 ?auto_81995 ) ) ( not ( = ?auto_81992 ?auto_81993 ) ) ( not ( = ?auto_81992 ?auto_81994 ) ) ( not ( = ?auto_81992 ?auto_81995 ) ) ( not ( = ?auto_81993 ?auto_81994 ) ) ( not ( = ?auto_81993 ?auto_81995 ) ) ( not ( = ?auto_81994 ?auto_81995 ) ) ( ON ?auto_81995 ?auto_81997 ) ( not ( = ?auto_81990 ?auto_81997 ) ) ( not ( = ?auto_81991 ?auto_81997 ) ) ( not ( = ?auto_81992 ?auto_81997 ) ) ( not ( = ?auto_81993 ?auto_81997 ) ) ( not ( = ?auto_81994 ?auto_81997 ) ) ( not ( = ?auto_81995 ?auto_81997 ) ) ( ON ?auto_81994 ?auto_81995 ) ( ON-TABLE ?auto_81996 ) ( ON ?auto_81997 ?auto_81996 ) ( not ( = ?auto_81996 ?auto_81997 ) ) ( not ( = ?auto_81996 ?auto_81995 ) ) ( not ( = ?auto_81996 ?auto_81994 ) ) ( not ( = ?auto_81990 ?auto_81996 ) ) ( not ( = ?auto_81991 ?auto_81996 ) ) ( not ( = ?auto_81992 ?auto_81996 ) ) ( not ( = ?auto_81993 ?auto_81996 ) ) ( ON ?auto_81993 ?auto_81994 ) ( CLEAR ?auto_81991 ) ( ON ?auto_81992 ?auto_81993 ) ( CLEAR ?auto_81992 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_81997 ?auto_81996 ?auto_81995 ?auto_81994 ?auto_81993 )
+    ( ( MAKE-5PILE ?auto_81996 ?auto_81997 ?auto_81995 ?auto_81994 ?auto_81993 )
       ( MAKE-6PILE ?auto_81990 ?auto_81991 ?auto_81992 ?auto_81993 ?auto_81994 ?auto_81995 ) )
   )
 
@@ -1604,11 +1604,11 @@
     )
     :vars
     (
-      ?auto_82004 - BLOCK
       ?auto_82005 - BLOCK
+      ?auto_82004 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_81998 ) ( not ( = ?auto_81998 ?auto_81999 ) ) ( not ( = ?auto_81998 ?auto_82000 ) ) ( not ( = ?auto_81998 ?auto_82001 ) ) ( not ( = ?auto_81998 ?auto_82002 ) ) ( not ( = ?auto_81998 ?auto_82003 ) ) ( not ( = ?auto_81999 ?auto_82000 ) ) ( not ( = ?auto_81999 ?auto_82001 ) ) ( not ( = ?auto_81999 ?auto_82002 ) ) ( not ( = ?auto_81999 ?auto_82003 ) ) ( not ( = ?auto_82000 ?auto_82001 ) ) ( not ( = ?auto_82000 ?auto_82002 ) ) ( not ( = ?auto_82000 ?auto_82003 ) ) ( not ( = ?auto_82001 ?auto_82002 ) ) ( not ( = ?auto_82001 ?auto_82003 ) ) ( not ( = ?auto_82002 ?auto_82003 ) ) ( ON ?auto_82003 ?auto_82004 ) ( not ( = ?auto_81998 ?auto_82004 ) ) ( not ( = ?auto_81999 ?auto_82004 ) ) ( not ( = ?auto_82000 ?auto_82004 ) ) ( not ( = ?auto_82001 ?auto_82004 ) ) ( not ( = ?auto_82002 ?auto_82004 ) ) ( not ( = ?auto_82003 ?auto_82004 ) ) ( ON ?auto_82002 ?auto_82003 ) ( ON-TABLE ?auto_82005 ) ( ON ?auto_82004 ?auto_82005 ) ( not ( = ?auto_82005 ?auto_82004 ) ) ( not ( = ?auto_82005 ?auto_82003 ) ) ( not ( = ?auto_82005 ?auto_82002 ) ) ( not ( = ?auto_81998 ?auto_82005 ) ) ( not ( = ?auto_81999 ?auto_82005 ) ) ( not ( = ?auto_82000 ?auto_82005 ) ) ( not ( = ?auto_82001 ?auto_82005 ) ) ( ON ?auto_82001 ?auto_82002 ) ( ON ?auto_82000 ?auto_82001 ) ( CLEAR ?auto_82000 ) ( HOLDING ?auto_81999 ) ( CLEAR ?auto_81998 ) )
+    ( and ( ON-TABLE ?auto_81998 ) ( not ( = ?auto_81998 ?auto_81999 ) ) ( not ( = ?auto_81998 ?auto_82000 ) ) ( not ( = ?auto_81998 ?auto_82001 ) ) ( not ( = ?auto_81998 ?auto_82002 ) ) ( not ( = ?auto_81998 ?auto_82003 ) ) ( not ( = ?auto_81999 ?auto_82000 ) ) ( not ( = ?auto_81999 ?auto_82001 ) ) ( not ( = ?auto_81999 ?auto_82002 ) ) ( not ( = ?auto_81999 ?auto_82003 ) ) ( not ( = ?auto_82000 ?auto_82001 ) ) ( not ( = ?auto_82000 ?auto_82002 ) ) ( not ( = ?auto_82000 ?auto_82003 ) ) ( not ( = ?auto_82001 ?auto_82002 ) ) ( not ( = ?auto_82001 ?auto_82003 ) ) ( not ( = ?auto_82002 ?auto_82003 ) ) ( ON ?auto_82003 ?auto_82005 ) ( not ( = ?auto_81998 ?auto_82005 ) ) ( not ( = ?auto_81999 ?auto_82005 ) ) ( not ( = ?auto_82000 ?auto_82005 ) ) ( not ( = ?auto_82001 ?auto_82005 ) ) ( not ( = ?auto_82002 ?auto_82005 ) ) ( not ( = ?auto_82003 ?auto_82005 ) ) ( ON ?auto_82002 ?auto_82003 ) ( ON-TABLE ?auto_82004 ) ( ON ?auto_82005 ?auto_82004 ) ( not ( = ?auto_82004 ?auto_82005 ) ) ( not ( = ?auto_82004 ?auto_82003 ) ) ( not ( = ?auto_82004 ?auto_82002 ) ) ( not ( = ?auto_81998 ?auto_82004 ) ) ( not ( = ?auto_81999 ?auto_82004 ) ) ( not ( = ?auto_82000 ?auto_82004 ) ) ( not ( = ?auto_82001 ?auto_82004 ) ) ( ON ?auto_82001 ?auto_82002 ) ( ON ?auto_82000 ?auto_82001 ) ( CLEAR ?auto_82000 ) ( HOLDING ?auto_81999 ) ( CLEAR ?auto_81998 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_81998 ?auto_81999 )
       ( MAKE-6PILE ?auto_81998 ?auto_81999 ?auto_82000 ?auto_82001 ?auto_82002 ?auto_82003 ) )
@@ -1626,13 +1626,13 @@
     )
     :vars
     (
-      ?auto_82012 - BLOCK
       ?auto_82013 - BLOCK
+      ?auto_82012 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82006 ) ( not ( = ?auto_82006 ?auto_82007 ) ) ( not ( = ?auto_82006 ?auto_82008 ) ) ( not ( = ?auto_82006 ?auto_82009 ) ) ( not ( = ?auto_82006 ?auto_82010 ) ) ( not ( = ?auto_82006 ?auto_82011 ) ) ( not ( = ?auto_82007 ?auto_82008 ) ) ( not ( = ?auto_82007 ?auto_82009 ) ) ( not ( = ?auto_82007 ?auto_82010 ) ) ( not ( = ?auto_82007 ?auto_82011 ) ) ( not ( = ?auto_82008 ?auto_82009 ) ) ( not ( = ?auto_82008 ?auto_82010 ) ) ( not ( = ?auto_82008 ?auto_82011 ) ) ( not ( = ?auto_82009 ?auto_82010 ) ) ( not ( = ?auto_82009 ?auto_82011 ) ) ( not ( = ?auto_82010 ?auto_82011 ) ) ( ON ?auto_82011 ?auto_82012 ) ( not ( = ?auto_82006 ?auto_82012 ) ) ( not ( = ?auto_82007 ?auto_82012 ) ) ( not ( = ?auto_82008 ?auto_82012 ) ) ( not ( = ?auto_82009 ?auto_82012 ) ) ( not ( = ?auto_82010 ?auto_82012 ) ) ( not ( = ?auto_82011 ?auto_82012 ) ) ( ON ?auto_82010 ?auto_82011 ) ( ON-TABLE ?auto_82013 ) ( ON ?auto_82012 ?auto_82013 ) ( not ( = ?auto_82013 ?auto_82012 ) ) ( not ( = ?auto_82013 ?auto_82011 ) ) ( not ( = ?auto_82013 ?auto_82010 ) ) ( not ( = ?auto_82006 ?auto_82013 ) ) ( not ( = ?auto_82007 ?auto_82013 ) ) ( not ( = ?auto_82008 ?auto_82013 ) ) ( not ( = ?auto_82009 ?auto_82013 ) ) ( ON ?auto_82009 ?auto_82010 ) ( ON ?auto_82008 ?auto_82009 ) ( CLEAR ?auto_82006 ) ( ON ?auto_82007 ?auto_82008 ) ( CLEAR ?auto_82007 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82006 ) ( not ( = ?auto_82006 ?auto_82007 ) ) ( not ( = ?auto_82006 ?auto_82008 ) ) ( not ( = ?auto_82006 ?auto_82009 ) ) ( not ( = ?auto_82006 ?auto_82010 ) ) ( not ( = ?auto_82006 ?auto_82011 ) ) ( not ( = ?auto_82007 ?auto_82008 ) ) ( not ( = ?auto_82007 ?auto_82009 ) ) ( not ( = ?auto_82007 ?auto_82010 ) ) ( not ( = ?auto_82007 ?auto_82011 ) ) ( not ( = ?auto_82008 ?auto_82009 ) ) ( not ( = ?auto_82008 ?auto_82010 ) ) ( not ( = ?auto_82008 ?auto_82011 ) ) ( not ( = ?auto_82009 ?auto_82010 ) ) ( not ( = ?auto_82009 ?auto_82011 ) ) ( not ( = ?auto_82010 ?auto_82011 ) ) ( ON ?auto_82011 ?auto_82013 ) ( not ( = ?auto_82006 ?auto_82013 ) ) ( not ( = ?auto_82007 ?auto_82013 ) ) ( not ( = ?auto_82008 ?auto_82013 ) ) ( not ( = ?auto_82009 ?auto_82013 ) ) ( not ( = ?auto_82010 ?auto_82013 ) ) ( not ( = ?auto_82011 ?auto_82013 ) ) ( ON ?auto_82010 ?auto_82011 ) ( ON-TABLE ?auto_82012 ) ( ON ?auto_82013 ?auto_82012 ) ( not ( = ?auto_82012 ?auto_82013 ) ) ( not ( = ?auto_82012 ?auto_82011 ) ) ( not ( = ?auto_82012 ?auto_82010 ) ) ( not ( = ?auto_82006 ?auto_82012 ) ) ( not ( = ?auto_82007 ?auto_82012 ) ) ( not ( = ?auto_82008 ?auto_82012 ) ) ( not ( = ?auto_82009 ?auto_82012 ) ) ( ON ?auto_82009 ?auto_82010 ) ( ON ?auto_82008 ?auto_82009 ) ( CLEAR ?auto_82006 ) ( ON ?auto_82007 ?auto_82008 ) ( CLEAR ?auto_82007 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82013 ?auto_82012 ?auto_82011 ?auto_82010 ?auto_82009 ?auto_82008 )
+    ( ( MAKE-6PILE ?auto_82012 ?auto_82013 ?auto_82011 ?auto_82010 ?auto_82009 ?auto_82008 )
       ( MAKE-6PILE ?auto_82006 ?auto_82007 ?auto_82008 ?auto_82009 ?auto_82010 ?auto_82011 ) )
   )
 
@@ -1670,13 +1670,13 @@
     )
     :vars
     (
-      ?auto_82028 - BLOCK
       ?auto_82029 - BLOCK
+      ?auto_82028 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82022 ?auto_82023 ) ) ( not ( = ?auto_82022 ?auto_82024 ) ) ( not ( = ?auto_82022 ?auto_82025 ) ) ( not ( = ?auto_82022 ?auto_82026 ) ) ( not ( = ?auto_82022 ?auto_82027 ) ) ( not ( = ?auto_82023 ?auto_82024 ) ) ( not ( = ?auto_82023 ?auto_82025 ) ) ( not ( = ?auto_82023 ?auto_82026 ) ) ( not ( = ?auto_82023 ?auto_82027 ) ) ( not ( = ?auto_82024 ?auto_82025 ) ) ( not ( = ?auto_82024 ?auto_82026 ) ) ( not ( = ?auto_82024 ?auto_82027 ) ) ( not ( = ?auto_82025 ?auto_82026 ) ) ( not ( = ?auto_82025 ?auto_82027 ) ) ( not ( = ?auto_82026 ?auto_82027 ) ) ( ON ?auto_82027 ?auto_82028 ) ( not ( = ?auto_82022 ?auto_82028 ) ) ( not ( = ?auto_82023 ?auto_82028 ) ) ( not ( = ?auto_82024 ?auto_82028 ) ) ( not ( = ?auto_82025 ?auto_82028 ) ) ( not ( = ?auto_82026 ?auto_82028 ) ) ( not ( = ?auto_82027 ?auto_82028 ) ) ( ON ?auto_82026 ?auto_82027 ) ( ON-TABLE ?auto_82029 ) ( ON ?auto_82028 ?auto_82029 ) ( not ( = ?auto_82029 ?auto_82028 ) ) ( not ( = ?auto_82029 ?auto_82027 ) ) ( not ( = ?auto_82029 ?auto_82026 ) ) ( not ( = ?auto_82022 ?auto_82029 ) ) ( not ( = ?auto_82023 ?auto_82029 ) ) ( not ( = ?auto_82024 ?auto_82029 ) ) ( not ( = ?auto_82025 ?auto_82029 ) ) ( ON ?auto_82025 ?auto_82026 ) ( ON ?auto_82024 ?auto_82025 ) ( ON ?auto_82023 ?auto_82024 ) ( ON ?auto_82022 ?auto_82023 ) ( CLEAR ?auto_82022 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82022 ?auto_82023 ) ) ( not ( = ?auto_82022 ?auto_82024 ) ) ( not ( = ?auto_82022 ?auto_82025 ) ) ( not ( = ?auto_82022 ?auto_82026 ) ) ( not ( = ?auto_82022 ?auto_82027 ) ) ( not ( = ?auto_82023 ?auto_82024 ) ) ( not ( = ?auto_82023 ?auto_82025 ) ) ( not ( = ?auto_82023 ?auto_82026 ) ) ( not ( = ?auto_82023 ?auto_82027 ) ) ( not ( = ?auto_82024 ?auto_82025 ) ) ( not ( = ?auto_82024 ?auto_82026 ) ) ( not ( = ?auto_82024 ?auto_82027 ) ) ( not ( = ?auto_82025 ?auto_82026 ) ) ( not ( = ?auto_82025 ?auto_82027 ) ) ( not ( = ?auto_82026 ?auto_82027 ) ) ( ON ?auto_82027 ?auto_82029 ) ( not ( = ?auto_82022 ?auto_82029 ) ) ( not ( = ?auto_82023 ?auto_82029 ) ) ( not ( = ?auto_82024 ?auto_82029 ) ) ( not ( = ?auto_82025 ?auto_82029 ) ) ( not ( = ?auto_82026 ?auto_82029 ) ) ( not ( = ?auto_82027 ?auto_82029 ) ) ( ON ?auto_82026 ?auto_82027 ) ( ON-TABLE ?auto_82028 ) ( ON ?auto_82029 ?auto_82028 ) ( not ( = ?auto_82028 ?auto_82029 ) ) ( not ( = ?auto_82028 ?auto_82027 ) ) ( not ( = ?auto_82028 ?auto_82026 ) ) ( not ( = ?auto_82022 ?auto_82028 ) ) ( not ( = ?auto_82023 ?auto_82028 ) ) ( not ( = ?auto_82024 ?auto_82028 ) ) ( not ( = ?auto_82025 ?auto_82028 ) ) ( ON ?auto_82025 ?auto_82026 ) ( ON ?auto_82024 ?auto_82025 ) ( ON ?auto_82023 ?auto_82024 ) ( ON ?auto_82022 ?auto_82023 ) ( CLEAR ?auto_82022 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82029 ?auto_82028 ?auto_82027 ?auto_82026 ?auto_82025 ?auto_82024 ?auto_82023 )
+    ( ( MAKE-7PILE ?auto_82028 ?auto_82029 ?auto_82027 ?auto_82026 ?auto_82025 ?auto_82024 ?auto_82023 )
       ( MAKE-6PILE ?auto_82022 ?auto_82023 ?auto_82024 ?auto_82025 ?auto_82026 ?auto_82027 ) )
   )
 
@@ -1720,14 +1720,14 @@
     )
     :vars
     (
-      ?auto_82040 - BLOCK
       ?auto_82038 - BLOCK
       ?auto_82039 - BLOCK
+      ?auto_82040 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82040 ?auto_82037 ) ( ON-TABLE ?auto_82037 ) ( not ( = ?auto_82037 ?auto_82040 ) ) ( CLEAR ?auto_82038 ) ( not ( = ?auto_82037 ?auto_82039 ) ) ( not ( = ?auto_82037 ?auto_82038 ) ) ( not ( = ?auto_82040 ?auto_82039 ) ) ( not ( = ?auto_82040 ?auto_82038 ) ) ( not ( = ?auto_82039 ?auto_82038 ) ) ( ON ?auto_82039 ?auto_82040 ) ( CLEAR ?auto_82039 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82038 ?auto_82037 ) ( ON-TABLE ?auto_82037 ) ( not ( = ?auto_82037 ?auto_82038 ) ) ( CLEAR ?auto_82039 ) ( not ( = ?auto_82037 ?auto_82040 ) ) ( not ( = ?auto_82037 ?auto_82039 ) ) ( not ( = ?auto_82038 ?auto_82040 ) ) ( not ( = ?auto_82038 ?auto_82039 ) ) ( not ( = ?auto_82040 ?auto_82039 ) ) ( ON ?auto_82040 ?auto_82038 ) ( CLEAR ?auto_82040 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82037 ?auto_82040 )
+    ( ( MAKE-2PILE ?auto_82037 ?auto_82038 )
       ( MAKE-1PILE ?auto_82037 ) )
   )
 
@@ -1738,18 +1738,18 @@
     )
     :vars
     (
-      ?auto_82044 - BLOCK
       ?auto_82042 - BLOCK
+      ?auto_82044 - BLOCK
       ?auto_82043 - BLOCK
-      ?auto_82046 - BLOCK
       ?auto_82045 - BLOCK
       ?auto_82048 - BLOCK
+      ?auto_82046 - BLOCK
       ?auto_82047 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82044 ?auto_82041 ) ( ON-TABLE ?auto_82041 ) ( not ( = ?auto_82041 ?auto_82044 ) ) ( not ( = ?auto_82041 ?auto_82042 ) ) ( not ( = ?auto_82041 ?auto_82043 ) ) ( not ( = ?auto_82044 ?auto_82042 ) ) ( not ( = ?auto_82044 ?auto_82043 ) ) ( not ( = ?auto_82042 ?auto_82043 ) ) ( ON ?auto_82042 ?auto_82044 ) ( CLEAR ?auto_82042 ) ( HOLDING ?auto_82043 ) ( CLEAR ?auto_82046 ) ( ON-TABLE ?auto_82045 ) ( ON ?auto_82048 ?auto_82045 ) ( ON ?auto_82047 ?auto_82048 ) ( ON ?auto_82046 ?auto_82047 ) ( not ( = ?auto_82045 ?auto_82048 ) ) ( not ( = ?auto_82045 ?auto_82047 ) ) ( not ( = ?auto_82045 ?auto_82046 ) ) ( not ( = ?auto_82045 ?auto_82043 ) ) ( not ( = ?auto_82048 ?auto_82047 ) ) ( not ( = ?auto_82048 ?auto_82046 ) ) ( not ( = ?auto_82048 ?auto_82043 ) ) ( not ( = ?auto_82047 ?auto_82046 ) ) ( not ( = ?auto_82047 ?auto_82043 ) ) ( not ( = ?auto_82046 ?auto_82043 ) ) ( not ( = ?auto_82041 ?auto_82046 ) ) ( not ( = ?auto_82041 ?auto_82045 ) ) ( not ( = ?auto_82041 ?auto_82048 ) ) ( not ( = ?auto_82041 ?auto_82047 ) ) ( not ( = ?auto_82044 ?auto_82046 ) ) ( not ( = ?auto_82044 ?auto_82045 ) ) ( not ( = ?auto_82044 ?auto_82048 ) ) ( not ( = ?auto_82044 ?auto_82047 ) ) ( not ( = ?auto_82042 ?auto_82046 ) ) ( not ( = ?auto_82042 ?auto_82045 ) ) ( not ( = ?auto_82042 ?auto_82048 ) ) ( not ( = ?auto_82042 ?auto_82047 ) ) )
+    ( and ( ON ?auto_82042 ?auto_82041 ) ( ON-TABLE ?auto_82041 ) ( not ( = ?auto_82041 ?auto_82042 ) ) ( not ( = ?auto_82041 ?auto_82044 ) ) ( not ( = ?auto_82041 ?auto_82043 ) ) ( not ( = ?auto_82042 ?auto_82044 ) ) ( not ( = ?auto_82042 ?auto_82043 ) ) ( not ( = ?auto_82044 ?auto_82043 ) ) ( ON ?auto_82044 ?auto_82042 ) ( CLEAR ?auto_82044 ) ( HOLDING ?auto_82043 ) ( CLEAR ?auto_82045 ) ( ON-TABLE ?auto_82048 ) ( ON ?auto_82046 ?auto_82048 ) ( ON ?auto_82047 ?auto_82046 ) ( ON ?auto_82045 ?auto_82047 ) ( not ( = ?auto_82048 ?auto_82046 ) ) ( not ( = ?auto_82048 ?auto_82047 ) ) ( not ( = ?auto_82048 ?auto_82045 ) ) ( not ( = ?auto_82048 ?auto_82043 ) ) ( not ( = ?auto_82046 ?auto_82047 ) ) ( not ( = ?auto_82046 ?auto_82045 ) ) ( not ( = ?auto_82046 ?auto_82043 ) ) ( not ( = ?auto_82047 ?auto_82045 ) ) ( not ( = ?auto_82047 ?auto_82043 ) ) ( not ( = ?auto_82045 ?auto_82043 ) ) ( not ( = ?auto_82041 ?auto_82045 ) ) ( not ( = ?auto_82041 ?auto_82048 ) ) ( not ( = ?auto_82041 ?auto_82046 ) ) ( not ( = ?auto_82041 ?auto_82047 ) ) ( not ( = ?auto_82042 ?auto_82045 ) ) ( not ( = ?auto_82042 ?auto_82048 ) ) ( not ( = ?auto_82042 ?auto_82046 ) ) ( not ( = ?auto_82042 ?auto_82047 ) ) ( not ( = ?auto_82044 ?auto_82045 ) ) ( not ( = ?auto_82044 ?auto_82048 ) ) ( not ( = ?auto_82044 ?auto_82046 ) ) ( not ( = ?auto_82044 ?auto_82047 ) ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82045 ?auto_82048 ?auto_82047 ?auto_82046 ?auto_82043 )
+    ( ( MAKE-5PILE ?auto_82048 ?auto_82046 ?auto_82047 ?auto_82045 ?auto_82043 )
       ( MAKE-1PILE ?auto_82041 ) )
   )
 
@@ -1760,18 +1760,18 @@
     )
     :vars
     (
+      ?auto_82056 - BLOCK
       ?auto_82052 - BLOCK
       ?auto_82054 - BLOCK
       ?auto_82053 - BLOCK
       ?auto_82050 - BLOCK
-      ?auto_82051 - BLOCK
       ?auto_82055 - BLOCK
-      ?auto_82056 - BLOCK
+      ?auto_82051 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82052 ?auto_82049 ) ( ON-TABLE ?auto_82049 ) ( not ( = ?auto_82049 ?auto_82052 ) ) ( not ( = ?auto_82049 ?auto_82054 ) ) ( not ( = ?auto_82049 ?auto_82053 ) ) ( not ( = ?auto_82052 ?auto_82054 ) ) ( not ( = ?auto_82052 ?auto_82053 ) ) ( not ( = ?auto_82054 ?auto_82053 ) ) ( ON ?auto_82054 ?auto_82052 ) ( CLEAR ?auto_82050 ) ( ON-TABLE ?auto_82051 ) ( ON ?auto_82055 ?auto_82051 ) ( ON ?auto_82056 ?auto_82055 ) ( ON ?auto_82050 ?auto_82056 ) ( not ( = ?auto_82051 ?auto_82055 ) ) ( not ( = ?auto_82051 ?auto_82056 ) ) ( not ( = ?auto_82051 ?auto_82050 ) ) ( not ( = ?auto_82051 ?auto_82053 ) ) ( not ( = ?auto_82055 ?auto_82056 ) ) ( not ( = ?auto_82055 ?auto_82050 ) ) ( not ( = ?auto_82055 ?auto_82053 ) ) ( not ( = ?auto_82056 ?auto_82050 ) ) ( not ( = ?auto_82056 ?auto_82053 ) ) ( not ( = ?auto_82050 ?auto_82053 ) ) ( not ( = ?auto_82049 ?auto_82050 ) ) ( not ( = ?auto_82049 ?auto_82051 ) ) ( not ( = ?auto_82049 ?auto_82055 ) ) ( not ( = ?auto_82049 ?auto_82056 ) ) ( not ( = ?auto_82052 ?auto_82050 ) ) ( not ( = ?auto_82052 ?auto_82051 ) ) ( not ( = ?auto_82052 ?auto_82055 ) ) ( not ( = ?auto_82052 ?auto_82056 ) ) ( not ( = ?auto_82054 ?auto_82050 ) ) ( not ( = ?auto_82054 ?auto_82051 ) ) ( not ( = ?auto_82054 ?auto_82055 ) ) ( not ( = ?auto_82054 ?auto_82056 ) ) ( ON ?auto_82053 ?auto_82054 ) ( CLEAR ?auto_82053 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82056 ?auto_82049 ) ( ON-TABLE ?auto_82049 ) ( not ( = ?auto_82049 ?auto_82056 ) ) ( not ( = ?auto_82049 ?auto_82052 ) ) ( not ( = ?auto_82049 ?auto_82054 ) ) ( not ( = ?auto_82056 ?auto_82052 ) ) ( not ( = ?auto_82056 ?auto_82054 ) ) ( not ( = ?auto_82052 ?auto_82054 ) ) ( ON ?auto_82052 ?auto_82056 ) ( CLEAR ?auto_82053 ) ( ON-TABLE ?auto_82050 ) ( ON ?auto_82055 ?auto_82050 ) ( ON ?auto_82051 ?auto_82055 ) ( ON ?auto_82053 ?auto_82051 ) ( not ( = ?auto_82050 ?auto_82055 ) ) ( not ( = ?auto_82050 ?auto_82051 ) ) ( not ( = ?auto_82050 ?auto_82053 ) ) ( not ( = ?auto_82050 ?auto_82054 ) ) ( not ( = ?auto_82055 ?auto_82051 ) ) ( not ( = ?auto_82055 ?auto_82053 ) ) ( not ( = ?auto_82055 ?auto_82054 ) ) ( not ( = ?auto_82051 ?auto_82053 ) ) ( not ( = ?auto_82051 ?auto_82054 ) ) ( not ( = ?auto_82053 ?auto_82054 ) ) ( not ( = ?auto_82049 ?auto_82053 ) ) ( not ( = ?auto_82049 ?auto_82050 ) ) ( not ( = ?auto_82049 ?auto_82055 ) ) ( not ( = ?auto_82049 ?auto_82051 ) ) ( not ( = ?auto_82056 ?auto_82053 ) ) ( not ( = ?auto_82056 ?auto_82050 ) ) ( not ( = ?auto_82056 ?auto_82055 ) ) ( not ( = ?auto_82056 ?auto_82051 ) ) ( not ( = ?auto_82052 ?auto_82053 ) ) ( not ( = ?auto_82052 ?auto_82050 ) ) ( not ( = ?auto_82052 ?auto_82055 ) ) ( not ( = ?auto_82052 ?auto_82051 ) ) ( ON ?auto_82054 ?auto_82052 ) ( CLEAR ?auto_82054 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82049 ?auto_82052 ?auto_82054 )
+    ( ( MAKE-3PILE ?auto_82049 ?auto_82056 ?auto_82052 )
       ( MAKE-1PILE ?auto_82049 ) )
   )
 
@@ -1782,18 +1782,18 @@
     )
     :vars
     (
-      ?auto_82060 - BLOCK
-      ?auto_82062 - BLOCK
-      ?auto_82059 - BLOCK
-      ?auto_82061 - BLOCK
-      ?auto_82058 - BLOCK
       ?auto_82064 - BLOCK
+      ?auto_82058 - BLOCK
+      ?auto_82060 - BLOCK
+      ?auto_82061 - BLOCK
       ?auto_82063 - BLOCK
+      ?auto_82059 - BLOCK
+      ?auto_82062 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82060 ?auto_82057 ) ( ON-TABLE ?auto_82057 ) ( not ( = ?auto_82057 ?auto_82060 ) ) ( not ( = ?auto_82057 ?auto_82062 ) ) ( not ( = ?auto_82057 ?auto_82059 ) ) ( not ( = ?auto_82060 ?auto_82062 ) ) ( not ( = ?auto_82060 ?auto_82059 ) ) ( not ( = ?auto_82062 ?auto_82059 ) ) ( ON ?auto_82062 ?auto_82060 ) ( ON-TABLE ?auto_82061 ) ( ON ?auto_82058 ?auto_82061 ) ( ON ?auto_82064 ?auto_82058 ) ( not ( = ?auto_82061 ?auto_82058 ) ) ( not ( = ?auto_82061 ?auto_82064 ) ) ( not ( = ?auto_82061 ?auto_82063 ) ) ( not ( = ?auto_82061 ?auto_82059 ) ) ( not ( = ?auto_82058 ?auto_82064 ) ) ( not ( = ?auto_82058 ?auto_82063 ) ) ( not ( = ?auto_82058 ?auto_82059 ) ) ( not ( = ?auto_82064 ?auto_82063 ) ) ( not ( = ?auto_82064 ?auto_82059 ) ) ( not ( = ?auto_82063 ?auto_82059 ) ) ( not ( = ?auto_82057 ?auto_82063 ) ) ( not ( = ?auto_82057 ?auto_82061 ) ) ( not ( = ?auto_82057 ?auto_82058 ) ) ( not ( = ?auto_82057 ?auto_82064 ) ) ( not ( = ?auto_82060 ?auto_82063 ) ) ( not ( = ?auto_82060 ?auto_82061 ) ) ( not ( = ?auto_82060 ?auto_82058 ) ) ( not ( = ?auto_82060 ?auto_82064 ) ) ( not ( = ?auto_82062 ?auto_82063 ) ) ( not ( = ?auto_82062 ?auto_82061 ) ) ( not ( = ?auto_82062 ?auto_82058 ) ) ( not ( = ?auto_82062 ?auto_82064 ) ) ( ON ?auto_82059 ?auto_82062 ) ( CLEAR ?auto_82059 ) ( HOLDING ?auto_82063 ) ( CLEAR ?auto_82064 ) )
+    ( and ( ON ?auto_82064 ?auto_82057 ) ( ON-TABLE ?auto_82057 ) ( not ( = ?auto_82057 ?auto_82064 ) ) ( not ( = ?auto_82057 ?auto_82058 ) ) ( not ( = ?auto_82057 ?auto_82060 ) ) ( not ( = ?auto_82064 ?auto_82058 ) ) ( not ( = ?auto_82064 ?auto_82060 ) ) ( not ( = ?auto_82058 ?auto_82060 ) ) ( ON ?auto_82058 ?auto_82064 ) ( ON-TABLE ?auto_82061 ) ( ON ?auto_82063 ?auto_82061 ) ( ON ?auto_82059 ?auto_82063 ) ( not ( = ?auto_82061 ?auto_82063 ) ) ( not ( = ?auto_82061 ?auto_82059 ) ) ( not ( = ?auto_82061 ?auto_82062 ) ) ( not ( = ?auto_82061 ?auto_82060 ) ) ( not ( = ?auto_82063 ?auto_82059 ) ) ( not ( = ?auto_82063 ?auto_82062 ) ) ( not ( = ?auto_82063 ?auto_82060 ) ) ( not ( = ?auto_82059 ?auto_82062 ) ) ( not ( = ?auto_82059 ?auto_82060 ) ) ( not ( = ?auto_82062 ?auto_82060 ) ) ( not ( = ?auto_82057 ?auto_82062 ) ) ( not ( = ?auto_82057 ?auto_82061 ) ) ( not ( = ?auto_82057 ?auto_82063 ) ) ( not ( = ?auto_82057 ?auto_82059 ) ) ( not ( = ?auto_82064 ?auto_82062 ) ) ( not ( = ?auto_82064 ?auto_82061 ) ) ( not ( = ?auto_82064 ?auto_82063 ) ) ( not ( = ?auto_82064 ?auto_82059 ) ) ( not ( = ?auto_82058 ?auto_82062 ) ) ( not ( = ?auto_82058 ?auto_82061 ) ) ( not ( = ?auto_82058 ?auto_82063 ) ) ( not ( = ?auto_82058 ?auto_82059 ) ) ( ON ?auto_82060 ?auto_82058 ) ( CLEAR ?auto_82060 ) ( HOLDING ?auto_82062 ) ( CLEAR ?auto_82059 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82061 ?auto_82058 ?auto_82064 ?auto_82063 )
+    ( ( MAKE-4PILE ?auto_82061 ?auto_82063 ?auto_82059 ?auto_82062 )
       ( MAKE-1PILE ?auto_82057 ) )
   )
 
@@ -1804,18 +1804,18 @@
     )
     :vars
     (
+      ?auto_82069 - BLOCK
       ?auto_82070 - BLOCK
       ?auto_82071 - BLOCK
-      ?auto_82069 - BLOCK
       ?auto_82067 - BLOCK
-      ?auto_82068 - BLOCK
-      ?auto_82072 - BLOCK
       ?auto_82066 - BLOCK
+      ?auto_82072 - BLOCK
+      ?auto_82068 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82070 ?auto_82065 ) ( ON-TABLE ?auto_82065 ) ( not ( = ?auto_82065 ?auto_82070 ) ) ( not ( = ?auto_82065 ?auto_82071 ) ) ( not ( = ?auto_82065 ?auto_82069 ) ) ( not ( = ?auto_82070 ?auto_82071 ) ) ( not ( = ?auto_82070 ?auto_82069 ) ) ( not ( = ?auto_82071 ?auto_82069 ) ) ( ON ?auto_82071 ?auto_82070 ) ( ON-TABLE ?auto_82067 ) ( ON ?auto_82068 ?auto_82067 ) ( ON ?auto_82072 ?auto_82068 ) ( not ( = ?auto_82067 ?auto_82068 ) ) ( not ( = ?auto_82067 ?auto_82072 ) ) ( not ( = ?auto_82067 ?auto_82066 ) ) ( not ( = ?auto_82067 ?auto_82069 ) ) ( not ( = ?auto_82068 ?auto_82072 ) ) ( not ( = ?auto_82068 ?auto_82066 ) ) ( not ( = ?auto_82068 ?auto_82069 ) ) ( not ( = ?auto_82072 ?auto_82066 ) ) ( not ( = ?auto_82072 ?auto_82069 ) ) ( not ( = ?auto_82066 ?auto_82069 ) ) ( not ( = ?auto_82065 ?auto_82066 ) ) ( not ( = ?auto_82065 ?auto_82067 ) ) ( not ( = ?auto_82065 ?auto_82068 ) ) ( not ( = ?auto_82065 ?auto_82072 ) ) ( not ( = ?auto_82070 ?auto_82066 ) ) ( not ( = ?auto_82070 ?auto_82067 ) ) ( not ( = ?auto_82070 ?auto_82068 ) ) ( not ( = ?auto_82070 ?auto_82072 ) ) ( not ( = ?auto_82071 ?auto_82066 ) ) ( not ( = ?auto_82071 ?auto_82067 ) ) ( not ( = ?auto_82071 ?auto_82068 ) ) ( not ( = ?auto_82071 ?auto_82072 ) ) ( ON ?auto_82069 ?auto_82071 ) ( CLEAR ?auto_82072 ) ( ON ?auto_82066 ?auto_82069 ) ( CLEAR ?auto_82066 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82069 ?auto_82065 ) ( ON-TABLE ?auto_82065 ) ( not ( = ?auto_82065 ?auto_82069 ) ) ( not ( = ?auto_82065 ?auto_82070 ) ) ( not ( = ?auto_82065 ?auto_82071 ) ) ( not ( = ?auto_82069 ?auto_82070 ) ) ( not ( = ?auto_82069 ?auto_82071 ) ) ( not ( = ?auto_82070 ?auto_82071 ) ) ( ON ?auto_82070 ?auto_82069 ) ( ON-TABLE ?auto_82067 ) ( ON ?auto_82066 ?auto_82067 ) ( ON ?auto_82072 ?auto_82066 ) ( not ( = ?auto_82067 ?auto_82066 ) ) ( not ( = ?auto_82067 ?auto_82072 ) ) ( not ( = ?auto_82067 ?auto_82068 ) ) ( not ( = ?auto_82067 ?auto_82071 ) ) ( not ( = ?auto_82066 ?auto_82072 ) ) ( not ( = ?auto_82066 ?auto_82068 ) ) ( not ( = ?auto_82066 ?auto_82071 ) ) ( not ( = ?auto_82072 ?auto_82068 ) ) ( not ( = ?auto_82072 ?auto_82071 ) ) ( not ( = ?auto_82068 ?auto_82071 ) ) ( not ( = ?auto_82065 ?auto_82068 ) ) ( not ( = ?auto_82065 ?auto_82067 ) ) ( not ( = ?auto_82065 ?auto_82066 ) ) ( not ( = ?auto_82065 ?auto_82072 ) ) ( not ( = ?auto_82069 ?auto_82068 ) ) ( not ( = ?auto_82069 ?auto_82067 ) ) ( not ( = ?auto_82069 ?auto_82066 ) ) ( not ( = ?auto_82069 ?auto_82072 ) ) ( not ( = ?auto_82070 ?auto_82068 ) ) ( not ( = ?auto_82070 ?auto_82067 ) ) ( not ( = ?auto_82070 ?auto_82066 ) ) ( not ( = ?auto_82070 ?auto_82072 ) ) ( ON ?auto_82071 ?auto_82070 ) ( CLEAR ?auto_82072 ) ( ON ?auto_82068 ?auto_82071 ) ( CLEAR ?auto_82068 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82065 ?auto_82070 ?auto_82071 ?auto_82069 )
+    ( ( MAKE-4PILE ?auto_82065 ?auto_82069 ?auto_82070 ?auto_82071 )
       ( MAKE-1PILE ?auto_82065 ) )
   )
 
@@ -1826,18 +1826,18 @@
     )
     :vars
     (
-      ?auto_82080 - BLOCK
-      ?auto_82079 - BLOCK
       ?auto_82077 - BLOCK
-      ?auto_82076 - BLOCK
-      ?auto_82074 - BLOCK
       ?auto_82078 - BLOCK
       ?auto_82075 - BLOCK
+      ?auto_82079 - BLOCK
+      ?auto_82076 - BLOCK
+      ?auto_82074 - BLOCK
+      ?auto_82080 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82080 ?auto_82073 ) ( ON-TABLE ?auto_82073 ) ( not ( = ?auto_82073 ?auto_82080 ) ) ( not ( = ?auto_82073 ?auto_82079 ) ) ( not ( = ?auto_82073 ?auto_82077 ) ) ( not ( = ?auto_82080 ?auto_82079 ) ) ( not ( = ?auto_82080 ?auto_82077 ) ) ( not ( = ?auto_82079 ?auto_82077 ) ) ( ON ?auto_82079 ?auto_82080 ) ( ON-TABLE ?auto_82076 ) ( ON ?auto_82074 ?auto_82076 ) ( not ( = ?auto_82076 ?auto_82074 ) ) ( not ( = ?auto_82076 ?auto_82078 ) ) ( not ( = ?auto_82076 ?auto_82075 ) ) ( not ( = ?auto_82076 ?auto_82077 ) ) ( not ( = ?auto_82074 ?auto_82078 ) ) ( not ( = ?auto_82074 ?auto_82075 ) ) ( not ( = ?auto_82074 ?auto_82077 ) ) ( not ( = ?auto_82078 ?auto_82075 ) ) ( not ( = ?auto_82078 ?auto_82077 ) ) ( not ( = ?auto_82075 ?auto_82077 ) ) ( not ( = ?auto_82073 ?auto_82075 ) ) ( not ( = ?auto_82073 ?auto_82076 ) ) ( not ( = ?auto_82073 ?auto_82074 ) ) ( not ( = ?auto_82073 ?auto_82078 ) ) ( not ( = ?auto_82080 ?auto_82075 ) ) ( not ( = ?auto_82080 ?auto_82076 ) ) ( not ( = ?auto_82080 ?auto_82074 ) ) ( not ( = ?auto_82080 ?auto_82078 ) ) ( not ( = ?auto_82079 ?auto_82075 ) ) ( not ( = ?auto_82079 ?auto_82076 ) ) ( not ( = ?auto_82079 ?auto_82074 ) ) ( not ( = ?auto_82079 ?auto_82078 ) ) ( ON ?auto_82077 ?auto_82079 ) ( ON ?auto_82075 ?auto_82077 ) ( CLEAR ?auto_82075 ) ( HOLDING ?auto_82078 ) ( CLEAR ?auto_82074 ) )
+    ( and ( ON ?auto_82077 ?auto_82073 ) ( ON-TABLE ?auto_82073 ) ( not ( = ?auto_82073 ?auto_82077 ) ) ( not ( = ?auto_82073 ?auto_82078 ) ) ( not ( = ?auto_82073 ?auto_82075 ) ) ( not ( = ?auto_82077 ?auto_82078 ) ) ( not ( = ?auto_82077 ?auto_82075 ) ) ( not ( = ?auto_82078 ?auto_82075 ) ) ( ON ?auto_82078 ?auto_82077 ) ( ON-TABLE ?auto_82079 ) ( ON ?auto_82076 ?auto_82079 ) ( not ( = ?auto_82079 ?auto_82076 ) ) ( not ( = ?auto_82079 ?auto_82074 ) ) ( not ( = ?auto_82079 ?auto_82080 ) ) ( not ( = ?auto_82079 ?auto_82075 ) ) ( not ( = ?auto_82076 ?auto_82074 ) ) ( not ( = ?auto_82076 ?auto_82080 ) ) ( not ( = ?auto_82076 ?auto_82075 ) ) ( not ( = ?auto_82074 ?auto_82080 ) ) ( not ( = ?auto_82074 ?auto_82075 ) ) ( not ( = ?auto_82080 ?auto_82075 ) ) ( not ( = ?auto_82073 ?auto_82080 ) ) ( not ( = ?auto_82073 ?auto_82079 ) ) ( not ( = ?auto_82073 ?auto_82076 ) ) ( not ( = ?auto_82073 ?auto_82074 ) ) ( not ( = ?auto_82077 ?auto_82080 ) ) ( not ( = ?auto_82077 ?auto_82079 ) ) ( not ( = ?auto_82077 ?auto_82076 ) ) ( not ( = ?auto_82077 ?auto_82074 ) ) ( not ( = ?auto_82078 ?auto_82080 ) ) ( not ( = ?auto_82078 ?auto_82079 ) ) ( not ( = ?auto_82078 ?auto_82076 ) ) ( not ( = ?auto_82078 ?auto_82074 ) ) ( ON ?auto_82075 ?auto_82078 ) ( ON ?auto_82080 ?auto_82075 ) ( CLEAR ?auto_82080 ) ( HOLDING ?auto_82074 ) ( CLEAR ?auto_82076 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82076 ?auto_82074 ?auto_82078 )
+    ( ( MAKE-3PILE ?auto_82079 ?auto_82076 ?auto_82074 )
       ( MAKE-1PILE ?auto_82073 ) )
   )
 
@@ -1848,18 +1848,18 @@
     )
     :vars
     (
+      ?auto_82085 - BLOCK
       ?auto_82083 - BLOCK
       ?auto_82082 - BLOCK
-      ?auto_82088 - BLOCK
       ?auto_82087 - BLOCK
-      ?auto_82085 - BLOCK
-      ?auto_82086 - BLOCK
       ?auto_82084 - BLOCK
+      ?auto_82088 - BLOCK
+      ?auto_82086 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82083 ?auto_82081 ) ( ON-TABLE ?auto_82081 ) ( not ( = ?auto_82081 ?auto_82083 ) ) ( not ( = ?auto_82081 ?auto_82082 ) ) ( not ( = ?auto_82081 ?auto_82088 ) ) ( not ( = ?auto_82083 ?auto_82082 ) ) ( not ( = ?auto_82083 ?auto_82088 ) ) ( not ( = ?auto_82082 ?auto_82088 ) ) ( ON ?auto_82082 ?auto_82083 ) ( ON-TABLE ?auto_82087 ) ( ON ?auto_82085 ?auto_82087 ) ( not ( = ?auto_82087 ?auto_82085 ) ) ( not ( = ?auto_82087 ?auto_82086 ) ) ( not ( = ?auto_82087 ?auto_82084 ) ) ( not ( = ?auto_82087 ?auto_82088 ) ) ( not ( = ?auto_82085 ?auto_82086 ) ) ( not ( = ?auto_82085 ?auto_82084 ) ) ( not ( = ?auto_82085 ?auto_82088 ) ) ( not ( = ?auto_82086 ?auto_82084 ) ) ( not ( = ?auto_82086 ?auto_82088 ) ) ( not ( = ?auto_82084 ?auto_82088 ) ) ( not ( = ?auto_82081 ?auto_82084 ) ) ( not ( = ?auto_82081 ?auto_82087 ) ) ( not ( = ?auto_82081 ?auto_82085 ) ) ( not ( = ?auto_82081 ?auto_82086 ) ) ( not ( = ?auto_82083 ?auto_82084 ) ) ( not ( = ?auto_82083 ?auto_82087 ) ) ( not ( = ?auto_82083 ?auto_82085 ) ) ( not ( = ?auto_82083 ?auto_82086 ) ) ( not ( = ?auto_82082 ?auto_82084 ) ) ( not ( = ?auto_82082 ?auto_82087 ) ) ( not ( = ?auto_82082 ?auto_82085 ) ) ( not ( = ?auto_82082 ?auto_82086 ) ) ( ON ?auto_82088 ?auto_82082 ) ( ON ?auto_82084 ?auto_82088 ) ( CLEAR ?auto_82085 ) ( ON ?auto_82086 ?auto_82084 ) ( CLEAR ?auto_82086 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82085 ?auto_82081 ) ( ON-TABLE ?auto_82081 ) ( not ( = ?auto_82081 ?auto_82085 ) ) ( not ( = ?auto_82081 ?auto_82083 ) ) ( not ( = ?auto_82081 ?auto_82082 ) ) ( not ( = ?auto_82085 ?auto_82083 ) ) ( not ( = ?auto_82085 ?auto_82082 ) ) ( not ( = ?auto_82083 ?auto_82082 ) ) ( ON ?auto_82083 ?auto_82085 ) ( ON-TABLE ?auto_82087 ) ( ON ?auto_82084 ?auto_82087 ) ( not ( = ?auto_82087 ?auto_82084 ) ) ( not ( = ?auto_82087 ?auto_82088 ) ) ( not ( = ?auto_82087 ?auto_82086 ) ) ( not ( = ?auto_82087 ?auto_82082 ) ) ( not ( = ?auto_82084 ?auto_82088 ) ) ( not ( = ?auto_82084 ?auto_82086 ) ) ( not ( = ?auto_82084 ?auto_82082 ) ) ( not ( = ?auto_82088 ?auto_82086 ) ) ( not ( = ?auto_82088 ?auto_82082 ) ) ( not ( = ?auto_82086 ?auto_82082 ) ) ( not ( = ?auto_82081 ?auto_82086 ) ) ( not ( = ?auto_82081 ?auto_82087 ) ) ( not ( = ?auto_82081 ?auto_82084 ) ) ( not ( = ?auto_82081 ?auto_82088 ) ) ( not ( = ?auto_82085 ?auto_82086 ) ) ( not ( = ?auto_82085 ?auto_82087 ) ) ( not ( = ?auto_82085 ?auto_82084 ) ) ( not ( = ?auto_82085 ?auto_82088 ) ) ( not ( = ?auto_82083 ?auto_82086 ) ) ( not ( = ?auto_82083 ?auto_82087 ) ) ( not ( = ?auto_82083 ?auto_82084 ) ) ( not ( = ?auto_82083 ?auto_82088 ) ) ( ON ?auto_82082 ?auto_82083 ) ( ON ?auto_82086 ?auto_82082 ) ( CLEAR ?auto_82084 ) ( ON ?auto_82088 ?auto_82086 ) ( CLEAR ?auto_82088 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82081 ?auto_82083 ?auto_82082 ?auto_82088 ?auto_82084 )
+    ( ( MAKE-5PILE ?auto_82081 ?auto_82085 ?auto_82083 ?auto_82082 ?auto_82086 )
       ( MAKE-1PILE ?auto_82081 ) )
   )
 
@@ -1870,18 +1870,18 @@
     )
     :vars
     (
-      ?auto_82091 - BLOCK
       ?auto_82094 - BLOCK
-      ?auto_82096 - BLOCK
-      ?auto_82093 - BLOCK
-      ?auto_82095 - BLOCK
-      ?auto_82092 - BLOCK
       ?auto_82090 - BLOCK
+      ?auto_82093 - BLOCK
+      ?auto_82092 - BLOCK
+      ?auto_82095 - BLOCK
+      ?auto_82096 - BLOCK
+      ?auto_82091 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82091 ?auto_82089 ) ( ON-TABLE ?auto_82089 ) ( not ( = ?auto_82089 ?auto_82091 ) ) ( not ( = ?auto_82089 ?auto_82094 ) ) ( not ( = ?auto_82089 ?auto_82096 ) ) ( not ( = ?auto_82091 ?auto_82094 ) ) ( not ( = ?auto_82091 ?auto_82096 ) ) ( not ( = ?auto_82094 ?auto_82096 ) ) ( ON ?auto_82094 ?auto_82091 ) ( ON-TABLE ?auto_82093 ) ( not ( = ?auto_82093 ?auto_82095 ) ) ( not ( = ?auto_82093 ?auto_82092 ) ) ( not ( = ?auto_82093 ?auto_82090 ) ) ( not ( = ?auto_82093 ?auto_82096 ) ) ( not ( = ?auto_82095 ?auto_82092 ) ) ( not ( = ?auto_82095 ?auto_82090 ) ) ( not ( = ?auto_82095 ?auto_82096 ) ) ( not ( = ?auto_82092 ?auto_82090 ) ) ( not ( = ?auto_82092 ?auto_82096 ) ) ( not ( = ?auto_82090 ?auto_82096 ) ) ( not ( = ?auto_82089 ?auto_82090 ) ) ( not ( = ?auto_82089 ?auto_82093 ) ) ( not ( = ?auto_82089 ?auto_82095 ) ) ( not ( = ?auto_82089 ?auto_82092 ) ) ( not ( = ?auto_82091 ?auto_82090 ) ) ( not ( = ?auto_82091 ?auto_82093 ) ) ( not ( = ?auto_82091 ?auto_82095 ) ) ( not ( = ?auto_82091 ?auto_82092 ) ) ( not ( = ?auto_82094 ?auto_82090 ) ) ( not ( = ?auto_82094 ?auto_82093 ) ) ( not ( = ?auto_82094 ?auto_82095 ) ) ( not ( = ?auto_82094 ?auto_82092 ) ) ( ON ?auto_82096 ?auto_82094 ) ( ON ?auto_82090 ?auto_82096 ) ( ON ?auto_82092 ?auto_82090 ) ( CLEAR ?auto_82092 ) ( HOLDING ?auto_82095 ) ( CLEAR ?auto_82093 ) )
+    ( and ( ON ?auto_82094 ?auto_82089 ) ( ON-TABLE ?auto_82089 ) ( not ( = ?auto_82089 ?auto_82094 ) ) ( not ( = ?auto_82089 ?auto_82090 ) ) ( not ( = ?auto_82089 ?auto_82093 ) ) ( not ( = ?auto_82094 ?auto_82090 ) ) ( not ( = ?auto_82094 ?auto_82093 ) ) ( not ( = ?auto_82090 ?auto_82093 ) ) ( ON ?auto_82090 ?auto_82094 ) ( ON-TABLE ?auto_82092 ) ( not ( = ?auto_82092 ?auto_82095 ) ) ( not ( = ?auto_82092 ?auto_82096 ) ) ( not ( = ?auto_82092 ?auto_82091 ) ) ( not ( = ?auto_82092 ?auto_82093 ) ) ( not ( = ?auto_82095 ?auto_82096 ) ) ( not ( = ?auto_82095 ?auto_82091 ) ) ( not ( = ?auto_82095 ?auto_82093 ) ) ( not ( = ?auto_82096 ?auto_82091 ) ) ( not ( = ?auto_82096 ?auto_82093 ) ) ( not ( = ?auto_82091 ?auto_82093 ) ) ( not ( = ?auto_82089 ?auto_82091 ) ) ( not ( = ?auto_82089 ?auto_82092 ) ) ( not ( = ?auto_82089 ?auto_82095 ) ) ( not ( = ?auto_82089 ?auto_82096 ) ) ( not ( = ?auto_82094 ?auto_82091 ) ) ( not ( = ?auto_82094 ?auto_82092 ) ) ( not ( = ?auto_82094 ?auto_82095 ) ) ( not ( = ?auto_82094 ?auto_82096 ) ) ( not ( = ?auto_82090 ?auto_82091 ) ) ( not ( = ?auto_82090 ?auto_82092 ) ) ( not ( = ?auto_82090 ?auto_82095 ) ) ( not ( = ?auto_82090 ?auto_82096 ) ) ( ON ?auto_82093 ?auto_82090 ) ( ON ?auto_82091 ?auto_82093 ) ( ON ?auto_82096 ?auto_82091 ) ( CLEAR ?auto_82096 ) ( HOLDING ?auto_82095 ) ( CLEAR ?auto_82092 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82093 ?auto_82095 )
+    ( ( MAKE-2PILE ?auto_82092 ?auto_82095 )
       ( MAKE-1PILE ?auto_82089 ) )
   )
 
@@ -1892,18 +1892,18 @@
     )
     :vars
     (
-      ?auto_82099 - BLOCK
-      ?auto_82098 - BLOCK
-      ?auto_82102 - BLOCK
       ?auto_82100 - BLOCK
+      ?auto_82099 - BLOCK
+      ?auto_82102 - BLOCK
       ?auto_82101 - BLOCK
-      ?auto_82104 - BLOCK
+      ?auto_82098 - BLOCK
       ?auto_82103 - BLOCK
+      ?auto_82104 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82099 ?auto_82097 ) ( ON-TABLE ?auto_82097 ) ( not ( = ?auto_82097 ?auto_82099 ) ) ( not ( = ?auto_82097 ?auto_82098 ) ) ( not ( = ?auto_82097 ?auto_82102 ) ) ( not ( = ?auto_82099 ?auto_82098 ) ) ( not ( = ?auto_82099 ?auto_82102 ) ) ( not ( = ?auto_82098 ?auto_82102 ) ) ( ON ?auto_82098 ?auto_82099 ) ( ON-TABLE ?auto_82100 ) ( not ( = ?auto_82100 ?auto_82101 ) ) ( not ( = ?auto_82100 ?auto_82104 ) ) ( not ( = ?auto_82100 ?auto_82103 ) ) ( not ( = ?auto_82100 ?auto_82102 ) ) ( not ( = ?auto_82101 ?auto_82104 ) ) ( not ( = ?auto_82101 ?auto_82103 ) ) ( not ( = ?auto_82101 ?auto_82102 ) ) ( not ( = ?auto_82104 ?auto_82103 ) ) ( not ( = ?auto_82104 ?auto_82102 ) ) ( not ( = ?auto_82103 ?auto_82102 ) ) ( not ( = ?auto_82097 ?auto_82103 ) ) ( not ( = ?auto_82097 ?auto_82100 ) ) ( not ( = ?auto_82097 ?auto_82101 ) ) ( not ( = ?auto_82097 ?auto_82104 ) ) ( not ( = ?auto_82099 ?auto_82103 ) ) ( not ( = ?auto_82099 ?auto_82100 ) ) ( not ( = ?auto_82099 ?auto_82101 ) ) ( not ( = ?auto_82099 ?auto_82104 ) ) ( not ( = ?auto_82098 ?auto_82103 ) ) ( not ( = ?auto_82098 ?auto_82100 ) ) ( not ( = ?auto_82098 ?auto_82101 ) ) ( not ( = ?auto_82098 ?auto_82104 ) ) ( ON ?auto_82102 ?auto_82098 ) ( ON ?auto_82103 ?auto_82102 ) ( ON ?auto_82104 ?auto_82103 ) ( CLEAR ?auto_82100 ) ( ON ?auto_82101 ?auto_82104 ) ( CLEAR ?auto_82101 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82100 ?auto_82097 ) ( ON-TABLE ?auto_82097 ) ( not ( = ?auto_82097 ?auto_82100 ) ) ( not ( = ?auto_82097 ?auto_82099 ) ) ( not ( = ?auto_82097 ?auto_82102 ) ) ( not ( = ?auto_82100 ?auto_82099 ) ) ( not ( = ?auto_82100 ?auto_82102 ) ) ( not ( = ?auto_82099 ?auto_82102 ) ) ( ON ?auto_82099 ?auto_82100 ) ( ON-TABLE ?auto_82101 ) ( not ( = ?auto_82101 ?auto_82098 ) ) ( not ( = ?auto_82101 ?auto_82103 ) ) ( not ( = ?auto_82101 ?auto_82104 ) ) ( not ( = ?auto_82101 ?auto_82102 ) ) ( not ( = ?auto_82098 ?auto_82103 ) ) ( not ( = ?auto_82098 ?auto_82104 ) ) ( not ( = ?auto_82098 ?auto_82102 ) ) ( not ( = ?auto_82103 ?auto_82104 ) ) ( not ( = ?auto_82103 ?auto_82102 ) ) ( not ( = ?auto_82104 ?auto_82102 ) ) ( not ( = ?auto_82097 ?auto_82104 ) ) ( not ( = ?auto_82097 ?auto_82101 ) ) ( not ( = ?auto_82097 ?auto_82098 ) ) ( not ( = ?auto_82097 ?auto_82103 ) ) ( not ( = ?auto_82100 ?auto_82104 ) ) ( not ( = ?auto_82100 ?auto_82101 ) ) ( not ( = ?auto_82100 ?auto_82098 ) ) ( not ( = ?auto_82100 ?auto_82103 ) ) ( not ( = ?auto_82099 ?auto_82104 ) ) ( not ( = ?auto_82099 ?auto_82101 ) ) ( not ( = ?auto_82099 ?auto_82098 ) ) ( not ( = ?auto_82099 ?auto_82103 ) ) ( ON ?auto_82102 ?auto_82099 ) ( ON ?auto_82104 ?auto_82102 ) ( ON ?auto_82103 ?auto_82104 ) ( CLEAR ?auto_82101 ) ( ON ?auto_82098 ?auto_82103 ) ( CLEAR ?auto_82098 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82097 ?auto_82099 ?auto_82098 ?auto_82102 ?auto_82103 ?auto_82104 )
+    ( ( MAKE-6PILE ?auto_82097 ?auto_82100 ?auto_82099 ?auto_82102 ?auto_82104 ?auto_82103 )
       ( MAKE-1PILE ?auto_82097 ) )
   )
 
@@ -1914,18 +1914,18 @@
     )
     :vars
     (
+      ?auto_82106 - BLOCK
       ?auto_82109 - BLOCK
       ?auto_82110 - BLOCK
-      ?auto_82106 - BLOCK
-      ?auto_82107 - BLOCK
-      ?auto_82108 - BLOCK
       ?auto_82111 - BLOCK
+      ?auto_82108 - BLOCK
+      ?auto_82107 - BLOCK
       ?auto_82112 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82109 ?auto_82105 ) ( ON-TABLE ?auto_82105 ) ( not ( = ?auto_82105 ?auto_82109 ) ) ( not ( = ?auto_82105 ?auto_82110 ) ) ( not ( = ?auto_82105 ?auto_82106 ) ) ( not ( = ?auto_82109 ?auto_82110 ) ) ( not ( = ?auto_82109 ?auto_82106 ) ) ( not ( = ?auto_82110 ?auto_82106 ) ) ( ON ?auto_82110 ?auto_82109 ) ( not ( = ?auto_82107 ?auto_82108 ) ) ( not ( = ?auto_82107 ?auto_82111 ) ) ( not ( = ?auto_82107 ?auto_82112 ) ) ( not ( = ?auto_82107 ?auto_82106 ) ) ( not ( = ?auto_82108 ?auto_82111 ) ) ( not ( = ?auto_82108 ?auto_82112 ) ) ( not ( = ?auto_82108 ?auto_82106 ) ) ( not ( = ?auto_82111 ?auto_82112 ) ) ( not ( = ?auto_82111 ?auto_82106 ) ) ( not ( = ?auto_82112 ?auto_82106 ) ) ( not ( = ?auto_82105 ?auto_82112 ) ) ( not ( = ?auto_82105 ?auto_82107 ) ) ( not ( = ?auto_82105 ?auto_82108 ) ) ( not ( = ?auto_82105 ?auto_82111 ) ) ( not ( = ?auto_82109 ?auto_82112 ) ) ( not ( = ?auto_82109 ?auto_82107 ) ) ( not ( = ?auto_82109 ?auto_82108 ) ) ( not ( = ?auto_82109 ?auto_82111 ) ) ( not ( = ?auto_82110 ?auto_82112 ) ) ( not ( = ?auto_82110 ?auto_82107 ) ) ( not ( = ?auto_82110 ?auto_82108 ) ) ( not ( = ?auto_82110 ?auto_82111 ) ) ( ON ?auto_82106 ?auto_82110 ) ( ON ?auto_82112 ?auto_82106 ) ( ON ?auto_82111 ?auto_82112 ) ( ON ?auto_82108 ?auto_82111 ) ( CLEAR ?auto_82108 ) ( HOLDING ?auto_82107 ) )
+    ( and ( ON ?auto_82106 ?auto_82105 ) ( ON-TABLE ?auto_82105 ) ( not ( = ?auto_82105 ?auto_82106 ) ) ( not ( = ?auto_82105 ?auto_82109 ) ) ( not ( = ?auto_82105 ?auto_82110 ) ) ( not ( = ?auto_82106 ?auto_82109 ) ) ( not ( = ?auto_82106 ?auto_82110 ) ) ( not ( = ?auto_82109 ?auto_82110 ) ) ( ON ?auto_82109 ?auto_82106 ) ( not ( = ?auto_82111 ?auto_82108 ) ) ( not ( = ?auto_82111 ?auto_82107 ) ) ( not ( = ?auto_82111 ?auto_82112 ) ) ( not ( = ?auto_82111 ?auto_82110 ) ) ( not ( = ?auto_82108 ?auto_82107 ) ) ( not ( = ?auto_82108 ?auto_82112 ) ) ( not ( = ?auto_82108 ?auto_82110 ) ) ( not ( = ?auto_82107 ?auto_82112 ) ) ( not ( = ?auto_82107 ?auto_82110 ) ) ( not ( = ?auto_82112 ?auto_82110 ) ) ( not ( = ?auto_82105 ?auto_82112 ) ) ( not ( = ?auto_82105 ?auto_82111 ) ) ( not ( = ?auto_82105 ?auto_82108 ) ) ( not ( = ?auto_82105 ?auto_82107 ) ) ( not ( = ?auto_82106 ?auto_82112 ) ) ( not ( = ?auto_82106 ?auto_82111 ) ) ( not ( = ?auto_82106 ?auto_82108 ) ) ( not ( = ?auto_82106 ?auto_82107 ) ) ( not ( = ?auto_82109 ?auto_82112 ) ) ( not ( = ?auto_82109 ?auto_82111 ) ) ( not ( = ?auto_82109 ?auto_82108 ) ) ( not ( = ?auto_82109 ?auto_82107 ) ) ( ON ?auto_82110 ?auto_82109 ) ( ON ?auto_82112 ?auto_82110 ) ( ON ?auto_82107 ?auto_82112 ) ( ON ?auto_82108 ?auto_82107 ) ( CLEAR ?auto_82108 ) ( HOLDING ?auto_82111 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_82107 )
+    ( ( MAKE-1PILE ?auto_82111 )
       ( MAKE-1PILE ?auto_82105 ) )
   )
 
@@ -1936,18 +1936,18 @@
     )
     :vars
     (
+      ?auto_82117 - BLOCK
       ?auto_82120 - BLOCK
+      ?auto_82119 - BLOCK
       ?auto_82116 - BLOCK
+      ?auto_82118 - BLOCK
       ?auto_82114 - BLOCK
       ?auto_82115 - BLOCK
-      ?auto_82118 - BLOCK
-      ?auto_82117 - BLOCK
-      ?auto_82119 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82120 ?auto_82113 ) ( ON-TABLE ?auto_82113 ) ( not ( = ?auto_82113 ?auto_82120 ) ) ( not ( = ?auto_82113 ?auto_82116 ) ) ( not ( = ?auto_82113 ?auto_82114 ) ) ( not ( = ?auto_82120 ?auto_82116 ) ) ( not ( = ?auto_82120 ?auto_82114 ) ) ( not ( = ?auto_82116 ?auto_82114 ) ) ( ON ?auto_82116 ?auto_82120 ) ( not ( = ?auto_82115 ?auto_82118 ) ) ( not ( = ?auto_82115 ?auto_82117 ) ) ( not ( = ?auto_82115 ?auto_82119 ) ) ( not ( = ?auto_82115 ?auto_82114 ) ) ( not ( = ?auto_82118 ?auto_82117 ) ) ( not ( = ?auto_82118 ?auto_82119 ) ) ( not ( = ?auto_82118 ?auto_82114 ) ) ( not ( = ?auto_82117 ?auto_82119 ) ) ( not ( = ?auto_82117 ?auto_82114 ) ) ( not ( = ?auto_82119 ?auto_82114 ) ) ( not ( = ?auto_82113 ?auto_82119 ) ) ( not ( = ?auto_82113 ?auto_82115 ) ) ( not ( = ?auto_82113 ?auto_82118 ) ) ( not ( = ?auto_82113 ?auto_82117 ) ) ( not ( = ?auto_82120 ?auto_82119 ) ) ( not ( = ?auto_82120 ?auto_82115 ) ) ( not ( = ?auto_82120 ?auto_82118 ) ) ( not ( = ?auto_82120 ?auto_82117 ) ) ( not ( = ?auto_82116 ?auto_82119 ) ) ( not ( = ?auto_82116 ?auto_82115 ) ) ( not ( = ?auto_82116 ?auto_82118 ) ) ( not ( = ?auto_82116 ?auto_82117 ) ) ( ON ?auto_82114 ?auto_82116 ) ( ON ?auto_82119 ?auto_82114 ) ( ON ?auto_82117 ?auto_82119 ) ( ON ?auto_82118 ?auto_82117 ) ( ON ?auto_82115 ?auto_82118 ) ( CLEAR ?auto_82115 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82117 ?auto_82113 ) ( ON-TABLE ?auto_82113 ) ( not ( = ?auto_82113 ?auto_82117 ) ) ( not ( = ?auto_82113 ?auto_82120 ) ) ( not ( = ?auto_82113 ?auto_82119 ) ) ( not ( = ?auto_82117 ?auto_82120 ) ) ( not ( = ?auto_82117 ?auto_82119 ) ) ( not ( = ?auto_82120 ?auto_82119 ) ) ( ON ?auto_82120 ?auto_82117 ) ( not ( = ?auto_82116 ?auto_82118 ) ) ( not ( = ?auto_82116 ?auto_82114 ) ) ( not ( = ?auto_82116 ?auto_82115 ) ) ( not ( = ?auto_82116 ?auto_82119 ) ) ( not ( = ?auto_82118 ?auto_82114 ) ) ( not ( = ?auto_82118 ?auto_82115 ) ) ( not ( = ?auto_82118 ?auto_82119 ) ) ( not ( = ?auto_82114 ?auto_82115 ) ) ( not ( = ?auto_82114 ?auto_82119 ) ) ( not ( = ?auto_82115 ?auto_82119 ) ) ( not ( = ?auto_82113 ?auto_82115 ) ) ( not ( = ?auto_82113 ?auto_82116 ) ) ( not ( = ?auto_82113 ?auto_82118 ) ) ( not ( = ?auto_82113 ?auto_82114 ) ) ( not ( = ?auto_82117 ?auto_82115 ) ) ( not ( = ?auto_82117 ?auto_82116 ) ) ( not ( = ?auto_82117 ?auto_82118 ) ) ( not ( = ?auto_82117 ?auto_82114 ) ) ( not ( = ?auto_82120 ?auto_82115 ) ) ( not ( = ?auto_82120 ?auto_82116 ) ) ( not ( = ?auto_82120 ?auto_82118 ) ) ( not ( = ?auto_82120 ?auto_82114 ) ) ( ON ?auto_82119 ?auto_82120 ) ( ON ?auto_82115 ?auto_82119 ) ( ON ?auto_82114 ?auto_82115 ) ( ON ?auto_82118 ?auto_82114 ) ( ON ?auto_82116 ?auto_82118 ) ( CLEAR ?auto_82116 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82113 ?auto_82120 ?auto_82116 ?auto_82114 ?auto_82119 ?auto_82117 ?auto_82118 )
+    ( ( MAKE-7PILE ?auto_82113 ?auto_82117 ?auto_82120 ?auto_82119 ?auto_82115 ?auto_82114 ?auto_82118 )
       ( MAKE-1PILE ?auto_82113 ) )
   )
 
@@ -2308,13 +2308,13 @@
     )
     :vars
     (
-      ?auto_82281 - BLOCK
       ?auto_82282 - BLOCK
+      ?auto_82281 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82275 ) ( ON ?auto_82276 ?auto_82275 ) ( ON ?auto_82277 ?auto_82276 ) ( ON ?auto_82278 ?auto_82277 ) ( ON ?auto_82279 ?auto_82278 ) ( not ( = ?auto_82275 ?auto_82276 ) ) ( not ( = ?auto_82275 ?auto_82277 ) ) ( not ( = ?auto_82275 ?auto_82278 ) ) ( not ( = ?auto_82275 ?auto_82279 ) ) ( not ( = ?auto_82275 ?auto_82280 ) ) ( not ( = ?auto_82275 ?auto_82281 ) ) ( not ( = ?auto_82276 ?auto_82277 ) ) ( not ( = ?auto_82276 ?auto_82278 ) ) ( not ( = ?auto_82276 ?auto_82279 ) ) ( not ( = ?auto_82276 ?auto_82280 ) ) ( not ( = ?auto_82276 ?auto_82281 ) ) ( not ( = ?auto_82277 ?auto_82278 ) ) ( not ( = ?auto_82277 ?auto_82279 ) ) ( not ( = ?auto_82277 ?auto_82280 ) ) ( not ( = ?auto_82277 ?auto_82281 ) ) ( not ( = ?auto_82278 ?auto_82279 ) ) ( not ( = ?auto_82278 ?auto_82280 ) ) ( not ( = ?auto_82278 ?auto_82281 ) ) ( not ( = ?auto_82279 ?auto_82280 ) ) ( not ( = ?auto_82279 ?auto_82281 ) ) ( not ( = ?auto_82280 ?auto_82281 ) ) ( ON ?auto_82281 ?auto_82282 ) ( not ( = ?auto_82275 ?auto_82282 ) ) ( not ( = ?auto_82276 ?auto_82282 ) ) ( not ( = ?auto_82277 ?auto_82282 ) ) ( not ( = ?auto_82278 ?auto_82282 ) ) ( not ( = ?auto_82279 ?auto_82282 ) ) ( not ( = ?auto_82280 ?auto_82282 ) ) ( not ( = ?auto_82281 ?auto_82282 ) ) ( CLEAR ?auto_82279 ) ( ON ?auto_82280 ?auto_82281 ) ( CLEAR ?auto_82280 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82282 ) )
+    ( and ( ON-TABLE ?auto_82275 ) ( ON ?auto_82276 ?auto_82275 ) ( ON ?auto_82277 ?auto_82276 ) ( ON ?auto_82278 ?auto_82277 ) ( ON ?auto_82279 ?auto_82278 ) ( not ( = ?auto_82275 ?auto_82276 ) ) ( not ( = ?auto_82275 ?auto_82277 ) ) ( not ( = ?auto_82275 ?auto_82278 ) ) ( not ( = ?auto_82275 ?auto_82279 ) ) ( not ( = ?auto_82275 ?auto_82280 ) ) ( not ( = ?auto_82275 ?auto_82282 ) ) ( not ( = ?auto_82276 ?auto_82277 ) ) ( not ( = ?auto_82276 ?auto_82278 ) ) ( not ( = ?auto_82276 ?auto_82279 ) ) ( not ( = ?auto_82276 ?auto_82280 ) ) ( not ( = ?auto_82276 ?auto_82282 ) ) ( not ( = ?auto_82277 ?auto_82278 ) ) ( not ( = ?auto_82277 ?auto_82279 ) ) ( not ( = ?auto_82277 ?auto_82280 ) ) ( not ( = ?auto_82277 ?auto_82282 ) ) ( not ( = ?auto_82278 ?auto_82279 ) ) ( not ( = ?auto_82278 ?auto_82280 ) ) ( not ( = ?auto_82278 ?auto_82282 ) ) ( not ( = ?auto_82279 ?auto_82280 ) ) ( not ( = ?auto_82279 ?auto_82282 ) ) ( not ( = ?auto_82280 ?auto_82282 ) ) ( ON ?auto_82282 ?auto_82281 ) ( not ( = ?auto_82275 ?auto_82281 ) ) ( not ( = ?auto_82276 ?auto_82281 ) ) ( not ( = ?auto_82277 ?auto_82281 ) ) ( not ( = ?auto_82278 ?auto_82281 ) ) ( not ( = ?auto_82279 ?auto_82281 ) ) ( not ( = ?auto_82280 ?auto_82281 ) ) ( not ( = ?auto_82282 ?auto_82281 ) ) ( CLEAR ?auto_82279 ) ( ON ?auto_82280 ?auto_82282 ) ( CLEAR ?auto_82280 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82281 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82282 ?auto_82281 )
+    ( ( MAKE-2PILE ?auto_82281 ?auto_82282 )
       ( MAKE-6PILE ?auto_82275 ?auto_82276 ?auto_82277 ?auto_82278 ?auto_82279 ?auto_82280 ) )
   )
 
@@ -2352,13 +2352,13 @@
     )
     :vars
     (
-      ?auto_82298 - BLOCK
       ?auto_82297 - BLOCK
+      ?auto_82298 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82291 ) ( ON ?auto_82292 ?auto_82291 ) ( ON ?auto_82293 ?auto_82292 ) ( ON ?auto_82294 ?auto_82293 ) ( not ( = ?auto_82291 ?auto_82292 ) ) ( not ( = ?auto_82291 ?auto_82293 ) ) ( not ( = ?auto_82291 ?auto_82294 ) ) ( not ( = ?auto_82291 ?auto_82295 ) ) ( not ( = ?auto_82291 ?auto_82296 ) ) ( not ( = ?auto_82291 ?auto_82298 ) ) ( not ( = ?auto_82292 ?auto_82293 ) ) ( not ( = ?auto_82292 ?auto_82294 ) ) ( not ( = ?auto_82292 ?auto_82295 ) ) ( not ( = ?auto_82292 ?auto_82296 ) ) ( not ( = ?auto_82292 ?auto_82298 ) ) ( not ( = ?auto_82293 ?auto_82294 ) ) ( not ( = ?auto_82293 ?auto_82295 ) ) ( not ( = ?auto_82293 ?auto_82296 ) ) ( not ( = ?auto_82293 ?auto_82298 ) ) ( not ( = ?auto_82294 ?auto_82295 ) ) ( not ( = ?auto_82294 ?auto_82296 ) ) ( not ( = ?auto_82294 ?auto_82298 ) ) ( not ( = ?auto_82295 ?auto_82296 ) ) ( not ( = ?auto_82295 ?auto_82298 ) ) ( not ( = ?auto_82296 ?auto_82298 ) ) ( ON ?auto_82298 ?auto_82297 ) ( not ( = ?auto_82291 ?auto_82297 ) ) ( not ( = ?auto_82292 ?auto_82297 ) ) ( not ( = ?auto_82293 ?auto_82297 ) ) ( not ( = ?auto_82294 ?auto_82297 ) ) ( not ( = ?auto_82295 ?auto_82297 ) ) ( not ( = ?auto_82296 ?auto_82297 ) ) ( not ( = ?auto_82298 ?auto_82297 ) ) ( ON ?auto_82296 ?auto_82298 ) ( ON-TABLE ?auto_82297 ) ( CLEAR ?auto_82294 ) ( ON ?auto_82295 ?auto_82296 ) ( CLEAR ?auto_82295 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82291 ) ( ON ?auto_82292 ?auto_82291 ) ( ON ?auto_82293 ?auto_82292 ) ( ON ?auto_82294 ?auto_82293 ) ( not ( = ?auto_82291 ?auto_82292 ) ) ( not ( = ?auto_82291 ?auto_82293 ) ) ( not ( = ?auto_82291 ?auto_82294 ) ) ( not ( = ?auto_82291 ?auto_82295 ) ) ( not ( = ?auto_82291 ?auto_82296 ) ) ( not ( = ?auto_82291 ?auto_82297 ) ) ( not ( = ?auto_82292 ?auto_82293 ) ) ( not ( = ?auto_82292 ?auto_82294 ) ) ( not ( = ?auto_82292 ?auto_82295 ) ) ( not ( = ?auto_82292 ?auto_82296 ) ) ( not ( = ?auto_82292 ?auto_82297 ) ) ( not ( = ?auto_82293 ?auto_82294 ) ) ( not ( = ?auto_82293 ?auto_82295 ) ) ( not ( = ?auto_82293 ?auto_82296 ) ) ( not ( = ?auto_82293 ?auto_82297 ) ) ( not ( = ?auto_82294 ?auto_82295 ) ) ( not ( = ?auto_82294 ?auto_82296 ) ) ( not ( = ?auto_82294 ?auto_82297 ) ) ( not ( = ?auto_82295 ?auto_82296 ) ) ( not ( = ?auto_82295 ?auto_82297 ) ) ( not ( = ?auto_82296 ?auto_82297 ) ) ( ON ?auto_82297 ?auto_82298 ) ( not ( = ?auto_82291 ?auto_82298 ) ) ( not ( = ?auto_82292 ?auto_82298 ) ) ( not ( = ?auto_82293 ?auto_82298 ) ) ( not ( = ?auto_82294 ?auto_82298 ) ) ( not ( = ?auto_82295 ?auto_82298 ) ) ( not ( = ?auto_82296 ?auto_82298 ) ) ( not ( = ?auto_82297 ?auto_82298 ) ) ( ON ?auto_82296 ?auto_82297 ) ( ON-TABLE ?auto_82298 ) ( CLEAR ?auto_82294 ) ( ON ?auto_82295 ?auto_82296 ) ( CLEAR ?auto_82295 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82297 ?auto_82298 ?auto_82296 )
+    ( ( MAKE-3PILE ?auto_82298 ?auto_82297 ?auto_82296 )
       ( MAKE-6PILE ?auto_82291 ?auto_82292 ?auto_82293 ?auto_82294 ?auto_82295 ?auto_82296 ) )
   )
 
@@ -2396,13 +2396,13 @@
     )
     :vars
     (
-      ?auto_82314 - BLOCK
       ?auto_82313 - BLOCK
+      ?auto_82314 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82307 ) ( ON ?auto_82308 ?auto_82307 ) ( ON ?auto_82309 ?auto_82308 ) ( not ( = ?auto_82307 ?auto_82308 ) ) ( not ( = ?auto_82307 ?auto_82309 ) ) ( not ( = ?auto_82307 ?auto_82310 ) ) ( not ( = ?auto_82307 ?auto_82311 ) ) ( not ( = ?auto_82307 ?auto_82312 ) ) ( not ( = ?auto_82307 ?auto_82314 ) ) ( not ( = ?auto_82308 ?auto_82309 ) ) ( not ( = ?auto_82308 ?auto_82310 ) ) ( not ( = ?auto_82308 ?auto_82311 ) ) ( not ( = ?auto_82308 ?auto_82312 ) ) ( not ( = ?auto_82308 ?auto_82314 ) ) ( not ( = ?auto_82309 ?auto_82310 ) ) ( not ( = ?auto_82309 ?auto_82311 ) ) ( not ( = ?auto_82309 ?auto_82312 ) ) ( not ( = ?auto_82309 ?auto_82314 ) ) ( not ( = ?auto_82310 ?auto_82311 ) ) ( not ( = ?auto_82310 ?auto_82312 ) ) ( not ( = ?auto_82310 ?auto_82314 ) ) ( not ( = ?auto_82311 ?auto_82312 ) ) ( not ( = ?auto_82311 ?auto_82314 ) ) ( not ( = ?auto_82312 ?auto_82314 ) ) ( ON ?auto_82314 ?auto_82313 ) ( not ( = ?auto_82307 ?auto_82313 ) ) ( not ( = ?auto_82308 ?auto_82313 ) ) ( not ( = ?auto_82309 ?auto_82313 ) ) ( not ( = ?auto_82310 ?auto_82313 ) ) ( not ( = ?auto_82311 ?auto_82313 ) ) ( not ( = ?auto_82312 ?auto_82313 ) ) ( not ( = ?auto_82314 ?auto_82313 ) ) ( ON ?auto_82312 ?auto_82314 ) ( ON-TABLE ?auto_82313 ) ( ON ?auto_82311 ?auto_82312 ) ( CLEAR ?auto_82309 ) ( ON ?auto_82310 ?auto_82311 ) ( CLEAR ?auto_82310 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82307 ) ( ON ?auto_82308 ?auto_82307 ) ( ON ?auto_82309 ?auto_82308 ) ( not ( = ?auto_82307 ?auto_82308 ) ) ( not ( = ?auto_82307 ?auto_82309 ) ) ( not ( = ?auto_82307 ?auto_82310 ) ) ( not ( = ?auto_82307 ?auto_82311 ) ) ( not ( = ?auto_82307 ?auto_82312 ) ) ( not ( = ?auto_82307 ?auto_82313 ) ) ( not ( = ?auto_82308 ?auto_82309 ) ) ( not ( = ?auto_82308 ?auto_82310 ) ) ( not ( = ?auto_82308 ?auto_82311 ) ) ( not ( = ?auto_82308 ?auto_82312 ) ) ( not ( = ?auto_82308 ?auto_82313 ) ) ( not ( = ?auto_82309 ?auto_82310 ) ) ( not ( = ?auto_82309 ?auto_82311 ) ) ( not ( = ?auto_82309 ?auto_82312 ) ) ( not ( = ?auto_82309 ?auto_82313 ) ) ( not ( = ?auto_82310 ?auto_82311 ) ) ( not ( = ?auto_82310 ?auto_82312 ) ) ( not ( = ?auto_82310 ?auto_82313 ) ) ( not ( = ?auto_82311 ?auto_82312 ) ) ( not ( = ?auto_82311 ?auto_82313 ) ) ( not ( = ?auto_82312 ?auto_82313 ) ) ( ON ?auto_82313 ?auto_82314 ) ( not ( = ?auto_82307 ?auto_82314 ) ) ( not ( = ?auto_82308 ?auto_82314 ) ) ( not ( = ?auto_82309 ?auto_82314 ) ) ( not ( = ?auto_82310 ?auto_82314 ) ) ( not ( = ?auto_82311 ?auto_82314 ) ) ( not ( = ?auto_82312 ?auto_82314 ) ) ( not ( = ?auto_82313 ?auto_82314 ) ) ( ON ?auto_82312 ?auto_82313 ) ( ON-TABLE ?auto_82314 ) ( ON ?auto_82311 ?auto_82312 ) ( CLEAR ?auto_82309 ) ( ON ?auto_82310 ?auto_82311 ) ( CLEAR ?auto_82310 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82313 ?auto_82314 ?auto_82312 ?auto_82311 )
+    ( ( MAKE-4PILE ?auto_82314 ?auto_82313 ?auto_82312 ?auto_82311 )
       ( MAKE-6PILE ?auto_82307 ?auto_82308 ?auto_82309 ?auto_82310 ?auto_82311 ?auto_82312 ) )
   )
 
@@ -2418,11 +2418,11 @@
     )
     :vars
     (
-      ?auto_82321 - BLOCK
       ?auto_82322 - BLOCK
+      ?auto_82321 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82315 ) ( ON ?auto_82316 ?auto_82315 ) ( not ( = ?auto_82315 ?auto_82316 ) ) ( not ( = ?auto_82315 ?auto_82317 ) ) ( not ( = ?auto_82315 ?auto_82318 ) ) ( not ( = ?auto_82315 ?auto_82319 ) ) ( not ( = ?auto_82315 ?auto_82320 ) ) ( not ( = ?auto_82315 ?auto_82321 ) ) ( not ( = ?auto_82316 ?auto_82317 ) ) ( not ( = ?auto_82316 ?auto_82318 ) ) ( not ( = ?auto_82316 ?auto_82319 ) ) ( not ( = ?auto_82316 ?auto_82320 ) ) ( not ( = ?auto_82316 ?auto_82321 ) ) ( not ( = ?auto_82317 ?auto_82318 ) ) ( not ( = ?auto_82317 ?auto_82319 ) ) ( not ( = ?auto_82317 ?auto_82320 ) ) ( not ( = ?auto_82317 ?auto_82321 ) ) ( not ( = ?auto_82318 ?auto_82319 ) ) ( not ( = ?auto_82318 ?auto_82320 ) ) ( not ( = ?auto_82318 ?auto_82321 ) ) ( not ( = ?auto_82319 ?auto_82320 ) ) ( not ( = ?auto_82319 ?auto_82321 ) ) ( not ( = ?auto_82320 ?auto_82321 ) ) ( ON ?auto_82321 ?auto_82322 ) ( not ( = ?auto_82315 ?auto_82322 ) ) ( not ( = ?auto_82316 ?auto_82322 ) ) ( not ( = ?auto_82317 ?auto_82322 ) ) ( not ( = ?auto_82318 ?auto_82322 ) ) ( not ( = ?auto_82319 ?auto_82322 ) ) ( not ( = ?auto_82320 ?auto_82322 ) ) ( not ( = ?auto_82321 ?auto_82322 ) ) ( ON ?auto_82320 ?auto_82321 ) ( ON-TABLE ?auto_82322 ) ( ON ?auto_82319 ?auto_82320 ) ( ON ?auto_82318 ?auto_82319 ) ( CLEAR ?auto_82318 ) ( HOLDING ?auto_82317 ) ( CLEAR ?auto_82316 ) )
+    ( and ( ON-TABLE ?auto_82315 ) ( ON ?auto_82316 ?auto_82315 ) ( not ( = ?auto_82315 ?auto_82316 ) ) ( not ( = ?auto_82315 ?auto_82317 ) ) ( not ( = ?auto_82315 ?auto_82318 ) ) ( not ( = ?auto_82315 ?auto_82319 ) ) ( not ( = ?auto_82315 ?auto_82320 ) ) ( not ( = ?auto_82315 ?auto_82322 ) ) ( not ( = ?auto_82316 ?auto_82317 ) ) ( not ( = ?auto_82316 ?auto_82318 ) ) ( not ( = ?auto_82316 ?auto_82319 ) ) ( not ( = ?auto_82316 ?auto_82320 ) ) ( not ( = ?auto_82316 ?auto_82322 ) ) ( not ( = ?auto_82317 ?auto_82318 ) ) ( not ( = ?auto_82317 ?auto_82319 ) ) ( not ( = ?auto_82317 ?auto_82320 ) ) ( not ( = ?auto_82317 ?auto_82322 ) ) ( not ( = ?auto_82318 ?auto_82319 ) ) ( not ( = ?auto_82318 ?auto_82320 ) ) ( not ( = ?auto_82318 ?auto_82322 ) ) ( not ( = ?auto_82319 ?auto_82320 ) ) ( not ( = ?auto_82319 ?auto_82322 ) ) ( not ( = ?auto_82320 ?auto_82322 ) ) ( ON ?auto_82322 ?auto_82321 ) ( not ( = ?auto_82315 ?auto_82321 ) ) ( not ( = ?auto_82316 ?auto_82321 ) ) ( not ( = ?auto_82317 ?auto_82321 ) ) ( not ( = ?auto_82318 ?auto_82321 ) ) ( not ( = ?auto_82319 ?auto_82321 ) ) ( not ( = ?auto_82320 ?auto_82321 ) ) ( not ( = ?auto_82322 ?auto_82321 ) ) ( ON ?auto_82320 ?auto_82322 ) ( ON-TABLE ?auto_82321 ) ( ON ?auto_82319 ?auto_82320 ) ( ON ?auto_82318 ?auto_82319 ) ( CLEAR ?auto_82318 ) ( HOLDING ?auto_82317 ) ( CLEAR ?auto_82316 ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_82315 ?auto_82316 ?auto_82317 )
       ( MAKE-6PILE ?auto_82315 ?auto_82316 ?auto_82317 ?auto_82318 ?auto_82319 ?auto_82320 ) )
@@ -2462,11 +2462,11 @@
     )
     :vars
     (
-      ?auto_82338 - BLOCK
       ?auto_82337 - BLOCK
+      ?auto_82338 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82331 ) ( not ( = ?auto_82331 ?auto_82332 ) ) ( not ( = ?auto_82331 ?auto_82333 ) ) ( not ( = ?auto_82331 ?auto_82334 ) ) ( not ( = ?auto_82331 ?auto_82335 ) ) ( not ( = ?auto_82331 ?auto_82336 ) ) ( not ( = ?auto_82331 ?auto_82338 ) ) ( not ( = ?auto_82332 ?auto_82333 ) ) ( not ( = ?auto_82332 ?auto_82334 ) ) ( not ( = ?auto_82332 ?auto_82335 ) ) ( not ( = ?auto_82332 ?auto_82336 ) ) ( not ( = ?auto_82332 ?auto_82338 ) ) ( not ( = ?auto_82333 ?auto_82334 ) ) ( not ( = ?auto_82333 ?auto_82335 ) ) ( not ( = ?auto_82333 ?auto_82336 ) ) ( not ( = ?auto_82333 ?auto_82338 ) ) ( not ( = ?auto_82334 ?auto_82335 ) ) ( not ( = ?auto_82334 ?auto_82336 ) ) ( not ( = ?auto_82334 ?auto_82338 ) ) ( not ( = ?auto_82335 ?auto_82336 ) ) ( not ( = ?auto_82335 ?auto_82338 ) ) ( not ( = ?auto_82336 ?auto_82338 ) ) ( ON ?auto_82338 ?auto_82337 ) ( not ( = ?auto_82331 ?auto_82337 ) ) ( not ( = ?auto_82332 ?auto_82337 ) ) ( not ( = ?auto_82333 ?auto_82337 ) ) ( not ( = ?auto_82334 ?auto_82337 ) ) ( not ( = ?auto_82335 ?auto_82337 ) ) ( not ( = ?auto_82336 ?auto_82337 ) ) ( not ( = ?auto_82338 ?auto_82337 ) ) ( ON ?auto_82336 ?auto_82338 ) ( ON-TABLE ?auto_82337 ) ( ON ?auto_82335 ?auto_82336 ) ( ON ?auto_82334 ?auto_82335 ) ( ON ?auto_82333 ?auto_82334 ) ( CLEAR ?auto_82333 ) ( HOLDING ?auto_82332 ) ( CLEAR ?auto_82331 ) )
+    ( and ( ON-TABLE ?auto_82331 ) ( not ( = ?auto_82331 ?auto_82332 ) ) ( not ( = ?auto_82331 ?auto_82333 ) ) ( not ( = ?auto_82331 ?auto_82334 ) ) ( not ( = ?auto_82331 ?auto_82335 ) ) ( not ( = ?auto_82331 ?auto_82336 ) ) ( not ( = ?auto_82331 ?auto_82337 ) ) ( not ( = ?auto_82332 ?auto_82333 ) ) ( not ( = ?auto_82332 ?auto_82334 ) ) ( not ( = ?auto_82332 ?auto_82335 ) ) ( not ( = ?auto_82332 ?auto_82336 ) ) ( not ( = ?auto_82332 ?auto_82337 ) ) ( not ( = ?auto_82333 ?auto_82334 ) ) ( not ( = ?auto_82333 ?auto_82335 ) ) ( not ( = ?auto_82333 ?auto_82336 ) ) ( not ( = ?auto_82333 ?auto_82337 ) ) ( not ( = ?auto_82334 ?auto_82335 ) ) ( not ( = ?auto_82334 ?auto_82336 ) ) ( not ( = ?auto_82334 ?auto_82337 ) ) ( not ( = ?auto_82335 ?auto_82336 ) ) ( not ( = ?auto_82335 ?auto_82337 ) ) ( not ( = ?auto_82336 ?auto_82337 ) ) ( ON ?auto_82337 ?auto_82338 ) ( not ( = ?auto_82331 ?auto_82338 ) ) ( not ( = ?auto_82332 ?auto_82338 ) ) ( not ( = ?auto_82333 ?auto_82338 ) ) ( not ( = ?auto_82334 ?auto_82338 ) ) ( not ( = ?auto_82335 ?auto_82338 ) ) ( not ( = ?auto_82336 ?auto_82338 ) ) ( not ( = ?auto_82337 ?auto_82338 ) ) ( ON ?auto_82336 ?auto_82337 ) ( ON-TABLE ?auto_82338 ) ( ON ?auto_82335 ?auto_82336 ) ( ON ?auto_82334 ?auto_82335 ) ( ON ?auto_82333 ?auto_82334 ) ( CLEAR ?auto_82333 ) ( HOLDING ?auto_82332 ) ( CLEAR ?auto_82331 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_82331 ?auto_82332 )
       ( MAKE-6PILE ?auto_82331 ?auto_82332 ?auto_82333 ?auto_82334 ?auto_82335 ?auto_82336 ) )
@@ -2484,13 +2484,13 @@
     )
     :vars
     (
-      ?auto_82346 - BLOCK
       ?auto_82345 - BLOCK
+      ?auto_82346 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82339 ) ( not ( = ?auto_82339 ?auto_82340 ) ) ( not ( = ?auto_82339 ?auto_82341 ) ) ( not ( = ?auto_82339 ?auto_82342 ) ) ( not ( = ?auto_82339 ?auto_82343 ) ) ( not ( = ?auto_82339 ?auto_82344 ) ) ( not ( = ?auto_82339 ?auto_82346 ) ) ( not ( = ?auto_82340 ?auto_82341 ) ) ( not ( = ?auto_82340 ?auto_82342 ) ) ( not ( = ?auto_82340 ?auto_82343 ) ) ( not ( = ?auto_82340 ?auto_82344 ) ) ( not ( = ?auto_82340 ?auto_82346 ) ) ( not ( = ?auto_82341 ?auto_82342 ) ) ( not ( = ?auto_82341 ?auto_82343 ) ) ( not ( = ?auto_82341 ?auto_82344 ) ) ( not ( = ?auto_82341 ?auto_82346 ) ) ( not ( = ?auto_82342 ?auto_82343 ) ) ( not ( = ?auto_82342 ?auto_82344 ) ) ( not ( = ?auto_82342 ?auto_82346 ) ) ( not ( = ?auto_82343 ?auto_82344 ) ) ( not ( = ?auto_82343 ?auto_82346 ) ) ( not ( = ?auto_82344 ?auto_82346 ) ) ( ON ?auto_82346 ?auto_82345 ) ( not ( = ?auto_82339 ?auto_82345 ) ) ( not ( = ?auto_82340 ?auto_82345 ) ) ( not ( = ?auto_82341 ?auto_82345 ) ) ( not ( = ?auto_82342 ?auto_82345 ) ) ( not ( = ?auto_82343 ?auto_82345 ) ) ( not ( = ?auto_82344 ?auto_82345 ) ) ( not ( = ?auto_82346 ?auto_82345 ) ) ( ON ?auto_82344 ?auto_82346 ) ( ON-TABLE ?auto_82345 ) ( ON ?auto_82343 ?auto_82344 ) ( ON ?auto_82342 ?auto_82343 ) ( ON ?auto_82341 ?auto_82342 ) ( CLEAR ?auto_82339 ) ( ON ?auto_82340 ?auto_82341 ) ( CLEAR ?auto_82340 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82339 ) ( not ( = ?auto_82339 ?auto_82340 ) ) ( not ( = ?auto_82339 ?auto_82341 ) ) ( not ( = ?auto_82339 ?auto_82342 ) ) ( not ( = ?auto_82339 ?auto_82343 ) ) ( not ( = ?auto_82339 ?auto_82344 ) ) ( not ( = ?auto_82339 ?auto_82345 ) ) ( not ( = ?auto_82340 ?auto_82341 ) ) ( not ( = ?auto_82340 ?auto_82342 ) ) ( not ( = ?auto_82340 ?auto_82343 ) ) ( not ( = ?auto_82340 ?auto_82344 ) ) ( not ( = ?auto_82340 ?auto_82345 ) ) ( not ( = ?auto_82341 ?auto_82342 ) ) ( not ( = ?auto_82341 ?auto_82343 ) ) ( not ( = ?auto_82341 ?auto_82344 ) ) ( not ( = ?auto_82341 ?auto_82345 ) ) ( not ( = ?auto_82342 ?auto_82343 ) ) ( not ( = ?auto_82342 ?auto_82344 ) ) ( not ( = ?auto_82342 ?auto_82345 ) ) ( not ( = ?auto_82343 ?auto_82344 ) ) ( not ( = ?auto_82343 ?auto_82345 ) ) ( not ( = ?auto_82344 ?auto_82345 ) ) ( ON ?auto_82345 ?auto_82346 ) ( not ( = ?auto_82339 ?auto_82346 ) ) ( not ( = ?auto_82340 ?auto_82346 ) ) ( not ( = ?auto_82341 ?auto_82346 ) ) ( not ( = ?auto_82342 ?auto_82346 ) ) ( not ( = ?auto_82343 ?auto_82346 ) ) ( not ( = ?auto_82344 ?auto_82346 ) ) ( not ( = ?auto_82345 ?auto_82346 ) ) ( ON ?auto_82344 ?auto_82345 ) ( ON-TABLE ?auto_82346 ) ( ON ?auto_82343 ?auto_82344 ) ( ON ?auto_82342 ?auto_82343 ) ( ON ?auto_82341 ?auto_82342 ) ( CLEAR ?auto_82339 ) ( ON ?auto_82340 ?auto_82341 ) ( CLEAR ?auto_82340 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82345 ?auto_82346 ?auto_82344 ?auto_82343 ?auto_82342 ?auto_82341 )
+    ( ( MAKE-6PILE ?auto_82346 ?auto_82345 ?auto_82344 ?auto_82343 ?auto_82342 ?auto_82341 )
       ( MAKE-6PILE ?auto_82339 ?auto_82340 ?auto_82341 ?auto_82342 ?auto_82343 ?auto_82344 ) )
   )
 
@@ -2506,11 +2506,11 @@
     )
     :vars
     (
-      ?auto_82354 - BLOCK
       ?auto_82353 - BLOCK
+      ?auto_82354 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82347 ?auto_82348 ) ) ( not ( = ?auto_82347 ?auto_82349 ) ) ( not ( = ?auto_82347 ?auto_82350 ) ) ( not ( = ?auto_82347 ?auto_82351 ) ) ( not ( = ?auto_82347 ?auto_82352 ) ) ( not ( = ?auto_82347 ?auto_82354 ) ) ( not ( = ?auto_82348 ?auto_82349 ) ) ( not ( = ?auto_82348 ?auto_82350 ) ) ( not ( = ?auto_82348 ?auto_82351 ) ) ( not ( = ?auto_82348 ?auto_82352 ) ) ( not ( = ?auto_82348 ?auto_82354 ) ) ( not ( = ?auto_82349 ?auto_82350 ) ) ( not ( = ?auto_82349 ?auto_82351 ) ) ( not ( = ?auto_82349 ?auto_82352 ) ) ( not ( = ?auto_82349 ?auto_82354 ) ) ( not ( = ?auto_82350 ?auto_82351 ) ) ( not ( = ?auto_82350 ?auto_82352 ) ) ( not ( = ?auto_82350 ?auto_82354 ) ) ( not ( = ?auto_82351 ?auto_82352 ) ) ( not ( = ?auto_82351 ?auto_82354 ) ) ( not ( = ?auto_82352 ?auto_82354 ) ) ( ON ?auto_82354 ?auto_82353 ) ( not ( = ?auto_82347 ?auto_82353 ) ) ( not ( = ?auto_82348 ?auto_82353 ) ) ( not ( = ?auto_82349 ?auto_82353 ) ) ( not ( = ?auto_82350 ?auto_82353 ) ) ( not ( = ?auto_82351 ?auto_82353 ) ) ( not ( = ?auto_82352 ?auto_82353 ) ) ( not ( = ?auto_82354 ?auto_82353 ) ) ( ON ?auto_82352 ?auto_82354 ) ( ON-TABLE ?auto_82353 ) ( ON ?auto_82351 ?auto_82352 ) ( ON ?auto_82350 ?auto_82351 ) ( ON ?auto_82349 ?auto_82350 ) ( ON ?auto_82348 ?auto_82349 ) ( CLEAR ?auto_82348 ) ( HOLDING ?auto_82347 ) )
+    ( and ( not ( = ?auto_82347 ?auto_82348 ) ) ( not ( = ?auto_82347 ?auto_82349 ) ) ( not ( = ?auto_82347 ?auto_82350 ) ) ( not ( = ?auto_82347 ?auto_82351 ) ) ( not ( = ?auto_82347 ?auto_82352 ) ) ( not ( = ?auto_82347 ?auto_82353 ) ) ( not ( = ?auto_82348 ?auto_82349 ) ) ( not ( = ?auto_82348 ?auto_82350 ) ) ( not ( = ?auto_82348 ?auto_82351 ) ) ( not ( = ?auto_82348 ?auto_82352 ) ) ( not ( = ?auto_82348 ?auto_82353 ) ) ( not ( = ?auto_82349 ?auto_82350 ) ) ( not ( = ?auto_82349 ?auto_82351 ) ) ( not ( = ?auto_82349 ?auto_82352 ) ) ( not ( = ?auto_82349 ?auto_82353 ) ) ( not ( = ?auto_82350 ?auto_82351 ) ) ( not ( = ?auto_82350 ?auto_82352 ) ) ( not ( = ?auto_82350 ?auto_82353 ) ) ( not ( = ?auto_82351 ?auto_82352 ) ) ( not ( = ?auto_82351 ?auto_82353 ) ) ( not ( = ?auto_82352 ?auto_82353 ) ) ( ON ?auto_82353 ?auto_82354 ) ( not ( = ?auto_82347 ?auto_82354 ) ) ( not ( = ?auto_82348 ?auto_82354 ) ) ( not ( = ?auto_82349 ?auto_82354 ) ) ( not ( = ?auto_82350 ?auto_82354 ) ) ( not ( = ?auto_82351 ?auto_82354 ) ) ( not ( = ?auto_82352 ?auto_82354 ) ) ( not ( = ?auto_82353 ?auto_82354 ) ) ( ON ?auto_82352 ?auto_82353 ) ( ON-TABLE ?auto_82354 ) ( ON ?auto_82351 ?auto_82352 ) ( ON ?auto_82350 ?auto_82351 ) ( ON ?auto_82349 ?auto_82350 ) ( ON ?auto_82348 ?auto_82349 ) ( CLEAR ?auto_82348 ) ( HOLDING ?auto_82347 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_82347 )
       ( MAKE-6PILE ?auto_82347 ?auto_82348 ?auto_82349 ?auto_82350 ?auto_82351 ?auto_82352 ) )
@@ -2528,13 +2528,13 @@
     )
     :vars
     (
-      ?auto_82362 - BLOCK
       ?auto_82361 - BLOCK
+      ?auto_82362 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82355 ?auto_82356 ) ) ( not ( = ?auto_82355 ?auto_82357 ) ) ( not ( = ?auto_82355 ?auto_82358 ) ) ( not ( = ?auto_82355 ?auto_82359 ) ) ( not ( = ?auto_82355 ?auto_82360 ) ) ( not ( = ?auto_82355 ?auto_82362 ) ) ( not ( = ?auto_82356 ?auto_82357 ) ) ( not ( = ?auto_82356 ?auto_82358 ) ) ( not ( = ?auto_82356 ?auto_82359 ) ) ( not ( = ?auto_82356 ?auto_82360 ) ) ( not ( = ?auto_82356 ?auto_82362 ) ) ( not ( = ?auto_82357 ?auto_82358 ) ) ( not ( = ?auto_82357 ?auto_82359 ) ) ( not ( = ?auto_82357 ?auto_82360 ) ) ( not ( = ?auto_82357 ?auto_82362 ) ) ( not ( = ?auto_82358 ?auto_82359 ) ) ( not ( = ?auto_82358 ?auto_82360 ) ) ( not ( = ?auto_82358 ?auto_82362 ) ) ( not ( = ?auto_82359 ?auto_82360 ) ) ( not ( = ?auto_82359 ?auto_82362 ) ) ( not ( = ?auto_82360 ?auto_82362 ) ) ( ON ?auto_82362 ?auto_82361 ) ( not ( = ?auto_82355 ?auto_82361 ) ) ( not ( = ?auto_82356 ?auto_82361 ) ) ( not ( = ?auto_82357 ?auto_82361 ) ) ( not ( = ?auto_82358 ?auto_82361 ) ) ( not ( = ?auto_82359 ?auto_82361 ) ) ( not ( = ?auto_82360 ?auto_82361 ) ) ( not ( = ?auto_82362 ?auto_82361 ) ) ( ON ?auto_82360 ?auto_82362 ) ( ON-TABLE ?auto_82361 ) ( ON ?auto_82359 ?auto_82360 ) ( ON ?auto_82358 ?auto_82359 ) ( ON ?auto_82357 ?auto_82358 ) ( ON ?auto_82356 ?auto_82357 ) ( ON ?auto_82355 ?auto_82356 ) ( CLEAR ?auto_82355 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82355 ?auto_82356 ) ) ( not ( = ?auto_82355 ?auto_82357 ) ) ( not ( = ?auto_82355 ?auto_82358 ) ) ( not ( = ?auto_82355 ?auto_82359 ) ) ( not ( = ?auto_82355 ?auto_82360 ) ) ( not ( = ?auto_82355 ?auto_82361 ) ) ( not ( = ?auto_82356 ?auto_82357 ) ) ( not ( = ?auto_82356 ?auto_82358 ) ) ( not ( = ?auto_82356 ?auto_82359 ) ) ( not ( = ?auto_82356 ?auto_82360 ) ) ( not ( = ?auto_82356 ?auto_82361 ) ) ( not ( = ?auto_82357 ?auto_82358 ) ) ( not ( = ?auto_82357 ?auto_82359 ) ) ( not ( = ?auto_82357 ?auto_82360 ) ) ( not ( = ?auto_82357 ?auto_82361 ) ) ( not ( = ?auto_82358 ?auto_82359 ) ) ( not ( = ?auto_82358 ?auto_82360 ) ) ( not ( = ?auto_82358 ?auto_82361 ) ) ( not ( = ?auto_82359 ?auto_82360 ) ) ( not ( = ?auto_82359 ?auto_82361 ) ) ( not ( = ?auto_82360 ?auto_82361 ) ) ( ON ?auto_82361 ?auto_82362 ) ( not ( = ?auto_82355 ?auto_82362 ) ) ( not ( = ?auto_82356 ?auto_82362 ) ) ( not ( = ?auto_82357 ?auto_82362 ) ) ( not ( = ?auto_82358 ?auto_82362 ) ) ( not ( = ?auto_82359 ?auto_82362 ) ) ( not ( = ?auto_82360 ?auto_82362 ) ) ( not ( = ?auto_82361 ?auto_82362 ) ) ( ON ?auto_82360 ?auto_82361 ) ( ON-TABLE ?auto_82362 ) ( ON ?auto_82359 ?auto_82360 ) ( ON ?auto_82358 ?auto_82359 ) ( ON ?auto_82357 ?auto_82358 ) ( ON ?auto_82356 ?auto_82357 ) ( ON ?auto_82355 ?auto_82356 ) ( CLEAR ?auto_82355 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82361 ?auto_82362 ?auto_82360 ?auto_82359 ?auto_82358 ?auto_82357 ?auto_82356 )
+    ( ( MAKE-7PILE ?auto_82362 ?auto_82361 ?auto_82360 ?auto_82359 ?auto_82358 ?auto_82357 ?auto_82356 )
       ( MAKE-6PILE ?auto_82355 ?auto_82356 ?auto_82357 ?auto_82358 ?auto_82359 ?auto_82360 ) )
   )
 
@@ -2573,16 +2573,16 @@
     :vars
     (
       ?auto_82368 - BLOCK
-      ?auto_82371 - BLOCK
-      ?auto_82373 - BLOCK
-      ?auto_82370 - BLOCK
-      ?auto_82372 - BLOCK
       ?auto_82369 - BLOCK
+      ?auto_82373 - BLOCK
+      ?auto_82371 - BLOCK
+      ?auto_82372 - BLOCK
+      ?auto_82370 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82367 ?auto_82368 ) ) ( HOLDING ?auto_82367 ) ( CLEAR ?auto_82368 ) ( ON-TABLE ?auto_82371 ) ( ON ?auto_82373 ?auto_82371 ) ( ON ?auto_82370 ?auto_82373 ) ( ON ?auto_82372 ?auto_82370 ) ( ON ?auto_82369 ?auto_82372 ) ( ON ?auto_82368 ?auto_82369 ) ( not ( = ?auto_82371 ?auto_82373 ) ) ( not ( = ?auto_82371 ?auto_82370 ) ) ( not ( = ?auto_82371 ?auto_82372 ) ) ( not ( = ?auto_82371 ?auto_82369 ) ) ( not ( = ?auto_82371 ?auto_82368 ) ) ( not ( = ?auto_82371 ?auto_82367 ) ) ( not ( = ?auto_82373 ?auto_82370 ) ) ( not ( = ?auto_82373 ?auto_82372 ) ) ( not ( = ?auto_82373 ?auto_82369 ) ) ( not ( = ?auto_82373 ?auto_82368 ) ) ( not ( = ?auto_82373 ?auto_82367 ) ) ( not ( = ?auto_82370 ?auto_82372 ) ) ( not ( = ?auto_82370 ?auto_82369 ) ) ( not ( = ?auto_82370 ?auto_82368 ) ) ( not ( = ?auto_82370 ?auto_82367 ) ) ( not ( = ?auto_82372 ?auto_82369 ) ) ( not ( = ?auto_82372 ?auto_82368 ) ) ( not ( = ?auto_82372 ?auto_82367 ) ) ( not ( = ?auto_82369 ?auto_82368 ) ) ( not ( = ?auto_82369 ?auto_82367 ) ) )
+    ( and ( not ( = ?auto_82367 ?auto_82368 ) ) ( HOLDING ?auto_82367 ) ( CLEAR ?auto_82368 ) ( ON-TABLE ?auto_82369 ) ( ON ?auto_82373 ?auto_82369 ) ( ON ?auto_82371 ?auto_82373 ) ( ON ?auto_82372 ?auto_82371 ) ( ON ?auto_82370 ?auto_82372 ) ( ON ?auto_82368 ?auto_82370 ) ( not ( = ?auto_82369 ?auto_82373 ) ) ( not ( = ?auto_82369 ?auto_82371 ) ) ( not ( = ?auto_82369 ?auto_82372 ) ) ( not ( = ?auto_82369 ?auto_82370 ) ) ( not ( = ?auto_82369 ?auto_82368 ) ) ( not ( = ?auto_82369 ?auto_82367 ) ) ( not ( = ?auto_82373 ?auto_82371 ) ) ( not ( = ?auto_82373 ?auto_82372 ) ) ( not ( = ?auto_82373 ?auto_82370 ) ) ( not ( = ?auto_82373 ?auto_82368 ) ) ( not ( = ?auto_82373 ?auto_82367 ) ) ( not ( = ?auto_82371 ?auto_82372 ) ) ( not ( = ?auto_82371 ?auto_82370 ) ) ( not ( = ?auto_82371 ?auto_82368 ) ) ( not ( = ?auto_82371 ?auto_82367 ) ) ( not ( = ?auto_82372 ?auto_82370 ) ) ( not ( = ?auto_82372 ?auto_82368 ) ) ( not ( = ?auto_82372 ?auto_82367 ) ) ( not ( = ?auto_82370 ?auto_82368 ) ) ( not ( = ?auto_82370 ?auto_82367 ) ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82371 ?auto_82373 ?auto_82370 ?auto_82372 ?auto_82369 ?auto_82368 ?auto_82367 )
+    ( ( MAKE-7PILE ?auto_82369 ?auto_82373 ?auto_82371 ?auto_82372 ?auto_82370 ?auto_82368 ?auto_82367 )
       ( MAKE-1PILE ?auto_82367 ) )
   )
 
@@ -2593,16 +2593,16 @@
     )
     :vars
     (
+      ?auto_82378 - BLOCK
+      ?auto_82379 - BLOCK
+      ?auto_82377 - BLOCK
       ?auto_82375 - BLOCK
       ?auto_82376 - BLOCK
-      ?auto_82377 - BLOCK
       ?auto_82380 - BLOCK
-      ?auto_82379 - BLOCK
-      ?auto_82378 - BLOCK
       ?auto_82381 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82374 ?auto_82375 ) ) ( CLEAR ?auto_82375 ) ( ON-TABLE ?auto_82376 ) ( ON ?auto_82377 ?auto_82376 ) ( ON ?auto_82380 ?auto_82377 ) ( ON ?auto_82379 ?auto_82380 ) ( ON ?auto_82378 ?auto_82379 ) ( ON ?auto_82375 ?auto_82378 ) ( not ( = ?auto_82376 ?auto_82377 ) ) ( not ( = ?auto_82376 ?auto_82380 ) ) ( not ( = ?auto_82376 ?auto_82379 ) ) ( not ( = ?auto_82376 ?auto_82378 ) ) ( not ( = ?auto_82376 ?auto_82375 ) ) ( not ( = ?auto_82376 ?auto_82374 ) ) ( not ( = ?auto_82377 ?auto_82380 ) ) ( not ( = ?auto_82377 ?auto_82379 ) ) ( not ( = ?auto_82377 ?auto_82378 ) ) ( not ( = ?auto_82377 ?auto_82375 ) ) ( not ( = ?auto_82377 ?auto_82374 ) ) ( not ( = ?auto_82380 ?auto_82379 ) ) ( not ( = ?auto_82380 ?auto_82378 ) ) ( not ( = ?auto_82380 ?auto_82375 ) ) ( not ( = ?auto_82380 ?auto_82374 ) ) ( not ( = ?auto_82379 ?auto_82378 ) ) ( not ( = ?auto_82379 ?auto_82375 ) ) ( not ( = ?auto_82379 ?auto_82374 ) ) ( not ( = ?auto_82378 ?auto_82375 ) ) ( not ( = ?auto_82378 ?auto_82374 ) ) ( ON ?auto_82374 ?auto_82381 ) ( CLEAR ?auto_82374 ) ( HAND-EMPTY ) ( not ( = ?auto_82374 ?auto_82381 ) ) ( not ( = ?auto_82375 ?auto_82381 ) ) ( not ( = ?auto_82376 ?auto_82381 ) ) ( not ( = ?auto_82377 ?auto_82381 ) ) ( not ( = ?auto_82380 ?auto_82381 ) ) ( not ( = ?auto_82379 ?auto_82381 ) ) ( not ( = ?auto_82378 ?auto_82381 ) ) )
+    ( and ( not ( = ?auto_82374 ?auto_82378 ) ) ( CLEAR ?auto_82378 ) ( ON-TABLE ?auto_82379 ) ( ON ?auto_82377 ?auto_82379 ) ( ON ?auto_82375 ?auto_82377 ) ( ON ?auto_82376 ?auto_82375 ) ( ON ?auto_82380 ?auto_82376 ) ( ON ?auto_82378 ?auto_82380 ) ( not ( = ?auto_82379 ?auto_82377 ) ) ( not ( = ?auto_82379 ?auto_82375 ) ) ( not ( = ?auto_82379 ?auto_82376 ) ) ( not ( = ?auto_82379 ?auto_82380 ) ) ( not ( = ?auto_82379 ?auto_82378 ) ) ( not ( = ?auto_82379 ?auto_82374 ) ) ( not ( = ?auto_82377 ?auto_82375 ) ) ( not ( = ?auto_82377 ?auto_82376 ) ) ( not ( = ?auto_82377 ?auto_82380 ) ) ( not ( = ?auto_82377 ?auto_82378 ) ) ( not ( = ?auto_82377 ?auto_82374 ) ) ( not ( = ?auto_82375 ?auto_82376 ) ) ( not ( = ?auto_82375 ?auto_82380 ) ) ( not ( = ?auto_82375 ?auto_82378 ) ) ( not ( = ?auto_82375 ?auto_82374 ) ) ( not ( = ?auto_82376 ?auto_82380 ) ) ( not ( = ?auto_82376 ?auto_82378 ) ) ( not ( = ?auto_82376 ?auto_82374 ) ) ( not ( = ?auto_82380 ?auto_82378 ) ) ( not ( = ?auto_82380 ?auto_82374 ) ) ( ON ?auto_82374 ?auto_82381 ) ( CLEAR ?auto_82374 ) ( HAND-EMPTY ) ( not ( = ?auto_82374 ?auto_82381 ) ) ( not ( = ?auto_82378 ?auto_82381 ) ) ( not ( = ?auto_82379 ?auto_82381 ) ) ( not ( = ?auto_82377 ?auto_82381 ) ) ( not ( = ?auto_82375 ?auto_82381 ) ) ( not ( = ?auto_82376 ?auto_82381 ) ) ( not ( = ?auto_82380 ?auto_82381 ) ) )
     :subtasks
     ( ( !UNSTACK ?auto_82374 ?auto_82381 )
       ( MAKE-1PILE ?auto_82374 ) )
@@ -2615,18 +2615,18 @@
     )
     :vars
     (
-      ?auto_82386 - BLOCK
-      ?auto_82387 - BLOCK
-      ?auto_82385 - BLOCK
-      ?auto_82384 - BLOCK
-      ?auto_82383 - BLOCK
       ?auto_82388 - BLOCK
+      ?auto_82383 - BLOCK
       ?auto_82389 - BLOCK
+      ?auto_82385 - BLOCK
+      ?auto_82387 - BLOCK
+      ?auto_82386 - BLOCK
+      ?auto_82384 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82382 ?auto_82386 ) ) ( ON-TABLE ?auto_82387 ) ( ON ?auto_82385 ?auto_82387 ) ( ON ?auto_82384 ?auto_82385 ) ( ON ?auto_82383 ?auto_82384 ) ( ON ?auto_82388 ?auto_82383 ) ( not ( = ?auto_82387 ?auto_82385 ) ) ( not ( = ?auto_82387 ?auto_82384 ) ) ( not ( = ?auto_82387 ?auto_82383 ) ) ( not ( = ?auto_82387 ?auto_82388 ) ) ( not ( = ?auto_82387 ?auto_82386 ) ) ( not ( = ?auto_82387 ?auto_82382 ) ) ( not ( = ?auto_82385 ?auto_82384 ) ) ( not ( = ?auto_82385 ?auto_82383 ) ) ( not ( = ?auto_82385 ?auto_82388 ) ) ( not ( = ?auto_82385 ?auto_82386 ) ) ( not ( = ?auto_82385 ?auto_82382 ) ) ( not ( = ?auto_82384 ?auto_82383 ) ) ( not ( = ?auto_82384 ?auto_82388 ) ) ( not ( = ?auto_82384 ?auto_82386 ) ) ( not ( = ?auto_82384 ?auto_82382 ) ) ( not ( = ?auto_82383 ?auto_82388 ) ) ( not ( = ?auto_82383 ?auto_82386 ) ) ( not ( = ?auto_82383 ?auto_82382 ) ) ( not ( = ?auto_82388 ?auto_82386 ) ) ( not ( = ?auto_82388 ?auto_82382 ) ) ( ON ?auto_82382 ?auto_82389 ) ( CLEAR ?auto_82382 ) ( not ( = ?auto_82382 ?auto_82389 ) ) ( not ( = ?auto_82386 ?auto_82389 ) ) ( not ( = ?auto_82387 ?auto_82389 ) ) ( not ( = ?auto_82385 ?auto_82389 ) ) ( not ( = ?auto_82384 ?auto_82389 ) ) ( not ( = ?auto_82383 ?auto_82389 ) ) ( not ( = ?auto_82388 ?auto_82389 ) ) ( HOLDING ?auto_82386 ) ( CLEAR ?auto_82388 ) )
+    ( and ( not ( = ?auto_82382 ?auto_82388 ) ) ( ON-TABLE ?auto_82383 ) ( ON ?auto_82389 ?auto_82383 ) ( ON ?auto_82385 ?auto_82389 ) ( ON ?auto_82387 ?auto_82385 ) ( ON ?auto_82386 ?auto_82387 ) ( not ( = ?auto_82383 ?auto_82389 ) ) ( not ( = ?auto_82383 ?auto_82385 ) ) ( not ( = ?auto_82383 ?auto_82387 ) ) ( not ( = ?auto_82383 ?auto_82386 ) ) ( not ( = ?auto_82383 ?auto_82388 ) ) ( not ( = ?auto_82383 ?auto_82382 ) ) ( not ( = ?auto_82389 ?auto_82385 ) ) ( not ( = ?auto_82389 ?auto_82387 ) ) ( not ( = ?auto_82389 ?auto_82386 ) ) ( not ( = ?auto_82389 ?auto_82388 ) ) ( not ( = ?auto_82389 ?auto_82382 ) ) ( not ( = ?auto_82385 ?auto_82387 ) ) ( not ( = ?auto_82385 ?auto_82386 ) ) ( not ( = ?auto_82385 ?auto_82388 ) ) ( not ( = ?auto_82385 ?auto_82382 ) ) ( not ( = ?auto_82387 ?auto_82386 ) ) ( not ( = ?auto_82387 ?auto_82388 ) ) ( not ( = ?auto_82387 ?auto_82382 ) ) ( not ( = ?auto_82386 ?auto_82388 ) ) ( not ( = ?auto_82386 ?auto_82382 ) ) ( ON ?auto_82382 ?auto_82384 ) ( CLEAR ?auto_82382 ) ( not ( = ?auto_82382 ?auto_82384 ) ) ( not ( = ?auto_82388 ?auto_82384 ) ) ( not ( = ?auto_82383 ?auto_82384 ) ) ( not ( = ?auto_82389 ?auto_82384 ) ) ( not ( = ?auto_82385 ?auto_82384 ) ) ( not ( = ?auto_82387 ?auto_82384 ) ) ( not ( = ?auto_82386 ?auto_82384 ) ) ( HOLDING ?auto_82388 ) ( CLEAR ?auto_82386 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82387 ?auto_82385 ?auto_82384 ?auto_82383 ?auto_82388 ?auto_82386 )
+    ( ( MAKE-6PILE ?auto_82383 ?auto_82389 ?auto_82385 ?auto_82387 ?auto_82386 ?auto_82388 )
       ( MAKE-1PILE ?auto_82382 ) )
   )
 
@@ -2637,18 +2637,18 @@
     )
     :vars
     (
-      ?auto_82395 - BLOCK
-      ?auto_82396 - BLOCK
-      ?auto_82391 - BLOCK
-      ?auto_82397 - BLOCK
-      ?auto_82393 - BLOCK
-      ?auto_82394 - BLOCK
       ?auto_82392 - BLOCK
+      ?auto_82394 - BLOCK
+      ?auto_82391 - BLOCK
+      ?auto_82393 - BLOCK
+      ?auto_82396 - BLOCK
+      ?auto_82397 - BLOCK
+      ?auto_82395 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82390 ?auto_82395 ) ) ( ON-TABLE ?auto_82396 ) ( ON ?auto_82391 ?auto_82396 ) ( ON ?auto_82397 ?auto_82391 ) ( ON ?auto_82393 ?auto_82397 ) ( ON ?auto_82394 ?auto_82393 ) ( not ( = ?auto_82396 ?auto_82391 ) ) ( not ( = ?auto_82396 ?auto_82397 ) ) ( not ( = ?auto_82396 ?auto_82393 ) ) ( not ( = ?auto_82396 ?auto_82394 ) ) ( not ( = ?auto_82396 ?auto_82395 ) ) ( not ( = ?auto_82396 ?auto_82390 ) ) ( not ( = ?auto_82391 ?auto_82397 ) ) ( not ( = ?auto_82391 ?auto_82393 ) ) ( not ( = ?auto_82391 ?auto_82394 ) ) ( not ( = ?auto_82391 ?auto_82395 ) ) ( not ( = ?auto_82391 ?auto_82390 ) ) ( not ( = ?auto_82397 ?auto_82393 ) ) ( not ( = ?auto_82397 ?auto_82394 ) ) ( not ( = ?auto_82397 ?auto_82395 ) ) ( not ( = ?auto_82397 ?auto_82390 ) ) ( not ( = ?auto_82393 ?auto_82394 ) ) ( not ( = ?auto_82393 ?auto_82395 ) ) ( not ( = ?auto_82393 ?auto_82390 ) ) ( not ( = ?auto_82394 ?auto_82395 ) ) ( not ( = ?auto_82394 ?auto_82390 ) ) ( ON ?auto_82390 ?auto_82392 ) ( not ( = ?auto_82390 ?auto_82392 ) ) ( not ( = ?auto_82395 ?auto_82392 ) ) ( not ( = ?auto_82396 ?auto_82392 ) ) ( not ( = ?auto_82391 ?auto_82392 ) ) ( not ( = ?auto_82397 ?auto_82392 ) ) ( not ( = ?auto_82393 ?auto_82392 ) ) ( not ( = ?auto_82394 ?auto_82392 ) ) ( CLEAR ?auto_82394 ) ( ON ?auto_82395 ?auto_82390 ) ( CLEAR ?auto_82395 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82392 ) )
+    ( and ( not ( = ?auto_82390 ?auto_82392 ) ) ( ON-TABLE ?auto_82394 ) ( ON ?auto_82391 ?auto_82394 ) ( ON ?auto_82393 ?auto_82391 ) ( ON ?auto_82396 ?auto_82393 ) ( ON ?auto_82397 ?auto_82396 ) ( not ( = ?auto_82394 ?auto_82391 ) ) ( not ( = ?auto_82394 ?auto_82393 ) ) ( not ( = ?auto_82394 ?auto_82396 ) ) ( not ( = ?auto_82394 ?auto_82397 ) ) ( not ( = ?auto_82394 ?auto_82392 ) ) ( not ( = ?auto_82394 ?auto_82390 ) ) ( not ( = ?auto_82391 ?auto_82393 ) ) ( not ( = ?auto_82391 ?auto_82396 ) ) ( not ( = ?auto_82391 ?auto_82397 ) ) ( not ( = ?auto_82391 ?auto_82392 ) ) ( not ( = ?auto_82391 ?auto_82390 ) ) ( not ( = ?auto_82393 ?auto_82396 ) ) ( not ( = ?auto_82393 ?auto_82397 ) ) ( not ( = ?auto_82393 ?auto_82392 ) ) ( not ( = ?auto_82393 ?auto_82390 ) ) ( not ( = ?auto_82396 ?auto_82397 ) ) ( not ( = ?auto_82396 ?auto_82392 ) ) ( not ( = ?auto_82396 ?auto_82390 ) ) ( not ( = ?auto_82397 ?auto_82392 ) ) ( not ( = ?auto_82397 ?auto_82390 ) ) ( ON ?auto_82390 ?auto_82395 ) ( not ( = ?auto_82390 ?auto_82395 ) ) ( not ( = ?auto_82392 ?auto_82395 ) ) ( not ( = ?auto_82394 ?auto_82395 ) ) ( not ( = ?auto_82391 ?auto_82395 ) ) ( not ( = ?auto_82393 ?auto_82395 ) ) ( not ( = ?auto_82396 ?auto_82395 ) ) ( not ( = ?auto_82397 ?auto_82395 ) ) ( CLEAR ?auto_82397 ) ( ON ?auto_82392 ?auto_82390 ) ( CLEAR ?auto_82392 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82395 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82392 ?auto_82390 )
+    ( ( MAKE-2PILE ?auto_82395 ?auto_82390 )
       ( MAKE-1PILE ?auto_82390 ) )
   )
 
@@ -2660,17 +2660,17 @@
     :vars
     (
       ?auto_82405 - BLOCK
-      ?auto_82399 - BLOCK
       ?auto_82402 - BLOCK
       ?auto_82403 - BLOCK
-      ?auto_82401 - BLOCK
-      ?auto_82400 - BLOCK
       ?auto_82404 - BLOCK
+      ?auto_82400 - BLOCK
+      ?auto_82401 - BLOCK
+      ?auto_82399 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82398 ?auto_82405 ) ) ( ON-TABLE ?auto_82399 ) ( ON ?auto_82402 ?auto_82399 ) ( ON ?auto_82403 ?auto_82402 ) ( ON ?auto_82401 ?auto_82403 ) ( not ( = ?auto_82399 ?auto_82402 ) ) ( not ( = ?auto_82399 ?auto_82403 ) ) ( not ( = ?auto_82399 ?auto_82401 ) ) ( not ( = ?auto_82399 ?auto_82400 ) ) ( not ( = ?auto_82399 ?auto_82405 ) ) ( not ( = ?auto_82399 ?auto_82398 ) ) ( not ( = ?auto_82402 ?auto_82403 ) ) ( not ( = ?auto_82402 ?auto_82401 ) ) ( not ( = ?auto_82402 ?auto_82400 ) ) ( not ( = ?auto_82402 ?auto_82405 ) ) ( not ( = ?auto_82402 ?auto_82398 ) ) ( not ( = ?auto_82403 ?auto_82401 ) ) ( not ( = ?auto_82403 ?auto_82400 ) ) ( not ( = ?auto_82403 ?auto_82405 ) ) ( not ( = ?auto_82403 ?auto_82398 ) ) ( not ( = ?auto_82401 ?auto_82400 ) ) ( not ( = ?auto_82401 ?auto_82405 ) ) ( not ( = ?auto_82401 ?auto_82398 ) ) ( not ( = ?auto_82400 ?auto_82405 ) ) ( not ( = ?auto_82400 ?auto_82398 ) ) ( ON ?auto_82398 ?auto_82404 ) ( not ( = ?auto_82398 ?auto_82404 ) ) ( not ( = ?auto_82405 ?auto_82404 ) ) ( not ( = ?auto_82399 ?auto_82404 ) ) ( not ( = ?auto_82402 ?auto_82404 ) ) ( not ( = ?auto_82403 ?auto_82404 ) ) ( not ( = ?auto_82401 ?auto_82404 ) ) ( not ( = ?auto_82400 ?auto_82404 ) ) ( ON ?auto_82405 ?auto_82398 ) ( CLEAR ?auto_82405 ) ( ON-TABLE ?auto_82404 ) ( HOLDING ?auto_82400 ) ( CLEAR ?auto_82401 ) )
+    ( and ( not ( = ?auto_82398 ?auto_82405 ) ) ( ON-TABLE ?auto_82402 ) ( ON ?auto_82403 ?auto_82402 ) ( ON ?auto_82404 ?auto_82403 ) ( ON ?auto_82400 ?auto_82404 ) ( not ( = ?auto_82402 ?auto_82403 ) ) ( not ( = ?auto_82402 ?auto_82404 ) ) ( not ( = ?auto_82402 ?auto_82400 ) ) ( not ( = ?auto_82402 ?auto_82401 ) ) ( not ( = ?auto_82402 ?auto_82405 ) ) ( not ( = ?auto_82402 ?auto_82398 ) ) ( not ( = ?auto_82403 ?auto_82404 ) ) ( not ( = ?auto_82403 ?auto_82400 ) ) ( not ( = ?auto_82403 ?auto_82401 ) ) ( not ( = ?auto_82403 ?auto_82405 ) ) ( not ( = ?auto_82403 ?auto_82398 ) ) ( not ( = ?auto_82404 ?auto_82400 ) ) ( not ( = ?auto_82404 ?auto_82401 ) ) ( not ( = ?auto_82404 ?auto_82405 ) ) ( not ( = ?auto_82404 ?auto_82398 ) ) ( not ( = ?auto_82400 ?auto_82401 ) ) ( not ( = ?auto_82400 ?auto_82405 ) ) ( not ( = ?auto_82400 ?auto_82398 ) ) ( not ( = ?auto_82401 ?auto_82405 ) ) ( not ( = ?auto_82401 ?auto_82398 ) ) ( ON ?auto_82398 ?auto_82399 ) ( not ( = ?auto_82398 ?auto_82399 ) ) ( not ( = ?auto_82405 ?auto_82399 ) ) ( not ( = ?auto_82402 ?auto_82399 ) ) ( not ( = ?auto_82403 ?auto_82399 ) ) ( not ( = ?auto_82404 ?auto_82399 ) ) ( not ( = ?auto_82400 ?auto_82399 ) ) ( not ( = ?auto_82401 ?auto_82399 ) ) ( ON ?auto_82405 ?auto_82398 ) ( CLEAR ?auto_82405 ) ( ON-TABLE ?auto_82399 ) ( HOLDING ?auto_82401 ) ( CLEAR ?auto_82400 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82399 ?auto_82402 ?auto_82403 ?auto_82401 ?auto_82400 )
+    ( ( MAKE-5PILE ?auto_82402 ?auto_82403 ?auto_82404 ?auto_82400 ?auto_82401 )
       ( MAKE-1PILE ?auto_82398 ) )
   )
 
@@ -2681,18 +2681,18 @@
     )
     :vars
     (
-      ?auto_82411 - BLOCK
-      ?auto_82412 - BLOCK
       ?auto_82408 - BLOCK
-      ?auto_82410 - BLOCK
-      ?auto_82409 - BLOCK
-      ?auto_82407 - BLOCK
+      ?auto_82411 - BLOCK
       ?auto_82413 - BLOCK
+      ?auto_82407 - BLOCK
+      ?auto_82409 - BLOCK
+      ?auto_82412 - BLOCK
+      ?auto_82410 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82406 ?auto_82411 ) ) ( ON-TABLE ?auto_82412 ) ( ON ?auto_82408 ?auto_82412 ) ( ON ?auto_82410 ?auto_82408 ) ( ON ?auto_82409 ?auto_82410 ) ( not ( = ?auto_82412 ?auto_82408 ) ) ( not ( = ?auto_82412 ?auto_82410 ) ) ( not ( = ?auto_82412 ?auto_82409 ) ) ( not ( = ?auto_82412 ?auto_82407 ) ) ( not ( = ?auto_82412 ?auto_82411 ) ) ( not ( = ?auto_82412 ?auto_82406 ) ) ( not ( = ?auto_82408 ?auto_82410 ) ) ( not ( = ?auto_82408 ?auto_82409 ) ) ( not ( = ?auto_82408 ?auto_82407 ) ) ( not ( = ?auto_82408 ?auto_82411 ) ) ( not ( = ?auto_82408 ?auto_82406 ) ) ( not ( = ?auto_82410 ?auto_82409 ) ) ( not ( = ?auto_82410 ?auto_82407 ) ) ( not ( = ?auto_82410 ?auto_82411 ) ) ( not ( = ?auto_82410 ?auto_82406 ) ) ( not ( = ?auto_82409 ?auto_82407 ) ) ( not ( = ?auto_82409 ?auto_82411 ) ) ( not ( = ?auto_82409 ?auto_82406 ) ) ( not ( = ?auto_82407 ?auto_82411 ) ) ( not ( = ?auto_82407 ?auto_82406 ) ) ( ON ?auto_82406 ?auto_82413 ) ( not ( = ?auto_82406 ?auto_82413 ) ) ( not ( = ?auto_82411 ?auto_82413 ) ) ( not ( = ?auto_82412 ?auto_82413 ) ) ( not ( = ?auto_82408 ?auto_82413 ) ) ( not ( = ?auto_82410 ?auto_82413 ) ) ( not ( = ?auto_82409 ?auto_82413 ) ) ( not ( = ?auto_82407 ?auto_82413 ) ) ( ON ?auto_82411 ?auto_82406 ) ( ON-TABLE ?auto_82413 ) ( CLEAR ?auto_82409 ) ( ON ?auto_82407 ?auto_82411 ) ( CLEAR ?auto_82407 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82406 ?auto_82408 ) ) ( ON-TABLE ?auto_82411 ) ( ON ?auto_82413 ?auto_82411 ) ( ON ?auto_82407 ?auto_82413 ) ( ON ?auto_82409 ?auto_82407 ) ( not ( = ?auto_82411 ?auto_82413 ) ) ( not ( = ?auto_82411 ?auto_82407 ) ) ( not ( = ?auto_82411 ?auto_82409 ) ) ( not ( = ?auto_82411 ?auto_82412 ) ) ( not ( = ?auto_82411 ?auto_82408 ) ) ( not ( = ?auto_82411 ?auto_82406 ) ) ( not ( = ?auto_82413 ?auto_82407 ) ) ( not ( = ?auto_82413 ?auto_82409 ) ) ( not ( = ?auto_82413 ?auto_82412 ) ) ( not ( = ?auto_82413 ?auto_82408 ) ) ( not ( = ?auto_82413 ?auto_82406 ) ) ( not ( = ?auto_82407 ?auto_82409 ) ) ( not ( = ?auto_82407 ?auto_82412 ) ) ( not ( = ?auto_82407 ?auto_82408 ) ) ( not ( = ?auto_82407 ?auto_82406 ) ) ( not ( = ?auto_82409 ?auto_82412 ) ) ( not ( = ?auto_82409 ?auto_82408 ) ) ( not ( = ?auto_82409 ?auto_82406 ) ) ( not ( = ?auto_82412 ?auto_82408 ) ) ( not ( = ?auto_82412 ?auto_82406 ) ) ( ON ?auto_82406 ?auto_82410 ) ( not ( = ?auto_82406 ?auto_82410 ) ) ( not ( = ?auto_82408 ?auto_82410 ) ) ( not ( = ?auto_82411 ?auto_82410 ) ) ( not ( = ?auto_82413 ?auto_82410 ) ) ( not ( = ?auto_82407 ?auto_82410 ) ) ( not ( = ?auto_82409 ?auto_82410 ) ) ( not ( = ?auto_82412 ?auto_82410 ) ) ( ON ?auto_82408 ?auto_82406 ) ( ON-TABLE ?auto_82410 ) ( CLEAR ?auto_82409 ) ( ON ?auto_82412 ?auto_82408 ) ( CLEAR ?auto_82412 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82413 ?auto_82406 ?auto_82411 )
+    ( ( MAKE-3PILE ?auto_82410 ?auto_82406 ?auto_82408 )
       ( MAKE-1PILE ?auto_82406 ) )
   )
 
@@ -2703,18 +2703,18 @@
     )
     :vars
     (
-      ?auto_82417 - BLOCK
-      ?auto_82421 - BLOCK
-      ?auto_82415 - BLOCK
       ?auto_82418 - BLOCK
-      ?auto_82416 - BLOCK
       ?auto_82419 - BLOCK
+      ?auto_82415 - BLOCK
+      ?auto_82421 - BLOCK
+      ?auto_82416 - BLOCK
+      ?auto_82417 - BLOCK
       ?auto_82420 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82414 ?auto_82417 ) ) ( ON-TABLE ?auto_82421 ) ( ON ?auto_82415 ?auto_82421 ) ( ON ?auto_82418 ?auto_82415 ) ( not ( = ?auto_82421 ?auto_82415 ) ) ( not ( = ?auto_82421 ?auto_82418 ) ) ( not ( = ?auto_82421 ?auto_82416 ) ) ( not ( = ?auto_82421 ?auto_82419 ) ) ( not ( = ?auto_82421 ?auto_82417 ) ) ( not ( = ?auto_82421 ?auto_82414 ) ) ( not ( = ?auto_82415 ?auto_82418 ) ) ( not ( = ?auto_82415 ?auto_82416 ) ) ( not ( = ?auto_82415 ?auto_82419 ) ) ( not ( = ?auto_82415 ?auto_82417 ) ) ( not ( = ?auto_82415 ?auto_82414 ) ) ( not ( = ?auto_82418 ?auto_82416 ) ) ( not ( = ?auto_82418 ?auto_82419 ) ) ( not ( = ?auto_82418 ?auto_82417 ) ) ( not ( = ?auto_82418 ?auto_82414 ) ) ( not ( = ?auto_82416 ?auto_82419 ) ) ( not ( = ?auto_82416 ?auto_82417 ) ) ( not ( = ?auto_82416 ?auto_82414 ) ) ( not ( = ?auto_82419 ?auto_82417 ) ) ( not ( = ?auto_82419 ?auto_82414 ) ) ( ON ?auto_82414 ?auto_82420 ) ( not ( = ?auto_82414 ?auto_82420 ) ) ( not ( = ?auto_82417 ?auto_82420 ) ) ( not ( = ?auto_82421 ?auto_82420 ) ) ( not ( = ?auto_82415 ?auto_82420 ) ) ( not ( = ?auto_82418 ?auto_82420 ) ) ( not ( = ?auto_82416 ?auto_82420 ) ) ( not ( = ?auto_82419 ?auto_82420 ) ) ( ON ?auto_82417 ?auto_82414 ) ( ON-TABLE ?auto_82420 ) ( ON ?auto_82419 ?auto_82417 ) ( CLEAR ?auto_82419 ) ( HOLDING ?auto_82416 ) ( CLEAR ?auto_82418 ) )
+    ( and ( not ( = ?auto_82414 ?auto_82418 ) ) ( ON-TABLE ?auto_82419 ) ( ON ?auto_82415 ?auto_82419 ) ( ON ?auto_82421 ?auto_82415 ) ( not ( = ?auto_82419 ?auto_82415 ) ) ( not ( = ?auto_82419 ?auto_82421 ) ) ( not ( = ?auto_82419 ?auto_82416 ) ) ( not ( = ?auto_82419 ?auto_82417 ) ) ( not ( = ?auto_82419 ?auto_82418 ) ) ( not ( = ?auto_82419 ?auto_82414 ) ) ( not ( = ?auto_82415 ?auto_82421 ) ) ( not ( = ?auto_82415 ?auto_82416 ) ) ( not ( = ?auto_82415 ?auto_82417 ) ) ( not ( = ?auto_82415 ?auto_82418 ) ) ( not ( = ?auto_82415 ?auto_82414 ) ) ( not ( = ?auto_82421 ?auto_82416 ) ) ( not ( = ?auto_82421 ?auto_82417 ) ) ( not ( = ?auto_82421 ?auto_82418 ) ) ( not ( = ?auto_82421 ?auto_82414 ) ) ( not ( = ?auto_82416 ?auto_82417 ) ) ( not ( = ?auto_82416 ?auto_82418 ) ) ( not ( = ?auto_82416 ?auto_82414 ) ) ( not ( = ?auto_82417 ?auto_82418 ) ) ( not ( = ?auto_82417 ?auto_82414 ) ) ( ON ?auto_82414 ?auto_82420 ) ( not ( = ?auto_82414 ?auto_82420 ) ) ( not ( = ?auto_82418 ?auto_82420 ) ) ( not ( = ?auto_82419 ?auto_82420 ) ) ( not ( = ?auto_82415 ?auto_82420 ) ) ( not ( = ?auto_82421 ?auto_82420 ) ) ( not ( = ?auto_82416 ?auto_82420 ) ) ( not ( = ?auto_82417 ?auto_82420 ) ) ( ON ?auto_82418 ?auto_82414 ) ( ON-TABLE ?auto_82420 ) ( ON ?auto_82417 ?auto_82418 ) ( CLEAR ?auto_82417 ) ( HOLDING ?auto_82416 ) ( CLEAR ?auto_82421 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82421 ?auto_82415 ?auto_82418 ?auto_82416 )
+    ( ( MAKE-4PILE ?auto_82419 ?auto_82415 ?auto_82421 ?auto_82416 )
       ( MAKE-1PILE ?auto_82414 ) )
   )
 
@@ -2725,18 +2725,18 @@
     )
     :vars
     (
-      ?auto_82424 - BLOCK
-      ?auto_82426 - BLOCK
-      ?auto_82425 - BLOCK
-      ?auto_82429 - BLOCK
       ?auto_82428 - BLOCK
       ?auto_82427 - BLOCK
+      ?auto_82429 - BLOCK
+      ?auto_82424 - BLOCK
       ?auto_82423 - BLOCK
+      ?auto_82425 - BLOCK
+      ?auto_82426 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82422 ?auto_82424 ) ) ( ON-TABLE ?auto_82426 ) ( ON ?auto_82425 ?auto_82426 ) ( ON ?auto_82429 ?auto_82425 ) ( not ( = ?auto_82426 ?auto_82425 ) ) ( not ( = ?auto_82426 ?auto_82429 ) ) ( not ( = ?auto_82426 ?auto_82428 ) ) ( not ( = ?auto_82426 ?auto_82427 ) ) ( not ( = ?auto_82426 ?auto_82424 ) ) ( not ( = ?auto_82426 ?auto_82422 ) ) ( not ( = ?auto_82425 ?auto_82429 ) ) ( not ( = ?auto_82425 ?auto_82428 ) ) ( not ( = ?auto_82425 ?auto_82427 ) ) ( not ( = ?auto_82425 ?auto_82424 ) ) ( not ( = ?auto_82425 ?auto_82422 ) ) ( not ( = ?auto_82429 ?auto_82428 ) ) ( not ( = ?auto_82429 ?auto_82427 ) ) ( not ( = ?auto_82429 ?auto_82424 ) ) ( not ( = ?auto_82429 ?auto_82422 ) ) ( not ( = ?auto_82428 ?auto_82427 ) ) ( not ( = ?auto_82428 ?auto_82424 ) ) ( not ( = ?auto_82428 ?auto_82422 ) ) ( not ( = ?auto_82427 ?auto_82424 ) ) ( not ( = ?auto_82427 ?auto_82422 ) ) ( ON ?auto_82422 ?auto_82423 ) ( not ( = ?auto_82422 ?auto_82423 ) ) ( not ( = ?auto_82424 ?auto_82423 ) ) ( not ( = ?auto_82426 ?auto_82423 ) ) ( not ( = ?auto_82425 ?auto_82423 ) ) ( not ( = ?auto_82429 ?auto_82423 ) ) ( not ( = ?auto_82428 ?auto_82423 ) ) ( not ( = ?auto_82427 ?auto_82423 ) ) ( ON ?auto_82424 ?auto_82422 ) ( ON-TABLE ?auto_82423 ) ( ON ?auto_82427 ?auto_82424 ) ( CLEAR ?auto_82429 ) ( ON ?auto_82428 ?auto_82427 ) ( CLEAR ?auto_82428 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82422 ?auto_82428 ) ) ( ON-TABLE ?auto_82427 ) ( ON ?auto_82429 ?auto_82427 ) ( ON ?auto_82424 ?auto_82429 ) ( not ( = ?auto_82427 ?auto_82429 ) ) ( not ( = ?auto_82427 ?auto_82424 ) ) ( not ( = ?auto_82427 ?auto_82423 ) ) ( not ( = ?auto_82427 ?auto_82425 ) ) ( not ( = ?auto_82427 ?auto_82428 ) ) ( not ( = ?auto_82427 ?auto_82422 ) ) ( not ( = ?auto_82429 ?auto_82424 ) ) ( not ( = ?auto_82429 ?auto_82423 ) ) ( not ( = ?auto_82429 ?auto_82425 ) ) ( not ( = ?auto_82429 ?auto_82428 ) ) ( not ( = ?auto_82429 ?auto_82422 ) ) ( not ( = ?auto_82424 ?auto_82423 ) ) ( not ( = ?auto_82424 ?auto_82425 ) ) ( not ( = ?auto_82424 ?auto_82428 ) ) ( not ( = ?auto_82424 ?auto_82422 ) ) ( not ( = ?auto_82423 ?auto_82425 ) ) ( not ( = ?auto_82423 ?auto_82428 ) ) ( not ( = ?auto_82423 ?auto_82422 ) ) ( not ( = ?auto_82425 ?auto_82428 ) ) ( not ( = ?auto_82425 ?auto_82422 ) ) ( ON ?auto_82422 ?auto_82426 ) ( not ( = ?auto_82422 ?auto_82426 ) ) ( not ( = ?auto_82428 ?auto_82426 ) ) ( not ( = ?auto_82427 ?auto_82426 ) ) ( not ( = ?auto_82429 ?auto_82426 ) ) ( not ( = ?auto_82424 ?auto_82426 ) ) ( not ( = ?auto_82423 ?auto_82426 ) ) ( not ( = ?auto_82425 ?auto_82426 ) ) ( ON ?auto_82428 ?auto_82422 ) ( ON-TABLE ?auto_82426 ) ( ON ?auto_82425 ?auto_82428 ) ( CLEAR ?auto_82424 ) ( ON ?auto_82423 ?auto_82425 ) ( CLEAR ?auto_82423 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82423 ?auto_82422 ?auto_82424 ?auto_82427 )
+    ( ( MAKE-4PILE ?auto_82426 ?auto_82422 ?auto_82428 ?auto_82425 )
       ( MAKE-1PILE ?auto_82422 ) )
   )
 
@@ -2747,18 +2747,18 @@
     )
     :vars
     (
-      ?auto_82431 - BLOCK
-      ?auto_82434 - BLOCK
+      ?auto_82435 - BLOCK
       ?auto_82437 - BLOCK
       ?auto_82433 - BLOCK
-      ?auto_82436 - BLOCK
-      ?auto_82435 - BLOCK
+      ?auto_82431 - BLOCK
       ?auto_82432 - BLOCK
+      ?auto_82434 - BLOCK
+      ?auto_82436 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82430 ?auto_82431 ) ) ( ON-TABLE ?auto_82434 ) ( ON ?auto_82437 ?auto_82434 ) ( not ( = ?auto_82434 ?auto_82437 ) ) ( not ( = ?auto_82434 ?auto_82433 ) ) ( not ( = ?auto_82434 ?auto_82436 ) ) ( not ( = ?auto_82434 ?auto_82435 ) ) ( not ( = ?auto_82434 ?auto_82431 ) ) ( not ( = ?auto_82434 ?auto_82430 ) ) ( not ( = ?auto_82437 ?auto_82433 ) ) ( not ( = ?auto_82437 ?auto_82436 ) ) ( not ( = ?auto_82437 ?auto_82435 ) ) ( not ( = ?auto_82437 ?auto_82431 ) ) ( not ( = ?auto_82437 ?auto_82430 ) ) ( not ( = ?auto_82433 ?auto_82436 ) ) ( not ( = ?auto_82433 ?auto_82435 ) ) ( not ( = ?auto_82433 ?auto_82431 ) ) ( not ( = ?auto_82433 ?auto_82430 ) ) ( not ( = ?auto_82436 ?auto_82435 ) ) ( not ( = ?auto_82436 ?auto_82431 ) ) ( not ( = ?auto_82436 ?auto_82430 ) ) ( not ( = ?auto_82435 ?auto_82431 ) ) ( not ( = ?auto_82435 ?auto_82430 ) ) ( ON ?auto_82430 ?auto_82432 ) ( not ( = ?auto_82430 ?auto_82432 ) ) ( not ( = ?auto_82431 ?auto_82432 ) ) ( not ( = ?auto_82434 ?auto_82432 ) ) ( not ( = ?auto_82437 ?auto_82432 ) ) ( not ( = ?auto_82433 ?auto_82432 ) ) ( not ( = ?auto_82436 ?auto_82432 ) ) ( not ( = ?auto_82435 ?auto_82432 ) ) ( ON ?auto_82431 ?auto_82430 ) ( ON-TABLE ?auto_82432 ) ( ON ?auto_82435 ?auto_82431 ) ( ON ?auto_82436 ?auto_82435 ) ( CLEAR ?auto_82436 ) ( HOLDING ?auto_82433 ) ( CLEAR ?auto_82437 ) )
+    ( and ( not ( = ?auto_82430 ?auto_82435 ) ) ( ON-TABLE ?auto_82437 ) ( ON ?auto_82433 ?auto_82437 ) ( not ( = ?auto_82437 ?auto_82433 ) ) ( not ( = ?auto_82437 ?auto_82431 ) ) ( not ( = ?auto_82437 ?auto_82432 ) ) ( not ( = ?auto_82437 ?auto_82434 ) ) ( not ( = ?auto_82437 ?auto_82435 ) ) ( not ( = ?auto_82437 ?auto_82430 ) ) ( not ( = ?auto_82433 ?auto_82431 ) ) ( not ( = ?auto_82433 ?auto_82432 ) ) ( not ( = ?auto_82433 ?auto_82434 ) ) ( not ( = ?auto_82433 ?auto_82435 ) ) ( not ( = ?auto_82433 ?auto_82430 ) ) ( not ( = ?auto_82431 ?auto_82432 ) ) ( not ( = ?auto_82431 ?auto_82434 ) ) ( not ( = ?auto_82431 ?auto_82435 ) ) ( not ( = ?auto_82431 ?auto_82430 ) ) ( not ( = ?auto_82432 ?auto_82434 ) ) ( not ( = ?auto_82432 ?auto_82435 ) ) ( not ( = ?auto_82432 ?auto_82430 ) ) ( not ( = ?auto_82434 ?auto_82435 ) ) ( not ( = ?auto_82434 ?auto_82430 ) ) ( ON ?auto_82430 ?auto_82436 ) ( not ( = ?auto_82430 ?auto_82436 ) ) ( not ( = ?auto_82435 ?auto_82436 ) ) ( not ( = ?auto_82437 ?auto_82436 ) ) ( not ( = ?auto_82433 ?auto_82436 ) ) ( not ( = ?auto_82431 ?auto_82436 ) ) ( not ( = ?auto_82432 ?auto_82436 ) ) ( not ( = ?auto_82434 ?auto_82436 ) ) ( ON ?auto_82435 ?auto_82430 ) ( ON-TABLE ?auto_82436 ) ( ON ?auto_82434 ?auto_82435 ) ( ON ?auto_82432 ?auto_82434 ) ( CLEAR ?auto_82432 ) ( HOLDING ?auto_82431 ) ( CLEAR ?auto_82433 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82434 ?auto_82437 ?auto_82433 )
+    ( ( MAKE-3PILE ?auto_82437 ?auto_82433 ?auto_82431 )
       ( MAKE-1PILE ?auto_82430 ) )
   )
 
@@ -2769,18 +2769,18 @@
     )
     :vars
     (
-      ?auto_82443 - BLOCK
-      ?auto_82440 - BLOCK
       ?auto_82441 - BLOCK
-      ?auto_82444 - BLOCK
+      ?auto_82443 - BLOCK
       ?auto_82442 - BLOCK
-      ?auto_82445 - BLOCK
       ?auto_82439 - BLOCK
+      ?auto_82444 - BLOCK
+      ?auto_82440 - BLOCK
+      ?auto_82445 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82438 ?auto_82443 ) ) ( ON-TABLE ?auto_82440 ) ( ON ?auto_82441 ?auto_82440 ) ( not ( = ?auto_82440 ?auto_82441 ) ) ( not ( = ?auto_82440 ?auto_82444 ) ) ( not ( = ?auto_82440 ?auto_82442 ) ) ( not ( = ?auto_82440 ?auto_82445 ) ) ( not ( = ?auto_82440 ?auto_82443 ) ) ( not ( = ?auto_82440 ?auto_82438 ) ) ( not ( = ?auto_82441 ?auto_82444 ) ) ( not ( = ?auto_82441 ?auto_82442 ) ) ( not ( = ?auto_82441 ?auto_82445 ) ) ( not ( = ?auto_82441 ?auto_82443 ) ) ( not ( = ?auto_82441 ?auto_82438 ) ) ( not ( = ?auto_82444 ?auto_82442 ) ) ( not ( = ?auto_82444 ?auto_82445 ) ) ( not ( = ?auto_82444 ?auto_82443 ) ) ( not ( = ?auto_82444 ?auto_82438 ) ) ( not ( = ?auto_82442 ?auto_82445 ) ) ( not ( = ?auto_82442 ?auto_82443 ) ) ( not ( = ?auto_82442 ?auto_82438 ) ) ( not ( = ?auto_82445 ?auto_82443 ) ) ( not ( = ?auto_82445 ?auto_82438 ) ) ( ON ?auto_82438 ?auto_82439 ) ( not ( = ?auto_82438 ?auto_82439 ) ) ( not ( = ?auto_82443 ?auto_82439 ) ) ( not ( = ?auto_82440 ?auto_82439 ) ) ( not ( = ?auto_82441 ?auto_82439 ) ) ( not ( = ?auto_82444 ?auto_82439 ) ) ( not ( = ?auto_82442 ?auto_82439 ) ) ( not ( = ?auto_82445 ?auto_82439 ) ) ( ON ?auto_82443 ?auto_82438 ) ( ON-TABLE ?auto_82439 ) ( ON ?auto_82445 ?auto_82443 ) ( ON ?auto_82442 ?auto_82445 ) ( CLEAR ?auto_82441 ) ( ON ?auto_82444 ?auto_82442 ) ( CLEAR ?auto_82444 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82438 ?auto_82441 ) ) ( ON-TABLE ?auto_82443 ) ( ON ?auto_82442 ?auto_82443 ) ( not ( = ?auto_82443 ?auto_82442 ) ) ( not ( = ?auto_82443 ?auto_82439 ) ) ( not ( = ?auto_82443 ?auto_82444 ) ) ( not ( = ?auto_82443 ?auto_82440 ) ) ( not ( = ?auto_82443 ?auto_82441 ) ) ( not ( = ?auto_82443 ?auto_82438 ) ) ( not ( = ?auto_82442 ?auto_82439 ) ) ( not ( = ?auto_82442 ?auto_82444 ) ) ( not ( = ?auto_82442 ?auto_82440 ) ) ( not ( = ?auto_82442 ?auto_82441 ) ) ( not ( = ?auto_82442 ?auto_82438 ) ) ( not ( = ?auto_82439 ?auto_82444 ) ) ( not ( = ?auto_82439 ?auto_82440 ) ) ( not ( = ?auto_82439 ?auto_82441 ) ) ( not ( = ?auto_82439 ?auto_82438 ) ) ( not ( = ?auto_82444 ?auto_82440 ) ) ( not ( = ?auto_82444 ?auto_82441 ) ) ( not ( = ?auto_82444 ?auto_82438 ) ) ( not ( = ?auto_82440 ?auto_82441 ) ) ( not ( = ?auto_82440 ?auto_82438 ) ) ( ON ?auto_82438 ?auto_82445 ) ( not ( = ?auto_82438 ?auto_82445 ) ) ( not ( = ?auto_82441 ?auto_82445 ) ) ( not ( = ?auto_82443 ?auto_82445 ) ) ( not ( = ?auto_82442 ?auto_82445 ) ) ( not ( = ?auto_82439 ?auto_82445 ) ) ( not ( = ?auto_82444 ?auto_82445 ) ) ( not ( = ?auto_82440 ?auto_82445 ) ) ( ON ?auto_82441 ?auto_82438 ) ( ON-TABLE ?auto_82445 ) ( ON ?auto_82440 ?auto_82441 ) ( ON ?auto_82444 ?auto_82440 ) ( CLEAR ?auto_82442 ) ( ON ?auto_82439 ?auto_82444 ) ( CLEAR ?auto_82439 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82439 ?auto_82438 ?auto_82443 ?auto_82445 ?auto_82442 )
+    ( ( MAKE-5PILE ?auto_82445 ?auto_82438 ?auto_82441 ?auto_82440 ?auto_82444 )
       ( MAKE-1PILE ?auto_82438 ) )
   )
 
@@ -2791,18 +2791,18 @@
     )
     :vars
     (
-      ?auto_82449 - BLOCK
-      ?auto_82451 - BLOCK
-      ?auto_82450 - BLOCK
-      ?auto_82448 - BLOCK
       ?auto_82447 - BLOCK
       ?auto_82452 - BLOCK
       ?auto_82453 - BLOCK
+      ?auto_82448 - BLOCK
+      ?auto_82451 - BLOCK
+      ?auto_82450 - BLOCK
+      ?auto_82449 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82446 ?auto_82449 ) ) ( ON-TABLE ?auto_82451 ) ( not ( = ?auto_82451 ?auto_82450 ) ) ( not ( = ?auto_82451 ?auto_82448 ) ) ( not ( = ?auto_82451 ?auto_82447 ) ) ( not ( = ?auto_82451 ?auto_82452 ) ) ( not ( = ?auto_82451 ?auto_82449 ) ) ( not ( = ?auto_82451 ?auto_82446 ) ) ( not ( = ?auto_82450 ?auto_82448 ) ) ( not ( = ?auto_82450 ?auto_82447 ) ) ( not ( = ?auto_82450 ?auto_82452 ) ) ( not ( = ?auto_82450 ?auto_82449 ) ) ( not ( = ?auto_82450 ?auto_82446 ) ) ( not ( = ?auto_82448 ?auto_82447 ) ) ( not ( = ?auto_82448 ?auto_82452 ) ) ( not ( = ?auto_82448 ?auto_82449 ) ) ( not ( = ?auto_82448 ?auto_82446 ) ) ( not ( = ?auto_82447 ?auto_82452 ) ) ( not ( = ?auto_82447 ?auto_82449 ) ) ( not ( = ?auto_82447 ?auto_82446 ) ) ( not ( = ?auto_82452 ?auto_82449 ) ) ( not ( = ?auto_82452 ?auto_82446 ) ) ( ON ?auto_82446 ?auto_82453 ) ( not ( = ?auto_82446 ?auto_82453 ) ) ( not ( = ?auto_82449 ?auto_82453 ) ) ( not ( = ?auto_82451 ?auto_82453 ) ) ( not ( = ?auto_82450 ?auto_82453 ) ) ( not ( = ?auto_82448 ?auto_82453 ) ) ( not ( = ?auto_82447 ?auto_82453 ) ) ( not ( = ?auto_82452 ?auto_82453 ) ) ( ON ?auto_82449 ?auto_82446 ) ( ON-TABLE ?auto_82453 ) ( ON ?auto_82452 ?auto_82449 ) ( ON ?auto_82447 ?auto_82452 ) ( ON ?auto_82448 ?auto_82447 ) ( CLEAR ?auto_82448 ) ( HOLDING ?auto_82450 ) ( CLEAR ?auto_82451 ) )
+    ( and ( not ( = ?auto_82446 ?auto_82447 ) ) ( ON-TABLE ?auto_82452 ) ( not ( = ?auto_82452 ?auto_82453 ) ) ( not ( = ?auto_82452 ?auto_82448 ) ) ( not ( = ?auto_82452 ?auto_82451 ) ) ( not ( = ?auto_82452 ?auto_82450 ) ) ( not ( = ?auto_82452 ?auto_82447 ) ) ( not ( = ?auto_82452 ?auto_82446 ) ) ( not ( = ?auto_82453 ?auto_82448 ) ) ( not ( = ?auto_82453 ?auto_82451 ) ) ( not ( = ?auto_82453 ?auto_82450 ) ) ( not ( = ?auto_82453 ?auto_82447 ) ) ( not ( = ?auto_82453 ?auto_82446 ) ) ( not ( = ?auto_82448 ?auto_82451 ) ) ( not ( = ?auto_82448 ?auto_82450 ) ) ( not ( = ?auto_82448 ?auto_82447 ) ) ( not ( = ?auto_82448 ?auto_82446 ) ) ( not ( = ?auto_82451 ?auto_82450 ) ) ( not ( = ?auto_82451 ?auto_82447 ) ) ( not ( = ?auto_82451 ?auto_82446 ) ) ( not ( = ?auto_82450 ?auto_82447 ) ) ( not ( = ?auto_82450 ?auto_82446 ) ) ( ON ?auto_82446 ?auto_82449 ) ( not ( = ?auto_82446 ?auto_82449 ) ) ( not ( = ?auto_82447 ?auto_82449 ) ) ( not ( = ?auto_82452 ?auto_82449 ) ) ( not ( = ?auto_82453 ?auto_82449 ) ) ( not ( = ?auto_82448 ?auto_82449 ) ) ( not ( = ?auto_82451 ?auto_82449 ) ) ( not ( = ?auto_82450 ?auto_82449 ) ) ( ON ?auto_82447 ?auto_82446 ) ( ON-TABLE ?auto_82449 ) ( ON ?auto_82450 ?auto_82447 ) ( ON ?auto_82451 ?auto_82450 ) ( ON ?auto_82448 ?auto_82451 ) ( CLEAR ?auto_82448 ) ( HOLDING ?auto_82453 ) ( CLEAR ?auto_82452 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82451 ?auto_82450 )
+    ( ( MAKE-2PILE ?auto_82452 ?auto_82453 )
       ( MAKE-1PILE ?auto_82446 ) )
   )
 
@@ -2813,18 +2813,18 @@
     )
     :vars
     (
-      ?auto_82455 - BLOCK
-      ?auto_82458 - BLOCK
-      ?auto_82460 - BLOCK
       ?auto_82461 - BLOCK
-      ?auto_82456 - BLOCK
+      ?auto_82460 - BLOCK
       ?auto_82459 - BLOCK
+      ?auto_82455 - BLOCK
       ?auto_82457 - BLOCK
+      ?auto_82456 - BLOCK
+      ?auto_82458 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82454 ?auto_82455 ) ) ( ON-TABLE ?auto_82458 ) ( not ( = ?auto_82458 ?auto_82460 ) ) ( not ( = ?auto_82458 ?auto_82461 ) ) ( not ( = ?auto_82458 ?auto_82456 ) ) ( not ( = ?auto_82458 ?auto_82459 ) ) ( not ( = ?auto_82458 ?auto_82455 ) ) ( not ( = ?auto_82458 ?auto_82454 ) ) ( not ( = ?auto_82460 ?auto_82461 ) ) ( not ( = ?auto_82460 ?auto_82456 ) ) ( not ( = ?auto_82460 ?auto_82459 ) ) ( not ( = ?auto_82460 ?auto_82455 ) ) ( not ( = ?auto_82460 ?auto_82454 ) ) ( not ( = ?auto_82461 ?auto_82456 ) ) ( not ( = ?auto_82461 ?auto_82459 ) ) ( not ( = ?auto_82461 ?auto_82455 ) ) ( not ( = ?auto_82461 ?auto_82454 ) ) ( not ( = ?auto_82456 ?auto_82459 ) ) ( not ( = ?auto_82456 ?auto_82455 ) ) ( not ( = ?auto_82456 ?auto_82454 ) ) ( not ( = ?auto_82459 ?auto_82455 ) ) ( not ( = ?auto_82459 ?auto_82454 ) ) ( ON ?auto_82454 ?auto_82457 ) ( not ( = ?auto_82454 ?auto_82457 ) ) ( not ( = ?auto_82455 ?auto_82457 ) ) ( not ( = ?auto_82458 ?auto_82457 ) ) ( not ( = ?auto_82460 ?auto_82457 ) ) ( not ( = ?auto_82461 ?auto_82457 ) ) ( not ( = ?auto_82456 ?auto_82457 ) ) ( not ( = ?auto_82459 ?auto_82457 ) ) ( ON ?auto_82455 ?auto_82454 ) ( ON-TABLE ?auto_82457 ) ( ON ?auto_82459 ?auto_82455 ) ( ON ?auto_82456 ?auto_82459 ) ( ON ?auto_82461 ?auto_82456 ) ( CLEAR ?auto_82458 ) ( ON ?auto_82460 ?auto_82461 ) ( CLEAR ?auto_82460 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82454 ?auto_82461 ) ) ( ON-TABLE ?auto_82460 ) ( not ( = ?auto_82460 ?auto_82459 ) ) ( not ( = ?auto_82460 ?auto_82455 ) ) ( not ( = ?auto_82460 ?auto_82457 ) ) ( not ( = ?auto_82460 ?auto_82456 ) ) ( not ( = ?auto_82460 ?auto_82461 ) ) ( not ( = ?auto_82460 ?auto_82454 ) ) ( not ( = ?auto_82459 ?auto_82455 ) ) ( not ( = ?auto_82459 ?auto_82457 ) ) ( not ( = ?auto_82459 ?auto_82456 ) ) ( not ( = ?auto_82459 ?auto_82461 ) ) ( not ( = ?auto_82459 ?auto_82454 ) ) ( not ( = ?auto_82455 ?auto_82457 ) ) ( not ( = ?auto_82455 ?auto_82456 ) ) ( not ( = ?auto_82455 ?auto_82461 ) ) ( not ( = ?auto_82455 ?auto_82454 ) ) ( not ( = ?auto_82457 ?auto_82456 ) ) ( not ( = ?auto_82457 ?auto_82461 ) ) ( not ( = ?auto_82457 ?auto_82454 ) ) ( not ( = ?auto_82456 ?auto_82461 ) ) ( not ( = ?auto_82456 ?auto_82454 ) ) ( ON ?auto_82454 ?auto_82458 ) ( not ( = ?auto_82454 ?auto_82458 ) ) ( not ( = ?auto_82461 ?auto_82458 ) ) ( not ( = ?auto_82460 ?auto_82458 ) ) ( not ( = ?auto_82459 ?auto_82458 ) ) ( not ( = ?auto_82455 ?auto_82458 ) ) ( not ( = ?auto_82457 ?auto_82458 ) ) ( not ( = ?auto_82456 ?auto_82458 ) ) ( ON ?auto_82461 ?auto_82454 ) ( ON-TABLE ?auto_82458 ) ( ON ?auto_82456 ?auto_82461 ) ( ON ?auto_82457 ?auto_82456 ) ( ON ?auto_82455 ?auto_82457 ) ( CLEAR ?auto_82460 ) ( ON ?auto_82459 ?auto_82455 ) ( CLEAR ?auto_82459 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82457 ?auto_82454 ?auto_82455 ?auto_82459 ?auto_82456 ?auto_82461 )
+    ( ( MAKE-6PILE ?auto_82458 ?auto_82454 ?auto_82461 ?auto_82456 ?auto_82457 ?auto_82455 )
       ( MAKE-1PILE ?auto_82454 ) )
   )
 
@@ -2835,18 +2835,18 @@
     )
     :vars
     (
+      ?auto_82464 - BLOCK
+      ?auto_82465 - BLOCK
       ?auto_82463 - BLOCK
       ?auto_82466 - BLOCK
-      ?auto_82469 - BLOCK
       ?auto_82468 - BLOCK
-      ?auto_82464 - BLOCK
+      ?auto_82469 - BLOCK
       ?auto_82467 - BLOCK
-      ?auto_82465 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82462 ?auto_82463 ) ) ( not ( = ?auto_82466 ?auto_82469 ) ) ( not ( = ?auto_82466 ?auto_82468 ) ) ( not ( = ?auto_82466 ?auto_82464 ) ) ( not ( = ?auto_82466 ?auto_82467 ) ) ( not ( = ?auto_82466 ?auto_82463 ) ) ( not ( = ?auto_82466 ?auto_82462 ) ) ( not ( = ?auto_82469 ?auto_82468 ) ) ( not ( = ?auto_82469 ?auto_82464 ) ) ( not ( = ?auto_82469 ?auto_82467 ) ) ( not ( = ?auto_82469 ?auto_82463 ) ) ( not ( = ?auto_82469 ?auto_82462 ) ) ( not ( = ?auto_82468 ?auto_82464 ) ) ( not ( = ?auto_82468 ?auto_82467 ) ) ( not ( = ?auto_82468 ?auto_82463 ) ) ( not ( = ?auto_82468 ?auto_82462 ) ) ( not ( = ?auto_82464 ?auto_82467 ) ) ( not ( = ?auto_82464 ?auto_82463 ) ) ( not ( = ?auto_82464 ?auto_82462 ) ) ( not ( = ?auto_82467 ?auto_82463 ) ) ( not ( = ?auto_82467 ?auto_82462 ) ) ( ON ?auto_82462 ?auto_82465 ) ( not ( = ?auto_82462 ?auto_82465 ) ) ( not ( = ?auto_82463 ?auto_82465 ) ) ( not ( = ?auto_82466 ?auto_82465 ) ) ( not ( = ?auto_82469 ?auto_82465 ) ) ( not ( = ?auto_82468 ?auto_82465 ) ) ( not ( = ?auto_82464 ?auto_82465 ) ) ( not ( = ?auto_82467 ?auto_82465 ) ) ( ON ?auto_82463 ?auto_82462 ) ( ON-TABLE ?auto_82465 ) ( ON ?auto_82467 ?auto_82463 ) ( ON ?auto_82464 ?auto_82467 ) ( ON ?auto_82468 ?auto_82464 ) ( ON ?auto_82469 ?auto_82468 ) ( CLEAR ?auto_82469 ) ( HOLDING ?auto_82466 ) )
+    ( and ( not ( = ?auto_82462 ?auto_82464 ) ) ( not ( = ?auto_82465 ?auto_82463 ) ) ( not ( = ?auto_82465 ?auto_82466 ) ) ( not ( = ?auto_82465 ?auto_82468 ) ) ( not ( = ?auto_82465 ?auto_82469 ) ) ( not ( = ?auto_82465 ?auto_82464 ) ) ( not ( = ?auto_82465 ?auto_82462 ) ) ( not ( = ?auto_82463 ?auto_82466 ) ) ( not ( = ?auto_82463 ?auto_82468 ) ) ( not ( = ?auto_82463 ?auto_82469 ) ) ( not ( = ?auto_82463 ?auto_82464 ) ) ( not ( = ?auto_82463 ?auto_82462 ) ) ( not ( = ?auto_82466 ?auto_82468 ) ) ( not ( = ?auto_82466 ?auto_82469 ) ) ( not ( = ?auto_82466 ?auto_82464 ) ) ( not ( = ?auto_82466 ?auto_82462 ) ) ( not ( = ?auto_82468 ?auto_82469 ) ) ( not ( = ?auto_82468 ?auto_82464 ) ) ( not ( = ?auto_82468 ?auto_82462 ) ) ( not ( = ?auto_82469 ?auto_82464 ) ) ( not ( = ?auto_82469 ?auto_82462 ) ) ( ON ?auto_82462 ?auto_82467 ) ( not ( = ?auto_82462 ?auto_82467 ) ) ( not ( = ?auto_82464 ?auto_82467 ) ) ( not ( = ?auto_82465 ?auto_82467 ) ) ( not ( = ?auto_82463 ?auto_82467 ) ) ( not ( = ?auto_82466 ?auto_82467 ) ) ( not ( = ?auto_82468 ?auto_82467 ) ) ( not ( = ?auto_82469 ?auto_82467 ) ) ( ON ?auto_82464 ?auto_82462 ) ( ON-TABLE ?auto_82467 ) ( ON ?auto_82469 ?auto_82464 ) ( ON ?auto_82468 ?auto_82469 ) ( ON ?auto_82466 ?auto_82468 ) ( ON ?auto_82463 ?auto_82466 ) ( CLEAR ?auto_82463 ) ( HOLDING ?auto_82465 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_82466 )
+    ( ( MAKE-1PILE ?auto_82465 )
       ( MAKE-1PILE ?auto_82462 ) )
   )
 
@@ -2857,18 +2857,18 @@
     )
     :vars
     (
-      ?auto_82475 - BLOCK
-      ?auto_82473 - BLOCK
-      ?auto_82472 - BLOCK
-      ?auto_82474 - BLOCK
       ?auto_82476 - BLOCK
-      ?auto_82477 - BLOCK
       ?auto_82471 - BLOCK
+      ?auto_82474 - BLOCK
+      ?auto_82472 - BLOCK
+      ?auto_82473 - BLOCK
+      ?auto_82475 - BLOCK
+      ?auto_82477 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82470 ?auto_82475 ) ) ( not ( = ?auto_82473 ?auto_82472 ) ) ( not ( = ?auto_82473 ?auto_82474 ) ) ( not ( = ?auto_82473 ?auto_82476 ) ) ( not ( = ?auto_82473 ?auto_82477 ) ) ( not ( = ?auto_82473 ?auto_82475 ) ) ( not ( = ?auto_82473 ?auto_82470 ) ) ( not ( = ?auto_82472 ?auto_82474 ) ) ( not ( = ?auto_82472 ?auto_82476 ) ) ( not ( = ?auto_82472 ?auto_82477 ) ) ( not ( = ?auto_82472 ?auto_82475 ) ) ( not ( = ?auto_82472 ?auto_82470 ) ) ( not ( = ?auto_82474 ?auto_82476 ) ) ( not ( = ?auto_82474 ?auto_82477 ) ) ( not ( = ?auto_82474 ?auto_82475 ) ) ( not ( = ?auto_82474 ?auto_82470 ) ) ( not ( = ?auto_82476 ?auto_82477 ) ) ( not ( = ?auto_82476 ?auto_82475 ) ) ( not ( = ?auto_82476 ?auto_82470 ) ) ( not ( = ?auto_82477 ?auto_82475 ) ) ( not ( = ?auto_82477 ?auto_82470 ) ) ( ON ?auto_82470 ?auto_82471 ) ( not ( = ?auto_82470 ?auto_82471 ) ) ( not ( = ?auto_82475 ?auto_82471 ) ) ( not ( = ?auto_82473 ?auto_82471 ) ) ( not ( = ?auto_82472 ?auto_82471 ) ) ( not ( = ?auto_82474 ?auto_82471 ) ) ( not ( = ?auto_82476 ?auto_82471 ) ) ( not ( = ?auto_82477 ?auto_82471 ) ) ( ON ?auto_82475 ?auto_82470 ) ( ON-TABLE ?auto_82471 ) ( ON ?auto_82477 ?auto_82475 ) ( ON ?auto_82476 ?auto_82477 ) ( ON ?auto_82474 ?auto_82476 ) ( ON ?auto_82472 ?auto_82474 ) ( ON ?auto_82473 ?auto_82472 ) ( CLEAR ?auto_82473 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82470 ?auto_82476 ) ) ( not ( = ?auto_82471 ?auto_82474 ) ) ( not ( = ?auto_82471 ?auto_82472 ) ) ( not ( = ?auto_82471 ?auto_82473 ) ) ( not ( = ?auto_82471 ?auto_82475 ) ) ( not ( = ?auto_82471 ?auto_82476 ) ) ( not ( = ?auto_82471 ?auto_82470 ) ) ( not ( = ?auto_82474 ?auto_82472 ) ) ( not ( = ?auto_82474 ?auto_82473 ) ) ( not ( = ?auto_82474 ?auto_82475 ) ) ( not ( = ?auto_82474 ?auto_82476 ) ) ( not ( = ?auto_82474 ?auto_82470 ) ) ( not ( = ?auto_82472 ?auto_82473 ) ) ( not ( = ?auto_82472 ?auto_82475 ) ) ( not ( = ?auto_82472 ?auto_82476 ) ) ( not ( = ?auto_82472 ?auto_82470 ) ) ( not ( = ?auto_82473 ?auto_82475 ) ) ( not ( = ?auto_82473 ?auto_82476 ) ) ( not ( = ?auto_82473 ?auto_82470 ) ) ( not ( = ?auto_82475 ?auto_82476 ) ) ( not ( = ?auto_82475 ?auto_82470 ) ) ( ON ?auto_82470 ?auto_82477 ) ( not ( = ?auto_82470 ?auto_82477 ) ) ( not ( = ?auto_82476 ?auto_82477 ) ) ( not ( = ?auto_82471 ?auto_82477 ) ) ( not ( = ?auto_82474 ?auto_82477 ) ) ( not ( = ?auto_82472 ?auto_82477 ) ) ( not ( = ?auto_82473 ?auto_82477 ) ) ( not ( = ?auto_82475 ?auto_82477 ) ) ( ON ?auto_82476 ?auto_82470 ) ( ON-TABLE ?auto_82477 ) ( ON ?auto_82475 ?auto_82476 ) ( ON ?auto_82473 ?auto_82475 ) ( ON ?auto_82472 ?auto_82473 ) ( ON ?auto_82474 ?auto_82472 ) ( ON ?auto_82471 ?auto_82474 ) ( CLEAR ?auto_82471 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82471 ?auto_82470 ?auto_82475 ?auto_82477 ?auto_82476 ?auto_82474 ?auto_82472 )
+    ( ( MAKE-7PILE ?auto_82477 ?auto_82470 ?auto_82476 ?auto_82475 ?auto_82473 ?auto_82472 ?auto_82474 )
       ( MAKE-1PILE ?auto_82470 ) )
   )
 
@@ -2923,13 +2923,13 @@
     )
     :vars
     (
-      ?auto_82502 - BLOCK
       ?auto_82501 - BLOCK
+      ?auto_82502 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82502 ?auto_82500 ) ( ON-TABLE ?auto_82496 ) ( ON ?auto_82497 ?auto_82496 ) ( ON ?auto_82498 ?auto_82497 ) ( ON ?auto_82499 ?auto_82498 ) ( ON ?auto_82500 ?auto_82499 ) ( not ( = ?auto_82496 ?auto_82497 ) ) ( not ( = ?auto_82496 ?auto_82498 ) ) ( not ( = ?auto_82496 ?auto_82499 ) ) ( not ( = ?auto_82496 ?auto_82500 ) ) ( not ( = ?auto_82496 ?auto_82502 ) ) ( not ( = ?auto_82497 ?auto_82498 ) ) ( not ( = ?auto_82497 ?auto_82499 ) ) ( not ( = ?auto_82497 ?auto_82500 ) ) ( not ( = ?auto_82497 ?auto_82502 ) ) ( not ( = ?auto_82498 ?auto_82499 ) ) ( not ( = ?auto_82498 ?auto_82500 ) ) ( not ( = ?auto_82498 ?auto_82502 ) ) ( not ( = ?auto_82499 ?auto_82500 ) ) ( not ( = ?auto_82499 ?auto_82502 ) ) ( not ( = ?auto_82500 ?auto_82502 ) ) ( not ( = ?auto_82496 ?auto_82501 ) ) ( not ( = ?auto_82497 ?auto_82501 ) ) ( not ( = ?auto_82498 ?auto_82501 ) ) ( not ( = ?auto_82499 ?auto_82501 ) ) ( not ( = ?auto_82500 ?auto_82501 ) ) ( not ( = ?auto_82502 ?auto_82501 ) ) ( ON ?auto_82501 ?auto_82502 ) ( CLEAR ?auto_82501 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82501 ?auto_82500 ) ( ON-TABLE ?auto_82496 ) ( ON ?auto_82497 ?auto_82496 ) ( ON ?auto_82498 ?auto_82497 ) ( ON ?auto_82499 ?auto_82498 ) ( ON ?auto_82500 ?auto_82499 ) ( not ( = ?auto_82496 ?auto_82497 ) ) ( not ( = ?auto_82496 ?auto_82498 ) ) ( not ( = ?auto_82496 ?auto_82499 ) ) ( not ( = ?auto_82496 ?auto_82500 ) ) ( not ( = ?auto_82496 ?auto_82501 ) ) ( not ( = ?auto_82497 ?auto_82498 ) ) ( not ( = ?auto_82497 ?auto_82499 ) ) ( not ( = ?auto_82497 ?auto_82500 ) ) ( not ( = ?auto_82497 ?auto_82501 ) ) ( not ( = ?auto_82498 ?auto_82499 ) ) ( not ( = ?auto_82498 ?auto_82500 ) ) ( not ( = ?auto_82498 ?auto_82501 ) ) ( not ( = ?auto_82499 ?auto_82500 ) ) ( not ( = ?auto_82499 ?auto_82501 ) ) ( not ( = ?auto_82500 ?auto_82501 ) ) ( not ( = ?auto_82496 ?auto_82502 ) ) ( not ( = ?auto_82497 ?auto_82502 ) ) ( not ( = ?auto_82498 ?auto_82502 ) ) ( not ( = ?auto_82499 ?auto_82502 ) ) ( not ( = ?auto_82500 ?auto_82502 ) ) ( not ( = ?auto_82501 ?auto_82502 ) ) ( ON ?auto_82502 ?auto_82501 ) ( CLEAR ?auto_82502 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82496 ?auto_82497 ?auto_82498 ?auto_82499 ?auto_82500 ?auto_82502 )
+    ( ( MAKE-6PILE ?auto_82496 ?auto_82497 ?auto_82498 ?auto_82499 ?auto_82500 ?auto_82501 )
       ( MAKE-5PILE ?auto_82496 ?auto_82497 ?auto_82498 ?auto_82499 ?auto_82500 ) )
   )
 
@@ -2944,13 +2944,13 @@
     )
     :vars
     (
-      ?auto_82509 - BLOCK
       ?auto_82508 - BLOCK
+      ?auto_82509 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82509 ?auto_82507 ) ( ON-TABLE ?auto_82503 ) ( ON ?auto_82504 ?auto_82503 ) ( ON ?auto_82505 ?auto_82504 ) ( ON ?auto_82506 ?auto_82505 ) ( ON ?auto_82507 ?auto_82506 ) ( not ( = ?auto_82503 ?auto_82504 ) ) ( not ( = ?auto_82503 ?auto_82505 ) ) ( not ( = ?auto_82503 ?auto_82506 ) ) ( not ( = ?auto_82503 ?auto_82507 ) ) ( not ( = ?auto_82503 ?auto_82509 ) ) ( not ( = ?auto_82504 ?auto_82505 ) ) ( not ( = ?auto_82504 ?auto_82506 ) ) ( not ( = ?auto_82504 ?auto_82507 ) ) ( not ( = ?auto_82504 ?auto_82509 ) ) ( not ( = ?auto_82505 ?auto_82506 ) ) ( not ( = ?auto_82505 ?auto_82507 ) ) ( not ( = ?auto_82505 ?auto_82509 ) ) ( not ( = ?auto_82506 ?auto_82507 ) ) ( not ( = ?auto_82506 ?auto_82509 ) ) ( not ( = ?auto_82507 ?auto_82509 ) ) ( not ( = ?auto_82503 ?auto_82508 ) ) ( not ( = ?auto_82504 ?auto_82508 ) ) ( not ( = ?auto_82505 ?auto_82508 ) ) ( not ( = ?auto_82506 ?auto_82508 ) ) ( not ( = ?auto_82507 ?auto_82508 ) ) ( not ( = ?auto_82509 ?auto_82508 ) ) ( HOLDING ?auto_82508 ) ( CLEAR ?auto_82509 ) )
+    ( and ( ON ?auto_82508 ?auto_82507 ) ( ON-TABLE ?auto_82503 ) ( ON ?auto_82504 ?auto_82503 ) ( ON ?auto_82505 ?auto_82504 ) ( ON ?auto_82506 ?auto_82505 ) ( ON ?auto_82507 ?auto_82506 ) ( not ( = ?auto_82503 ?auto_82504 ) ) ( not ( = ?auto_82503 ?auto_82505 ) ) ( not ( = ?auto_82503 ?auto_82506 ) ) ( not ( = ?auto_82503 ?auto_82507 ) ) ( not ( = ?auto_82503 ?auto_82508 ) ) ( not ( = ?auto_82504 ?auto_82505 ) ) ( not ( = ?auto_82504 ?auto_82506 ) ) ( not ( = ?auto_82504 ?auto_82507 ) ) ( not ( = ?auto_82504 ?auto_82508 ) ) ( not ( = ?auto_82505 ?auto_82506 ) ) ( not ( = ?auto_82505 ?auto_82507 ) ) ( not ( = ?auto_82505 ?auto_82508 ) ) ( not ( = ?auto_82506 ?auto_82507 ) ) ( not ( = ?auto_82506 ?auto_82508 ) ) ( not ( = ?auto_82507 ?auto_82508 ) ) ( not ( = ?auto_82503 ?auto_82509 ) ) ( not ( = ?auto_82504 ?auto_82509 ) ) ( not ( = ?auto_82505 ?auto_82509 ) ) ( not ( = ?auto_82506 ?auto_82509 ) ) ( not ( = ?auto_82507 ?auto_82509 ) ) ( not ( = ?auto_82508 ?auto_82509 ) ) ( HOLDING ?auto_82509 ) ( CLEAR ?auto_82508 ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82503 ?auto_82504 ?auto_82505 ?auto_82506 ?auto_82507 ?auto_82509 ?auto_82508 )
+    ( ( MAKE-7PILE ?auto_82503 ?auto_82504 ?auto_82505 ?auto_82506 ?auto_82507 ?auto_82508 ?auto_82509 )
       ( MAKE-5PILE ?auto_82503 ?auto_82504 ?auto_82505 ?auto_82506 ?auto_82507 ) )
   )
 
@@ -2965,14 +2965,14 @@
     )
     :vars
     (
-      ?auto_82516 - BLOCK
       ?auto_82515 - BLOCK
+      ?auto_82516 - BLOCK
       ?auto_82517 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82516 ?auto_82514 ) ( ON-TABLE ?auto_82510 ) ( ON ?auto_82511 ?auto_82510 ) ( ON ?auto_82512 ?auto_82511 ) ( ON ?auto_82513 ?auto_82512 ) ( ON ?auto_82514 ?auto_82513 ) ( not ( = ?auto_82510 ?auto_82511 ) ) ( not ( = ?auto_82510 ?auto_82512 ) ) ( not ( = ?auto_82510 ?auto_82513 ) ) ( not ( = ?auto_82510 ?auto_82514 ) ) ( not ( = ?auto_82510 ?auto_82516 ) ) ( not ( = ?auto_82511 ?auto_82512 ) ) ( not ( = ?auto_82511 ?auto_82513 ) ) ( not ( = ?auto_82511 ?auto_82514 ) ) ( not ( = ?auto_82511 ?auto_82516 ) ) ( not ( = ?auto_82512 ?auto_82513 ) ) ( not ( = ?auto_82512 ?auto_82514 ) ) ( not ( = ?auto_82512 ?auto_82516 ) ) ( not ( = ?auto_82513 ?auto_82514 ) ) ( not ( = ?auto_82513 ?auto_82516 ) ) ( not ( = ?auto_82514 ?auto_82516 ) ) ( not ( = ?auto_82510 ?auto_82515 ) ) ( not ( = ?auto_82511 ?auto_82515 ) ) ( not ( = ?auto_82512 ?auto_82515 ) ) ( not ( = ?auto_82513 ?auto_82515 ) ) ( not ( = ?auto_82514 ?auto_82515 ) ) ( not ( = ?auto_82516 ?auto_82515 ) ) ( CLEAR ?auto_82516 ) ( ON ?auto_82515 ?auto_82517 ) ( CLEAR ?auto_82515 ) ( HAND-EMPTY ) ( not ( = ?auto_82510 ?auto_82517 ) ) ( not ( = ?auto_82511 ?auto_82517 ) ) ( not ( = ?auto_82512 ?auto_82517 ) ) ( not ( = ?auto_82513 ?auto_82517 ) ) ( not ( = ?auto_82514 ?auto_82517 ) ) ( not ( = ?auto_82516 ?auto_82517 ) ) ( not ( = ?auto_82515 ?auto_82517 ) ) )
+    ( and ( ON ?auto_82515 ?auto_82514 ) ( ON-TABLE ?auto_82510 ) ( ON ?auto_82511 ?auto_82510 ) ( ON ?auto_82512 ?auto_82511 ) ( ON ?auto_82513 ?auto_82512 ) ( ON ?auto_82514 ?auto_82513 ) ( not ( = ?auto_82510 ?auto_82511 ) ) ( not ( = ?auto_82510 ?auto_82512 ) ) ( not ( = ?auto_82510 ?auto_82513 ) ) ( not ( = ?auto_82510 ?auto_82514 ) ) ( not ( = ?auto_82510 ?auto_82515 ) ) ( not ( = ?auto_82511 ?auto_82512 ) ) ( not ( = ?auto_82511 ?auto_82513 ) ) ( not ( = ?auto_82511 ?auto_82514 ) ) ( not ( = ?auto_82511 ?auto_82515 ) ) ( not ( = ?auto_82512 ?auto_82513 ) ) ( not ( = ?auto_82512 ?auto_82514 ) ) ( not ( = ?auto_82512 ?auto_82515 ) ) ( not ( = ?auto_82513 ?auto_82514 ) ) ( not ( = ?auto_82513 ?auto_82515 ) ) ( not ( = ?auto_82514 ?auto_82515 ) ) ( not ( = ?auto_82510 ?auto_82516 ) ) ( not ( = ?auto_82511 ?auto_82516 ) ) ( not ( = ?auto_82512 ?auto_82516 ) ) ( not ( = ?auto_82513 ?auto_82516 ) ) ( not ( = ?auto_82514 ?auto_82516 ) ) ( not ( = ?auto_82515 ?auto_82516 ) ) ( CLEAR ?auto_82515 ) ( ON ?auto_82516 ?auto_82517 ) ( CLEAR ?auto_82516 ) ( HAND-EMPTY ) ( not ( = ?auto_82510 ?auto_82517 ) ) ( not ( = ?auto_82511 ?auto_82517 ) ) ( not ( = ?auto_82512 ?auto_82517 ) ) ( not ( = ?auto_82513 ?auto_82517 ) ) ( not ( = ?auto_82514 ?auto_82517 ) ) ( not ( = ?auto_82515 ?auto_82517 ) ) ( not ( = ?auto_82516 ?auto_82517 ) ) )
     :subtasks
-    ( ( !UNSTACK ?auto_82515 ?auto_82517 )
+    ( ( !UNSTACK ?auto_82516 ?auto_82517 )
       ( MAKE-5PILE ?auto_82510 ?auto_82511 ?auto_82512 ?auto_82513 ?auto_82514 ) )
   )
 
@@ -3010,13 +3010,13 @@
     :vars
     (
       ?auto_82548 - BLOCK
-      ?auto_82547 - BLOCK
       ?auto_82549 - BLOCK
+      ?auto_82547 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82542 ) ( ON ?auto_82543 ?auto_82542 ) ( ON ?auto_82544 ?auto_82543 ) ( ON ?auto_82545 ?auto_82544 ) ( not ( = ?auto_82542 ?auto_82543 ) ) ( not ( = ?auto_82542 ?auto_82544 ) ) ( not ( = ?auto_82542 ?auto_82545 ) ) ( not ( = ?auto_82542 ?auto_82546 ) ) ( not ( = ?auto_82542 ?auto_82548 ) ) ( not ( = ?auto_82543 ?auto_82544 ) ) ( not ( = ?auto_82543 ?auto_82545 ) ) ( not ( = ?auto_82543 ?auto_82546 ) ) ( not ( = ?auto_82543 ?auto_82548 ) ) ( not ( = ?auto_82544 ?auto_82545 ) ) ( not ( = ?auto_82544 ?auto_82546 ) ) ( not ( = ?auto_82544 ?auto_82548 ) ) ( not ( = ?auto_82545 ?auto_82546 ) ) ( not ( = ?auto_82545 ?auto_82548 ) ) ( not ( = ?auto_82546 ?auto_82548 ) ) ( not ( = ?auto_82542 ?auto_82547 ) ) ( not ( = ?auto_82543 ?auto_82547 ) ) ( not ( = ?auto_82544 ?auto_82547 ) ) ( not ( = ?auto_82545 ?auto_82547 ) ) ( not ( = ?auto_82546 ?auto_82547 ) ) ( not ( = ?auto_82548 ?auto_82547 ) ) ( ON ?auto_82547 ?auto_82549 ) ( not ( = ?auto_82542 ?auto_82549 ) ) ( not ( = ?auto_82543 ?auto_82549 ) ) ( not ( = ?auto_82544 ?auto_82549 ) ) ( not ( = ?auto_82545 ?auto_82549 ) ) ( not ( = ?auto_82546 ?auto_82549 ) ) ( not ( = ?auto_82548 ?auto_82549 ) ) ( not ( = ?auto_82547 ?auto_82549 ) ) ( ON ?auto_82548 ?auto_82547 ) ( CLEAR ?auto_82545 ) ( ON ?auto_82546 ?auto_82548 ) ( CLEAR ?auto_82546 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82549 ) )
+    ( and ( ON-TABLE ?auto_82542 ) ( ON ?auto_82543 ?auto_82542 ) ( ON ?auto_82544 ?auto_82543 ) ( ON ?auto_82545 ?auto_82544 ) ( not ( = ?auto_82542 ?auto_82543 ) ) ( not ( = ?auto_82542 ?auto_82544 ) ) ( not ( = ?auto_82542 ?auto_82545 ) ) ( not ( = ?auto_82542 ?auto_82546 ) ) ( not ( = ?auto_82542 ?auto_82548 ) ) ( not ( = ?auto_82543 ?auto_82544 ) ) ( not ( = ?auto_82543 ?auto_82545 ) ) ( not ( = ?auto_82543 ?auto_82546 ) ) ( not ( = ?auto_82543 ?auto_82548 ) ) ( not ( = ?auto_82544 ?auto_82545 ) ) ( not ( = ?auto_82544 ?auto_82546 ) ) ( not ( = ?auto_82544 ?auto_82548 ) ) ( not ( = ?auto_82545 ?auto_82546 ) ) ( not ( = ?auto_82545 ?auto_82548 ) ) ( not ( = ?auto_82546 ?auto_82548 ) ) ( not ( = ?auto_82542 ?auto_82549 ) ) ( not ( = ?auto_82543 ?auto_82549 ) ) ( not ( = ?auto_82544 ?auto_82549 ) ) ( not ( = ?auto_82545 ?auto_82549 ) ) ( not ( = ?auto_82546 ?auto_82549 ) ) ( not ( = ?auto_82548 ?auto_82549 ) ) ( ON ?auto_82549 ?auto_82547 ) ( not ( = ?auto_82542 ?auto_82547 ) ) ( not ( = ?auto_82543 ?auto_82547 ) ) ( not ( = ?auto_82544 ?auto_82547 ) ) ( not ( = ?auto_82545 ?auto_82547 ) ) ( not ( = ?auto_82546 ?auto_82547 ) ) ( not ( = ?auto_82548 ?auto_82547 ) ) ( not ( = ?auto_82549 ?auto_82547 ) ) ( ON ?auto_82548 ?auto_82549 ) ( CLEAR ?auto_82545 ) ( ON ?auto_82546 ?auto_82548 ) ( CLEAR ?auto_82546 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82547 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82549 ?auto_82547 ?auto_82548 )
+    ( ( MAKE-3PILE ?auto_82547 ?auto_82549 ?auto_82548 )
       ( MAKE-5PILE ?auto_82542 ?auto_82543 ?auto_82544 ?auto_82545 ?auto_82546 ) )
   )
 
@@ -3031,12 +3031,12 @@
     )
     :vars
     (
-      ?auto_82557 - BLOCK
-      ?auto_82556 - BLOCK
       ?auto_82555 - BLOCK
+      ?auto_82556 - BLOCK
+      ?auto_82557 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82550 ) ( ON ?auto_82551 ?auto_82550 ) ( ON ?auto_82552 ?auto_82551 ) ( not ( = ?auto_82550 ?auto_82551 ) ) ( not ( = ?auto_82550 ?auto_82552 ) ) ( not ( = ?auto_82550 ?auto_82553 ) ) ( not ( = ?auto_82550 ?auto_82554 ) ) ( not ( = ?auto_82550 ?auto_82557 ) ) ( not ( = ?auto_82551 ?auto_82552 ) ) ( not ( = ?auto_82551 ?auto_82553 ) ) ( not ( = ?auto_82551 ?auto_82554 ) ) ( not ( = ?auto_82551 ?auto_82557 ) ) ( not ( = ?auto_82552 ?auto_82553 ) ) ( not ( = ?auto_82552 ?auto_82554 ) ) ( not ( = ?auto_82552 ?auto_82557 ) ) ( not ( = ?auto_82553 ?auto_82554 ) ) ( not ( = ?auto_82553 ?auto_82557 ) ) ( not ( = ?auto_82554 ?auto_82557 ) ) ( not ( = ?auto_82550 ?auto_82556 ) ) ( not ( = ?auto_82551 ?auto_82556 ) ) ( not ( = ?auto_82552 ?auto_82556 ) ) ( not ( = ?auto_82553 ?auto_82556 ) ) ( not ( = ?auto_82554 ?auto_82556 ) ) ( not ( = ?auto_82557 ?auto_82556 ) ) ( ON ?auto_82556 ?auto_82555 ) ( not ( = ?auto_82550 ?auto_82555 ) ) ( not ( = ?auto_82551 ?auto_82555 ) ) ( not ( = ?auto_82552 ?auto_82555 ) ) ( not ( = ?auto_82553 ?auto_82555 ) ) ( not ( = ?auto_82554 ?auto_82555 ) ) ( not ( = ?auto_82557 ?auto_82555 ) ) ( not ( = ?auto_82556 ?auto_82555 ) ) ( ON ?auto_82557 ?auto_82556 ) ( ON ?auto_82554 ?auto_82557 ) ( CLEAR ?auto_82554 ) ( ON-TABLE ?auto_82555 ) ( HOLDING ?auto_82553 ) ( CLEAR ?auto_82552 ) )
+    ( and ( ON-TABLE ?auto_82550 ) ( ON ?auto_82551 ?auto_82550 ) ( ON ?auto_82552 ?auto_82551 ) ( not ( = ?auto_82550 ?auto_82551 ) ) ( not ( = ?auto_82550 ?auto_82552 ) ) ( not ( = ?auto_82550 ?auto_82553 ) ) ( not ( = ?auto_82550 ?auto_82554 ) ) ( not ( = ?auto_82550 ?auto_82555 ) ) ( not ( = ?auto_82551 ?auto_82552 ) ) ( not ( = ?auto_82551 ?auto_82553 ) ) ( not ( = ?auto_82551 ?auto_82554 ) ) ( not ( = ?auto_82551 ?auto_82555 ) ) ( not ( = ?auto_82552 ?auto_82553 ) ) ( not ( = ?auto_82552 ?auto_82554 ) ) ( not ( = ?auto_82552 ?auto_82555 ) ) ( not ( = ?auto_82553 ?auto_82554 ) ) ( not ( = ?auto_82553 ?auto_82555 ) ) ( not ( = ?auto_82554 ?auto_82555 ) ) ( not ( = ?auto_82550 ?auto_82556 ) ) ( not ( = ?auto_82551 ?auto_82556 ) ) ( not ( = ?auto_82552 ?auto_82556 ) ) ( not ( = ?auto_82553 ?auto_82556 ) ) ( not ( = ?auto_82554 ?auto_82556 ) ) ( not ( = ?auto_82555 ?auto_82556 ) ) ( ON ?auto_82556 ?auto_82557 ) ( not ( = ?auto_82550 ?auto_82557 ) ) ( not ( = ?auto_82551 ?auto_82557 ) ) ( not ( = ?auto_82552 ?auto_82557 ) ) ( not ( = ?auto_82553 ?auto_82557 ) ) ( not ( = ?auto_82554 ?auto_82557 ) ) ( not ( = ?auto_82555 ?auto_82557 ) ) ( not ( = ?auto_82556 ?auto_82557 ) ) ( ON ?auto_82555 ?auto_82556 ) ( ON ?auto_82554 ?auto_82555 ) ( CLEAR ?auto_82554 ) ( ON-TABLE ?auto_82557 ) ( HOLDING ?auto_82553 ) ( CLEAR ?auto_82552 ) )
     :subtasks
     ( ( MAKE-4PILE ?auto_82550 ?auto_82551 ?auto_82552 ?auto_82553 )
       ( MAKE-5PILE ?auto_82550 ?auto_82551 ?auto_82552 ?auto_82553 ?auto_82554 ) )
@@ -3053,14 +3053,14 @@
     )
     :vars
     (
+      ?auto_82565 - BLOCK
       ?auto_82564 - BLOCK
       ?auto_82563 - BLOCK
-      ?auto_82565 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82558 ) ( ON ?auto_82559 ?auto_82558 ) ( ON ?auto_82560 ?auto_82559 ) ( not ( = ?auto_82558 ?auto_82559 ) ) ( not ( = ?auto_82558 ?auto_82560 ) ) ( not ( = ?auto_82558 ?auto_82561 ) ) ( not ( = ?auto_82558 ?auto_82562 ) ) ( not ( = ?auto_82558 ?auto_82564 ) ) ( not ( = ?auto_82559 ?auto_82560 ) ) ( not ( = ?auto_82559 ?auto_82561 ) ) ( not ( = ?auto_82559 ?auto_82562 ) ) ( not ( = ?auto_82559 ?auto_82564 ) ) ( not ( = ?auto_82560 ?auto_82561 ) ) ( not ( = ?auto_82560 ?auto_82562 ) ) ( not ( = ?auto_82560 ?auto_82564 ) ) ( not ( = ?auto_82561 ?auto_82562 ) ) ( not ( = ?auto_82561 ?auto_82564 ) ) ( not ( = ?auto_82562 ?auto_82564 ) ) ( not ( = ?auto_82558 ?auto_82563 ) ) ( not ( = ?auto_82559 ?auto_82563 ) ) ( not ( = ?auto_82560 ?auto_82563 ) ) ( not ( = ?auto_82561 ?auto_82563 ) ) ( not ( = ?auto_82562 ?auto_82563 ) ) ( not ( = ?auto_82564 ?auto_82563 ) ) ( ON ?auto_82563 ?auto_82565 ) ( not ( = ?auto_82558 ?auto_82565 ) ) ( not ( = ?auto_82559 ?auto_82565 ) ) ( not ( = ?auto_82560 ?auto_82565 ) ) ( not ( = ?auto_82561 ?auto_82565 ) ) ( not ( = ?auto_82562 ?auto_82565 ) ) ( not ( = ?auto_82564 ?auto_82565 ) ) ( not ( = ?auto_82563 ?auto_82565 ) ) ( ON ?auto_82564 ?auto_82563 ) ( ON ?auto_82562 ?auto_82564 ) ( ON-TABLE ?auto_82565 ) ( CLEAR ?auto_82560 ) ( ON ?auto_82561 ?auto_82562 ) ( CLEAR ?auto_82561 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82558 ) ( ON ?auto_82559 ?auto_82558 ) ( ON ?auto_82560 ?auto_82559 ) ( not ( = ?auto_82558 ?auto_82559 ) ) ( not ( = ?auto_82558 ?auto_82560 ) ) ( not ( = ?auto_82558 ?auto_82561 ) ) ( not ( = ?auto_82558 ?auto_82562 ) ) ( not ( = ?auto_82558 ?auto_82565 ) ) ( not ( = ?auto_82559 ?auto_82560 ) ) ( not ( = ?auto_82559 ?auto_82561 ) ) ( not ( = ?auto_82559 ?auto_82562 ) ) ( not ( = ?auto_82559 ?auto_82565 ) ) ( not ( = ?auto_82560 ?auto_82561 ) ) ( not ( = ?auto_82560 ?auto_82562 ) ) ( not ( = ?auto_82560 ?auto_82565 ) ) ( not ( = ?auto_82561 ?auto_82562 ) ) ( not ( = ?auto_82561 ?auto_82565 ) ) ( not ( = ?auto_82562 ?auto_82565 ) ) ( not ( = ?auto_82558 ?auto_82564 ) ) ( not ( = ?auto_82559 ?auto_82564 ) ) ( not ( = ?auto_82560 ?auto_82564 ) ) ( not ( = ?auto_82561 ?auto_82564 ) ) ( not ( = ?auto_82562 ?auto_82564 ) ) ( not ( = ?auto_82565 ?auto_82564 ) ) ( ON ?auto_82564 ?auto_82563 ) ( not ( = ?auto_82558 ?auto_82563 ) ) ( not ( = ?auto_82559 ?auto_82563 ) ) ( not ( = ?auto_82560 ?auto_82563 ) ) ( not ( = ?auto_82561 ?auto_82563 ) ) ( not ( = ?auto_82562 ?auto_82563 ) ) ( not ( = ?auto_82565 ?auto_82563 ) ) ( not ( = ?auto_82564 ?auto_82563 ) ) ( ON ?auto_82565 ?auto_82564 ) ( ON ?auto_82562 ?auto_82565 ) ( ON-TABLE ?auto_82563 ) ( CLEAR ?auto_82560 ) ( ON ?auto_82561 ?auto_82562 ) ( CLEAR ?auto_82561 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82565 ?auto_82563 ?auto_82564 ?auto_82562 )
+    ( ( MAKE-4PILE ?auto_82563 ?auto_82564 ?auto_82565 ?auto_82562 )
       ( MAKE-5PILE ?auto_82558 ?auto_82559 ?auto_82560 ?auto_82561 ?auto_82562 ) )
   )
 
@@ -3075,12 +3075,12 @@
     )
     :vars
     (
+      ?auto_82573 - BLOCK
       ?auto_82572 - BLOCK
       ?auto_82571 - BLOCK
-      ?auto_82573 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82566 ) ( ON ?auto_82567 ?auto_82566 ) ( not ( = ?auto_82566 ?auto_82567 ) ) ( not ( = ?auto_82566 ?auto_82568 ) ) ( not ( = ?auto_82566 ?auto_82569 ) ) ( not ( = ?auto_82566 ?auto_82570 ) ) ( not ( = ?auto_82566 ?auto_82572 ) ) ( not ( = ?auto_82567 ?auto_82568 ) ) ( not ( = ?auto_82567 ?auto_82569 ) ) ( not ( = ?auto_82567 ?auto_82570 ) ) ( not ( = ?auto_82567 ?auto_82572 ) ) ( not ( = ?auto_82568 ?auto_82569 ) ) ( not ( = ?auto_82568 ?auto_82570 ) ) ( not ( = ?auto_82568 ?auto_82572 ) ) ( not ( = ?auto_82569 ?auto_82570 ) ) ( not ( = ?auto_82569 ?auto_82572 ) ) ( not ( = ?auto_82570 ?auto_82572 ) ) ( not ( = ?auto_82566 ?auto_82571 ) ) ( not ( = ?auto_82567 ?auto_82571 ) ) ( not ( = ?auto_82568 ?auto_82571 ) ) ( not ( = ?auto_82569 ?auto_82571 ) ) ( not ( = ?auto_82570 ?auto_82571 ) ) ( not ( = ?auto_82572 ?auto_82571 ) ) ( ON ?auto_82571 ?auto_82573 ) ( not ( = ?auto_82566 ?auto_82573 ) ) ( not ( = ?auto_82567 ?auto_82573 ) ) ( not ( = ?auto_82568 ?auto_82573 ) ) ( not ( = ?auto_82569 ?auto_82573 ) ) ( not ( = ?auto_82570 ?auto_82573 ) ) ( not ( = ?auto_82572 ?auto_82573 ) ) ( not ( = ?auto_82571 ?auto_82573 ) ) ( ON ?auto_82572 ?auto_82571 ) ( ON ?auto_82570 ?auto_82572 ) ( ON-TABLE ?auto_82573 ) ( ON ?auto_82569 ?auto_82570 ) ( CLEAR ?auto_82569 ) ( HOLDING ?auto_82568 ) ( CLEAR ?auto_82567 ) )
+    ( and ( ON-TABLE ?auto_82566 ) ( ON ?auto_82567 ?auto_82566 ) ( not ( = ?auto_82566 ?auto_82567 ) ) ( not ( = ?auto_82566 ?auto_82568 ) ) ( not ( = ?auto_82566 ?auto_82569 ) ) ( not ( = ?auto_82566 ?auto_82570 ) ) ( not ( = ?auto_82566 ?auto_82573 ) ) ( not ( = ?auto_82567 ?auto_82568 ) ) ( not ( = ?auto_82567 ?auto_82569 ) ) ( not ( = ?auto_82567 ?auto_82570 ) ) ( not ( = ?auto_82567 ?auto_82573 ) ) ( not ( = ?auto_82568 ?auto_82569 ) ) ( not ( = ?auto_82568 ?auto_82570 ) ) ( not ( = ?auto_82568 ?auto_82573 ) ) ( not ( = ?auto_82569 ?auto_82570 ) ) ( not ( = ?auto_82569 ?auto_82573 ) ) ( not ( = ?auto_82570 ?auto_82573 ) ) ( not ( = ?auto_82566 ?auto_82572 ) ) ( not ( = ?auto_82567 ?auto_82572 ) ) ( not ( = ?auto_82568 ?auto_82572 ) ) ( not ( = ?auto_82569 ?auto_82572 ) ) ( not ( = ?auto_82570 ?auto_82572 ) ) ( not ( = ?auto_82573 ?auto_82572 ) ) ( ON ?auto_82572 ?auto_82571 ) ( not ( = ?auto_82566 ?auto_82571 ) ) ( not ( = ?auto_82567 ?auto_82571 ) ) ( not ( = ?auto_82568 ?auto_82571 ) ) ( not ( = ?auto_82569 ?auto_82571 ) ) ( not ( = ?auto_82570 ?auto_82571 ) ) ( not ( = ?auto_82573 ?auto_82571 ) ) ( not ( = ?auto_82572 ?auto_82571 ) ) ( ON ?auto_82573 ?auto_82572 ) ( ON ?auto_82570 ?auto_82573 ) ( ON-TABLE ?auto_82571 ) ( ON ?auto_82569 ?auto_82570 ) ( CLEAR ?auto_82569 ) ( HOLDING ?auto_82568 ) ( CLEAR ?auto_82567 ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_82566 ?auto_82567 ?auto_82568 )
       ( MAKE-5PILE ?auto_82566 ?auto_82567 ?auto_82568 ?auto_82569 ?auto_82570 ) )
@@ -3097,14 +3097,14 @@
     )
     :vars
     (
+      ?auto_82580 - BLOCK
       ?auto_82579 - BLOCK
       ?auto_82581 - BLOCK
-      ?auto_82580 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82574 ) ( ON ?auto_82575 ?auto_82574 ) ( not ( = ?auto_82574 ?auto_82575 ) ) ( not ( = ?auto_82574 ?auto_82576 ) ) ( not ( = ?auto_82574 ?auto_82577 ) ) ( not ( = ?auto_82574 ?auto_82578 ) ) ( not ( = ?auto_82574 ?auto_82579 ) ) ( not ( = ?auto_82575 ?auto_82576 ) ) ( not ( = ?auto_82575 ?auto_82577 ) ) ( not ( = ?auto_82575 ?auto_82578 ) ) ( not ( = ?auto_82575 ?auto_82579 ) ) ( not ( = ?auto_82576 ?auto_82577 ) ) ( not ( = ?auto_82576 ?auto_82578 ) ) ( not ( = ?auto_82576 ?auto_82579 ) ) ( not ( = ?auto_82577 ?auto_82578 ) ) ( not ( = ?auto_82577 ?auto_82579 ) ) ( not ( = ?auto_82578 ?auto_82579 ) ) ( not ( = ?auto_82574 ?auto_82581 ) ) ( not ( = ?auto_82575 ?auto_82581 ) ) ( not ( = ?auto_82576 ?auto_82581 ) ) ( not ( = ?auto_82577 ?auto_82581 ) ) ( not ( = ?auto_82578 ?auto_82581 ) ) ( not ( = ?auto_82579 ?auto_82581 ) ) ( ON ?auto_82581 ?auto_82580 ) ( not ( = ?auto_82574 ?auto_82580 ) ) ( not ( = ?auto_82575 ?auto_82580 ) ) ( not ( = ?auto_82576 ?auto_82580 ) ) ( not ( = ?auto_82577 ?auto_82580 ) ) ( not ( = ?auto_82578 ?auto_82580 ) ) ( not ( = ?auto_82579 ?auto_82580 ) ) ( not ( = ?auto_82581 ?auto_82580 ) ) ( ON ?auto_82579 ?auto_82581 ) ( ON ?auto_82578 ?auto_82579 ) ( ON-TABLE ?auto_82580 ) ( ON ?auto_82577 ?auto_82578 ) ( CLEAR ?auto_82575 ) ( ON ?auto_82576 ?auto_82577 ) ( CLEAR ?auto_82576 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82574 ) ( ON ?auto_82575 ?auto_82574 ) ( not ( = ?auto_82574 ?auto_82575 ) ) ( not ( = ?auto_82574 ?auto_82576 ) ) ( not ( = ?auto_82574 ?auto_82577 ) ) ( not ( = ?auto_82574 ?auto_82578 ) ) ( not ( = ?auto_82574 ?auto_82580 ) ) ( not ( = ?auto_82575 ?auto_82576 ) ) ( not ( = ?auto_82575 ?auto_82577 ) ) ( not ( = ?auto_82575 ?auto_82578 ) ) ( not ( = ?auto_82575 ?auto_82580 ) ) ( not ( = ?auto_82576 ?auto_82577 ) ) ( not ( = ?auto_82576 ?auto_82578 ) ) ( not ( = ?auto_82576 ?auto_82580 ) ) ( not ( = ?auto_82577 ?auto_82578 ) ) ( not ( = ?auto_82577 ?auto_82580 ) ) ( not ( = ?auto_82578 ?auto_82580 ) ) ( not ( = ?auto_82574 ?auto_82579 ) ) ( not ( = ?auto_82575 ?auto_82579 ) ) ( not ( = ?auto_82576 ?auto_82579 ) ) ( not ( = ?auto_82577 ?auto_82579 ) ) ( not ( = ?auto_82578 ?auto_82579 ) ) ( not ( = ?auto_82580 ?auto_82579 ) ) ( ON ?auto_82579 ?auto_82581 ) ( not ( = ?auto_82574 ?auto_82581 ) ) ( not ( = ?auto_82575 ?auto_82581 ) ) ( not ( = ?auto_82576 ?auto_82581 ) ) ( not ( = ?auto_82577 ?auto_82581 ) ) ( not ( = ?auto_82578 ?auto_82581 ) ) ( not ( = ?auto_82580 ?auto_82581 ) ) ( not ( = ?auto_82579 ?auto_82581 ) ) ( ON ?auto_82580 ?auto_82579 ) ( ON ?auto_82578 ?auto_82580 ) ( ON-TABLE ?auto_82581 ) ( ON ?auto_82577 ?auto_82578 ) ( CLEAR ?auto_82575 ) ( ON ?auto_82576 ?auto_82577 ) ( CLEAR ?auto_82576 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82580 ?auto_82581 ?auto_82579 ?auto_82578 ?auto_82577 )
+    ( ( MAKE-5PILE ?auto_82581 ?auto_82579 ?auto_82580 ?auto_82578 ?auto_82577 )
       ( MAKE-5PILE ?auto_82574 ?auto_82575 ?auto_82576 ?auto_82577 ?auto_82578 ) )
   )
 
@@ -3119,12 +3119,12 @@
     )
     :vars
     (
-      ?auto_82587 - BLOCK
       ?auto_82588 - BLOCK
       ?auto_82589 - BLOCK
+      ?auto_82587 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82582 ) ( not ( = ?auto_82582 ?auto_82583 ) ) ( not ( = ?auto_82582 ?auto_82584 ) ) ( not ( = ?auto_82582 ?auto_82585 ) ) ( not ( = ?auto_82582 ?auto_82586 ) ) ( not ( = ?auto_82582 ?auto_82587 ) ) ( not ( = ?auto_82583 ?auto_82584 ) ) ( not ( = ?auto_82583 ?auto_82585 ) ) ( not ( = ?auto_82583 ?auto_82586 ) ) ( not ( = ?auto_82583 ?auto_82587 ) ) ( not ( = ?auto_82584 ?auto_82585 ) ) ( not ( = ?auto_82584 ?auto_82586 ) ) ( not ( = ?auto_82584 ?auto_82587 ) ) ( not ( = ?auto_82585 ?auto_82586 ) ) ( not ( = ?auto_82585 ?auto_82587 ) ) ( not ( = ?auto_82586 ?auto_82587 ) ) ( not ( = ?auto_82582 ?auto_82588 ) ) ( not ( = ?auto_82583 ?auto_82588 ) ) ( not ( = ?auto_82584 ?auto_82588 ) ) ( not ( = ?auto_82585 ?auto_82588 ) ) ( not ( = ?auto_82586 ?auto_82588 ) ) ( not ( = ?auto_82587 ?auto_82588 ) ) ( ON ?auto_82588 ?auto_82589 ) ( not ( = ?auto_82582 ?auto_82589 ) ) ( not ( = ?auto_82583 ?auto_82589 ) ) ( not ( = ?auto_82584 ?auto_82589 ) ) ( not ( = ?auto_82585 ?auto_82589 ) ) ( not ( = ?auto_82586 ?auto_82589 ) ) ( not ( = ?auto_82587 ?auto_82589 ) ) ( not ( = ?auto_82588 ?auto_82589 ) ) ( ON ?auto_82587 ?auto_82588 ) ( ON ?auto_82586 ?auto_82587 ) ( ON-TABLE ?auto_82589 ) ( ON ?auto_82585 ?auto_82586 ) ( ON ?auto_82584 ?auto_82585 ) ( CLEAR ?auto_82584 ) ( HOLDING ?auto_82583 ) ( CLEAR ?auto_82582 ) )
+    ( and ( ON-TABLE ?auto_82582 ) ( not ( = ?auto_82582 ?auto_82583 ) ) ( not ( = ?auto_82582 ?auto_82584 ) ) ( not ( = ?auto_82582 ?auto_82585 ) ) ( not ( = ?auto_82582 ?auto_82586 ) ) ( not ( = ?auto_82582 ?auto_82588 ) ) ( not ( = ?auto_82583 ?auto_82584 ) ) ( not ( = ?auto_82583 ?auto_82585 ) ) ( not ( = ?auto_82583 ?auto_82586 ) ) ( not ( = ?auto_82583 ?auto_82588 ) ) ( not ( = ?auto_82584 ?auto_82585 ) ) ( not ( = ?auto_82584 ?auto_82586 ) ) ( not ( = ?auto_82584 ?auto_82588 ) ) ( not ( = ?auto_82585 ?auto_82586 ) ) ( not ( = ?auto_82585 ?auto_82588 ) ) ( not ( = ?auto_82586 ?auto_82588 ) ) ( not ( = ?auto_82582 ?auto_82589 ) ) ( not ( = ?auto_82583 ?auto_82589 ) ) ( not ( = ?auto_82584 ?auto_82589 ) ) ( not ( = ?auto_82585 ?auto_82589 ) ) ( not ( = ?auto_82586 ?auto_82589 ) ) ( not ( = ?auto_82588 ?auto_82589 ) ) ( ON ?auto_82589 ?auto_82587 ) ( not ( = ?auto_82582 ?auto_82587 ) ) ( not ( = ?auto_82583 ?auto_82587 ) ) ( not ( = ?auto_82584 ?auto_82587 ) ) ( not ( = ?auto_82585 ?auto_82587 ) ) ( not ( = ?auto_82586 ?auto_82587 ) ) ( not ( = ?auto_82588 ?auto_82587 ) ) ( not ( = ?auto_82589 ?auto_82587 ) ) ( ON ?auto_82588 ?auto_82589 ) ( ON ?auto_82586 ?auto_82588 ) ( ON-TABLE ?auto_82587 ) ( ON ?auto_82585 ?auto_82586 ) ( ON ?auto_82584 ?auto_82585 ) ( CLEAR ?auto_82584 ) ( HOLDING ?auto_82583 ) ( CLEAR ?auto_82582 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_82582 ?auto_82583 )
       ( MAKE-5PILE ?auto_82582 ?auto_82583 ?auto_82584 ?auto_82585 ?auto_82586 ) )
@@ -3141,14 +3141,14 @@
     )
     :vars
     (
-      ?auto_82597 - BLOCK
       ?auto_82596 - BLOCK
+      ?auto_82597 - BLOCK
       ?auto_82595 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82590 ) ( not ( = ?auto_82590 ?auto_82591 ) ) ( not ( = ?auto_82590 ?auto_82592 ) ) ( not ( = ?auto_82590 ?auto_82593 ) ) ( not ( = ?auto_82590 ?auto_82594 ) ) ( not ( = ?auto_82590 ?auto_82597 ) ) ( not ( = ?auto_82591 ?auto_82592 ) ) ( not ( = ?auto_82591 ?auto_82593 ) ) ( not ( = ?auto_82591 ?auto_82594 ) ) ( not ( = ?auto_82591 ?auto_82597 ) ) ( not ( = ?auto_82592 ?auto_82593 ) ) ( not ( = ?auto_82592 ?auto_82594 ) ) ( not ( = ?auto_82592 ?auto_82597 ) ) ( not ( = ?auto_82593 ?auto_82594 ) ) ( not ( = ?auto_82593 ?auto_82597 ) ) ( not ( = ?auto_82594 ?auto_82597 ) ) ( not ( = ?auto_82590 ?auto_82596 ) ) ( not ( = ?auto_82591 ?auto_82596 ) ) ( not ( = ?auto_82592 ?auto_82596 ) ) ( not ( = ?auto_82593 ?auto_82596 ) ) ( not ( = ?auto_82594 ?auto_82596 ) ) ( not ( = ?auto_82597 ?auto_82596 ) ) ( ON ?auto_82596 ?auto_82595 ) ( not ( = ?auto_82590 ?auto_82595 ) ) ( not ( = ?auto_82591 ?auto_82595 ) ) ( not ( = ?auto_82592 ?auto_82595 ) ) ( not ( = ?auto_82593 ?auto_82595 ) ) ( not ( = ?auto_82594 ?auto_82595 ) ) ( not ( = ?auto_82597 ?auto_82595 ) ) ( not ( = ?auto_82596 ?auto_82595 ) ) ( ON ?auto_82597 ?auto_82596 ) ( ON ?auto_82594 ?auto_82597 ) ( ON-TABLE ?auto_82595 ) ( ON ?auto_82593 ?auto_82594 ) ( ON ?auto_82592 ?auto_82593 ) ( CLEAR ?auto_82590 ) ( ON ?auto_82591 ?auto_82592 ) ( CLEAR ?auto_82591 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82590 ) ( not ( = ?auto_82590 ?auto_82591 ) ) ( not ( = ?auto_82590 ?auto_82592 ) ) ( not ( = ?auto_82590 ?auto_82593 ) ) ( not ( = ?auto_82590 ?auto_82594 ) ) ( not ( = ?auto_82590 ?auto_82596 ) ) ( not ( = ?auto_82591 ?auto_82592 ) ) ( not ( = ?auto_82591 ?auto_82593 ) ) ( not ( = ?auto_82591 ?auto_82594 ) ) ( not ( = ?auto_82591 ?auto_82596 ) ) ( not ( = ?auto_82592 ?auto_82593 ) ) ( not ( = ?auto_82592 ?auto_82594 ) ) ( not ( = ?auto_82592 ?auto_82596 ) ) ( not ( = ?auto_82593 ?auto_82594 ) ) ( not ( = ?auto_82593 ?auto_82596 ) ) ( not ( = ?auto_82594 ?auto_82596 ) ) ( not ( = ?auto_82590 ?auto_82597 ) ) ( not ( = ?auto_82591 ?auto_82597 ) ) ( not ( = ?auto_82592 ?auto_82597 ) ) ( not ( = ?auto_82593 ?auto_82597 ) ) ( not ( = ?auto_82594 ?auto_82597 ) ) ( not ( = ?auto_82596 ?auto_82597 ) ) ( ON ?auto_82597 ?auto_82595 ) ( not ( = ?auto_82590 ?auto_82595 ) ) ( not ( = ?auto_82591 ?auto_82595 ) ) ( not ( = ?auto_82592 ?auto_82595 ) ) ( not ( = ?auto_82593 ?auto_82595 ) ) ( not ( = ?auto_82594 ?auto_82595 ) ) ( not ( = ?auto_82596 ?auto_82595 ) ) ( not ( = ?auto_82597 ?auto_82595 ) ) ( ON ?auto_82596 ?auto_82597 ) ( ON ?auto_82594 ?auto_82596 ) ( ON-TABLE ?auto_82595 ) ( ON ?auto_82593 ?auto_82594 ) ( ON ?auto_82592 ?auto_82593 ) ( CLEAR ?auto_82590 ) ( ON ?auto_82591 ?auto_82592 ) ( CLEAR ?auto_82591 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82595 ?auto_82596 ?auto_82597 ?auto_82594 ?auto_82593 ?auto_82592 )
+    ( ( MAKE-6PILE ?auto_82595 ?auto_82597 ?auto_82596 ?auto_82594 ?auto_82593 ?auto_82592 )
       ( MAKE-5PILE ?auto_82590 ?auto_82591 ?auto_82592 ?auto_82593 ?auto_82594 ) )
   )
 
@@ -3186,13 +3186,13 @@
     :vars
     (
       ?auto_82613 - BLOCK
-      ?auto_82611 - BLOCK
       ?auto_82612 - BLOCK
+      ?auto_82611 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82606 ?auto_82607 ) ) ( not ( = ?auto_82606 ?auto_82608 ) ) ( not ( = ?auto_82606 ?auto_82609 ) ) ( not ( = ?auto_82606 ?auto_82610 ) ) ( not ( = ?auto_82606 ?auto_82613 ) ) ( not ( = ?auto_82607 ?auto_82608 ) ) ( not ( = ?auto_82607 ?auto_82609 ) ) ( not ( = ?auto_82607 ?auto_82610 ) ) ( not ( = ?auto_82607 ?auto_82613 ) ) ( not ( = ?auto_82608 ?auto_82609 ) ) ( not ( = ?auto_82608 ?auto_82610 ) ) ( not ( = ?auto_82608 ?auto_82613 ) ) ( not ( = ?auto_82609 ?auto_82610 ) ) ( not ( = ?auto_82609 ?auto_82613 ) ) ( not ( = ?auto_82610 ?auto_82613 ) ) ( not ( = ?auto_82606 ?auto_82611 ) ) ( not ( = ?auto_82607 ?auto_82611 ) ) ( not ( = ?auto_82608 ?auto_82611 ) ) ( not ( = ?auto_82609 ?auto_82611 ) ) ( not ( = ?auto_82610 ?auto_82611 ) ) ( not ( = ?auto_82613 ?auto_82611 ) ) ( ON ?auto_82611 ?auto_82612 ) ( not ( = ?auto_82606 ?auto_82612 ) ) ( not ( = ?auto_82607 ?auto_82612 ) ) ( not ( = ?auto_82608 ?auto_82612 ) ) ( not ( = ?auto_82609 ?auto_82612 ) ) ( not ( = ?auto_82610 ?auto_82612 ) ) ( not ( = ?auto_82613 ?auto_82612 ) ) ( not ( = ?auto_82611 ?auto_82612 ) ) ( ON ?auto_82613 ?auto_82611 ) ( ON ?auto_82610 ?auto_82613 ) ( ON-TABLE ?auto_82612 ) ( ON ?auto_82609 ?auto_82610 ) ( ON ?auto_82608 ?auto_82609 ) ( ON ?auto_82607 ?auto_82608 ) ( ON ?auto_82606 ?auto_82607 ) ( CLEAR ?auto_82606 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82606 ?auto_82607 ) ) ( not ( = ?auto_82606 ?auto_82608 ) ) ( not ( = ?auto_82606 ?auto_82609 ) ) ( not ( = ?auto_82606 ?auto_82610 ) ) ( not ( = ?auto_82606 ?auto_82613 ) ) ( not ( = ?auto_82607 ?auto_82608 ) ) ( not ( = ?auto_82607 ?auto_82609 ) ) ( not ( = ?auto_82607 ?auto_82610 ) ) ( not ( = ?auto_82607 ?auto_82613 ) ) ( not ( = ?auto_82608 ?auto_82609 ) ) ( not ( = ?auto_82608 ?auto_82610 ) ) ( not ( = ?auto_82608 ?auto_82613 ) ) ( not ( = ?auto_82609 ?auto_82610 ) ) ( not ( = ?auto_82609 ?auto_82613 ) ) ( not ( = ?auto_82610 ?auto_82613 ) ) ( not ( = ?auto_82606 ?auto_82612 ) ) ( not ( = ?auto_82607 ?auto_82612 ) ) ( not ( = ?auto_82608 ?auto_82612 ) ) ( not ( = ?auto_82609 ?auto_82612 ) ) ( not ( = ?auto_82610 ?auto_82612 ) ) ( not ( = ?auto_82613 ?auto_82612 ) ) ( ON ?auto_82612 ?auto_82611 ) ( not ( = ?auto_82606 ?auto_82611 ) ) ( not ( = ?auto_82607 ?auto_82611 ) ) ( not ( = ?auto_82608 ?auto_82611 ) ) ( not ( = ?auto_82609 ?auto_82611 ) ) ( not ( = ?auto_82610 ?auto_82611 ) ) ( not ( = ?auto_82613 ?auto_82611 ) ) ( not ( = ?auto_82612 ?auto_82611 ) ) ( ON ?auto_82613 ?auto_82612 ) ( ON ?auto_82610 ?auto_82613 ) ( ON-TABLE ?auto_82611 ) ( ON ?auto_82609 ?auto_82610 ) ( ON ?auto_82608 ?auto_82609 ) ( ON ?auto_82607 ?auto_82608 ) ( ON ?auto_82606 ?auto_82607 ) ( CLEAR ?auto_82606 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82612 ?auto_82611 ?auto_82613 ?auto_82610 ?auto_82609 ?auto_82608 ?auto_82607 )
+    ( ( MAKE-7PILE ?auto_82611 ?auto_82612 ?auto_82613 ?auto_82610 ?auto_82609 ?auto_82608 ?auto_82607 )
       ( MAKE-5PILE ?auto_82606 ?auto_82607 ?auto_82608 ?auto_82609 ?auto_82610 ) )
   )
 
@@ -3251,15 +3251,15 @@
     :vars
     (
       ?auto_82626 - BLOCK
-      ?auto_82629 - BLOCK
-      ?auto_82628 - BLOCK
       ?auto_82630 - BLOCK
+      ?auto_82628 - BLOCK
       ?auto_82627 - BLOCK
+      ?auto_82629 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82624 ?auto_82625 ) ) ( ON ?auto_82625 ?auto_82626 ) ( not ( = ?auto_82624 ?auto_82626 ) ) ( not ( = ?auto_82625 ?auto_82626 ) ) ( ON ?auto_82624 ?auto_82625 ) ( CLEAR ?auto_82624 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82629 ) ( ON ?auto_82628 ?auto_82629 ) ( ON ?auto_82630 ?auto_82628 ) ( ON ?auto_82627 ?auto_82630 ) ( ON ?auto_82626 ?auto_82627 ) ( not ( = ?auto_82629 ?auto_82628 ) ) ( not ( = ?auto_82629 ?auto_82630 ) ) ( not ( = ?auto_82629 ?auto_82627 ) ) ( not ( = ?auto_82629 ?auto_82626 ) ) ( not ( = ?auto_82629 ?auto_82625 ) ) ( not ( = ?auto_82629 ?auto_82624 ) ) ( not ( = ?auto_82628 ?auto_82630 ) ) ( not ( = ?auto_82628 ?auto_82627 ) ) ( not ( = ?auto_82628 ?auto_82626 ) ) ( not ( = ?auto_82628 ?auto_82625 ) ) ( not ( = ?auto_82628 ?auto_82624 ) ) ( not ( = ?auto_82630 ?auto_82627 ) ) ( not ( = ?auto_82630 ?auto_82626 ) ) ( not ( = ?auto_82630 ?auto_82625 ) ) ( not ( = ?auto_82630 ?auto_82624 ) ) ( not ( = ?auto_82627 ?auto_82626 ) ) ( not ( = ?auto_82627 ?auto_82625 ) ) ( not ( = ?auto_82627 ?auto_82624 ) ) )
+    ( and ( not ( = ?auto_82624 ?auto_82625 ) ) ( ON ?auto_82625 ?auto_82626 ) ( not ( = ?auto_82624 ?auto_82626 ) ) ( not ( = ?auto_82625 ?auto_82626 ) ) ( ON ?auto_82624 ?auto_82625 ) ( CLEAR ?auto_82624 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82630 ) ( ON ?auto_82628 ?auto_82630 ) ( ON ?auto_82627 ?auto_82628 ) ( ON ?auto_82629 ?auto_82627 ) ( ON ?auto_82626 ?auto_82629 ) ( not ( = ?auto_82630 ?auto_82628 ) ) ( not ( = ?auto_82630 ?auto_82627 ) ) ( not ( = ?auto_82630 ?auto_82629 ) ) ( not ( = ?auto_82630 ?auto_82626 ) ) ( not ( = ?auto_82630 ?auto_82625 ) ) ( not ( = ?auto_82630 ?auto_82624 ) ) ( not ( = ?auto_82628 ?auto_82627 ) ) ( not ( = ?auto_82628 ?auto_82629 ) ) ( not ( = ?auto_82628 ?auto_82626 ) ) ( not ( = ?auto_82628 ?auto_82625 ) ) ( not ( = ?auto_82628 ?auto_82624 ) ) ( not ( = ?auto_82627 ?auto_82629 ) ) ( not ( = ?auto_82627 ?auto_82626 ) ) ( not ( = ?auto_82627 ?auto_82625 ) ) ( not ( = ?auto_82627 ?auto_82624 ) ) ( not ( = ?auto_82629 ?auto_82626 ) ) ( not ( = ?auto_82629 ?auto_82625 ) ) ( not ( = ?auto_82629 ?auto_82624 ) ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82629 ?auto_82628 ?auto_82630 ?auto_82627 ?auto_82626 ?auto_82625 )
+    ( ( MAKE-6PILE ?auto_82630 ?auto_82628 ?auto_82627 ?auto_82629 ?auto_82626 ?auto_82625 )
       ( MAKE-2PILE ?auto_82624 ?auto_82625 ) )
   )
 
@@ -3271,16 +3271,16 @@
     )
     :vars
     (
-      ?auto_82636 - BLOCK
       ?auto_82634 - BLOCK
       ?auto_82635 - BLOCK
-      ?auto_82637 - BLOCK
       ?auto_82633 - BLOCK
+      ?auto_82637 - BLOCK
+      ?auto_82636 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82631 ?auto_82632 ) ) ( ON ?auto_82632 ?auto_82636 ) ( not ( = ?auto_82631 ?auto_82636 ) ) ( not ( = ?auto_82632 ?auto_82636 ) ) ( ON-TABLE ?auto_82634 ) ( ON ?auto_82635 ?auto_82634 ) ( ON ?auto_82637 ?auto_82635 ) ( ON ?auto_82633 ?auto_82637 ) ( ON ?auto_82636 ?auto_82633 ) ( not ( = ?auto_82634 ?auto_82635 ) ) ( not ( = ?auto_82634 ?auto_82637 ) ) ( not ( = ?auto_82634 ?auto_82633 ) ) ( not ( = ?auto_82634 ?auto_82636 ) ) ( not ( = ?auto_82634 ?auto_82632 ) ) ( not ( = ?auto_82634 ?auto_82631 ) ) ( not ( = ?auto_82635 ?auto_82637 ) ) ( not ( = ?auto_82635 ?auto_82633 ) ) ( not ( = ?auto_82635 ?auto_82636 ) ) ( not ( = ?auto_82635 ?auto_82632 ) ) ( not ( = ?auto_82635 ?auto_82631 ) ) ( not ( = ?auto_82637 ?auto_82633 ) ) ( not ( = ?auto_82637 ?auto_82636 ) ) ( not ( = ?auto_82637 ?auto_82632 ) ) ( not ( = ?auto_82637 ?auto_82631 ) ) ( not ( = ?auto_82633 ?auto_82636 ) ) ( not ( = ?auto_82633 ?auto_82632 ) ) ( not ( = ?auto_82633 ?auto_82631 ) ) ( HOLDING ?auto_82631 ) ( CLEAR ?auto_82632 ) )
+    ( and ( not ( = ?auto_82631 ?auto_82632 ) ) ( ON ?auto_82632 ?auto_82634 ) ( not ( = ?auto_82631 ?auto_82634 ) ) ( not ( = ?auto_82632 ?auto_82634 ) ) ( ON-TABLE ?auto_82635 ) ( ON ?auto_82633 ?auto_82635 ) ( ON ?auto_82637 ?auto_82633 ) ( ON ?auto_82636 ?auto_82637 ) ( ON ?auto_82634 ?auto_82636 ) ( not ( = ?auto_82635 ?auto_82633 ) ) ( not ( = ?auto_82635 ?auto_82637 ) ) ( not ( = ?auto_82635 ?auto_82636 ) ) ( not ( = ?auto_82635 ?auto_82634 ) ) ( not ( = ?auto_82635 ?auto_82632 ) ) ( not ( = ?auto_82635 ?auto_82631 ) ) ( not ( = ?auto_82633 ?auto_82637 ) ) ( not ( = ?auto_82633 ?auto_82636 ) ) ( not ( = ?auto_82633 ?auto_82634 ) ) ( not ( = ?auto_82633 ?auto_82632 ) ) ( not ( = ?auto_82633 ?auto_82631 ) ) ( not ( = ?auto_82637 ?auto_82636 ) ) ( not ( = ?auto_82637 ?auto_82634 ) ) ( not ( = ?auto_82637 ?auto_82632 ) ) ( not ( = ?auto_82637 ?auto_82631 ) ) ( not ( = ?auto_82636 ?auto_82634 ) ) ( not ( = ?auto_82636 ?auto_82632 ) ) ( not ( = ?auto_82636 ?auto_82631 ) ) ( HOLDING ?auto_82631 ) ( CLEAR ?auto_82632 ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82634 ?auto_82635 ?auto_82637 ?auto_82633 ?auto_82636 ?auto_82632 ?auto_82631 )
+    ( ( MAKE-7PILE ?auto_82635 ?auto_82633 ?auto_82637 ?auto_82636 ?auto_82634 ?auto_82632 ?auto_82631 )
       ( MAKE-2PILE ?auto_82631 ?auto_82632 ) )
   )
 
@@ -3293,14 +3293,14 @@
     :vars
     (
       ?auto_82644 - BLOCK
-      ?auto_82641 - BLOCK
-      ?auto_82640 - BLOCK
-      ?auto_82642 - BLOCK
       ?auto_82643 - BLOCK
+      ?auto_82642 - BLOCK
+      ?auto_82640 - BLOCK
+      ?auto_82641 - BLOCK
       ?auto_82645 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82638 ?auto_82639 ) ) ( ON ?auto_82639 ?auto_82644 ) ( not ( = ?auto_82638 ?auto_82644 ) ) ( not ( = ?auto_82639 ?auto_82644 ) ) ( ON-TABLE ?auto_82641 ) ( ON ?auto_82640 ?auto_82641 ) ( ON ?auto_82642 ?auto_82640 ) ( ON ?auto_82643 ?auto_82642 ) ( ON ?auto_82644 ?auto_82643 ) ( not ( = ?auto_82641 ?auto_82640 ) ) ( not ( = ?auto_82641 ?auto_82642 ) ) ( not ( = ?auto_82641 ?auto_82643 ) ) ( not ( = ?auto_82641 ?auto_82644 ) ) ( not ( = ?auto_82641 ?auto_82639 ) ) ( not ( = ?auto_82641 ?auto_82638 ) ) ( not ( = ?auto_82640 ?auto_82642 ) ) ( not ( = ?auto_82640 ?auto_82643 ) ) ( not ( = ?auto_82640 ?auto_82644 ) ) ( not ( = ?auto_82640 ?auto_82639 ) ) ( not ( = ?auto_82640 ?auto_82638 ) ) ( not ( = ?auto_82642 ?auto_82643 ) ) ( not ( = ?auto_82642 ?auto_82644 ) ) ( not ( = ?auto_82642 ?auto_82639 ) ) ( not ( = ?auto_82642 ?auto_82638 ) ) ( not ( = ?auto_82643 ?auto_82644 ) ) ( not ( = ?auto_82643 ?auto_82639 ) ) ( not ( = ?auto_82643 ?auto_82638 ) ) ( CLEAR ?auto_82639 ) ( ON ?auto_82638 ?auto_82645 ) ( CLEAR ?auto_82638 ) ( HAND-EMPTY ) ( not ( = ?auto_82638 ?auto_82645 ) ) ( not ( = ?auto_82639 ?auto_82645 ) ) ( not ( = ?auto_82644 ?auto_82645 ) ) ( not ( = ?auto_82641 ?auto_82645 ) ) ( not ( = ?auto_82640 ?auto_82645 ) ) ( not ( = ?auto_82642 ?auto_82645 ) ) ( not ( = ?auto_82643 ?auto_82645 ) ) )
+    ( and ( not ( = ?auto_82638 ?auto_82639 ) ) ( ON ?auto_82639 ?auto_82644 ) ( not ( = ?auto_82638 ?auto_82644 ) ) ( not ( = ?auto_82639 ?auto_82644 ) ) ( ON-TABLE ?auto_82643 ) ( ON ?auto_82642 ?auto_82643 ) ( ON ?auto_82640 ?auto_82642 ) ( ON ?auto_82641 ?auto_82640 ) ( ON ?auto_82644 ?auto_82641 ) ( not ( = ?auto_82643 ?auto_82642 ) ) ( not ( = ?auto_82643 ?auto_82640 ) ) ( not ( = ?auto_82643 ?auto_82641 ) ) ( not ( = ?auto_82643 ?auto_82644 ) ) ( not ( = ?auto_82643 ?auto_82639 ) ) ( not ( = ?auto_82643 ?auto_82638 ) ) ( not ( = ?auto_82642 ?auto_82640 ) ) ( not ( = ?auto_82642 ?auto_82641 ) ) ( not ( = ?auto_82642 ?auto_82644 ) ) ( not ( = ?auto_82642 ?auto_82639 ) ) ( not ( = ?auto_82642 ?auto_82638 ) ) ( not ( = ?auto_82640 ?auto_82641 ) ) ( not ( = ?auto_82640 ?auto_82644 ) ) ( not ( = ?auto_82640 ?auto_82639 ) ) ( not ( = ?auto_82640 ?auto_82638 ) ) ( not ( = ?auto_82641 ?auto_82644 ) ) ( not ( = ?auto_82641 ?auto_82639 ) ) ( not ( = ?auto_82641 ?auto_82638 ) ) ( CLEAR ?auto_82639 ) ( ON ?auto_82638 ?auto_82645 ) ( CLEAR ?auto_82638 ) ( HAND-EMPTY ) ( not ( = ?auto_82638 ?auto_82645 ) ) ( not ( = ?auto_82639 ?auto_82645 ) ) ( not ( = ?auto_82644 ?auto_82645 ) ) ( not ( = ?auto_82643 ?auto_82645 ) ) ( not ( = ?auto_82642 ?auto_82645 ) ) ( not ( = ?auto_82640 ?auto_82645 ) ) ( not ( = ?auto_82641 ?auto_82645 ) ) )
     :subtasks
     ( ( !UNSTACK ?auto_82638 ?auto_82645 )
       ( MAKE-2PILE ?auto_82638 ?auto_82639 ) )
@@ -3314,17 +3314,17 @@
     )
     :vars
     (
+      ?auto_82652 - BLOCK
       ?auto_82653 - BLOCK
+      ?auto_82649 - BLOCK
+      ?auto_82651 - BLOCK
       ?auto_82650 - BLOCK
       ?auto_82648 - BLOCK
-      ?auto_82651 - BLOCK
-      ?auto_82652 - BLOCK
-      ?auto_82649 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82646 ?auto_82647 ) ) ( not ( = ?auto_82646 ?auto_82653 ) ) ( not ( = ?auto_82647 ?auto_82653 ) ) ( ON-TABLE ?auto_82650 ) ( ON ?auto_82648 ?auto_82650 ) ( ON ?auto_82651 ?auto_82648 ) ( ON ?auto_82652 ?auto_82651 ) ( ON ?auto_82653 ?auto_82652 ) ( not ( = ?auto_82650 ?auto_82648 ) ) ( not ( = ?auto_82650 ?auto_82651 ) ) ( not ( = ?auto_82650 ?auto_82652 ) ) ( not ( = ?auto_82650 ?auto_82653 ) ) ( not ( = ?auto_82650 ?auto_82647 ) ) ( not ( = ?auto_82650 ?auto_82646 ) ) ( not ( = ?auto_82648 ?auto_82651 ) ) ( not ( = ?auto_82648 ?auto_82652 ) ) ( not ( = ?auto_82648 ?auto_82653 ) ) ( not ( = ?auto_82648 ?auto_82647 ) ) ( not ( = ?auto_82648 ?auto_82646 ) ) ( not ( = ?auto_82651 ?auto_82652 ) ) ( not ( = ?auto_82651 ?auto_82653 ) ) ( not ( = ?auto_82651 ?auto_82647 ) ) ( not ( = ?auto_82651 ?auto_82646 ) ) ( not ( = ?auto_82652 ?auto_82653 ) ) ( not ( = ?auto_82652 ?auto_82647 ) ) ( not ( = ?auto_82652 ?auto_82646 ) ) ( ON ?auto_82646 ?auto_82649 ) ( CLEAR ?auto_82646 ) ( not ( = ?auto_82646 ?auto_82649 ) ) ( not ( = ?auto_82647 ?auto_82649 ) ) ( not ( = ?auto_82653 ?auto_82649 ) ) ( not ( = ?auto_82650 ?auto_82649 ) ) ( not ( = ?auto_82648 ?auto_82649 ) ) ( not ( = ?auto_82651 ?auto_82649 ) ) ( not ( = ?auto_82652 ?auto_82649 ) ) ( HOLDING ?auto_82647 ) ( CLEAR ?auto_82653 ) )
+    ( and ( not ( = ?auto_82646 ?auto_82647 ) ) ( not ( = ?auto_82646 ?auto_82652 ) ) ( not ( = ?auto_82647 ?auto_82652 ) ) ( ON-TABLE ?auto_82653 ) ( ON ?auto_82649 ?auto_82653 ) ( ON ?auto_82651 ?auto_82649 ) ( ON ?auto_82650 ?auto_82651 ) ( ON ?auto_82652 ?auto_82650 ) ( not ( = ?auto_82653 ?auto_82649 ) ) ( not ( = ?auto_82653 ?auto_82651 ) ) ( not ( = ?auto_82653 ?auto_82650 ) ) ( not ( = ?auto_82653 ?auto_82652 ) ) ( not ( = ?auto_82653 ?auto_82647 ) ) ( not ( = ?auto_82653 ?auto_82646 ) ) ( not ( = ?auto_82649 ?auto_82651 ) ) ( not ( = ?auto_82649 ?auto_82650 ) ) ( not ( = ?auto_82649 ?auto_82652 ) ) ( not ( = ?auto_82649 ?auto_82647 ) ) ( not ( = ?auto_82649 ?auto_82646 ) ) ( not ( = ?auto_82651 ?auto_82650 ) ) ( not ( = ?auto_82651 ?auto_82652 ) ) ( not ( = ?auto_82651 ?auto_82647 ) ) ( not ( = ?auto_82651 ?auto_82646 ) ) ( not ( = ?auto_82650 ?auto_82652 ) ) ( not ( = ?auto_82650 ?auto_82647 ) ) ( not ( = ?auto_82650 ?auto_82646 ) ) ( ON ?auto_82646 ?auto_82648 ) ( CLEAR ?auto_82646 ) ( not ( = ?auto_82646 ?auto_82648 ) ) ( not ( = ?auto_82647 ?auto_82648 ) ) ( not ( = ?auto_82652 ?auto_82648 ) ) ( not ( = ?auto_82653 ?auto_82648 ) ) ( not ( = ?auto_82649 ?auto_82648 ) ) ( not ( = ?auto_82651 ?auto_82648 ) ) ( not ( = ?auto_82650 ?auto_82648 ) ) ( HOLDING ?auto_82647 ) ( CLEAR ?auto_82652 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82650 ?auto_82648 ?auto_82651 ?auto_82652 ?auto_82653 ?auto_82647 )
+    ( ( MAKE-6PILE ?auto_82653 ?auto_82649 ?auto_82651 ?auto_82650 ?auto_82652 ?auto_82647 )
       ( MAKE-2PILE ?auto_82646 ?auto_82647 ) )
   )
 
@@ -3336,17 +3336,17 @@
     )
     :vars
     (
-      ?auto_82656 - BLOCK
+      ?auto_82657 - BLOCK
       ?auto_82659 - BLOCK
+      ?auto_82656 - BLOCK
+      ?auto_82658 - BLOCK
       ?auto_82661 - BLOCK
       ?auto_82660 - BLOCK
-      ?auto_82657 - BLOCK
-      ?auto_82658 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82654 ?auto_82655 ) ) ( not ( = ?auto_82654 ?auto_82656 ) ) ( not ( = ?auto_82655 ?auto_82656 ) ) ( ON-TABLE ?auto_82659 ) ( ON ?auto_82661 ?auto_82659 ) ( ON ?auto_82660 ?auto_82661 ) ( ON ?auto_82657 ?auto_82660 ) ( ON ?auto_82656 ?auto_82657 ) ( not ( = ?auto_82659 ?auto_82661 ) ) ( not ( = ?auto_82659 ?auto_82660 ) ) ( not ( = ?auto_82659 ?auto_82657 ) ) ( not ( = ?auto_82659 ?auto_82656 ) ) ( not ( = ?auto_82659 ?auto_82655 ) ) ( not ( = ?auto_82659 ?auto_82654 ) ) ( not ( = ?auto_82661 ?auto_82660 ) ) ( not ( = ?auto_82661 ?auto_82657 ) ) ( not ( = ?auto_82661 ?auto_82656 ) ) ( not ( = ?auto_82661 ?auto_82655 ) ) ( not ( = ?auto_82661 ?auto_82654 ) ) ( not ( = ?auto_82660 ?auto_82657 ) ) ( not ( = ?auto_82660 ?auto_82656 ) ) ( not ( = ?auto_82660 ?auto_82655 ) ) ( not ( = ?auto_82660 ?auto_82654 ) ) ( not ( = ?auto_82657 ?auto_82656 ) ) ( not ( = ?auto_82657 ?auto_82655 ) ) ( not ( = ?auto_82657 ?auto_82654 ) ) ( ON ?auto_82654 ?auto_82658 ) ( not ( = ?auto_82654 ?auto_82658 ) ) ( not ( = ?auto_82655 ?auto_82658 ) ) ( not ( = ?auto_82656 ?auto_82658 ) ) ( not ( = ?auto_82659 ?auto_82658 ) ) ( not ( = ?auto_82661 ?auto_82658 ) ) ( not ( = ?auto_82660 ?auto_82658 ) ) ( not ( = ?auto_82657 ?auto_82658 ) ) ( CLEAR ?auto_82656 ) ( ON ?auto_82655 ?auto_82654 ) ( CLEAR ?auto_82655 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82658 ) )
+    ( and ( not ( = ?auto_82654 ?auto_82655 ) ) ( not ( = ?auto_82654 ?auto_82657 ) ) ( not ( = ?auto_82655 ?auto_82657 ) ) ( ON-TABLE ?auto_82659 ) ( ON ?auto_82656 ?auto_82659 ) ( ON ?auto_82658 ?auto_82656 ) ( ON ?auto_82661 ?auto_82658 ) ( ON ?auto_82657 ?auto_82661 ) ( not ( = ?auto_82659 ?auto_82656 ) ) ( not ( = ?auto_82659 ?auto_82658 ) ) ( not ( = ?auto_82659 ?auto_82661 ) ) ( not ( = ?auto_82659 ?auto_82657 ) ) ( not ( = ?auto_82659 ?auto_82655 ) ) ( not ( = ?auto_82659 ?auto_82654 ) ) ( not ( = ?auto_82656 ?auto_82658 ) ) ( not ( = ?auto_82656 ?auto_82661 ) ) ( not ( = ?auto_82656 ?auto_82657 ) ) ( not ( = ?auto_82656 ?auto_82655 ) ) ( not ( = ?auto_82656 ?auto_82654 ) ) ( not ( = ?auto_82658 ?auto_82661 ) ) ( not ( = ?auto_82658 ?auto_82657 ) ) ( not ( = ?auto_82658 ?auto_82655 ) ) ( not ( = ?auto_82658 ?auto_82654 ) ) ( not ( = ?auto_82661 ?auto_82657 ) ) ( not ( = ?auto_82661 ?auto_82655 ) ) ( not ( = ?auto_82661 ?auto_82654 ) ) ( ON ?auto_82654 ?auto_82660 ) ( not ( = ?auto_82654 ?auto_82660 ) ) ( not ( = ?auto_82655 ?auto_82660 ) ) ( not ( = ?auto_82657 ?auto_82660 ) ) ( not ( = ?auto_82659 ?auto_82660 ) ) ( not ( = ?auto_82656 ?auto_82660 ) ) ( not ( = ?auto_82658 ?auto_82660 ) ) ( not ( = ?auto_82661 ?auto_82660 ) ) ( CLEAR ?auto_82657 ) ( ON ?auto_82655 ?auto_82654 ) ( CLEAR ?auto_82655 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82660 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82658 ?auto_82654 )
+    ( ( MAKE-2PILE ?auto_82660 ?auto_82654 )
       ( MAKE-2PILE ?auto_82654 ?auto_82655 ) )
   )
 
@@ -3358,17 +3358,17 @@
     )
     :vars
     (
-      ?auto_82664 - BLOCK
-      ?auto_82669 - BLOCK
       ?auto_82666 - BLOCK
       ?auto_82667 - BLOCK
+      ?auto_82664 - BLOCK
       ?auto_82668 - BLOCK
+      ?auto_82669 - BLOCK
       ?auto_82665 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82662 ?auto_82663 ) ) ( not ( = ?auto_82662 ?auto_82664 ) ) ( not ( = ?auto_82663 ?auto_82664 ) ) ( ON-TABLE ?auto_82669 ) ( ON ?auto_82666 ?auto_82669 ) ( ON ?auto_82667 ?auto_82666 ) ( ON ?auto_82668 ?auto_82667 ) ( not ( = ?auto_82669 ?auto_82666 ) ) ( not ( = ?auto_82669 ?auto_82667 ) ) ( not ( = ?auto_82669 ?auto_82668 ) ) ( not ( = ?auto_82669 ?auto_82664 ) ) ( not ( = ?auto_82669 ?auto_82663 ) ) ( not ( = ?auto_82669 ?auto_82662 ) ) ( not ( = ?auto_82666 ?auto_82667 ) ) ( not ( = ?auto_82666 ?auto_82668 ) ) ( not ( = ?auto_82666 ?auto_82664 ) ) ( not ( = ?auto_82666 ?auto_82663 ) ) ( not ( = ?auto_82666 ?auto_82662 ) ) ( not ( = ?auto_82667 ?auto_82668 ) ) ( not ( = ?auto_82667 ?auto_82664 ) ) ( not ( = ?auto_82667 ?auto_82663 ) ) ( not ( = ?auto_82667 ?auto_82662 ) ) ( not ( = ?auto_82668 ?auto_82664 ) ) ( not ( = ?auto_82668 ?auto_82663 ) ) ( not ( = ?auto_82668 ?auto_82662 ) ) ( ON ?auto_82662 ?auto_82665 ) ( not ( = ?auto_82662 ?auto_82665 ) ) ( not ( = ?auto_82663 ?auto_82665 ) ) ( not ( = ?auto_82664 ?auto_82665 ) ) ( not ( = ?auto_82669 ?auto_82665 ) ) ( not ( = ?auto_82666 ?auto_82665 ) ) ( not ( = ?auto_82667 ?auto_82665 ) ) ( not ( = ?auto_82668 ?auto_82665 ) ) ( ON ?auto_82663 ?auto_82662 ) ( CLEAR ?auto_82663 ) ( ON-TABLE ?auto_82665 ) ( HOLDING ?auto_82664 ) ( CLEAR ?auto_82668 ) )
+    ( and ( not ( = ?auto_82662 ?auto_82663 ) ) ( not ( = ?auto_82662 ?auto_82666 ) ) ( not ( = ?auto_82663 ?auto_82666 ) ) ( ON-TABLE ?auto_82667 ) ( ON ?auto_82664 ?auto_82667 ) ( ON ?auto_82668 ?auto_82664 ) ( ON ?auto_82669 ?auto_82668 ) ( not ( = ?auto_82667 ?auto_82664 ) ) ( not ( = ?auto_82667 ?auto_82668 ) ) ( not ( = ?auto_82667 ?auto_82669 ) ) ( not ( = ?auto_82667 ?auto_82666 ) ) ( not ( = ?auto_82667 ?auto_82663 ) ) ( not ( = ?auto_82667 ?auto_82662 ) ) ( not ( = ?auto_82664 ?auto_82668 ) ) ( not ( = ?auto_82664 ?auto_82669 ) ) ( not ( = ?auto_82664 ?auto_82666 ) ) ( not ( = ?auto_82664 ?auto_82663 ) ) ( not ( = ?auto_82664 ?auto_82662 ) ) ( not ( = ?auto_82668 ?auto_82669 ) ) ( not ( = ?auto_82668 ?auto_82666 ) ) ( not ( = ?auto_82668 ?auto_82663 ) ) ( not ( = ?auto_82668 ?auto_82662 ) ) ( not ( = ?auto_82669 ?auto_82666 ) ) ( not ( = ?auto_82669 ?auto_82663 ) ) ( not ( = ?auto_82669 ?auto_82662 ) ) ( ON ?auto_82662 ?auto_82665 ) ( not ( = ?auto_82662 ?auto_82665 ) ) ( not ( = ?auto_82663 ?auto_82665 ) ) ( not ( = ?auto_82666 ?auto_82665 ) ) ( not ( = ?auto_82667 ?auto_82665 ) ) ( not ( = ?auto_82664 ?auto_82665 ) ) ( not ( = ?auto_82668 ?auto_82665 ) ) ( not ( = ?auto_82669 ?auto_82665 ) ) ( ON ?auto_82663 ?auto_82662 ) ( CLEAR ?auto_82663 ) ( ON-TABLE ?auto_82665 ) ( HOLDING ?auto_82666 ) ( CLEAR ?auto_82669 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82669 ?auto_82666 ?auto_82667 ?auto_82668 ?auto_82664 )
+    ( ( MAKE-5PILE ?auto_82667 ?auto_82664 ?auto_82668 ?auto_82669 ?auto_82666 )
       ( MAKE-2PILE ?auto_82662 ?auto_82663 ) )
   )
 
@@ -3380,17 +3380,17 @@
     )
     :vars
     (
-      ?auto_82672 - BLOCK
       ?auto_82677 - BLOCK
-      ?auto_82676 - BLOCK
-      ?auto_82674 - BLOCK
       ?auto_82675 - BLOCK
+      ?auto_82674 - BLOCK
       ?auto_82673 - BLOCK
+      ?auto_82672 - BLOCK
+      ?auto_82676 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82670 ?auto_82671 ) ) ( not ( = ?auto_82670 ?auto_82672 ) ) ( not ( = ?auto_82671 ?auto_82672 ) ) ( ON-TABLE ?auto_82677 ) ( ON ?auto_82676 ?auto_82677 ) ( ON ?auto_82674 ?auto_82676 ) ( ON ?auto_82675 ?auto_82674 ) ( not ( = ?auto_82677 ?auto_82676 ) ) ( not ( = ?auto_82677 ?auto_82674 ) ) ( not ( = ?auto_82677 ?auto_82675 ) ) ( not ( = ?auto_82677 ?auto_82672 ) ) ( not ( = ?auto_82677 ?auto_82671 ) ) ( not ( = ?auto_82677 ?auto_82670 ) ) ( not ( = ?auto_82676 ?auto_82674 ) ) ( not ( = ?auto_82676 ?auto_82675 ) ) ( not ( = ?auto_82676 ?auto_82672 ) ) ( not ( = ?auto_82676 ?auto_82671 ) ) ( not ( = ?auto_82676 ?auto_82670 ) ) ( not ( = ?auto_82674 ?auto_82675 ) ) ( not ( = ?auto_82674 ?auto_82672 ) ) ( not ( = ?auto_82674 ?auto_82671 ) ) ( not ( = ?auto_82674 ?auto_82670 ) ) ( not ( = ?auto_82675 ?auto_82672 ) ) ( not ( = ?auto_82675 ?auto_82671 ) ) ( not ( = ?auto_82675 ?auto_82670 ) ) ( ON ?auto_82670 ?auto_82673 ) ( not ( = ?auto_82670 ?auto_82673 ) ) ( not ( = ?auto_82671 ?auto_82673 ) ) ( not ( = ?auto_82672 ?auto_82673 ) ) ( not ( = ?auto_82677 ?auto_82673 ) ) ( not ( = ?auto_82676 ?auto_82673 ) ) ( not ( = ?auto_82674 ?auto_82673 ) ) ( not ( = ?auto_82675 ?auto_82673 ) ) ( ON ?auto_82671 ?auto_82670 ) ( ON-TABLE ?auto_82673 ) ( CLEAR ?auto_82675 ) ( ON ?auto_82672 ?auto_82671 ) ( CLEAR ?auto_82672 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82670 ?auto_82671 ) ) ( not ( = ?auto_82670 ?auto_82677 ) ) ( not ( = ?auto_82671 ?auto_82677 ) ) ( ON-TABLE ?auto_82675 ) ( ON ?auto_82674 ?auto_82675 ) ( ON ?auto_82673 ?auto_82674 ) ( ON ?auto_82672 ?auto_82673 ) ( not ( = ?auto_82675 ?auto_82674 ) ) ( not ( = ?auto_82675 ?auto_82673 ) ) ( not ( = ?auto_82675 ?auto_82672 ) ) ( not ( = ?auto_82675 ?auto_82677 ) ) ( not ( = ?auto_82675 ?auto_82671 ) ) ( not ( = ?auto_82675 ?auto_82670 ) ) ( not ( = ?auto_82674 ?auto_82673 ) ) ( not ( = ?auto_82674 ?auto_82672 ) ) ( not ( = ?auto_82674 ?auto_82677 ) ) ( not ( = ?auto_82674 ?auto_82671 ) ) ( not ( = ?auto_82674 ?auto_82670 ) ) ( not ( = ?auto_82673 ?auto_82672 ) ) ( not ( = ?auto_82673 ?auto_82677 ) ) ( not ( = ?auto_82673 ?auto_82671 ) ) ( not ( = ?auto_82673 ?auto_82670 ) ) ( not ( = ?auto_82672 ?auto_82677 ) ) ( not ( = ?auto_82672 ?auto_82671 ) ) ( not ( = ?auto_82672 ?auto_82670 ) ) ( ON ?auto_82670 ?auto_82676 ) ( not ( = ?auto_82670 ?auto_82676 ) ) ( not ( = ?auto_82671 ?auto_82676 ) ) ( not ( = ?auto_82677 ?auto_82676 ) ) ( not ( = ?auto_82675 ?auto_82676 ) ) ( not ( = ?auto_82674 ?auto_82676 ) ) ( not ( = ?auto_82673 ?auto_82676 ) ) ( not ( = ?auto_82672 ?auto_82676 ) ) ( ON ?auto_82671 ?auto_82670 ) ( ON-TABLE ?auto_82676 ) ( CLEAR ?auto_82672 ) ( ON ?auto_82677 ?auto_82671 ) ( CLEAR ?auto_82677 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82673 ?auto_82670 ?auto_82671 )
+    ( ( MAKE-3PILE ?auto_82676 ?auto_82670 ?auto_82671 )
       ( MAKE-2PILE ?auto_82670 ?auto_82671 ) )
   )
 
@@ -3402,17 +3402,17 @@
     )
     :vars
     (
-      ?auto_82680 - BLOCK
-      ?auto_82685 - BLOCK
-      ?auto_82681 - BLOCK
       ?auto_82682 - BLOCK
-      ?auto_82684 - BLOCK
       ?auto_82683 - BLOCK
+      ?auto_82681 - BLOCK
+      ?auto_82684 - BLOCK
+      ?auto_82685 - BLOCK
+      ?auto_82680 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82678 ?auto_82679 ) ) ( not ( = ?auto_82678 ?auto_82680 ) ) ( not ( = ?auto_82679 ?auto_82680 ) ) ( ON-TABLE ?auto_82685 ) ( ON ?auto_82681 ?auto_82685 ) ( ON ?auto_82682 ?auto_82681 ) ( not ( = ?auto_82685 ?auto_82681 ) ) ( not ( = ?auto_82685 ?auto_82682 ) ) ( not ( = ?auto_82685 ?auto_82684 ) ) ( not ( = ?auto_82685 ?auto_82680 ) ) ( not ( = ?auto_82685 ?auto_82679 ) ) ( not ( = ?auto_82685 ?auto_82678 ) ) ( not ( = ?auto_82681 ?auto_82682 ) ) ( not ( = ?auto_82681 ?auto_82684 ) ) ( not ( = ?auto_82681 ?auto_82680 ) ) ( not ( = ?auto_82681 ?auto_82679 ) ) ( not ( = ?auto_82681 ?auto_82678 ) ) ( not ( = ?auto_82682 ?auto_82684 ) ) ( not ( = ?auto_82682 ?auto_82680 ) ) ( not ( = ?auto_82682 ?auto_82679 ) ) ( not ( = ?auto_82682 ?auto_82678 ) ) ( not ( = ?auto_82684 ?auto_82680 ) ) ( not ( = ?auto_82684 ?auto_82679 ) ) ( not ( = ?auto_82684 ?auto_82678 ) ) ( ON ?auto_82678 ?auto_82683 ) ( not ( = ?auto_82678 ?auto_82683 ) ) ( not ( = ?auto_82679 ?auto_82683 ) ) ( not ( = ?auto_82680 ?auto_82683 ) ) ( not ( = ?auto_82685 ?auto_82683 ) ) ( not ( = ?auto_82681 ?auto_82683 ) ) ( not ( = ?auto_82682 ?auto_82683 ) ) ( not ( = ?auto_82684 ?auto_82683 ) ) ( ON ?auto_82679 ?auto_82678 ) ( ON-TABLE ?auto_82683 ) ( ON ?auto_82680 ?auto_82679 ) ( CLEAR ?auto_82680 ) ( HOLDING ?auto_82684 ) ( CLEAR ?auto_82682 ) )
+    ( and ( not ( = ?auto_82678 ?auto_82679 ) ) ( not ( = ?auto_82678 ?auto_82682 ) ) ( not ( = ?auto_82679 ?auto_82682 ) ) ( ON-TABLE ?auto_82683 ) ( ON ?auto_82681 ?auto_82683 ) ( ON ?auto_82684 ?auto_82681 ) ( not ( = ?auto_82683 ?auto_82681 ) ) ( not ( = ?auto_82683 ?auto_82684 ) ) ( not ( = ?auto_82683 ?auto_82685 ) ) ( not ( = ?auto_82683 ?auto_82682 ) ) ( not ( = ?auto_82683 ?auto_82679 ) ) ( not ( = ?auto_82683 ?auto_82678 ) ) ( not ( = ?auto_82681 ?auto_82684 ) ) ( not ( = ?auto_82681 ?auto_82685 ) ) ( not ( = ?auto_82681 ?auto_82682 ) ) ( not ( = ?auto_82681 ?auto_82679 ) ) ( not ( = ?auto_82681 ?auto_82678 ) ) ( not ( = ?auto_82684 ?auto_82685 ) ) ( not ( = ?auto_82684 ?auto_82682 ) ) ( not ( = ?auto_82684 ?auto_82679 ) ) ( not ( = ?auto_82684 ?auto_82678 ) ) ( not ( = ?auto_82685 ?auto_82682 ) ) ( not ( = ?auto_82685 ?auto_82679 ) ) ( not ( = ?auto_82685 ?auto_82678 ) ) ( ON ?auto_82678 ?auto_82680 ) ( not ( = ?auto_82678 ?auto_82680 ) ) ( not ( = ?auto_82679 ?auto_82680 ) ) ( not ( = ?auto_82682 ?auto_82680 ) ) ( not ( = ?auto_82683 ?auto_82680 ) ) ( not ( = ?auto_82681 ?auto_82680 ) ) ( not ( = ?auto_82684 ?auto_82680 ) ) ( not ( = ?auto_82685 ?auto_82680 ) ) ( ON ?auto_82679 ?auto_82678 ) ( ON-TABLE ?auto_82680 ) ( ON ?auto_82682 ?auto_82679 ) ( CLEAR ?auto_82682 ) ( HOLDING ?auto_82685 ) ( CLEAR ?auto_82684 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82685 ?auto_82681 ?auto_82682 ?auto_82684 )
+    ( ( MAKE-4PILE ?auto_82683 ?auto_82681 ?auto_82684 ?auto_82685 )
       ( MAKE-2PILE ?auto_82678 ?auto_82679 ) )
   )
 
@@ -3424,17 +3424,17 @@
     )
     :vars
     (
-      ?auto_82691 - BLOCK
-      ?auto_82689 - BLOCK
       ?auto_82693 - BLOCK
+      ?auto_82692 - BLOCK
+      ?auto_82689 - BLOCK
       ?auto_82690 - BLOCK
       ?auto_82688 - BLOCK
-      ?auto_82692 - BLOCK
+      ?auto_82691 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82686 ?auto_82687 ) ) ( not ( = ?auto_82686 ?auto_82691 ) ) ( not ( = ?auto_82687 ?auto_82691 ) ) ( ON-TABLE ?auto_82689 ) ( ON ?auto_82693 ?auto_82689 ) ( ON ?auto_82690 ?auto_82693 ) ( not ( = ?auto_82689 ?auto_82693 ) ) ( not ( = ?auto_82689 ?auto_82690 ) ) ( not ( = ?auto_82689 ?auto_82688 ) ) ( not ( = ?auto_82689 ?auto_82691 ) ) ( not ( = ?auto_82689 ?auto_82687 ) ) ( not ( = ?auto_82689 ?auto_82686 ) ) ( not ( = ?auto_82693 ?auto_82690 ) ) ( not ( = ?auto_82693 ?auto_82688 ) ) ( not ( = ?auto_82693 ?auto_82691 ) ) ( not ( = ?auto_82693 ?auto_82687 ) ) ( not ( = ?auto_82693 ?auto_82686 ) ) ( not ( = ?auto_82690 ?auto_82688 ) ) ( not ( = ?auto_82690 ?auto_82691 ) ) ( not ( = ?auto_82690 ?auto_82687 ) ) ( not ( = ?auto_82690 ?auto_82686 ) ) ( not ( = ?auto_82688 ?auto_82691 ) ) ( not ( = ?auto_82688 ?auto_82687 ) ) ( not ( = ?auto_82688 ?auto_82686 ) ) ( ON ?auto_82686 ?auto_82692 ) ( not ( = ?auto_82686 ?auto_82692 ) ) ( not ( = ?auto_82687 ?auto_82692 ) ) ( not ( = ?auto_82691 ?auto_82692 ) ) ( not ( = ?auto_82689 ?auto_82692 ) ) ( not ( = ?auto_82693 ?auto_82692 ) ) ( not ( = ?auto_82690 ?auto_82692 ) ) ( not ( = ?auto_82688 ?auto_82692 ) ) ( ON ?auto_82687 ?auto_82686 ) ( ON-TABLE ?auto_82692 ) ( ON ?auto_82691 ?auto_82687 ) ( CLEAR ?auto_82690 ) ( ON ?auto_82688 ?auto_82691 ) ( CLEAR ?auto_82688 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82686 ?auto_82687 ) ) ( not ( = ?auto_82686 ?auto_82693 ) ) ( not ( = ?auto_82687 ?auto_82693 ) ) ( ON-TABLE ?auto_82692 ) ( ON ?auto_82689 ?auto_82692 ) ( ON ?auto_82690 ?auto_82689 ) ( not ( = ?auto_82692 ?auto_82689 ) ) ( not ( = ?auto_82692 ?auto_82690 ) ) ( not ( = ?auto_82692 ?auto_82688 ) ) ( not ( = ?auto_82692 ?auto_82693 ) ) ( not ( = ?auto_82692 ?auto_82687 ) ) ( not ( = ?auto_82692 ?auto_82686 ) ) ( not ( = ?auto_82689 ?auto_82690 ) ) ( not ( = ?auto_82689 ?auto_82688 ) ) ( not ( = ?auto_82689 ?auto_82693 ) ) ( not ( = ?auto_82689 ?auto_82687 ) ) ( not ( = ?auto_82689 ?auto_82686 ) ) ( not ( = ?auto_82690 ?auto_82688 ) ) ( not ( = ?auto_82690 ?auto_82693 ) ) ( not ( = ?auto_82690 ?auto_82687 ) ) ( not ( = ?auto_82690 ?auto_82686 ) ) ( not ( = ?auto_82688 ?auto_82693 ) ) ( not ( = ?auto_82688 ?auto_82687 ) ) ( not ( = ?auto_82688 ?auto_82686 ) ) ( ON ?auto_82686 ?auto_82691 ) ( not ( = ?auto_82686 ?auto_82691 ) ) ( not ( = ?auto_82687 ?auto_82691 ) ) ( not ( = ?auto_82693 ?auto_82691 ) ) ( not ( = ?auto_82692 ?auto_82691 ) ) ( not ( = ?auto_82689 ?auto_82691 ) ) ( not ( = ?auto_82690 ?auto_82691 ) ) ( not ( = ?auto_82688 ?auto_82691 ) ) ( ON ?auto_82687 ?auto_82686 ) ( ON-TABLE ?auto_82691 ) ( ON ?auto_82693 ?auto_82687 ) ( CLEAR ?auto_82690 ) ( ON ?auto_82688 ?auto_82693 ) ( CLEAR ?auto_82688 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82692 ?auto_82686 ?auto_82687 ?auto_82691 )
+    ( ( MAKE-4PILE ?auto_82691 ?auto_82686 ?auto_82687 ?auto_82693 )
       ( MAKE-2PILE ?auto_82686 ?auto_82687 ) )
   )
 
@@ -3447,16 +3447,16 @@
     :vars
     (
       ?auto_82698 - BLOCK
+      ?auto_82699 - BLOCK
       ?auto_82696 - BLOCK
+      ?auto_82700 - BLOCK
       ?auto_82701 - BLOCK
       ?auto_82697 - BLOCK
-      ?auto_82699 - BLOCK
-      ?auto_82700 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82694 ?auto_82695 ) ) ( not ( = ?auto_82694 ?auto_82698 ) ) ( not ( = ?auto_82695 ?auto_82698 ) ) ( ON-TABLE ?auto_82696 ) ( ON ?auto_82701 ?auto_82696 ) ( not ( = ?auto_82696 ?auto_82701 ) ) ( not ( = ?auto_82696 ?auto_82697 ) ) ( not ( = ?auto_82696 ?auto_82699 ) ) ( not ( = ?auto_82696 ?auto_82698 ) ) ( not ( = ?auto_82696 ?auto_82695 ) ) ( not ( = ?auto_82696 ?auto_82694 ) ) ( not ( = ?auto_82701 ?auto_82697 ) ) ( not ( = ?auto_82701 ?auto_82699 ) ) ( not ( = ?auto_82701 ?auto_82698 ) ) ( not ( = ?auto_82701 ?auto_82695 ) ) ( not ( = ?auto_82701 ?auto_82694 ) ) ( not ( = ?auto_82697 ?auto_82699 ) ) ( not ( = ?auto_82697 ?auto_82698 ) ) ( not ( = ?auto_82697 ?auto_82695 ) ) ( not ( = ?auto_82697 ?auto_82694 ) ) ( not ( = ?auto_82699 ?auto_82698 ) ) ( not ( = ?auto_82699 ?auto_82695 ) ) ( not ( = ?auto_82699 ?auto_82694 ) ) ( ON ?auto_82694 ?auto_82700 ) ( not ( = ?auto_82694 ?auto_82700 ) ) ( not ( = ?auto_82695 ?auto_82700 ) ) ( not ( = ?auto_82698 ?auto_82700 ) ) ( not ( = ?auto_82696 ?auto_82700 ) ) ( not ( = ?auto_82701 ?auto_82700 ) ) ( not ( = ?auto_82697 ?auto_82700 ) ) ( not ( = ?auto_82699 ?auto_82700 ) ) ( ON ?auto_82695 ?auto_82694 ) ( ON-TABLE ?auto_82700 ) ( ON ?auto_82698 ?auto_82695 ) ( ON ?auto_82699 ?auto_82698 ) ( CLEAR ?auto_82699 ) ( HOLDING ?auto_82697 ) ( CLEAR ?auto_82701 ) )
+    ( and ( not ( = ?auto_82694 ?auto_82695 ) ) ( not ( = ?auto_82694 ?auto_82698 ) ) ( not ( = ?auto_82695 ?auto_82698 ) ) ( ON-TABLE ?auto_82699 ) ( ON ?auto_82696 ?auto_82699 ) ( not ( = ?auto_82699 ?auto_82696 ) ) ( not ( = ?auto_82699 ?auto_82700 ) ) ( not ( = ?auto_82699 ?auto_82701 ) ) ( not ( = ?auto_82699 ?auto_82698 ) ) ( not ( = ?auto_82699 ?auto_82695 ) ) ( not ( = ?auto_82699 ?auto_82694 ) ) ( not ( = ?auto_82696 ?auto_82700 ) ) ( not ( = ?auto_82696 ?auto_82701 ) ) ( not ( = ?auto_82696 ?auto_82698 ) ) ( not ( = ?auto_82696 ?auto_82695 ) ) ( not ( = ?auto_82696 ?auto_82694 ) ) ( not ( = ?auto_82700 ?auto_82701 ) ) ( not ( = ?auto_82700 ?auto_82698 ) ) ( not ( = ?auto_82700 ?auto_82695 ) ) ( not ( = ?auto_82700 ?auto_82694 ) ) ( not ( = ?auto_82701 ?auto_82698 ) ) ( not ( = ?auto_82701 ?auto_82695 ) ) ( not ( = ?auto_82701 ?auto_82694 ) ) ( ON ?auto_82694 ?auto_82697 ) ( not ( = ?auto_82694 ?auto_82697 ) ) ( not ( = ?auto_82695 ?auto_82697 ) ) ( not ( = ?auto_82698 ?auto_82697 ) ) ( not ( = ?auto_82699 ?auto_82697 ) ) ( not ( = ?auto_82696 ?auto_82697 ) ) ( not ( = ?auto_82700 ?auto_82697 ) ) ( not ( = ?auto_82701 ?auto_82697 ) ) ( ON ?auto_82695 ?auto_82694 ) ( ON-TABLE ?auto_82697 ) ( ON ?auto_82698 ?auto_82695 ) ( ON ?auto_82701 ?auto_82698 ) ( CLEAR ?auto_82701 ) ( HOLDING ?auto_82700 ) ( CLEAR ?auto_82696 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82696 ?auto_82701 ?auto_82697 )
+    ( ( MAKE-3PILE ?auto_82699 ?auto_82696 ?auto_82700 )
       ( MAKE-2PILE ?auto_82694 ?auto_82695 ) )
   )
 
@@ -3468,17 +3468,17 @@
     )
     :vars
     (
-      ?auto_82709 - BLOCK
-      ?auto_82706 - BLOCK
       ?auto_82708 - BLOCK
-      ?auto_82707 - BLOCK
-      ?auto_82705 - BLOCK
+      ?auto_82709 - BLOCK
       ?auto_82704 - BLOCK
+      ?auto_82707 - BLOCK
+      ?auto_82706 - BLOCK
+      ?auto_82705 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82702 ?auto_82703 ) ) ( not ( = ?auto_82702 ?auto_82709 ) ) ( not ( = ?auto_82703 ?auto_82709 ) ) ( ON-TABLE ?auto_82706 ) ( ON ?auto_82708 ?auto_82706 ) ( not ( = ?auto_82706 ?auto_82708 ) ) ( not ( = ?auto_82706 ?auto_82707 ) ) ( not ( = ?auto_82706 ?auto_82705 ) ) ( not ( = ?auto_82706 ?auto_82709 ) ) ( not ( = ?auto_82706 ?auto_82703 ) ) ( not ( = ?auto_82706 ?auto_82702 ) ) ( not ( = ?auto_82708 ?auto_82707 ) ) ( not ( = ?auto_82708 ?auto_82705 ) ) ( not ( = ?auto_82708 ?auto_82709 ) ) ( not ( = ?auto_82708 ?auto_82703 ) ) ( not ( = ?auto_82708 ?auto_82702 ) ) ( not ( = ?auto_82707 ?auto_82705 ) ) ( not ( = ?auto_82707 ?auto_82709 ) ) ( not ( = ?auto_82707 ?auto_82703 ) ) ( not ( = ?auto_82707 ?auto_82702 ) ) ( not ( = ?auto_82705 ?auto_82709 ) ) ( not ( = ?auto_82705 ?auto_82703 ) ) ( not ( = ?auto_82705 ?auto_82702 ) ) ( ON ?auto_82702 ?auto_82704 ) ( not ( = ?auto_82702 ?auto_82704 ) ) ( not ( = ?auto_82703 ?auto_82704 ) ) ( not ( = ?auto_82709 ?auto_82704 ) ) ( not ( = ?auto_82706 ?auto_82704 ) ) ( not ( = ?auto_82708 ?auto_82704 ) ) ( not ( = ?auto_82707 ?auto_82704 ) ) ( not ( = ?auto_82705 ?auto_82704 ) ) ( ON ?auto_82703 ?auto_82702 ) ( ON-TABLE ?auto_82704 ) ( ON ?auto_82709 ?auto_82703 ) ( ON ?auto_82705 ?auto_82709 ) ( CLEAR ?auto_82708 ) ( ON ?auto_82707 ?auto_82705 ) ( CLEAR ?auto_82707 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82702 ?auto_82703 ) ) ( not ( = ?auto_82702 ?auto_82708 ) ) ( not ( = ?auto_82703 ?auto_82708 ) ) ( ON-TABLE ?auto_82709 ) ( ON ?auto_82704 ?auto_82709 ) ( not ( = ?auto_82709 ?auto_82704 ) ) ( not ( = ?auto_82709 ?auto_82707 ) ) ( not ( = ?auto_82709 ?auto_82706 ) ) ( not ( = ?auto_82709 ?auto_82708 ) ) ( not ( = ?auto_82709 ?auto_82703 ) ) ( not ( = ?auto_82709 ?auto_82702 ) ) ( not ( = ?auto_82704 ?auto_82707 ) ) ( not ( = ?auto_82704 ?auto_82706 ) ) ( not ( = ?auto_82704 ?auto_82708 ) ) ( not ( = ?auto_82704 ?auto_82703 ) ) ( not ( = ?auto_82704 ?auto_82702 ) ) ( not ( = ?auto_82707 ?auto_82706 ) ) ( not ( = ?auto_82707 ?auto_82708 ) ) ( not ( = ?auto_82707 ?auto_82703 ) ) ( not ( = ?auto_82707 ?auto_82702 ) ) ( not ( = ?auto_82706 ?auto_82708 ) ) ( not ( = ?auto_82706 ?auto_82703 ) ) ( not ( = ?auto_82706 ?auto_82702 ) ) ( ON ?auto_82702 ?auto_82705 ) ( not ( = ?auto_82702 ?auto_82705 ) ) ( not ( = ?auto_82703 ?auto_82705 ) ) ( not ( = ?auto_82708 ?auto_82705 ) ) ( not ( = ?auto_82709 ?auto_82705 ) ) ( not ( = ?auto_82704 ?auto_82705 ) ) ( not ( = ?auto_82707 ?auto_82705 ) ) ( not ( = ?auto_82706 ?auto_82705 ) ) ( ON ?auto_82703 ?auto_82702 ) ( ON-TABLE ?auto_82705 ) ( ON ?auto_82708 ?auto_82703 ) ( ON ?auto_82706 ?auto_82708 ) ( CLEAR ?auto_82704 ) ( ON ?auto_82707 ?auto_82706 ) ( CLEAR ?auto_82707 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82704 ?auto_82702 ?auto_82703 ?auto_82709 ?auto_82705 )
+    ( ( MAKE-5PILE ?auto_82705 ?auto_82702 ?auto_82703 ?auto_82708 ?auto_82706 )
       ( MAKE-2PILE ?auto_82702 ?auto_82703 ) )
   )
 
@@ -3490,17 +3490,17 @@
     )
     :vars
     (
-      ?auto_82717 - BLOCK
-      ?auto_82712 - BLOCK
-      ?auto_82715 - BLOCK
       ?auto_82714 - BLOCK
+      ?auto_82717 - BLOCK
+      ?auto_82715 - BLOCK
       ?auto_82716 - BLOCK
       ?auto_82713 - BLOCK
+      ?auto_82712 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82710 ?auto_82711 ) ) ( not ( = ?auto_82710 ?auto_82717 ) ) ( not ( = ?auto_82711 ?auto_82717 ) ) ( ON-TABLE ?auto_82712 ) ( not ( = ?auto_82712 ?auto_82715 ) ) ( not ( = ?auto_82712 ?auto_82714 ) ) ( not ( = ?auto_82712 ?auto_82716 ) ) ( not ( = ?auto_82712 ?auto_82717 ) ) ( not ( = ?auto_82712 ?auto_82711 ) ) ( not ( = ?auto_82712 ?auto_82710 ) ) ( not ( = ?auto_82715 ?auto_82714 ) ) ( not ( = ?auto_82715 ?auto_82716 ) ) ( not ( = ?auto_82715 ?auto_82717 ) ) ( not ( = ?auto_82715 ?auto_82711 ) ) ( not ( = ?auto_82715 ?auto_82710 ) ) ( not ( = ?auto_82714 ?auto_82716 ) ) ( not ( = ?auto_82714 ?auto_82717 ) ) ( not ( = ?auto_82714 ?auto_82711 ) ) ( not ( = ?auto_82714 ?auto_82710 ) ) ( not ( = ?auto_82716 ?auto_82717 ) ) ( not ( = ?auto_82716 ?auto_82711 ) ) ( not ( = ?auto_82716 ?auto_82710 ) ) ( ON ?auto_82710 ?auto_82713 ) ( not ( = ?auto_82710 ?auto_82713 ) ) ( not ( = ?auto_82711 ?auto_82713 ) ) ( not ( = ?auto_82717 ?auto_82713 ) ) ( not ( = ?auto_82712 ?auto_82713 ) ) ( not ( = ?auto_82715 ?auto_82713 ) ) ( not ( = ?auto_82714 ?auto_82713 ) ) ( not ( = ?auto_82716 ?auto_82713 ) ) ( ON ?auto_82711 ?auto_82710 ) ( ON-TABLE ?auto_82713 ) ( ON ?auto_82717 ?auto_82711 ) ( ON ?auto_82716 ?auto_82717 ) ( ON ?auto_82714 ?auto_82716 ) ( CLEAR ?auto_82714 ) ( HOLDING ?auto_82715 ) ( CLEAR ?auto_82712 ) )
+    ( and ( not ( = ?auto_82710 ?auto_82711 ) ) ( not ( = ?auto_82710 ?auto_82714 ) ) ( not ( = ?auto_82711 ?auto_82714 ) ) ( ON-TABLE ?auto_82717 ) ( not ( = ?auto_82717 ?auto_82715 ) ) ( not ( = ?auto_82717 ?auto_82716 ) ) ( not ( = ?auto_82717 ?auto_82713 ) ) ( not ( = ?auto_82717 ?auto_82714 ) ) ( not ( = ?auto_82717 ?auto_82711 ) ) ( not ( = ?auto_82717 ?auto_82710 ) ) ( not ( = ?auto_82715 ?auto_82716 ) ) ( not ( = ?auto_82715 ?auto_82713 ) ) ( not ( = ?auto_82715 ?auto_82714 ) ) ( not ( = ?auto_82715 ?auto_82711 ) ) ( not ( = ?auto_82715 ?auto_82710 ) ) ( not ( = ?auto_82716 ?auto_82713 ) ) ( not ( = ?auto_82716 ?auto_82714 ) ) ( not ( = ?auto_82716 ?auto_82711 ) ) ( not ( = ?auto_82716 ?auto_82710 ) ) ( not ( = ?auto_82713 ?auto_82714 ) ) ( not ( = ?auto_82713 ?auto_82711 ) ) ( not ( = ?auto_82713 ?auto_82710 ) ) ( ON ?auto_82710 ?auto_82712 ) ( not ( = ?auto_82710 ?auto_82712 ) ) ( not ( = ?auto_82711 ?auto_82712 ) ) ( not ( = ?auto_82714 ?auto_82712 ) ) ( not ( = ?auto_82717 ?auto_82712 ) ) ( not ( = ?auto_82715 ?auto_82712 ) ) ( not ( = ?auto_82716 ?auto_82712 ) ) ( not ( = ?auto_82713 ?auto_82712 ) ) ( ON ?auto_82711 ?auto_82710 ) ( ON-TABLE ?auto_82712 ) ( ON ?auto_82714 ?auto_82711 ) ( ON ?auto_82713 ?auto_82714 ) ( ON ?auto_82716 ?auto_82713 ) ( CLEAR ?auto_82716 ) ( HOLDING ?auto_82715 ) ( CLEAR ?auto_82717 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82712 ?auto_82715 )
+    ( ( MAKE-2PILE ?auto_82717 ?auto_82715 )
       ( MAKE-2PILE ?auto_82710 ?auto_82711 ) )
   )
 
@@ -3512,17 +3512,17 @@
     )
     :vars
     (
-      ?auto_82720 - BLOCK
-      ?auto_82724 - BLOCK
-      ?auto_82723 - BLOCK
-      ?auto_82721 - BLOCK
-      ?auto_82725 - BLOCK
       ?auto_82722 - BLOCK
+      ?auto_82720 - BLOCK
+      ?auto_82721 - BLOCK
+      ?auto_82724 - BLOCK
+      ?auto_82725 - BLOCK
+      ?auto_82723 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82718 ?auto_82719 ) ) ( not ( = ?auto_82718 ?auto_82720 ) ) ( not ( = ?auto_82719 ?auto_82720 ) ) ( ON-TABLE ?auto_82724 ) ( not ( = ?auto_82724 ?auto_82723 ) ) ( not ( = ?auto_82724 ?auto_82721 ) ) ( not ( = ?auto_82724 ?auto_82725 ) ) ( not ( = ?auto_82724 ?auto_82720 ) ) ( not ( = ?auto_82724 ?auto_82719 ) ) ( not ( = ?auto_82724 ?auto_82718 ) ) ( not ( = ?auto_82723 ?auto_82721 ) ) ( not ( = ?auto_82723 ?auto_82725 ) ) ( not ( = ?auto_82723 ?auto_82720 ) ) ( not ( = ?auto_82723 ?auto_82719 ) ) ( not ( = ?auto_82723 ?auto_82718 ) ) ( not ( = ?auto_82721 ?auto_82725 ) ) ( not ( = ?auto_82721 ?auto_82720 ) ) ( not ( = ?auto_82721 ?auto_82719 ) ) ( not ( = ?auto_82721 ?auto_82718 ) ) ( not ( = ?auto_82725 ?auto_82720 ) ) ( not ( = ?auto_82725 ?auto_82719 ) ) ( not ( = ?auto_82725 ?auto_82718 ) ) ( ON ?auto_82718 ?auto_82722 ) ( not ( = ?auto_82718 ?auto_82722 ) ) ( not ( = ?auto_82719 ?auto_82722 ) ) ( not ( = ?auto_82720 ?auto_82722 ) ) ( not ( = ?auto_82724 ?auto_82722 ) ) ( not ( = ?auto_82723 ?auto_82722 ) ) ( not ( = ?auto_82721 ?auto_82722 ) ) ( not ( = ?auto_82725 ?auto_82722 ) ) ( ON ?auto_82719 ?auto_82718 ) ( ON-TABLE ?auto_82722 ) ( ON ?auto_82720 ?auto_82719 ) ( ON ?auto_82725 ?auto_82720 ) ( ON ?auto_82721 ?auto_82725 ) ( CLEAR ?auto_82724 ) ( ON ?auto_82723 ?auto_82721 ) ( CLEAR ?auto_82723 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82718 ?auto_82719 ) ) ( not ( = ?auto_82718 ?auto_82722 ) ) ( not ( = ?auto_82719 ?auto_82722 ) ) ( ON-TABLE ?auto_82720 ) ( not ( = ?auto_82720 ?auto_82721 ) ) ( not ( = ?auto_82720 ?auto_82724 ) ) ( not ( = ?auto_82720 ?auto_82725 ) ) ( not ( = ?auto_82720 ?auto_82722 ) ) ( not ( = ?auto_82720 ?auto_82719 ) ) ( not ( = ?auto_82720 ?auto_82718 ) ) ( not ( = ?auto_82721 ?auto_82724 ) ) ( not ( = ?auto_82721 ?auto_82725 ) ) ( not ( = ?auto_82721 ?auto_82722 ) ) ( not ( = ?auto_82721 ?auto_82719 ) ) ( not ( = ?auto_82721 ?auto_82718 ) ) ( not ( = ?auto_82724 ?auto_82725 ) ) ( not ( = ?auto_82724 ?auto_82722 ) ) ( not ( = ?auto_82724 ?auto_82719 ) ) ( not ( = ?auto_82724 ?auto_82718 ) ) ( not ( = ?auto_82725 ?auto_82722 ) ) ( not ( = ?auto_82725 ?auto_82719 ) ) ( not ( = ?auto_82725 ?auto_82718 ) ) ( ON ?auto_82718 ?auto_82723 ) ( not ( = ?auto_82718 ?auto_82723 ) ) ( not ( = ?auto_82719 ?auto_82723 ) ) ( not ( = ?auto_82722 ?auto_82723 ) ) ( not ( = ?auto_82720 ?auto_82723 ) ) ( not ( = ?auto_82721 ?auto_82723 ) ) ( not ( = ?auto_82724 ?auto_82723 ) ) ( not ( = ?auto_82725 ?auto_82723 ) ) ( ON ?auto_82719 ?auto_82718 ) ( ON-TABLE ?auto_82723 ) ( ON ?auto_82722 ?auto_82719 ) ( ON ?auto_82725 ?auto_82722 ) ( ON ?auto_82724 ?auto_82725 ) ( CLEAR ?auto_82720 ) ( ON ?auto_82721 ?auto_82724 ) ( CLEAR ?auto_82721 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82722 ?auto_82718 ?auto_82719 ?auto_82720 ?auto_82725 ?auto_82721 )
+    ( ( MAKE-6PILE ?auto_82723 ?auto_82718 ?auto_82719 ?auto_82722 ?auto_82725 ?auto_82724 )
       ( MAKE-2PILE ?auto_82718 ?auto_82719 ) )
   )
 
@@ -3535,16 +3535,16 @@
     :vars
     (
       ?auto_82733 - BLOCK
-      ?auto_82728 - BLOCK
-      ?auto_82730 - BLOCK
-      ?auto_82731 - BLOCK
       ?auto_82729 - BLOCK
       ?auto_82732 - BLOCK
+      ?auto_82731 - BLOCK
+      ?auto_82730 - BLOCK
+      ?auto_82728 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82726 ?auto_82727 ) ) ( not ( = ?auto_82726 ?auto_82733 ) ) ( not ( = ?auto_82727 ?auto_82733 ) ) ( not ( = ?auto_82728 ?auto_82730 ) ) ( not ( = ?auto_82728 ?auto_82731 ) ) ( not ( = ?auto_82728 ?auto_82729 ) ) ( not ( = ?auto_82728 ?auto_82733 ) ) ( not ( = ?auto_82728 ?auto_82727 ) ) ( not ( = ?auto_82728 ?auto_82726 ) ) ( not ( = ?auto_82730 ?auto_82731 ) ) ( not ( = ?auto_82730 ?auto_82729 ) ) ( not ( = ?auto_82730 ?auto_82733 ) ) ( not ( = ?auto_82730 ?auto_82727 ) ) ( not ( = ?auto_82730 ?auto_82726 ) ) ( not ( = ?auto_82731 ?auto_82729 ) ) ( not ( = ?auto_82731 ?auto_82733 ) ) ( not ( = ?auto_82731 ?auto_82727 ) ) ( not ( = ?auto_82731 ?auto_82726 ) ) ( not ( = ?auto_82729 ?auto_82733 ) ) ( not ( = ?auto_82729 ?auto_82727 ) ) ( not ( = ?auto_82729 ?auto_82726 ) ) ( ON ?auto_82726 ?auto_82732 ) ( not ( = ?auto_82726 ?auto_82732 ) ) ( not ( = ?auto_82727 ?auto_82732 ) ) ( not ( = ?auto_82733 ?auto_82732 ) ) ( not ( = ?auto_82728 ?auto_82732 ) ) ( not ( = ?auto_82730 ?auto_82732 ) ) ( not ( = ?auto_82731 ?auto_82732 ) ) ( not ( = ?auto_82729 ?auto_82732 ) ) ( ON ?auto_82727 ?auto_82726 ) ( ON-TABLE ?auto_82732 ) ( ON ?auto_82733 ?auto_82727 ) ( ON ?auto_82729 ?auto_82733 ) ( ON ?auto_82731 ?auto_82729 ) ( ON ?auto_82730 ?auto_82731 ) ( CLEAR ?auto_82730 ) ( HOLDING ?auto_82728 ) )
+    ( and ( not ( = ?auto_82726 ?auto_82727 ) ) ( not ( = ?auto_82726 ?auto_82733 ) ) ( not ( = ?auto_82727 ?auto_82733 ) ) ( not ( = ?auto_82729 ?auto_82732 ) ) ( not ( = ?auto_82729 ?auto_82731 ) ) ( not ( = ?auto_82729 ?auto_82730 ) ) ( not ( = ?auto_82729 ?auto_82733 ) ) ( not ( = ?auto_82729 ?auto_82727 ) ) ( not ( = ?auto_82729 ?auto_82726 ) ) ( not ( = ?auto_82732 ?auto_82731 ) ) ( not ( = ?auto_82732 ?auto_82730 ) ) ( not ( = ?auto_82732 ?auto_82733 ) ) ( not ( = ?auto_82732 ?auto_82727 ) ) ( not ( = ?auto_82732 ?auto_82726 ) ) ( not ( = ?auto_82731 ?auto_82730 ) ) ( not ( = ?auto_82731 ?auto_82733 ) ) ( not ( = ?auto_82731 ?auto_82727 ) ) ( not ( = ?auto_82731 ?auto_82726 ) ) ( not ( = ?auto_82730 ?auto_82733 ) ) ( not ( = ?auto_82730 ?auto_82727 ) ) ( not ( = ?auto_82730 ?auto_82726 ) ) ( ON ?auto_82726 ?auto_82728 ) ( not ( = ?auto_82726 ?auto_82728 ) ) ( not ( = ?auto_82727 ?auto_82728 ) ) ( not ( = ?auto_82733 ?auto_82728 ) ) ( not ( = ?auto_82729 ?auto_82728 ) ) ( not ( = ?auto_82732 ?auto_82728 ) ) ( not ( = ?auto_82731 ?auto_82728 ) ) ( not ( = ?auto_82730 ?auto_82728 ) ) ( ON ?auto_82727 ?auto_82726 ) ( ON-TABLE ?auto_82728 ) ( ON ?auto_82733 ?auto_82727 ) ( ON ?auto_82730 ?auto_82733 ) ( ON ?auto_82731 ?auto_82730 ) ( ON ?auto_82732 ?auto_82731 ) ( CLEAR ?auto_82732 ) ( HOLDING ?auto_82729 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_82728 )
+    ( ( MAKE-1PILE ?auto_82729 )
       ( MAKE-2PILE ?auto_82726 ?auto_82727 ) )
   )
 
@@ -3556,17 +3556,17 @@
     )
     :vars
     (
-      ?auto_82741 - BLOCK
-      ?auto_82739 - BLOCK
-      ?auto_82736 - BLOCK
       ?auto_82740 - BLOCK
-      ?auto_82737 - BLOCK
+      ?auto_82741 - BLOCK
       ?auto_82738 - BLOCK
+      ?auto_82739 - BLOCK
+      ?auto_82737 - BLOCK
+      ?auto_82736 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82734 ?auto_82735 ) ) ( not ( = ?auto_82734 ?auto_82741 ) ) ( not ( = ?auto_82735 ?auto_82741 ) ) ( not ( = ?auto_82739 ?auto_82736 ) ) ( not ( = ?auto_82739 ?auto_82740 ) ) ( not ( = ?auto_82739 ?auto_82737 ) ) ( not ( = ?auto_82739 ?auto_82741 ) ) ( not ( = ?auto_82739 ?auto_82735 ) ) ( not ( = ?auto_82739 ?auto_82734 ) ) ( not ( = ?auto_82736 ?auto_82740 ) ) ( not ( = ?auto_82736 ?auto_82737 ) ) ( not ( = ?auto_82736 ?auto_82741 ) ) ( not ( = ?auto_82736 ?auto_82735 ) ) ( not ( = ?auto_82736 ?auto_82734 ) ) ( not ( = ?auto_82740 ?auto_82737 ) ) ( not ( = ?auto_82740 ?auto_82741 ) ) ( not ( = ?auto_82740 ?auto_82735 ) ) ( not ( = ?auto_82740 ?auto_82734 ) ) ( not ( = ?auto_82737 ?auto_82741 ) ) ( not ( = ?auto_82737 ?auto_82735 ) ) ( not ( = ?auto_82737 ?auto_82734 ) ) ( ON ?auto_82734 ?auto_82738 ) ( not ( = ?auto_82734 ?auto_82738 ) ) ( not ( = ?auto_82735 ?auto_82738 ) ) ( not ( = ?auto_82741 ?auto_82738 ) ) ( not ( = ?auto_82739 ?auto_82738 ) ) ( not ( = ?auto_82736 ?auto_82738 ) ) ( not ( = ?auto_82740 ?auto_82738 ) ) ( not ( = ?auto_82737 ?auto_82738 ) ) ( ON ?auto_82735 ?auto_82734 ) ( ON-TABLE ?auto_82738 ) ( ON ?auto_82741 ?auto_82735 ) ( ON ?auto_82737 ?auto_82741 ) ( ON ?auto_82740 ?auto_82737 ) ( ON ?auto_82736 ?auto_82740 ) ( ON ?auto_82739 ?auto_82736 ) ( CLEAR ?auto_82739 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82734 ?auto_82735 ) ) ( not ( = ?auto_82734 ?auto_82740 ) ) ( not ( = ?auto_82735 ?auto_82740 ) ) ( not ( = ?auto_82741 ?auto_82738 ) ) ( not ( = ?auto_82741 ?auto_82739 ) ) ( not ( = ?auto_82741 ?auto_82737 ) ) ( not ( = ?auto_82741 ?auto_82740 ) ) ( not ( = ?auto_82741 ?auto_82735 ) ) ( not ( = ?auto_82741 ?auto_82734 ) ) ( not ( = ?auto_82738 ?auto_82739 ) ) ( not ( = ?auto_82738 ?auto_82737 ) ) ( not ( = ?auto_82738 ?auto_82740 ) ) ( not ( = ?auto_82738 ?auto_82735 ) ) ( not ( = ?auto_82738 ?auto_82734 ) ) ( not ( = ?auto_82739 ?auto_82737 ) ) ( not ( = ?auto_82739 ?auto_82740 ) ) ( not ( = ?auto_82739 ?auto_82735 ) ) ( not ( = ?auto_82739 ?auto_82734 ) ) ( not ( = ?auto_82737 ?auto_82740 ) ) ( not ( = ?auto_82737 ?auto_82735 ) ) ( not ( = ?auto_82737 ?auto_82734 ) ) ( ON ?auto_82734 ?auto_82736 ) ( not ( = ?auto_82734 ?auto_82736 ) ) ( not ( = ?auto_82735 ?auto_82736 ) ) ( not ( = ?auto_82740 ?auto_82736 ) ) ( not ( = ?auto_82741 ?auto_82736 ) ) ( not ( = ?auto_82738 ?auto_82736 ) ) ( not ( = ?auto_82739 ?auto_82736 ) ) ( not ( = ?auto_82737 ?auto_82736 ) ) ( ON ?auto_82735 ?auto_82734 ) ( ON-TABLE ?auto_82736 ) ( ON ?auto_82740 ?auto_82735 ) ( ON ?auto_82737 ?auto_82740 ) ( ON ?auto_82739 ?auto_82737 ) ( ON ?auto_82738 ?auto_82739 ) ( ON ?auto_82741 ?auto_82738 ) ( CLEAR ?auto_82741 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82738 ?auto_82734 ?auto_82735 ?auto_82741 ?auto_82737 ?auto_82740 ?auto_82736 )
+    ( ( MAKE-7PILE ?auto_82736 ?auto_82734 ?auto_82735 ?auto_82740 ?auto_82737 ?auto_82739 ?auto_82738 )
       ( MAKE-2PILE ?auto_82734 ?auto_82735 ) )
   )
 
@@ -3661,14 +3661,14 @@
     )
     :vars
     (
-      ?auto_82777 - BLOCK
       ?auto_82776 - BLOCK
+      ?auto_82777 - BLOCK
       ?auto_82778 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82777 ?auto_82775 ) ( ON-TABLE ?auto_82772 ) ( ON ?auto_82773 ?auto_82772 ) ( ON ?auto_82774 ?auto_82773 ) ( ON ?auto_82775 ?auto_82774 ) ( not ( = ?auto_82772 ?auto_82773 ) ) ( not ( = ?auto_82772 ?auto_82774 ) ) ( not ( = ?auto_82772 ?auto_82775 ) ) ( not ( = ?auto_82772 ?auto_82777 ) ) ( not ( = ?auto_82773 ?auto_82774 ) ) ( not ( = ?auto_82773 ?auto_82775 ) ) ( not ( = ?auto_82773 ?auto_82777 ) ) ( not ( = ?auto_82774 ?auto_82775 ) ) ( not ( = ?auto_82774 ?auto_82777 ) ) ( not ( = ?auto_82775 ?auto_82777 ) ) ( not ( = ?auto_82772 ?auto_82776 ) ) ( not ( = ?auto_82772 ?auto_82778 ) ) ( not ( = ?auto_82773 ?auto_82776 ) ) ( not ( = ?auto_82773 ?auto_82778 ) ) ( not ( = ?auto_82774 ?auto_82776 ) ) ( not ( = ?auto_82774 ?auto_82778 ) ) ( not ( = ?auto_82775 ?auto_82776 ) ) ( not ( = ?auto_82775 ?auto_82778 ) ) ( not ( = ?auto_82777 ?auto_82776 ) ) ( not ( = ?auto_82777 ?auto_82778 ) ) ( not ( = ?auto_82776 ?auto_82778 ) ) ( ON ?auto_82776 ?auto_82777 ) ( ON ?auto_82778 ?auto_82776 ) ( CLEAR ?auto_82778 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_82776 ?auto_82775 ) ( ON-TABLE ?auto_82772 ) ( ON ?auto_82773 ?auto_82772 ) ( ON ?auto_82774 ?auto_82773 ) ( ON ?auto_82775 ?auto_82774 ) ( not ( = ?auto_82772 ?auto_82773 ) ) ( not ( = ?auto_82772 ?auto_82774 ) ) ( not ( = ?auto_82772 ?auto_82775 ) ) ( not ( = ?auto_82772 ?auto_82776 ) ) ( not ( = ?auto_82773 ?auto_82774 ) ) ( not ( = ?auto_82773 ?auto_82775 ) ) ( not ( = ?auto_82773 ?auto_82776 ) ) ( not ( = ?auto_82774 ?auto_82775 ) ) ( not ( = ?auto_82774 ?auto_82776 ) ) ( not ( = ?auto_82775 ?auto_82776 ) ) ( not ( = ?auto_82772 ?auto_82777 ) ) ( not ( = ?auto_82772 ?auto_82778 ) ) ( not ( = ?auto_82773 ?auto_82777 ) ) ( not ( = ?auto_82773 ?auto_82778 ) ) ( not ( = ?auto_82774 ?auto_82777 ) ) ( not ( = ?auto_82774 ?auto_82778 ) ) ( not ( = ?auto_82775 ?auto_82777 ) ) ( not ( = ?auto_82775 ?auto_82778 ) ) ( not ( = ?auto_82776 ?auto_82777 ) ) ( not ( = ?auto_82776 ?auto_82778 ) ) ( not ( = ?auto_82777 ?auto_82778 ) ) ( ON ?auto_82777 ?auto_82776 ) ( ON ?auto_82778 ?auto_82777 ) ( CLEAR ?auto_82778 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82772 ?auto_82773 ?auto_82774 ?auto_82775 ?auto_82777 ?auto_82776 )
+    ( ( MAKE-6PILE ?auto_82772 ?auto_82773 ?auto_82774 ?auto_82775 ?auto_82776 ?auto_82777 )
       ( MAKE-4PILE ?auto_82772 ?auto_82773 ?auto_82774 ?auto_82775 ) )
   )
 
@@ -3725,15 +3725,15 @@
     )
     :vars
     (
-      ?auto_82799 - BLOCK
       ?auto_82800 - BLOCK
       ?auto_82798 - BLOCK
       ?auto_82801 - BLOCK
+      ?auto_82799 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82799 ?auto_82797 ) ( ON-TABLE ?auto_82794 ) ( ON ?auto_82795 ?auto_82794 ) ( ON ?auto_82796 ?auto_82795 ) ( ON ?auto_82797 ?auto_82796 ) ( not ( = ?auto_82794 ?auto_82795 ) ) ( not ( = ?auto_82794 ?auto_82796 ) ) ( not ( = ?auto_82794 ?auto_82797 ) ) ( not ( = ?auto_82794 ?auto_82799 ) ) ( not ( = ?auto_82795 ?auto_82796 ) ) ( not ( = ?auto_82795 ?auto_82797 ) ) ( not ( = ?auto_82795 ?auto_82799 ) ) ( not ( = ?auto_82796 ?auto_82797 ) ) ( not ( = ?auto_82796 ?auto_82799 ) ) ( not ( = ?auto_82797 ?auto_82799 ) ) ( not ( = ?auto_82794 ?auto_82800 ) ) ( not ( = ?auto_82794 ?auto_82798 ) ) ( not ( = ?auto_82795 ?auto_82800 ) ) ( not ( = ?auto_82795 ?auto_82798 ) ) ( not ( = ?auto_82796 ?auto_82800 ) ) ( not ( = ?auto_82796 ?auto_82798 ) ) ( not ( = ?auto_82797 ?auto_82800 ) ) ( not ( = ?auto_82797 ?auto_82798 ) ) ( not ( = ?auto_82799 ?auto_82800 ) ) ( not ( = ?auto_82799 ?auto_82798 ) ) ( not ( = ?auto_82800 ?auto_82798 ) ) ( ON ?auto_82798 ?auto_82801 ) ( CLEAR ?auto_82798 ) ( not ( = ?auto_82794 ?auto_82801 ) ) ( not ( = ?auto_82795 ?auto_82801 ) ) ( not ( = ?auto_82796 ?auto_82801 ) ) ( not ( = ?auto_82797 ?auto_82801 ) ) ( not ( = ?auto_82799 ?auto_82801 ) ) ( not ( = ?auto_82800 ?auto_82801 ) ) ( not ( = ?auto_82798 ?auto_82801 ) ) ( HOLDING ?auto_82800 ) ( CLEAR ?auto_82799 ) )
+    ( and ( ON ?auto_82800 ?auto_82797 ) ( ON-TABLE ?auto_82794 ) ( ON ?auto_82795 ?auto_82794 ) ( ON ?auto_82796 ?auto_82795 ) ( ON ?auto_82797 ?auto_82796 ) ( not ( = ?auto_82794 ?auto_82795 ) ) ( not ( = ?auto_82794 ?auto_82796 ) ) ( not ( = ?auto_82794 ?auto_82797 ) ) ( not ( = ?auto_82794 ?auto_82800 ) ) ( not ( = ?auto_82795 ?auto_82796 ) ) ( not ( = ?auto_82795 ?auto_82797 ) ) ( not ( = ?auto_82795 ?auto_82800 ) ) ( not ( = ?auto_82796 ?auto_82797 ) ) ( not ( = ?auto_82796 ?auto_82800 ) ) ( not ( = ?auto_82797 ?auto_82800 ) ) ( not ( = ?auto_82794 ?auto_82798 ) ) ( not ( = ?auto_82794 ?auto_82801 ) ) ( not ( = ?auto_82795 ?auto_82798 ) ) ( not ( = ?auto_82795 ?auto_82801 ) ) ( not ( = ?auto_82796 ?auto_82798 ) ) ( not ( = ?auto_82796 ?auto_82801 ) ) ( not ( = ?auto_82797 ?auto_82798 ) ) ( not ( = ?auto_82797 ?auto_82801 ) ) ( not ( = ?auto_82800 ?auto_82798 ) ) ( not ( = ?auto_82800 ?auto_82801 ) ) ( not ( = ?auto_82798 ?auto_82801 ) ) ( ON ?auto_82801 ?auto_82799 ) ( CLEAR ?auto_82801 ) ( not ( = ?auto_82794 ?auto_82799 ) ) ( not ( = ?auto_82795 ?auto_82799 ) ) ( not ( = ?auto_82796 ?auto_82799 ) ) ( not ( = ?auto_82797 ?auto_82799 ) ) ( not ( = ?auto_82800 ?auto_82799 ) ) ( not ( = ?auto_82798 ?auto_82799 ) ) ( not ( = ?auto_82801 ?auto_82799 ) ) ( HOLDING ?auto_82798 ) ( CLEAR ?auto_82800 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82794 ?auto_82795 ?auto_82796 ?auto_82797 ?auto_82799 ?auto_82800 )
+    ( ( MAKE-6PILE ?auto_82794 ?auto_82795 ?auto_82796 ?auto_82797 ?auto_82800 ?auto_82798 )
       ( MAKE-4PILE ?auto_82794 ?auto_82795 ?auto_82796 ?auto_82797 ) )
   )
 
@@ -3748,14 +3748,14 @@
     :vars
     (
       ?auto_82808 - BLOCK
-      ?auto_82807 - BLOCK
       ?auto_82806 - BLOCK
       ?auto_82809 - BLOCK
+      ?auto_82807 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_82808 ?auto_82805 ) ( ON-TABLE ?auto_82802 ) ( ON ?auto_82803 ?auto_82802 ) ( ON ?auto_82804 ?auto_82803 ) ( ON ?auto_82805 ?auto_82804 ) ( not ( = ?auto_82802 ?auto_82803 ) ) ( not ( = ?auto_82802 ?auto_82804 ) ) ( not ( = ?auto_82802 ?auto_82805 ) ) ( not ( = ?auto_82802 ?auto_82808 ) ) ( not ( = ?auto_82803 ?auto_82804 ) ) ( not ( = ?auto_82803 ?auto_82805 ) ) ( not ( = ?auto_82803 ?auto_82808 ) ) ( not ( = ?auto_82804 ?auto_82805 ) ) ( not ( = ?auto_82804 ?auto_82808 ) ) ( not ( = ?auto_82805 ?auto_82808 ) ) ( not ( = ?auto_82802 ?auto_82807 ) ) ( not ( = ?auto_82802 ?auto_82806 ) ) ( not ( = ?auto_82803 ?auto_82807 ) ) ( not ( = ?auto_82803 ?auto_82806 ) ) ( not ( = ?auto_82804 ?auto_82807 ) ) ( not ( = ?auto_82804 ?auto_82806 ) ) ( not ( = ?auto_82805 ?auto_82807 ) ) ( not ( = ?auto_82805 ?auto_82806 ) ) ( not ( = ?auto_82808 ?auto_82807 ) ) ( not ( = ?auto_82808 ?auto_82806 ) ) ( not ( = ?auto_82807 ?auto_82806 ) ) ( ON ?auto_82806 ?auto_82809 ) ( not ( = ?auto_82802 ?auto_82809 ) ) ( not ( = ?auto_82803 ?auto_82809 ) ) ( not ( = ?auto_82804 ?auto_82809 ) ) ( not ( = ?auto_82805 ?auto_82809 ) ) ( not ( = ?auto_82808 ?auto_82809 ) ) ( not ( = ?auto_82807 ?auto_82809 ) ) ( not ( = ?auto_82806 ?auto_82809 ) ) ( CLEAR ?auto_82808 ) ( ON ?auto_82807 ?auto_82806 ) ( CLEAR ?auto_82807 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82809 ) )
+    ( and ( ON ?auto_82808 ?auto_82805 ) ( ON-TABLE ?auto_82802 ) ( ON ?auto_82803 ?auto_82802 ) ( ON ?auto_82804 ?auto_82803 ) ( ON ?auto_82805 ?auto_82804 ) ( not ( = ?auto_82802 ?auto_82803 ) ) ( not ( = ?auto_82802 ?auto_82804 ) ) ( not ( = ?auto_82802 ?auto_82805 ) ) ( not ( = ?auto_82802 ?auto_82808 ) ) ( not ( = ?auto_82803 ?auto_82804 ) ) ( not ( = ?auto_82803 ?auto_82805 ) ) ( not ( = ?auto_82803 ?auto_82808 ) ) ( not ( = ?auto_82804 ?auto_82805 ) ) ( not ( = ?auto_82804 ?auto_82808 ) ) ( not ( = ?auto_82805 ?auto_82808 ) ) ( not ( = ?auto_82802 ?auto_82806 ) ) ( not ( = ?auto_82802 ?auto_82809 ) ) ( not ( = ?auto_82803 ?auto_82806 ) ) ( not ( = ?auto_82803 ?auto_82809 ) ) ( not ( = ?auto_82804 ?auto_82806 ) ) ( not ( = ?auto_82804 ?auto_82809 ) ) ( not ( = ?auto_82805 ?auto_82806 ) ) ( not ( = ?auto_82805 ?auto_82809 ) ) ( not ( = ?auto_82808 ?auto_82806 ) ) ( not ( = ?auto_82808 ?auto_82809 ) ) ( not ( = ?auto_82806 ?auto_82809 ) ) ( ON ?auto_82809 ?auto_82807 ) ( not ( = ?auto_82802 ?auto_82807 ) ) ( not ( = ?auto_82803 ?auto_82807 ) ) ( not ( = ?auto_82804 ?auto_82807 ) ) ( not ( = ?auto_82805 ?auto_82807 ) ) ( not ( = ?auto_82808 ?auto_82807 ) ) ( not ( = ?auto_82806 ?auto_82807 ) ) ( not ( = ?auto_82809 ?auto_82807 ) ) ( CLEAR ?auto_82808 ) ( ON ?auto_82806 ?auto_82809 ) ( CLEAR ?auto_82806 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82807 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82809 ?auto_82806 )
+    ( ( MAKE-2PILE ?auto_82807 ?auto_82809 )
       ( MAKE-4PILE ?auto_82802 ?auto_82803 ?auto_82804 ?auto_82805 ) )
   )
 
@@ -3769,15 +3769,15 @@
     )
     :vars
     (
-      ?auto_82833 - BLOCK
       ?auto_82832 - BLOCK
-      ?auto_82830 - BLOCK
       ?auto_82831 - BLOCK
+      ?auto_82830 - BLOCK
+      ?auto_82833 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82826 ) ( ON ?auto_82827 ?auto_82826 ) ( ON ?auto_82828 ?auto_82827 ) ( not ( = ?auto_82826 ?auto_82827 ) ) ( not ( = ?auto_82826 ?auto_82828 ) ) ( not ( = ?auto_82826 ?auto_82829 ) ) ( not ( = ?auto_82826 ?auto_82833 ) ) ( not ( = ?auto_82827 ?auto_82828 ) ) ( not ( = ?auto_82827 ?auto_82829 ) ) ( not ( = ?auto_82827 ?auto_82833 ) ) ( not ( = ?auto_82828 ?auto_82829 ) ) ( not ( = ?auto_82828 ?auto_82833 ) ) ( not ( = ?auto_82829 ?auto_82833 ) ) ( not ( = ?auto_82826 ?auto_82832 ) ) ( not ( = ?auto_82826 ?auto_82830 ) ) ( not ( = ?auto_82827 ?auto_82832 ) ) ( not ( = ?auto_82827 ?auto_82830 ) ) ( not ( = ?auto_82828 ?auto_82832 ) ) ( not ( = ?auto_82828 ?auto_82830 ) ) ( not ( = ?auto_82829 ?auto_82832 ) ) ( not ( = ?auto_82829 ?auto_82830 ) ) ( not ( = ?auto_82833 ?auto_82832 ) ) ( not ( = ?auto_82833 ?auto_82830 ) ) ( not ( = ?auto_82832 ?auto_82830 ) ) ( ON ?auto_82830 ?auto_82831 ) ( not ( = ?auto_82826 ?auto_82831 ) ) ( not ( = ?auto_82827 ?auto_82831 ) ) ( not ( = ?auto_82828 ?auto_82831 ) ) ( not ( = ?auto_82829 ?auto_82831 ) ) ( not ( = ?auto_82833 ?auto_82831 ) ) ( not ( = ?auto_82832 ?auto_82831 ) ) ( not ( = ?auto_82830 ?auto_82831 ) ) ( ON ?auto_82832 ?auto_82830 ) ( ON-TABLE ?auto_82831 ) ( ON ?auto_82833 ?auto_82832 ) ( CLEAR ?auto_82833 ) ( HOLDING ?auto_82829 ) ( CLEAR ?auto_82828 ) )
+    ( and ( ON-TABLE ?auto_82826 ) ( ON ?auto_82827 ?auto_82826 ) ( ON ?auto_82828 ?auto_82827 ) ( not ( = ?auto_82826 ?auto_82827 ) ) ( not ( = ?auto_82826 ?auto_82828 ) ) ( not ( = ?auto_82826 ?auto_82829 ) ) ( not ( = ?auto_82826 ?auto_82832 ) ) ( not ( = ?auto_82827 ?auto_82828 ) ) ( not ( = ?auto_82827 ?auto_82829 ) ) ( not ( = ?auto_82827 ?auto_82832 ) ) ( not ( = ?auto_82828 ?auto_82829 ) ) ( not ( = ?auto_82828 ?auto_82832 ) ) ( not ( = ?auto_82829 ?auto_82832 ) ) ( not ( = ?auto_82826 ?auto_82831 ) ) ( not ( = ?auto_82826 ?auto_82830 ) ) ( not ( = ?auto_82827 ?auto_82831 ) ) ( not ( = ?auto_82827 ?auto_82830 ) ) ( not ( = ?auto_82828 ?auto_82831 ) ) ( not ( = ?auto_82828 ?auto_82830 ) ) ( not ( = ?auto_82829 ?auto_82831 ) ) ( not ( = ?auto_82829 ?auto_82830 ) ) ( not ( = ?auto_82832 ?auto_82831 ) ) ( not ( = ?auto_82832 ?auto_82830 ) ) ( not ( = ?auto_82831 ?auto_82830 ) ) ( ON ?auto_82830 ?auto_82833 ) ( not ( = ?auto_82826 ?auto_82833 ) ) ( not ( = ?auto_82827 ?auto_82833 ) ) ( not ( = ?auto_82828 ?auto_82833 ) ) ( not ( = ?auto_82829 ?auto_82833 ) ) ( not ( = ?auto_82832 ?auto_82833 ) ) ( not ( = ?auto_82831 ?auto_82833 ) ) ( not ( = ?auto_82830 ?auto_82833 ) ) ( ON ?auto_82831 ?auto_82830 ) ( ON-TABLE ?auto_82833 ) ( ON ?auto_82832 ?auto_82831 ) ( CLEAR ?auto_82832 ) ( HOLDING ?auto_82829 ) ( CLEAR ?auto_82828 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82826 ?auto_82827 ?auto_82828 ?auto_82829 ?auto_82833 )
+    ( ( MAKE-5PILE ?auto_82826 ?auto_82827 ?auto_82828 ?auto_82829 ?auto_82832 )
       ( MAKE-4PILE ?auto_82826 ?auto_82827 ?auto_82828 ?auto_82829 ) )
   )
 
@@ -3792,14 +3792,14 @@
     :vars
     (
       ?auto_82838 - BLOCK
+      ?auto_82839 - BLOCK
       ?auto_82840 - BLOCK
       ?auto_82841 - BLOCK
-      ?auto_82839 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82834 ) ( ON ?auto_82835 ?auto_82834 ) ( ON ?auto_82836 ?auto_82835 ) ( not ( = ?auto_82834 ?auto_82835 ) ) ( not ( = ?auto_82834 ?auto_82836 ) ) ( not ( = ?auto_82834 ?auto_82837 ) ) ( not ( = ?auto_82834 ?auto_82838 ) ) ( not ( = ?auto_82835 ?auto_82836 ) ) ( not ( = ?auto_82835 ?auto_82837 ) ) ( not ( = ?auto_82835 ?auto_82838 ) ) ( not ( = ?auto_82836 ?auto_82837 ) ) ( not ( = ?auto_82836 ?auto_82838 ) ) ( not ( = ?auto_82837 ?auto_82838 ) ) ( not ( = ?auto_82834 ?auto_82840 ) ) ( not ( = ?auto_82834 ?auto_82841 ) ) ( not ( = ?auto_82835 ?auto_82840 ) ) ( not ( = ?auto_82835 ?auto_82841 ) ) ( not ( = ?auto_82836 ?auto_82840 ) ) ( not ( = ?auto_82836 ?auto_82841 ) ) ( not ( = ?auto_82837 ?auto_82840 ) ) ( not ( = ?auto_82837 ?auto_82841 ) ) ( not ( = ?auto_82838 ?auto_82840 ) ) ( not ( = ?auto_82838 ?auto_82841 ) ) ( not ( = ?auto_82840 ?auto_82841 ) ) ( ON ?auto_82841 ?auto_82839 ) ( not ( = ?auto_82834 ?auto_82839 ) ) ( not ( = ?auto_82835 ?auto_82839 ) ) ( not ( = ?auto_82836 ?auto_82839 ) ) ( not ( = ?auto_82837 ?auto_82839 ) ) ( not ( = ?auto_82838 ?auto_82839 ) ) ( not ( = ?auto_82840 ?auto_82839 ) ) ( not ( = ?auto_82841 ?auto_82839 ) ) ( ON ?auto_82840 ?auto_82841 ) ( ON-TABLE ?auto_82839 ) ( ON ?auto_82838 ?auto_82840 ) ( CLEAR ?auto_82836 ) ( ON ?auto_82837 ?auto_82838 ) ( CLEAR ?auto_82837 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82834 ) ( ON ?auto_82835 ?auto_82834 ) ( ON ?auto_82836 ?auto_82835 ) ( not ( = ?auto_82834 ?auto_82835 ) ) ( not ( = ?auto_82834 ?auto_82836 ) ) ( not ( = ?auto_82834 ?auto_82837 ) ) ( not ( = ?auto_82834 ?auto_82838 ) ) ( not ( = ?auto_82835 ?auto_82836 ) ) ( not ( = ?auto_82835 ?auto_82837 ) ) ( not ( = ?auto_82835 ?auto_82838 ) ) ( not ( = ?auto_82836 ?auto_82837 ) ) ( not ( = ?auto_82836 ?auto_82838 ) ) ( not ( = ?auto_82837 ?auto_82838 ) ) ( not ( = ?auto_82834 ?auto_82839 ) ) ( not ( = ?auto_82834 ?auto_82840 ) ) ( not ( = ?auto_82835 ?auto_82839 ) ) ( not ( = ?auto_82835 ?auto_82840 ) ) ( not ( = ?auto_82836 ?auto_82839 ) ) ( not ( = ?auto_82836 ?auto_82840 ) ) ( not ( = ?auto_82837 ?auto_82839 ) ) ( not ( = ?auto_82837 ?auto_82840 ) ) ( not ( = ?auto_82838 ?auto_82839 ) ) ( not ( = ?auto_82838 ?auto_82840 ) ) ( not ( = ?auto_82839 ?auto_82840 ) ) ( ON ?auto_82840 ?auto_82841 ) ( not ( = ?auto_82834 ?auto_82841 ) ) ( not ( = ?auto_82835 ?auto_82841 ) ) ( not ( = ?auto_82836 ?auto_82841 ) ) ( not ( = ?auto_82837 ?auto_82841 ) ) ( not ( = ?auto_82838 ?auto_82841 ) ) ( not ( = ?auto_82839 ?auto_82841 ) ) ( not ( = ?auto_82840 ?auto_82841 ) ) ( ON ?auto_82839 ?auto_82840 ) ( ON-TABLE ?auto_82841 ) ( ON ?auto_82838 ?auto_82839 ) ( CLEAR ?auto_82836 ) ( ON ?auto_82837 ?auto_82838 ) ( CLEAR ?auto_82837 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82839 ?auto_82841 ?auto_82840 ?auto_82838 )
+    ( ( MAKE-4PILE ?auto_82841 ?auto_82840 ?auto_82839 ?auto_82838 )
       ( MAKE-4PILE ?auto_82834 ?auto_82835 ?auto_82836 ?auto_82837 ) )
   )
 
@@ -3813,13 +3813,13 @@
     )
     :vars
     (
-      ?auto_82846 - BLOCK
       ?auto_82849 - BLOCK
       ?auto_82848 - BLOCK
       ?auto_82847 - BLOCK
+      ?auto_82846 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82842 ) ( ON ?auto_82843 ?auto_82842 ) ( not ( = ?auto_82842 ?auto_82843 ) ) ( not ( = ?auto_82842 ?auto_82844 ) ) ( not ( = ?auto_82842 ?auto_82845 ) ) ( not ( = ?auto_82842 ?auto_82846 ) ) ( not ( = ?auto_82843 ?auto_82844 ) ) ( not ( = ?auto_82843 ?auto_82845 ) ) ( not ( = ?auto_82843 ?auto_82846 ) ) ( not ( = ?auto_82844 ?auto_82845 ) ) ( not ( = ?auto_82844 ?auto_82846 ) ) ( not ( = ?auto_82845 ?auto_82846 ) ) ( not ( = ?auto_82842 ?auto_82849 ) ) ( not ( = ?auto_82842 ?auto_82848 ) ) ( not ( = ?auto_82843 ?auto_82849 ) ) ( not ( = ?auto_82843 ?auto_82848 ) ) ( not ( = ?auto_82844 ?auto_82849 ) ) ( not ( = ?auto_82844 ?auto_82848 ) ) ( not ( = ?auto_82845 ?auto_82849 ) ) ( not ( = ?auto_82845 ?auto_82848 ) ) ( not ( = ?auto_82846 ?auto_82849 ) ) ( not ( = ?auto_82846 ?auto_82848 ) ) ( not ( = ?auto_82849 ?auto_82848 ) ) ( ON ?auto_82848 ?auto_82847 ) ( not ( = ?auto_82842 ?auto_82847 ) ) ( not ( = ?auto_82843 ?auto_82847 ) ) ( not ( = ?auto_82844 ?auto_82847 ) ) ( not ( = ?auto_82845 ?auto_82847 ) ) ( not ( = ?auto_82846 ?auto_82847 ) ) ( not ( = ?auto_82849 ?auto_82847 ) ) ( not ( = ?auto_82848 ?auto_82847 ) ) ( ON ?auto_82849 ?auto_82848 ) ( ON-TABLE ?auto_82847 ) ( ON ?auto_82846 ?auto_82849 ) ( ON ?auto_82845 ?auto_82846 ) ( CLEAR ?auto_82845 ) ( HOLDING ?auto_82844 ) ( CLEAR ?auto_82843 ) )
+    ( and ( ON-TABLE ?auto_82842 ) ( ON ?auto_82843 ?auto_82842 ) ( not ( = ?auto_82842 ?auto_82843 ) ) ( not ( = ?auto_82842 ?auto_82844 ) ) ( not ( = ?auto_82842 ?auto_82845 ) ) ( not ( = ?auto_82842 ?auto_82849 ) ) ( not ( = ?auto_82843 ?auto_82844 ) ) ( not ( = ?auto_82843 ?auto_82845 ) ) ( not ( = ?auto_82843 ?auto_82849 ) ) ( not ( = ?auto_82844 ?auto_82845 ) ) ( not ( = ?auto_82844 ?auto_82849 ) ) ( not ( = ?auto_82845 ?auto_82849 ) ) ( not ( = ?auto_82842 ?auto_82848 ) ) ( not ( = ?auto_82842 ?auto_82847 ) ) ( not ( = ?auto_82843 ?auto_82848 ) ) ( not ( = ?auto_82843 ?auto_82847 ) ) ( not ( = ?auto_82844 ?auto_82848 ) ) ( not ( = ?auto_82844 ?auto_82847 ) ) ( not ( = ?auto_82845 ?auto_82848 ) ) ( not ( = ?auto_82845 ?auto_82847 ) ) ( not ( = ?auto_82849 ?auto_82848 ) ) ( not ( = ?auto_82849 ?auto_82847 ) ) ( not ( = ?auto_82848 ?auto_82847 ) ) ( ON ?auto_82847 ?auto_82846 ) ( not ( = ?auto_82842 ?auto_82846 ) ) ( not ( = ?auto_82843 ?auto_82846 ) ) ( not ( = ?auto_82844 ?auto_82846 ) ) ( not ( = ?auto_82845 ?auto_82846 ) ) ( not ( = ?auto_82849 ?auto_82846 ) ) ( not ( = ?auto_82848 ?auto_82846 ) ) ( not ( = ?auto_82847 ?auto_82846 ) ) ( ON ?auto_82848 ?auto_82847 ) ( ON-TABLE ?auto_82846 ) ( ON ?auto_82849 ?auto_82848 ) ( ON ?auto_82845 ?auto_82849 ) ( CLEAR ?auto_82845 ) ( HOLDING ?auto_82844 ) ( CLEAR ?auto_82843 ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_82842 ?auto_82843 ?auto_82844 )
       ( MAKE-4PILE ?auto_82842 ?auto_82843 ?auto_82844 ?auto_82845 ) )
@@ -3836,14 +3836,14 @@
     :vars
     (
       ?auto_82855 - BLOCK
-      ?auto_82854 - BLOCK
-      ?auto_82857 - BLOCK
       ?auto_82856 - BLOCK
+      ?auto_82857 - BLOCK
+      ?auto_82854 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82850 ) ( ON ?auto_82851 ?auto_82850 ) ( not ( = ?auto_82850 ?auto_82851 ) ) ( not ( = ?auto_82850 ?auto_82852 ) ) ( not ( = ?auto_82850 ?auto_82853 ) ) ( not ( = ?auto_82850 ?auto_82855 ) ) ( not ( = ?auto_82851 ?auto_82852 ) ) ( not ( = ?auto_82851 ?auto_82853 ) ) ( not ( = ?auto_82851 ?auto_82855 ) ) ( not ( = ?auto_82852 ?auto_82853 ) ) ( not ( = ?auto_82852 ?auto_82855 ) ) ( not ( = ?auto_82853 ?auto_82855 ) ) ( not ( = ?auto_82850 ?auto_82854 ) ) ( not ( = ?auto_82850 ?auto_82857 ) ) ( not ( = ?auto_82851 ?auto_82854 ) ) ( not ( = ?auto_82851 ?auto_82857 ) ) ( not ( = ?auto_82852 ?auto_82854 ) ) ( not ( = ?auto_82852 ?auto_82857 ) ) ( not ( = ?auto_82853 ?auto_82854 ) ) ( not ( = ?auto_82853 ?auto_82857 ) ) ( not ( = ?auto_82855 ?auto_82854 ) ) ( not ( = ?auto_82855 ?auto_82857 ) ) ( not ( = ?auto_82854 ?auto_82857 ) ) ( ON ?auto_82857 ?auto_82856 ) ( not ( = ?auto_82850 ?auto_82856 ) ) ( not ( = ?auto_82851 ?auto_82856 ) ) ( not ( = ?auto_82852 ?auto_82856 ) ) ( not ( = ?auto_82853 ?auto_82856 ) ) ( not ( = ?auto_82855 ?auto_82856 ) ) ( not ( = ?auto_82854 ?auto_82856 ) ) ( not ( = ?auto_82857 ?auto_82856 ) ) ( ON ?auto_82854 ?auto_82857 ) ( ON-TABLE ?auto_82856 ) ( ON ?auto_82855 ?auto_82854 ) ( ON ?auto_82853 ?auto_82855 ) ( CLEAR ?auto_82851 ) ( ON ?auto_82852 ?auto_82853 ) ( CLEAR ?auto_82852 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82850 ) ( ON ?auto_82851 ?auto_82850 ) ( not ( = ?auto_82850 ?auto_82851 ) ) ( not ( = ?auto_82850 ?auto_82852 ) ) ( not ( = ?auto_82850 ?auto_82853 ) ) ( not ( = ?auto_82850 ?auto_82855 ) ) ( not ( = ?auto_82851 ?auto_82852 ) ) ( not ( = ?auto_82851 ?auto_82853 ) ) ( not ( = ?auto_82851 ?auto_82855 ) ) ( not ( = ?auto_82852 ?auto_82853 ) ) ( not ( = ?auto_82852 ?auto_82855 ) ) ( not ( = ?auto_82853 ?auto_82855 ) ) ( not ( = ?auto_82850 ?auto_82856 ) ) ( not ( = ?auto_82850 ?auto_82857 ) ) ( not ( = ?auto_82851 ?auto_82856 ) ) ( not ( = ?auto_82851 ?auto_82857 ) ) ( not ( = ?auto_82852 ?auto_82856 ) ) ( not ( = ?auto_82852 ?auto_82857 ) ) ( not ( = ?auto_82853 ?auto_82856 ) ) ( not ( = ?auto_82853 ?auto_82857 ) ) ( not ( = ?auto_82855 ?auto_82856 ) ) ( not ( = ?auto_82855 ?auto_82857 ) ) ( not ( = ?auto_82856 ?auto_82857 ) ) ( ON ?auto_82857 ?auto_82854 ) ( not ( = ?auto_82850 ?auto_82854 ) ) ( not ( = ?auto_82851 ?auto_82854 ) ) ( not ( = ?auto_82852 ?auto_82854 ) ) ( not ( = ?auto_82853 ?auto_82854 ) ) ( not ( = ?auto_82855 ?auto_82854 ) ) ( not ( = ?auto_82856 ?auto_82854 ) ) ( not ( = ?auto_82857 ?auto_82854 ) ) ( ON ?auto_82856 ?auto_82857 ) ( ON-TABLE ?auto_82854 ) ( ON ?auto_82855 ?auto_82856 ) ( ON ?auto_82853 ?auto_82855 ) ( CLEAR ?auto_82851 ) ( ON ?auto_82852 ?auto_82853 ) ( CLEAR ?auto_82852 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82856 ?auto_82857 ?auto_82854 ?auto_82855 ?auto_82853 )
+    ( ( MAKE-5PILE ?auto_82854 ?auto_82857 ?auto_82856 ?auto_82855 ?auto_82853 )
       ( MAKE-4PILE ?auto_82850 ?auto_82851 ?auto_82852 ?auto_82853 ) )
   )
 
@@ -3858,12 +3858,12 @@
     :vars
     (
       ?auto_82865 - BLOCK
-      ?auto_82864 - BLOCK
-      ?auto_82862 - BLOCK
       ?auto_82863 - BLOCK
+      ?auto_82862 - BLOCK
+      ?auto_82864 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82858 ) ( not ( = ?auto_82858 ?auto_82859 ) ) ( not ( = ?auto_82858 ?auto_82860 ) ) ( not ( = ?auto_82858 ?auto_82861 ) ) ( not ( = ?auto_82858 ?auto_82865 ) ) ( not ( = ?auto_82859 ?auto_82860 ) ) ( not ( = ?auto_82859 ?auto_82861 ) ) ( not ( = ?auto_82859 ?auto_82865 ) ) ( not ( = ?auto_82860 ?auto_82861 ) ) ( not ( = ?auto_82860 ?auto_82865 ) ) ( not ( = ?auto_82861 ?auto_82865 ) ) ( not ( = ?auto_82858 ?auto_82864 ) ) ( not ( = ?auto_82858 ?auto_82862 ) ) ( not ( = ?auto_82859 ?auto_82864 ) ) ( not ( = ?auto_82859 ?auto_82862 ) ) ( not ( = ?auto_82860 ?auto_82864 ) ) ( not ( = ?auto_82860 ?auto_82862 ) ) ( not ( = ?auto_82861 ?auto_82864 ) ) ( not ( = ?auto_82861 ?auto_82862 ) ) ( not ( = ?auto_82865 ?auto_82864 ) ) ( not ( = ?auto_82865 ?auto_82862 ) ) ( not ( = ?auto_82864 ?auto_82862 ) ) ( ON ?auto_82862 ?auto_82863 ) ( not ( = ?auto_82858 ?auto_82863 ) ) ( not ( = ?auto_82859 ?auto_82863 ) ) ( not ( = ?auto_82860 ?auto_82863 ) ) ( not ( = ?auto_82861 ?auto_82863 ) ) ( not ( = ?auto_82865 ?auto_82863 ) ) ( not ( = ?auto_82864 ?auto_82863 ) ) ( not ( = ?auto_82862 ?auto_82863 ) ) ( ON ?auto_82864 ?auto_82862 ) ( ON-TABLE ?auto_82863 ) ( ON ?auto_82865 ?auto_82864 ) ( ON ?auto_82861 ?auto_82865 ) ( ON ?auto_82860 ?auto_82861 ) ( CLEAR ?auto_82860 ) ( HOLDING ?auto_82859 ) ( CLEAR ?auto_82858 ) )
+    ( and ( ON-TABLE ?auto_82858 ) ( not ( = ?auto_82858 ?auto_82859 ) ) ( not ( = ?auto_82858 ?auto_82860 ) ) ( not ( = ?auto_82858 ?auto_82861 ) ) ( not ( = ?auto_82858 ?auto_82865 ) ) ( not ( = ?auto_82859 ?auto_82860 ) ) ( not ( = ?auto_82859 ?auto_82861 ) ) ( not ( = ?auto_82859 ?auto_82865 ) ) ( not ( = ?auto_82860 ?auto_82861 ) ) ( not ( = ?auto_82860 ?auto_82865 ) ) ( not ( = ?auto_82861 ?auto_82865 ) ) ( not ( = ?auto_82858 ?auto_82863 ) ) ( not ( = ?auto_82858 ?auto_82862 ) ) ( not ( = ?auto_82859 ?auto_82863 ) ) ( not ( = ?auto_82859 ?auto_82862 ) ) ( not ( = ?auto_82860 ?auto_82863 ) ) ( not ( = ?auto_82860 ?auto_82862 ) ) ( not ( = ?auto_82861 ?auto_82863 ) ) ( not ( = ?auto_82861 ?auto_82862 ) ) ( not ( = ?auto_82865 ?auto_82863 ) ) ( not ( = ?auto_82865 ?auto_82862 ) ) ( not ( = ?auto_82863 ?auto_82862 ) ) ( ON ?auto_82862 ?auto_82864 ) ( not ( = ?auto_82858 ?auto_82864 ) ) ( not ( = ?auto_82859 ?auto_82864 ) ) ( not ( = ?auto_82860 ?auto_82864 ) ) ( not ( = ?auto_82861 ?auto_82864 ) ) ( not ( = ?auto_82865 ?auto_82864 ) ) ( not ( = ?auto_82863 ?auto_82864 ) ) ( not ( = ?auto_82862 ?auto_82864 ) ) ( ON ?auto_82863 ?auto_82862 ) ( ON-TABLE ?auto_82864 ) ( ON ?auto_82865 ?auto_82863 ) ( ON ?auto_82861 ?auto_82865 ) ( ON ?auto_82860 ?auto_82861 ) ( CLEAR ?auto_82860 ) ( HOLDING ?auto_82859 ) ( CLEAR ?auto_82858 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_82858 ?auto_82859 )
       ( MAKE-4PILE ?auto_82858 ?auto_82859 ?auto_82860 ?auto_82861 ) )
@@ -3879,15 +3879,15 @@
     )
     :vars
     (
-      ?auto_82873 - BLOCK
-      ?auto_82870 - BLOCK
-      ?auto_82871 - BLOCK
       ?auto_82872 - BLOCK
+      ?auto_82871 - BLOCK
+      ?auto_82870 - BLOCK
+      ?auto_82873 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82866 ) ( not ( = ?auto_82866 ?auto_82867 ) ) ( not ( = ?auto_82866 ?auto_82868 ) ) ( not ( = ?auto_82866 ?auto_82869 ) ) ( not ( = ?auto_82866 ?auto_82873 ) ) ( not ( = ?auto_82867 ?auto_82868 ) ) ( not ( = ?auto_82867 ?auto_82869 ) ) ( not ( = ?auto_82867 ?auto_82873 ) ) ( not ( = ?auto_82868 ?auto_82869 ) ) ( not ( = ?auto_82868 ?auto_82873 ) ) ( not ( = ?auto_82869 ?auto_82873 ) ) ( not ( = ?auto_82866 ?auto_82870 ) ) ( not ( = ?auto_82866 ?auto_82871 ) ) ( not ( = ?auto_82867 ?auto_82870 ) ) ( not ( = ?auto_82867 ?auto_82871 ) ) ( not ( = ?auto_82868 ?auto_82870 ) ) ( not ( = ?auto_82868 ?auto_82871 ) ) ( not ( = ?auto_82869 ?auto_82870 ) ) ( not ( = ?auto_82869 ?auto_82871 ) ) ( not ( = ?auto_82873 ?auto_82870 ) ) ( not ( = ?auto_82873 ?auto_82871 ) ) ( not ( = ?auto_82870 ?auto_82871 ) ) ( ON ?auto_82871 ?auto_82872 ) ( not ( = ?auto_82866 ?auto_82872 ) ) ( not ( = ?auto_82867 ?auto_82872 ) ) ( not ( = ?auto_82868 ?auto_82872 ) ) ( not ( = ?auto_82869 ?auto_82872 ) ) ( not ( = ?auto_82873 ?auto_82872 ) ) ( not ( = ?auto_82870 ?auto_82872 ) ) ( not ( = ?auto_82871 ?auto_82872 ) ) ( ON ?auto_82870 ?auto_82871 ) ( ON-TABLE ?auto_82872 ) ( ON ?auto_82873 ?auto_82870 ) ( ON ?auto_82869 ?auto_82873 ) ( ON ?auto_82868 ?auto_82869 ) ( CLEAR ?auto_82866 ) ( ON ?auto_82867 ?auto_82868 ) ( CLEAR ?auto_82867 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_82866 ) ( not ( = ?auto_82866 ?auto_82867 ) ) ( not ( = ?auto_82866 ?auto_82868 ) ) ( not ( = ?auto_82866 ?auto_82869 ) ) ( not ( = ?auto_82866 ?auto_82872 ) ) ( not ( = ?auto_82867 ?auto_82868 ) ) ( not ( = ?auto_82867 ?auto_82869 ) ) ( not ( = ?auto_82867 ?auto_82872 ) ) ( not ( = ?auto_82868 ?auto_82869 ) ) ( not ( = ?auto_82868 ?auto_82872 ) ) ( not ( = ?auto_82869 ?auto_82872 ) ) ( not ( = ?auto_82866 ?auto_82871 ) ) ( not ( = ?auto_82866 ?auto_82870 ) ) ( not ( = ?auto_82867 ?auto_82871 ) ) ( not ( = ?auto_82867 ?auto_82870 ) ) ( not ( = ?auto_82868 ?auto_82871 ) ) ( not ( = ?auto_82868 ?auto_82870 ) ) ( not ( = ?auto_82869 ?auto_82871 ) ) ( not ( = ?auto_82869 ?auto_82870 ) ) ( not ( = ?auto_82872 ?auto_82871 ) ) ( not ( = ?auto_82872 ?auto_82870 ) ) ( not ( = ?auto_82871 ?auto_82870 ) ) ( ON ?auto_82870 ?auto_82873 ) ( not ( = ?auto_82866 ?auto_82873 ) ) ( not ( = ?auto_82867 ?auto_82873 ) ) ( not ( = ?auto_82868 ?auto_82873 ) ) ( not ( = ?auto_82869 ?auto_82873 ) ) ( not ( = ?auto_82872 ?auto_82873 ) ) ( not ( = ?auto_82871 ?auto_82873 ) ) ( not ( = ?auto_82870 ?auto_82873 ) ) ( ON ?auto_82871 ?auto_82870 ) ( ON-TABLE ?auto_82873 ) ( ON ?auto_82872 ?auto_82871 ) ( ON ?auto_82869 ?auto_82872 ) ( ON ?auto_82868 ?auto_82869 ) ( CLEAR ?auto_82866 ) ( ON ?auto_82867 ?auto_82868 ) ( CLEAR ?auto_82867 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82872 ?auto_82871 ?auto_82870 ?auto_82873 ?auto_82869 ?auto_82868 )
+    ( ( MAKE-6PILE ?auto_82873 ?auto_82870 ?auto_82871 ?auto_82872 ?auto_82869 ?auto_82868 )
       ( MAKE-4PILE ?auto_82866 ?auto_82867 ?auto_82868 ?auto_82869 ) )
   )
 
@@ -3901,13 +3901,13 @@
     )
     :vars
     (
-      ?auto_82878 - BLOCK
       ?auto_82879 - BLOCK
       ?auto_82880 - BLOCK
       ?auto_82881 - BLOCK
+      ?auto_82878 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82874 ?auto_82875 ) ) ( not ( = ?auto_82874 ?auto_82876 ) ) ( not ( = ?auto_82874 ?auto_82877 ) ) ( not ( = ?auto_82874 ?auto_82878 ) ) ( not ( = ?auto_82875 ?auto_82876 ) ) ( not ( = ?auto_82875 ?auto_82877 ) ) ( not ( = ?auto_82875 ?auto_82878 ) ) ( not ( = ?auto_82876 ?auto_82877 ) ) ( not ( = ?auto_82876 ?auto_82878 ) ) ( not ( = ?auto_82877 ?auto_82878 ) ) ( not ( = ?auto_82874 ?auto_82879 ) ) ( not ( = ?auto_82874 ?auto_82880 ) ) ( not ( = ?auto_82875 ?auto_82879 ) ) ( not ( = ?auto_82875 ?auto_82880 ) ) ( not ( = ?auto_82876 ?auto_82879 ) ) ( not ( = ?auto_82876 ?auto_82880 ) ) ( not ( = ?auto_82877 ?auto_82879 ) ) ( not ( = ?auto_82877 ?auto_82880 ) ) ( not ( = ?auto_82878 ?auto_82879 ) ) ( not ( = ?auto_82878 ?auto_82880 ) ) ( not ( = ?auto_82879 ?auto_82880 ) ) ( ON ?auto_82880 ?auto_82881 ) ( not ( = ?auto_82874 ?auto_82881 ) ) ( not ( = ?auto_82875 ?auto_82881 ) ) ( not ( = ?auto_82876 ?auto_82881 ) ) ( not ( = ?auto_82877 ?auto_82881 ) ) ( not ( = ?auto_82878 ?auto_82881 ) ) ( not ( = ?auto_82879 ?auto_82881 ) ) ( not ( = ?auto_82880 ?auto_82881 ) ) ( ON ?auto_82879 ?auto_82880 ) ( ON-TABLE ?auto_82881 ) ( ON ?auto_82878 ?auto_82879 ) ( ON ?auto_82877 ?auto_82878 ) ( ON ?auto_82876 ?auto_82877 ) ( ON ?auto_82875 ?auto_82876 ) ( CLEAR ?auto_82875 ) ( HOLDING ?auto_82874 ) )
+    ( and ( not ( = ?auto_82874 ?auto_82875 ) ) ( not ( = ?auto_82874 ?auto_82876 ) ) ( not ( = ?auto_82874 ?auto_82877 ) ) ( not ( = ?auto_82874 ?auto_82879 ) ) ( not ( = ?auto_82875 ?auto_82876 ) ) ( not ( = ?auto_82875 ?auto_82877 ) ) ( not ( = ?auto_82875 ?auto_82879 ) ) ( not ( = ?auto_82876 ?auto_82877 ) ) ( not ( = ?auto_82876 ?auto_82879 ) ) ( not ( = ?auto_82877 ?auto_82879 ) ) ( not ( = ?auto_82874 ?auto_82880 ) ) ( not ( = ?auto_82874 ?auto_82881 ) ) ( not ( = ?auto_82875 ?auto_82880 ) ) ( not ( = ?auto_82875 ?auto_82881 ) ) ( not ( = ?auto_82876 ?auto_82880 ) ) ( not ( = ?auto_82876 ?auto_82881 ) ) ( not ( = ?auto_82877 ?auto_82880 ) ) ( not ( = ?auto_82877 ?auto_82881 ) ) ( not ( = ?auto_82879 ?auto_82880 ) ) ( not ( = ?auto_82879 ?auto_82881 ) ) ( not ( = ?auto_82880 ?auto_82881 ) ) ( ON ?auto_82881 ?auto_82878 ) ( not ( = ?auto_82874 ?auto_82878 ) ) ( not ( = ?auto_82875 ?auto_82878 ) ) ( not ( = ?auto_82876 ?auto_82878 ) ) ( not ( = ?auto_82877 ?auto_82878 ) ) ( not ( = ?auto_82879 ?auto_82878 ) ) ( not ( = ?auto_82880 ?auto_82878 ) ) ( not ( = ?auto_82881 ?auto_82878 ) ) ( ON ?auto_82880 ?auto_82881 ) ( ON-TABLE ?auto_82878 ) ( ON ?auto_82879 ?auto_82880 ) ( ON ?auto_82877 ?auto_82879 ) ( ON ?auto_82876 ?auto_82877 ) ( ON ?auto_82875 ?auto_82876 ) ( CLEAR ?auto_82875 ) ( HOLDING ?auto_82874 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_82874 )
       ( MAKE-4PILE ?auto_82874 ?auto_82875 ?auto_82876 ?auto_82877 ) )
@@ -3923,15 +3923,15 @@
     )
     :vars
     (
-      ?auto_82886 - BLOCK
       ?auto_82887 - BLOCK
-      ?auto_82889 - BLOCK
       ?auto_82888 - BLOCK
+      ?auto_82889 - BLOCK
+      ?auto_82886 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82882 ?auto_82883 ) ) ( not ( = ?auto_82882 ?auto_82884 ) ) ( not ( = ?auto_82882 ?auto_82885 ) ) ( not ( = ?auto_82882 ?auto_82886 ) ) ( not ( = ?auto_82883 ?auto_82884 ) ) ( not ( = ?auto_82883 ?auto_82885 ) ) ( not ( = ?auto_82883 ?auto_82886 ) ) ( not ( = ?auto_82884 ?auto_82885 ) ) ( not ( = ?auto_82884 ?auto_82886 ) ) ( not ( = ?auto_82885 ?auto_82886 ) ) ( not ( = ?auto_82882 ?auto_82887 ) ) ( not ( = ?auto_82882 ?auto_82889 ) ) ( not ( = ?auto_82883 ?auto_82887 ) ) ( not ( = ?auto_82883 ?auto_82889 ) ) ( not ( = ?auto_82884 ?auto_82887 ) ) ( not ( = ?auto_82884 ?auto_82889 ) ) ( not ( = ?auto_82885 ?auto_82887 ) ) ( not ( = ?auto_82885 ?auto_82889 ) ) ( not ( = ?auto_82886 ?auto_82887 ) ) ( not ( = ?auto_82886 ?auto_82889 ) ) ( not ( = ?auto_82887 ?auto_82889 ) ) ( ON ?auto_82889 ?auto_82888 ) ( not ( = ?auto_82882 ?auto_82888 ) ) ( not ( = ?auto_82883 ?auto_82888 ) ) ( not ( = ?auto_82884 ?auto_82888 ) ) ( not ( = ?auto_82885 ?auto_82888 ) ) ( not ( = ?auto_82886 ?auto_82888 ) ) ( not ( = ?auto_82887 ?auto_82888 ) ) ( not ( = ?auto_82889 ?auto_82888 ) ) ( ON ?auto_82887 ?auto_82889 ) ( ON-TABLE ?auto_82888 ) ( ON ?auto_82886 ?auto_82887 ) ( ON ?auto_82885 ?auto_82886 ) ( ON ?auto_82884 ?auto_82885 ) ( ON ?auto_82883 ?auto_82884 ) ( ON ?auto_82882 ?auto_82883 ) ( CLEAR ?auto_82882 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82882 ?auto_82883 ) ) ( not ( = ?auto_82882 ?auto_82884 ) ) ( not ( = ?auto_82882 ?auto_82885 ) ) ( not ( = ?auto_82882 ?auto_82887 ) ) ( not ( = ?auto_82883 ?auto_82884 ) ) ( not ( = ?auto_82883 ?auto_82885 ) ) ( not ( = ?auto_82883 ?auto_82887 ) ) ( not ( = ?auto_82884 ?auto_82885 ) ) ( not ( = ?auto_82884 ?auto_82887 ) ) ( not ( = ?auto_82885 ?auto_82887 ) ) ( not ( = ?auto_82882 ?auto_82888 ) ) ( not ( = ?auto_82882 ?auto_82889 ) ) ( not ( = ?auto_82883 ?auto_82888 ) ) ( not ( = ?auto_82883 ?auto_82889 ) ) ( not ( = ?auto_82884 ?auto_82888 ) ) ( not ( = ?auto_82884 ?auto_82889 ) ) ( not ( = ?auto_82885 ?auto_82888 ) ) ( not ( = ?auto_82885 ?auto_82889 ) ) ( not ( = ?auto_82887 ?auto_82888 ) ) ( not ( = ?auto_82887 ?auto_82889 ) ) ( not ( = ?auto_82888 ?auto_82889 ) ) ( ON ?auto_82889 ?auto_82886 ) ( not ( = ?auto_82882 ?auto_82886 ) ) ( not ( = ?auto_82883 ?auto_82886 ) ) ( not ( = ?auto_82884 ?auto_82886 ) ) ( not ( = ?auto_82885 ?auto_82886 ) ) ( not ( = ?auto_82887 ?auto_82886 ) ) ( not ( = ?auto_82888 ?auto_82886 ) ) ( not ( = ?auto_82889 ?auto_82886 ) ) ( ON ?auto_82888 ?auto_82889 ) ( ON-TABLE ?auto_82886 ) ( ON ?auto_82887 ?auto_82888 ) ( ON ?auto_82885 ?auto_82887 ) ( ON ?auto_82884 ?auto_82885 ) ( ON ?auto_82883 ?auto_82884 ) ( ON ?auto_82882 ?auto_82883 ) ( CLEAR ?auto_82882 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82888 ?auto_82889 ?auto_82887 ?auto_82886 ?auto_82885 ?auto_82884 ?auto_82883 )
+    ( ( MAKE-7PILE ?auto_82886 ?auto_82889 ?auto_82888 ?auto_82887 ?auto_82885 ?auto_82884 ?auto_82883 )
       ( MAKE-4PILE ?auto_82882 ?auto_82883 ?auto_82884 ?auto_82885 ) )
   )
 
@@ -3994,14 +3994,14 @@
     :vars
     (
       ?auto_82907 - BLOCK
-      ?auto_82909 - BLOCK
       ?auto_82910 - BLOCK
       ?auto_82908 - BLOCK
+      ?auto_82909 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_82904 ) ( not ( = ?auto_82904 ?auto_82905 ) ) ( not ( = ?auto_82904 ?auto_82906 ) ) ( not ( = ?auto_82905 ?auto_82906 ) ) ( ON ?auto_82906 ?auto_82907 ) ( not ( = ?auto_82904 ?auto_82907 ) ) ( not ( = ?auto_82905 ?auto_82907 ) ) ( not ( = ?auto_82906 ?auto_82907 ) ) ( CLEAR ?auto_82904 ) ( ON ?auto_82905 ?auto_82906 ) ( CLEAR ?auto_82905 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82909 ) ( ON ?auto_82910 ?auto_82909 ) ( ON ?auto_82908 ?auto_82910 ) ( ON ?auto_82907 ?auto_82908 ) ( not ( = ?auto_82909 ?auto_82910 ) ) ( not ( = ?auto_82909 ?auto_82908 ) ) ( not ( = ?auto_82909 ?auto_82907 ) ) ( not ( = ?auto_82909 ?auto_82906 ) ) ( not ( = ?auto_82909 ?auto_82905 ) ) ( not ( = ?auto_82910 ?auto_82908 ) ) ( not ( = ?auto_82910 ?auto_82907 ) ) ( not ( = ?auto_82910 ?auto_82906 ) ) ( not ( = ?auto_82910 ?auto_82905 ) ) ( not ( = ?auto_82908 ?auto_82907 ) ) ( not ( = ?auto_82908 ?auto_82906 ) ) ( not ( = ?auto_82908 ?auto_82905 ) ) ( not ( = ?auto_82904 ?auto_82909 ) ) ( not ( = ?auto_82904 ?auto_82910 ) ) ( not ( = ?auto_82904 ?auto_82908 ) ) )
+    ( and ( ON-TABLE ?auto_82904 ) ( not ( = ?auto_82904 ?auto_82905 ) ) ( not ( = ?auto_82904 ?auto_82906 ) ) ( not ( = ?auto_82905 ?auto_82906 ) ) ( ON ?auto_82906 ?auto_82907 ) ( not ( = ?auto_82904 ?auto_82907 ) ) ( not ( = ?auto_82905 ?auto_82907 ) ) ( not ( = ?auto_82906 ?auto_82907 ) ) ( CLEAR ?auto_82904 ) ( ON ?auto_82905 ?auto_82906 ) ( CLEAR ?auto_82905 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82910 ) ( ON ?auto_82908 ?auto_82910 ) ( ON ?auto_82909 ?auto_82908 ) ( ON ?auto_82907 ?auto_82909 ) ( not ( = ?auto_82910 ?auto_82908 ) ) ( not ( = ?auto_82910 ?auto_82909 ) ) ( not ( = ?auto_82910 ?auto_82907 ) ) ( not ( = ?auto_82910 ?auto_82906 ) ) ( not ( = ?auto_82910 ?auto_82905 ) ) ( not ( = ?auto_82908 ?auto_82909 ) ) ( not ( = ?auto_82908 ?auto_82907 ) ) ( not ( = ?auto_82908 ?auto_82906 ) ) ( not ( = ?auto_82908 ?auto_82905 ) ) ( not ( = ?auto_82909 ?auto_82907 ) ) ( not ( = ?auto_82909 ?auto_82906 ) ) ( not ( = ?auto_82909 ?auto_82905 ) ) ( not ( = ?auto_82904 ?auto_82910 ) ) ( not ( = ?auto_82904 ?auto_82908 ) ) ( not ( = ?auto_82904 ?auto_82909 ) ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82909 ?auto_82910 ?auto_82908 ?auto_82907 ?auto_82906 )
+    ( ( MAKE-5PILE ?auto_82910 ?auto_82908 ?auto_82909 ?auto_82907 ?auto_82906 )
       ( MAKE-3PILE ?auto_82904 ?auto_82905 ?auto_82906 ) )
   )
 
@@ -4014,13 +4014,13 @@
     )
     :vars
     (
-      ?auto_82917 - BLOCK
       ?auto_82916 - BLOCK
-      ?auto_82915 - BLOCK
+      ?auto_82917 - BLOCK
       ?auto_82914 - BLOCK
+      ?auto_82915 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82911 ?auto_82912 ) ) ( not ( = ?auto_82911 ?auto_82913 ) ) ( not ( = ?auto_82912 ?auto_82913 ) ) ( ON ?auto_82913 ?auto_82917 ) ( not ( = ?auto_82911 ?auto_82917 ) ) ( not ( = ?auto_82912 ?auto_82917 ) ) ( not ( = ?auto_82913 ?auto_82917 ) ) ( ON ?auto_82912 ?auto_82913 ) ( CLEAR ?auto_82912 ) ( ON-TABLE ?auto_82916 ) ( ON ?auto_82915 ?auto_82916 ) ( ON ?auto_82914 ?auto_82915 ) ( ON ?auto_82917 ?auto_82914 ) ( not ( = ?auto_82916 ?auto_82915 ) ) ( not ( = ?auto_82916 ?auto_82914 ) ) ( not ( = ?auto_82916 ?auto_82917 ) ) ( not ( = ?auto_82916 ?auto_82913 ) ) ( not ( = ?auto_82916 ?auto_82912 ) ) ( not ( = ?auto_82915 ?auto_82914 ) ) ( not ( = ?auto_82915 ?auto_82917 ) ) ( not ( = ?auto_82915 ?auto_82913 ) ) ( not ( = ?auto_82915 ?auto_82912 ) ) ( not ( = ?auto_82914 ?auto_82917 ) ) ( not ( = ?auto_82914 ?auto_82913 ) ) ( not ( = ?auto_82914 ?auto_82912 ) ) ( not ( = ?auto_82911 ?auto_82916 ) ) ( not ( = ?auto_82911 ?auto_82915 ) ) ( not ( = ?auto_82911 ?auto_82914 ) ) ( HOLDING ?auto_82911 ) )
+    ( and ( not ( = ?auto_82911 ?auto_82912 ) ) ( not ( = ?auto_82911 ?auto_82913 ) ) ( not ( = ?auto_82912 ?auto_82913 ) ) ( ON ?auto_82913 ?auto_82916 ) ( not ( = ?auto_82911 ?auto_82916 ) ) ( not ( = ?auto_82912 ?auto_82916 ) ) ( not ( = ?auto_82913 ?auto_82916 ) ) ( ON ?auto_82912 ?auto_82913 ) ( CLEAR ?auto_82912 ) ( ON-TABLE ?auto_82917 ) ( ON ?auto_82914 ?auto_82917 ) ( ON ?auto_82915 ?auto_82914 ) ( ON ?auto_82916 ?auto_82915 ) ( not ( = ?auto_82917 ?auto_82914 ) ) ( not ( = ?auto_82917 ?auto_82915 ) ) ( not ( = ?auto_82917 ?auto_82916 ) ) ( not ( = ?auto_82917 ?auto_82913 ) ) ( not ( = ?auto_82917 ?auto_82912 ) ) ( not ( = ?auto_82914 ?auto_82915 ) ) ( not ( = ?auto_82914 ?auto_82916 ) ) ( not ( = ?auto_82914 ?auto_82913 ) ) ( not ( = ?auto_82914 ?auto_82912 ) ) ( not ( = ?auto_82915 ?auto_82916 ) ) ( not ( = ?auto_82915 ?auto_82913 ) ) ( not ( = ?auto_82915 ?auto_82912 ) ) ( not ( = ?auto_82911 ?auto_82917 ) ) ( not ( = ?auto_82911 ?auto_82914 ) ) ( not ( = ?auto_82911 ?auto_82915 ) ) ( HOLDING ?auto_82911 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_82911 )
       ( MAKE-3PILE ?auto_82911 ?auto_82912 ?auto_82913 ) )
@@ -4035,15 +4035,15 @@
     )
     :vars
     (
-      ?auto_82924 - BLOCK
-      ?auto_82923 - BLOCK
       ?auto_82921 - BLOCK
       ?auto_82922 - BLOCK
+      ?auto_82924 - BLOCK
+      ?auto_82923 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82918 ?auto_82919 ) ) ( not ( = ?auto_82918 ?auto_82920 ) ) ( not ( = ?auto_82919 ?auto_82920 ) ) ( ON ?auto_82920 ?auto_82924 ) ( not ( = ?auto_82918 ?auto_82924 ) ) ( not ( = ?auto_82919 ?auto_82924 ) ) ( not ( = ?auto_82920 ?auto_82924 ) ) ( ON ?auto_82919 ?auto_82920 ) ( ON-TABLE ?auto_82923 ) ( ON ?auto_82921 ?auto_82923 ) ( ON ?auto_82922 ?auto_82921 ) ( ON ?auto_82924 ?auto_82922 ) ( not ( = ?auto_82923 ?auto_82921 ) ) ( not ( = ?auto_82923 ?auto_82922 ) ) ( not ( = ?auto_82923 ?auto_82924 ) ) ( not ( = ?auto_82923 ?auto_82920 ) ) ( not ( = ?auto_82923 ?auto_82919 ) ) ( not ( = ?auto_82921 ?auto_82922 ) ) ( not ( = ?auto_82921 ?auto_82924 ) ) ( not ( = ?auto_82921 ?auto_82920 ) ) ( not ( = ?auto_82921 ?auto_82919 ) ) ( not ( = ?auto_82922 ?auto_82924 ) ) ( not ( = ?auto_82922 ?auto_82920 ) ) ( not ( = ?auto_82922 ?auto_82919 ) ) ( not ( = ?auto_82918 ?auto_82923 ) ) ( not ( = ?auto_82918 ?auto_82921 ) ) ( not ( = ?auto_82918 ?auto_82922 ) ) ( ON ?auto_82918 ?auto_82919 ) ( CLEAR ?auto_82918 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82918 ?auto_82919 ) ) ( not ( = ?auto_82918 ?auto_82920 ) ) ( not ( = ?auto_82919 ?auto_82920 ) ) ( ON ?auto_82920 ?auto_82921 ) ( not ( = ?auto_82918 ?auto_82921 ) ) ( not ( = ?auto_82919 ?auto_82921 ) ) ( not ( = ?auto_82920 ?auto_82921 ) ) ( ON ?auto_82919 ?auto_82920 ) ( ON-TABLE ?auto_82922 ) ( ON ?auto_82924 ?auto_82922 ) ( ON ?auto_82923 ?auto_82924 ) ( ON ?auto_82921 ?auto_82923 ) ( not ( = ?auto_82922 ?auto_82924 ) ) ( not ( = ?auto_82922 ?auto_82923 ) ) ( not ( = ?auto_82922 ?auto_82921 ) ) ( not ( = ?auto_82922 ?auto_82920 ) ) ( not ( = ?auto_82922 ?auto_82919 ) ) ( not ( = ?auto_82924 ?auto_82923 ) ) ( not ( = ?auto_82924 ?auto_82921 ) ) ( not ( = ?auto_82924 ?auto_82920 ) ) ( not ( = ?auto_82924 ?auto_82919 ) ) ( not ( = ?auto_82923 ?auto_82921 ) ) ( not ( = ?auto_82923 ?auto_82920 ) ) ( not ( = ?auto_82923 ?auto_82919 ) ) ( not ( = ?auto_82918 ?auto_82922 ) ) ( not ( = ?auto_82918 ?auto_82924 ) ) ( not ( = ?auto_82918 ?auto_82923 ) ) ( ON ?auto_82918 ?auto_82919 ) ( CLEAR ?auto_82918 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82923 ?auto_82921 ?auto_82922 ?auto_82924 ?auto_82920 ?auto_82919 )
+    ( ( MAKE-6PILE ?auto_82922 ?auto_82924 ?auto_82923 ?auto_82921 ?auto_82920 ?auto_82919 )
       ( MAKE-3PILE ?auto_82918 ?auto_82919 ?auto_82920 ) )
   )
 
@@ -4056,15 +4056,15 @@
     )
     :vars
     (
-      ?auto_82928 - BLOCK
-      ?auto_82929 - BLOCK
-      ?auto_82931 - BLOCK
       ?auto_82930 - BLOCK
+      ?auto_82931 - BLOCK
+      ?auto_82929 - BLOCK
+      ?auto_82928 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82925 ?auto_82926 ) ) ( not ( = ?auto_82925 ?auto_82927 ) ) ( not ( = ?auto_82926 ?auto_82927 ) ) ( ON ?auto_82927 ?auto_82928 ) ( not ( = ?auto_82925 ?auto_82928 ) ) ( not ( = ?auto_82926 ?auto_82928 ) ) ( not ( = ?auto_82927 ?auto_82928 ) ) ( ON ?auto_82926 ?auto_82927 ) ( ON-TABLE ?auto_82929 ) ( ON ?auto_82931 ?auto_82929 ) ( ON ?auto_82930 ?auto_82931 ) ( ON ?auto_82928 ?auto_82930 ) ( not ( = ?auto_82929 ?auto_82931 ) ) ( not ( = ?auto_82929 ?auto_82930 ) ) ( not ( = ?auto_82929 ?auto_82928 ) ) ( not ( = ?auto_82929 ?auto_82927 ) ) ( not ( = ?auto_82929 ?auto_82926 ) ) ( not ( = ?auto_82931 ?auto_82930 ) ) ( not ( = ?auto_82931 ?auto_82928 ) ) ( not ( = ?auto_82931 ?auto_82927 ) ) ( not ( = ?auto_82931 ?auto_82926 ) ) ( not ( = ?auto_82930 ?auto_82928 ) ) ( not ( = ?auto_82930 ?auto_82927 ) ) ( not ( = ?auto_82930 ?auto_82926 ) ) ( not ( = ?auto_82925 ?auto_82929 ) ) ( not ( = ?auto_82925 ?auto_82931 ) ) ( not ( = ?auto_82925 ?auto_82930 ) ) ( HOLDING ?auto_82925 ) ( CLEAR ?auto_82926 ) )
+    ( and ( not ( = ?auto_82925 ?auto_82926 ) ) ( not ( = ?auto_82925 ?auto_82927 ) ) ( not ( = ?auto_82926 ?auto_82927 ) ) ( ON ?auto_82927 ?auto_82930 ) ( not ( = ?auto_82925 ?auto_82930 ) ) ( not ( = ?auto_82926 ?auto_82930 ) ) ( not ( = ?auto_82927 ?auto_82930 ) ) ( ON ?auto_82926 ?auto_82927 ) ( ON-TABLE ?auto_82931 ) ( ON ?auto_82929 ?auto_82931 ) ( ON ?auto_82928 ?auto_82929 ) ( ON ?auto_82930 ?auto_82928 ) ( not ( = ?auto_82931 ?auto_82929 ) ) ( not ( = ?auto_82931 ?auto_82928 ) ) ( not ( = ?auto_82931 ?auto_82930 ) ) ( not ( = ?auto_82931 ?auto_82927 ) ) ( not ( = ?auto_82931 ?auto_82926 ) ) ( not ( = ?auto_82929 ?auto_82928 ) ) ( not ( = ?auto_82929 ?auto_82930 ) ) ( not ( = ?auto_82929 ?auto_82927 ) ) ( not ( = ?auto_82929 ?auto_82926 ) ) ( not ( = ?auto_82928 ?auto_82930 ) ) ( not ( = ?auto_82928 ?auto_82927 ) ) ( not ( = ?auto_82928 ?auto_82926 ) ) ( not ( = ?auto_82925 ?auto_82931 ) ) ( not ( = ?auto_82925 ?auto_82929 ) ) ( not ( = ?auto_82925 ?auto_82928 ) ) ( HOLDING ?auto_82925 ) ( CLEAR ?auto_82926 ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_82929 ?auto_82931 ?auto_82930 ?auto_82928 ?auto_82927 ?auto_82926 ?auto_82925 )
+    ( ( MAKE-7PILE ?auto_82931 ?auto_82929 ?auto_82928 ?auto_82930 ?auto_82927 ?auto_82926 ?auto_82925 )
       ( MAKE-3PILE ?auto_82925 ?auto_82926 ?auto_82927 ) )
   )
 
@@ -4079,12 +4079,12 @@
     (
       ?auto_82938 - BLOCK
       ?auto_82936 - BLOCK
-      ?auto_82937 - BLOCK
       ?auto_82935 - BLOCK
+      ?auto_82937 - BLOCK
       ?auto_82939 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82932 ?auto_82933 ) ) ( not ( = ?auto_82932 ?auto_82934 ) ) ( not ( = ?auto_82933 ?auto_82934 ) ) ( ON ?auto_82934 ?auto_82938 ) ( not ( = ?auto_82932 ?auto_82938 ) ) ( not ( = ?auto_82933 ?auto_82938 ) ) ( not ( = ?auto_82934 ?auto_82938 ) ) ( ON ?auto_82933 ?auto_82934 ) ( ON-TABLE ?auto_82936 ) ( ON ?auto_82937 ?auto_82936 ) ( ON ?auto_82935 ?auto_82937 ) ( ON ?auto_82938 ?auto_82935 ) ( not ( = ?auto_82936 ?auto_82937 ) ) ( not ( = ?auto_82936 ?auto_82935 ) ) ( not ( = ?auto_82936 ?auto_82938 ) ) ( not ( = ?auto_82936 ?auto_82934 ) ) ( not ( = ?auto_82936 ?auto_82933 ) ) ( not ( = ?auto_82937 ?auto_82935 ) ) ( not ( = ?auto_82937 ?auto_82938 ) ) ( not ( = ?auto_82937 ?auto_82934 ) ) ( not ( = ?auto_82937 ?auto_82933 ) ) ( not ( = ?auto_82935 ?auto_82938 ) ) ( not ( = ?auto_82935 ?auto_82934 ) ) ( not ( = ?auto_82935 ?auto_82933 ) ) ( not ( = ?auto_82932 ?auto_82936 ) ) ( not ( = ?auto_82932 ?auto_82937 ) ) ( not ( = ?auto_82932 ?auto_82935 ) ) ( CLEAR ?auto_82933 ) ( ON ?auto_82932 ?auto_82939 ) ( CLEAR ?auto_82932 ) ( HAND-EMPTY ) ( not ( = ?auto_82932 ?auto_82939 ) ) ( not ( = ?auto_82933 ?auto_82939 ) ) ( not ( = ?auto_82934 ?auto_82939 ) ) ( not ( = ?auto_82938 ?auto_82939 ) ) ( not ( = ?auto_82936 ?auto_82939 ) ) ( not ( = ?auto_82937 ?auto_82939 ) ) ( not ( = ?auto_82935 ?auto_82939 ) ) )
+    ( and ( not ( = ?auto_82932 ?auto_82933 ) ) ( not ( = ?auto_82932 ?auto_82934 ) ) ( not ( = ?auto_82933 ?auto_82934 ) ) ( ON ?auto_82934 ?auto_82938 ) ( not ( = ?auto_82932 ?auto_82938 ) ) ( not ( = ?auto_82933 ?auto_82938 ) ) ( not ( = ?auto_82934 ?auto_82938 ) ) ( ON ?auto_82933 ?auto_82934 ) ( ON-TABLE ?auto_82936 ) ( ON ?auto_82935 ?auto_82936 ) ( ON ?auto_82937 ?auto_82935 ) ( ON ?auto_82938 ?auto_82937 ) ( not ( = ?auto_82936 ?auto_82935 ) ) ( not ( = ?auto_82936 ?auto_82937 ) ) ( not ( = ?auto_82936 ?auto_82938 ) ) ( not ( = ?auto_82936 ?auto_82934 ) ) ( not ( = ?auto_82936 ?auto_82933 ) ) ( not ( = ?auto_82935 ?auto_82937 ) ) ( not ( = ?auto_82935 ?auto_82938 ) ) ( not ( = ?auto_82935 ?auto_82934 ) ) ( not ( = ?auto_82935 ?auto_82933 ) ) ( not ( = ?auto_82937 ?auto_82938 ) ) ( not ( = ?auto_82937 ?auto_82934 ) ) ( not ( = ?auto_82937 ?auto_82933 ) ) ( not ( = ?auto_82932 ?auto_82936 ) ) ( not ( = ?auto_82932 ?auto_82935 ) ) ( not ( = ?auto_82932 ?auto_82937 ) ) ( CLEAR ?auto_82933 ) ( ON ?auto_82932 ?auto_82939 ) ( CLEAR ?auto_82932 ) ( HAND-EMPTY ) ( not ( = ?auto_82932 ?auto_82939 ) ) ( not ( = ?auto_82933 ?auto_82939 ) ) ( not ( = ?auto_82934 ?auto_82939 ) ) ( not ( = ?auto_82938 ?auto_82939 ) ) ( not ( = ?auto_82936 ?auto_82939 ) ) ( not ( = ?auto_82935 ?auto_82939 ) ) ( not ( = ?auto_82937 ?auto_82939 ) ) )
     :subtasks
     ( ( !UNSTACK ?auto_82932 ?auto_82939 )
       ( MAKE-3PILE ?auto_82932 ?auto_82933 ?auto_82934 ) )
@@ -4099,16 +4099,16 @@
     )
     :vars
     (
-      ?auto_82943 - BLOCK
-      ?auto_82947 - BLOCK
-      ?auto_82946 - BLOCK
       ?auto_82944 - BLOCK
+      ?auto_82943 - BLOCK
+      ?auto_82946 - BLOCK
       ?auto_82945 - BLOCK
+      ?auto_82947 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82940 ?auto_82941 ) ) ( not ( = ?auto_82940 ?auto_82942 ) ) ( not ( = ?auto_82941 ?auto_82942 ) ) ( ON ?auto_82942 ?auto_82943 ) ( not ( = ?auto_82940 ?auto_82943 ) ) ( not ( = ?auto_82941 ?auto_82943 ) ) ( not ( = ?auto_82942 ?auto_82943 ) ) ( ON-TABLE ?auto_82947 ) ( ON ?auto_82946 ?auto_82947 ) ( ON ?auto_82944 ?auto_82946 ) ( ON ?auto_82943 ?auto_82944 ) ( not ( = ?auto_82947 ?auto_82946 ) ) ( not ( = ?auto_82947 ?auto_82944 ) ) ( not ( = ?auto_82947 ?auto_82943 ) ) ( not ( = ?auto_82947 ?auto_82942 ) ) ( not ( = ?auto_82947 ?auto_82941 ) ) ( not ( = ?auto_82946 ?auto_82944 ) ) ( not ( = ?auto_82946 ?auto_82943 ) ) ( not ( = ?auto_82946 ?auto_82942 ) ) ( not ( = ?auto_82946 ?auto_82941 ) ) ( not ( = ?auto_82944 ?auto_82943 ) ) ( not ( = ?auto_82944 ?auto_82942 ) ) ( not ( = ?auto_82944 ?auto_82941 ) ) ( not ( = ?auto_82940 ?auto_82947 ) ) ( not ( = ?auto_82940 ?auto_82946 ) ) ( not ( = ?auto_82940 ?auto_82944 ) ) ( ON ?auto_82940 ?auto_82945 ) ( CLEAR ?auto_82940 ) ( not ( = ?auto_82940 ?auto_82945 ) ) ( not ( = ?auto_82941 ?auto_82945 ) ) ( not ( = ?auto_82942 ?auto_82945 ) ) ( not ( = ?auto_82943 ?auto_82945 ) ) ( not ( = ?auto_82947 ?auto_82945 ) ) ( not ( = ?auto_82946 ?auto_82945 ) ) ( not ( = ?auto_82944 ?auto_82945 ) ) ( HOLDING ?auto_82941 ) ( CLEAR ?auto_82942 ) )
+    ( and ( not ( = ?auto_82940 ?auto_82941 ) ) ( not ( = ?auto_82940 ?auto_82942 ) ) ( not ( = ?auto_82941 ?auto_82942 ) ) ( ON ?auto_82942 ?auto_82944 ) ( not ( = ?auto_82940 ?auto_82944 ) ) ( not ( = ?auto_82941 ?auto_82944 ) ) ( not ( = ?auto_82942 ?auto_82944 ) ) ( ON-TABLE ?auto_82943 ) ( ON ?auto_82946 ?auto_82943 ) ( ON ?auto_82945 ?auto_82946 ) ( ON ?auto_82944 ?auto_82945 ) ( not ( = ?auto_82943 ?auto_82946 ) ) ( not ( = ?auto_82943 ?auto_82945 ) ) ( not ( = ?auto_82943 ?auto_82944 ) ) ( not ( = ?auto_82943 ?auto_82942 ) ) ( not ( = ?auto_82943 ?auto_82941 ) ) ( not ( = ?auto_82946 ?auto_82945 ) ) ( not ( = ?auto_82946 ?auto_82944 ) ) ( not ( = ?auto_82946 ?auto_82942 ) ) ( not ( = ?auto_82946 ?auto_82941 ) ) ( not ( = ?auto_82945 ?auto_82944 ) ) ( not ( = ?auto_82945 ?auto_82942 ) ) ( not ( = ?auto_82945 ?auto_82941 ) ) ( not ( = ?auto_82940 ?auto_82943 ) ) ( not ( = ?auto_82940 ?auto_82946 ) ) ( not ( = ?auto_82940 ?auto_82945 ) ) ( ON ?auto_82940 ?auto_82947 ) ( CLEAR ?auto_82940 ) ( not ( = ?auto_82940 ?auto_82947 ) ) ( not ( = ?auto_82941 ?auto_82947 ) ) ( not ( = ?auto_82942 ?auto_82947 ) ) ( not ( = ?auto_82944 ?auto_82947 ) ) ( not ( = ?auto_82943 ?auto_82947 ) ) ( not ( = ?auto_82946 ?auto_82947 ) ) ( not ( = ?auto_82945 ?auto_82947 ) ) ( HOLDING ?auto_82941 ) ( CLEAR ?auto_82942 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_82947 ?auto_82946 ?auto_82944 ?auto_82943 ?auto_82942 ?auto_82941 )
+    ( ( MAKE-6PILE ?auto_82943 ?auto_82946 ?auto_82945 ?auto_82944 ?auto_82942 ?auto_82941 )
       ( MAKE-3PILE ?auto_82940 ?auto_82941 ?auto_82942 ) )
   )
 
@@ -4122,15 +4122,15 @@
     :vars
     (
       ?auto_82951 - BLOCK
-      ?auto_82952 - BLOCK
-      ?auto_82954 - BLOCK
-      ?auto_82953 - BLOCK
       ?auto_82955 - BLOCK
+      ?auto_82952 - BLOCK
+      ?auto_82953 - BLOCK
+      ?auto_82954 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82948 ?auto_82949 ) ) ( not ( = ?auto_82948 ?auto_82950 ) ) ( not ( = ?auto_82949 ?auto_82950 ) ) ( ON ?auto_82950 ?auto_82951 ) ( not ( = ?auto_82948 ?auto_82951 ) ) ( not ( = ?auto_82949 ?auto_82951 ) ) ( not ( = ?auto_82950 ?auto_82951 ) ) ( ON-TABLE ?auto_82952 ) ( ON ?auto_82954 ?auto_82952 ) ( ON ?auto_82953 ?auto_82954 ) ( ON ?auto_82951 ?auto_82953 ) ( not ( = ?auto_82952 ?auto_82954 ) ) ( not ( = ?auto_82952 ?auto_82953 ) ) ( not ( = ?auto_82952 ?auto_82951 ) ) ( not ( = ?auto_82952 ?auto_82950 ) ) ( not ( = ?auto_82952 ?auto_82949 ) ) ( not ( = ?auto_82954 ?auto_82953 ) ) ( not ( = ?auto_82954 ?auto_82951 ) ) ( not ( = ?auto_82954 ?auto_82950 ) ) ( not ( = ?auto_82954 ?auto_82949 ) ) ( not ( = ?auto_82953 ?auto_82951 ) ) ( not ( = ?auto_82953 ?auto_82950 ) ) ( not ( = ?auto_82953 ?auto_82949 ) ) ( not ( = ?auto_82948 ?auto_82952 ) ) ( not ( = ?auto_82948 ?auto_82954 ) ) ( not ( = ?auto_82948 ?auto_82953 ) ) ( ON ?auto_82948 ?auto_82955 ) ( not ( = ?auto_82948 ?auto_82955 ) ) ( not ( = ?auto_82949 ?auto_82955 ) ) ( not ( = ?auto_82950 ?auto_82955 ) ) ( not ( = ?auto_82951 ?auto_82955 ) ) ( not ( = ?auto_82952 ?auto_82955 ) ) ( not ( = ?auto_82954 ?auto_82955 ) ) ( not ( = ?auto_82953 ?auto_82955 ) ) ( CLEAR ?auto_82950 ) ( ON ?auto_82949 ?auto_82948 ) ( CLEAR ?auto_82949 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82955 ) )
+    ( and ( not ( = ?auto_82948 ?auto_82949 ) ) ( not ( = ?auto_82948 ?auto_82950 ) ) ( not ( = ?auto_82949 ?auto_82950 ) ) ( ON ?auto_82950 ?auto_82951 ) ( not ( = ?auto_82948 ?auto_82951 ) ) ( not ( = ?auto_82949 ?auto_82951 ) ) ( not ( = ?auto_82950 ?auto_82951 ) ) ( ON-TABLE ?auto_82955 ) ( ON ?auto_82952 ?auto_82955 ) ( ON ?auto_82953 ?auto_82952 ) ( ON ?auto_82951 ?auto_82953 ) ( not ( = ?auto_82955 ?auto_82952 ) ) ( not ( = ?auto_82955 ?auto_82953 ) ) ( not ( = ?auto_82955 ?auto_82951 ) ) ( not ( = ?auto_82955 ?auto_82950 ) ) ( not ( = ?auto_82955 ?auto_82949 ) ) ( not ( = ?auto_82952 ?auto_82953 ) ) ( not ( = ?auto_82952 ?auto_82951 ) ) ( not ( = ?auto_82952 ?auto_82950 ) ) ( not ( = ?auto_82952 ?auto_82949 ) ) ( not ( = ?auto_82953 ?auto_82951 ) ) ( not ( = ?auto_82953 ?auto_82950 ) ) ( not ( = ?auto_82953 ?auto_82949 ) ) ( not ( = ?auto_82948 ?auto_82955 ) ) ( not ( = ?auto_82948 ?auto_82952 ) ) ( not ( = ?auto_82948 ?auto_82953 ) ) ( ON ?auto_82948 ?auto_82954 ) ( not ( = ?auto_82948 ?auto_82954 ) ) ( not ( = ?auto_82949 ?auto_82954 ) ) ( not ( = ?auto_82950 ?auto_82954 ) ) ( not ( = ?auto_82951 ?auto_82954 ) ) ( not ( = ?auto_82955 ?auto_82954 ) ) ( not ( = ?auto_82952 ?auto_82954 ) ) ( not ( = ?auto_82953 ?auto_82954 ) ) ( CLEAR ?auto_82950 ) ( ON ?auto_82949 ?auto_82948 ) ( CLEAR ?auto_82949 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_82954 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_82955 ?auto_82948 )
+    ( ( MAKE-2PILE ?auto_82954 ?auto_82948 )
       ( MAKE-3PILE ?auto_82948 ?auto_82949 ?auto_82950 ) )
   )
 
@@ -4143,16 +4143,16 @@
     )
     :vars
     (
+      ?auto_82962 - BLOCK
       ?auto_82963 - BLOCK
-      ?auto_82961 - BLOCK
       ?auto_82959 - BLOCK
       ?auto_82960 - BLOCK
-      ?auto_82962 - BLOCK
+      ?auto_82961 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82956 ?auto_82957 ) ) ( not ( = ?auto_82956 ?auto_82958 ) ) ( not ( = ?auto_82957 ?auto_82958 ) ) ( not ( = ?auto_82956 ?auto_82963 ) ) ( not ( = ?auto_82957 ?auto_82963 ) ) ( not ( = ?auto_82958 ?auto_82963 ) ) ( ON-TABLE ?auto_82961 ) ( ON ?auto_82959 ?auto_82961 ) ( ON ?auto_82960 ?auto_82959 ) ( ON ?auto_82963 ?auto_82960 ) ( not ( = ?auto_82961 ?auto_82959 ) ) ( not ( = ?auto_82961 ?auto_82960 ) ) ( not ( = ?auto_82961 ?auto_82963 ) ) ( not ( = ?auto_82961 ?auto_82958 ) ) ( not ( = ?auto_82961 ?auto_82957 ) ) ( not ( = ?auto_82959 ?auto_82960 ) ) ( not ( = ?auto_82959 ?auto_82963 ) ) ( not ( = ?auto_82959 ?auto_82958 ) ) ( not ( = ?auto_82959 ?auto_82957 ) ) ( not ( = ?auto_82960 ?auto_82963 ) ) ( not ( = ?auto_82960 ?auto_82958 ) ) ( not ( = ?auto_82960 ?auto_82957 ) ) ( not ( = ?auto_82956 ?auto_82961 ) ) ( not ( = ?auto_82956 ?auto_82959 ) ) ( not ( = ?auto_82956 ?auto_82960 ) ) ( ON ?auto_82956 ?auto_82962 ) ( not ( = ?auto_82956 ?auto_82962 ) ) ( not ( = ?auto_82957 ?auto_82962 ) ) ( not ( = ?auto_82958 ?auto_82962 ) ) ( not ( = ?auto_82963 ?auto_82962 ) ) ( not ( = ?auto_82961 ?auto_82962 ) ) ( not ( = ?auto_82959 ?auto_82962 ) ) ( not ( = ?auto_82960 ?auto_82962 ) ) ( ON ?auto_82957 ?auto_82956 ) ( CLEAR ?auto_82957 ) ( ON-TABLE ?auto_82962 ) ( HOLDING ?auto_82958 ) ( CLEAR ?auto_82963 ) )
+    ( and ( not ( = ?auto_82956 ?auto_82957 ) ) ( not ( = ?auto_82956 ?auto_82958 ) ) ( not ( = ?auto_82957 ?auto_82958 ) ) ( not ( = ?auto_82956 ?auto_82962 ) ) ( not ( = ?auto_82957 ?auto_82962 ) ) ( not ( = ?auto_82958 ?auto_82962 ) ) ( ON-TABLE ?auto_82963 ) ( ON ?auto_82959 ?auto_82963 ) ( ON ?auto_82960 ?auto_82959 ) ( ON ?auto_82962 ?auto_82960 ) ( not ( = ?auto_82963 ?auto_82959 ) ) ( not ( = ?auto_82963 ?auto_82960 ) ) ( not ( = ?auto_82963 ?auto_82962 ) ) ( not ( = ?auto_82963 ?auto_82958 ) ) ( not ( = ?auto_82963 ?auto_82957 ) ) ( not ( = ?auto_82959 ?auto_82960 ) ) ( not ( = ?auto_82959 ?auto_82962 ) ) ( not ( = ?auto_82959 ?auto_82958 ) ) ( not ( = ?auto_82959 ?auto_82957 ) ) ( not ( = ?auto_82960 ?auto_82962 ) ) ( not ( = ?auto_82960 ?auto_82958 ) ) ( not ( = ?auto_82960 ?auto_82957 ) ) ( not ( = ?auto_82956 ?auto_82963 ) ) ( not ( = ?auto_82956 ?auto_82959 ) ) ( not ( = ?auto_82956 ?auto_82960 ) ) ( ON ?auto_82956 ?auto_82961 ) ( not ( = ?auto_82956 ?auto_82961 ) ) ( not ( = ?auto_82957 ?auto_82961 ) ) ( not ( = ?auto_82958 ?auto_82961 ) ) ( not ( = ?auto_82962 ?auto_82961 ) ) ( not ( = ?auto_82963 ?auto_82961 ) ) ( not ( = ?auto_82959 ?auto_82961 ) ) ( not ( = ?auto_82960 ?auto_82961 ) ) ( ON ?auto_82957 ?auto_82956 ) ( CLEAR ?auto_82957 ) ( ON-TABLE ?auto_82961 ) ( HOLDING ?auto_82958 ) ( CLEAR ?auto_82962 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_82961 ?auto_82959 ?auto_82960 ?auto_82963 ?auto_82958 )
+    ( ( MAKE-5PILE ?auto_82963 ?auto_82959 ?auto_82960 ?auto_82962 ?auto_82958 )
       ( MAKE-3PILE ?auto_82956 ?auto_82957 ?auto_82958 ) )
   )
 
@@ -4165,16 +4165,16 @@
     )
     :vars
     (
+      ?auto_82971 - BLOCK
       ?auto_82969 - BLOCK
-      ?auto_82967 - BLOCK
       ?auto_82968 - BLOCK
       ?auto_82970 - BLOCK
-      ?auto_82971 - BLOCK
+      ?auto_82967 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82964 ?auto_82965 ) ) ( not ( = ?auto_82964 ?auto_82966 ) ) ( not ( = ?auto_82965 ?auto_82966 ) ) ( not ( = ?auto_82964 ?auto_82969 ) ) ( not ( = ?auto_82965 ?auto_82969 ) ) ( not ( = ?auto_82966 ?auto_82969 ) ) ( ON-TABLE ?auto_82967 ) ( ON ?auto_82968 ?auto_82967 ) ( ON ?auto_82970 ?auto_82968 ) ( ON ?auto_82969 ?auto_82970 ) ( not ( = ?auto_82967 ?auto_82968 ) ) ( not ( = ?auto_82967 ?auto_82970 ) ) ( not ( = ?auto_82967 ?auto_82969 ) ) ( not ( = ?auto_82967 ?auto_82966 ) ) ( not ( = ?auto_82967 ?auto_82965 ) ) ( not ( = ?auto_82968 ?auto_82970 ) ) ( not ( = ?auto_82968 ?auto_82969 ) ) ( not ( = ?auto_82968 ?auto_82966 ) ) ( not ( = ?auto_82968 ?auto_82965 ) ) ( not ( = ?auto_82970 ?auto_82969 ) ) ( not ( = ?auto_82970 ?auto_82966 ) ) ( not ( = ?auto_82970 ?auto_82965 ) ) ( not ( = ?auto_82964 ?auto_82967 ) ) ( not ( = ?auto_82964 ?auto_82968 ) ) ( not ( = ?auto_82964 ?auto_82970 ) ) ( ON ?auto_82964 ?auto_82971 ) ( not ( = ?auto_82964 ?auto_82971 ) ) ( not ( = ?auto_82965 ?auto_82971 ) ) ( not ( = ?auto_82966 ?auto_82971 ) ) ( not ( = ?auto_82969 ?auto_82971 ) ) ( not ( = ?auto_82967 ?auto_82971 ) ) ( not ( = ?auto_82968 ?auto_82971 ) ) ( not ( = ?auto_82970 ?auto_82971 ) ) ( ON ?auto_82965 ?auto_82964 ) ( ON-TABLE ?auto_82971 ) ( CLEAR ?auto_82969 ) ( ON ?auto_82966 ?auto_82965 ) ( CLEAR ?auto_82966 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82964 ?auto_82965 ) ) ( not ( = ?auto_82964 ?auto_82966 ) ) ( not ( = ?auto_82965 ?auto_82966 ) ) ( not ( = ?auto_82964 ?auto_82971 ) ) ( not ( = ?auto_82965 ?auto_82971 ) ) ( not ( = ?auto_82966 ?auto_82971 ) ) ( ON-TABLE ?auto_82969 ) ( ON ?auto_82968 ?auto_82969 ) ( ON ?auto_82970 ?auto_82968 ) ( ON ?auto_82971 ?auto_82970 ) ( not ( = ?auto_82969 ?auto_82968 ) ) ( not ( = ?auto_82969 ?auto_82970 ) ) ( not ( = ?auto_82969 ?auto_82971 ) ) ( not ( = ?auto_82969 ?auto_82966 ) ) ( not ( = ?auto_82969 ?auto_82965 ) ) ( not ( = ?auto_82968 ?auto_82970 ) ) ( not ( = ?auto_82968 ?auto_82971 ) ) ( not ( = ?auto_82968 ?auto_82966 ) ) ( not ( = ?auto_82968 ?auto_82965 ) ) ( not ( = ?auto_82970 ?auto_82971 ) ) ( not ( = ?auto_82970 ?auto_82966 ) ) ( not ( = ?auto_82970 ?auto_82965 ) ) ( not ( = ?auto_82964 ?auto_82969 ) ) ( not ( = ?auto_82964 ?auto_82968 ) ) ( not ( = ?auto_82964 ?auto_82970 ) ) ( ON ?auto_82964 ?auto_82967 ) ( not ( = ?auto_82964 ?auto_82967 ) ) ( not ( = ?auto_82965 ?auto_82967 ) ) ( not ( = ?auto_82966 ?auto_82967 ) ) ( not ( = ?auto_82971 ?auto_82967 ) ) ( not ( = ?auto_82969 ?auto_82967 ) ) ( not ( = ?auto_82968 ?auto_82967 ) ) ( not ( = ?auto_82970 ?auto_82967 ) ) ( ON ?auto_82965 ?auto_82964 ) ( ON-TABLE ?auto_82967 ) ( CLEAR ?auto_82971 ) ( ON ?auto_82966 ?auto_82965 ) ( CLEAR ?auto_82966 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82971 ?auto_82964 ?auto_82965 )
+    ( ( MAKE-3PILE ?auto_82967 ?auto_82964 ?auto_82965 )
       ( MAKE-3PILE ?auto_82964 ?auto_82965 ?auto_82966 ) )
   )
 
@@ -4187,16 +4187,16 @@
     )
     :vars
     (
-      ?auto_82978 - BLOCK
+      ?auto_82976 - BLOCK
       ?auto_82977 - BLOCK
       ?auto_82979 - BLOCK
-      ?auto_82976 - BLOCK
+      ?auto_82978 - BLOCK
       ?auto_82975 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82972 ?auto_82973 ) ) ( not ( = ?auto_82972 ?auto_82974 ) ) ( not ( = ?auto_82973 ?auto_82974 ) ) ( not ( = ?auto_82972 ?auto_82978 ) ) ( not ( = ?auto_82973 ?auto_82978 ) ) ( not ( = ?auto_82974 ?auto_82978 ) ) ( ON-TABLE ?auto_82977 ) ( ON ?auto_82979 ?auto_82977 ) ( ON ?auto_82976 ?auto_82979 ) ( not ( = ?auto_82977 ?auto_82979 ) ) ( not ( = ?auto_82977 ?auto_82976 ) ) ( not ( = ?auto_82977 ?auto_82978 ) ) ( not ( = ?auto_82977 ?auto_82974 ) ) ( not ( = ?auto_82977 ?auto_82973 ) ) ( not ( = ?auto_82979 ?auto_82976 ) ) ( not ( = ?auto_82979 ?auto_82978 ) ) ( not ( = ?auto_82979 ?auto_82974 ) ) ( not ( = ?auto_82979 ?auto_82973 ) ) ( not ( = ?auto_82976 ?auto_82978 ) ) ( not ( = ?auto_82976 ?auto_82974 ) ) ( not ( = ?auto_82976 ?auto_82973 ) ) ( not ( = ?auto_82972 ?auto_82977 ) ) ( not ( = ?auto_82972 ?auto_82979 ) ) ( not ( = ?auto_82972 ?auto_82976 ) ) ( ON ?auto_82972 ?auto_82975 ) ( not ( = ?auto_82972 ?auto_82975 ) ) ( not ( = ?auto_82973 ?auto_82975 ) ) ( not ( = ?auto_82974 ?auto_82975 ) ) ( not ( = ?auto_82978 ?auto_82975 ) ) ( not ( = ?auto_82977 ?auto_82975 ) ) ( not ( = ?auto_82979 ?auto_82975 ) ) ( not ( = ?auto_82976 ?auto_82975 ) ) ( ON ?auto_82973 ?auto_82972 ) ( ON-TABLE ?auto_82975 ) ( ON ?auto_82974 ?auto_82973 ) ( CLEAR ?auto_82974 ) ( HOLDING ?auto_82978 ) ( CLEAR ?auto_82976 ) )
+    ( and ( not ( = ?auto_82972 ?auto_82973 ) ) ( not ( = ?auto_82972 ?auto_82974 ) ) ( not ( = ?auto_82973 ?auto_82974 ) ) ( not ( = ?auto_82972 ?auto_82976 ) ) ( not ( = ?auto_82973 ?auto_82976 ) ) ( not ( = ?auto_82974 ?auto_82976 ) ) ( ON-TABLE ?auto_82977 ) ( ON ?auto_82979 ?auto_82977 ) ( ON ?auto_82978 ?auto_82979 ) ( not ( = ?auto_82977 ?auto_82979 ) ) ( not ( = ?auto_82977 ?auto_82978 ) ) ( not ( = ?auto_82977 ?auto_82976 ) ) ( not ( = ?auto_82977 ?auto_82974 ) ) ( not ( = ?auto_82977 ?auto_82973 ) ) ( not ( = ?auto_82979 ?auto_82978 ) ) ( not ( = ?auto_82979 ?auto_82976 ) ) ( not ( = ?auto_82979 ?auto_82974 ) ) ( not ( = ?auto_82979 ?auto_82973 ) ) ( not ( = ?auto_82978 ?auto_82976 ) ) ( not ( = ?auto_82978 ?auto_82974 ) ) ( not ( = ?auto_82978 ?auto_82973 ) ) ( not ( = ?auto_82972 ?auto_82977 ) ) ( not ( = ?auto_82972 ?auto_82979 ) ) ( not ( = ?auto_82972 ?auto_82978 ) ) ( ON ?auto_82972 ?auto_82975 ) ( not ( = ?auto_82972 ?auto_82975 ) ) ( not ( = ?auto_82973 ?auto_82975 ) ) ( not ( = ?auto_82974 ?auto_82975 ) ) ( not ( = ?auto_82976 ?auto_82975 ) ) ( not ( = ?auto_82977 ?auto_82975 ) ) ( not ( = ?auto_82979 ?auto_82975 ) ) ( not ( = ?auto_82978 ?auto_82975 ) ) ( ON ?auto_82973 ?auto_82972 ) ( ON-TABLE ?auto_82975 ) ( ON ?auto_82974 ?auto_82973 ) ( CLEAR ?auto_82974 ) ( HOLDING ?auto_82976 ) ( CLEAR ?auto_82978 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82977 ?auto_82979 ?auto_82976 ?auto_82978 )
+    ( ( MAKE-4PILE ?auto_82977 ?auto_82979 ?auto_82978 ?auto_82976 )
       ( MAKE-3PILE ?auto_82972 ?auto_82973 ?auto_82974 ) )
   )
 
@@ -4211,14 +4211,14 @@
     (
       ?auto_82985 - BLOCK
       ?auto_82987 - BLOCK
-      ?auto_82983 - BLOCK
-      ?auto_82984 - BLOCK
       ?auto_82986 - BLOCK
+      ?auto_82984 - BLOCK
+      ?auto_82983 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82980 ?auto_82981 ) ) ( not ( = ?auto_82980 ?auto_82982 ) ) ( not ( = ?auto_82981 ?auto_82982 ) ) ( not ( = ?auto_82980 ?auto_82985 ) ) ( not ( = ?auto_82981 ?auto_82985 ) ) ( not ( = ?auto_82982 ?auto_82985 ) ) ( ON-TABLE ?auto_82987 ) ( ON ?auto_82983 ?auto_82987 ) ( ON ?auto_82984 ?auto_82983 ) ( not ( = ?auto_82987 ?auto_82983 ) ) ( not ( = ?auto_82987 ?auto_82984 ) ) ( not ( = ?auto_82987 ?auto_82985 ) ) ( not ( = ?auto_82987 ?auto_82982 ) ) ( not ( = ?auto_82987 ?auto_82981 ) ) ( not ( = ?auto_82983 ?auto_82984 ) ) ( not ( = ?auto_82983 ?auto_82985 ) ) ( not ( = ?auto_82983 ?auto_82982 ) ) ( not ( = ?auto_82983 ?auto_82981 ) ) ( not ( = ?auto_82984 ?auto_82985 ) ) ( not ( = ?auto_82984 ?auto_82982 ) ) ( not ( = ?auto_82984 ?auto_82981 ) ) ( not ( = ?auto_82980 ?auto_82987 ) ) ( not ( = ?auto_82980 ?auto_82983 ) ) ( not ( = ?auto_82980 ?auto_82984 ) ) ( ON ?auto_82980 ?auto_82986 ) ( not ( = ?auto_82980 ?auto_82986 ) ) ( not ( = ?auto_82981 ?auto_82986 ) ) ( not ( = ?auto_82982 ?auto_82986 ) ) ( not ( = ?auto_82985 ?auto_82986 ) ) ( not ( = ?auto_82987 ?auto_82986 ) ) ( not ( = ?auto_82983 ?auto_82986 ) ) ( not ( = ?auto_82984 ?auto_82986 ) ) ( ON ?auto_82981 ?auto_82980 ) ( ON-TABLE ?auto_82986 ) ( ON ?auto_82982 ?auto_82981 ) ( CLEAR ?auto_82984 ) ( ON ?auto_82985 ?auto_82982 ) ( CLEAR ?auto_82985 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82980 ?auto_82981 ) ) ( not ( = ?auto_82980 ?auto_82982 ) ) ( not ( = ?auto_82981 ?auto_82982 ) ) ( not ( = ?auto_82980 ?auto_82985 ) ) ( not ( = ?auto_82981 ?auto_82985 ) ) ( not ( = ?auto_82982 ?auto_82985 ) ) ( ON-TABLE ?auto_82987 ) ( ON ?auto_82986 ?auto_82987 ) ( ON ?auto_82984 ?auto_82986 ) ( not ( = ?auto_82987 ?auto_82986 ) ) ( not ( = ?auto_82987 ?auto_82984 ) ) ( not ( = ?auto_82987 ?auto_82985 ) ) ( not ( = ?auto_82987 ?auto_82982 ) ) ( not ( = ?auto_82987 ?auto_82981 ) ) ( not ( = ?auto_82986 ?auto_82984 ) ) ( not ( = ?auto_82986 ?auto_82985 ) ) ( not ( = ?auto_82986 ?auto_82982 ) ) ( not ( = ?auto_82986 ?auto_82981 ) ) ( not ( = ?auto_82984 ?auto_82985 ) ) ( not ( = ?auto_82984 ?auto_82982 ) ) ( not ( = ?auto_82984 ?auto_82981 ) ) ( not ( = ?auto_82980 ?auto_82987 ) ) ( not ( = ?auto_82980 ?auto_82986 ) ) ( not ( = ?auto_82980 ?auto_82984 ) ) ( ON ?auto_82980 ?auto_82983 ) ( not ( = ?auto_82980 ?auto_82983 ) ) ( not ( = ?auto_82981 ?auto_82983 ) ) ( not ( = ?auto_82982 ?auto_82983 ) ) ( not ( = ?auto_82985 ?auto_82983 ) ) ( not ( = ?auto_82987 ?auto_82983 ) ) ( not ( = ?auto_82986 ?auto_82983 ) ) ( not ( = ?auto_82984 ?auto_82983 ) ) ( ON ?auto_82981 ?auto_82980 ) ( ON-TABLE ?auto_82983 ) ( ON ?auto_82982 ?auto_82981 ) ( CLEAR ?auto_82984 ) ( ON ?auto_82985 ?auto_82982 ) ( CLEAR ?auto_82985 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_82986 ?auto_82980 ?auto_82981 ?auto_82982 )
+    ( ( MAKE-4PILE ?auto_82983 ?auto_82980 ?auto_82981 ?auto_82982 )
       ( MAKE-3PILE ?auto_82980 ?auto_82981 ?auto_82982 ) )
   )
 
@@ -4231,16 +4231,16 @@
     )
     :vars
     (
-      ?auto_82992 - BLOCK
-      ?auto_82995 - BLOCK
-      ?auto_82994 - BLOCK
       ?auto_82993 - BLOCK
+      ?auto_82995 - BLOCK
+      ?auto_82992 - BLOCK
       ?auto_82991 - BLOCK
+      ?auto_82994 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82988 ?auto_82989 ) ) ( not ( = ?auto_82988 ?auto_82990 ) ) ( not ( = ?auto_82989 ?auto_82990 ) ) ( not ( = ?auto_82988 ?auto_82992 ) ) ( not ( = ?auto_82989 ?auto_82992 ) ) ( not ( = ?auto_82990 ?auto_82992 ) ) ( ON-TABLE ?auto_82995 ) ( ON ?auto_82994 ?auto_82995 ) ( not ( = ?auto_82995 ?auto_82994 ) ) ( not ( = ?auto_82995 ?auto_82993 ) ) ( not ( = ?auto_82995 ?auto_82992 ) ) ( not ( = ?auto_82995 ?auto_82990 ) ) ( not ( = ?auto_82995 ?auto_82989 ) ) ( not ( = ?auto_82994 ?auto_82993 ) ) ( not ( = ?auto_82994 ?auto_82992 ) ) ( not ( = ?auto_82994 ?auto_82990 ) ) ( not ( = ?auto_82994 ?auto_82989 ) ) ( not ( = ?auto_82993 ?auto_82992 ) ) ( not ( = ?auto_82993 ?auto_82990 ) ) ( not ( = ?auto_82993 ?auto_82989 ) ) ( not ( = ?auto_82988 ?auto_82995 ) ) ( not ( = ?auto_82988 ?auto_82994 ) ) ( not ( = ?auto_82988 ?auto_82993 ) ) ( ON ?auto_82988 ?auto_82991 ) ( not ( = ?auto_82988 ?auto_82991 ) ) ( not ( = ?auto_82989 ?auto_82991 ) ) ( not ( = ?auto_82990 ?auto_82991 ) ) ( not ( = ?auto_82992 ?auto_82991 ) ) ( not ( = ?auto_82995 ?auto_82991 ) ) ( not ( = ?auto_82994 ?auto_82991 ) ) ( not ( = ?auto_82993 ?auto_82991 ) ) ( ON ?auto_82989 ?auto_82988 ) ( ON-TABLE ?auto_82991 ) ( ON ?auto_82990 ?auto_82989 ) ( ON ?auto_82992 ?auto_82990 ) ( CLEAR ?auto_82992 ) ( HOLDING ?auto_82993 ) ( CLEAR ?auto_82994 ) )
+    ( and ( not ( = ?auto_82988 ?auto_82989 ) ) ( not ( = ?auto_82988 ?auto_82990 ) ) ( not ( = ?auto_82989 ?auto_82990 ) ) ( not ( = ?auto_82988 ?auto_82993 ) ) ( not ( = ?auto_82989 ?auto_82993 ) ) ( not ( = ?auto_82990 ?auto_82993 ) ) ( ON-TABLE ?auto_82995 ) ( ON ?auto_82992 ?auto_82995 ) ( not ( = ?auto_82995 ?auto_82992 ) ) ( not ( = ?auto_82995 ?auto_82991 ) ) ( not ( = ?auto_82995 ?auto_82993 ) ) ( not ( = ?auto_82995 ?auto_82990 ) ) ( not ( = ?auto_82995 ?auto_82989 ) ) ( not ( = ?auto_82992 ?auto_82991 ) ) ( not ( = ?auto_82992 ?auto_82993 ) ) ( not ( = ?auto_82992 ?auto_82990 ) ) ( not ( = ?auto_82992 ?auto_82989 ) ) ( not ( = ?auto_82991 ?auto_82993 ) ) ( not ( = ?auto_82991 ?auto_82990 ) ) ( not ( = ?auto_82991 ?auto_82989 ) ) ( not ( = ?auto_82988 ?auto_82995 ) ) ( not ( = ?auto_82988 ?auto_82992 ) ) ( not ( = ?auto_82988 ?auto_82991 ) ) ( ON ?auto_82988 ?auto_82994 ) ( not ( = ?auto_82988 ?auto_82994 ) ) ( not ( = ?auto_82989 ?auto_82994 ) ) ( not ( = ?auto_82990 ?auto_82994 ) ) ( not ( = ?auto_82993 ?auto_82994 ) ) ( not ( = ?auto_82995 ?auto_82994 ) ) ( not ( = ?auto_82992 ?auto_82994 ) ) ( not ( = ?auto_82991 ?auto_82994 ) ) ( ON ?auto_82989 ?auto_82988 ) ( ON-TABLE ?auto_82994 ) ( ON ?auto_82990 ?auto_82989 ) ( ON ?auto_82993 ?auto_82990 ) ( CLEAR ?auto_82993 ) ( HOLDING ?auto_82991 ) ( CLEAR ?auto_82992 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_82995 ?auto_82994 ?auto_82993 )
+    ( ( MAKE-3PILE ?auto_82995 ?auto_82992 ?auto_82991 )
       ( MAKE-3PILE ?auto_82988 ?auto_82989 ?auto_82990 ) )
   )
 
@@ -4253,16 +4253,16 @@
     )
     :vars
     (
-      ?auto_82999 - BLOCK
+      ?auto_83003 - BLOCK
       ?auto_83001 - BLOCK
       ?auto_83002 - BLOCK
       ?auto_83000 - BLOCK
-      ?auto_83003 - BLOCK
+      ?auto_82999 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_82996 ?auto_82997 ) ) ( not ( = ?auto_82996 ?auto_82998 ) ) ( not ( = ?auto_82997 ?auto_82998 ) ) ( not ( = ?auto_82996 ?auto_82999 ) ) ( not ( = ?auto_82997 ?auto_82999 ) ) ( not ( = ?auto_82998 ?auto_82999 ) ) ( ON-TABLE ?auto_83001 ) ( ON ?auto_83002 ?auto_83001 ) ( not ( = ?auto_83001 ?auto_83002 ) ) ( not ( = ?auto_83001 ?auto_83000 ) ) ( not ( = ?auto_83001 ?auto_82999 ) ) ( not ( = ?auto_83001 ?auto_82998 ) ) ( not ( = ?auto_83001 ?auto_82997 ) ) ( not ( = ?auto_83002 ?auto_83000 ) ) ( not ( = ?auto_83002 ?auto_82999 ) ) ( not ( = ?auto_83002 ?auto_82998 ) ) ( not ( = ?auto_83002 ?auto_82997 ) ) ( not ( = ?auto_83000 ?auto_82999 ) ) ( not ( = ?auto_83000 ?auto_82998 ) ) ( not ( = ?auto_83000 ?auto_82997 ) ) ( not ( = ?auto_82996 ?auto_83001 ) ) ( not ( = ?auto_82996 ?auto_83002 ) ) ( not ( = ?auto_82996 ?auto_83000 ) ) ( ON ?auto_82996 ?auto_83003 ) ( not ( = ?auto_82996 ?auto_83003 ) ) ( not ( = ?auto_82997 ?auto_83003 ) ) ( not ( = ?auto_82998 ?auto_83003 ) ) ( not ( = ?auto_82999 ?auto_83003 ) ) ( not ( = ?auto_83001 ?auto_83003 ) ) ( not ( = ?auto_83002 ?auto_83003 ) ) ( not ( = ?auto_83000 ?auto_83003 ) ) ( ON ?auto_82997 ?auto_82996 ) ( ON-TABLE ?auto_83003 ) ( ON ?auto_82998 ?auto_82997 ) ( ON ?auto_82999 ?auto_82998 ) ( CLEAR ?auto_83002 ) ( ON ?auto_83000 ?auto_82999 ) ( CLEAR ?auto_83000 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_82996 ?auto_82997 ) ) ( not ( = ?auto_82996 ?auto_82998 ) ) ( not ( = ?auto_82997 ?auto_82998 ) ) ( not ( = ?auto_82996 ?auto_83003 ) ) ( not ( = ?auto_82997 ?auto_83003 ) ) ( not ( = ?auto_82998 ?auto_83003 ) ) ( ON-TABLE ?auto_83001 ) ( ON ?auto_83002 ?auto_83001 ) ( not ( = ?auto_83001 ?auto_83002 ) ) ( not ( = ?auto_83001 ?auto_83000 ) ) ( not ( = ?auto_83001 ?auto_83003 ) ) ( not ( = ?auto_83001 ?auto_82998 ) ) ( not ( = ?auto_83001 ?auto_82997 ) ) ( not ( = ?auto_83002 ?auto_83000 ) ) ( not ( = ?auto_83002 ?auto_83003 ) ) ( not ( = ?auto_83002 ?auto_82998 ) ) ( not ( = ?auto_83002 ?auto_82997 ) ) ( not ( = ?auto_83000 ?auto_83003 ) ) ( not ( = ?auto_83000 ?auto_82998 ) ) ( not ( = ?auto_83000 ?auto_82997 ) ) ( not ( = ?auto_82996 ?auto_83001 ) ) ( not ( = ?auto_82996 ?auto_83002 ) ) ( not ( = ?auto_82996 ?auto_83000 ) ) ( ON ?auto_82996 ?auto_82999 ) ( not ( = ?auto_82996 ?auto_82999 ) ) ( not ( = ?auto_82997 ?auto_82999 ) ) ( not ( = ?auto_82998 ?auto_82999 ) ) ( not ( = ?auto_83003 ?auto_82999 ) ) ( not ( = ?auto_83001 ?auto_82999 ) ) ( not ( = ?auto_83002 ?auto_82999 ) ) ( not ( = ?auto_83000 ?auto_82999 ) ) ( ON ?auto_82997 ?auto_82996 ) ( ON-TABLE ?auto_82999 ) ( ON ?auto_82998 ?auto_82997 ) ( ON ?auto_83003 ?auto_82998 ) ( CLEAR ?auto_83002 ) ( ON ?auto_83000 ?auto_83003 ) ( CLEAR ?auto_83000 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83003 ?auto_82996 ?auto_82997 ?auto_82998 ?auto_82999 )
+    ( ( MAKE-5PILE ?auto_82999 ?auto_82996 ?auto_82997 ?auto_82998 ?auto_83003 )
       ( MAKE-3PILE ?auto_82996 ?auto_82997 ?auto_82998 ) )
   )
 
@@ -4275,16 +4275,16 @@
     )
     :vars
     (
+      ?auto_83011 - BLOCK
+      ?auto_83009 - BLOCK
       ?auto_83007 - BLOCK
       ?auto_83010 - BLOCK
-      ?auto_83009 - BLOCK
-      ?auto_83011 - BLOCK
       ?auto_83008 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83004 ?auto_83005 ) ) ( not ( = ?auto_83004 ?auto_83006 ) ) ( not ( = ?auto_83005 ?auto_83006 ) ) ( not ( = ?auto_83004 ?auto_83007 ) ) ( not ( = ?auto_83005 ?auto_83007 ) ) ( not ( = ?auto_83006 ?auto_83007 ) ) ( ON-TABLE ?auto_83010 ) ( not ( = ?auto_83010 ?auto_83009 ) ) ( not ( = ?auto_83010 ?auto_83011 ) ) ( not ( = ?auto_83010 ?auto_83007 ) ) ( not ( = ?auto_83010 ?auto_83006 ) ) ( not ( = ?auto_83010 ?auto_83005 ) ) ( not ( = ?auto_83009 ?auto_83011 ) ) ( not ( = ?auto_83009 ?auto_83007 ) ) ( not ( = ?auto_83009 ?auto_83006 ) ) ( not ( = ?auto_83009 ?auto_83005 ) ) ( not ( = ?auto_83011 ?auto_83007 ) ) ( not ( = ?auto_83011 ?auto_83006 ) ) ( not ( = ?auto_83011 ?auto_83005 ) ) ( not ( = ?auto_83004 ?auto_83010 ) ) ( not ( = ?auto_83004 ?auto_83009 ) ) ( not ( = ?auto_83004 ?auto_83011 ) ) ( ON ?auto_83004 ?auto_83008 ) ( not ( = ?auto_83004 ?auto_83008 ) ) ( not ( = ?auto_83005 ?auto_83008 ) ) ( not ( = ?auto_83006 ?auto_83008 ) ) ( not ( = ?auto_83007 ?auto_83008 ) ) ( not ( = ?auto_83010 ?auto_83008 ) ) ( not ( = ?auto_83009 ?auto_83008 ) ) ( not ( = ?auto_83011 ?auto_83008 ) ) ( ON ?auto_83005 ?auto_83004 ) ( ON-TABLE ?auto_83008 ) ( ON ?auto_83006 ?auto_83005 ) ( ON ?auto_83007 ?auto_83006 ) ( ON ?auto_83011 ?auto_83007 ) ( CLEAR ?auto_83011 ) ( HOLDING ?auto_83009 ) ( CLEAR ?auto_83010 ) )
+    ( and ( not ( = ?auto_83004 ?auto_83005 ) ) ( not ( = ?auto_83004 ?auto_83006 ) ) ( not ( = ?auto_83005 ?auto_83006 ) ) ( not ( = ?auto_83004 ?auto_83011 ) ) ( not ( = ?auto_83005 ?auto_83011 ) ) ( not ( = ?auto_83006 ?auto_83011 ) ) ( ON-TABLE ?auto_83009 ) ( not ( = ?auto_83009 ?auto_83007 ) ) ( not ( = ?auto_83009 ?auto_83010 ) ) ( not ( = ?auto_83009 ?auto_83011 ) ) ( not ( = ?auto_83009 ?auto_83006 ) ) ( not ( = ?auto_83009 ?auto_83005 ) ) ( not ( = ?auto_83007 ?auto_83010 ) ) ( not ( = ?auto_83007 ?auto_83011 ) ) ( not ( = ?auto_83007 ?auto_83006 ) ) ( not ( = ?auto_83007 ?auto_83005 ) ) ( not ( = ?auto_83010 ?auto_83011 ) ) ( not ( = ?auto_83010 ?auto_83006 ) ) ( not ( = ?auto_83010 ?auto_83005 ) ) ( not ( = ?auto_83004 ?auto_83009 ) ) ( not ( = ?auto_83004 ?auto_83007 ) ) ( not ( = ?auto_83004 ?auto_83010 ) ) ( ON ?auto_83004 ?auto_83008 ) ( not ( = ?auto_83004 ?auto_83008 ) ) ( not ( = ?auto_83005 ?auto_83008 ) ) ( not ( = ?auto_83006 ?auto_83008 ) ) ( not ( = ?auto_83011 ?auto_83008 ) ) ( not ( = ?auto_83009 ?auto_83008 ) ) ( not ( = ?auto_83007 ?auto_83008 ) ) ( not ( = ?auto_83010 ?auto_83008 ) ) ( ON ?auto_83005 ?auto_83004 ) ( ON-TABLE ?auto_83008 ) ( ON ?auto_83006 ?auto_83005 ) ( ON ?auto_83011 ?auto_83006 ) ( ON ?auto_83010 ?auto_83011 ) ( CLEAR ?auto_83010 ) ( HOLDING ?auto_83007 ) ( CLEAR ?auto_83009 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83010 ?auto_83009 )
+    ( ( MAKE-2PILE ?auto_83009 ?auto_83007 )
       ( MAKE-3PILE ?auto_83004 ?auto_83005 ?auto_83006 ) )
   )
 
@@ -4298,15 +4298,15 @@
     :vars
     (
       ?auto_83017 - BLOCK
-      ?auto_83015 - BLOCK
       ?auto_83019 - BLOCK
-      ?auto_83018 - BLOCK
       ?auto_83016 - BLOCK
+      ?auto_83018 - BLOCK
+      ?auto_83015 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83012 ?auto_83013 ) ) ( not ( = ?auto_83012 ?auto_83014 ) ) ( not ( = ?auto_83013 ?auto_83014 ) ) ( not ( = ?auto_83012 ?auto_83017 ) ) ( not ( = ?auto_83013 ?auto_83017 ) ) ( not ( = ?auto_83014 ?auto_83017 ) ) ( ON-TABLE ?auto_83015 ) ( not ( = ?auto_83015 ?auto_83019 ) ) ( not ( = ?auto_83015 ?auto_83018 ) ) ( not ( = ?auto_83015 ?auto_83017 ) ) ( not ( = ?auto_83015 ?auto_83014 ) ) ( not ( = ?auto_83015 ?auto_83013 ) ) ( not ( = ?auto_83019 ?auto_83018 ) ) ( not ( = ?auto_83019 ?auto_83017 ) ) ( not ( = ?auto_83019 ?auto_83014 ) ) ( not ( = ?auto_83019 ?auto_83013 ) ) ( not ( = ?auto_83018 ?auto_83017 ) ) ( not ( = ?auto_83018 ?auto_83014 ) ) ( not ( = ?auto_83018 ?auto_83013 ) ) ( not ( = ?auto_83012 ?auto_83015 ) ) ( not ( = ?auto_83012 ?auto_83019 ) ) ( not ( = ?auto_83012 ?auto_83018 ) ) ( ON ?auto_83012 ?auto_83016 ) ( not ( = ?auto_83012 ?auto_83016 ) ) ( not ( = ?auto_83013 ?auto_83016 ) ) ( not ( = ?auto_83014 ?auto_83016 ) ) ( not ( = ?auto_83017 ?auto_83016 ) ) ( not ( = ?auto_83015 ?auto_83016 ) ) ( not ( = ?auto_83019 ?auto_83016 ) ) ( not ( = ?auto_83018 ?auto_83016 ) ) ( ON ?auto_83013 ?auto_83012 ) ( ON-TABLE ?auto_83016 ) ( ON ?auto_83014 ?auto_83013 ) ( ON ?auto_83017 ?auto_83014 ) ( ON ?auto_83018 ?auto_83017 ) ( CLEAR ?auto_83015 ) ( ON ?auto_83019 ?auto_83018 ) ( CLEAR ?auto_83019 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83012 ?auto_83013 ) ) ( not ( = ?auto_83012 ?auto_83014 ) ) ( not ( = ?auto_83013 ?auto_83014 ) ) ( not ( = ?auto_83012 ?auto_83017 ) ) ( not ( = ?auto_83013 ?auto_83017 ) ) ( not ( = ?auto_83014 ?auto_83017 ) ) ( ON-TABLE ?auto_83019 ) ( not ( = ?auto_83019 ?auto_83016 ) ) ( not ( = ?auto_83019 ?auto_83018 ) ) ( not ( = ?auto_83019 ?auto_83017 ) ) ( not ( = ?auto_83019 ?auto_83014 ) ) ( not ( = ?auto_83019 ?auto_83013 ) ) ( not ( = ?auto_83016 ?auto_83018 ) ) ( not ( = ?auto_83016 ?auto_83017 ) ) ( not ( = ?auto_83016 ?auto_83014 ) ) ( not ( = ?auto_83016 ?auto_83013 ) ) ( not ( = ?auto_83018 ?auto_83017 ) ) ( not ( = ?auto_83018 ?auto_83014 ) ) ( not ( = ?auto_83018 ?auto_83013 ) ) ( not ( = ?auto_83012 ?auto_83019 ) ) ( not ( = ?auto_83012 ?auto_83016 ) ) ( not ( = ?auto_83012 ?auto_83018 ) ) ( ON ?auto_83012 ?auto_83015 ) ( not ( = ?auto_83012 ?auto_83015 ) ) ( not ( = ?auto_83013 ?auto_83015 ) ) ( not ( = ?auto_83014 ?auto_83015 ) ) ( not ( = ?auto_83017 ?auto_83015 ) ) ( not ( = ?auto_83019 ?auto_83015 ) ) ( not ( = ?auto_83016 ?auto_83015 ) ) ( not ( = ?auto_83018 ?auto_83015 ) ) ( ON ?auto_83013 ?auto_83012 ) ( ON-TABLE ?auto_83015 ) ( ON ?auto_83014 ?auto_83013 ) ( ON ?auto_83017 ?auto_83014 ) ( ON ?auto_83018 ?auto_83017 ) ( CLEAR ?auto_83019 ) ( ON ?auto_83016 ?auto_83018 ) ( CLEAR ?auto_83016 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83016 ?auto_83012 ?auto_83013 ?auto_83014 ?auto_83017 ?auto_83018 )
+    ( ( MAKE-6PILE ?auto_83015 ?auto_83012 ?auto_83013 ?auto_83014 ?auto_83017 ?auto_83018 )
       ( MAKE-3PILE ?auto_83012 ?auto_83013 ?auto_83014 ) )
   )
 
@@ -4319,14 +4319,14 @@
     )
     :vars
     (
-      ?auto_83023 - BLOCK
-      ?auto_83026 - BLOCK
-      ?auto_83025 - BLOCK
-      ?auto_83027 - BLOCK
       ?auto_83024 - BLOCK
+      ?auto_83026 - BLOCK
+      ?auto_83023 - BLOCK
+      ?auto_83027 - BLOCK
+      ?auto_83025 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83020 ?auto_83021 ) ) ( not ( = ?auto_83020 ?auto_83022 ) ) ( not ( = ?auto_83021 ?auto_83022 ) ) ( not ( = ?auto_83020 ?auto_83023 ) ) ( not ( = ?auto_83021 ?auto_83023 ) ) ( not ( = ?auto_83022 ?auto_83023 ) ) ( not ( = ?auto_83026 ?auto_83025 ) ) ( not ( = ?auto_83026 ?auto_83027 ) ) ( not ( = ?auto_83026 ?auto_83023 ) ) ( not ( = ?auto_83026 ?auto_83022 ) ) ( not ( = ?auto_83026 ?auto_83021 ) ) ( not ( = ?auto_83025 ?auto_83027 ) ) ( not ( = ?auto_83025 ?auto_83023 ) ) ( not ( = ?auto_83025 ?auto_83022 ) ) ( not ( = ?auto_83025 ?auto_83021 ) ) ( not ( = ?auto_83027 ?auto_83023 ) ) ( not ( = ?auto_83027 ?auto_83022 ) ) ( not ( = ?auto_83027 ?auto_83021 ) ) ( not ( = ?auto_83020 ?auto_83026 ) ) ( not ( = ?auto_83020 ?auto_83025 ) ) ( not ( = ?auto_83020 ?auto_83027 ) ) ( ON ?auto_83020 ?auto_83024 ) ( not ( = ?auto_83020 ?auto_83024 ) ) ( not ( = ?auto_83021 ?auto_83024 ) ) ( not ( = ?auto_83022 ?auto_83024 ) ) ( not ( = ?auto_83023 ?auto_83024 ) ) ( not ( = ?auto_83026 ?auto_83024 ) ) ( not ( = ?auto_83025 ?auto_83024 ) ) ( not ( = ?auto_83027 ?auto_83024 ) ) ( ON ?auto_83021 ?auto_83020 ) ( ON-TABLE ?auto_83024 ) ( ON ?auto_83022 ?auto_83021 ) ( ON ?auto_83023 ?auto_83022 ) ( ON ?auto_83027 ?auto_83023 ) ( ON ?auto_83025 ?auto_83027 ) ( CLEAR ?auto_83025 ) ( HOLDING ?auto_83026 ) )
+    ( and ( not ( = ?auto_83020 ?auto_83021 ) ) ( not ( = ?auto_83020 ?auto_83022 ) ) ( not ( = ?auto_83021 ?auto_83022 ) ) ( not ( = ?auto_83020 ?auto_83024 ) ) ( not ( = ?auto_83021 ?auto_83024 ) ) ( not ( = ?auto_83022 ?auto_83024 ) ) ( not ( = ?auto_83026 ?auto_83023 ) ) ( not ( = ?auto_83026 ?auto_83027 ) ) ( not ( = ?auto_83026 ?auto_83024 ) ) ( not ( = ?auto_83026 ?auto_83022 ) ) ( not ( = ?auto_83026 ?auto_83021 ) ) ( not ( = ?auto_83023 ?auto_83027 ) ) ( not ( = ?auto_83023 ?auto_83024 ) ) ( not ( = ?auto_83023 ?auto_83022 ) ) ( not ( = ?auto_83023 ?auto_83021 ) ) ( not ( = ?auto_83027 ?auto_83024 ) ) ( not ( = ?auto_83027 ?auto_83022 ) ) ( not ( = ?auto_83027 ?auto_83021 ) ) ( not ( = ?auto_83020 ?auto_83026 ) ) ( not ( = ?auto_83020 ?auto_83023 ) ) ( not ( = ?auto_83020 ?auto_83027 ) ) ( ON ?auto_83020 ?auto_83025 ) ( not ( = ?auto_83020 ?auto_83025 ) ) ( not ( = ?auto_83021 ?auto_83025 ) ) ( not ( = ?auto_83022 ?auto_83025 ) ) ( not ( = ?auto_83024 ?auto_83025 ) ) ( not ( = ?auto_83026 ?auto_83025 ) ) ( not ( = ?auto_83023 ?auto_83025 ) ) ( not ( = ?auto_83027 ?auto_83025 ) ) ( ON ?auto_83021 ?auto_83020 ) ( ON-TABLE ?auto_83025 ) ( ON ?auto_83022 ?auto_83021 ) ( ON ?auto_83024 ?auto_83022 ) ( ON ?auto_83027 ?auto_83024 ) ( ON ?auto_83023 ?auto_83027 ) ( CLEAR ?auto_83023 ) ( HOLDING ?auto_83026 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_83026 )
       ( MAKE-3PILE ?auto_83020 ?auto_83021 ?auto_83022 ) )
@@ -4341,16 +4341,16 @@
     )
     :vars
     (
-      ?auto_83033 - BLOCK
-      ?auto_83032 - BLOCK
+      ?auto_83035 - BLOCK
       ?auto_83031 - BLOCK
       ?auto_83034 - BLOCK
-      ?auto_83035 - BLOCK
+      ?auto_83033 - BLOCK
+      ?auto_83032 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83028 ?auto_83029 ) ) ( not ( = ?auto_83028 ?auto_83030 ) ) ( not ( = ?auto_83029 ?auto_83030 ) ) ( not ( = ?auto_83028 ?auto_83033 ) ) ( not ( = ?auto_83029 ?auto_83033 ) ) ( not ( = ?auto_83030 ?auto_83033 ) ) ( not ( = ?auto_83032 ?auto_83031 ) ) ( not ( = ?auto_83032 ?auto_83034 ) ) ( not ( = ?auto_83032 ?auto_83033 ) ) ( not ( = ?auto_83032 ?auto_83030 ) ) ( not ( = ?auto_83032 ?auto_83029 ) ) ( not ( = ?auto_83031 ?auto_83034 ) ) ( not ( = ?auto_83031 ?auto_83033 ) ) ( not ( = ?auto_83031 ?auto_83030 ) ) ( not ( = ?auto_83031 ?auto_83029 ) ) ( not ( = ?auto_83034 ?auto_83033 ) ) ( not ( = ?auto_83034 ?auto_83030 ) ) ( not ( = ?auto_83034 ?auto_83029 ) ) ( not ( = ?auto_83028 ?auto_83032 ) ) ( not ( = ?auto_83028 ?auto_83031 ) ) ( not ( = ?auto_83028 ?auto_83034 ) ) ( ON ?auto_83028 ?auto_83035 ) ( not ( = ?auto_83028 ?auto_83035 ) ) ( not ( = ?auto_83029 ?auto_83035 ) ) ( not ( = ?auto_83030 ?auto_83035 ) ) ( not ( = ?auto_83033 ?auto_83035 ) ) ( not ( = ?auto_83032 ?auto_83035 ) ) ( not ( = ?auto_83031 ?auto_83035 ) ) ( not ( = ?auto_83034 ?auto_83035 ) ) ( ON ?auto_83029 ?auto_83028 ) ( ON-TABLE ?auto_83035 ) ( ON ?auto_83030 ?auto_83029 ) ( ON ?auto_83033 ?auto_83030 ) ( ON ?auto_83034 ?auto_83033 ) ( ON ?auto_83031 ?auto_83034 ) ( ON ?auto_83032 ?auto_83031 ) ( CLEAR ?auto_83032 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83028 ?auto_83029 ) ) ( not ( = ?auto_83028 ?auto_83030 ) ) ( not ( = ?auto_83029 ?auto_83030 ) ) ( not ( = ?auto_83028 ?auto_83035 ) ) ( not ( = ?auto_83029 ?auto_83035 ) ) ( not ( = ?auto_83030 ?auto_83035 ) ) ( not ( = ?auto_83031 ?auto_83034 ) ) ( not ( = ?auto_83031 ?auto_83033 ) ) ( not ( = ?auto_83031 ?auto_83035 ) ) ( not ( = ?auto_83031 ?auto_83030 ) ) ( not ( = ?auto_83031 ?auto_83029 ) ) ( not ( = ?auto_83034 ?auto_83033 ) ) ( not ( = ?auto_83034 ?auto_83035 ) ) ( not ( = ?auto_83034 ?auto_83030 ) ) ( not ( = ?auto_83034 ?auto_83029 ) ) ( not ( = ?auto_83033 ?auto_83035 ) ) ( not ( = ?auto_83033 ?auto_83030 ) ) ( not ( = ?auto_83033 ?auto_83029 ) ) ( not ( = ?auto_83028 ?auto_83031 ) ) ( not ( = ?auto_83028 ?auto_83034 ) ) ( not ( = ?auto_83028 ?auto_83033 ) ) ( ON ?auto_83028 ?auto_83032 ) ( not ( = ?auto_83028 ?auto_83032 ) ) ( not ( = ?auto_83029 ?auto_83032 ) ) ( not ( = ?auto_83030 ?auto_83032 ) ) ( not ( = ?auto_83035 ?auto_83032 ) ) ( not ( = ?auto_83031 ?auto_83032 ) ) ( not ( = ?auto_83034 ?auto_83032 ) ) ( not ( = ?auto_83033 ?auto_83032 ) ) ( ON ?auto_83029 ?auto_83028 ) ( ON-TABLE ?auto_83032 ) ( ON ?auto_83030 ?auto_83029 ) ( ON ?auto_83035 ?auto_83030 ) ( ON ?auto_83033 ?auto_83035 ) ( ON ?auto_83034 ?auto_83033 ) ( ON ?auto_83031 ?auto_83034 ) ( CLEAR ?auto_83031 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83035 ?auto_83028 ?auto_83029 ?auto_83030 ?auto_83033 ?auto_83034 ?auto_83031 )
+    ( ( MAKE-7PILE ?auto_83032 ?auto_83028 ?auto_83029 ?auto_83030 ?auto_83035 ?auto_83033 ?auto_83034 )
       ( MAKE-3PILE ?auto_83028 ?auto_83029 ?auto_83030 ) )
   )
 
@@ -4401,11 +4401,11 @@
     :vars
     (
       ?auto_83054 - BLOCK
-      ?auto_83052 - BLOCK
       ?auto_83053 - BLOCK
+      ?auto_83052 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83054 ?auto_83051 ) ( ON-TABLE ?auto_83049 ) ( ON ?auto_83050 ?auto_83049 ) ( ON ?auto_83051 ?auto_83050 ) ( not ( = ?auto_83049 ?auto_83050 ) ) ( not ( = ?auto_83049 ?auto_83051 ) ) ( not ( = ?auto_83049 ?auto_83054 ) ) ( not ( = ?auto_83050 ?auto_83051 ) ) ( not ( = ?auto_83050 ?auto_83054 ) ) ( not ( = ?auto_83051 ?auto_83054 ) ) ( CLEAR ?auto_83052 ) ( not ( = ?auto_83049 ?auto_83053 ) ) ( not ( = ?auto_83049 ?auto_83052 ) ) ( not ( = ?auto_83050 ?auto_83053 ) ) ( not ( = ?auto_83050 ?auto_83052 ) ) ( not ( = ?auto_83051 ?auto_83053 ) ) ( not ( = ?auto_83051 ?auto_83052 ) ) ( not ( = ?auto_83054 ?auto_83053 ) ) ( not ( = ?auto_83054 ?auto_83052 ) ) ( not ( = ?auto_83053 ?auto_83052 ) ) ( ON ?auto_83053 ?auto_83054 ) ( CLEAR ?auto_83053 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83054 ?auto_83051 ) ( ON-TABLE ?auto_83049 ) ( ON ?auto_83050 ?auto_83049 ) ( ON ?auto_83051 ?auto_83050 ) ( not ( = ?auto_83049 ?auto_83050 ) ) ( not ( = ?auto_83049 ?auto_83051 ) ) ( not ( = ?auto_83049 ?auto_83054 ) ) ( not ( = ?auto_83050 ?auto_83051 ) ) ( not ( = ?auto_83050 ?auto_83054 ) ) ( not ( = ?auto_83051 ?auto_83054 ) ) ( CLEAR ?auto_83053 ) ( not ( = ?auto_83049 ?auto_83052 ) ) ( not ( = ?auto_83049 ?auto_83053 ) ) ( not ( = ?auto_83050 ?auto_83052 ) ) ( not ( = ?auto_83050 ?auto_83053 ) ) ( not ( = ?auto_83051 ?auto_83052 ) ) ( not ( = ?auto_83051 ?auto_83053 ) ) ( not ( = ?auto_83054 ?auto_83052 ) ) ( not ( = ?auto_83054 ?auto_83053 ) ) ( not ( = ?auto_83052 ?auto_83053 ) ) ( ON ?auto_83052 ?auto_83054 ) ( CLEAR ?auto_83052 ) ( HAND-EMPTY ) )
     :subtasks
     ( ( MAKE-4PILE ?auto_83049 ?auto_83050 ?auto_83051 ?auto_83054 )
       ( MAKE-3PILE ?auto_83049 ?auto_83050 ?auto_83051 ) )
@@ -4421,14 +4421,14 @@
     :vars
     (
       ?auto_83060 - BLOCK
-      ?auto_83059 - BLOCK
       ?auto_83058 - BLOCK
+      ?auto_83059 - BLOCK
       ?auto_83061 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83060 ?auto_83057 ) ( ON-TABLE ?auto_83055 ) ( ON ?auto_83056 ?auto_83055 ) ( ON ?auto_83057 ?auto_83056 ) ( not ( = ?auto_83055 ?auto_83056 ) ) ( not ( = ?auto_83055 ?auto_83057 ) ) ( not ( = ?auto_83055 ?auto_83060 ) ) ( not ( = ?auto_83056 ?auto_83057 ) ) ( not ( = ?auto_83056 ?auto_83060 ) ) ( not ( = ?auto_83057 ?auto_83060 ) ) ( not ( = ?auto_83055 ?auto_83059 ) ) ( not ( = ?auto_83055 ?auto_83058 ) ) ( not ( = ?auto_83056 ?auto_83059 ) ) ( not ( = ?auto_83056 ?auto_83058 ) ) ( not ( = ?auto_83057 ?auto_83059 ) ) ( not ( = ?auto_83057 ?auto_83058 ) ) ( not ( = ?auto_83060 ?auto_83059 ) ) ( not ( = ?auto_83060 ?auto_83058 ) ) ( not ( = ?auto_83059 ?auto_83058 ) ) ( ON ?auto_83059 ?auto_83060 ) ( CLEAR ?auto_83059 ) ( HOLDING ?auto_83058 ) ( CLEAR ?auto_83061 ) ( ON-TABLE ?auto_83061 ) ( not ( = ?auto_83061 ?auto_83058 ) ) ( not ( = ?auto_83055 ?auto_83061 ) ) ( not ( = ?auto_83056 ?auto_83061 ) ) ( not ( = ?auto_83057 ?auto_83061 ) ) ( not ( = ?auto_83060 ?auto_83061 ) ) ( not ( = ?auto_83059 ?auto_83061 ) ) )
+    ( and ( ON ?auto_83060 ?auto_83057 ) ( ON-TABLE ?auto_83055 ) ( ON ?auto_83056 ?auto_83055 ) ( ON ?auto_83057 ?auto_83056 ) ( not ( = ?auto_83055 ?auto_83056 ) ) ( not ( = ?auto_83055 ?auto_83057 ) ) ( not ( = ?auto_83055 ?auto_83060 ) ) ( not ( = ?auto_83056 ?auto_83057 ) ) ( not ( = ?auto_83056 ?auto_83060 ) ) ( not ( = ?auto_83057 ?auto_83060 ) ) ( not ( = ?auto_83055 ?auto_83058 ) ) ( not ( = ?auto_83055 ?auto_83059 ) ) ( not ( = ?auto_83056 ?auto_83058 ) ) ( not ( = ?auto_83056 ?auto_83059 ) ) ( not ( = ?auto_83057 ?auto_83058 ) ) ( not ( = ?auto_83057 ?auto_83059 ) ) ( not ( = ?auto_83060 ?auto_83058 ) ) ( not ( = ?auto_83060 ?auto_83059 ) ) ( not ( = ?auto_83058 ?auto_83059 ) ) ( ON ?auto_83058 ?auto_83060 ) ( CLEAR ?auto_83058 ) ( HOLDING ?auto_83059 ) ( CLEAR ?auto_83061 ) ( ON-TABLE ?auto_83061 ) ( not ( = ?auto_83061 ?auto_83059 ) ) ( not ( = ?auto_83055 ?auto_83061 ) ) ( not ( = ?auto_83056 ?auto_83061 ) ) ( not ( = ?auto_83057 ?auto_83061 ) ) ( not ( = ?auto_83060 ?auto_83061 ) ) ( not ( = ?auto_83058 ?auto_83061 ) ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83061 ?auto_83058 )
+    ( ( MAKE-2PILE ?auto_83061 ?auto_83059 )
       ( MAKE-3PILE ?auto_83055 ?auto_83056 ?auto_83057 ) )
   )
 
@@ -4442,14 +4442,14 @@
     :vars
     (
       ?auto_83065 - BLOCK
-      ?auto_83068 - BLOCK
-      ?auto_83066 - BLOCK
       ?auto_83067 - BLOCK
+      ?auto_83066 - BLOCK
+      ?auto_83068 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83065 ?auto_83064 ) ( ON-TABLE ?auto_83062 ) ( ON ?auto_83063 ?auto_83062 ) ( ON ?auto_83064 ?auto_83063 ) ( not ( = ?auto_83062 ?auto_83063 ) ) ( not ( = ?auto_83062 ?auto_83064 ) ) ( not ( = ?auto_83062 ?auto_83065 ) ) ( not ( = ?auto_83063 ?auto_83064 ) ) ( not ( = ?auto_83063 ?auto_83065 ) ) ( not ( = ?auto_83064 ?auto_83065 ) ) ( not ( = ?auto_83062 ?auto_83068 ) ) ( not ( = ?auto_83062 ?auto_83066 ) ) ( not ( = ?auto_83063 ?auto_83068 ) ) ( not ( = ?auto_83063 ?auto_83066 ) ) ( not ( = ?auto_83064 ?auto_83068 ) ) ( not ( = ?auto_83064 ?auto_83066 ) ) ( not ( = ?auto_83065 ?auto_83068 ) ) ( not ( = ?auto_83065 ?auto_83066 ) ) ( not ( = ?auto_83068 ?auto_83066 ) ) ( ON ?auto_83068 ?auto_83065 ) ( CLEAR ?auto_83067 ) ( ON-TABLE ?auto_83067 ) ( not ( = ?auto_83067 ?auto_83066 ) ) ( not ( = ?auto_83062 ?auto_83067 ) ) ( not ( = ?auto_83063 ?auto_83067 ) ) ( not ( = ?auto_83064 ?auto_83067 ) ) ( not ( = ?auto_83065 ?auto_83067 ) ) ( not ( = ?auto_83068 ?auto_83067 ) ) ( ON ?auto_83066 ?auto_83068 ) ( CLEAR ?auto_83066 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83065 ?auto_83064 ) ( ON-TABLE ?auto_83062 ) ( ON ?auto_83063 ?auto_83062 ) ( ON ?auto_83064 ?auto_83063 ) ( not ( = ?auto_83062 ?auto_83063 ) ) ( not ( = ?auto_83062 ?auto_83064 ) ) ( not ( = ?auto_83062 ?auto_83065 ) ) ( not ( = ?auto_83063 ?auto_83064 ) ) ( not ( = ?auto_83063 ?auto_83065 ) ) ( not ( = ?auto_83064 ?auto_83065 ) ) ( not ( = ?auto_83062 ?auto_83067 ) ) ( not ( = ?auto_83062 ?auto_83066 ) ) ( not ( = ?auto_83063 ?auto_83067 ) ) ( not ( = ?auto_83063 ?auto_83066 ) ) ( not ( = ?auto_83064 ?auto_83067 ) ) ( not ( = ?auto_83064 ?auto_83066 ) ) ( not ( = ?auto_83065 ?auto_83067 ) ) ( not ( = ?auto_83065 ?auto_83066 ) ) ( not ( = ?auto_83067 ?auto_83066 ) ) ( ON ?auto_83067 ?auto_83065 ) ( CLEAR ?auto_83068 ) ( ON-TABLE ?auto_83068 ) ( not ( = ?auto_83068 ?auto_83066 ) ) ( not ( = ?auto_83062 ?auto_83068 ) ) ( not ( = ?auto_83063 ?auto_83068 ) ) ( not ( = ?auto_83064 ?auto_83068 ) ) ( not ( = ?auto_83065 ?auto_83068 ) ) ( not ( = ?auto_83067 ?auto_83068 ) ) ( ON ?auto_83066 ?auto_83067 ) ( CLEAR ?auto_83066 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83062 ?auto_83063 ?auto_83064 ?auto_83065 ?auto_83068 )
+    ( ( MAKE-5PILE ?auto_83062 ?auto_83063 ?auto_83064 ?auto_83065 ?auto_83067 )
       ( MAKE-3PILE ?auto_83062 ?auto_83063 ?auto_83064 ) )
   )
 
@@ -4463,14 +4463,14 @@
     :vars
     (
       ?auto_83072 - BLOCK
+      ?auto_83075 - BLOCK
       ?auto_83073 - BLOCK
       ?auto_83074 - BLOCK
-      ?auto_83075 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83072 ?auto_83071 ) ( ON-TABLE ?auto_83069 ) ( ON ?auto_83070 ?auto_83069 ) ( ON ?auto_83071 ?auto_83070 ) ( not ( = ?auto_83069 ?auto_83070 ) ) ( not ( = ?auto_83069 ?auto_83071 ) ) ( not ( = ?auto_83069 ?auto_83072 ) ) ( not ( = ?auto_83070 ?auto_83071 ) ) ( not ( = ?auto_83070 ?auto_83072 ) ) ( not ( = ?auto_83071 ?auto_83072 ) ) ( not ( = ?auto_83069 ?auto_83073 ) ) ( not ( = ?auto_83069 ?auto_83074 ) ) ( not ( = ?auto_83070 ?auto_83073 ) ) ( not ( = ?auto_83070 ?auto_83074 ) ) ( not ( = ?auto_83071 ?auto_83073 ) ) ( not ( = ?auto_83071 ?auto_83074 ) ) ( not ( = ?auto_83072 ?auto_83073 ) ) ( not ( = ?auto_83072 ?auto_83074 ) ) ( not ( = ?auto_83073 ?auto_83074 ) ) ( ON ?auto_83073 ?auto_83072 ) ( not ( = ?auto_83075 ?auto_83074 ) ) ( not ( = ?auto_83069 ?auto_83075 ) ) ( not ( = ?auto_83070 ?auto_83075 ) ) ( not ( = ?auto_83071 ?auto_83075 ) ) ( not ( = ?auto_83072 ?auto_83075 ) ) ( not ( = ?auto_83073 ?auto_83075 ) ) ( ON ?auto_83074 ?auto_83073 ) ( CLEAR ?auto_83074 ) ( HOLDING ?auto_83075 ) )
+    ( and ( ON ?auto_83072 ?auto_83071 ) ( ON-TABLE ?auto_83069 ) ( ON ?auto_83070 ?auto_83069 ) ( ON ?auto_83071 ?auto_83070 ) ( not ( = ?auto_83069 ?auto_83070 ) ) ( not ( = ?auto_83069 ?auto_83071 ) ) ( not ( = ?auto_83069 ?auto_83072 ) ) ( not ( = ?auto_83070 ?auto_83071 ) ) ( not ( = ?auto_83070 ?auto_83072 ) ) ( not ( = ?auto_83071 ?auto_83072 ) ) ( not ( = ?auto_83069 ?auto_83075 ) ) ( not ( = ?auto_83069 ?auto_83073 ) ) ( not ( = ?auto_83070 ?auto_83075 ) ) ( not ( = ?auto_83070 ?auto_83073 ) ) ( not ( = ?auto_83071 ?auto_83075 ) ) ( not ( = ?auto_83071 ?auto_83073 ) ) ( not ( = ?auto_83072 ?auto_83075 ) ) ( not ( = ?auto_83072 ?auto_83073 ) ) ( not ( = ?auto_83075 ?auto_83073 ) ) ( ON ?auto_83075 ?auto_83072 ) ( not ( = ?auto_83074 ?auto_83073 ) ) ( not ( = ?auto_83069 ?auto_83074 ) ) ( not ( = ?auto_83070 ?auto_83074 ) ) ( not ( = ?auto_83071 ?auto_83074 ) ) ( not ( = ?auto_83072 ?auto_83074 ) ) ( not ( = ?auto_83075 ?auto_83074 ) ) ( ON ?auto_83073 ?auto_83075 ) ( CLEAR ?auto_83073 ) ( HOLDING ?auto_83074 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_83075 )
+    ( ( MAKE-1PILE ?auto_83074 )
       ( MAKE-3PILE ?auto_83069 ?auto_83070 ?auto_83071 ) )
   )
 
@@ -4483,15 +4483,15 @@
     )
     :vars
     (
-      ?auto_83082 - BLOCK
       ?auto_83079 - BLOCK
       ?auto_83081 - BLOCK
+      ?auto_83082 - BLOCK
       ?auto_83080 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83082 ?auto_83078 ) ( ON-TABLE ?auto_83076 ) ( ON ?auto_83077 ?auto_83076 ) ( ON ?auto_83078 ?auto_83077 ) ( not ( = ?auto_83076 ?auto_83077 ) ) ( not ( = ?auto_83076 ?auto_83078 ) ) ( not ( = ?auto_83076 ?auto_83082 ) ) ( not ( = ?auto_83077 ?auto_83078 ) ) ( not ( = ?auto_83077 ?auto_83082 ) ) ( not ( = ?auto_83078 ?auto_83082 ) ) ( not ( = ?auto_83076 ?auto_83079 ) ) ( not ( = ?auto_83076 ?auto_83081 ) ) ( not ( = ?auto_83077 ?auto_83079 ) ) ( not ( = ?auto_83077 ?auto_83081 ) ) ( not ( = ?auto_83078 ?auto_83079 ) ) ( not ( = ?auto_83078 ?auto_83081 ) ) ( not ( = ?auto_83082 ?auto_83079 ) ) ( not ( = ?auto_83082 ?auto_83081 ) ) ( not ( = ?auto_83079 ?auto_83081 ) ) ( ON ?auto_83079 ?auto_83082 ) ( not ( = ?auto_83080 ?auto_83081 ) ) ( not ( = ?auto_83076 ?auto_83080 ) ) ( not ( = ?auto_83077 ?auto_83080 ) ) ( not ( = ?auto_83078 ?auto_83080 ) ) ( not ( = ?auto_83082 ?auto_83080 ) ) ( not ( = ?auto_83079 ?auto_83080 ) ) ( ON ?auto_83081 ?auto_83079 ) ( ON ?auto_83080 ?auto_83081 ) ( CLEAR ?auto_83080 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83079 ?auto_83078 ) ( ON-TABLE ?auto_83076 ) ( ON ?auto_83077 ?auto_83076 ) ( ON ?auto_83078 ?auto_83077 ) ( not ( = ?auto_83076 ?auto_83077 ) ) ( not ( = ?auto_83076 ?auto_83078 ) ) ( not ( = ?auto_83076 ?auto_83079 ) ) ( not ( = ?auto_83077 ?auto_83078 ) ) ( not ( = ?auto_83077 ?auto_83079 ) ) ( not ( = ?auto_83078 ?auto_83079 ) ) ( not ( = ?auto_83076 ?auto_83081 ) ) ( not ( = ?auto_83076 ?auto_83082 ) ) ( not ( = ?auto_83077 ?auto_83081 ) ) ( not ( = ?auto_83077 ?auto_83082 ) ) ( not ( = ?auto_83078 ?auto_83081 ) ) ( not ( = ?auto_83078 ?auto_83082 ) ) ( not ( = ?auto_83079 ?auto_83081 ) ) ( not ( = ?auto_83079 ?auto_83082 ) ) ( not ( = ?auto_83081 ?auto_83082 ) ) ( ON ?auto_83081 ?auto_83079 ) ( not ( = ?auto_83080 ?auto_83082 ) ) ( not ( = ?auto_83076 ?auto_83080 ) ) ( not ( = ?auto_83077 ?auto_83080 ) ) ( not ( = ?auto_83078 ?auto_83080 ) ) ( not ( = ?auto_83079 ?auto_83080 ) ) ( not ( = ?auto_83081 ?auto_83080 ) ) ( ON ?auto_83082 ?auto_83081 ) ( ON ?auto_83080 ?auto_83082 ) ( CLEAR ?auto_83080 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83076 ?auto_83077 ?auto_83078 ?auto_83082 ?auto_83079 ?auto_83081 )
+    ( ( MAKE-6PILE ?auto_83076 ?auto_83077 ?auto_83078 ?auto_83079 ?auto_83081 ?auto_83082 )
       ( MAKE-3PILE ?auto_83076 ?auto_83077 ?auto_83078 ) )
   )
 
@@ -4504,15 +4504,15 @@
     )
     :vars
     (
-      ?auto_83087 - BLOCK
-      ?auto_83088 - BLOCK
       ?auto_83086 - BLOCK
+      ?auto_83087 - BLOCK
       ?auto_83089 - BLOCK
+      ?auto_83088 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83087 ?auto_83085 ) ( ON-TABLE ?auto_83083 ) ( ON ?auto_83084 ?auto_83083 ) ( ON ?auto_83085 ?auto_83084 ) ( not ( = ?auto_83083 ?auto_83084 ) ) ( not ( = ?auto_83083 ?auto_83085 ) ) ( not ( = ?auto_83083 ?auto_83087 ) ) ( not ( = ?auto_83084 ?auto_83085 ) ) ( not ( = ?auto_83084 ?auto_83087 ) ) ( not ( = ?auto_83085 ?auto_83087 ) ) ( not ( = ?auto_83083 ?auto_83088 ) ) ( not ( = ?auto_83083 ?auto_83086 ) ) ( not ( = ?auto_83084 ?auto_83088 ) ) ( not ( = ?auto_83084 ?auto_83086 ) ) ( not ( = ?auto_83085 ?auto_83088 ) ) ( not ( = ?auto_83085 ?auto_83086 ) ) ( not ( = ?auto_83087 ?auto_83088 ) ) ( not ( = ?auto_83087 ?auto_83086 ) ) ( not ( = ?auto_83088 ?auto_83086 ) ) ( ON ?auto_83088 ?auto_83087 ) ( not ( = ?auto_83089 ?auto_83086 ) ) ( not ( = ?auto_83083 ?auto_83089 ) ) ( not ( = ?auto_83084 ?auto_83089 ) ) ( not ( = ?auto_83085 ?auto_83089 ) ) ( not ( = ?auto_83087 ?auto_83089 ) ) ( not ( = ?auto_83088 ?auto_83089 ) ) ( ON ?auto_83086 ?auto_83088 ) ( HOLDING ?auto_83089 ) ( CLEAR ?auto_83086 ) )
+    ( and ( ON ?auto_83086 ?auto_83085 ) ( ON-TABLE ?auto_83083 ) ( ON ?auto_83084 ?auto_83083 ) ( ON ?auto_83085 ?auto_83084 ) ( not ( = ?auto_83083 ?auto_83084 ) ) ( not ( = ?auto_83083 ?auto_83085 ) ) ( not ( = ?auto_83083 ?auto_83086 ) ) ( not ( = ?auto_83084 ?auto_83085 ) ) ( not ( = ?auto_83084 ?auto_83086 ) ) ( not ( = ?auto_83085 ?auto_83086 ) ) ( not ( = ?auto_83083 ?auto_83087 ) ) ( not ( = ?auto_83083 ?auto_83089 ) ) ( not ( = ?auto_83084 ?auto_83087 ) ) ( not ( = ?auto_83084 ?auto_83089 ) ) ( not ( = ?auto_83085 ?auto_83087 ) ) ( not ( = ?auto_83085 ?auto_83089 ) ) ( not ( = ?auto_83086 ?auto_83087 ) ) ( not ( = ?auto_83086 ?auto_83089 ) ) ( not ( = ?auto_83087 ?auto_83089 ) ) ( ON ?auto_83087 ?auto_83086 ) ( not ( = ?auto_83088 ?auto_83089 ) ) ( not ( = ?auto_83083 ?auto_83088 ) ) ( not ( = ?auto_83084 ?auto_83088 ) ) ( not ( = ?auto_83085 ?auto_83088 ) ) ( not ( = ?auto_83086 ?auto_83088 ) ) ( not ( = ?auto_83087 ?auto_83088 ) ) ( ON ?auto_83089 ?auto_83087 ) ( HOLDING ?auto_83088 ) ( CLEAR ?auto_83089 ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83083 ?auto_83084 ?auto_83085 ?auto_83087 ?auto_83088 ?auto_83086 ?auto_83089 )
+    ( ( MAKE-7PILE ?auto_83083 ?auto_83084 ?auto_83085 ?auto_83086 ?auto_83087 ?auto_83089 ?auto_83088 )
       ( MAKE-3PILE ?auto_83083 ?auto_83084 ?auto_83085 ) )
   )
 
@@ -4525,16 +4525,16 @@
     )
     :vars
     (
-      ?auto_83095 - BLOCK
       ?auto_83096 - BLOCK
-      ?auto_83094 - BLOCK
       ?auto_83093 - BLOCK
+      ?auto_83095 - BLOCK
+      ?auto_83094 - BLOCK
       ?auto_83097 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83095 ?auto_83092 ) ( ON-TABLE ?auto_83090 ) ( ON ?auto_83091 ?auto_83090 ) ( ON ?auto_83092 ?auto_83091 ) ( not ( = ?auto_83090 ?auto_83091 ) ) ( not ( = ?auto_83090 ?auto_83092 ) ) ( not ( = ?auto_83090 ?auto_83095 ) ) ( not ( = ?auto_83091 ?auto_83092 ) ) ( not ( = ?auto_83091 ?auto_83095 ) ) ( not ( = ?auto_83092 ?auto_83095 ) ) ( not ( = ?auto_83090 ?auto_83096 ) ) ( not ( = ?auto_83090 ?auto_83094 ) ) ( not ( = ?auto_83091 ?auto_83096 ) ) ( not ( = ?auto_83091 ?auto_83094 ) ) ( not ( = ?auto_83092 ?auto_83096 ) ) ( not ( = ?auto_83092 ?auto_83094 ) ) ( not ( = ?auto_83095 ?auto_83096 ) ) ( not ( = ?auto_83095 ?auto_83094 ) ) ( not ( = ?auto_83096 ?auto_83094 ) ) ( ON ?auto_83096 ?auto_83095 ) ( not ( = ?auto_83093 ?auto_83094 ) ) ( not ( = ?auto_83090 ?auto_83093 ) ) ( not ( = ?auto_83091 ?auto_83093 ) ) ( not ( = ?auto_83092 ?auto_83093 ) ) ( not ( = ?auto_83095 ?auto_83093 ) ) ( not ( = ?auto_83096 ?auto_83093 ) ) ( ON ?auto_83094 ?auto_83096 ) ( CLEAR ?auto_83094 ) ( ON ?auto_83093 ?auto_83097 ) ( CLEAR ?auto_83093 ) ( HAND-EMPTY ) ( not ( = ?auto_83090 ?auto_83097 ) ) ( not ( = ?auto_83091 ?auto_83097 ) ) ( not ( = ?auto_83092 ?auto_83097 ) ) ( not ( = ?auto_83095 ?auto_83097 ) ) ( not ( = ?auto_83096 ?auto_83097 ) ) ( not ( = ?auto_83094 ?auto_83097 ) ) ( not ( = ?auto_83093 ?auto_83097 ) ) )
+    ( and ( ON ?auto_83096 ?auto_83092 ) ( ON-TABLE ?auto_83090 ) ( ON ?auto_83091 ?auto_83090 ) ( ON ?auto_83092 ?auto_83091 ) ( not ( = ?auto_83090 ?auto_83091 ) ) ( not ( = ?auto_83090 ?auto_83092 ) ) ( not ( = ?auto_83090 ?auto_83096 ) ) ( not ( = ?auto_83091 ?auto_83092 ) ) ( not ( = ?auto_83091 ?auto_83096 ) ) ( not ( = ?auto_83092 ?auto_83096 ) ) ( not ( = ?auto_83090 ?auto_83093 ) ) ( not ( = ?auto_83090 ?auto_83095 ) ) ( not ( = ?auto_83091 ?auto_83093 ) ) ( not ( = ?auto_83091 ?auto_83095 ) ) ( not ( = ?auto_83092 ?auto_83093 ) ) ( not ( = ?auto_83092 ?auto_83095 ) ) ( not ( = ?auto_83096 ?auto_83093 ) ) ( not ( = ?auto_83096 ?auto_83095 ) ) ( not ( = ?auto_83093 ?auto_83095 ) ) ( ON ?auto_83093 ?auto_83096 ) ( not ( = ?auto_83094 ?auto_83095 ) ) ( not ( = ?auto_83090 ?auto_83094 ) ) ( not ( = ?auto_83091 ?auto_83094 ) ) ( not ( = ?auto_83092 ?auto_83094 ) ) ( not ( = ?auto_83096 ?auto_83094 ) ) ( not ( = ?auto_83093 ?auto_83094 ) ) ( ON ?auto_83095 ?auto_83093 ) ( CLEAR ?auto_83095 ) ( ON ?auto_83094 ?auto_83097 ) ( CLEAR ?auto_83094 ) ( HAND-EMPTY ) ( not ( = ?auto_83090 ?auto_83097 ) ) ( not ( = ?auto_83091 ?auto_83097 ) ) ( not ( = ?auto_83092 ?auto_83097 ) ) ( not ( = ?auto_83096 ?auto_83097 ) ) ( not ( = ?auto_83093 ?auto_83097 ) ) ( not ( = ?auto_83095 ?auto_83097 ) ) ( not ( = ?auto_83094 ?auto_83097 ) ) )
     :subtasks
-    ( ( !UNSTACK ?auto_83093 ?auto_83097 )
+    ( ( !UNSTACK ?auto_83094 ?auto_83097 )
       ( MAKE-3PILE ?auto_83090 ?auto_83091 ?auto_83092 ) )
   )
 
@@ -4547,16 +4547,16 @@
     )
     :vars
     (
+      ?auto_83101 - BLOCK
       ?auto_83104 - BLOCK
       ?auto_83103 - BLOCK
-      ?auto_83101 - BLOCK
-      ?auto_83105 - BLOCK
       ?auto_83102 - BLOCK
+      ?auto_83105 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83104 ?auto_83100 ) ( ON-TABLE ?auto_83098 ) ( ON ?auto_83099 ?auto_83098 ) ( ON ?auto_83100 ?auto_83099 ) ( not ( = ?auto_83098 ?auto_83099 ) ) ( not ( = ?auto_83098 ?auto_83100 ) ) ( not ( = ?auto_83098 ?auto_83104 ) ) ( not ( = ?auto_83099 ?auto_83100 ) ) ( not ( = ?auto_83099 ?auto_83104 ) ) ( not ( = ?auto_83100 ?auto_83104 ) ) ( not ( = ?auto_83098 ?auto_83103 ) ) ( not ( = ?auto_83098 ?auto_83101 ) ) ( not ( = ?auto_83099 ?auto_83103 ) ) ( not ( = ?auto_83099 ?auto_83101 ) ) ( not ( = ?auto_83100 ?auto_83103 ) ) ( not ( = ?auto_83100 ?auto_83101 ) ) ( not ( = ?auto_83104 ?auto_83103 ) ) ( not ( = ?auto_83104 ?auto_83101 ) ) ( not ( = ?auto_83103 ?auto_83101 ) ) ( ON ?auto_83103 ?auto_83104 ) ( not ( = ?auto_83105 ?auto_83101 ) ) ( not ( = ?auto_83098 ?auto_83105 ) ) ( not ( = ?auto_83099 ?auto_83105 ) ) ( not ( = ?auto_83100 ?auto_83105 ) ) ( not ( = ?auto_83104 ?auto_83105 ) ) ( not ( = ?auto_83103 ?auto_83105 ) ) ( ON ?auto_83105 ?auto_83102 ) ( CLEAR ?auto_83105 ) ( not ( = ?auto_83098 ?auto_83102 ) ) ( not ( = ?auto_83099 ?auto_83102 ) ) ( not ( = ?auto_83100 ?auto_83102 ) ) ( not ( = ?auto_83104 ?auto_83102 ) ) ( not ( = ?auto_83103 ?auto_83102 ) ) ( not ( = ?auto_83101 ?auto_83102 ) ) ( not ( = ?auto_83105 ?auto_83102 ) ) ( HOLDING ?auto_83101 ) ( CLEAR ?auto_83103 ) )
+    ( and ( ON ?auto_83101 ?auto_83100 ) ( ON-TABLE ?auto_83098 ) ( ON ?auto_83099 ?auto_83098 ) ( ON ?auto_83100 ?auto_83099 ) ( not ( = ?auto_83098 ?auto_83099 ) ) ( not ( = ?auto_83098 ?auto_83100 ) ) ( not ( = ?auto_83098 ?auto_83101 ) ) ( not ( = ?auto_83099 ?auto_83100 ) ) ( not ( = ?auto_83099 ?auto_83101 ) ) ( not ( = ?auto_83100 ?auto_83101 ) ) ( not ( = ?auto_83098 ?auto_83104 ) ) ( not ( = ?auto_83098 ?auto_83103 ) ) ( not ( = ?auto_83099 ?auto_83104 ) ) ( not ( = ?auto_83099 ?auto_83103 ) ) ( not ( = ?auto_83100 ?auto_83104 ) ) ( not ( = ?auto_83100 ?auto_83103 ) ) ( not ( = ?auto_83101 ?auto_83104 ) ) ( not ( = ?auto_83101 ?auto_83103 ) ) ( not ( = ?auto_83104 ?auto_83103 ) ) ( ON ?auto_83104 ?auto_83101 ) ( not ( = ?auto_83102 ?auto_83103 ) ) ( not ( = ?auto_83098 ?auto_83102 ) ) ( not ( = ?auto_83099 ?auto_83102 ) ) ( not ( = ?auto_83100 ?auto_83102 ) ) ( not ( = ?auto_83101 ?auto_83102 ) ) ( not ( = ?auto_83104 ?auto_83102 ) ) ( ON ?auto_83102 ?auto_83105 ) ( CLEAR ?auto_83102 ) ( not ( = ?auto_83098 ?auto_83105 ) ) ( not ( = ?auto_83099 ?auto_83105 ) ) ( not ( = ?auto_83100 ?auto_83105 ) ) ( not ( = ?auto_83101 ?auto_83105 ) ) ( not ( = ?auto_83104 ?auto_83105 ) ) ( not ( = ?auto_83103 ?auto_83105 ) ) ( not ( = ?auto_83102 ?auto_83105 ) ) ( HOLDING ?auto_83103 ) ( CLEAR ?auto_83104 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83098 ?auto_83099 ?auto_83100 ?auto_83104 ?auto_83103 ?auto_83101 )
+    ( ( MAKE-6PILE ?auto_83098 ?auto_83099 ?auto_83100 ?auto_83101 ?auto_83104 ?auto_83103 )
       ( MAKE-3PILE ?auto_83098 ?auto_83099 ?auto_83100 ) )
   )
 
@@ -4570,15 +4570,15 @@
     :vars
     (
       ?auto_83111 - BLOCK
-      ?auto_83112 - BLOCK
-      ?auto_83113 - BLOCK
       ?auto_83109 - BLOCK
+      ?auto_83112 - BLOCK
       ?auto_83110 - BLOCK
+      ?auto_83113 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83111 ?auto_83108 ) ( ON-TABLE ?auto_83106 ) ( ON ?auto_83107 ?auto_83106 ) ( ON ?auto_83108 ?auto_83107 ) ( not ( = ?auto_83106 ?auto_83107 ) ) ( not ( = ?auto_83106 ?auto_83108 ) ) ( not ( = ?auto_83106 ?auto_83111 ) ) ( not ( = ?auto_83107 ?auto_83108 ) ) ( not ( = ?auto_83107 ?auto_83111 ) ) ( not ( = ?auto_83108 ?auto_83111 ) ) ( not ( = ?auto_83106 ?auto_83112 ) ) ( not ( = ?auto_83106 ?auto_83113 ) ) ( not ( = ?auto_83107 ?auto_83112 ) ) ( not ( = ?auto_83107 ?auto_83113 ) ) ( not ( = ?auto_83108 ?auto_83112 ) ) ( not ( = ?auto_83108 ?auto_83113 ) ) ( not ( = ?auto_83111 ?auto_83112 ) ) ( not ( = ?auto_83111 ?auto_83113 ) ) ( not ( = ?auto_83112 ?auto_83113 ) ) ( ON ?auto_83112 ?auto_83111 ) ( not ( = ?auto_83109 ?auto_83113 ) ) ( not ( = ?auto_83106 ?auto_83109 ) ) ( not ( = ?auto_83107 ?auto_83109 ) ) ( not ( = ?auto_83108 ?auto_83109 ) ) ( not ( = ?auto_83111 ?auto_83109 ) ) ( not ( = ?auto_83112 ?auto_83109 ) ) ( ON ?auto_83109 ?auto_83110 ) ( not ( = ?auto_83106 ?auto_83110 ) ) ( not ( = ?auto_83107 ?auto_83110 ) ) ( not ( = ?auto_83108 ?auto_83110 ) ) ( not ( = ?auto_83111 ?auto_83110 ) ) ( not ( = ?auto_83112 ?auto_83110 ) ) ( not ( = ?auto_83113 ?auto_83110 ) ) ( not ( = ?auto_83109 ?auto_83110 ) ) ( CLEAR ?auto_83112 ) ( ON ?auto_83113 ?auto_83109 ) ( CLEAR ?auto_83113 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83110 ) )
+    ( and ( ON ?auto_83111 ?auto_83108 ) ( ON-TABLE ?auto_83106 ) ( ON ?auto_83107 ?auto_83106 ) ( ON ?auto_83108 ?auto_83107 ) ( not ( = ?auto_83106 ?auto_83107 ) ) ( not ( = ?auto_83106 ?auto_83108 ) ) ( not ( = ?auto_83106 ?auto_83111 ) ) ( not ( = ?auto_83107 ?auto_83108 ) ) ( not ( = ?auto_83107 ?auto_83111 ) ) ( not ( = ?auto_83108 ?auto_83111 ) ) ( not ( = ?auto_83106 ?auto_83109 ) ) ( not ( = ?auto_83106 ?auto_83112 ) ) ( not ( = ?auto_83107 ?auto_83109 ) ) ( not ( = ?auto_83107 ?auto_83112 ) ) ( not ( = ?auto_83108 ?auto_83109 ) ) ( not ( = ?auto_83108 ?auto_83112 ) ) ( not ( = ?auto_83111 ?auto_83109 ) ) ( not ( = ?auto_83111 ?auto_83112 ) ) ( not ( = ?auto_83109 ?auto_83112 ) ) ( ON ?auto_83109 ?auto_83111 ) ( not ( = ?auto_83110 ?auto_83112 ) ) ( not ( = ?auto_83106 ?auto_83110 ) ) ( not ( = ?auto_83107 ?auto_83110 ) ) ( not ( = ?auto_83108 ?auto_83110 ) ) ( not ( = ?auto_83111 ?auto_83110 ) ) ( not ( = ?auto_83109 ?auto_83110 ) ) ( ON ?auto_83110 ?auto_83113 ) ( not ( = ?auto_83106 ?auto_83113 ) ) ( not ( = ?auto_83107 ?auto_83113 ) ) ( not ( = ?auto_83108 ?auto_83113 ) ) ( not ( = ?auto_83111 ?auto_83113 ) ) ( not ( = ?auto_83109 ?auto_83113 ) ) ( not ( = ?auto_83112 ?auto_83113 ) ) ( not ( = ?auto_83110 ?auto_83113 ) ) ( CLEAR ?auto_83109 ) ( ON ?auto_83112 ?auto_83110 ) ( CLEAR ?auto_83112 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83113 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83110 ?auto_83109 )
+    ( ( MAKE-2PILE ?auto_83113 ?auto_83110 )
       ( MAKE-3PILE ?auto_83106 ?auto_83107 ?auto_83108 ) )
   )
 
@@ -4591,16 +4591,16 @@
     )
     :vars
     (
-      ?auto_83119 - BLOCK
-      ?auto_83117 - BLOCK
       ?auto_83121 - BLOCK
       ?auto_83120 - BLOCK
+      ?auto_83117 - BLOCK
       ?auto_83118 - BLOCK
+      ?auto_83119 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83119 ?auto_83116 ) ( ON-TABLE ?auto_83114 ) ( ON ?auto_83115 ?auto_83114 ) ( ON ?auto_83116 ?auto_83115 ) ( not ( = ?auto_83114 ?auto_83115 ) ) ( not ( = ?auto_83114 ?auto_83116 ) ) ( not ( = ?auto_83114 ?auto_83119 ) ) ( not ( = ?auto_83115 ?auto_83116 ) ) ( not ( = ?auto_83115 ?auto_83119 ) ) ( not ( = ?auto_83116 ?auto_83119 ) ) ( not ( = ?auto_83114 ?auto_83117 ) ) ( not ( = ?auto_83114 ?auto_83121 ) ) ( not ( = ?auto_83115 ?auto_83117 ) ) ( not ( = ?auto_83115 ?auto_83121 ) ) ( not ( = ?auto_83116 ?auto_83117 ) ) ( not ( = ?auto_83116 ?auto_83121 ) ) ( not ( = ?auto_83119 ?auto_83117 ) ) ( not ( = ?auto_83119 ?auto_83121 ) ) ( not ( = ?auto_83117 ?auto_83121 ) ) ( not ( = ?auto_83120 ?auto_83121 ) ) ( not ( = ?auto_83114 ?auto_83120 ) ) ( not ( = ?auto_83115 ?auto_83120 ) ) ( not ( = ?auto_83116 ?auto_83120 ) ) ( not ( = ?auto_83119 ?auto_83120 ) ) ( not ( = ?auto_83117 ?auto_83120 ) ) ( ON ?auto_83120 ?auto_83118 ) ( not ( = ?auto_83114 ?auto_83118 ) ) ( not ( = ?auto_83115 ?auto_83118 ) ) ( not ( = ?auto_83116 ?auto_83118 ) ) ( not ( = ?auto_83119 ?auto_83118 ) ) ( not ( = ?auto_83117 ?auto_83118 ) ) ( not ( = ?auto_83121 ?auto_83118 ) ) ( not ( = ?auto_83120 ?auto_83118 ) ) ( ON ?auto_83121 ?auto_83120 ) ( CLEAR ?auto_83121 ) ( ON-TABLE ?auto_83118 ) ( HOLDING ?auto_83117 ) ( CLEAR ?auto_83119 ) )
+    ( and ( ON ?auto_83121 ?auto_83116 ) ( ON-TABLE ?auto_83114 ) ( ON ?auto_83115 ?auto_83114 ) ( ON ?auto_83116 ?auto_83115 ) ( not ( = ?auto_83114 ?auto_83115 ) ) ( not ( = ?auto_83114 ?auto_83116 ) ) ( not ( = ?auto_83114 ?auto_83121 ) ) ( not ( = ?auto_83115 ?auto_83116 ) ) ( not ( = ?auto_83115 ?auto_83121 ) ) ( not ( = ?auto_83116 ?auto_83121 ) ) ( not ( = ?auto_83114 ?auto_83120 ) ) ( not ( = ?auto_83114 ?auto_83117 ) ) ( not ( = ?auto_83115 ?auto_83120 ) ) ( not ( = ?auto_83115 ?auto_83117 ) ) ( not ( = ?auto_83116 ?auto_83120 ) ) ( not ( = ?auto_83116 ?auto_83117 ) ) ( not ( = ?auto_83121 ?auto_83120 ) ) ( not ( = ?auto_83121 ?auto_83117 ) ) ( not ( = ?auto_83120 ?auto_83117 ) ) ( not ( = ?auto_83118 ?auto_83117 ) ) ( not ( = ?auto_83114 ?auto_83118 ) ) ( not ( = ?auto_83115 ?auto_83118 ) ) ( not ( = ?auto_83116 ?auto_83118 ) ) ( not ( = ?auto_83121 ?auto_83118 ) ) ( not ( = ?auto_83120 ?auto_83118 ) ) ( ON ?auto_83118 ?auto_83119 ) ( not ( = ?auto_83114 ?auto_83119 ) ) ( not ( = ?auto_83115 ?auto_83119 ) ) ( not ( = ?auto_83116 ?auto_83119 ) ) ( not ( = ?auto_83121 ?auto_83119 ) ) ( not ( = ?auto_83120 ?auto_83119 ) ) ( not ( = ?auto_83117 ?auto_83119 ) ) ( not ( = ?auto_83118 ?auto_83119 ) ) ( ON ?auto_83117 ?auto_83118 ) ( CLEAR ?auto_83117 ) ( ON-TABLE ?auto_83119 ) ( HOLDING ?auto_83120 ) ( CLEAR ?auto_83121 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83114 ?auto_83115 ?auto_83116 ?auto_83119 ?auto_83117 )
+    ( ( MAKE-5PILE ?auto_83114 ?auto_83115 ?auto_83116 ?auto_83121 ?auto_83120 )
       ( MAKE-3PILE ?auto_83114 ?auto_83115 ?auto_83116 ) )
   )
 
@@ -4613,16 +4613,16 @@
     )
     :vars
     (
-      ?auto_83126 - BLOCK
       ?auto_83127 - BLOCK
-      ?auto_83128 - BLOCK
-      ?auto_83125 - BLOCK
+      ?auto_83126 - BLOCK
       ?auto_83129 - BLOCK
+      ?auto_83125 - BLOCK
+      ?auto_83128 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83126 ?auto_83124 ) ( ON-TABLE ?auto_83122 ) ( ON ?auto_83123 ?auto_83122 ) ( ON ?auto_83124 ?auto_83123 ) ( not ( = ?auto_83122 ?auto_83123 ) ) ( not ( = ?auto_83122 ?auto_83124 ) ) ( not ( = ?auto_83122 ?auto_83126 ) ) ( not ( = ?auto_83123 ?auto_83124 ) ) ( not ( = ?auto_83123 ?auto_83126 ) ) ( not ( = ?auto_83124 ?auto_83126 ) ) ( not ( = ?auto_83122 ?auto_83127 ) ) ( not ( = ?auto_83122 ?auto_83128 ) ) ( not ( = ?auto_83123 ?auto_83127 ) ) ( not ( = ?auto_83123 ?auto_83128 ) ) ( not ( = ?auto_83124 ?auto_83127 ) ) ( not ( = ?auto_83124 ?auto_83128 ) ) ( not ( = ?auto_83126 ?auto_83127 ) ) ( not ( = ?auto_83126 ?auto_83128 ) ) ( not ( = ?auto_83127 ?auto_83128 ) ) ( not ( = ?auto_83125 ?auto_83128 ) ) ( not ( = ?auto_83122 ?auto_83125 ) ) ( not ( = ?auto_83123 ?auto_83125 ) ) ( not ( = ?auto_83124 ?auto_83125 ) ) ( not ( = ?auto_83126 ?auto_83125 ) ) ( not ( = ?auto_83127 ?auto_83125 ) ) ( ON ?auto_83125 ?auto_83129 ) ( not ( = ?auto_83122 ?auto_83129 ) ) ( not ( = ?auto_83123 ?auto_83129 ) ) ( not ( = ?auto_83124 ?auto_83129 ) ) ( not ( = ?auto_83126 ?auto_83129 ) ) ( not ( = ?auto_83127 ?auto_83129 ) ) ( not ( = ?auto_83128 ?auto_83129 ) ) ( not ( = ?auto_83125 ?auto_83129 ) ) ( ON ?auto_83128 ?auto_83125 ) ( ON-TABLE ?auto_83129 ) ( CLEAR ?auto_83126 ) ( ON ?auto_83127 ?auto_83128 ) ( CLEAR ?auto_83127 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83127 ?auto_83124 ) ( ON-TABLE ?auto_83122 ) ( ON ?auto_83123 ?auto_83122 ) ( ON ?auto_83124 ?auto_83123 ) ( not ( = ?auto_83122 ?auto_83123 ) ) ( not ( = ?auto_83122 ?auto_83124 ) ) ( not ( = ?auto_83122 ?auto_83127 ) ) ( not ( = ?auto_83123 ?auto_83124 ) ) ( not ( = ?auto_83123 ?auto_83127 ) ) ( not ( = ?auto_83124 ?auto_83127 ) ) ( not ( = ?auto_83122 ?auto_83126 ) ) ( not ( = ?auto_83122 ?auto_83129 ) ) ( not ( = ?auto_83123 ?auto_83126 ) ) ( not ( = ?auto_83123 ?auto_83129 ) ) ( not ( = ?auto_83124 ?auto_83126 ) ) ( not ( = ?auto_83124 ?auto_83129 ) ) ( not ( = ?auto_83127 ?auto_83126 ) ) ( not ( = ?auto_83127 ?auto_83129 ) ) ( not ( = ?auto_83126 ?auto_83129 ) ) ( not ( = ?auto_83125 ?auto_83129 ) ) ( not ( = ?auto_83122 ?auto_83125 ) ) ( not ( = ?auto_83123 ?auto_83125 ) ) ( not ( = ?auto_83124 ?auto_83125 ) ) ( not ( = ?auto_83127 ?auto_83125 ) ) ( not ( = ?auto_83126 ?auto_83125 ) ) ( ON ?auto_83125 ?auto_83128 ) ( not ( = ?auto_83122 ?auto_83128 ) ) ( not ( = ?auto_83123 ?auto_83128 ) ) ( not ( = ?auto_83124 ?auto_83128 ) ) ( not ( = ?auto_83127 ?auto_83128 ) ) ( not ( = ?auto_83126 ?auto_83128 ) ) ( not ( = ?auto_83129 ?auto_83128 ) ) ( not ( = ?auto_83125 ?auto_83128 ) ) ( ON ?auto_83129 ?auto_83125 ) ( ON-TABLE ?auto_83128 ) ( CLEAR ?auto_83127 ) ( ON ?auto_83126 ?auto_83129 ) ( CLEAR ?auto_83126 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83129 ?auto_83125 ?auto_83128 )
+    ( ( MAKE-3PILE ?auto_83128 ?auto_83125 ?auto_83129 )
       ( MAKE-3PILE ?auto_83122 ?auto_83123 ?auto_83124 ) )
   )
 
@@ -4635,16 +4635,16 @@
     )
     :vars
     (
+      ?auto_83152 - BLOCK
       ?auto_83153 - BLOCK
-      ?auto_83151 - BLOCK
       ?auto_83150 - BLOCK
       ?auto_83149 - BLOCK
-      ?auto_83152 - BLOCK
+      ?auto_83151 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83146 ) ( ON ?auto_83147 ?auto_83146 ) ( not ( = ?auto_83146 ?auto_83147 ) ) ( not ( = ?auto_83146 ?auto_83148 ) ) ( not ( = ?auto_83146 ?auto_83153 ) ) ( not ( = ?auto_83147 ?auto_83148 ) ) ( not ( = ?auto_83147 ?auto_83153 ) ) ( not ( = ?auto_83148 ?auto_83153 ) ) ( not ( = ?auto_83146 ?auto_83151 ) ) ( not ( = ?auto_83146 ?auto_83150 ) ) ( not ( = ?auto_83147 ?auto_83151 ) ) ( not ( = ?auto_83147 ?auto_83150 ) ) ( not ( = ?auto_83148 ?auto_83151 ) ) ( not ( = ?auto_83148 ?auto_83150 ) ) ( not ( = ?auto_83153 ?auto_83151 ) ) ( not ( = ?auto_83153 ?auto_83150 ) ) ( not ( = ?auto_83151 ?auto_83150 ) ) ( not ( = ?auto_83149 ?auto_83150 ) ) ( not ( = ?auto_83146 ?auto_83149 ) ) ( not ( = ?auto_83147 ?auto_83149 ) ) ( not ( = ?auto_83148 ?auto_83149 ) ) ( not ( = ?auto_83153 ?auto_83149 ) ) ( not ( = ?auto_83151 ?auto_83149 ) ) ( ON ?auto_83149 ?auto_83152 ) ( not ( = ?auto_83146 ?auto_83152 ) ) ( not ( = ?auto_83147 ?auto_83152 ) ) ( not ( = ?auto_83148 ?auto_83152 ) ) ( not ( = ?auto_83153 ?auto_83152 ) ) ( not ( = ?auto_83151 ?auto_83152 ) ) ( not ( = ?auto_83150 ?auto_83152 ) ) ( not ( = ?auto_83149 ?auto_83152 ) ) ( ON ?auto_83150 ?auto_83149 ) ( ON-TABLE ?auto_83152 ) ( ON ?auto_83151 ?auto_83150 ) ( ON ?auto_83153 ?auto_83151 ) ( CLEAR ?auto_83153 ) ( HOLDING ?auto_83148 ) ( CLEAR ?auto_83147 ) )
+    ( and ( ON-TABLE ?auto_83146 ) ( ON ?auto_83147 ?auto_83146 ) ( not ( = ?auto_83146 ?auto_83147 ) ) ( not ( = ?auto_83146 ?auto_83148 ) ) ( not ( = ?auto_83146 ?auto_83152 ) ) ( not ( = ?auto_83147 ?auto_83148 ) ) ( not ( = ?auto_83147 ?auto_83152 ) ) ( not ( = ?auto_83148 ?auto_83152 ) ) ( not ( = ?auto_83146 ?auto_83153 ) ) ( not ( = ?auto_83146 ?auto_83150 ) ) ( not ( = ?auto_83147 ?auto_83153 ) ) ( not ( = ?auto_83147 ?auto_83150 ) ) ( not ( = ?auto_83148 ?auto_83153 ) ) ( not ( = ?auto_83148 ?auto_83150 ) ) ( not ( = ?auto_83152 ?auto_83153 ) ) ( not ( = ?auto_83152 ?auto_83150 ) ) ( not ( = ?auto_83153 ?auto_83150 ) ) ( not ( = ?auto_83149 ?auto_83150 ) ) ( not ( = ?auto_83146 ?auto_83149 ) ) ( not ( = ?auto_83147 ?auto_83149 ) ) ( not ( = ?auto_83148 ?auto_83149 ) ) ( not ( = ?auto_83152 ?auto_83149 ) ) ( not ( = ?auto_83153 ?auto_83149 ) ) ( ON ?auto_83149 ?auto_83151 ) ( not ( = ?auto_83146 ?auto_83151 ) ) ( not ( = ?auto_83147 ?auto_83151 ) ) ( not ( = ?auto_83148 ?auto_83151 ) ) ( not ( = ?auto_83152 ?auto_83151 ) ) ( not ( = ?auto_83153 ?auto_83151 ) ) ( not ( = ?auto_83150 ?auto_83151 ) ) ( not ( = ?auto_83149 ?auto_83151 ) ) ( ON ?auto_83150 ?auto_83149 ) ( ON-TABLE ?auto_83151 ) ( ON ?auto_83153 ?auto_83150 ) ( ON ?auto_83152 ?auto_83153 ) ( CLEAR ?auto_83152 ) ( HOLDING ?auto_83148 ) ( CLEAR ?auto_83147 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83146 ?auto_83147 ?auto_83148 ?auto_83153 )
+    ( ( MAKE-4PILE ?auto_83146 ?auto_83147 ?auto_83148 ?auto_83152 )
       ( MAKE-3PILE ?auto_83146 ?auto_83147 ?auto_83148 ) )
   )
 
@@ -4657,16 +4657,16 @@
     )
     :vars
     (
-      ?auto_83159 - BLOCK
-      ?auto_83158 - BLOCK
       ?auto_83161 - BLOCK
       ?auto_83157 - BLOCK
+      ?auto_83158 - BLOCK
+      ?auto_83159 - BLOCK
       ?auto_83160 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83154 ) ( ON ?auto_83155 ?auto_83154 ) ( not ( = ?auto_83154 ?auto_83155 ) ) ( not ( = ?auto_83154 ?auto_83156 ) ) ( not ( = ?auto_83154 ?auto_83159 ) ) ( not ( = ?auto_83155 ?auto_83156 ) ) ( not ( = ?auto_83155 ?auto_83159 ) ) ( not ( = ?auto_83156 ?auto_83159 ) ) ( not ( = ?auto_83154 ?auto_83158 ) ) ( not ( = ?auto_83154 ?auto_83161 ) ) ( not ( = ?auto_83155 ?auto_83158 ) ) ( not ( = ?auto_83155 ?auto_83161 ) ) ( not ( = ?auto_83156 ?auto_83158 ) ) ( not ( = ?auto_83156 ?auto_83161 ) ) ( not ( = ?auto_83159 ?auto_83158 ) ) ( not ( = ?auto_83159 ?auto_83161 ) ) ( not ( = ?auto_83158 ?auto_83161 ) ) ( not ( = ?auto_83157 ?auto_83161 ) ) ( not ( = ?auto_83154 ?auto_83157 ) ) ( not ( = ?auto_83155 ?auto_83157 ) ) ( not ( = ?auto_83156 ?auto_83157 ) ) ( not ( = ?auto_83159 ?auto_83157 ) ) ( not ( = ?auto_83158 ?auto_83157 ) ) ( ON ?auto_83157 ?auto_83160 ) ( not ( = ?auto_83154 ?auto_83160 ) ) ( not ( = ?auto_83155 ?auto_83160 ) ) ( not ( = ?auto_83156 ?auto_83160 ) ) ( not ( = ?auto_83159 ?auto_83160 ) ) ( not ( = ?auto_83158 ?auto_83160 ) ) ( not ( = ?auto_83161 ?auto_83160 ) ) ( not ( = ?auto_83157 ?auto_83160 ) ) ( ON ?auto_83161 ?auto_83157 ) ( ON-TABLE ?auto_83160 ) ( ON ?auto_83158 ?auto_83161 ) ( ON ?auto_83159 ?auto_83158 ) ( CLEAR ?auto_83155 ) ( ON ?auto_83156 ?auto_83159 ) ( CLEAR ?auto_83156 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_83154 ) ( ON ?auto_83155 ?auto_83154 ) ( not ( = ?auto_83154 ?auto_83155 ) ) ( not ( = ?auto_83154 ?auto_83156 ) ) ( not ( = ?auto_83154 ?auto_83161 ) ) ( not ( = ?auto_83155 ?auto_83156 ) ) ( not ( = ?auto_83155 ?auto_83161 ) ) ( not ( = ?auto_83156 ?auto_83161 ) ) ( not ( = ?auto_83154 ?auto_83157 ) ) ( not ( = ?auto_83154 ?auto_83158 ) ) ( not ( = ?auto_83155 ?auto_83157 ) ) ( not ( = ?auto_83155 ?auto_83158 ) ) ( not ( = ?auto_83156 ?auto_83157 ) ) ( not ( = ?auto_83156 ?auto_83158 ) ) ( not ( = ?auto_83161 ?auto_83157 ) ) ( not ( = ?auto_83161 ?auto_83158 ) ) ( not ( = ?auto_83157 ?auto_83158 ) ) ( not ( = ?auto_83159 ?auto_83158 ) ) ( not ( = ?auto_83154 ?auto_83159 ) ) ( not ( = ?auto_83155 ?auto_83159 ) ) ( not ( = ?auto_83156 ?auto_83159 ) ) ( not ( = ?auto_83161 ?auto_83159 ) ) ( not ( = ?auto_83157 ?auto_83159 ) ) ( ON ?auto_83159 ?auto_83160 ) ( not ( = ?auto_83154 ?auto_83160 ) ) ( not ( = ?auto_83155 ?auto_83160 ) ) ( not ( = ?auto_83156 ?auto_83160 ) ) ( not ( = ?auto_83161 ?auto_83160 ) ) ( not ( = ?auto_83157 ?auto_83160 ) ) ( not ( = ?auto_83158 ?auto_83160 ) ) ( not ( = ?auto_83159 ?auto_83160 ) ) ( ON ?auto_83158 ?auto_83159 ) ( ON-TABLE ?auto_83160 ) ( ON ?auto_83157 ?auto_83158 ) ( ON ?auto_83161 ?auto_83157 ) ( CLEAR ?auto_83155 ) ( ON ?auto_83156 ?auto_83161 ) ( CLEAR ?auto_83156 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83160 ?auto_83157 ?auto_83161 ?auto_83158 ?auto_83159 )
+    ( ( MAKE-5PILE ?auto_83160 ?auto_83159 ?auto_83158 ?auto_83157 ?auto_83161 )
       ( MAKE-3PILE ?auto_83154 ?auto_83155 ?auto_83156 ) )
   )
 
@@ -4679,14 +4679,14 @@
     )
     :vars
     (
-      ?auto_83166 - BLOCK
-      ?auto_83168 - BLOCK
-      ?auto_83165 - BLOCK
       ?auto_83169 - BLOCK
       ?auto_83167 - BLOCK
+      ?auto_83165 - BLOCK
+      ?auto_83168 - BLOCK
+      ?auto_83166 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83162 ) ( not ( = ?auto_83162 ?auto_83163 ) ) ( not ( = ?auto_83162 ?auto_83164 ) ) ( not ( = ?auto_83162 ?auto_83166 ) ) ( not ( = ?auto_83163 ?auto_83164 ) ) ( not ( = ?auto_83163 ?auto_83166 ) ) ( not ( = ?auto_83164 ?auto_83166 ) ) ( not ( = ?auto_83162 ?auto_83168 ) ) ( not ( = ?auto_83162 ?auto_83165 ) ) ( not ( = ?auto_83163 ?auto_83168 ) ) ( not ( = ?auto_83163 ?auto_83165 ) ) ( not ( = ?auto_83164 ?auto_83168 ) ) ( not ( = ?auto_83164 ?auto_83165 ) ) ( not ( = ?auto_83166 ?auto_83168 ) ) ( not ( = ?auto_83166 ?auto_83165 ) ) ( not ( = ?auto_83168 ?auto_83165 ) ) ( not ( = ?auto_83169 ?auto_83165 ) ) ( not ( = ?auto_83162 ?auto_83169 ) ) ( not ( = ?auto_83163 ?auto_83169 ) ) ( not ( = ?auto_83164 ?auto_83169 ) ) ( not ( = ?auto_83166 ?auto_83169 ) ) ( not ( = ?auto_83168 ?auto_83169 ) ) ( ON ?auto_83169 ?auto_83167 ) ( not ( = ?auto_83162 ?auto_83167 ) ) ( not ( = ?auto_83163 ?auto_83167 ) ) ( not ( = ?auto_83164 ?auto_83167 ) ) ( not ( = ?auto_83166 ?auto_83167 ) ) ( not ( = ?auto_83168 ?auto_83167 ) ) ( not ( = ?auto_83165 ?auto_83167 ) ) ( not ( = ?auto_83169 ?auto_83167 ) ) ( ON ?auto_83165 ?auto_83169 ) ( ON-TABLE ?auto_83167 ) ( ON ?auto_83168 ?auto_83165 ) ( ON ?auto_83166 ?auto_83168 ) ( ON ?auto_83164 ?auto_83166 ) ( CLEAR ?auto_83164 ) ( HOLDING ?auto_83163 ) ( CLEAR ?auto_83162 ) )
+    ( and ( ON-TABLE ?auto_83162 ) ( not ( = ?auto_83162 ?auto_83163 ) ) ( not ( = ?auto_83162 ?auto_83164 ) ) ( not ( = ?auto_83162 ?auto_83169 ) ) ( not ( = ?auto_83163 ?auto_83164 ) ) ( not ( = ?auto_83163 ?auto_83169 ) ) ( not ( = ?auto_83164 ?auto_83169 ) ) ( not ( = ?auto_83162 ?auto_83167 ) ) ( not ( = ?auto_83162 ?auto_83165 ) ) ( not ( = ?auto_83163 ?auto_83167 ) ) ( not ( = ?auto_83163 ?auto_83165 ) ) ( not ( = ?auto_83164 ?auto_83167 ) ) ( not ( = ?auto_83164 ?auto_83165 ) ) ( not ( = ?auto_83169 ?auto_83167 ) ) ( not ( = ?auto_83169 ?auto_83165 ) ) ( not ( = ?auto_83167 ?auto_83165 ) ) ( not ( = ?auto_83168 ?auto_83165 ) ) ( not ( = ?auto_83162 ?auto_83168 ) ) ( not ( = ?auto_83163 ?auto_83168 ) ) ( not ( = ?auto_83164 ?auto_83168 ) ) ( not ( = ?auto_83169 ?auto_83168 ) ) ( not ( = ?auto_83167 ?auto_83168 ) ) ( ON ?auto_83168 ?auto_83166 ) ( not ( = ?auto_83162 ?auto_83166 ) ) ( not ( = ?auto_83163 ?auto_83166 ) ) ( not ( = ?auto_83164 ?auto_83166 ) ) ( not ( = ?auto_83169 ?auto_83166 ) ) ( not ( = ?auto_83167 ?auto_83166 ) ) ( not ( = ?auto_83165 ?auto_83166 ) ) ( not ( = ?auto_83168 ?auto_83166 ) ) ( ON ?auto_83165 ?auto_83168 ) ( ON-TABLE ?auto_83166 ) ( ON ?auto_83167 ?auto_83165 ) ( ON ?auto_83169 ?auto_83167 ) ( ON ?auto_83164 ?auto_83169 ) ( CLEAR ?auto_83164 ) ( HOLDING ?auto_83163 ) ( CLEAR ?auto_83162 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_83162 ?auto_83163 )
       ( MAKE-3PILE ?auto_83162 ?auto_83163 ?auto_83164 ) )
@@ -4702,15 +4702,15 @@
     :vars
     (
       ?auto_83175 - BLOCK
-      ?auto_83174 - BLOCK
       ?auto_83173 - BLOCK
-      ?auto_83177 - BLOCK
+      ?auto_83174 - BLOCK
       ?auto_83176 - BLOCK
+      ?auto_83177 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83170 ) ( not ( = ?auto_83170 ?auto_83171 ) ) ( not ( = ?auto_83170 ?auto_83172 ) ) ( not ( = ?auto_83170 ?auto_83175 ) ) ( not ( = ?auto_83171 ?auto_83172 ) ) ( not ( = ?auto_83171 ?auto_83175 ) ) ( not ( = ?auto_83172 ?auto_83175 ) ) ( not ( = ?auto_83170 ?auto_83174 ) ) ( not ( = ?auto_83170 ?auto_83173 ) ) ( not ( = ?auto_83171 ?auto_83174 ) ) ( not ( = ?auto_83171 ?auto_83173 ) ) ( not ( = ?auto_83172 ?auto_83174 ) ) ( not ( = ?auto_83172 ?auto_83173 ) ) ( not ( = ?auto_83175 ?auto_83174 ) ) ( not ( = ?auto_83175 ?auto_83173 ) ) ( not ( = ?auto_83174 ?auto_83173 ) ) ( not ( = ?auto_83177 ?auto_83173 ) ) ( not ( = ?auto_83170 ?auto_83177 ) ) ( not ( = ?auto_83171 ?auto_83177 ) ) ( not ( = ?auto_83172 ?auto_83177 ) ) ( not ( = ?auto_83175 ?auto_83177 ) ) ( not ( = ?auto_83174 ?auto_83177 ) ) ( ON ?auto_83177 ?auto_83176 ) ( not ( = ?auto_83170 ?auto_83176 ) ) ( not ( = ?auto_83171 ?auto_83176 ) ) ( not ( = ?auto_83172 ?auto_83176 ) ) ( not ( = ?auto_83175 ?auto_83176 ) ) ( not ( = ?auto_83174 ?auto_83176 ) ) ( not ( = ?auto_83173 ?auto_83176 ) ) ( not ( = ?auto_83177 ?auto_83176 ) ) ( ON ?auto_83173 ?auto_83177 ) ( ON-TABLE ?auto_83176 ) ( ON ?auto_83174 ?auto_83173 ) ( ON ?auto_83175 ?auto_83174 ) ( ON ?auto_83172 ?auto_83175 ) ( CLEAR ?auto_83170 ) ( ON ?auto_83171 ?auto_83172 ) ( CLEAR ?auto_83171 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_83170 ) ( not ( = ?auto_83170 ?auto_83171 ) ) ( not ( = ?auto_83170 ?auto_83172 ) ) ( not ( = ?auto_83170 ?auto_83175 ) ) ( not ( = ?auto_83171 ?auto_83172 ) ) ( not ( = ?auto_83171 ?auto_83175 ) ) ( not ( = ?auto_83172 ?auto_83175 ) ) ( not ( = ?auto_83170 ?auto_83173 ) ) ( not ( = ?auto_83170 ?auto_83174 ) ) ( not ( = ?auto_83171 ?auto_83173 ) ) ( not ( = ?auto_83171 ?auto_83174 ) ) ( not ( = ?auto_83172 ?auto_83173 ) ) ( not ( = ?auto_83172 ?auto_83174 ) ) ( not ( = ?auto_83175 ?auto_83173 ) ) ( not ( = ?auto_83175 ?auto_83174 ) ) ( not ( = ?auto_83173 ?auto_83174 ) ) ( not ( = ?auto_83176 ?auto_83174 ) ) ( not ( = ?auto_83170 ?auto_83176 ) ) ( not ( = ?auto_83171 ?auto_83176 ) ) ( not ( = ?auto_83172 ?auto_83176 ) ) ( not ( = ?auto_83175 ?auto_83176 ) ) ( not ( = ?auto_83173 ?auto_83176 ) ) ( ON ?auto_83176 ?auto_83177 ) ( not ( = ?auto_83170 ?auto_83177 ) ) ( not ( = ?auto_83171 ?auto_83177 ) ) ( not ( = ?auto_83172 ?auto_83177 ) ) ( not ( = ?auto_83175 ?auto_83177 ) ) ( not ( = ?auto_83173 ?auto_83177 ) ) ( not ( = ?auto_83174 ?auto_83177 ) ) ( not ( = ?auto_83176 ?auto_83177 ) ) ( ON ?auto_83174 ?auto_83176 ) ( ON-TABLE ?auto_83177 ) ( ON ?auto_83173 ?auto_83174 ) ( ON ?auto_83175 ?auto_83173 ) ( ON ?auto_83172 ?auto_83175 ) ( CLEAR ?auto_83170 ) ( ON ?auto_83171 ?auto_83172 ) ( CLEAR ?auto_83171 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83176 ?auto_83177 ?auto_83173 ?auto_83174 ?auto_83175 ?auto_83172 )
+    ( ( MAKE-6PILE ?auto_83177 ?auto_83176 ?auto_83174 ?auto_83173 ?auto_83175 ?auto_83172 )
       ( MAKE-3PILE ?auto_83170 ?auto_83171 ?auto_83172 ) )
   )
 
@@ -4723,14 +4723,14 @@
     )
     :vars
     (
-      ?auto_83184 - BLOCK
-      ?auto_83183 - BLOCK
       ?auto_83185 - BLOCK
-      ?auto_83181 - BLOCK
       ?auto_83182 - BLOCK
+      ?auto_83183 - BLOCK
+      ?auto_83184 - BLOCK
+      ?auto_83181 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83178 ?auto_83179 ) ) ( not ( = ?auto_83178 ?auto_83180 ) ) ( not ( = ?auto_83178 ?auto_83184 ) ) ( not ( = ?auto_83179 ?auto_83180 ) ) ( not ( = ?auto_83179 ?auto_83184 ) ) ( not ( = ?auto_83180 ?auto_83184 ) ) ( not ( = ?auto_83178 ?auto_83183 ) ) ( not ( = ?auto_83178 ?auto_83185 ) ) ( not ( = ?auto_83179 ?auto_83183 ) ) ( not ( = ?auto_83179 ?auto_83185 ) ) ( not ( = ?auto_83180 ?auto_83183 ) ) ( not ( = ?auto_83180 ?auto_83185 ) ) ( not ( = ?auto_83184 ?auto_83183 ) ) ( not ( = ?auto_83184 ?auto_83185 ) ) ( not ( = ?auto_83183 ?auto_83185 ) ) ( not ( = ?auto_83181 ?auto_83185 ) ) ( not ( = ?auto_83178 ?auto_83181 ) ) ( not ( = ?auto_83179 ?auto_83181 ) ) ( not ( = ?auto_83180 ?auto_83181 ) ) ( not ( = ?auto_83184 ?auto_83181 ) ) ( not ( = ?auto_83183 ?auto_83181 ) ) ( ON ?auto_83181 ?auto_83182 ) ( not ( = ?auto_83178 ?auto_83182 ) ) ( not ( = ?auto_83179 ?auto_83182 ) ) ( not ( = ?auto_83180 ?auto_83182 ) ) ( not ( = ?auto_83184 ?auto_83182 ) ) ( not ( = ?auto_83183 ?auto_83182 ) ) ( not ( = ?auto_83185 ?auto_83182 ) ) ( not ( = ?auto_83181 ?auto_83182 ) ) ( ON ?auto_83185 ?auto_83181 ) ( ON-TABLE ?auto_83182 ) ( ON ?auto_83183 ?auto_83185 ) ( ON ?auto_83184 ?auto_83183 ) ( ON ?auto_83180 ?auto_83184 ) ( ON ?auto_83179 ?auto_83180 ) ( CLEAR ?auto_83179 ) ( HOLDING ?auto_83178 ) )
+    ( and ( not ( = ?auto_83178 ?auto_83179 ) ) ( not ( = ?auto_83178 ?auto_83180 ) ) ( not ( = ?auto_83178 ?auto_83185 ) ) ( not ( = ?auto_83179 ?auto_83180 ) ) ( not ( = ?auto_83179 ?auto_83185 ) ) ( not ( = ?auto_83180 ?auto_83185 ) ) ( not ( = ?auto_83178 ?auto_83182 ) ) ( not ( = ?auto_83178 ?auto_83183 ) ) ( not ( = ?auto_83179 ?auto_83182 ) ) ( not ( = ?auto_83179 ?auto_83183 ) ) ( not ( = ?auto_83180 ?auto_83182 ) ) ( not ( = ?auto_83180 ?auto_83183 ) ) ( not ( = ?auto_83185 ?auto_83182 ) ) ( not ( = ?auto_83185 ?auto_83183 ) ) ( not ( = ?auto_83182 ?auto_83183 ) ) ( not ( = ?auto_83184 ?auto_83183 ) ) ( not ( = ?auto_83178 ?auto_83184 ) ) ( not ( = ?auto_83179 ?auto_83184 ) ) ( not ( = ?auto_83180 ?auto_83184 ) ) ( not ( = ?auto_83185 ?auto_83184 ) ) ( not ( = ?auto_83182 ?auto_83184 ) ) ( ON ?auto_83184 ?auto_83181 ) ( not ( = ?auto_83178 ?auto_83181 ) ) ( not ( = ?auto_83179 ?auto_83181 ) ) ( not ( = ?auto_83180 ?auto_83181 ) ) ( not ( = ?auto_83185 ?auto_83181 ) ) ( not ( = ?auto_83182 ?auto_83181 ) ) ( not ( = ?auto_83183 ?auto_83181 ) ) ( not ( = ?auto_83184 ?auto_83181 ) ) ( ON ?auto_83183 ?auto_83184 ) ( ON-TABLE ?auto_83181 ) ( ON ?auto_83182 ?auto_83183 ) ( ON ?auto_83185 ?auto_83182 ) ( ON ?auto_83180 ?auto_83185 ) ( ON ?auto_83179 ?auto_83180 ) ( CLEAR ?auto_83179 ) ( HOLDING ?auto_83178 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_83178 )
       ( MAKE-3PILE ?auto_83178 ?auto_83179 ?auto_83180 ) )
@@ -4745,16 +4745,16 @@
     )
     :vars
     (
+      ?auto_83192 - BLOCK
       ?auto_83191 - BLOCK
       ?auto_83190 - BLOCK
-      ?auto_83193 - BLOCK
-      ?auto_83192 - BLOCK
       ?auto_83189 - BLOCK
+      ?auto_83193 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83186 ?auto_83187 ) ) ( not ( = ?auto_83186 ?auto_83188 ) ) ( not ( = ?auto_83186 ?auto_83191 ) ) ( not ( = ?auto_83187 ?auto_83188 ) ) ( not ( = ?auto_83187 ?auto_83191 ) ) ( not ( = ?auto_83188 ?auto_83191 ) ) ( not ( = ?auto_83186 ?auto_83190 ) ) ( not ( = ?auto_83186 ?auto_83193 ) ) ( not ( = ?auto_83187 ?auto_83190 ) ) ( not ( = ?auto_83187 ?auto_83193 ) ) ( not ( = ?auto_83188 ?auto_83190 ) ) ( not ( = ?auto_83188 ?auto_83193 ) ) ( not ( = ?auto_83191 ?auto_83190 ) ) ( not ( = ?auto_83191 ?auto_83193 ) ) ( not ( = ?auto_83190 ?auto_83193 ) ) ( not ( = ?auto_83192 ?auto_83193 ) ) ( not ( = ?auto_83186 ?auto_83192 ) ) ( not ( = ?auto_83187 ?auto_83192 ) ) ( not ( = ?auto_83188 ?auto_83192 ) ) ( not ( = ?auto_83191 ?auto_83192 ) ) ( not ( = ?auto_83190 ?auto_83192 ) ) ( ON ?auto_83192 ?auto_83189 ) ( not ( = ?auto_83186 ?auto_83189 ) ) ( not ( = ?auto_83187 ?auto_83189 ) ) ( not ( = ?auto_83188 ?auto_83189 ) ) ( not ( = ?auto_83191 ?auto_83189 ) ) ( not ( = ?auto_83190 ?auto_83189 ) ) ( not ( = ?auto_83193 ?auto_83189 ) ) ( not ( = ?auto_83192 ?auto_83189 ) ) ( ON ?auto_83193 ?auto_83192 ) ( ON-TABLE ?auto_83189 ) ( ON ?auto_83190 ?auto_83193 ) ( ON ?auto_83191 ?auto_83190 ) ( ON ?auto_83188 ?auto_83191 ) ( ON ?auto_83187 ?auto_83188 ) ( ON ?auto_83186 ?auto_83187 ) ( CLEAR ?auto_83186 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83186 ?auto_83187 ) ) ( not ( = ?auto_83186 ?auto_83188 ) ) ( not ( = ?auto_83186 ?auto_83192 ) ) ( not ( = ?auto_83187 ?auto_83188 ) ) ( not ( = ?auto_83187 ?auto_83192 ) ) ( not ( = ?auto_83188 ?auto_83192 ) ) ( not ( = ?auto_83186 ?auto_83191 ) ) ( not ( = ?auto_83186 ?auto_83190 ) ) ( not ( = ?auto_83187 ?auto_83191 ) ) ( not ( = ?auto_83187 ?auto_83190 ) ) ( not ( = ?auto_83188 ?auto_83191 ) ) ( not ( = ?auto_83188 ?auto_83190 ) ) ( not ( = ?auto_83192 ?auto_83191 ) ) ( not ( = ?auto_83192 ?auto_83190 ) ) ( not ( = ?auto_83191 ?auto_83190 ) ) ( not ( = ?auto_83189 ?auto_83190 ) ) ( not ( = ?auto_83186 ?auto_83189 ) ) ( not ( = ?auto_83187 ?auto_83189 ) ) ( not ( = ?auto_83188 ?auto_83189 ) ) ( not ( = ?auto_83192 ?auto_83189 ) ) ( not ( = ?auto_83191 ?auto_83189 ) ) ( ON ?auto_83189 ?auto_83193 ) ( not ( = ?auto_83186 ?auto_83193 ) ) ( not ( = ?auto_83187 ?auto_83193 ) ) ( not ( = ?auto_83188 ?auto_83193 ) ) ( not ( = ?auto_83192 ?auto_83193 ) ) ( not ( = ?auto_83191 ?auto_83193 ) ) ( not ( = ?auto_83190 ?auto_83193 ) ) ( not ( = ?auto_83189 ?auto_83193 ) ) ( ON ?auto_83190 ?auto_83189 ) ( ON-TABLE ?auto_83193 ) ( ON ?auto_83191 ?auto_83190 ) ( ON ?auto_83192 ?auto_83191 ) ( ON ?auto_83188 ?auto_83192 ) ( ON ?auto_83187 ?auto_83188 ) ( ON ?auto_83186 ?auto_83187 ) ( CLEAR ?auto_83186 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83189 ?auto_83192 ?auto_83193 ?auto_83190 ?auto_83191 ?auto_83188 ?auto_83187 )
+    ( ( MAKE-7PILE ?auto_83193 ?auto_83189 ?auto_83190 ?auto_83191 ?auto_83192 ?auto_83188 ?auto_83187 )
       ( MAKE-3PILE ?auto_83186 ?auto_83187 ?auto_83188 ) )
   )
 
@@ -4863,13 +4863,13 @@
     :vars
     (
       ?auto_83232 - BLOCK
-      ?auto_83231 - BLOCK
       ?auto_83230 - BLOCK
+      ?auto_83231 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83226 ) ( not ( = ?auto_83226 ?auto_83227 ) ) ( not ( = ?auto_83226 ?auto_83228 ) ) ( not ( = ?auto_83226 ?auto_83229 ) ) ( not ( = ?auto_83227 ?auto_83228 ) ) ( not ( = ?auto_83227 ?auto_83229 ) ) ( not ( = ?auto_83228 ?auto_83229 ) ) ( ON ?auto_83229 ?auto_83232 ) ( not ( = ?auto_83226 ?auto_83232 ) ) ( not ( = ?auto_83227 ?auto_83232 ) ) ( not ( = ?auto_83228 ?auto_83232 ) ) ( not ( = ?auto_83229 ?auto_83232 ) ) ( ON ?auto_83228 ?auto_83229 ) ( ON-TABLE ?auto_83231 ) ( ON ?auto_83230 ?auto_83231 ) ( ON ?auto_83232 ?auto_83230 ) ( not ( = ?auto_83231 ?auto_83230 ) ) ( not ( = ?auto_83231 ?auto_83232 ) ) ( not ( = ?auto_83231 ?auto_83229 ) ) ( not ( = ?auto_83231 ?auto_83228 ) ) ( not ( = ?auto_83230 ?auto_83232 ) ) ( not ( = ?auto_83230 ?auto_83229 ) ) ( not ( = ?auto_83230 ?auto_83228 ) ) ( not ( = ?auto_83226 ?auto_83231 ) ) ( not ( = ?auto_83226 ?auto_83230 ) ) ( not ( = ?auto_83227 ?auto_83231 ) ) ( not ( = ?auto_83227 ?auto_83230 ) ) ( CLEAR ?auto_83226 ) ( ON ?auto_83227 ?auto_83228 ) ( CLEAR ?auto_83227 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_83226 ) ( not ( = ?auto_83226 ?auto_83227 ) ) ( not ( = ?auto_83226 ?auto_83228 ) ) ( not ( = ?auto_83226 ?auto_83229 ) ) ( not ( = ?auto_83227 ?auto_83228 ) ) ( not ( = ?auto_83227 ?auto_83229 ) ) ( not ( = ?auto_83228 ?auto_83229 ) ) ( ON ?auto_83229 ?auto_83232 ) ( not ( = ?auto_83226 ?auto_83232 ) ) ( not ( = ?auto_83227 ?auto_83232 ) ) ( not ( = ?auto_83228 ?auto_83232 ) ) ( not ( = ?auto_83229 ?auto_83232 ) ) ( ON ?auto_83228 ?auto_83229 ) ( ON-TABLE ?auto_83230 ) ( ON ?auto_83231 ?auto_83230 ) ( ON ?auto_83232 ?auto_83231 ) ( not ( = ?auto_83230 ?auto_83231 ) ) ( not ( = ?auto_83230 ?auto_83232 ) ) ( not ( = ?auto_83230 ?auto_83229 ) ) ( not ( = ?auto_83230 ?auto_83228 ) ) ( not ( = ?auto_83231 ?auto_83232 ) ) ( not ( = ?auto_83231 ?auto_83229 ) ) ( not ( = ?auto_83231 ?auto_83228 ) ) ( not ( = ?auto_83226 ?auto_83230 ) ) ( not ( = ?auto_83226 ?auto_83231 ) ) ( not ( = ?auto_83227 ?auto_83230 ) ) ( not ( = ?auto_83227 ?auto_83231 ) ) ( CLEAR ?auto_83226 ) ( ON ?auto_83227 ?auto_83228 ) ( CLEAR ?auto_83227 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83231 ?auto_83230 ?auto_83232 ?auto_83229 ?auto_83228 )
+    ( ( MAKE-5PILE ?auto_83230 ?auto_83231 ?auto_83232 ?auto_83229 ?auto_83228 )
       ( MAKE-4PILE ?auto_83226 ?auto_83227 ?auto_83228 ?auto_83229 ) )
   )
 
@@ -4883,12 +4883,12 @@
     )
     :vars
     (
-      ?auto_83237 - BLOCK
       ?auto_83239 - BLOCK
       ?auto_83238 - BLOCK
+      ?auto_83237 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83233 ?auto_83234 ) ) ( not ( = ?auto_83233 ?auto_83235 ) ) ( not ( = ?auto_83233 ?auto_83236 ) ) ( not ( = ?auto_83234 ?auto_83235 ) ) ( not ( = ?auto_83234 ?auto_83236 ) ) ( not ( = ?auto_83235 ?auto_83236 ) ) ( ON ?auto_83236 ?auto_83237 ) ( not ( = ?auto_83233 ?auto_83237 ) ) ( not ( = ?auto_83234 ?auto_83237 ) ) ( not ( = ?auto_83235 ?auto_83237 ) ) ( not ( = ?auto_83236 ?auto_83237 ) ) ( ON ?auto_83235 ?auto_83236 ) ( ON-TABLE ?auto_83239 ) ( ON ?auto_83238 ?auto_83239 ) ( ON ?auto_83237 ?auto_83238 ) ( not ( = ?auto_83239 ?auto_83238 ) ) ( not ( = ?auto_83239 ?auto_83237 ) ) ( not ( = ?auto_83239 ?auto_83236 ) ) ( not ( = ?auto_83239 ?auto_83235 ) ) ( not ( = ?auto_83238 ?auto_83237 ) ) ( not ( = ?auto_83238 ?auto_83236 ) ) ( not ( = ?auto_83238 ?auto_83235 ) ) ( not ( = ?auto_83233 ?auto_83239 ) ) ( not ( = ?auto_83233 ?auto_83238 ) ) ( not ( = ?auto_83234 ?auto_83239 ) ) ( not ( = ?auto_83234 ?auto_83238 ) ) ( ON ?auto_83234 ?auto_83235 ) ( CLEAR ?auto_83234 ) ( HOLDING ?auto_83233 ) )
+    ( and ( not ( = ?auto_83233 ?auto_83234 ) ) ( not ( = ?auto_83233 ?auto_83235 ) ) ( not ( = ?auto_83233 ?auto_83236 ) ) ( not ( = ?auto_83234 ?auto_83235 ) ) ( not ( = ?auto_83234 ?auto_83236 ) ) ( not ( = ?auto_83235 ?auto_83236 ) ) ( ON ?auto_83236 ?auto_83239 ) ( not ( = ?auto_83233 ?auto_83239 ) ) ( not ( = ?auto_83234 ?auto_83239 ) ) ( not ( = ?auto_83235 ?auto_83239 ) ) ( not ( = ?auto_83236 ?auto_83239 ) ) ( ON ?auto_83235 ?auto_83236 ) ( ON-TABLE ?auto_83238 ) ( ON ?auto_83237 ?auto_83238 ) ( ON ?auto_83239 ?auto_83237 ) ( not ( = ?auto_83238 ?auto_83237 ) ) ( not ( = ?auto_83238 ?auto_83239 ) ) ( not ( = ?auto_83238 ?auto_83236 ) ) ( not ( = ?auto_83238 ?auto_83235 ) ) ( not ( = ?auto_83237 ?auto_83239 ) ) ( not ( = ?auto_83237 ?auto_83236 ) ) ( not ( = ?auto_83237 ?auto_83235 ) ) ( not ( = ?auto_83233 ?auto_83238 ) ) ( not ( = ?auto_83233 ?auto_83237 ) ) ( not ( = ?auto_83234 ?auto_83238 ) ) ( not ( = ?auto_83234 ?auto_83237 ) ) ( ON ?auto_83234 ?auto_83235 ) ( CLEAR ?auto_83234 ) ( HOLDING ?auto_83233 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_83233 )
       ( MAKE-4PILE ?auto_83233 ?auto_83234 ?auto_83235 ?auto_83236 ) )
@@ -4904,14 +4904,14 @@
     )
     :vars
     (
-      ?auto_83244 - BLOCK
       ?auto_83246 - BLOCK
       ?auto_83245 - BLOCK
+      ?auto_83244 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83240 ?auto_83241 ) ) ( not ( = ?auto_83240 ?auto_83242 ) ) ( not ( = ?auto_83240 ?auto_83243 ) ) ( not ( = ?auto_83241 ?auto_83242 ) ) ( not ( = ?auto_83241 ?auto_83243 ) ) ( not ( = ?auto_83242 ?auto_83243 ) ) ( ON ?auto_83243 ?auto_83244 ) ( not ( = ?auto_83240 ?auto_83244 ) ) ( not ( = ?auto_83241 ?auto_83244 ) ) ( not ( = ?auto_83242 ?auto_83244 ) ) ( not ( = ?auto_83243 ?auto_83244 ) ) ( ON ?auto_83242 ?auto_83243 ) ( ON-TABLE ?auto_83246 ) ( ON ?auto_83245 ?auto_83246 ) ( ON ?auto_83244 ?auto_83245 ) ( not ( = ?auto_83246 ?auto_83245 ) ) ( not ( = ?auto_83246 ?auto_83244 ) ) ( not ( = ?auto_83246 ?auto_83243 ) ) ( not ( = ?auto_83246 ?auto_83242 ) ) ( not ( = ?auto_83245 ?auto_83244 ) ) ( not ( = ?auto_83245 ?auto_83243 ) ) ( not ( = ?auto_83245 ?auto_83242 ) ) ( not ( = ?auto_83240 ?auto_83246 ) ) ( not ( = ?auto_83240 ?auto_83245 ) ) ( not ( = ?auto_83241 ?auto_83246 ) ) ( not ( = ?auto_83241 ?auto_83245 ) ) ( ON ?auto_83241 ?auto_83242 ) ( ON ?auto_83240 ?auto_83241 ) ( CLEAR ?auto_83240 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83240 ?auto_83241 ) ) ( not ( = ?auto_83240 ?auto_83242 ) ) ( not ( = ?auto_83240 ?auto_83243 ) ) ( not ( = ?auto_83241 ?auto_83242 ) ) ( not ( = ?auto_83241 ?auto_83243 ) ) ( not ( = ?auto_83242 ?auto_83243 ) ) ( ON ?auto_83243 ?auto_83246 ) ( not ( = ?auto_83240 ?auto_83246 ) ) ( not ( = ?auto_83241 ?auto_83246 ) ) ( not ( = ?auto_83242 ?auto_83246 ) ) ( not ( = ?auto_83243 ?auto_83246 ) ) ( ON ?auto_83242 ?auto_83243 ) ( ON-TABLE ?auto_83245 ) ( ON ?auto_83244 ?auto_83245 ) ( ON ?auto_83246 ?auto_83244 ) ( not ( = ?auto_83245 ?auto_83244 ) ) ( not ( = ?auto_83245 ?auto_83246 ) ) ( not ( = ?auto_83245 ?auto_83243 ) ) ( not ( = ?auto_83245 ?auto_83242 ) ) ( not ( = ?auto_83244 ?auto_83246 ) ) ( not ( = ?auto_83244 ?auto_83243 ) ) ( not ( = ?auto_83244 ?auto_83242 ) ) ( not ( = ?auto_83240 ?auto_83245 ) ) ( not ( = ?auto_83240 ?auto_83244 ) ) ( not ( = ?auto_83241 ?auto_83245 ) ) ( not ( = ?auto_83241 ?auto_83244 ) ) ( ON ?auto_83241 ?auto_83242 ) ( ON ?auto_83240 ?auto_83241 ) ( CLEAR ?auto_83240 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83246 ?auto_83245 ?auto_83244 ?auto_83243 ?auto_83242 ?auto_83241 )
+    ( ( MAKE-6PILE ?auto_83245 ?auto_83244 ?auto_83246 ?auto_83243 ?auto_83242 ?auto_83241 )
       ( MAKE-4PILE ?auto_83240 ?auto_83241 ?auto_83242 ?auto_83243 ) )
   )
 
@@ -4946,13 +4946,13 @@
     )
     :vars
     (
-      ?auto_83258 - BLOCK
       ?auto_83259 - BLOCK
+      ?auto_83258 - BLOCK
       ?auto_83260 - BLOCK
       ?auto_83261 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83254 ?auto_83255 ) ) ( not ( = ?auto_83254 ?auto_83256 ) ) ( not ( = ?auto_83254 ?auto_83257 ) ) ( not ( = ?auto_83255 ?auto_83256 ) ) ( not ( = ?auto_83255 ?auto_83257 ) ) ( not ( = ?auto_83256 ?auto_83257 ) ) ( ON ?auto_83257 ?auto_83258 ) ( not ( = ?auto_83254 ?auto_83258 ) ) ( not ( = ?auto_83255 ?auto_83258 ) ) ( not ( = ?auto_83256 ?auto_83258 ) ) ( not ( = ?auto_83257 ?auto_83258 ) ) ( ON ?auto_83256 ?auto_83257 ) ( ON-TABLE ?auto_83259 ) ( ON ?auto_83260 ?auto_83259 ) ( ON ?auto_83258 ?auto_83260 ) ( not ( = ?auto_83259 ?auto_83260 ) ) ( not ( = ?auto_83259 ?auto_83258 ) ) ( not ( = ?auto_83259 ?auto_83257 ) ) ( not ( = ?auto_83259 ?auto_83256 ) ) ( not ( = ?auto_83260 ?auto_83258 ) ) ( not ( = ?auto_83260 ?auto_83257 ) ) ( not ( = ?auto_83260 ?auto_83256 ) ) ( not ( = ?auto_83254 ?auto_83259 ) ) ( not ( = ?auto_83254 ?auto_83260 ) ) ( not ( = ?auto_83255 ?auto_83259 ) ) ( not ( = ?auto_83255 ?auto_83260 ) ) ( ON ?auto_83255 ?auto_83256 ) ( CLEAR ?auto_83255 ) ( ON ?auto_83254 ?auto_83261 ) ( CLEAR ?auto_83254 ) ( HAND-EMPTY ) ( not ( = ?auto_83254 ?auto_83261 ) ) ( not ( = ?auto_83255 ?auto_83261 ) ) ( not ( = ?auto_83256 ?auto_83261 ) ) ( not ( = ?auto_83257 ?auto_83261 ) ) ( not ( = ?auto_83258 ?auto_83261 ) ) ( not ( = ?auto_83259 ?auto_83261 ) ) ( not ( = ?auto_83260 ?auto_83261 ) ) )
+    ( and ( not ( = ?auto_83254 ?auto_83255 ) ) ( not ( = ?auto_83254 ?auto_83256 ) ) ( not ( = ?auto_83254 ?auto_83257 ) ) ( not ( = ?auto_83255 ?auto_83256 ) ) ( not ( = ?auto_83255 ?auto_83257 ) ) ( not ( = ?auto_83256 ?auto_83257 ) ) ( ON ?auto_83257 ?auto_83259 ) ( not ( = ?auto_83254 ?auto_83259 ) ) ( not ( = ?auto_83255 ?auto_83259 ) ) ( not ( = ?auto_83256 ?auto_83259 ) ) ( not ( = ?auto_83257 ?auto_83259 ) ) ( ON ?auto_83256 ?auto_83257 ) ( ON-TABLE ?auto_83258 ) ( ON ?auto_83260 ?auto_83258 ) ( ON ?auto_83259 ?auto_83260 ) ( not ( = ?auto_83258 ?auto_83260 ) ) ( not ( = ?auto_83258 ?auto_83259 ) ) ( not ( = ?auto_83258 ?auto_83257 ) ) ( not ( = ?auto_83258 ?auto_83256 ) ) ( not ( = ?auto_83260 ?auto_83259 ) ) ( not ( = ?auto_83260 ?auto_83257 ) ) ( not ( = ?auto_83260 ?auto_83256 ) ) ( not ( = ?auto_83254 ?auto_83258 ) ) ( not ( = ?auto_83254 ?auto_83260 ) ) ( not ( = ?auto_83255 ?auto_83258 ) ) ( not ( = ?auto_83255 ?auto_83260 ) ) ( ON ?auto_83255 ?auto_83256 ) ( CLEAR ?auto_83255 ) ( ON ?auto_83254 ?auto_83261 ) ( CLEAR ?auto_83254 ) ( HAND-EMPTY ) ( not ( = ?auto_83254 ?auto_83261 ) ) ( not ( = ?auto_83255 ?auto_83261 ) ) ( not ( = ?auto_83256 ?auto_83261 ) ) ( not ( = ?auto_83257 ?auto_83261 ) ) ( not ( = ?auto_83259 ?auto_83261 ) ) ( not ( = ?auto_83258 ?auto_83261 ) ) ( not ( = ?auto_83260 ?auto_83261 ) ) )
     :subtasks
     ( ( !UNSTACK ?auto_83254 ?auto_83261 )
       ( MAKE-4PILE ?auto_83254 ?auto_83255 ?auto_83256 ?auto_83257 ) )
@@ -4968,15 +4968,15 @@
     )
     :vars
     (
-      ?auto_83266 - BLOCK
       ?auto_83268 - BLOCK
       ?auto_83267 - BLOCK
       ?auto_83269 - BLOCK
+      ?auto_83266 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83262 ?auto_83263 ) ) ( not ( = ?auto_83262 ?auto_83264 ) ) ( not ( = ?auto_83262 ?auto_83265 ) ) ( not ( = ?auto_83263 ?auto_83264 ) ) ( not ( = ?auto_83263 ?auto_83265 ) ) ( not ( = ?auto_83264 ?auto_83265 ) ) ( ON ?auto_83265 ?auto_83266 ) ( not ( = ?auto_83262 ?auto_83266 ) ) ( not ( = ?auto_83263 ?auto_83266 ) ) ( not ( = ?auto_83264 ?auto_83266 ) ) ( not ( = ?auto_83265 ?auto_83266 ) ) ( ON ?auto_83264 ?auto_83265 ) ( ON-TABLE ?auto_83268 ) ( ON ?auto_83267 ?auto_83268 ) ( ON ?auto_83266 ?auto_83267 ) ( not ( = ?auto_83268 ?auto_83267 ) ) ( not ( = ?auto_83268 ?auto_83266 ) ) ( not ( = ?auto_83268 ?auto_83265 ) ) ( not ( = ?auto_83268 ?auto_83264 ) ) ( not ( = ?auto_83267 ?auto_83266 ) ) ( not ( = ?auto_83267 ?auto_83265 ) ) ( not ( = ?auto_83267 ?auto_83264 ) ) ( not ( = ?auto_83262 ?auto_83268 ) ) ( not ( = ?auto_83262 ?auto_83267 ) ) ( not ( = ?auto_83263 ?auto_83268 ) ) ( not ( = ?auto_83263 ?auto_83267 ) ) ( ON ?auto_83262 ?auto_83269 ) ( CLEAR ?auto_83262 ) ( not ( = ?auto_83262 ?auto_83269 ) ) ( not ( = ?auto_83263 ?auto_83269 ) ) ( not ( = ?auto_83264 ?auto_83269 ) ) ( not ( = ?auto_83265 ?auto_83269 ) ) ( not ( = ?auto_83266 ?auto_83269 ) ) ( not ( = ?auto_83268 ?auto_83269 ) ) ( not ( = ?auto_83267 ?auto_83269 ) ) ( HOLDING ?auto_83263 ) ( CLEAR ?auto_83264 ) )
+    ( and ( not ( = ?auto_83262 ?auto_83263 ) ) ( not ( = ?auto_83262 ?auto_83264 ) ) ( not ( = ?auto_83262 ?auto_83265 ) ) ( not ( = ?auto_83263 ?auto_83264 ) ) ( not ( = ?auto_83263 ?auto_83265 ) ) ( not ( = ?auto_83264 ?auto_83265 ) ) ( ON ?auto_83265 ?auto_83268 ) ( not ( = ?auto_83262 ?auto_83268 ) ) ( not ( = ?auto_83263 ?auto_83268 ) ) ( not ( = ?auto_83264 ?auto_83268 ) ) ( not ( = ?auto_83265 ?auto_83268 ) ) ( ON ?auto_83264 ?auto_83265 ) ( ON-TABLE ?auto_83267 ) ( ON ?auto_83269 ?auto_83267 ) ( ON ?auto_83268 ?auto_83269 ) ( not ( = ?auto_83267 ?auto_83269 ) ) ( not ( = ?auto_83267 ?auto_83268 ) ) ( not ( = ?auto_83267 ?auto_83265 ) ) ( not ( = ?auto_83267 ?auto_83264 ) ) ( not ( = ?auto_83269 ?auto_83268 ) ) ( not ( = ?auto_83269 ?auto_83265 ) ) ( not ( = ?auto_83269 ?auto_83264 ) ) ( not ( = ?auto_83262 ?auto_83267 ) ) ( not ( = ?auto_83262 ?auto_83269 ) ) ( not ( = ?auto_83263 ?auto_83267 ) ) ( not ( = ?auto_83263 ?auto_83269 ) ) ( ON ?auto_83262 ?auto_83266 ) ( CLEAR ?auto_83262 ) ( not ( = ?auto_83262 ?auto_83266 ) ) ( not ( = ?auto_83263 ?auto_83266 ) ) ( not ( = ?auto_83264 ?auto_83266 ) ) ( not ( = ?auto_83265 ?auto_83266 ) ) ( not ( = ?auto_83268 ?auto_83266 ) ) ( not ( = ?auto_83267 ?auto_83266 ) ) ( not ( = ?auto_83269 ?auto_83266 ) ) ( HOLDING ?auto_83263 ) ( CLEAR ?auto_83264 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83268 ?auto_83267 ?auto_83266 ?auto_83265 ?auto_83264 ?auto_83263 )
+    ( ( MAKE-6PILE ?auto_83267 ?auto_83269 ?auto_83268 ?auto_83265 ?auto_83264 ?auto_83263 )
       ( MAKE-4PILE ?auto_83262 ?auto_83263 ?auto_83264 ?auto_83265 ) )
   )
 
@@ -4990,15 +4990,15 @@
     )
     :vars
     (
+      ?auto_83277 - BLOCK
+      ?auto_83275 - BLOCK
       ?auto_83276 - BLOCK
       ?auto_83274 - BLOCK
-      ?auto_83275 - BLOCK
-      ?auto_83277 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83270 ?auto_83271 ) ) ( not ( = ?auto_83270 ?auto_83272 ) ) ( not ( = ?auto_83270 ?auto_83273 ) ) ( not ( = ?auto_83271 ?auto_83272 ) ) ( not ( = ?auto_83271 ?auto_83273 ) ) ( not ( = ?auto_83272 ?auto_83273 ) ) ( ON ?auto_83273 ?auto_83276 ) ( not ( = ?auto_83270 ?auto_83276 ) ) ( not ( = ?auto_83271 ?auto_83276 ) ) ( not ( = ?auto_83272 ?auto_83276 ) ) ( not ( = ?auto_83273 ?auto_83276 ) ) ( ON ?auto_83272 ?auto_83273 ) ( ON-TABLE ?auto_83274 ) ( ON ?auto_83275 ?auto_83274 ) ( ON ?auto_83276 ?auto_83275 ) ( not ( = ?auto_83274 ?auto_83275 ) ) ( not ( = ?auto_83274 ?auto_83276 ) ) ( not ( = ?auto_83274 ?auto_83273 ) ) ( not ( = ?auto_83274 ?auto_83272 ) ) ( not ( = ?auto_83275 ?auto_83276 ) ) ( not ( = ?auto_83275 ?auto_83273 ) ) ( not ( = ?auto_83275 ?auto_83272 ) ) ( not ( = ?auto_83270 ?auto_83274 ) ) ( not ( = ?auto_83270 ?auto_83275 ) ) ( not ( = ?auto_83271 ?auto_83274 ) ) ( not ( = ?auto_83271 ?auto_83275 ) ) ( ON ?auto_83270 ?auto_83277 ) ( not ( = ?auto_83270 ?auto_83277 ) ) ( not ( = ?auto_83271 ?auto_83277 ) ) ( not ( = ?auto_83272 ?auto_83277 ) ) ( not ( = ?auto_83273 ?auto_83277 ) ) ( not ( = ?auto_83276 ?auto_83277 ) ) ( not ( = ?auto_83274 ?auto_83277 ) ) ( not ( = ?auto_83275 ?auto_83277 ) ) ( CLEAR ?auto_83272 ) ( ON ?auto_83271 ?auto_83270 ) ( CLEAR ?auto_83271 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83277 ) )
+    ( and ( not ( = ?auto_83270 ?auto_83271 ) ) ( not ( = ?auto_83270 ?auto_83272 ) ) ( not ( = ?auto_83270 ?auto_83273 ) ) ( not ( = ?auto_83271 ?auto_83272 ) ) ( not ( = ?auto_83271 ?auto_83273 ) ) ( not ( = ?auto_83272 ?auto_83273 ) ) ( ON ?auto_83273 ?auto_83277 ) ( not ( = ?auto_83270 ?auto_83277 ) ) ( not ( = ?auto_83271 ?auto_83277 ) ) ( not ( = ?auto_83272 ?auto_83277 ) ) ( not ( = ?auto_83273 ?auto_83277 ) ) ( ON ?auto_83272 ?auto_83273 ) ( ON-TABLE ?auto_83275 ) ( ON ?auto_83276 ?auto_83275 ) ( ON ?auto_83277 ?auto_83276 ) ( not ( = ?auto_83275 ?auto_83276 ) ) ( not ( = ?auto_83275 ?auto_83277 ) ) ( not ( = ?auto_83275 ?auto_83273 ) ) ( not ( = ?auto_83275 ?auto_83272 ) ) ( not ( = ?auto_83276 ?auto_83277 ) ) ( not ( = ?auto_83276 ?auto_83273 ) ) ( not ( = ?auto_83276 ?auto_83272 ) ) ( not ( = ?auto_83270 ?auto_83275 ) ) ( not ( = ?auto_83270 ?auto_83276 ) ) ( not ( = ?auto_83271 ?auto_83275 ) ) ( not ( = ?auto_83271 ?auto_83276 ) ) ( ON ?auto_83270 ?auto_83274 ) ( not ( = ?auto_83270 ?auto_83274 ) ) ( not ( = ?auto_83271 ?auto_83274 ) ) ( not ( = ?auto_83272 ?auto_83274 ) ) ( not ( = ?auto_83273 ?auto_83274 ) ) ( not ( = ?auto_83277 ?auto_83274 ) ) ( not ( = ?auto_83275 ?auto_83274 ) ) ( not ( = ?auto_83276 ?auto_83274 ) ) ( CLEAR ?auto_83272 ) ( ON ?auto_83271 ?auto_83270 ) ( CLEAR ?auto_83271 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83274 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83277 ?auto_83270 )
+    ( ( MAKE-2PILE ?auto_83274 ?auto_83270 )
       ( MAKE-4PILE ?auto_83270 ?auto_83271 ?auto_83272 ?auto_83273 ) )
   )
 
@@ -5012,15 +5012,15 @@
     )
     :vars
     (
-      ?auto_83282 - BLOCK
       ?auto_83284 - BLOCK
       ?auto_83283 - BLOCK
+      ?auto_83282 - BLOCK
       ?auto_83285 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83278 ?auto_83279 ) ) ( not ( = ?auto_83278 ?auto_83280 ) ) ( not ( = ?auto_83278 ?auto_83281 ) ) ( not ( = ?auto_83279 ?auto_83280 ) ) ( not ( = ?auto_83279 ?auto_83281 ) ) ( not ( = ?auto_83280 ?auto_83281 ) ) ( ON ?auto_83281 ?auto_83282 ) ( not ( = ?auto_83278 ?auto_83282 ) ) ( not ( = ?auto_83279 ?auto_83282 ) ) ( not ( = ?auto_83280 ?auto_83282 ) ) ( not ( = ?auto_83281 ?auto_83282 ) ) ( ON-TABLE ?auto_83284 ) ( ON ?auto_83283 ?auto_83284 ) ( ON ?auto_83282 ?auto_83283 ) ( not ( = ?auto_83284 ?auto_83283 ) ) ( not ( = ?auto_83284 ?auto_83282 ) ) ( not ( = ?auto_83284 ?auto_83281 ) ) ( not ( = ?auto_83284 ?auto_83280 ) ) ( not ( = ?auto_83283 ?auto_83282 ) ) ( not ( = ?auto_83283 ?auto_83281 ) ) ( not ( = ?auto_83283 ?auto_83280 ) ) ( not ( = ?auto_83278 ?auto_83284 ) ) ( not ( = ?auto_83278 ?auto_83283 ) ) ( not ( = ?auto_83279 ?auto_83284 ) ) ( not ( = ?auto_83279 ?auto_83283 ) ) ( ON ?auto_83278 ?auto_83285 ) ( not ( = ?auto_83278 ?auto_83285 ) ) ( not ( = ?auto_83279 ?auto_83285 ) ) ( not ( = ?auto_83280 ?auto_83285 ) ) ( not ( = ?auto_83281 ?auto_83285 ) ) ( not ( = ?auto_83282 ?auto_83285 ) ) ( not ( = ?auto_83284 ?auto_83285 ) ) ( not ( = ?auto_83283 ?auto_83285 ) ) ( ON ?auto_83279 ?auto_83278 ) ( CLEAR ?auto_83279 ) ( ON-TABLE ?auto_83285 ) ( HOLDING ?auto_83280 ) ( CLEAR ?auto_83281 ) )
+    ( and ( not ( = ?auto_83278 ?auto_83279 ) ) ( not ( = ?auto_83278 ?auto_83280 ) ) ( not ( = ?auto_83278 ?auto_83281 ) ) ( not ( = ?auto_83279 ?auto_83280 ) ) ( not ( = ?auto_83279 ?auto_83281 ) ) ( not ( = ?auto_83280 ?auto_83281 ) ) ( ON ?auto_83281 ?auto_83284 ) ( not ( = ?auto_83278 ?auto_83284 ) ) ( not ( = ?auto_83279 ?auto_83284 ) ) ( not ( = ?auto_83280 ?auto_83284 ) ) ( not ( = ?auto_83281 ?auto_83284 ) ) ( ON-TABLE ?auto_83283 ) ( ON ?auto_83282 ?auto_83283 ) ( ON ?auto_83284 ?auto_83282 ) ( not ( = ?auto_83283 ?auto_83282 ) ) ( not ( = ?auto_83283 ?auto_83284 ) ) ( not ( = ?auto_83283 ?auto_83281 ) ) ( not ( = ?auto_83283 ?auto_83280 ) ) ( not ( = ?auto_83282 ?auto_83284 ) ) ( not ( = ?auto_83282 ?auto_83281 ) ) ( not ( = ?auto_83282 ?auto_83280 ) ) ( not ( = ?auto_83278 ?auto_83283 ) ) ( not ( = ?auto_83278 ?auto_83282 ) ) ( not ( = ?auto_83279 ?auto_83283 ) ) ( not ( = ?auto_83279 ?auto_83282 ) ) ( ON ?auto_83278 ?auto_83285 ) ( not ( = ?auto_83278 ?auto_83285 ) ) ( not ( = ?auto_83279 ?auto_83285 ) ) ( not ( = ?auto_83280 ?auto_83285 ) ) ( not ( = ?auto_83281 ?auto_83285 ) ) ( not ( = ?auto_83284 ?auto_83285 ) ) ( not ( = ?auto_83283 ?auto_83285 ) ) ( not ( = ?auto_83282 ?auto_83285 ) ) ( ON ?auto_83279 ?auto_83278 ) ( CLEAR ?auto_83279 ) ( ON-TABLE ?auto_83285 ) ( HOLDING ?auto_83280 ) ( CLEAR ?auto_83281 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83284 ?auto_83283 ?auto_83282 ?auto_83281 ?auto_83280 )
+    ( ( MAKE-5PILE ?auto_83283 ?auto_83282 ?auto_83284 ?auto_83281 ?auto_83280 )
       ( MAKE-4PILE ?auto_83278 ?auto_83279 ?auto_83280 ?auto_83281 ) )
   )
 
@@ -5034,13 +5034,13 @@
     )
     :vars
     (
-      ?auto_83290 - BLOCK
       ?auto_83293 - BLOCK
       ?auto_83291 - BLOCK
+      ?auto_83290 - BLOCK
       ?auto_83292 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83286 ?auto_83287 ) ) ( not ( = ?auto_83286 ?auto_83288 ) ) ( not ( = ?auto_83286 ?auto_83289 ) ) ( not ( = ?auto_83287 ?auto_83288 ) ) ( not ( = ?auto_83287 ?auto_83289 ) ) ( not ( = ?auto_83288 ?auto_83289 ) ) ( ON ?auto_83289 ?auto_83290 ) ( not ( = ?auto_83286 ?auto_83290 ) ) ( not ( = ?auto_83287 ?auto_83290 ) ) ( not ( = ?auto_83288 ?auto_83290 ) ) ( not ( = ?auto_83289 ?auto_83290 ) ) ( ON-TABLE ?auto_83293 ) ( ON ?auto_83291 ?auto_83293 ) ( ON ?auto_83290 ?auto_83291 ) ( not ( = ?auto_83293 ?auto_83291 ) ) ( not ( = ?auto_83293 ?auto_83290 ) ) ( not ( = ?auto_83293 ?auto_83289 ) ) ( not ( = ?auto_83293 ?auto_83288 ) ) ( not ( = ?auto_83291 ?auto_83290 ) ) ( not ( = ?auto_83291 ?auto_83289 ) ) ( not ( = ?auto_83291 ?auto_83288 ) ) ( not ( = ?auto_83286 ?auto_83293 ) ) ( not ( = ?auto_83286 ?auto_83291 ) ) ( not ( = ?auto_83287 ?auto_83293 ) ) ( not ( = ?auto_83287 ?auto_83291 ) ) ( ON ?auto_83286 ?auto_83292 ) ( not ( = ?auto_83286 ?auto_83292 ) ) ( not ( = ?auto_83287 ?auto_83292 ) ) ( not ( = ?auto_83288 ?auto_83292 ) ) ( not ( = ?auto_83289 ?auto_83292 ) ) ( not ( = ?auto_83290 ?auto_83292 ) ) ( not ( = ?auto_83293 ?auto_83292 ) ) ( not ( = ?auto_83291 ?auto_83292 ) ) ( ON ?auto_83287 ?auto_83286 ) ( ON-TABLE ?auto_83292 ) ( CLEAR ?auto_83289 ) ( ON ?auto_83288 ?auto_83287 ) ( CLEAR ?auto_83288 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83286 ?auto_83287 ) ) ( not ( = ?auto_83286 ?auto_83288 ) ) ( not ( = ?auto_83286 ?auto_83289 ) ) ( not ( = ?auto_83287 ?auto_83288 ) ) ( not ( = ?auto_83287 ?auto_83289 ) ) ( not ( = ?auto_83288 ?auto_83289 ) ) ( ON ?auto_83289 ?auto_83293 ) ( not ( = ?auto_83286 ?auto_83293 ) ) ( not ( = ?auto_83287 ?auto_83293 ) ) ( not ( = ?auto_83288 ?auto_83293 ) ) ( not ( = ?auto_83289 ?auto_83293 ) ) ( ON-TABLE ?auto_83291 ) ( ON ?auto_83290 ?auto_83291 ) ( ON ?auto_83293 ?auto_83290 ) ( not ( = ?auto_83291 ?auto_83290 ) ) ( not ( = ?auto_83291 ?auto_83293 ) ) ( not ( = ?auto_83291 ?auto_83289 ) ) ( not ( = ?auto_83291 ?auto_83288 ) ) ( not ( = ?auto_83290 ?auto_83293 ) ) ( not ( = ?auto_83290 ?auto_83289 ) ) ( not ( = ?auto_83290 ?auto_83288 ) ) ( not ( = ?auto_83286 ?auto_83291 ) ) ( not ( = ?auto_83286 ?auto_83290 ) ) ( not ( = ?auto_83287 ?auto_83291 ) ) ( not ( = ?auto_83287 ?auto_83290 ) ) ( ON ?auto_83286 ?auto_83292 ) ( not ( = ?auto_83286 ?auto_83292 ) ) ( not ( = ?auto_83287 ?auto_83292 ) ) ( not ( = ?auto_83288 ?auto_83292 ) ) ( not ( = ?auto_83289 ?auto_83292 ) ) ( not ( = ?auto_83293 ?auto_83292 ) ) ( not ( = ?auto_83291 ?auto_83292 ) ) ( not ( = ?auto_83290 ?auto_83292 ) ) ( ON ?auto_83287 ?auto_83286 ) ( ON-TABLE ?auto_83292 ) ( CLEAR ?auto_83289 ) ( ON ?auto_83288 ?auto_83287 ) ( CLEAR ?auto_83288 ) ( HAND-EMPTY ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_83292 ?auto_83286 ?auto_83287 )
       ( MAKE-4PILE ?auto_83286 ?auto_83287 ?auto_83288 ?auto_83289 ) )
@@ -5056,15 +5056,15 @@
     )
     :vars
     (
-      ?auto_83298 - BLOCK
-      ?auto_83299 - BLOCK
       ?auto_83301 - BLOCK
+      ?auto_83299 - BLOCK
+      ?auto_83298 - BLOCK
       ?auto_83300 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83294 ?auto_83295 ) ) ( not ( = ?auto_83294 ?auto_83296 ) ) ( not ( = ?auto_83294 ?auto_83297 ) ) ( not ( = ?auto_83295 ?auto_83296 ) ) ( not ( = ?auto_83295 ?auto_83297 ) ) ( not ( = ?auto_83296 ?auto_83297 ) ) ( not ( = ?auto_83294 ?auto_83298 ) ) ( not ( = ?auto_83295 ?auto_83298 ) ) ( not ( = ?auto_83296 ?auto_83298 ) ) ( not ( = ?auto_83297 ?auto_83298 ) ) ( ON-TABLE ?auto_83299 ) ( ON ?auto_83301 ?auto_83299 ) ( ON ?auto_83298 ?auto_83301 ) ( not ( = ?auto_83299 ?auto_83301 ) ) ( not ( = ?auto_83299 ?auto_83298 ) ) ( not ( = ?auto_83299 ?auto_83297 ) ) ( not ( = ?auto_83299 ?auto_83296 ) ) ( not ( = ?auto_83301 ?auto_83298 ) ) ( not ( = ?auto_83301 ?auto_83297 ) ) ( not ( = ?auto_83301 ?auto_83296 ) ) ( not ( = ?auto_83294 ?auto_83299 ) ) ( not ( = ?auto_83294 ?auto_83301 ) ) ( not ( = ?auto_83295 ?auto_83299 ) ) ( not ( = ?auto_83295 ?auto_83301 ) ) ( ON ?auto_83294 ?auto_83300 ) ( not ( = ?auto_83294 ?auto_83300 ) ) ( not ( = ?auto_83295 ?auto_83300 ) ) ( not ( = ?auto_83296 ?auto_83300 ) ) ( not ( = ?auto_83297 ?auto_83300 ) ) ( not ( = ?auto_83298 ?auto_83300 ) ) ( not ( = ?auto_83299 ?auto_83300 ) ) ( not ( = ?auto_83301 ?auto_83300 ) ) ( ON ?auto_83295 ?auto_83294 ) ( ON-TABLE ?auto_83300 ) ( ON ?auto_83296 ?auto_83295 ) ( CLEAR ?auto_83296 ) ( HOLDING ?auto_83297 ) ( CLEAR ?auto_83298 ) )
+    ( and ( not ( = ?auto_83294 ?auto_83295 ) ) ( not ( = ?auto_83294 ?auto_83296 ) ) ( not ( = ?auto_83294 ?auto_83297 ) ) ( not ( = ?auto_83295 ?auto_83296 ) ) ( not ( = ?auto_83295 ?auto_83297 ) ) ( not ( = ?auto_83296 ?auto_83297 ) ) ( not ( = ?auto_83294 ?auto_83301 ) ) ( not ( = ?auto_83295 ?auto_83301 ) ) ( not ( = ?auto_83296 ?auto_83301 ) ) ( not ( = ?auto_83297 ?auto_83301 ) ) ( ON-TABLE ?auto_83299 ) ( ON ?auto_83298 ?auto_83299 ) ( ON ?auto_83301 ?auto_83298 ) ( not ( = ?auto_83299 ?auto_83298 ) ) ( not ( = ?auto_83299 ?auto_83301 ) ) ( not ( = ?auto_83299 ?auto_83297 ) ) ( not ( = ?auto_83299 ?auto_83296 ) ) ( not ( = ?auto_83298 ?auto_83301 ) ) ( not ( = ?auto_83298 ?auto_83297 ) ) ( not ( = ?auto_83298 ?auto_83296 ) ) ( not ( = ?auto_83294 ?auto_83299 ) ) ( not ( = ?auto_83294 ?auto_83298 ) ) ( not ( = ?auto_83295 ?auto_83299 ) ) ( not ( = ?auto_83295 ?auto_83298 ) ) ( ON ?auto_83294 ?auto_83300 ) ( not ( = ?auto_83294 ?auto_83300 ) ) ( not ( = ?auto_83295 ?auto_83300 ) ) ( not ( = ?auto_83296 ?auto_83300 ) ) ( not ( = ?auto_83297 ?auto_83300 ) ) ( not ( = ?auto_83301 ?auto_83300 ) ) ( not ( = ?auto_83299 ?auto_83300 ) ) ( not ( = ?auto_83298 ?auto_83300 ) ) ( ON ?auto_83295 ?auto_83294 ) ( ON-TABLE ?auto_83300 ) ( ON ?auto_83296 ?auto_83295 ) ( CLEAR ?auto_83296 ) ( HOLDING ?auto_83297 ) ( CLEAR ?auto_83301 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83299 ?auto_83301 ?auto_83298 ?auto_83297 )
+    ( ( MAKE-4PILE ?auto_83299 ?auto_83298 ?auto_83301 ?auto_83297 )
       ( MAKE-4PILE ?auto_83294 ?auto_83295 ?auto_83296 ?auto_83297 ) )
   )
 
@@ -5078,15 +5078,15 @@
     )
     :vars
     (
-      ?auto_83308 - BLOCK
       ?auto_83309 - BLOCK
       ?auto_83306 - BLOCK
       ?auto_83307 - BLOCK
+      ?auto_83308 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83302 ?auto_83303 ) ) ( not ( = ?auto_83302 ?auto_83304 ) ) ( not ( = ?auto_83302 ?auto_83305 ) ) ( not ( = ?auto_83303 ?auto_83304 ) ) ( not ( = ?auto_83303 ?auto_83305 ) ) ( not ( = ?auto_83304 ?auto_83305 ) ) ( not ( = ?auto_83302 ?auto_83308 ) ) ( not ( = ?auto_83303 ?auto_83308 ) ) ( not ( = ?auto_83304 ?auto_83308 ) ) ( not ( = ?auto_83305 ?auto_83308 ) ) ( ON-TABLE ?auto_83309 ) ( ON ?auto_83306 ?auto_83309 ) ( ON ?auto_83308 ?auto_83306 ) ( not ( = ?auto_83309 ?auto_83306 ) ) ( not ( = ?auto_83309 ?auto_83308 ) ) ( not ( = ?auto_83309 ?auto_83305 ) ) ( not ( = ?auto_83309 ?auto_83304 ) ) ( not ( = ?auto_83306 ?auto_83308 ) ) ( not ( = ?auto_83306 ?auto_83305 ) ) ( not ( = ?auto_83306 ?auto_83304 ) ) ( not ( = ?auto_83302 ?auto_83309 ) ) ( not ( = ?auto_83302 ?auto_83306 ) ) ( not ( = ?auto_83303 ?auto_83309 ) ) ( not ( = ?auto_83303 ?auto_83306 ) ) ( ON ?auto_83302 ?auto_83307 ) ( not ( = ?auto_83302 ?auto_83307 ) ) ( not ( = ?auto_83303 ?auto_83307 ) ) ( not ( = ?auto_83304 ?auto_83307 ) ) ( not ( = ?auto_83305 ?auto_83307 ) ) ( not ( = ?auto_83308 ?auto_83307 ) ) ( not ( = ?auto_83309 ?auto_83307 ) ) ( not ( = ?auto_83306 ?auto_83307 ) ) ( ON ?auto_83303 ?auto_83302 ) ( ON-TABLE ?auto_83307 ) ( ON ?auto_83304 ?auto_83303 ) ( CLEAR ?auto_83308 ) ( ON ?auto_83305 ?auto_83304 ) ( CLEAR ?auto_83305 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83302 ?auto_83303 ) ) ( not ( = ?auto_83302 ?auto_83304 ) ) ( not ( = ?auto_83302 ?auto_83305 ) ) ( not ( = ?auto_83303 ?auto_83304 ) ) ( not ( = ?auto_83303 ?auto_83305 ) ) ( not ( = ?auto_83304 ?auto_83305 ) ) ( not ( = ?auto_83302 ?auto_83309 ) ) ( not ( = ?auto_83303 ?auto_83309 ) ) ( not ( = ?auto_83304 ?auto_83309 ) ) ( not ( = ?auto_83305 ?auto_83309 ) ) ( ON-TABLE ?auto_83306 ) ( ON ?auto_83307 ?auto_83306 ) ( ON ?auto_83309 ?auto_83307 ) ( not ( = ?auto_83306 ?auto_83307 ) ) ( not ( = ?auto_83306 ?auto_83309 ) ) ( not ( = ?auto_83306 ?auto_83305 ) ) ( not ( = ?auto_83306 ?auto_83304 ) ) ( not ( = ?auto_83307 ?auto_83309 ) ) ( not ( = ?auto_83307 ?auto_83305 ) ) ( not ( = ?auto_83307 ?auto_83304 ) ) ( not ( = ?auto_83302 ?auto_83306 ) ) ( not ( = ?auto_83302 ?auto_83307 ) ) ( not ( = ?auto_83303 ?auto_83306 ) ) ( not ( = ?auto_83303 ?auto_83307 ) ) ( ON ?auto_83302 ?auto_83308 ) ( not ( = ?auto_83302 ?auto_83308 ) ) ( not ( = ?auto_83303 ?auto_83308 ) ) ( not ( = ?auto_83304 ?auto_83308 ) ) ( not ( = ?auto_83305 ?auto_83308 ) ) ( not ( = ?auto_83309 ?auto_83308 ) ) ( not ( = ?auto_83306 ?auto_83308 ) ) ( not ( = ?auto_83307 ?auto_83308 ) ) ( ON ?auto_83303 ?auto_83302 ) ( ON-TABLE ?auto_83308 ) ( ON ?auto_83304 ?auto_83303 ) ( CLEAR ?auto_83309 ) ( ON ?auto_83305 ?auto_83304 ) ( CLEAR ?auto_83305 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83307 ?auto_83302 ?auto_83303 ?auto_83304 )
+    ( ( MAKE-4PILE ?auto_83308 ?auto_83302 ?auto_83303 ?auto_83304 )
       ( MAKE-4PILE ?auto_83302 ?auto_83303 ?auto_83304 ?auto_83305 ) )
   )
 
@@ -5100,15 +5100,15 @@
     )
     :vars
     (
-      ?auto_83315 - BLOCK
+      ?auto_83316 - BLOCK
       ?auto_83314 - BLOCK
       ?auto_83317 - BLOCK
-      ?auto_83316 - BLOCK
+      ?auto_83315 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83310 ?auto_83311 ) ) ( not ( = ?auto_83310 ?auto_83312 ) ) ( not ( = ?auto_83310 ?auto_83313 ) ) ( not ( = ?auto_83311 ?auto_83312 ) ) ( not ( = ?auto_83311 ?auto_83313 ) ) ( not ( = ?auto_83312 ?auto_83313 ) ) ( not ( = ?auto_83310 ?auto_83315 ) ) ( not ( = ?auto_83311 ?auto_83315 ) ) ( not ( = ?auto_83312 ?auto_83315 ) ) ( not ( = ?auto_83313 ?auto_83315 ) ) ( ON-TABLE ?auto_83314 ) ( ON ?auto_83317 ?auto_83314 ) ( not ( = ?auto_83314 ?auto_83317 ) ) ( not ( = ?auto_83314 ?auto_83315 ) ) ( not ( = ?auto_83314 ?auto_83313 ) ) ( not ( = ?auto_83314 ?auto_83312 ) ) ( not ( = ?auto_83317 ?auto_83315 ) ) ( not ( = ?auto_83317 ?auto_83313 ) ) ( not ( = ?auto_83317 ?auto_83312 ) ) ( not ( = ?auto_83310 ?auto_83314 ) ) ( not ( = ?auto_83310 ?auto_83317 ) ) ( not ( = ?auto_83311 ?auto_83314 ) ) ( not ( = ?auto_83311 ?auto_83317 ) ) ( ON ?auto_83310 ?auto_83316 ) ( not ( = ?auto_83310 ?auto_83316 ) ) ( not ( = ?auto_83311 ?auto_83316 ) ) ( not ( = ?auto_83312 ?auto_83316 ) ) ( not ( = ?auto_83313 ?auto_83316 ) ) ( not ( = ?auto_83315 ?auto_83316 ) ) ( not ( = ?auto_83314 ?auto_83316 ) ) ( not ( = ?auto_83317 ?auto_83316 ) ) ( ON ?auto_83311 ?auto_83310 ) ( ON-TABLE ?auto_83316 ) ( ON ?auto_83312 ?auto_83311 ) ( ON ?auto_83313 ?auto_83312 ) ( CLEAR ?auto_83313 ) ( HOLDING ?auto_83315 ) ( CLEAR ?auto_83317 ) )
+    ( and ( not ( = ?auto_83310 ?auto_83311 ) ) ( not ( = ?auto_83310 ?auto_83312 ) ) ( not ( = ?auto_83310 ?auto_83313 ) ) ( not ( = ?auto_83311 ?auto_83312 ) ) ( not ( = ?auto_83311 ?auto_83313 ) ) ( not ( = ?auto_83312 ?auto_83313 ) ) ( not ( = ?auto_83310 ?auto_83316 ) ) ( not ( = ?auto_83311 ?auto_83316 ) ) ( not ( = ?auto_83312 ?auto_83316 ) ) ( not ( = ?auto_83313 ?auto_83316 ) ) ( ON-TABLE ?auto_83314 ) ( ON ?auto_83317 ?auto_83314 ) ( not ( = ?auto_83314 ?auto_83317 ) ) ( not ( = ?auto_83314 ?auto_83316 ) ) ( not ( = ?auto_83314 ?auto_83313 ) ) ( not ( = ?auto_83314 ?auto_83312 ) ) ( not ( = ?auto_83317 ?auto_83316 ) ) ( not ( = ?auto_83317 ?auto_83313 ) ) ( not ( = ?auto_83317 ?auto_83312 ) ) ( not ( = ?auto_83310 ?auto_83314 ) ) ( not ( = ?auto_83310 ?auto_83317 ) ) ( not ( = ?auto_83311 ?auto_83314 ) ) ( not ( = ?auto_83311 ?auto_83317 ) ) ( ON ?auto_83310 ?auto_83315 ) ( not ( = ?auto_83310 ?auto_83315 ) ) ( not ( = ?auto_83311 ?auto_83315 ) ) ( not ( = ?auto_83312 ?auto_83315 ) ) ( not ( = ?auto_83313 ?auto_83315 ) ) ( not ( = ?auto_83316 ?auto_83315 ) ) ( not ( = ?auto_83314 ?auto_83315 ) ) ( not ( = ?auto_83317 ?auto_83315 ) ) ( ON ?auto_83311 ?auto_83310 ) ( ON-TABLE ?auto_83315 ) ( ON ?auto_83312 ?auto_83311 ) ( ON ?auto_83313 ?auto_83312 ) ( CLEAR ?auto_83313 ) ( HOLDING ?auto_83316 ) ( CLEAR ?auto_83317 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83314 ?auto_83317 ?auto_83315 )
+    ( ( MAKE-3PILE ?auto_83314 ?auto_83317 ?auto_83316 )
       ( MAKE-4PILE ?auto_83310 ?auto_83311 ?auto_83312 ?auto_83313 ) )
   )
 
@@ -5122,15 +5122,15 @@
     )
     :vars
     (
-      ?auto_83323 - BLOCK
-      ?auto_83325 - BLOCK
       ?auto_83324 - BLOCK
+      ?auto_83323 - BLOCK
       ?auto_83322 - BLOCK
+      ?auto_83325 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83318 ?auto_83319 ) ) ( not ( = ?auto_83318 ?auto_83320 ) ) ( not ( = ?auto_83318 ?auto_83321 ) ) ( not ( = ?auto_83319 ?auto_83320 ) ) ( not ( = ?auto_83319 ?auto_83321 ) ) ( not ( = ?auto_83320 ?auto_83321 ) ) ( not ( = ?auto_83318 ?auto_83323 ) ) ( not ( = ?auto_83319 ?auto_83323 ) ) ( not ( = ?auto_83320 ?auto_83323 ) ) ( not ( = ?auto_83321 ?auto_83323 ) ) ( ON-TABLE ?auto_83325 ) ( ON ?auto_83324 ?auto_83325 ) ( not ( = ?auto_83325 ?auto_83324 ) ) ( not ( = ?auto_83325 ?auto_83323 ) ) ( not ( = ?auto_83325 ?auto_83321 ) ) ( not ( = ?auto_83325 ?auto_83320 ) ) ( not ( = ?auto_83324 ?auto_83323 ) ) ( not ( = ?auto_83324 ?auto_83321 ) ) ( not ( = ?auto_83324 ?auto_83320 ) ) ( not ( = ?auto_83318 ?auto_83325 ) ) ( not ( = ?auto_83318 ?auto_83324 ) ) ( not ( = ?auto_83319 ?auto_83325 ) ) ( not ( = ?auto_83319 ?auto_83324 ) ) ( ON ?auto_83318 ?auto_83322 ) ( not ( = ?auto_83318 ?auto_83322 ) ) ( not ( = ?auto_83319 ?auto_83322 ) ) ( not ( = ?auto_83320 ?auto_83322 ) ) ( not ( = ?auto_83321 ?auto_83322 ) ) ( not ( = ?auto_83323 ?auto_83322 ) ) ( not ( = ?auto_83325 ?auto_83322 ) ) ( not ( = ?auto_83324 ?auto_83322 ) ) ( ON ?auto_83319 ?auto_83318 ) ( ON-TABLE ?auto_83322 ) ( ON ?auto_83320 ?auto_83319 ) ( ON ?auto_83321 ?auto_83320 ) ( CLEAR ?auto_83324 ) ( ON ?auto_83323 ?auto_83321 ) ( CLEAR ?auto_83323 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83318 ?auto_83319 ) ) ( not ( = ?auto_83318 ?auto_83320 ) ) ( not ( = ?auto_83318 ?auto_83321 ) ) ( not ( = ?auto_83319 ?auto_83320 ) ) ( not ( = ?auto_83319 ?auto_83321 ) ) ( not ( = ?auto_83320 ?auto_83321 ) ) ( not ( = ?auto_83318 ?auto_83324 ) ) ( not ( = ?auto_83319 ?auto_83324 ) ) ( not ( = ?auto_83320 ?auto_83324 ) ) ( not ( = ?auto_83321 ?auto_83324 ) ) ( ON-TABLE ?auto_83323 ) ( ON ?auto_83322 ?auto_83323 ) ( not ( = ?auto_83323 ?auto_83322 ) ) ( not ( = ?auto_83323 ?auto_83324 ) ) ( not ( = ?auto_83323 ?auto_83321 ) ) ( not ( = ?auto_83323 ?auto_83320 ) ) ( not ( = ?auto_83322 ?auto_83324 ) ) ( not ( = ?auto_83322 ?auto_83321 ) ) ( not ( = ?auto_83322 ?auto_83320 ) ) ( not ( = ?auto_83318 ?auto_83323 ) ) ( not ( = ?auto_83318 ?auto_83322 ) ) ( not ( = ?auto_83319 ?auto_83323 ) ) ( not ( = ?auto_83319 ?auto_83322 ) ) ( ON ?auto_83318 ?auto_83325 ) ( not ( = ?auto_83318 ?auto_83325 ) ) ( not ( = ?auto_83319 ?auto_83325 ) ) ( not ( = ?auto_83320 ?auto_83325 ) ) ( not ( = ?auto_83321 ?auto_83325 ) ) ( not ( = ?auto_83324 ?auto_83325 ) ) ( not ( = ?auto_83323 ?auto_83325 ) ) ( not ( = ?auto_83322 ?auto_83325 ) ) ( ON ?auto_83319 ?auto_83318 ) ( ON-TABLE ?auto_83325 ) ( ON ?auto_83320 ?auto_83319 ) ( ON ?auto_83321 ?auto_83320 ) ( CLEAR ?auto_83322 ) ( ON ?auto_83324 ?auto_83321 ) ( CLEAR ?auto_83324 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83322 ?auto_83318 ?auto_83319 ?auto_83320 ?auto_83321 )
+    ( ( MAKE-5PILE ?auto_83325 ?auto_83318 ?auto_83319 ?auto_83320 ?auto_83321 )
       ( MAKE-4PILE ?auto_83318 ?auto_83319 ?auto_83320 ?auto_83321 ) )
   )
 
@@ -5144,15 +5144,15 @@
     )
     :vars
     (
-      ?auto_83331 - BLOCK
-      ?auto_83330 - BLOCK
-      ?auto_83332 - BLOCK
       ?auto_83333 - BLOCK
+      ?auto_83332 - BLOCK
+      ?auto_83330 - BLOCK
+      ?auto_83331 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83326 ?auto_83327 ) ) ( not ( = ?auto_83326 ?auto_83328 ) ) ( not ( = ?auto_83326 ?auto_83329 ) ) ( not ( = ?auto_83327 ?auto_83328 ) ) ( not ( = ?auto_83327 ?auto_83329 ) ) ( not ( = ?auto_83328 ?auto_83329 ) ) ( not ( = ?auto_83326 ?auto_83331 ) ) ( not ( = ?auto_83327 ?auto_83331 ) ) ( not ( = ?auto_83328 ?auto_83331 ) ) ( not ( = ?auto_83329 ?auto_83331 ) ) ( ON-TABLE ?auto_83330 ) ( not ( = ?auto_83330 ?auto_83332 ) ) ( not ( = ?auto_83330 ?auto_83331 ) ) ( not ( = ?auto_83330 ?auto_83329 ) ) ( not ( = ?auto_83330 ?auto_83328 ) ) ( not ( = ?auto_83332 ?auto_83331 ) ) ( not ( = ?auto_83332 ?auto_83329 ) ) ( not ( = ?auto_83332 ?auto_83328 ) ) ( not ( = ?auto_83326 ?auto_83330 ) ) ( not ( = ?auto_83326 ?auto_83332 ) ) ( not ( = ?auto_83327 ?auto_83330 ) ) ( not ( = ?auto_83327 ?auto_83332 ) ) ( ON ?auto_83326 ?auto_83333 ) ( not ( = ?auto_83326 ?auto_83333 ) ) ( not ( = ?auto_83327 ?auto_83333 ) ) ( not ( = ?auto_83328 ?auto_83333 ) ) ( not ( = ?auto_83329 ?auto_83333 ) ) ( not ( = ?auto_83331 ?auto_83333 ) ) ( not ( = ?auto_83330 ?auto_83333 ) ) ( not ( = ?auto_83332 ?auto_83333 ) ) ( ON ?auto_83327 ?auto_83326 ) ( ON-TABLE ?auto_83333 ) ( ON ?auto_83328 ?auto_83327 ) ( ON ?auto_83329 ?auto_83328 ) ( ON ?auto_83331 ?auto_83329 ) ( CLEAR ?auto_83331 ) ( HOLDING ?auto_83332 ) ( CLEAR ?auto_83330 ) )
+    ( and ( not ( = ?auto_83326 ?auto_83327 ) ) ( not ( = ?auto_83326 ?auto_83328 ) ) ( not ( = ?auto_83326 ?auto_83329 ) ) ( not ( = ?auto_83327 ?auto_83328 ) ) ( not ( = ?auto_83327 ?auto_83329 ) ) ( not ( = ?auto_83328 ?auto_83329 ) ) ( not ( = ?auto_83326 ?auto_83333 ) ) ( not ( = ?auto_83327 ?auto_83333 ) ) ( not ( = ?auto_83328 ?auto_83333 ) ) ( not ( = ?auto_83329 ?auto_83333 ) ) ( ON-TABLE ?auto_83332 ) ( not ( = ?auto_83332 ?auto_83330 ) ) ( not ( = ?auto_83332 ?auto_83333 ) ) ( not ( = ?auto_83332 ?auto_83329 ) ) ( not ( = ?auto_83332 ?auto_83328 ) ) ( not ( = ?auto_83330 ?auto_83333 ) ) ( not ( = ?auto_83330 ?auto_83329 ) ) ( not ( = ?auto_83330 ?auto_83328 ) ) ( not ( = ?auto_83326 ?auto_83332 ) ) ( not ( = ?auto_83326 ?auto_83330 ) ) ( not ( = ?auto_83327 ?auto_83332 ) ) ( not ( = ?auto_83327 ?auto_83330 ) ) ( ON ?auto_83326 ?auto_83331 ) ( not ( = ?auto_83326 ?auto_83331 ) ) ( not ( = ?auto_83327 ?auto_83331 ) ) ( not ( = ?auto_83328 ?auto_83331 ) ) ( not ( = ?auto_83329 ?auto_83331 ) ) ( not ( = ?auto_83333 ?auto_83331 ) ) ( not ( = ?auto_83332 ?auto_83331 ) ) ( not ( = ?auto_83330 ?auto_83331 ) ) ( ON ?auto_83327 ?auto_83326 ) ( ON-TABLE ?auto_83331 ) ( ON ?auto_83328 ?auto_83327 ) ( ON ?auto_83329 ?auto_83328 ) ( ON ?auto_83333 ?auto_83329 ) ( CLEAR ?auto_83333 ) ( HOLDING ?auto_83330 ) ( CLEAR ?auto_83332 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83330 ?auto_83332 )
+    ( ( MAKE-2PILE ?auto_83332 ?auto_83330 )
       ( MAKE-4PILE ?auto_83326 ?auto_83327 ?auto_83328 ?auto_83329 ) )
   )
 
@@ -5166,15 +5166,15 @@
     )
     :vars
     (
-      ?auto_83338 - BLOCK
       ?auto_83340 - BLOCK
       ?auto_83339 - BLOCK
+      ?auto_83338 - BLOCK
       ?auto_83341 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83334 ?auto_83335 ) ) ( not ( = ?auto_83334 ?auto_83336 ) ) ( not ( = ?auto_83334 ?auto_83337 ) ) ( not ( = ?auto_83335 ?auto_83336 ) ) ( not ( = ?auto_83335 ?auto_83337 ) ) ( not ( = ?auto_83336 ?auto_83337 ) ) ( not ( = ?auto_83334 ?auto_83338 ) ) ( not ( = ?auto_83335 ?auto_83338 ) ) ( not ( = ?auto_83336 ?auto_83338 ) ) ( not ( = ?auto_83337 ?auto_83338 ) ) ( ON-TABLE ?auto_83340 ) ( not ( = ?auto_83340 ?auto_83339 ) ) ( not ( = ?auto_83340 ?auto_83338 ) ) ( not ( = ?auto_83340 ?auto_83337 ) ) ( not ( = ?auto_83340 ?auto_83336 ) ) ( not ( = ?auto_83339 ?auto_83338 ) ) ( not ( = ?auto_83339 ?auto_83337 ) ) ( not ( = ?auto_83339 ?auto_83336 ) ) ( not ( = ?auto_83334 ?auto_83340 ) ) ( not ( = ?auto_83334 ?auto_83339 ) ) ( not ( = ?auto_83335 ?auto_83340 ) ) ( not ( = ?auto_83335 ?auto_83339 ) ) ( ON ?auto_83334 ?auto_83341 ) ( not ( = ?auto_83334 ?auto_83341 ) ) ( not ( = ?auto_83335 ?auto_83341 ) ) ( not ( = ?auto_83336 ?auto_83341 ) ) ( not ( = ?auto_83337 ?auto_83341 ) ) ( not ( = ?auto_83338 ?auto_83341 ) ) ( not ( = ?auto_83340 ?auto_83341 ) ) ( not ( = ?auto_83339 ?auto_83341 ) ) ( ON ?auto_83335 ?auto_83334 ) ( ON-TABLE ?auto_83341 ) ( ON ?auto_83336 ?auto_83335 ) ( ON ?auto_83337 ?auto_83336 ) ( ON ?auto_83338 ?auto_83337 ) ( CLEAR ?auto_83340 ) ( ON ?auto_83339 ?auto_83338 ) ( CLEAR ?auto_83339 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83334 ?auto_83335 ) ) ( not ( = ?auto_83334 ?auto_83336 ) ) ( not ( = ?auto_83334 ?auto_83337 ) ) ( not ( = ?auto_83335 ?auto_83336 ) ) ( not ( = ?auto_83335 ?auto_83337 ) ) ( not ( = ?auto_83336 ?auto_83337 ) ) ( not ( = ?auto_83334 ?auto_83340 ) ) ( not ( = ?auto_83335 ?auto_83340 ) ) ( not ( = ?auto_83336 ?auto_83340 ) ) ( not ( = ?auto_83337 ?auto_83340 ) ) ( ON-TABLE ?auto_83339 ) ( not ( = ?auto_83339 ?auto_83338 ) ) ( not ( = ?auto_83339 ?auto_83340 ) ) ( not ( = ?auto_83339 ?auto_83337 ) ) ( not ( = ?auto_83339 ?auto_83336 ) ) ( not ( = ?auto_83338 ?auto_83340 ) ) ( not ( = ?auto_83338 ?auto_83337 ) ) ( not ( = ?auto_83338 ?auto_83336 ) ) ( not ( = ?auto_83334 ?auto_83339 ) ) ( not ( = ?auto_83334 ?auto_83338 ) ) ( not ( = ?auto_83335 ?auto_83339 ) ) ( not ( = ?auto_83335 ?auto_83338 ) ) ( ON ?auto_83334 ?auto_83341 ) ( not ( = ?auto_83334 ?auto_83341 ) ) ( not ( = ?auto_83335 ?auto_83341 ) ) ( not ( = ?auto_83336 ?auto_83341 ) ) ( not ( = ?auto_83337 ?auto_83341 ) ) ( not ( = ?auto_83340 ?auto_83341 ) ) ( not ( = ?auto_83339 ?auto_83341 ) ) ( not ( = ?auto_83338 ?auto_83341 ) ) ( ON ?auto_83335 ?auto_83334 ) ( ON-TABLE ?auto_83341 ) ( ON ?auto_83336 ?auto_83335 ) ( ON ?auto_83337 ?auto_83336 ) ( ON ?auto_83340 ?auto_83337 ) ( CLEAR ?auto_83339 ) ( ON ?auto_83338 ?auto_83340 ) ( CLEAR ?auto_83338 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83341 ?auto_83334 ?auto_83335 ?auto_83336 ?auto_83337 ?auto_83338 )
+    ( ( MAKE-6PILE ?auto_83341 ?auto_83334 ?auto_83335 ?auto_83336 ?auto_83337 ?auto_83340 )
       ( MAKE-4PILE ?auto_83334 ?auto_83335 ?auto_83336 ?auto_83337 ) )
   )
 
@@ -5188,15 +5188,15 @@
     )
     :vars
     (
-      ?auto_83348 - BLOCK
-      ?auto_83347 - BLOCK
       ?auto_83349 - BLOCK
+      ?auto_83348 - BLOCK
       ?auto_83346 - BLOCK
+      ?auto_83347 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83342 ?auto_83343 ) ) ( not ( = ?auto_83342 ?auto_83344 ) ) ( not ( = ?auto_83342 ?auto_83345 ) ) ( not ( = ?auto_83343 ?auto_83344 ) ) ( not ( = ?auto_83343 ?auto_83345 ) ) ( not ( = ?auto_83344 ?auto_83345 ) ) ( not ( = ?auto_83342 ?auto_83348 ) ) ( not ( = ?auto_83343 ?auto_83348 ) ) ( not ( = ?auto_83344 ?auto_83348 ) ) ( not ( = ?auto_83345 ?auto_83348 ) ) ( not ( = ?auto_83347 ?auto_83349 ) ) ( not ( = ?auto_83347 ?auto_83348 ) ) ( not ( = ?auto_83347 ?auto_83345 ) ) ( not ( = ?auto_83347 ?auto_83344 ) ) ( not ( = ?auto_83349 ?auto_83348 ) ) ( not ( = ?auto_83349 ?auto_83345 ) ) ( not ( = ?auto_83349 ?auto_83344 ) ) ( not ( = ?auto_83342 ?auto_83347 ) ) ( not ( = ?auto_83342 ?auto_83349 ) ) ( not ( = ?auto_83343 ?auto_83347 ) ) ( not ( = ?auto_83343 ?auto_83349 ) ) ( ON ?auto_83342 ?auto_83346 ) ( not ( = ?auto_83342 ?auto_83346 ) ) ( not ( = ?auto_83343 ?auto_83346 ) ) ( not ( = ?auto_83344 ?auto_83346 ) ) ( not ( = ?auto_83345 ?auto_83346 ) ) ( not ( = ?auto_83348 ?auto_83346 ) ) ( not ( = ?auto_83347 ?auto_83346 ) ) ( not ( = ?auto_83349 ?auto_83346 ) ) ( ON ?auto_83343 ?auto_83342 ) ( ON-TABLE ?auto_83346 ) ( ON ?auto_83344 ?auto_83343 ) ( ON ?auto_83345 ?auto_83344 ) ( ON ?auto_83348 ?auto_83345 ) ( ON ?auto_83349 ?auto_83348 ) ( CLEAR ?auto_83349 ) ( HOLDING ?auto_83347 ) )
+    ( and ( not ( = ?auto_83342 ?auto_83343 ) ) ( not ( = ?auto_83342 ?auto_83344 ) ) ( not ( = ?auto_83342 ?auto_83345 ) ) ( not ( = ?auto_83343 ?auto_83344 ) ) ( not ( = ?auto_83343 ?auto_83345 ) ) ( not ( = ?auto_83344 ?auto_83345 ) ) ( not ( = ?auto_83342 ?auto_83349 ) ) ( not ( = ?auto_83343 ?auto_83349 ) ) ( not ( = ?auto_83344 ?auto_83349 ) ) ( not ( = ?auto_83345 ?auto_83349 ) ) ( not ( = ?auto_83348 ?auto_83346 ) ) ( not ( = ?auto_83348 ?auto_83349 ) ) ( not ( = ?auto_83348 ?auto_83345 ) ) ( not ( = ?auto_83348 ?auto_83344 ) ) ( not ( = ?auto_83346 ?auto_83349 ) ) ( not ( = ?auto_83346 ?auto_83345 ) ) ( not ( = ?auto_83346 ?auto_83344 ) ) ( not ( = ?auto_83342 ?auto_83348 ) ) ( not ( = ?auto_83342 ?auto_83346 ) ) ( not ( = ?auto_83343 ?auto_83348 ) ) ( not ( = ?auto_83343 ?auto_83346 ) ) ( ON ?auto_83342 ?auto_83347 ) ( not ( = ?auto_83342 ?auto_83347 ) ) ( not ( = ?auto_83343 ?auto_83347 ) ) ( not ( = ?auto_83344 ?auto_83347 ) ) ( not ( = ?auto_83345 ?auto_83347 ) ) ( not ( = ?auto_83349 ?auto_83347 ) ) ( not ( = ?auto_83348 ?auto_83347 ) ) ( not ( = ?auto_83346 ?auto_83347 ) ) ( ON ?auto_83343 ?auto_83342 ) ( ON-TABLE ?auto_83347 ) ( ON ?auto_83344 ?auto_83343 ) ( ON ?auto_83345 ?auto_83344 ) ( ON ?auto_83349 ?auto_83345 ) ( ON ?auto_83346 ?auto_83349 ) ( CLEAR ?auto_83346 ) ( HOLDING ?auto_83348 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_83347 )
+    ( ( MAKE-1PILE ?auto_83348 )
       ( MAKE-4PILE ?auto_83342 ?auto_83343 ?auto_83344 ?auto_83345 ) )
   )
 
@@ -5212,13 +5212,13 @@
     (
       ?auto_83357 - BLOCK
       ?auto_83356 - BLOCK
-      ?auto_83355 - BLOCK
       ?auto_83354 - BLOCK
+      ?auto_83355 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83350 ?auto_83351 ) ) ( not ( = ?auto_83350 ?auto_83352 ) ) ( not ( = ?auto_83350 ?auto_83353 ) ) ( not ( = ?auto_83351 ?auto_83352 ) ) ( not ( = ?auto_83351 ?auto_83353 ) ) ( not ( = ?auto_83352 ?auto_83353 ) ) ( not ( = ?auto_83350 ?auto_83357 ) ) ( not ( = ?auto_83351 ?auto_83357 ) ) ( not ( = ?auto_83352 ?auto_83357 ) ) ( not ( = ?auto_83353 ?auto_83357 ) ) ( not ( = ?auto_83356 ?auto_83355 ) ) ( not ( = ?auto_83356 ?auto_83357 ) ) ( not ( = ?auto_83356 ?auto_83353 ) ) ( not ( = ?auto_83356 ?auto_83352 ) ) ( not ( = ?auto_83355 ?auto_83357 ) ) ( not ( = ?auto_83355 ?auto_83353 ) ) ( not ( = ?auto_83355 ?auto_83352 ) ) ( not ( = ?auto_83350 ?auto_83356 ) ) ( not ( = ?auto_83350 ?auto_83355 ) ) ( not ( = ?auto_83351 ?auto_83356 ) ) ( not ( = ?auto_83351 ?auto_83355 ) ) ( ON ?auto_83350 ?auto_83354 ) ( not ( = ?auto_83350 ?auto_83354 ) ) ( not ( = ?auto_83351 ?auto_83354 ) ) ( not ( = ?auto_83352 ?auto_83354 ) ) ( not ( = ?auto_83353 ?auto_83354 ) ) ( not ( = ?auto_83357 ?auto_83354 ) ) ( not ( = ?auto_83356 ?auto_83354 ) ) ( not ( = ?auto_83355 ?auto_83354 ) ) ( ON ?auto_83351 ?auto_83350 ) ( ON-TABLE ?auto_83354 ) ( ON ?auto_83352 ?auto_83351 ) ( ON ?auto_83353 ?auto_83352 ) ( ON ?auto_83357 ?auto_83353 ) ( ON ?auto_83355 ?auto_83357 ) ( ON ?auto_83356 ?auto_83355 ) ( CLEAR ?auto_83356 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83350 ?auto_83351 ) ) ( not ( = ?auto_83350 ?auto_83352 ) ) ( not ( = ?auto_83350 ?auto_83353 ) ) ( not ( = ?auto_83351 ?auto_83352 ) ) ( not ( = ?auto_83351 ?auto_83353 ) ) ( not ( = ?auto_83352 ?auto_83353 ) ) ( not ( = ?auto_83350 ?auto_83357 ) ) ( not ( = ?auto_83351 ?auto_83357 ) ) ( not ( = ?auto_83352 ?auto_83357 ) ) ( not ( = ?auto_83353 ?auto_83357 ) ) ( not ( = ?auto_83356 ?auto_83354 ) ) ( not ( = ?auto_83356 ?auto_83357 ) ) ( not ( = ?auto_83356 ?auto_83353 ) ) ( not ( = ?auto_83356 ?auto_83352 ) ) ( not ( = ?auto_83354 ?auto_83357 ) ) ( not ( = ?auto_83354 ?auto_83353 ) ) ( not ( = ?auto_83354 ?auto_83352 ) ) ( not ( = ?auto_83350 ?auto_83356 ) ) ( not ( = ?auto_83350 ?auto_83354 ) ) ( not ( = ?auto_83351 ?auto_83356 ) ) ( not ( = ?auto_83351 ?auto_83354 ) ) ( ON ?auto_83350 ?auto_83355 ) ( not ( = ?auto_83350 ?auto_83355 ) ) ( not ( = ?auto_83351 ?auto_83355 ) ) ( not ( = ?auto_83352 ?auto_83355 ) ) ( not ( = ?auto_83353 ?auto_83355 ) ) ( not ( = ?auto_83357 ?auto_83355 ) ) ( not ( = ?auto_83356 ?auto_83355 ) ) ( not ( = ?auto_83354 ?auto_83355 ) ) ( ON ?auto_83351 ?auto_83350 ) ( ON-TABLE ?auto_83355 ) ( ON ?auto_83352 ?auto_83351 ) ( ON ?auto_83353 ?auto_83352 ) ( ON ?auto_83357 ?auto_83353 ) ( ON ?auto_83354 ?auto_83357 ) ( ON ?auto_83356 ?auto_83354 ) ( CLEAR ?auto_83356 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83354 ?auto_83350 ?auto_83351 ?auto_83352 ?auto_83353 ?auto_83357 ?auto_83355 )
+    ( ( MAKE-7PILE ?auto_83355 ?auto_83350 ?auto_83351 ?auto_83352 ?auto_83353 ?auto_83357 ?auto_83354 )
       ( MAKE-4PILE ?auto_83350 ?auto_83351 ?auto_83352 ?auto_83353 ) )
   )
 
@@ -5265,14 +5265,14 @@
     )
     :vars
     (
-      ?auto_83370 - BLOCK
-      ?auto_83372 - BLOCK
       ?auto_83371 - BLOCK
+      ?auto_83372 - BLOCK
+      ?auto_83370 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83370 ?auto_83369 ) ( ON-TABLE ?auto_83368 ) ( ON ?auto_83369 ?auto_83368 ) ( not ( = ?auto_83368 ?auto_83369 ) ) ( not ( = ?auto_83368 ?auto_83370 ) ) ( not ( = ?auto_83369 ?auto_83370 ) ) ( CLEAR ?auto_83372 ) ( not ( = ?auto_83368 ?auto_83371 ) ) ( not ( = ?auto_83368 ?auto_83372 ) ) ( not ( = ?auto_83369 ?auto_83371 ) ) ( not ( = ?auto_83369 ?auto_83372 ) ) ( not ( = ?auto_83370 ?auto_83371 ) ) ( not ( = ?auto_83370 ?auto_83372 ) ) ( not ( = ?auto_83371 ?auto_83372 ) ) ( ON ?auto_83371 ?auto_83370 ) ( CLEAR ?auto_83371 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83371 ?auto_83369 ) ( ON-TABLE ?auto_83368 ) ( ON ?auto_83369 ?auto_83368 ) ( not ( = ?auto_83368 ?auto_83369 ) ) ( not ( = ?auto_83368 ?auto_83371 ) ) ( not ( = ?auto_83369 ?auto_83371 ) ) ( CLEAR ?auto_83372 ) ( not ( = ?auto_83368 ?auto_83370 ) ) ( not ( = ?auto_83368 ?auto_83372 ) ) ( not ( = ?auto_83369 ?auto_83370 ) ) ( not ( = ?auto_83369 ?auto_83372 ) ) ( not ( = ?auto_83371 ?auto_83370 ) ) ( not ( = ?auto_83371 ?auto_83372 ) ) ( not ( = ?auto_83370 ?auto_83372 ) ) ( ON ?auto_83370 ?auto_83371 ) ( CLEAR ?auto_83370 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83368 ?auto_83369 ?auto_83370 )
+    ( ( MAKE-3PILE ?auto_83368 ?auto_83369 ?auto_83371 )
       ( MAKE-2PILE ?auto_83368 ?auto_83369 ) )
   )
 
@@ -5284,16 +5284,16 @@
     )
     :vars
     (
-      ?auto_83376 - BLOCK
       ?auto_83377 - BLOCK
       ?auto_83375 - BLOCK
-      ?auto_83378 - BLOCK
+      ?auto_83376 - BLOCK
       ?auto_83379 - BLOCK
+      ?auto_83378 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83376 ?auto_83374 ) ( ON-TABLE ?auto_83373 ) ( ON ?auto_83374 ?auto_83373 ) ( not ( = ?auto_83373 ?auto_83374 ) ) ( not ( = ?auto_83373 ?auto_83376 ) ) ( not ( = ?auto_83374 ?auto_83376 ) ) ( not ( = ?auto_83373 ?auto_83377 ) ) ( not ( = ?auto_83373 ?auto_83375 ) ) ( not ( = ?auto_83374 ?auto_83377 ) ) ( not ( = ?auto_83374 ?auto_83375 ) ) ( not ( = ?auto_83376 ?auto_83377 ) ) ( not ( = ?auto_83376 ?auto_83375 ) ) ( not ( = ?auto_83377 ?auto_83375 ) ) ( ON ?auto_83377 ?auto_83376 ) ( CLEAR ?auto_83377 ) ( HOLDING ?auto_83375 ) ( CLEAR ?auto_83378 ) ( ON-TABLE ?auto_83379 ) ( ON ?auto_83378 ?auto_83379 ) ( not ( = ?auto_83379 ?auto_83378 ) ) ( not ( = ?auto_83379 ?auto_83375 ) ) ( not ( = ?auto_83378 ?auto_83375 ) ) ( not ( = ?auto_83373 ?auto_83378 ) ) ( not ( = ?auto_83373 ?auto_83379 ) ) ( not ( = ?auto_83374 ?auto_83378 ) ) ( not ( = ?auto_83374 ?auto_83379 ) ) ( not ( = ?auto_83376 ?auto_83378 ) ) ( not ( = ?auto_83376 ?auto_83379 ) ) ( not ( = ?auto_83377 ?auto_83378 ) ) ( not ( = ?auto_83377 ?auto_83379 ) ) )
+    ( and ( ON ?auto_83377 ?auto_83374 ) ( ON-TABLE ?auto_83373 ) ( ON ?auto_83374 ?auto_83373 ) ( not ( = ?auto_83373 ?auto_83374 ) ) ( not ( = ?auto_83373 ?auto_83377 ) ) ( not ( = ?auto_83374 ?auto_83377 ) ) ( not ( = ?auto_83373 ?auto_83375 ) ) ( not ( = ?auto_83373 ?auto_83376 ) ) ( not ( = ?auto_83374 ?auto_83375 ) ) ( not ( = ?auto_83374 ?auto_83376 ) ) ( not ( = ?auto_83377 ?auto_83375 ) ) ( not ( = ?auto_83377 ?auto_83376 ) ) ( not ( = ?auto_83375 ?auto_83376 ) ) ( ON ?auto_83375 ?auto_83377 ) ( CLEAR ?auto_83375 ) ( HOLDING ?auto_83376 ) ( CLEAR ?auto_83379 ) ( ON-TABLE ?auto_83378 ) ( ON ?auto_83379 ?auto_83378 ) ( not ( = ?auto_83378 ?auto_83379 ) ) ( not ( = ?auto_83378 ?auto_83376 ) ) ( not ( = ?auto_83379 ?auto_83376 ) ) ( not ( = ?auto_83373 ?auto_83379 ) ) ( not ( = ?auto_83373 ?auto_83378 ) ) ( not ( = ?auto_83374 ?auto_83379 ) ) ( not ( = ?auto_83374 ?auto_83378 ) ) ( not ( = ?auto_83377 ?auto_83379 ) ) ( not ( = ?auto_83377 ?auto_83378 ) ) ( not ( = ?auto_83375 ?auto_83379 ) ) ( not ( = ?auto_83375 ?auto_83378 ) ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83379 ?auto_83378 ?auto_83375 )
+    ( ( MAKE-3PILE ?auto_83378 ?auto_83379 ?auto_83376 )
       ( MAKE-2PILE ?auto_83373 ?auto_83374 ) )
   )
 
@@ -5306,15 +5306,15 @@
     :vars
     (
       ?auto_83383 - BLOCK
-      ?auto_83382 - BLOCK
-      ?auto_83384 - BLOCK
       ?auto_83385 - BLOCK
       ?auto_83386 - BLOCK
+      ?auto_83384 - BLOCK
+      ?auto_83382 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83383 ?auto_83381 ) ( ON-TABLE ?auto_83380 ) ( ON ?auto_83381 ?auto_83380 ) ( not ( = ?auto_83380 ?auto_83381 ) ) ( not ( = ?auto_83380 ?auto_83383 ) ) ( not ( = ?auto_83381 ?auto_83383 ) ) ( not ( = ?auto_83380 ?auto_83382 ) ) ( not ( = ?auto_83380 ?auto_83384 ) ) ( not ( = ?auto_83381 ?auto_83382 ) ) ( not ( = ?auto_83381 ?auto_83384 ) ) ( not ( = ?auto_83383 ?auto_83382 ) ) ( not ( = ?auto_83383 ?auto_83384 ) ) ( not ( = ?auto_83382 ?auto_83384 ) ) ( ON ?auto_83382 ?auto_83383 ) ( CLEAR ?auto_83385 ) ( ON-TABLE ?auto_83386 ) ( ON ?auto_83385 ?auto_83386 ) ( not ( = ?auto_83386 ?auto_83385 ) ) ( not ( = ?auto_83386 ?auto_83384 ) ) ( not ( = ?auto_83385 ?auto_83384 ) ) ( not ( = ?auto_83380 ?auto_83385 ) ) ( not ( = ?auto_83380 ?auto_83386 ) ) ( not ( = ?auto_83381 ?auto_83385 ) ) ( not ( = ?auto_83381 ?auto_83386 ) ) ( not ( = ?auto_83383 ?auto_83385 ) ) ( not ( = ?auto_83383 ?auto_83386 ) ) ( not ( = ?auto_83382 ?auto_83385 ) ) ( not ( = ?auto_83382 ?auto_83386 ) ) ( ON ?auto_83384 ?auto_83382 ) ( CLEAR ?auto_83384 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83383 ?auto_83381 ) ( ON-TABLE ?auto_83380 ) ( ON ?auto_83381 ?auto_83380 ) ( not ( = ?auto_83380 ?auto_83381 ) ) ( not ( = ?auto_83380 ?auto_83383 ) ) ( not ( = ?auto_83381 ?auto_83383 ) ) ( not ( = ?auto_83380 ?auto_83385 ) ) ( not ( = ?auto_83380 ?auto_83386 ) ) ( not ( = ?auto_83381 ?auto_83385 ) ) ( not ( = ?auto_83381 ?auto_83386 ) ) ( not ( = ?auto_83383 ?auto_83385 ) ) ( not ( = ?auto_83383 ?auto_83386 ) ) ( not ( = ?auto_83385 ?auto_83386 ) ) ( ON ?auto_83385 ?auto_83383 ) ( CLEAR ?auto_83384 ) ( ON-TABLE ?auto_83382 ) ( ON ?auto_83384 ?auto_83382 ) ( not ( = ?auto_83382 ?auto_83384 ) ) ( not ( = ?auto_83382 ?auto_83386 ) ) ( not ( = ?auto_83384 ?auto_83386 ) ) ( not ( = ?auto_83380 ?auto_83384 ) ) ( not ( = ?auto_83380 ?auto_83382 ) ) ( not ( = ?auto_83381 ?auto_83384 ) ) ( not ( = ?auto_83381 ?auto_83382 ) ) ( not ( = ?auto_83383 ?auto_83384 ) ) ( not ( = ?auto_83383 ?auto_83382 ) ) ( not ( = ?auto_83385 ?auto_83384 ) ) ( not ( = ?auto_83385 ?auto_83382 ) ) ( ON ?auto_83386 ?auto_83385 ) ( CLEAR ?auto_83386 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83380 ?auto_83381 ?auto_83383 ?auto_83382 )
+    ( ( MAKE-4PILE ?auto_83380 ?auto_83381 ?auto_83383 ?auto_83385 )
       ( MAKE-2PILE ?auto_83380 ?auto_83381 ) )
   )
 
@@ -5327,13 +5327,13 @@
     :vars
     (
       ?auto_83389 - BLOCK
-      ?auto_83392 - BLOCK
       ?auto_83390 - BLOCK
+      ?auto_83392 - BLOCK
       ?auto_83391 - BLOCK
       ?auto_83393 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83389 ?auto_83388 ) ( ON-TABLE ?auto_83387 ) ( ON ?auto_83388 ?auto_83387 ) ( not ( = ?auto_83387 ?auto_83388 ) ) ( not ( = ?auto_83387 ?auto_83389 ) ) ( not ( = ?auto_83388 ?auto_83389 ) ) ( not ( = ?auto_83387 ?auto_83392 ) ) ( not ( = ?auto_83387 ?auto_83390 ) ) ( not ( = ?auto_83388 ?auto_83392 ) ) ( not ( = ?auto_83388 ?auto_83390 ) ) ( not ( = ?auto_83389 ?auto_83392 ) ) ( not ( = ?auto_83389 ?auto_83390 ) ) ( not ( = ?auto_83392 ?auto_83390 ) ) ( ON ?auto_83392 ?auto_83389 ) ( ON-TABLE ?auto_83391 ) ( not ( = ?auto_83391 ?auto_83393 ) ) ( not ( = ?auto_83391 ?auto_83390 ) ) ( not ( = ?auto_83393 ?auto_83390 ) ) ( not ( = ?auto_83387 ?auto_83393 ) ) ( not ( = ?auto_83387 ?auto_83391 ) ) ( not ( = ?auto_83388 ?auto_83393 ) ) ( not ( = ?auto_83388 ?auto_83391 ) ) ( not ( = ?auto_83389 ?auto_83393 ) ) ( not ( = ?auto_83389 ?auto_83391 ) ) ( not ( = ?auto_83392 ?auto_83393 ) ) ( not ( = ?auto_83392 ?auto_83391 ) ) ( ON ?auto_83390 ?auto_83392 ) ( CLEAR ?auto_83390 ) ( HOLDING ?auto_83393 ) ( CLEAR ?auto_83391 ) )
+    ( and ( ON ?auto_83389 ?auto_83388 ) ( ON-TABLE ?auto_83387 ) ( ON ?auto_83388 ?auto_83387 ) ( not ( = ?auto_83387 ?auto_83388 ) ) ( not ( = ?auto_83387 ?auto_83389 ) ) ( not ( = ?auto_83388 ?auto_83389 ) ) ( not ( = ?auto_83387 ?auto_83390 ) ) ( not ( = ?auto_83387 ?auto_83392 ) ) ( not ( = ?auto_83388 ?auto_83390 ) ) ( not ( = ?auto_83388 ?auto_83392 ) ) ( not ( = ?auto_83389 ?auto_83390 ) ) ( not ( = ?auto_83389 ?auto_83392 ) ) ( not ( = ?auto_83390 ?auto_83392 ) ) ( ON ?auto_83390 ?auto_83389 ) ( ON-TABLE ?auto_83391 ) ( not ( = ?auto_83391 ?auto_83393 ) ) ( not ( = ?auto_83391 ?auto_83392 ) ) ( not ( = ?auto_83393 ?auto_83392 ) ) ( not ( = ?auto_83387 ?auto_83393 ) ) ( not ( = ?auto_83387 ?auto_83391 ) ) ( not ( = ?auto_83388 ?auto_83393 ) ) ( not ( = ?auto_83388 ?auto_83391 ) ) ( not ( = ?auto_83389 ?auto_83393 ) ) ( not ( = ?auto_83389 ?auto_83391 ) ) ( not ( = ?auto_83390 ?auto_83393 ) ) ( not ( = ?auto_83390 ?auto_83391 ) ) ( ON ?auto_83392 ?auto_83390 ) ( CLEAR ?auto_83392 ) ( HOLDING ?auto_83393 ) ( CLEAR ?auto_83391 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_83391 ?auto_83393 )
       ( MAKE-2PILE ?auto_83387 ?auto_83388 ) )
@@ -5347,16 +5347,16 @@
     )
     :vars
     (
-      ?auto_83398 - BLOCK
       ?auto_83396 - BLOCK
+      ?auto_83398 - BLOCK
+      ?auto_83397 - BLOCK
       ?auto_83400 - BLOCK
       ?auto_83399 - BLOCK
-      ?auto_83397 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83398 ?auto_83395 ) ( ON-TABLE ?auto_83394 ) ( ON ?auto_83395 ?auto_83394 ) ( not ( = ?auto_83394 ?auto_83395 ) ) ( not ( = ?auto_83394 ?auto_83398 ) ) ( not ( = ?auto_83395 ?auto_83398 ) ) ( not ( = ?auto_83394 ?auto_83396 ) ) ( not ( = ?auto_83394 ?auto_83400 ) ) ( not ( = ?auto_83395 ?auto_83396 ) ) ( not ( = ?auto_83395 ?auto_83400 ) ) ( not ( = ?auto_83398 ?auto_83396 ) ) ( not ( = ?auto_83398 ?auto_83400 ) ) ( not ( = ?auto_83396 ?auto_83400 ) ) ( ON ?auto_83396 ?auto_83398 ) ( ON-TABLE ?auto_83399 ) ( not ( = ?auto_83399 ?auto_83397 ) ) ( not ( = ?auto_83399 ?auto_83400 ) ) ( not ( = ?auto_83397 ?auto_83400 ) ) ( not ( = ?auto_83394 ?auto_83397 ) ) ( not ( = ?auto_83394 ?auto_83399 ) ) ( not ( = ?auto_83395 ?auto_83397 ) ) ( not ( = ?auto_83395 ?auto_83399 ) ) ( not ( = ?auto_83398 ?auto_83397 ) ) ( not ( = ?auto_83398 ?auto_83399 ) ) ( not ( = ?auto_83396 ?auto_83397 ) ) ( not ( = ?auto_83396 ?auto_83399 ) ) ( ON ?auto_83400 ?auto_83396 ) ( CLEAR ?auto_83399 ) ( ON ?auto_83397 ?auto_83400 ) ( CLEAR ?auto_83397 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83396 ?auto_83395 ) ( ON-TABLE ?auto_83394 ) ( ON ?auto_83395 ?auto_83394 ) ( not ( = ?auto_83394 ?auto_83395 ) ) ( not ( = ?auto_83394 ?auto_83396 ) ) ( not ( = ?auto_83395 ?auto_83396 ) ) ( not ( = ?auto_83394 ?auto_83398 ) ) ( not ( = ?auto_83394 ?auto_83397 ) ) ( not ( = ?auto_83395 ?auto_83398 ) ) ( not ( = ?auto_83395 ?auto_83397 ) ) ( not ( = ?auto_83396 ?auto_83398 ) ) ( not ( = ?auto_83396 ?auto_83397 ) ) ( not ( = ?auto_83398 ?auto_83397 ) ) ( ON ?auto_83398 ?auto_83396 ) ( ON-TABLE ?auto_83400 ) ( not ( = ?auto_83400 ?auto_83399 ) ) ( not ( = ?auto_83400 ?auto_83397 ) ) ( not ( = ?auto_83399 ?auto_83397 ) ) ( not ( = ?auto_83394 ?auto_83399 ) ) ( not ( = ?auto_83394 ?auto_83400 ) ) ( not ( = ?auto_83395 ?auto_83399 ) ) ( not ( = ?auto_83395 ?auto_83400 ) ) ( not ( = ?auto_83396 ?auto_83399 ) ) ( not ( = ?auto_83396 ?auto_83400 ) ) ( not ( = ?auto_83398 ?auto_83399 ) ) ( not ( = ?auto_83398 ?auto_83400 ) ) ( ON ?auto_83397 ?auto_83398 ) ( CLEAR ?auto_83400 ) ( ON ?auto_83399 ?auto_83397 ) ( CLEAR ?auto_83399 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83394 ?auto_83395 ?auto_83398 ?auto_83396 ?auto_83400 )
+    ( ( MAKE-5PILE ?auto_83394 ?auto_83395 ?auto_83396 ?auto_83398 ?auto_83397 )
       ( MAKE-2PILE ?auto_83394 ?auto_83395 ) )
   )
 
@@ -5368,16 +5368,16 @@
     )
     :vars
     (
-      ?auto_83407 - BLOCK
-      ?auto_83404 - BLOCK
-      ?auto_83406 - BLOCK
       ?auto_83405 - BLOCK
       ?auto_83403 - BLOCK
+      ?auto_83406 - BLOCK
+      ?auto_83404 - BLOCK
+      ?auto_83407 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83407 ?auto_83402 ) ( ON-TABLE ?auto_83401 ) ( ON ?auto_83402 ?auto_83401 ) ( not ( = ?auto_83401 ?auto_83402 ) ) ( not ( = ?auto_83401 ?auto_83407 ) ) ( not ( = ?auto_83402 ?auto_83407 ) ) ( not ( = ?auto_83401 ?auto_83404 ) ) ( not ( = ?auto_83401 ?auto_83406 ) ) ( not ( = ?auto_83402 ?auto_83404 ) ) ( not ( = ?auto_83402 ?auto_83406 ) ) ( not ( = ?auto_83407 ?auto_83404 ) ) ( not ( = ?auto_83407 ?auto_83406 ) ) ( not ( = ?auto_83404 ?auto_83406 ) ) ( ON ?auto_83404 ?auto_83407 ) ( not ( = ?auto_83405 ?auto_83403 ) ) ( not ( = ?auto_83405 ?auto_83406 ) ) ( not ( = ?auto_83403 ?auto_83406 ) ) ( not ( = ?auto_83401 ?auto_83403 ) ) ( not ( = ?auto_83401 ?auto_83405 ) ) ( not ( = ?auto_83402 ?auto_83403 ) ) ( not ( = ?auto_83402 ?auto_83405 ) ) ( not ( = ?auto_83407 ?auto_83403 ) ) ( not ( = ?auto_83407 ?auto_83405 ) ) ( not ( = ?auto_83404 ?auto_83403 ) ) ( not ( = ?auto_83404 ?auto_83405 ) ) ( ON ?auto_83406 ?auto_83404 ) ( ON ?auto_83403 ?auto_83406 ) ( CLEAR ?auto_83403 ) ( HOLDING ?auto_83405 ) )
+    ( and ( ON ?auto_83405 ?auto_83402 ) ( ON-TABLE ?auto_83401 ) ( ON ?auto_83402 ?auto_83401 ) ( not ( = ?auto_83401 ?auto_83402 ) ) ( not ( = ?auto_83401 ?auto_83405 ) ) ( not ( = ?auto_83402 ?auto_83405 ) ) ( not ( = ?auto_83401 ?auto_83403 ) ) ( not ( = ?auto_83401 ?auto_83406 ) ) ( not ( = ?auto_83402 ?auto_83403 ) ) ( not ( = ?auto_83402 ?auto_83406 ) ) ( not ( = ?auto_83405 ?auto_83403 ) ) ( not ( = ?auto_83405 ?auto_83406 ) ) ( not ( = ?auto_83403 ?auto_83406 ) ) ( ON ?auto_83403 ?auto_83405 ) ( not ( = ?auto_83404 ?auto_83407 ) ) ( not ( = ?auto_83404 ?auto_83406 ) ) ( not ( = ?auto_83407 ?auto_83406 ) ) ( not ( = ?auto_83401 ?auto_83407 ) ) ( not ( = ?auto_83401 ?auto_83404 ) ) ( not ( = ?auto_83402 ?auto_83407 ) ) ( not ( = ?auto_83402 ?auto_83404 ) ) ( not ( = ?auto_83405 ?auto_83407 ) ) ( not ( = ?auto_83405 ?auto_83404 ) ) ( not ( = ?auto_83403 ?auto_83407 ) ) ( not ( = ?auto_83403 ?auto_83404 ) ) ( ON ?auto_83406 ?auto_83403 ) ( ON ?auto_83407 ?auto_83406 ) ( CLEAR ?auto_83407 ) ( HOLDING ?auto_83404 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_83405 )
+    ( ( MAKE-1PILE ?auto_83404 )
       ( MAKE-2PILE ?auto_83401 ?auto_83402 ) )
   )
 
@@ -5390,15 +5390,15 @@
     :vars
     (
       ?auto_83412 - BLOCK
-      ?auto_83410 - BLOCK
+      ?auto_83414 - BLOCK
       ?auto_83411 - BLOCK
       ?auto_83413 - BLOCK
-      ?auto_83414 - BLOCK
+      ?auto_83410 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83412 ?auto_83409 ) ( ON-TABLE ?auto_83408 ) ( ON ?auto_83409 ?auto_83408 ) ( not ( = ?auto_83408 ?auto_83409 ) ) ( not ( = ?auto_83408 ?auto_83412 ) ) ( not ( = ?auto_83409 ?auto_83412 ) ) ( not ( = ?auto_83408 ?auto_83410 ) ) ( not ( = ?auto_83408 ?auto_83411 ) ) ( not ( = ?auto_83409 ?auto_83410 ) ) ( not ( = ?auto_83409 ?auto_83411 ) ) ( not ( = ?auto_83412 ?auto_83410 ) ) ( not ( = ?auto_83412 ?auto_83411 ) ) ( not ( = ?auto_83410 ?auto_83411 ) ) ( ON ?auto_83410 ?auto_83412 ) ( not ( = ?auto_83413 ?auto_83414 ) ) ( not ( = ?auto_83413 ?auto_83411 ) ) ( not ( = ?auto_83414 ?auto_83411 ) ) ( not ( = ?auto_83408 ?auto_83414 ) ) ( not ( = ?auto_83408 ?auto_83413 ) ) ( not ( = ?auto_83409 ?auto_83414 ) ) ( not ( = ?auto_83409 ?auto_83413 ) ) ( not ( = ?auto_83412 ?auto_83414 ) ) ( not ( = ?auto_83412 ?auto_83413 ) ) ( not ( = ?auto_83410 ?auto_83414 ) ) ( not ( = ?auto_83410 ?auto_83413 ) ) ( ON ?auto_83411 ?auto_83410 ) ( ON ?auto_83414 ?auto_83411 ) ( ON ?auto_83413 ?auto_83414 ) ( CLEAR ?auto_83413 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83412 ?auto_83409 ) ( ON-TABLE ?auto_83408 ) ( ON ?auto_83409 ?auto_83408 ) ( not ( = ?auto_83408 ?auto_83409 ) ) ( not ( = ?auto_83408 ?auto_83412 ) ) ( not ( = ?auto_83409 ?auto_83412 ) ) ( not ( = ?auto_83408 ?auto_83414 ) ) ( not ( = ?auto_83408 ?auto_83411 ) ) ( not ( = ?auto_83409 ?auto_83414 ) ) ( not ( = ?auto_83409 ?auto_83411 ) ) ( not ( = ?auto_83412 ?auto_83414 ) ) ( not ( = ?auto_83412 ?auto_83411 ) ) ( not ( = ?auto_83414 ?auto_83411 ) ) ( ON ?auto_83414 ?auto_83412 ) ( not ( = ?auto_83413 ?auto_83410 ) ) ( not ( = ?auto_83413 ?auto_83411 ) ) ( not ( = ?auto_83410 ?auto_83411 ) ) ( not ( = ?auto_83408 ?auto_83410 ) ) ( not ( = ?auto_83408 ?auto_83413 ) ) ( not ( = ?auto_83409 ?auto_83410 ) ) ( not ( = ?auto_83409 ?auto_83413 ) ) ( not ( = ?auto_83412 ?auto_83410 ) ) ( not ( = ?auto_83412 ?auto_83413 ) ) ( not ( = ?auto_83414 ?auto_83410 ) ) ( not ( = ?auto_83414 ?auto_83413 ) ) ( ON ?auto_83411 ?auto_83414 ) ( ON ?auto_83410 ?auto_83411 ) ( ON ?auto_83413 ?auto_83410 ) ( CLEAR ?auto_83413 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83408 ?auto_83409 ?auto_83412 ?auto_83410 ?auto_83411 ?auto_83414 )
+    ( ( MAKE-6PILE ?auto_83408 ?auto_83409 ?auto_83412 ?auto_83414 ?auto_83411 ?auto_83410 )
       ( MAKE-2PILE ?auto_83408 ?auto_83409 ) )
   )
 
@@ -5410,16 +5410,16 @@
     )
     :vars
     (
+      ?auto_83419 - BLOCK
       ?auto_83420 - BLOCK
       ?auto_83418 - BLOCK
-      ?auto_83419 - BLOCK
-      ?auto_83417 - BLOCK
       ?auto_83421 - BLOCK
+      ?auto_83417 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83420 ?auto_83416 ) ( ON-TABLE ?auto_83415 ) ( ON ?auto_83416 ?auto_83415 ) ( not ( = ?auto_83415 ?auto_83416 ) ) ( not ( = ?auto_83415 ?auto_83420 ) ) ( not ( = ?auto_83416 ?auto_83420 ) ) ( not ( = ?auto_83415 ?auto_83418 ) ) ( not ( = ?auto_83415 ?auto_83419 ) ) ( not ( = ?auto_83416 ?auto_83418 ) ) ( not ( = ?auto_83416 ?auto_83419 ) ) ( not ( = ?auto_83420 ?auto_83418 ) ) ( not ( = ?auto_83420 ?auto_83419 ) ) ( not ( = ?auto_83418 ?auto_83419 ) ) ( ON ?auto_83418 ?auto_83420 ) ( not ( = ?auto_83417 ?auto_83421 ) ) ( not ( = ?auto_83417 ?auto_83419 ) ) ( not ( = ?auto_83421 ?auto_83419 ) ) ( not ( = ?auto_83415 ?auto_83421 ) ) ( not ( = ?auto_83415 ?auto_83417 ) ) ( not ( = ?auto_83416 ?auto_83421 ) ) ( not ( = ?auto_83416 ?auto_83417 ) ) ( not ( = ?auto_83420 ?auto_83421 ) ) ( not ( = ?auto_83420 ?auto_83417 ) ) ( not ( = ?auto_83418 ?auto_83421 ) ) ( not ( = ?auto_83418 ?auto_83417 ) ) ( ON ?auto_83419 ?auto_83418 ) ( ON ?auto_83421 ?auto_83419 ) ( HOLDING ?auto_83417 ) ( CLEAR ?auto_83421 ) )
+    ( and ( ON ?auto_83419 ?auto_83416 ) ( ON-TABLE ?auto_83415 ) ( ON ?auto_83416 ?auto_83415 ) ( not ( = ?auto_83415 ?auto_83416 ) ) ( not ( = ?auto_83415 ?auto_83419 ) ) ( not ( = ?auto_83416 ?auto_83419 ) ) ( not ( = ?auto_83415 ?auto_83420 ) ) ( not ( = ?auto_83415 ?auto_83418 ) ) ( not ( = ?auto_83416 ?auto_83420 ) ) ( not ( = ?auto_83416 ?auto_83418 ) ) ( not ( = ?auto_83419 ?auto_83420 ) ) ( not ( = ?auto_83419 ?auto_83418 ) ) ( not ( = ?auto_83420 ?auto_83418 ) ) ( ON ?auto_83420 ?auto_83419 ) ( not ( = ?auto_83421 ?auto_83417 ) ) ( not ( = ?auto_83421 ?auto_83418 ) ) ( not ( = ?auto_83417 ?auto_83418 ) ) ( not ( = ?auto_83415 ?auto_83417 ) ) ( not ( = ?auto_83415 ?auto_83421 ) ) ( not ( = ?auto_83416 ?auto_83417 ) ) ( not ( = ?auto_83416 ?auto_83421 ) ) ( not ( = ?auto_83419 ?auto_83417 ) ) ( not ( = ?auto_83419 ?auto_83421 ) ) ( not ( = ?auto_83420 ?auto_83417 ) ) ( not ( = ?auto_83420 ?auto_83421 ) ) ( ON ?auto_83418 ?auto_83420 ) ( ON ?auto_83417 ?auto_83418 ) ( HOLDING ?auto_83421 ) ( CLEAR ?auto_83417 ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83415 ?auto_83416 ?auto_83420 ?auto_83418 ?auto_83419 ?auto_83421 ?auto_83417 )
+    ( ( MAKE-7PILE ?auto_83415 ?auto_83416 ?auto_83419 ?auto_83420 ?auto_83418 ?auto_83417 ?auto_83421 )
       ( MAKE-2PILE ?auto_83415 ?auto_83416 ) )
   )
 
@@ -5432,16 +5432,16 @@
     :vars
     (
       ?auto_83428 - BLOCK
-      ?auto_83425 - BLOCK
       ?auto_83424 - BLOCK
       ?auto_83427 - BLOCK
       ?auto_83426 - BLOCK
+      ?auto_83425 - BLOCK
       ?auto_83429 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83428 ?auto_83423 ) ( ON-TABLE ?auto_83422 ) ( ON ?auto_83423 ?auto_83422 ) ( not ( = ?auto_83422 ?auto_83423 ) ) ( not ( = ?auto_83422 ?auto_83428 ) ) ( not ( = ?auto_83423 ?auto_83428 ) ) ( not ( = ?auto_83422 ?auto_83425 ) ) ( not ( = ?auto_83422 ?auto_83424 ) ) ( not ( = ?auto_83423 ?auto_83425 ) ) ( not ( = ?auto_83423 ?auto_83424 ) ) ( not ( = ?auto_83428 ?auto_83425 ) ) ( not ( = ?auto_83428 ?auto_83424 ) ) ( not ( = ?auto_83425 ?auto_83424 ) ) ( ON ?auto_83425 ?auto_83428 ) ( not ( = ?auto_83427 ?auto_83426 ) ) ( not ( = ?auto_83427 ?auto_83424 ) ) ( not ( = ?auto_83426 ?auto_83424 ) ) ( not ( = ?auto_83422 ?auto_83426 ) ) ( not ( = ?auto_83422 ?auto_83427 ) ) ( not ( = ?auto_83423 ?auto_83426 ) ) ( not ( = ?auto_83423 ?auto_83427 ) ) ( not ( = ?auto_83428 ?auto_83426 ) ) ( not ( = ?auto_83428 ?auto_83427 ) ) ( not ( = ?auto_83425 ?auto_83426 ) ) ( not ( = ?auto_83425 ?auto_83427 ) ) ( ON ?auto_83424 ?auto_83425 ) ( ON ?auto_83426 ?auto_83424 ) ( CLEAR ?auto_83426 ) ( ON ?auto_83427 ?auto_83429 ) ( CLEAR ?auto_83427 ) ( HAND-EMPTY ) ( not ( = ?auto_83422 ?auto_83429 ) ) ( not ( = ?auto_83423 ?auto_83429 ) ) ( not ( = ?auto_83428 ?auto_83429 ) ) ( not ( = ?auto_83425 ?auto_83429 ) ) ( not ( = ?auto_83424 ?auto_83429 ) ) ( not ( = ?auto_83427 ?auto_83429 ) ) ( not ( = ?auto_83426 ?auto_83429 ) ) )
+    ( and ( ON ?auto_83428 ?auto_83423 ) ( ON-TABLE ?auto_83422 ) ( ON ?auto_83423 ?auto_83422 ) ( not ( = ?auto_83422 ?auto_83423 ) ) ( not ( = ?auto_83422 ?auto_83428 ) ) ( not ( = ?auto_83423 ?auto_83428 ) ) ( not ( = ?auto_83422 ?auto_83424 ) ) ( not ( = ?auto_83422 ?auto_83427 ) ) ( not ( = ?auto_83423 ?auto_83424 ) ) ( not ( = ?auto_83423 ?auto_83427 ) ) ( not ( = ?auto_83428 ?auto_83424 ) ) ( not ( = ?auto_83428 ?auto_83427 ) ) ( not ( = ?auto_83424 ?auto_83427 ) ) ( ON ?auto_83424 ?auto_83428 ) ( not ( = ?auto_83426 ?auto_83425 ) ) ( not ( = ?auto_83426 ?auto_83427 ) ) ( not ( = ?auto_83425 ?auto_83427 ) ) ( not ( = ?auto_83422 ?auto_83425 ) ) ( not ( = ?auto_83422 ?auto_83426 ) ) ( not ( = ?auto_83423 ?auto_83425 ) ) ( not ( = ?auto_83423 ?auto_83426 ) ) ( not ( = ?auto_83428 ?auto_83425 ) ) ( not ( = ?auto_83428 ?auto_83426 ) ) ( not ( = ?auto_83424 ?auto_83425 ) ) ( not ( = ?auto_83424 ?auto_83426 ) ) ( ON ?auto_83427 ?auto_83424 ) ( ON ?auto_83425 ?auto_83427 ) ( CLEAR ?auto_83425 ) ( ON ?auto_83426 ?auto_83429 ) ( CLEAR ?auto_83426 ) ( HAND-EMPTY ) ( not ( = ?auto_83422 ?auto_83429 ) ) ( not ( = ?auto_83423 ?auto_83429 ) ) ( not ( = ?auto_83428 ?auto_83429 ) ) ( not ( = ?auto_83424 ?auto_83429 ) ) ( not ( = ?auto_83427 ?auto_83429 ) ) ( not ( = ?auto_83426 ?auto_83429 ) ) ( not ( = ?auto_83425 ?auto_83429 ) ) )
     :subtasks
-    ( ( !UNSTACK ?auto_83427 ?auto_83429 )
+    ( ( !UNSTACK ?auto_83426 ?auto_83429 )
       ( MAKE-2PILE ?auto_83422 ?auto_83423 ) )
   )
 
@@ -5453,17 +5453,17 @@
     )
     :vars
     (
-      ?auto_83436 - BLOCK
       ?auto_83432 - BLOCK
-      ?auto_83437 - BLOCK
+      ?auto_83436 - BLOCK
       ?auto_83433 - BLOCK
+      ?auto_83437 - BLOCK
       ?auto_83435 - BLOCK
       ?auto_83434 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83436 ?auto_83431 ) ( ON-TABLE ?auto_83430 ) ( ON ?auto_83431 ?auto_83430 ) ( not ( = ?auto_83430 ?auto_83431 ) ) ( not ( = ?auto_83430 ?auto_83436 ) ) ( not ( = ?auto_83431 ?auto_83436 ) ) ( not ( = ?auto_83430 ?auto_83432 ) ) ( not ( = ?auto_83430 ?auto_83437 ) ) ( not ( = ?auto_83431 ?auto_83432 ) ) ( not ( = ?auto_83431 ?auto_83437 ) ) ( not ( = ?auto_83436 ?auto_83432 ) ) ( not ( = ?auto_83436 ?auto_83437 ) ) ( not ( = ?auto_83432 ?auto_83437 ) ) ( ON ?auto_83432 ?auto_83436 ) ( not ( = ?auto_83433 ?auto_83435 ) ) ( not ( = ?auto_83433 ?auto_83437 ) ) ( not ( = ?auto_83435 ?auto_83437 ) ) ( not ( = ?auto_83430 ?auto_83435 ) ) ( not ( = ?auto_83430 ?auto_83433 ) ) ( not ( = ?auto_83431 ?auto_83435 ) ) ( not ( = ?auto_83431 ?auto_83433 ) ) ( not ( = ?auto_83436 ?auto_83435 ) ) ( not ( = ?auto_83436 ?auto_83433 ) ) ( not ( = ?auto_83432 ?auto_83435 ) ) ( not ( = ?auto_83432 ?auto_83433 ) ) ( ON ?auto_83437 ?auto_83432 ) ( ON ?auto_83433 ?auto_83434 ) ( CLEAR ?auto_83433 ) ( not ( = ?auto_83430 ?auto_83434 ) ) ( not ( = ?auto_83431 ?auto_83434 ) ) ( not ( = ?auto_83436 ?auto_83434 ) ) ( not ( = ?auto_83432 ?auto_83434 ) ) ( not ( = ?auto_83437 ?auto_83434 ) ) ( not ( = ?auto_83433 ?auto_83434 ) ) ( not ( = ?auto_83435 ?auto_83434 ) ) ( HOLDING ?auto_83435 ) ( CLEAR ?auto_83437 ) )
+    ( and ( ON ?auto_83432 ?auto_83431 ) ( ON-TABLE ?auto_83430 ) ( ON ?auto_83431 ?auto_83430 ) ( not ( = ?auto_83430 ?auto_83431 ) ) ( not ( = ?auto_83430 ?auto_83432 ) ) ( not ( = ?auto_83431 ?auto_83432 ) ) ( not ( = ?auto_83430 ?auto_83436 ) ) ( not ( = ?auto_83430 ?auto_83433 ) ) ( not ( = ?auto_83431 ?auto_83436 ) ) ( not ( = ?auto_83431 ?auto_83433 ) ) ( not ( = ?auto_83432 ?auto_83436 ) ) ( not ( = ?auto_83432 ?auto_83433 ) ) ( not ( = ?auto_83436 ?auto_83433 ) ) ( ON ?auto_83436 ?auto_83432 ) ( not ( = ?auto_83437 ?auto_83435 ) ) ( not ( = ?auto_83437 ?auto_83433 ) ) ( not ( = ?auto_83435 ?auto_83433 ) ) ( not ( = ?auto_83430 ?auto_83435 ) ) ( not ( = ?auto_83430 ?auto_83437 ) ) ( not ( = ?auto_83431 ?auto_83435 ) ) ( not ( = ?auto_83431 ?auto_83437 ) ) ( not ( = ?auto_83432 ?auto_83435 ) ) ( not ( = ?auto_83432 ?auto_83437 ) ) ( not ( = ?auto_83436 ?auto_83435 ) ) ( not ( = ?auto_83436 ?auto_83437 ) ) ( ON ?auto_83433 ?auto_83436 ) ( ON ?auto_83437 ?auto_83434 ) ( CLEAR ?auto_83437 ) ( not ( = ?auto_83430 ?auto_83434 ) ) ( not ( = ?auto_83431 ?auto_83434 ) ) ( not ( = ?auto_83432 ?auto_83434 ) ) ( not ( = ?auto_83436 ?auto_83434 ) ) ( not ( = ?auto_83433 ?auto_83434 ) ) ( not ( = ?auto_83437 ?auto_83434 ) ) ( not ( = ?auto_83435 ?auto_83434 ) ) ( HOLDING ?auto_83435 ) ( CLEAR ?auto_83433 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83430 ?auto_83431 ?auto_83436 ?auto_83432 ?auto_83437 ?auto_83435 )
+    ( ( MAKE-6PILE ?auto_83430 ?auto_83431 ?auto_83432 ?auto_83436 ?auto_83433 ?auto_83435 )
       ( MAKE-2PILE ?auto_83430 ?auto_83431 ) )
   )
 
@@ -5475,17 +5475,17 @@
     )
     :vars
     (
+      ?auto_83442 - BLOCK
       ?auto_83440 - BLOCK
+      ?auto_83444 - BLOCK
+      ?auto_83441 - BLOCK
       ?auto_83443 - BLOCK
       ?auto_83445 - BLOCK
-      ?auto_83442 - BLOCK
-      ?auto_83441 - BLOCK
-      ?auto_83444 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83440 ?auto_83439 ) ( ON-TABLE ?auto_83438 ) ( ON ?auto_83439 ?auto_83438 ) ( not ( = ?auto_83438 ?auto_83439 ) ) ( not ( = ?auto_83438 ?auto_83440 ) ) ( not ( = ?auto_83439 ?auto_83440 ) ) ( not ( = ?auto_83438 ?auto_83443 ) ) ( not ( = ?auto_83438 ?auto_83445 ) ) ( not ( = ?auto_83439 ?auto_83443 ) ) ( not ( = ?auto_83439 ?auto_83445 ) ) ( not ( = ?auto_83440 ?auto_83443 ) ) ( not ( = ?auto_83440 ?auto_83445 ) ) ( not ( = ?auto_83443 ?auto_83445 ) ) ( ON ?auto_83443 ?auto_83440 ) ( not ( = ?auto_83442 ?auto_83441 ) ) ( not ( = ?auto_83442 ?auto_83445 ) ) ( not ( = ?auto_83441 ?auto_83445 ) ) ( not ( = ?auto_83438 ?auto_83441 ) ) ( not ( = ?auto_83438 ?auto_83442 ) ) ( not ( = ?auto_83439 ?auto_83441 ) ) ( not ( = ?auto_83439 ?auto_83442 ) ) ( not ( = ?auto_83440 ?auto_83441 ) ) ( not ( = ?auto_83440 ?auto_83442 ) ) ( not ( = ?auto_83443 ?auto_83441 ) ) ( not ( = ?auto_83443 ?auto_83442 ) ) ( ON ?auto_83445 ?auto_83443 ) ( ON ?auto_83442 ?auto_83444 ) ( not ( = ?auto_83438 ?auto_83444 ) ) ( not ( = ?auto_83439 ?auto_83444 ) ) ( not ( = ?auto_83440 ?auto_83444 ) ) ( not ( = ?auto_83443 ?auto_83444 ) ) ( not ( = ?auto_83445 ?auto_83444 ) ) ( not ( = ?auto_83442 ?auto_83444 ) ) ( not ( = ?auto_83441 ?auto_83444 ) ) ( CLEAR ?auto_83445 ) ( ON ?auto_83441 ?auto_83442 ) ( CLEAR ?auto_83441 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83444 ) )
+    ( and ( ON ?auto_83442 ?auto_83439 ) ( ON-TABLE ?auto_83438 ) ( ON ?auto_83439 ?auto_83438 ) ( not ( = ?auto_83438 ?auto_83439 ) ) ( not ( = ?auto_83438 ?auto_83442 ) ) ( not ( = ?auto_83439 ?auto_83442 ) ) ( not ( = ?auto_83438 ?auto_83440 ) ) ( not ( = ?auto_83438 ?auto_83444 ) ) ( not ( = ?auto_83439 ?auto_83440 ) ) ( not ( = ?auto_83439 ?auto_83444 ) ) ( not ( = ?auto_83442 ?auto_83440 ) ) ( not ( = ?auto_83442 ?auto_83444 ) ) ( not ( = ?auto_83440 ?auto_83444 ) ) ( ON ?auto_83440 ?auto_83442 ) ( not ( = ?auto_83441 ?auto_83443 ) ) ( not ( = ?auto_83441 ?auto_83444 ) ) ( not ( = ?auto_83443 ?auto_83444 ) ) ( not ( = ?auto_83438 ?auto_83443 ) ) ( not ( = ?auto_83438 ?auto_83441 ) ) ( not ( = ?auto_83439 ?auto_83443 ) ) ( not ( = ?auto_83439 ?auto_83441 ) ) ( not ( = ?auto_83442 ?auto_83443 ) ) ( not ( = ?auto_83442 ?auto_83441 ) ) ( not ( = ?auto_83440 ?auto_83443 ) ) ( not ( = ?auto_83440 ?auto_83441 ) ) ( ON ?auto_83444 ?auto_83440 ) ( ON ?auto_83441 ?auto_83445 ) ( not ( = ?auto_83438 ?auto_83445 ) ) ( not ( = ?auto_83439 ?auto_83445 ) ) ( not ( = ?auto_83442 ?auto_83445 ) ) ( not ( = ?auto_83440 ?auto_83445 ) ) ( not ( = ?auto_83444 ?auto_83445 ) ) ( not ( = ?auto_83441 ?auto_83445 ) ) ( not ( = ?auto_83443 ?auto_83445 ) ) ( CLEAR ?auto_83444 ) ( ON ?auto_83443 ?auto_83441 ) ( CLEAR ?auto_83443 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83445 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83444 ?auto_83442 )
+    ( ( MAKE-2PILE ?auto_83445 ?auto_83441 )
       ( MAKE-2PILE ?auto_83438 ?auto_83439 ) )
   )
 
@@ -5497,17 +5497,17 @@
     )
     :vars
     (
-      ?auto_83451 - BLOCK
       ?auto_83448 - BLOCK
-      ?auto_83449 - BLOCK
-      ?auto_83452 - BLOCK
-      ?auto_83453 - BLOCK
+      ?auto_83451 - BLOCK
       ?auto_83450 - BLOCK
+      ?auto_83452 - BLOCK
+      ?auto_83449 - BLOCK
+      ?auto_83453 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83451 ?auto_83447 ) ( ON-TABLE ?auto_83446 ) ( ON ?auto_83447 ?auto_83446 ) ( not ( = ?auto_83446 ?auto_83447 ) ) ( not ( = ?auto_83446 ?auto_83451 ) ) ( not ( = ?auto_83447 ?auto_83451 ) ) ( not ( = ?auto_83446 ?auto_83448 ) ) ( not ( = ?auto_83446 ?auto_83449 ) ) ( not ( = ?auto_83447 ?auto_83448 ) ) ( not ( = ?auto_83447 ?auto_83449 ) ) ( not ( = ?auto_83451 ?auto_83448 ) ) ( not ( = ?auto_83451 ?auto_83449 ) ) ( not ( = ?auto_83448 ?auto_83449 ) ) ( ON ?auto_83448 ?auto_83451 ) ( not ( = ?auto_83452 ?auto_83453 ) ) ( not ( = ?auto_83452 ?auto_83449 ) ) ( not ( = ?auto_83453 ?auto_83449 ) ) ( not ( = ?auto_83446 ?auto_83453 ) ) ( not ( = ?auto_83446 ?auto_83452 ) ) ( not ( = ?auto_83447 ?auto_83453 ) ) ( not ( = ?auto_83447 ?auto_83452 ) ) ( not ( = ?auto_83451 ?auto_83453 ) ) ( not ( = ?auto_83451 ?auto_83452 ) ) ( not ( = ?auto_83448 ?auto_83453 ) ) ( not ( = ?auto_83448 ?auto_83452 ) ) ( ON ?auto_83452 ?auto_83450 ) ( not ( = ?auto_83446 ?auto_83450 ) ) ( not ( = ?auto_83447 ?auto_83450 ) ) ( not ( = ?auto_83451 ?auto_83450 ) ) ( not ( = ?auto_83448 ?auto_83450 ) ) ( not ( = ?auto_83449 ?auto_83450 ) ) ( not ( = ?auto_83452 ?auto_83450 ) ) ( not ( = ?auto_83453 ?auto_83450 ) ) ( ON ?auto_83453 ?auto_83452 ) ( CLEAR ?auto_83453 ) ( ON-TABLE ?auto_83450 ) ( HOLDING ?auto_83449 ) ( CLEAR ?auto_83448 ) )
+    ( and ( ON ?auto_83448 ?auto_83447 ) ( ON-TABLE ?auto_83446 ) ( ON ?auto_83447 ?auto_83446 ) ( not ( = ?auto_83446 ?auto_83447 ) ) ( not ( = ?auto_83446 ?auto_83448 ) ) ( not ( = ?auto_83447 ?auto_83448 ) ) ( not ( = ?auto_83446 ?auto_83451 ) ) ( not ( = ?auto_83446 ?auto_83450 ) ) ( not ( = ?auto_83447 ?auto_83451 ) ) ( not ( = ?auto_83447 ?auto_83450 ) ) ( not ( = ?auto_83448 ?auto_83451 ) ) ( not ( = ?auto_83448 ?auto_83450 ) ) ( not ( = ?auto_83451 ?auto_83450 ) ) ( ON ?auto_83451 ?auto_83448 ) ( not ( = ?auto_83452 ?auto_83449 ) ) ( not ( = ?auto_83452 ?auto_83450 ) ) ( not ( = ?auto_83449 ?auto_83450 ) ) ( not ( = ?auto_83446 ?auto_83449 ) ) ( not ( = ?auto_83446 ?auto_83452 ) ) ( not ( = ?auto_83447 ?auto_83449 ) ) ( not ( = ?auto_83447 ?auto_83452 ) ) ( not ( = ?auto_83448 ?auto_83449 ) ) ( not ( = ?auto_83448 ?auto_83452 ) ) ( not ( = ?auto_83451 ?auto_83449 ) ) ( not ( = ?auto_83451 ?auto_83452 ) ) ( ON ?auto_83452 ?auto_83453 ) ( not ( = ?auto_83446 ?auto_83453 ) ) ( not ( = ?auto_83447 ?auto_83453 ) ) ( not ( = ?auto_83448 ?auto_83453 ) ) ( not ( = ?auto_83451 ?auto_83453 ) ) ( not ( = ?auto_83450 ?auto_83453 ) ) ( not ( = ?auto_83452 ?auto_83453 ) ) ( not ( = ?auto_83449 ?auto_83453 ) ) ( ON ?auto_83449 ?auto_83452 ) ( CLEAR ?auto_83449 ) ( ON-TABLE ?auto_83453 ) ( HOLDING ?auto_83450 ) ( CLEAR ?auto_83451 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83446 ?auto_83447 ?auto_83451 ?auto_83448 ?auto_83449 )
+    ( ( MAKE-5PILE ?auto_83446 ?auto_83447 ?auto_83448 ?auto_83451 ?auto_83450 )
       ( MAKE-2PILE ?auto_83446 ?auto_83447 ) )
   )
 
@@ -5519,17 +5519,17 @@
     )
     :vars
     (
-      ?auto_83456 - BLOCK
       ?auto_83459 - BLOCK
-      ?auto_83460 - BLOCK
+      ?auto_83456 - BLOCK
       ?auto_83461 - BLOCK
       ?auto_83457 - BLOCK
+      ?auto_83460 - BLOCK
       ?auto_83458 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83456 ?auto_83455 ) ( ON-TABLE ?auto_83454 ) ( ON ?auto_83455 ?auto_83454 ) ( not ( = ?auto_83454 ?auto_83455 ) ) ( not ( = ?auto_83454 ?auto_83456 ) ) ( not ( = ?auto_83455 ?auto_83456 ) ) ( not ( = ?auto_83454 ?auto_83459 ) ) ( not ( = ?auto_83454 ?auto_83460 ) ) ( not ( = ?auto_83455 ?auto_83459 ) ) ( not ( = ?auto_83455 ?auto_83460 ) ) ( not ( = ?auto_83456 ?auto_83459 ) ) ( not ( = ?auto_83456 ?auto_83460 ) ) ( not ( = ?auto_83459 ?auto_83460 ) ) ( ON ?auto_83459 ?auto_83456 ) ( not ( = ?auto_83461 ?auto_83457 ) ) ( not ( = ?auto_83461 ?auto_83460 ) ) ( not ( = ?auto_83457 ?auto_83460 ) ) ( not ( = ?auto_83454 ?auto_83457 ) ) ( not ( = ?auto_83454 ?auto_83461 ) ) ( not ( = ?auto_83455 ?auto_83457 ) ) ( not ( = ?auto_83455 ?auto_83461 ) ) ( not ( = ?auto_83456 ?auto_83457 ) ) ( not ( = ?auto_83456 ?auto_83461 ) ) ( not ( = ?auto_83459 ?auto_83457 ) ) ( not ( = ?auto_83459 ?auto_83461 ) ) ( ON ?auto_83461 ?auto_83458 ) ( not ( = ?auto_83454 ?auto_83458 ) ) ( not ( = ?auto_83455 ?auto_83458 ) ) ( not ( = ?auto_83456 ?auto_83458 ) ) ( not ( = ?auto_83459 ?auto_83458 ) ) ( not ( = ?auto_83460 ?auto_83458 ) ) ( not ( = ?auto_83461 ?auto_83458 ) ) ( not ( = ?auto_83457 ?auto_83458 ) ) ( ON ?auto_83457 ?auto_83461 ) ( ON-TABLE ?auto_83458 ) ( CLEAR ?auto_83459 ) ( ON ?auto_83460 ?auto_83457 ) ( CLEAR ?auto_83460 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83459 ?auto_83455 ) ( ON-TABLE ?auto_83454 ) ( ON ?auto_83455 ?auto_83454 ) ( not ( = ?auto_83454 ?auto_83455 ) ) ( not ( = ?auto_83454 ?auto_83459 ) ) ( not ( = ?auto_83455 ?auto_83459 ) ) ( not ( = ?auto_83454 ?auto_83456 ) ) ( not ( = ?auto_83454 ?auto_83461 ) ) ( not ( = ?auto_83455 ?auto_83456 ) ) ( not ( = ?auto_83455 ?auto_83461 ) ) ( not ( = ?auto_83459 ?auto_83456 ) ) ( not ( = ?auto_83459 ?auto_83461 ) ) ( not ( = ?auto_83456 ?auto_83461 ) ) ( ON ?auto_83456 ?auto_83459 ) ( not ( = ?auto_83457 ?auto_83460 ) ) ( not ( = ?auto_83457 ?auto_83461 ) ) ( not ( = ?auto_83460 ?auto_83461 ) ) ( not ( = ?auto_83454 ?auto_83460 ) ) ( not ( = ?auto_83454 ?auto_83457 ) ) ( not ( = ?auto_83455 ?auto_83460 ) ) ( not ( = ?auto_83455 ?auto_83457 ) ) ( not ( = ?auto_83459 ?auto_83460 ) ) ( not ( = ?auto_83459 ?auto_83457 ) ) ( not ( = ?auto_83456 ?auto_83460 ) ) ( not ( = ?auto_83456 ?auto_83457 ) ) ( ON ?auto_83457 ?auto_83458 ) ( not ( = ?auto_83454 ?auto_83458 ) ) ( not ( = ?auto_83455 ?auto_83458 ) ) ( not ( = ?auto_83459 ?auto_83458 ) ) ( not ( = ?auto_83456 ?auto_83458 ) ) ( not ( = ?auto_83461 ?auto_83458 ) ) ( not ( = ?auto_83457 ?auto_83458 ) ) ( not ( = ?auto_83460 ?auto_83458 ) ) ( ON ?auto_83460 ?auto_83457 ) ( ON-TABLE ?auto_83458 ) ( CLEAR ?auto_83456 ) ( ON ?auto_83461 ?auto_83460 ) ( CLEAR ?auto_83461 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83458 ?auto_83461 ?auto_83457 )
+    ( ( MAKE-3PILE ?auto_83458 ?auto_83457 ?auto_83460 )
       ( MAKE-2PILE ?auto_83454 ?auto_83455 ) )
   )
 
@@ -5542,16 +5542,16 @@
     :vars
     (
       ?auto_83466 - BLOCK
-      ?auto_83468 - BLOCK
-      ?auto_83467 - BLOCK
-      ?auto_83465 - BLOCK
-      ?auto_83469 - BLOCK
       ?auto_83464 - BLOCK
+      ?auto_83468 - BLOCK
+      ?auto_83465 - BLOCK
+      ?auto_83467 - BLOCK
+      ?auto_83469 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83466 ?auto_83463 ) ( ON-TABLE ?auto_83462 ) ( ON ?auto_83463 ?auto_83462 ) ( not ( = ?auto_83462 ?auto_83463 ) ) ( not ( = ?auto_83462 ?auto_83466 ) ) ( not ( = ?auto_83463 ?auto_83466 ) ) ( not ( = ?auto_83462 ?auto_83468 ) ) ( not ( = ?auto_83462 ?auto_83467 ) ) ( not ( = ?auto_83463 ?auto_83468 ) ) ( not ( = ?auto_83463 ?auto_83467 ) ) ( not ( = ?auto_83466 ?auto_83468 ) ) ( not ( = ?auto_83466 ?auto_83467 ) ) ( not ( = ?auto_83468 ?auto_83467 ) ) ( not ( = ?auto_83465 ?auto_83469 ) ) ( not ( = ?auto_83465 ?auto_83467 ) ) ( not ( = ?auto_83469 ?auto_83467 ) ) ( not ( = ?auto_83462 ?auto_83469 ) ) ( not ( = ?auto_83462 ?auto_83465 ) ) ( not ( = ?auto_83463 ?auto_83469 ) ) ( not ( = ?auto_83463 ?auto_83465 ) ) ( not ( = ?auto_83466 ?auto_83469 ) ) ( not ( = ?auto_83466 ?auto_83465 ) ) ( not ( = ?auto_83468 ?auto_83469 ) ) ( not ( = ?auto_83468 ?auto_83465 ) ) ( ON ?auto_83465 ?auto_83464 ) ( not ( = ?auto_83462 ?auto_83464 ) ) ( not ( = ?auto_83463 ?auto_83464 ) ) ( not ( = ?auto_83466 ?auto_83464 ) ) ( not ( = ?auto_83468 ?auto_83464 ) ) ( not ( = ?auto_83467 ?auto_83464 ) ) ( not ( = ?auto_83465 ?auto_83464 ) ) ( not ( = ?auto_83469 ?auto_83464 ) ) ( ON ?auto_83469 ?auto_83465 ) ( ON-TABLE ?auto_83464 ) ( ON ?auto_83467 ?auto_83469 ) ( CLEAR ?auto_83467 ) ( HOLDING ?auto_83468 ) ( CLEAR ?auto_83466 ) )
+    ( and ( ON ?auto_83466 ?auto_83463 ) ( ON-TABLE ?auto_83462 ) ( ON ?auto_83463 ?auto_83462 ) ( not ( = ?auto_83462 ?auto_83463 ) ) ( not ( = ?auto_83462 ?auto_83466 ) ) ( not ( = ?auto_83463 ?auto_83466 ) ) ( not ( = ?auto_83462 ?auto_83464 ) ) ( not ( = ?auto_83462 ?auto_83468 ) ) ( not ( = ?auto_83463 ?auto_83464 ) ) ( not ( = ?auto_83463 ?auto_83468 ) ) ( not ( = ?auto_83466 ?auto_83464 ) ) ( not ( = ?auto_83466 ?auto_83468 ) ) ( not ( = ?auto_83464 ?auto_83468 ) ) ( not ( = ?auto_83465 ?auto_83467 ) ) ( not ( = ?auto_83465 ?auto_83468 ) ) ( not ( = ?auto_83467 ?auto_83468 ) ) ( not ( = ?auto_83462 ?auto_83467 ) ) ( not ( = ?auto_83462 ?auto_83465 ) ) ( not ( = ?auto_83463 ?auto_83467 ) ) ( not ( = ?auto_83463 ?auto_83465 ) ) ( not ( = ?auto_83466 ?auto_83467 ) ) ( not ( = ?auto_83466 ?auto_83465 ) ) ( not ( = ?auto_83464 ?auto_83467 ) ) ( not ( = ?auto_83464 ?auto_83465 ) ) ( ON ?auto_83465 ?auto_83469 ) ( not ( = ?auto_83462 ?auto_83469 ) ) ( not ( = ?auto_83463 ?auto_83469 ) ) ( not ( = ?auto_83466 ?auto_83469 ) ) ( not ( = ?auto_83464 ?auto_83469 ) ) ( not ( = ?auto_83468 ?auto_83469 ) ) ( not ( = ?auto_83465 ?auto_83469 ) ) ( not ( = ?auto_83467 ?auto_83469 ) ) ( ON ?auto_83467 ?auto_83465 ) ( ON-TABLE ?auto_83469 ) ( ON ?auto_83468 ?auto_83467 ) ( CLEAR ?auto_83468 ) ( HOLDING ?auto_83464 ) ( CLEAR ?auto_83466 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83462 ?auto_83463 ?auto_83466 ?auto_83468 )
+    ( ( MAKE-4PILE ?auto_83462 ?auto_83463 ?auto_83466 ?auto_83464 )
       ( MAKE-2PILE ?auto_83462 ?auto_83463 ) )
   )
 
@@ -5564,16 +5564,16 @@
     :vars
     (
       ?auto_83472 - BLOCK
-      ?auto_83476 - BLOCK
-      ?auto_83475 - BLOCK
-      ?auto_83473 - BLOCK
-      ?auto_83474 - BLOCK
       ?auto_83477 - BLOCK
+      ?auto_83476 - BLOCK
+      ?auto_83473 - BLOCK
+      ?auto_83475 - BLOCK
+      ?auto_83474 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83472 ?auto_83471 ) ( ON-TABLE ?auto_83470 ) ( ON ?auto_83471 ?auto_83470 ) ( not ( = ?auto_83470 ?auto_83471 ) ) ( not ( = ?auto_83470 ?auto_83472 ) ) ( not ( = ?auto_83471 ?auto_83472 ) ) ( not ( = ?auto_83470 ?auto_83476 ) ) ( not ( = ?auto_83470 ?auto_83475 ) ) ( not ( = ?auto_83471 ?auto_83476 ) ) ( not ( = ?auto_83471 ?auto_83475 ) ) ( not ( = ?auto_83472 ?auto_83476 ) ) ( not ( = ?auto_83472 ?auto_83475 ) ) ( not ( = ?auto_83476 ?auto_83475 ) ) ( not ( = ?auto_83473 ?auto_83474 ) ) ( not ( = ?auto_83473 ?auto_83475 ) ) ( not ( = ?auto_83474 ?auto_83475 ) ) ( not ( = ?auto_83470 ?auto_83474 ) ) ( not ( = ?auto_83470 ?auto_83473 ) ) ( not ( = ?auto_83471 ?auto_83474 ) ) ( not ( = ?auto_83471 ?auto_83473 ) ) ( not ( = ?auto_83472 ?auto_83474 ) ) ( not ( = ?auto_83472 ?auto_83473 ) ) ( not ( = ?auto_83476 ?auto_83474 ) ) ( not ( = ?auto_83476 ?auto_83473 ) ) ( ON ?auto_83473 ?auto_83477 ) ( not ( = ?auto_83470 ?auto_83477 ) ) ( not ( = ?auto_83471 ?auto_83477 ) ) ( not ( = ?auto_83472 ?auto_83477 ) ) ( not ( = ?auto_83476 ?auto_83477 ) ) ( not ( = ?auto_83475 ?auto_83477 ) ) ( not ( = ?auto_83473 ?auto_83477 ) ) ( not ( = ?auto_83474 ?auto_83477 ) ) ( ON ?auto_83474 ?auto_83473 ) ( ON-TABLE ?auto_83477 ) ( ON ?auto_83475 ?auto_83474 ) ( CLEAR ?auto_83472 ) ( ON ?auto_83476 ?auto_83475 ) ( CLEAR ?auto_83476 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83472 ?auto_83471 ) ( ON-TABLE ?auto_83470 ) ( ON ?auto_83471 ?auto_83470 ) ( not ( = ?auto_83470 ?auto_83471 ) ) ( not ( = ?auto_83470 ?auto_83472 ) ) ( not ( = ?auto_83471 ?auto_83472 ) ) ( not ( = ?auto_83470 ?auto_83477 ) ) ( not ( = ?auto_83470 ?auto_83476 ) ) ( not ( = ?auto_83471 ?auto_83477 ) ) ( not ( = ?auto_83471 ?auto_83476 ) ) ( not ( = ?auto_83472 ?auto_83477 ) ) ( not ( = ?auto_83472 ?auto_83476 ) ) ( not ( = ?auto_83477 ?auto_83476 ) ) ( not ( = ?auto_83473 ?auto_83475 ) ) ( not ( = ?auto_83473 ?auto_83476 ) ) ( not ( = ?auto_83475 ?auto_83476 ) ) ( not ( = ?auto_83470 ?auto_83475 ) ) ( not ( = ?auto_83470 ?auto_83473 ) ) ( not ( = ?auto_83471 ?auto_83475 ) ) ( not ( = ?auto_83471 ?auto_83473 ) ) ( not ( = ?auto_83472 ?auto_83475 ) ) ( not ( = ?auto_83472 ?auto_83473 ) ) ( not ( = ?auto_83477 ?auto_83475 ) ) ( not ( = ?auto_83477 ?auto_83473 ) ) ( ON ?auto_83473 ?auto_83474 ) ( not ( = ?auto_83470 ?auto_83474 ) ) ( not ( = ?auto_83471 ?auto_83474 ) ) ( not ( = ?auto_83472 ?auto_83474 ) ) ( not ( = ?auto_83477 ?auto_83474 ) ) ( not ( = ?auto_83476 ?auto_83474 ) ) ( not ( = ?auto_83473 ?auto_83474 ) ) ( not ( = ?auto_83475 ?auto_83474 ) ) ( ON ?auto_83475 ?auto_83473 ) ( ON-TABLE ?auto_83474 ) ( ON ?auto_83476 ?auto_83475 ) ( CLEAR ?auto_83472 ) ( ON ?auto_83477 ?auto_83476 ) ( CLEAR ?auto_83477 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83477 ?auto_83473 ?auto_83474 ?auto_83475 )
+    ( ( MAKE-4PILE ?auto_83474 ?auto_83473 ?auto_83475 ?auto_83476 )
       ( MAKE-2PILE ?auto_83470 ?auto_83471 ) )
   )
 
@@ -5585,17 +5585,17 @@
     )
     :vars
     (
-      ?auto_83501 - BLOCK
-      ?auto_83498 - BLOCK
-      ?auto_83497 - BLOCK
-      ?auto_83496 - BLOCK
       ?auto_83499 - BLOCK
+      ?auto_83496 - BLOCK
+      ?auto_83501 - BLOCK
+      ?auto_83497 - BLOCK
+      ?auto_83498 - BLOCK
       ?auto_83500 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83494 ) ( not ( = ?auto_83494 ?auto_83495 ) ) ( not ( = ?auto_83494 ?auto_83501 ) ) ( not ( = ?auto_83495 ?auto_83501 ) ) ( not ( = ?auto_83494 ?auto_83498 ) ) ( not ( = ?auto_83494 ?auto_83497 ) ) ( not ( = ?auto_83495 ?auto_83498 ) ) ( not ( = ?auto_83495 ?auto_83497 ) ) ( not ( = ?auto_83501 ?auto_83498 ) ) ( not ( = ?auto_83501 ?auto_83497 ) ) ( not ( = ?auto_83498 ?auto_83497 ) ) ( not ( = ?auto_83496 ?auto_83499 ) ) ( not ( = ?auto_83496 ?auto_83497 ) ) ( not ( = ?auto_83499 ?auto_83497 ) ) ( not ( = ?auto_83494 ?auto_83499 ) ) ( not ( = ?auto_83494 ?auto_83496 ) ) ( not ( = ?auto_83495 ?auto_83499 ) ) ( not ( = ?auto_83495 ?auto_83496 ) ) ( not ( = ?auto_83501 ?auto_83499 ) ) ( not ( = ?auto_83501 ?auto_83496 ) ) ( not ( = ?auto_83498 ?auto_83499 ) ) ( not ( = ?auto_83498 ?auto_83496 ) ) ( ON ?auto_83496 ?auto_83500 ) ( not ( = ?auto_83494 ?auto_83500 ) ) ( not ( = ?auto_83495 ?auto_83500 ) ) ( not ( = ?auto_83501 ?auto_83500 ) ) ( not ( = ?auto_83498 ?auto_83500 ) ) ( not ( = ?auto_83497 ?auto_83500 ) ) ( not ( = ?auto_83496 ?auto_83500 ) ) ( not ( = ?auto_83499 ?auto_83500 ) ) ( ON ?auto_83499 ?auto_83496 ) ( ON-TABLE ?auto_83500 ) ( ON ?auto_83497 ?auto_83499 ) ( ON ?auto_83498 ?auto_83497 ) ( ON ?auto_83501 ?auto_83498 ) ( CLEAR ?auto_83501 ) ( HOLDING ?auto_83495 ) ( CLEAR ?auto_83494 ) )
+    ( and ( ON-TABLE ?auto_83494 ) ( not ( = ?auto_83494 ?auto_83495 ) ) ( not ( = ?auto_83494 ?auto_83499 ) ) ( not ( = ?auto_83495 ?auto_83499 ) ) ( not ( = ?auto_83494 ?auto_83496 ) ) ( not ( = ?auto_83494 ?auto_83501 ) ) ( not ( = ?auto_83495 ?auto_83496 ) ) ( not ( = ?auto_83495 ?auto_83501 ) ) ( not ( = ?auto_83499 ?auto_83496 ) ) ( not ( = ?auto_83499 ?auto_83501 ) ) ( not ( = ?auto_83496 ?auto_83501 ) ) ( not ( = ?auto_83497 ?auto_83498 ) ) ( not ( = ?auto_83497 ?auto_83501 ) ) ( not ( = ?auto_83498 ?auto_83501 ) ) ( not ( = ?auto_83494 ?auto_83498 ) ) ( not ( = ?auto_83494 ?auto_83497 ) ) ( not ( = ?auto_83495 ?auto_83498 ) ) ( not ( = ?auto_83495 ?auto_83497 ) ) ( not ( = ?auto_83499 ?auto_83498 ) ) ( not ( = ?auto_83499 ?auto_83497 ) ) ( not ( = ?auto_83496 ?auto_83498 ) ) ( not ( = ?auto_83496 ?auto_83497 ) ) ( ON ?auto_83497 ?auto_83500 ) ( not ( = ?auto_83494 ?auto_83500 ) ) ( not ( = ?auto_83495 ?auto_83500 ) ) ( not ( = ?auto_83499 ?auto_83500 ) ) ( not ( = ?auto_83496 ?auto_83500 ) ) ( not ( = ?auto_83501 ?auto_83500 ) ) ( not ( = ?auto_83497 ?auto_83500 ) ) ( not ( = ?auto_83498 ?auto_83500 ) ) ( ON ?auto_83498 ?auto_83497 ) ( ON-TABLE ?auto_83500 ) ( ON ?auto_83501 ?auto_83498 ) ( ON ?auto_83496 ?auto_83501 ) ( ON ?auto_83499 ?auto_83496 ) ( CLEAR ?auto_83499 ) ( HOLDING ?auto_83495 ) ( CLEAR ?auto_83494 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83494 ?auto_83495 ?auto_83501 )
+    ( ( MAKE-3PILE ?auto_83494 ?auto_83495 ?auto_83499 )
       ( MAKE-2PILE ?auto_83494 ?auto_83495 ) )
   )
 
@@ -5607,17 +5607,17 @@
     )
     :vars
     (
-      ?auto_83506 - BLOCK
-      ?auto_83507 - BLOCK
       ?auto_83505 - BLOCK
+      ?auto_83506 - BLOCK
+      ?auto_83508 - BLOCK
       ?auto_83509 - BLOCK
       ?auto_83504 - BLOCK
-      ?auto_83508 - BLOCK
+      ?auto_83507 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83502 ) ( not ( = ?auto_83502 ?auto_83503 ) ) ( not ( = ?auto_83502 ?auto_83506 ) ) ( not ( = ?auto_83503 ?auto_83506 ) ) ( not ( = ?auto_83502 ?auto_83507 ) ) ( not ( = ?auto_83502 ?auto_83505 ) ) ( not ( = ?auto_83503 ?auto_83507 ) ) ( not ( = ?auto_83503 ?auto_83505 ) ) ( not ( = ?auto_83506 ?auto_83507 ) ) ( not ( = ?auto_83506 ?auto_83505 ) ) ( not ( = ?auto_83507 ?auto_83505 ) ) ( not ( = ?auto_83509 ?auto_83504 ) ) ( not ( = ?auto_83509 ?auto_83505 ) ) ( not ( = ?auto_83504 ?auto_83505 ) ) ( not ( = ?auto_83502 ?auto_83504 ) ) ( not ( = ?auto_83502 ?auto_83509 ) ) ( not ( = ?auto_83503 ?auto_83504 ) ) ( not ( = ?auto_83503 ?auto_83509 ) ) ( not ( = ?auto_83506 ?auto_83504 ) ) ( not ( = ?auto_83506 ?auto_83509 ) ) ( not ( = ?auto_83507 ?auto_83504 ) ) ( not ( = ?auto_83507 ?auto_83509 ) ) ( ON ?auto_83509 ?auto_83508 ) ( not ( = ?auto_83502 ?auto_83508 ) ) ( not ( = ?auto_83503 ?auto_83508 ) ) ( not ( = ?auto_83506 ?auto_83508 ) ) ( not ( = ?auto_83507 ?auto_83508 ) ) ( not ( = ?auto_83505 ?auto_83508 ) ) ( not ( = ?auto_83509 ?auto_83508 ) ) ( not ( = ?auto_83504 ?auto_83508 ) ) ( ON ?auto_83504 ?auto_83509 ) ( ON-TABLE ?auto_83508 ) ( ON ?auto_83505 ?auto_83504 ) ( ON ?auto_83507 ?auto_83505 ) ( ON ?auto_83506 ?auto_83507 ) ( CLEAR ?auto_83502 ) ( ON ?auto_83503 ?auto_83506 ) ( CLEAR ?auto_83503 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_83502 ) ( not ( = ?auto_83502 ?auto_83503 ) ) ( not ( = ?auto_83502 ?auto_83505 ) ) ( not ( = ?auto_83503 ?auto_83505 ) ) ( not ( = ?auto_83502 ?auto_83506 ) ) ( not ( = ?auto_83502 ?auto_83508 ) ) ( not ( = ?auto_83503 ?auto_83506 ) ) ( not ( = ?auto_83503 ?auto_83508 ) ) ( not ( = ?auto_83505 ?auto_83506 ) ) ( not ( = ?auto_83505 ?auto_83508 ) ) ( not ( = ?auto_83506 ?auto_83508 ) ) ( not ( = ?auto_83509 ?auto_83504 ) ) ( not ( = ?auto_83509 ?auto_83508 ) ) ( not ( = ?auto_83504 ?auto_83508 ) ) ( not ( = ?auto_83502 ?auto_83504 ) ) ( not ( = ?auto_83502 ?auto_83509 ) ) ( not ( = ?auto_83503 ?auto_83504 ) ) ( not ( = ?auto_83503 ?auto_83509 ) ) ( not ( = ?auto_83505 ?auto_83504 ) ) ( not ( = ?auto_83505 ?auto_83509 ) ) ( not ( = ?auto_83506 ?auto_83504 ) ) ( not ( = ?auto_83506 ?auto_83509 ) ) ( ON ?auto_83509 ?auto_83507 ) ( not ( = ?auto_83502 ?auto_83507 ) ) ( not ( = ?auto_83503 ?auto_83507 ) ) ( not ( = ?auto_83505 ?auto_83507 ) ) ( not ( = ?auto_83506 ?auto_83507 ) ) ( not ( = ?auto_83508 ?auto_83507 ) ) ( not ( = ?auto_83509 ?auto_83507 ) ) ( not ( = ?auto_83504 ?auto_83507 ) ) ( ON ?auto_83504 ?auto_83509 ) ( ON-TABLE ?auto_83507 ) ( ON ?auto_83508 ?auto_83504 ) ( ON ?auto_83506 ?auto_83508 ) ( ON ?auto_83505 ?auto_83506 ) ( CLEAR ?auto_83502 ) ( ON ?auto_83503 ?auto_83505 ) ( CLEAR ?auto_83503 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83508 ?auto_83509 ?auto_83504 ?auto_83505 ?auto_83507 ?auto_83506 )
+    ( ( MAKE-6PILE ?auto_83507 ?auto_83509 ?auto_83504 ?auto_83508 ?auto_83506 ?auto_83505 )
       ( MAKE-2PILE ?auto_83502 ?auto_83503 ) )
   )
 
@@ -5629,15 +5629,15 @@
     )
     :vars
     (
-      ?auto_83513 - BLOCK
-      ?auto_83516 - BLOCK
       ?auto_83514 - BLOCK
       ?auto_83517 - BLOCK
+      ?auto_83516 - BLOCK
       ?auto_83512 - BLOCK
+      ?auto_83513 - BLOCK
       ?auto_83515 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83510 ?auto_83511 ) ) ( not ( = ?auto_83510 ?auto_83513 ) ) ( not ( = ?auto_83511 ?auto_83513 ) ) ( not ( = ?auto_83510 ?auto_83516 ) ) ( not ( = ?auto_83510 ?auto_83514 ) ) ( not ( = ?auto_83511 ?auto_83516 ) ) ( not ( = ?auto_83511 ?auto_83514 ) ) ( not ( = ?auto_83513 ?auto_83516 ) ) ( not ( = ?auto_83513 ?auto_83514 ) ) ( not ( = ?auto_83516 ?auto_83514 ) ) ( not ( = ?auto_83517 ?auto_83512 ) ) ( not ( = ?auto_83517 ?auto_83514 ) ) ( not ( = ?auto_83512 ?auto_83514 ) ) ( not ( = ?auto_83510 ?auto_83512 ) ) ( not ( = ?auto_83510 ?auto_83517 ) ) ( not ( = ?auto_83511 ?auto_83512 ) ) ( not ( = ?auto_83511 ?auto_83517 ) ) ( not ( = ?auto_83513 ?auto_83512 ) ) ( not ( = ?auto_83513 ?auto_83517 ) ) ( not ( = ?auto_83516 ?auto_83512 ) ) ( not ( = ?auto_83516 ?auto_83517 ) ) ( ON ?auto_83517 ?auto_83515 ) ( not ( = ?auto_83510 ?auto_83515 ) ) ( not ( = ?auto_83511 ?auto_83515 ) ) ( not ( = ?auto_83513 ?auto_83515 ) ) ( not ( = ?auto_83516 ?auto_83515 ) ) ( not ( = ?auto_83514 ?auto_83515 ) ) ( not ( = ?auto_83517 ?auto_83515 ) ) ( not ( = ?auto_83512 ?auto_83515 ) ) ( ON ?auto_83512 ?auto_83517 ) ( ON-TABLE ?auto_83515 ) ( ON ?auto_83514 ?auto_83512 ) ( ON ?auto_83516 ?auto_83514 ) ( ON ?auto_83513 ?auto_83516 ) ( ON ?auto_83511 ?auto_83513 ) ( CLEAR ?auto_83511 ) ( HOLDING ?auto_83510 ) )
+    ( and ( not ( = ?auto_83510 ?auto_83511 ) ) ( not ( = ?auto_83510 ?auto_83514 ) ) ( not ( = ?auto_83511 ?auto_83514 ) ) ( not ( = ?auto_83510 ?auto_83517 ) ) ( not ( = ?auto_83510 ?auto_83516 ) ) ( not ( = ?auto_83511 ?auto_83517 ) ) ( not ( = ?auto_83511 ?auto_83516 ) ) ( not ( = ?auto_83514 ?auto_83517 ) ) ( not ( = ?auto_83514 ?auto_83516 ) ) ( not ( = ?auto_83517 ?auto_83516 ) ) ( not ( = ?auto_83512 ?auto_83513 ) ) ( not ( = ?auto_83512 ?auto_83516 ) ) ( not ( = ?auto_83513 ?auto_83516 ) ) ( not ( = ?auto_83510 ?auto_83513 ) ) ( not ( = ?auto_83510 ?auto_83512 ) ) ( not ( = ?auto_83511 ?auto_83513 ) ) ( not ( = ?auto_83511 ?auto_83512 ) ) ( not ( = ?auto_83514 ?auto_83513 ) ) ( not ( = ?auto_83514 ?auto_83512 ) ) ( not ( = ?auto_83517 ?auto_83513 ) ) ( not ( = ?auto_83517 ?auto_83512 ) ) ( ON ?auto_83512 ?auto_83515 ) ( not ( = ?auto_83510 ?auto_83515 ) ) ( not ( = ?auto_83511 ?auto_83515 ) ) ( not ( = ?auto_83514 ?auto_83515 ) ) ( not ( = ?auto_83517 ?auto_83515 ) ) ( not ( = ?auto_83516 ?auto_83515 ) ) ( not ( = ?auto_83512 ?auto_83515 ) ) ( not ( = ?auto_83513 ?auto_83515 ) ) ( ON ?auto_83513 ?auto_83512 ) ( ON-TABLE ?auto_83515 ) ( ON ?auto_83516 ?auto_83513 ) ( ON ?auto_83517 ?auto_83516 ) ( ON ?auto_83514 ?auto_83517 ) ( ON ?auto_83511 ?auto_83514 ) ( CLEAR ?auto_83511 ) ( HOLDING ?auto_83510 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_83510 )
       ( MAKE-2PILE ?auto_83510 ?auto_83511 ) )
@@ -5651,17 +5651,17 @@
     )
     :vars
     (
+      ?auto_83521 - BLOCK
       ?auto_83523 - BLOCK
+      ?auto_83524 - BLOCK
+      ?auto_83522 - BLOCK
       ?auto_83525 - BLOCK
       ?auto_83520 - BLOCK
-      ?auto_83521 - BLOCK
-      ?auto_83522 - BLOCK
-      ?auto_83524 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83518 ?auto_83519 ) ) ( not ( = ?auto_83518 ?auto_83523 ) ) ( not ( = ?auto_83519 ?auto_83523 ) ) ( not ( = ?auto_83518 ?auto_83525 ) ) ( not ( = ?auto_83518 ?auto_83520 ) ) ( not ( = ?auto_83519 ?auto_83525 ) ) ( not ( = ?auto_83519 ?auto_83520 ) ) ( not ( = ?auto_83523 ?auto_83525 ) ) ( not ( = ?auto_83523 ?auto_83520 ) ) ( not ( = ?auto_83525 ?auto_83520 ) ) ( not ( = ?auto_83521 ?auto_83522 ) ) ( not ( = ?auto_83521 ?auto_83520 ) ) ( not ( = ?auto_83522 ?auto_83520 ) ) ( not ( = ?auto_83518 ?auto_83522 ) ) ( not ( = ?auto_83518 ?auto_83521 ) ) ( not ( = ?auto_83519 ?auto_83522 ) ) ( not ( = ?auto_83519 ?auto_83521 ) ) ( not ( = ?auto_83523 ?auto_83522 ) ) ( not ( = ?auto_83523 ?auto_83521 ) ) ( not ( = ?auto_83525 ?auto_83522 ) ) ( not ( = ?auto_83525 ?auto_83521 ) ) ( ON ?auto_83521 ?auto_83524 ) ( not ( = ?auto_83518 ?auto_83524 ) ) ( not ( = ?auto_83519 ?auto_83524 ) ) ( not ( = ?auto_83523 ?auto_83524 ) ) ( not ( = ?auto_83525 ?auto_83524 ) ) ( not ( = ?auto_83520 ?auto_83524 ) ) ( not ( = ?auto_83521 ?auto_83524 ) ) ( not ( = ?auto_83522 ?auto_83524 ) ) ( ON ?auto_83522 ?auto_83521 ) ( ON-TABLE ?auto_83524 ) ( ON ?auto_83520 ?auto_83522 ) ( ON ?auto_83525 ?auto_83520 ) ( ON ?auto_83523 ?auto_83525 ) ( ON ?auto_83519 ?auto_83523 ) ( ON ?auto_83518 ?auto_83519 ) ( CLEAR ?auto_83518 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83518 ?auto_83519 ) ) ( not ( = ?auto_83518 ?auto_83521 ) ) ( not ( = ?auto_83519 ?auto_83521 ) ) ( not ( = ?auto_83518 ?auto_83523 ) ) ( not ( = ?auto_83518 ?auto_83524 ) ) ( not ( = ?auto_83519 ?auto_83523 ) ) ( not ( = ?auto_83519 ?auto_83524 ) ) ( not ( = ?auto_83521 ?auto_83523 ) ) ( not ( = ?auto_83521 ?auto_83524 ) ) ( not ( = ?auto_83523 ?auto_83524 ) ) ( not ( = ?auto_83522 ?auto_83525 ) ) ( not ( = ?auto_83522 ?auto_83524 ) ) ( not ( = ?auto_83525 ?auto_83524 ) ) ( not ( = ?auto_83518 ?auto_83525 ) ) ( not ( = ?auto_83518 ?auto_83522 ) ) ( not ( = ?auto_83519 ?auto_83525 ) ) ( not ( = ?auto_83519 ?auto_83522 ) ) ( not ( = ?auto_83521 ?auto_83525 ) ) ( not ( = ?auto_83521 ?auto_83522 ) ) ( not ( = ?auto_83523 ?auto_83525 ) ) ( not ( = ?auto_83523 ?auto_83522 ) ) ( ON ?auto_83522 ?auto_83520 ) ( not ( = ?auto_83518 ?auto_83520 ) ) ( not ( = ?auto_83519 ?auto_83520 ) ) ( not ( = ?auto_83521 ?auto_83520 ) ) ( not ( = ?auto_83523 ?auto_83520 ) ) ( not ( = ?auto_83524 ?auto_83520 ) ) ( not ( = ?auto_83522 ?auto_83520 ) ) ( not ( = ?auto_83525 ?auto_83520 ) ) ( ON ?auto_83525 ?auto_83522 ) ( ON-TABLE ?auto_83520 ) ( ON ?auto_83524 ?auto_83525 ) ( ON ?auto_83523 ?auto_83524 ) ( ON ?auto_83521 ?auto_83523 ) ( ON ?auto_83519 ?auto_83521 ) ( ON ?auto_83518 ?auto_83519 ) ( CLEAR ?auto_83518 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83524 ?auto_83521 ?auto_83522 ?auto_83520 ?auto_83525 ?auto_83523 ?auto_83519 )
+    ( ( MAKE-7PILE ?auto_83520 ?auto_83522 ?auto_83525 ?auto_83524 ?auto_83523 ?auto_83521 ?auto_83519 )
       ( MAKE-2PILE ?auto_83518 ?auto_83519 ) )
   )
 
@@ -5752,11 +5752,11 @@
     )
     :vars
     (
-      ?auto_83560 - BLOCK
       ?auto_83561 - BLOCK
+      ?auto_83560 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83555 ) ( ON ?auto_83556 ?auto_83555 ) ( not ( = ?auto_83555 ?auto_83556 ) ) ( not ( = ?auto_83555 ?auto_83557 ) ) ( not ( = ?auto_83555 ?auto_83558 ) ) ( not ( = ?auto_83555 ?auto_83559 ) ) ( not ( = ?auto_83556 ?auto_83557 ) ) ( not ( = ?auto_83556 ?auto_83558 ) ) ( not ( = ?auto_83556 ?auto_83559 ) ) ( not ( = ?auto_83557 ?auto_83558 ) ) ( not ( = ?auto_83557 ?auto_83559 ) ) ( not ( = ?auto_83558 ?auto_83559 ) ) ( ON ?auto_83559 ?auto_83560 ) ( not ( = ?auto_83555 ?auto_83560 ) ) ( not ( = ?auto_83556 ?auto_83560 ) ) ( not ( = ?auto_83557 ?auto_83560 ) ) ( not ( = ?auto_83558 ?auto_83560 ) ) ( not ( = ?auto_83559 ?auto_83560 ) ) ( ON ?auto_83558 ?auto_83559 ) ( CLEAR ?auto_83558 ) ( ON-TABLE ?auto_83561 ) ( ON ?auto_83560 ?auto_83561 ) ( not ( = ?auto_83561 ?auto_83560 ) ) ( not ( = ?auto_83561 ?auto_83559 ) ) ( not ( = ?auto_83561 ?auto_83558 ) ) ( not ( = ?auto_83555 ?auto_83561 ) ) ( not ( = ?auto_83556 ?auto_83561 ) ) ( not ( = ?auto_83557 ?auto_83561 ) ) ( HOLDING ?auto_83557 ) ( CLEAR ?auto_83556 ) )
+    ( and ( ON-TABLE ?auto_83555 ) ( ON ?auto_83556 ?auto_83555 ) ( not ( = ?auto_83555 ?auto_83556 ) ) ( not ( = ?auto_83555 ?auto_83557 ) ) ( not ( = ?auto_83555 ?auto_83558 ) ) ( not ( = ?auto_83555 ?auto_83559 ) ) ( not ( = ?auto_83556 ?auto_83557 ) ) ( not ( = ?auto_83556 ?auto_83558 ) ) ( not ( = ?auto_83556 ?auto_83559 ) ) ( not ( = ?auto_83557 ?auto_83558 ) ) ( not ( = ?auto_83557 ?auto_83559 ) ) ( not ( = ?auto_83558 ?auto_83559 ) ) ( ON ?auto_83559 ?auto_83561 ) ( not ( = ?auto_83555 ?auto_83561 ) ) ( not ( = ?auto_83556 ?auto_83561 ) ) ( not ( = ?auto_83557 ?auto_83561 ) ) ( not ( = ?auto_83558 ?auto_83561 ) ) ( not ( = ?auto_83559 ?auto_83561 ) ) ( ON ?auto_83558 ?auto_83559 ) ( CLEAR ?auto_83558 ) ( ON-TABLE ?auto_83560 ) ( ON ?auto_83561 ?auto_83560 ) ( not ( = ?auto_83560 ?auto_83561 ) ) ( not ( = ?auto_83560 ?auto_83559 ) ) ( not ( = ?auto_83560 ?auto_83558 ) ) ( not ( = ?auto_83555 ?auto_83560 ) ) ( not ( = ?auto_83556 ?auto_83560 ) ) ( not ( = ?auto_83557 ?auto_83560 ) ) ( HOLDING ?auto_83557 ) ( CLEAR ?auto_83556 ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_83555 ?auto_83556 ?auto_83557 )
       ( MAKE-5PILE ?auto_83555 ?auto_83556 ?auto_83557 ?auto_83558 ?auto_83559 ) )
@@ -5773,13 +5773,13 @@
     )
     :vars
     (
-      ?auto_83568 - BLOCK
       ?auto_83567 - BLOCK
+      ?auto_83568 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83562 ) ( ON ?auto_83563 ?auto_83562 ) ( not ( = ?auto_83562 ?auto_83563 ) ) ( not ( = ?auto_83562 ?auto_83564 ) ) ( not ( = ?auto_83562 ?auto_83565 ) ) ( not ( = ?auto_83562 ?auto_83566 ) ) ( not ( = ?auto_83563 ?auto_83564 ) ) ( not ( = ?auto_83563 ?auto_83565 ) ) ( not ( = ?auto_83563 ?auto_83566 ) ) ( not ( = ?auto_83564 ?auto_83565 ) ) ( not ( = ?auto_83564 ?auto_83566 ) ) ( not ( = ?auto_83565 ?auto_83566 ) ) ( ON ?auto_83566 ?auto_83568 ) ( not ( = ?auto_83562 ?auto_83568 ) ) ( not ( = ?auto_83563 ?auto_83568 ) ) ( not ( = ?auto_83564 ?auto_83568 ) ) ( not ( = ?auto_83565 ?auto_83568 ) ) ( not ( = ?auto_83566 ?auto_83568 ) ) ( ON ?auto_83565 ?auto_83566 ) ( ON-TABLE ?auto_83567 ) ( ON ?auto_83568 ?auto_83567 ) ( not ( = ?auto_83567 ?auto_83568 ) ) ( not ( = ?auto_83567 ?auto_83566 ) ) ( not ( = ?auto_83567 ?auto_83565 ) ) ( not ( = ?auto_83562 ?auto_83567 ) ) ( not ( = ?auto_83563 ?auto_83567 ) ) ( not ( = ?auto_83564 ?auto_83567 ) ) ( CLEAR ?auto_83563 ) ( ON ?auto_83564 ?auto_83565 ) ( CLEAR ?auto_83564 ) ( HAND-EMPTY ) )
+    ( and ( ON-TABLE ?auto_83562 ) ( ON ?auto_83563 ?auto_83562 ) ( not ( = ?auto_83562 ?auto_83563 ) ) ( not ( = ?auto_83562 ?auto_83564 ) ) ( not ( = ?auto_83562 ?auto_83565 ) ) ( not ( = ?auto_83562 ?auto_83566 ) ) ( not ( = ?auto_83563 ?auto_83564 ) ) ( not ( = ?auto_83563 ?auto_83565 ) ) ( not ( = ?auto_83563 ?auto_83566 ) ) ( not ( = ?auto_83564 ?auto_83565 ) ) ( not ( = ?auto_83564 ?auto_83566 ) ) ( not ( = ?auto_83565 ?auto_83566 ) ) ( ON ?auto_83566 ?auto_83567 ) ( not ( = ?auto_83562 ?auto_83567 ) ) ( not ( = ?auto_83563 ?auto_83567 ) ) ( not ( = ?auto_83564 ?auto_83567 ) ) ( not ( = ?auto_83565 ?auto_83567 ) ) ( not ( = ?auto_83566 ?auto_83567 ) ) ( ON ?auto_83565 ?auto_83566 ) ( ON-TABLE ?auto_83568 ) ( ON ?auto_83567 ?auto_83568 ) ( not ( = ?auto_83568 ?auto_83567 ) ) ( not ( = ?auto_83568 ?auto_83566 ) ) ( not ( = ?auto_83568 ?auto_83565 ) ) ( not ( = ?auto_83562 ?auto_83568 ) ) ( not ( = ?auto_83563 ?auto_83568 ) ) ( not ( = ?auto_83564 ?auto_83568 ) ) ( CLEAR ?auto_83563 ) ( ON ?auto_83564 ?auto_83565 ) ( CLEAR ?auto_83564 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83567 ?auto_83568 ?auto_83566 ?auto_83565 )
+    ( ( MAKE-4PILE ?auto_83568 ?auto_83567 ?auto_83566 ?auto_83565 )
       ( MAKE-5PILE ?auto_83562 ?auto_83563 ?auto_83564 ?auto_83565 ?auto_83566 ) )
   )
 
@@ -5794,11 +5794,11 @@
     )
     :vars
     (
-      ?auto_83574 - BLOCK
       ?auto_83575 - BLOCK
+      ?auto_83574 - BLOCK
     )
     :precondition
-    ( and ( ON-TABLE ?auto_83569 ) ( not ( = ?auto_83569 ?auto_83570 ) ) ( not ( = ?auto_83569 ?auto_83571 ) ) ( not ( = ?auto_83569 ?auto_83572 ) ) ( not ( = ?auto_83569 ?auto_83573 ) ) ( not ( = ?auto_83570 ?auto_83571 ) ) ( not ( = ?auto_83570 ?auto_83572 ) ) ( not ( = ?auto_83570 ?auto_83573 ) ) ( not ( = ?auto_83571 ?auto_83572 ) ) ( not ( = ?auto_83571 ?auto_83573 ) ) ( not ( = ?auto_83572 ?auto_83573 ) ) ( ON ?auto_83573 ?auto_83574 ) ( not ( = ?auto_83569 ?auto_83574 ) ) ( not ( = ?auto_83570 ?auto_83574 ) ) ( not ( = ?auto_83571 ?auto_83574 ) ) ( not ( = ?auto_83572 ?auto_83574 ) ) ( not ( = ?auto_83573 ?auto_83574 ) ) ( ON ?auto_83572 ?auto_83573 ) ( ON-TABLE ?auto_83575 ) ( ON ?auto_83574 ?auto_83575 ) ( not ( = ?auto_83575 ?auto_83574 ) ) ( not ( = ?auto_83575 ?auto_83573 ) ) ( not ( = ?auto_83575 ?auto_83572 ) ) ( not ( = ?auto_83569 ?auto_83575 ) ) ( not ( = ?auto_83570 ?auto_83575 ) ) ( not ( = ?auto_83571 ?auto_83575 ) ) ( ON ?auto_83571 ?auto_83572 ) ( CLEAR ?auto_83571 ) ( HOLDING ?auto_83570 ) ( CLEAR ?auto_83569 ) )
+    ( and ( ON-TABLE ?auto_83569 ) ( not ( = ?auto_83569 ?auto_83570 ) ) ( not ( = ?auto_83569 ?auto_83571 ) ) ( not ( = ?auto_83569 ?auto_83572 ) ) ( not ( = ?auto_83569 ?auto_83573 ) ) ( not ( = ?auto_83570 ?auto_83571 ) ) ( not ( = ?auto_83570 ?auto_83572 ) ) ( not ( = ?auto_83570 ?auto_83573 ) ) ( not ( = ?auto_83571 ?auto_83572 ) ) ( not ( = ?auto_83571 ?auto_83573 ) ) ( not ( = ?auto_83572 ?auto_83573 ) ) ( ON ?auto_83573 ?auto_83575 ) ( not ( = ?auto_83569 ?auto_83575 ) ) ( not ( = ?auto_83570 ?auto_83575 ) ) ( not ( = ?auto_83571 ?auto_83575 ) ) ( not ( = ?auto_83572 ?auto_83575 ) ) ( not ( = ?auto_83573 ?auto_83575 ) ) ( ON ?auto_83572 ?auto_83573 ) ( ON-TABLE ?auto_83574 ) ( ON ?auto_83575 ?auto_83574 ) ( not ( = ?auto_83574 ?auto_83575 ) ) ( not ( = ?auto_83574 ?auto_83573 ) ) ( not ( = ?auto_83574 ?auto_83572 ) ) ( not ( = ?auto_83569 ?auto_83574 ) ) ( not ( = ?auto_83570 ?auto_83574 ) ) ( not ( = ?auto_83571 ?auto_83574 ) ) ( ON ?auto_83571 ?auto_83572 ) ( CLEAR ?auto_83571 ) ( HOLDING ?auto_83570 ) ( CLEAR ?auto_83569 ) )
     :subtasks
     ( ( MAKE-2PILE ?auto_83569 ?auto_83570 )
       ( MAKE-5PILE ?auto_83569 ?auto_83570 ?auto_83571 ?auto_83572 ?auto_83573 ) )
@@ -5836,11 +5836,11 @@
     )
     :vars
     (
-      ?auto_83589 - BLOCK
       ?auto_83588 - BLOCK
+      ?auto_83589 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83583 ?auto_83584 ) ) ( not ( = ?auto_83583 ?auto_83585 ) ) ( not ( = ?auto_83583 ?auto_83586 ) ) ( not ( = ?auto_83583 ?auto_83587 ) ) ( not ( = ?auto_83584 ?auto_83585 ) ) ( not ( = ?auto_83584 ?auto_83586 ) ) ( not ( = ?auto_83584 ?auto_83587 ) ) ( not ( = ?auto_83585 ?auto_83586 ) ) ( not ( = ?auto_83585 ?auto_83587 ) ) ( not ( = ?auto_83586 ?auto_83587 ) ) ( ON ?auto_83587 ?auto_83589 ) ( not ( = ?auto_83583 ?auto_83589 ) ) ( not ( = ?auto_83584 ?auto_83589 ) ) ( not ( = ?auto_83585 ?auto_83589 ) ) ( not ( = ?auto_83586 ?auto_83589 ) ) ( not ( = ?auto_83587 ?auto_83589 ) ) ( ON ?auto_83586 ?auto_83587 ) ( ON-TABLE ?auto_83588 ) ( ON ?auto_83589 ?auto_83588 ) ( not ( = ?auto_83588 ?auto_83589 ) ) ( not ( = ?auto_83588 ?auto_83587 ) ) ( not ( = ?auto_83588 ?auto_83586 ) ) ( not ( = ?auto_83583 ?auto_83588 ) ) ( not ( = ?auto_83584 ?auto_83588 ) ) ( not ( = ?auto_83585 ?auto_83588 ) ) ( ON ?auto_83585 ?auto_83586 ) ( ON ?auto_83584 ?auto_83585 ) ( CLEAR ?auto_83584 ) ( HOLDING ?auto_83583 ) )
+    ( and ( not ( = ?auto_83583 ?auto_83584 ) ) ( not ( = ?auto_83583 ?auto_83585 ) ) ( not ( = ?auto_83583 ?auto_83586 ) ) ( not ( = ?auto_83583 ?auto_83587 ) ) ( not ( = ?auto_83584 ?auto_83585 ) ) ( not ( = ?auto_83584 ?auto_83586 ) ) ( not ( = ?auto_83584 ?auto_83587 ) ) ( not ( = ?auto_83585 ?auto_83586 ) ) ( not ( = ?auto_83585 ?auto_83587 ) ) ( not ( = ?auto_83586 ?auto_83587 ) ) ( ON ?auto_83587 ?auto_83588 ) ( not ( = ?auto_83583 ?auto_83588 ) ) ( not ( = ?auto_83584 ?auto_83588 ) ) ( not ( = ?auto_83585 ?auto_83588 ) ) ( not ( = ?auto_83586 ?auto_83588 ) ) ( not ( = ?auto_83587 ?auto_83588 ) ) ( ON ?auto_83586 ?auto_83587 ) ( ON-TABLE ?auto_83589 ) ( ON ?auto_83588 ?auto_83589 ) ( not ( = ?auto_83589 ?auto_83588 ) ) ( not ( = ?auto_83589 ?auto_83587 ) ) ( not ( = ?auto_83589 ?auto_83586 ) ) ( not ( = ?auto_83583 ?auto_83589 ) ) ( not ( = ?auto_83584 ?auto_83589 ) ) ( not ( = ?auto_83585 ?auto_83589 ) ) ( ON ?auto_83585 ?auto_83586 ) ( ON ?auto_83584 ?auto_83585 ) ( CLEAR ?auto_83584 ) ( HOLDING ?auto_83583 ) )
     :subtasks
     ( ( MAKE-1PILE ?auto_83583 )
       ( MAKE-5PILE ?auto_83583 ?auto_83584 ?auto_83585 ?auto_83586 ?auto_83587 ) )
@@ -5899,12 +5899,12 @@
     )
     :vars
     (
-      ?auto_83609 - BLOCK
       ?auto_83610 - BLOCK
+      ?auto_83609 - BLOCK
       ?auto_83611 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83604 ?auto_83605 ) ) ( not ( = ?auto_83604 ?auto_83606 ) ) ( not ( = ?auto_83604 ?auto_83607 ) ) ( not ( = ?auto_83604 ?auto_83608 ) ) ( not ( = ?auto_83605 ?auto_83606 ) ) ( not ( = ?auto_83605 ?auto_83607 ) ) ( not ( = ?auto_83605 ?auto_83608 ) ) ( not ( = ?auto_83606 ?auto_83607 ) ) ( not ( = ?auto_83606 ?auto_83608 ) ) ( not ( = ?auto_83607 ?auto_83608 ) ) ( ON ?auto_83608 ?auto_83609 ) ( not ( = ?auto_83604 ?auto_83609 ) ) ( not ( = ?auto_83605 ?auto_83609 ) ) ( not ( = ?auto_83606 ?auto_83609 ) ) ( not ( = ?auto_83607 ?auto_83609 ) ) ( not ( = ?auto_83608 ?auto_83609 ) ) ( ON ?auto_83607 ?auto_83608 ) ( ON-TABLE ?auto_83610 ) ( ON ?auto_83609 ?auto_83610 ) ( not ( = ?auto_83610 ?auto_83609 ) ) ( not ( = ?auto_83610 ?auto_83608 ) ) ( not ( = ?auto_83610 ?auto_83607 ) ) ( not ( = ?auto_83604 ?auto_83610 ) ) ( not ( = ?auto_83605 ?auto_83610 ) ) ( not ( = ?auto_83606 ?auto_83610 ) ) ( ON ?auto_83606 ?auto_83607 ) ( ON ?auto_83605 ?auto_83606 ) ( CLEAR ?auto_83605 ) ( ON ?auto_83604 ?auto_83611 ) ( CLEAR ?auto_83604 ) ( HAND-EMPTY ) ( not ( = ?auto_83604 ?auto_83611 ) ) ( not ( = ?auto_83605 ?auto_83611 ) ) ( not ( = ?auto_83606 ?auto_83611 ) ) ( not ( = ?auto_83607 ?auto_83611 ) ) ( not ( = ?auto_83608 ?auto_83611 ) ) ( not ( = ?auto_83609 ?auto_83611 ) ) ( not ( = ?auto_83610 ?auto_83611 ) ) )
+    ( and ( not ( = ?auto_83604 ?auto_83605 ) ) ( not ( = ?auto_83604 ?auto_83606 ) ) ( not ( = ?auto_83604 ?auto_83607 ) ) ( not ( = ?auto_83604 ?auto_83608 ) ) ( not ( = ?auto_83605 ?auto_83606 ) ) ( not ( = ?auto_83605 ?auto_83607 ) ) ( not ( = ?auto_83605 ?auto_83608 ) ) ( not ( = ?auto_83606 ?auto_83607 ) ) ( not ( = ?auto_83606 ?auto_83608 ) ) ( not ( = ?auto_83607 ?auto_83608 ) ) ( ON ?auto_83608 ?auto_83610 ) ( not ( = ?auto_83604 ?auto_83610 ) ) ( not ( = ?auto_83605 ?auto_83610 ) ) ( not ( = ?auto_83606 ?auto_83610 ) ) ( not ( = ?auto_83607 ?auto_83610 ) ) ( not ( = ?auto_83608 ?auto_83610 ) ) ( ON ?auto_83607 ?auto_83608 ) ( ON-TABLE ?auto_83609 ) ( ON ?auto_83610 ?auto_83609 ) ( not ( = ?auto_83609 ?auto_83610 ) ) ( not ( = ?auto_83609 ?auto_83608 ) ) ( not ( = ?auto_83609 ?auto_83607 ) ) ( not ( = ?auto_83604 ?auto_83609 ) ) ( not ( = ?auto_83605 ?auto_83609 ) ) ( not ( = ?auto_83606 ?auto_83609 ) ) ( ON ?auto_83606 ?auto_83607 ) ( ON ?auto_83605 ?auto_83606 ) ( CLEAR ?auto_83605 ) ( ON ?auto_83604 ?auto_83611 ) ( CLEAR ?auto_83604 ) ( HAND-EMPTY ) ( not ( = ?auto_83604 ?auto_83611 ) ) ( not ( = ?auto_83605 ?auto_83611 ) ) ( not ( = ?auto_83606 ?auto_83611 ) ) ( not ( = ?auto_83607 ?auto_83611 ) ) ( not ( = ?auto_83608 ?auto_83611 ) ) ( not ( = ?auto_83610 ?auto_83611 ) ) ( not ( = ?auto_83609 ?auto_83611 ) ) )
     :subtasks
     ( ( !UNSTACK ?auto_83604 ?auto_83611 )
       ( MAKE-5PILE ?auto_83604 ?auto_83605 ?auto_83606 ?auto_83607 ?auto_83608 ) )
@@ -5921,14 +5921,14 @@
     )
     :vars
     (
-      ?auto_83619 - BLOCK
       ?auto_83618 - BLOCK
+      ?auto_83619 - BLOCK
       ?auto_83617 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83612 ?auto_83613 ) ) ( not ( = ?auto_83612 ?auto_83614 ) ) ( not ( = ?auto_83612 ?auto_83615 ) ) ( not ( = ?auto_83612 ?auto_83616 ) ) ( not ( = ?auto_83613 ?auto_83614 ) ) ( not ( = ?auto_83613 ?auto_83615 ) ) ( not ( = ?auto_83613 ?auto_83616 ) ) ( not ( = ?auto_83614 ?auto_83615 ) ) ( not ( = ?auto_83614 ?auto_83616 ) ) ( not ( = ?auto_83615 ?auto_83616 ) ) ( ON ?auto_83616 ?auto_83619 ) ( not ( = ?auto_83612 ?auto_83619 ) ) ( not ( = ?auto_83613 ?auto_83619 ) ) ( not ( = ?auto_83614 ?auto_83619 ) ) ( not ( = ?auto_83615 ?auto_83619 ) ) ( not ( = ?auto_83616 ?auto_83619 ) ) ( ON ?auto_83615 ?auto_83616 ) ( ON-TABLE ?auto_83618 ) ( ON ?auto_83619 ?auto_83618 ) ( not ( = ?auto_83618 ?auto_83619 ) ) ( not ( = ?auto_83618 ?auto_83616 ) ) ( not ( = ?auto_83618 ?auto_83615 ) ) ( not ( = ?auto_83612 ?auto_83618 ) ) ( not ( = ?auto_83613 ?auto_83618 ) ) ( not ( = ?auto_83614 ?auto_83618 ) ) ( ON ?auto_83614 ?auto_83615 ) ( ON ?auto_83612 ?auto_83617 ) ( CLEAR ?auto_83612 ) ( not ( = ?auto_83612 ?auto_83617 ) ) ( not ( = ?auto_83613 ?auto_83617 ) ) ( not ( = ?auto_83614 ?auto_83617 ) ) ( not ( = ?auto_83615 ?auto_83617 ) ) ( not ( = ?auto_83616 ?auto_83617 ) ) ( not ( = ?auto_83619 ?auto_83617 ) ) ( not ( = ?auto_83618 ?auto_83617 ) ) ( HOLDING ?auto_83613 ) ( CLEAR ?auto_83614 ) )
+    ( and ( not ( = ?auto_83612 ?auto_83613 ) ) ( not ( = ?auto_83612 ?auto_83614 ) ) ( not ( = ?auto_83612 ?auto_83615 ) ) ( not ( = ?auto_83612 ?auto_83616 ) ) ( not ( = ?auto_83613 ?auto_83614 ) ) ( not ( = ?auto_83613 ?auto_83615 ) ) ( not ( = ?auto_83613 ?auto_83616 ) ) ( not ( = ?auto_83614 ?auto_83615 ) ) ( not ( = ?auto_83614 ?auto_83616 ) ) ( not ( = ?auto_83615 ?auto_83616 ) ) ( ON ?auto_83616 ?auto_83618 ) ( not ( = ?auto_83612 ?auto_83618 ) ) ( not ( = ?auto_83613 ?auto_83618 ) ) ( not ( = ?auto_83614 ?auto_83618 ) ) ( not ( = ?auto_83615 ?auto_83618 ) ) ( not ( = ?auto_83616 ?auto_83618 ) ) ( ON ?auto_83615 ?auto_83616 ) ( ON-TABLE ?auto_83619 ) ( ON ?auto_83618 ?auto_83619 ) ( not ( = ?auto_83619 ?auto_83618 ) ) ( not ( = ?auto_83619 ?auto_83616 ) ) ( not ( = ?auto_83619 ?auto_83615 ) ) ( not ( = ?auto_83612 ?auto_83619 ) ) ( not ( = ?auto_83613 ?auto_83619 ) ) ( not ( = ?auto_83614 ?auto_83619 ) ) ( ON ?auto_83614 ?auto_83615 ) ( ON ?auto_83612 ?auto_83617 ) ( CLEAR ?auto_83612 ) ( not ( = ?auto_83612 ?auto_83617 ) ) ( not ( = ?auto_83613 ?auto_83617 ) ) ( not ( = ?auto_83614 ?auto_83617 ) ) ( not ( = ?auto_83615 ?auto_83617 ) ) ( not ( = ?auto_83616 ?auto_83617 ) ) ( not ( = ?auto_83618 ?auto_83617 ) ) ( not ( = ?auto_83619 ?auto_83617 ) ) ( HOLDING ?auto_83613 ) ( CLEAR ?auto_83614 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83618 ?auto_83619 ?auto_83616 ?auto_83615 ?auto_83614 ?auto_83613 )
+    ( ( MAKE-6PILE ?auto_83619 ?auto_83618 ?auto_83616 ?auto_83615 ?auto_83614 ?auto_83613 )
       ( MAKE-5PILE ?auto_83612 ?auto_83613 ?auto_83614 ?auto_83615 ?auto_83616 ) )
   )
 
@@ -5943,14 +5943,14 @@
     )
     :vars
     (
-      ?auto_83627 - BLOCK
       ?auto_83625 - BLOCK
       ?auto_83626 - BLOCK
+      ?auto_83627 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83620 ?auto_83621 ) ) ( not ( = ?auto_83620 ?auto_83622 ) ) ( not ( = ?auto_83620 ?auto_83623 ) ) ( not ( = ?auto_83620 ?auto_83624 ) ) ( not ( = ?auto_83621 ?auto_83622 ) ) ( not ( = ?auto_83621 ?auto_83623 ) ) ( not ( = ?auto_83621 ?auto_83624 ) ) ( not ( = ?auto_83622 ?auto_83623 ) ) ( not ( = ?auto_83622 ?auto_83624 ) ) ( not ( = ?auto_83623 ?auto_83624 ) ) ( ON ?auto_83624 ?auto_83627 ) ( not ( = ?auto_83620 ?auto_83627 ) ) ( not ( = ?auto_83621 ?auto_83627 ) ) ( not ( = ?auto_83622 ?auto_83627 ) ) ( not ( = ?auto_83623 ?auto_83627 ) ) ( not ( = ?auto_83624 ?auto_83627 ) ) ( ON ?auto_83623 ?auto_83624 ) ( ON-TABLE ?auto_83625 ) ( ON ?auto_83627 ?auto_83625 ) ( not ( = ?auto_83625 ?auto_83627 ) ) ( not ( = ?auto_83625 ?auto_83624 ) ) ( not ( = ?auto_83625 ?auto_83623 ) ) ( not ( = ?auto_83620 ?auto_83625 ) ) ( not ( = ?auto_83621 ?auto_83625 ) ) ( not ( = ?auto_83622 ?auto_83625 ) ) ( ON ?auto_83622 ?auto_83623 ) ( ON ?auto_83620 ?auto_83626 ) ( not ( = ?auto_83620 ?auto_83626 ) ) ( not ( = ?auto_83621 ?auto_83626 ) ) ( not ( = ?auto_83622 ?auto_83626 ) ) ( not ( = ?auto_83623 ?auto_83626 ) ) ( not ( = ?auto_83624 ?auto_83626 ) ) ( not ( = ?auto_83627 ?auto_83626 ) ) ( not ( = ?auto_83625 ?auto_83626 ) ) ( CLEAR ?auto_83622 ) ( ON ?auto_83621 ?auto_83620 ) ( CLEAR ?auto_83621 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83626 ) )
+    ( and ( not ( = ?auto_83620 ?auto_83621 ) ) ( not ( = ?auto_83620 ?auto_83622 ) ) ( not ( = ?auto_83620 ?auto_83623 ) ) ( not ( = ?auto_83620 ?auto_83624 ) ) ( not ( = ?auto_83621 ?auto_83622 ) ) ( not ( = ?auto_83621 ?auto_83623 ) ) ( not ( = ?auto_83621 ?auto_83624 ) ) ( not ( = ?auto_83622 ?auto_83623 ) ) ( not ( = ?auto_83622 ?auto_83624 ) ) ( not ( = ?auto_83623 ?auto_83624 ) ) ( ON ?auto_83624 ?auto_83625 ) ( not ( = ?auto_83620 ?auto_83625 ) ) ( not ( = ?auto_83621 ?auto_83625 ) ) ( not ( = ?auto_83622 ?auto_83625 ) ) ( not ( = ?auto_83623 ?auto_83625 ) ) ( not ( = ?auto_83624 ?auto_83625 ) ) ( ON ?auto_83623 ?auto_83624 ) ( ON-TABLE ?auto_83626 ) ( ON ?auto_83625 ?auto_83626 ) ( not ( = ?auto_83626 ?auto_83625 ) ) ( not ( = ?auto_83626 ?auto_83624 ) ) ( not ( = ?auto_83626 ?auto_83623 ) ) ( not ( = ?auto_83620 ?auto_83626 ) ) ( not ( = ?auto_83621 ?auto_83626 ) ) ( not ( = ?auto_83622 ?auto_83626 ) ) ( ON ?auto_83622 ?auto_83623 ) ( ON ?auto_83620 ?auto_83627 ) ( not ( = ?auto_83620 ?auto_83627 ) ) ( not ( = ?auto_83621 ?auto_83627 ) ) ( not ( = ?auto_83622 ?auto_83627 ) ) ( not ( = ?auto_83623 ?auto_83627 ) ) ( not ( = ?auto_83624 ?auto_83627 ) ) ( not ( = ?auto_83625 ?auto_83627 ) ) ( not ( = ?auto_83626 ?auto_83627 ) ) ( CLEAR ?auto_83622 ) ( ON ?auto_83621 ?auto_83620 ) ( CLEAR ?auto_83621 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83627 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83626 ?auto_83620 )
+    ( ( MAKE-2PILE ?auto_83627 ?auto_83620 )
       ( MAKE-5PILE ?auto_83620 ?auto_83621 ?auto_83622 ?auto_83623 ?auto_83624 ) )
   )
 
@@ -5965,14 +5965,14 @@
     )
     :vars
     (
-      ?auto_83634 - BLOCK
       ?auto_83635 - BLOCK
+      ?auto_83634 - BLOCK
       ?auto_83633 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83628 ?auto_83629 ) ) ( not ( = ?auto_83628 ?auto_83630 ) ) ( not ( = ?auto_83628 ?auto_83631 ) ) ( not ( = ?auto_83628 ?auto_83632 ) ) ( not ( = ?auto_83629 ?auto_83630 ) ) ( not ( = ?auto_83629 ?auto_83631 ) ) ( not ( = ?auto_83629 ?auto_83632 ) ) ( not ( = ?auto_83630 ?auto_83631 ) ) ( not ( = ?auto_83630 ?auto_83632 ) ) ( not ( = ?auto_83631 ?auto_83632 ) ) ( ON ?auto_83632 ?auto_83634 ) ( not ( = ?auto_83628 ?auto_83634 ) ) ( not ( = ?auto_83629 ?auto_83634 ) ) ( not ( = ?auto_83630 ?auto_83634 ) ) ( not ( = ?auto_83631 ?auto_83634 ) ) ( not ( = ?auto_83632 ?auto_83634 ) ) ( ON ?auto_83631 ?auto_83632 ) ( ON-TABLE ?auto_83635 ) ( ON ?auto_83634 ?auto_83635 ) ( not ( = ?auto_83635 ?auto_83634 ) ) ( not ( = ?auto_83635 ?auto_83632 ) ) ( not ( = ?auto_83635 ?auto_83631 ) ) ( not ( = ?auto_83628 ?auto_83635 ) ) ( not ( = ?auto_83629 ?auto_83635 ) ) ( not ( = ?auto_83630 ?auto_83635 ) ) ( ON ?auto_83628 ?auto_83633 ) ( not ( = ?auto_83628 ?auto_83633 ) ) ( not ( = ?auto_83629 ?auto_83633 ) ) ( not ( = ?auto_83630 ?auto_83633 ) ) ( not ( = ?auto_83631 ?auto_83633 ) ) ( not ( = ?auto_83632 ?auto_83633 ) ) ( not ( = ?auto_83634 ?auto_83633 ) ) ( not ( = ?auto_83635 ?auto_83633 ) ) ( ON ?auto_83629 ?auto_83628 ) ( CLEAR ?auto_83629 ) ( ON-TABLE ?auto_83633 ) ( HOLDING ?auto_83630 ) ( CLEAR ?auto_83631 ) )
+    ( and ( not ( = ?auto_83628 ?auto_83629 ) ) ( not ( = ?auto_83628 ?auto_83630 ) ) ( not ( = ?auto_83628 ?auto_83631 ) ) ( not ( = ?auto_83628 ?auto_83632 ) ) ( not ( = ?auto_83629 ?auto_83630 ) ) ( not ( = ?auto_83629 ?auto_83631 ) ) ( not ( = ?auto_83629 ?auto_83632 ) ) ( not ( = ?auto_83630 ?auto_83631 ) ) ( not ( = ?auto_83630 ?auto_83632 ) ) ( not ( = ?auto_83631 ?auto_83632 ) ) ( ON ?auto_83632 ?auto_83635 ) ( not ( = ?auto_83628 ?auto_83635 ) ) ( not ( = ?auto_83629 ?auto_83635 ) ) ( not ( = ?auto_83630 ?auto_83635 ) ) ( not ( = ?auto_83631 ?auto_83635 ) ) ( not ( = ?auto_83632 ?auto_83635 ) ) ( ON ?auto_83631 ?auto_83632 ) ( ON-TABLE ?auto_83634 ) ( ON ?auto_83635 ?auto_83634 ) ( not ( = ?auto_83634 ?auto_83635 ) ) ( not ( = ?auto_83634 ?auto_83632 ) ) ( not ( = ?auto_83634 ?auto_83631 ) ) ( not ( = ?auto_83628 ?auto_83634 ) ) ( not ( = ?auto_83629 ?auto_83634 ) ) ( not ( = ?auto_83630 ?auto_83634 ) ) ( ON ?auto_83628 ?auto_83633 ) ( not ( = ?auto_83628 ?auto_83633 ) ) ( not ( = ?auto_83629 ?auto_83633 ) ) ( not ( = ?auto_83630 ?auto_83633 ) ) ( not ( = ?auto_83631 ?auto_83633 ) ) ( not ( = ?auto_83632 ?auto_83633 ) ) ( not ( = ?auto_83635 ?auto_83633 ) ) ( not ( = ?auto_83634 ?auto_83633 ) ) ( ON ?auto_83629 ?auto_83628 ) ( CLEAR ?auto_83629 ) ( ON-TABLE ?auto_83633 ) ( HOLDING ?auto_83630 ) ( CLEAR ?auto_83631 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83635 ?auto_83634 ?auto_83632 ?auto_83631 ?auto_83630 )
+    ( ( MAKE-5PILE ?auto_83634 ?auto_83635 ?auto_83632 ?auto_83631 ?auto_83630 )
       ( MAKE-5PILE ?auto_83628 ?auto_83629 ?auto_83630 ?auto_83631 ?auto_83632 ) )
   )
 
@@ -5988,13 +5988,13 @@
     :vars
     (
       ?auto_83642 - BLOCK
-      ?auto_83643 - BLOCK
       ?auto_83641 - BLOCK
+      ?auto_83643 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83636 ?auto_83637 ) ) ( not ( = ?auto_83636 ?auto_83638 ) ) ( not ( = ?auto_83636 ?auto_83639 ) ) ( not ( = ?auto_83636 ?auto_83640 ) ) ( not ( = ?auto_83637 ?auto_83638 ) ) ( not ( = ?auto_83637 ?auto_83639 ) ) ( not ( = ?auto_83637 ?auto_83640 ) ) ( not ( = ?auto_83638 ?auto_83639 ) ) ( not ( = ?auto_83638 ?auto_83640 ) ) ( not ( = ?auto_83639 ?auto_83640 ) ) ( ON ?auto_83640 ?auto_83642 ) ( not ( = ?auto_83636 ?auto_83642 ) ) ( not ( = ?auto_83637 ?auto_83642 ) ) ( not ( = ?auto_83638 ?auto_83642 ) ) ( not ( = ?auto_83639 ?auto_83642 ) ) ( not ( = ?auto_83640 ?auto_83642 ) ) ( ON ?auto_83639 ?auto_83640 ) ( ON-TABLE ?auto_83643 ) ( ON ?auto_83642 ?auto_83643 ) ( not ( = ?auto_83643 ?auto_83642 ) ) ( not ( = ?auto_83643 ?auto_83640 ) ) ( not ( = ?auto_83643 ?auto_83639 ) ) ( not ( = ?auto_83636 ?auto_83643 ) ) ( not ( = ?auto_83637 ?auto_83643 ) ) ( not ( = ?auto_83638 ?auto_83643 ) ) ( ON ?auto_83636 ?auto_83641 ) ( not ( = ?auto_83636 ?auto_83641 ) ) ( not ( = ?auto_83637 ?auto_83641 ) ) ( not ( = ?auto_83638 ?auto_83641 ) ) ( not ( = ?auto_83639 ?auto_83641 ) ) ( not ( = ?auto_83640 ?auto_83641 ) ) ( not ( = ?auto_83642 ?auto_83641 ) ) ( not ( = ?auto_83643 ?auto_83641 ) ) ( ON ?auto_83637 ?auto_83636 ) ( ON-TABLE ?auto_83641 ) ( CLEAR ?auto_83639 ) ( ON ?auto_83638 ?auto_83637 ) ( CLEAR ?auto_83638 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83636 ?auto_83637 ) ) ( not ( = ?auto_83636 ?auto_83638 ) ) ( not ( = ?auto_83636 ?auto_83639 ) ) ( not ( = ?auto_83636 ?auto_83640 ) ) ( not ( = ?auto_83637 ?auto_83638 ) ) ( not ( = ?auto_83637 ?auto_83639 ) ) ( not ( = ?auto_83637 ?auto_83640 ) ) ( not ( = ?auto_83638 ?auto_83639 ) ) ( not ( = ?auto_83638 ?auto_83640 ) ) ( not ( = ?auto_83639 ?auto_83640 ) ) ( ON ?auto_83640 ?auto_83642 ) ( not ( = ?auto_83636 ?auto_83642 ) ) ( not ( = ?auto_83637 ?auto_83642 ) ) ( not ( = ?auto_83638 ?auto_83642 ) ) ( not ( = ?auto_83639 ?auto_83642 ) ) ( not ( = ?auto_83640 ?auto_83642 ) ) ( ON ?auto_83639 ?auto_83640 ) ( ON-TABLE ?auto_83641 ) ( ON ?auto_83642 ?auto_83641 ) ( not ( = ?auto_83641 ?auto_83642 ) ) ( not ( = ?auto_83641 ?auto_83640 ) ) ( not ( = ?auto_83641 ?auto_83639 ) ) ( not ( = ?auto_83636 ?auto_83641 ) ) ( not ( = ?auto_83637 ?auto_83641 ) ) ( not ( = ?auto_83638 ?auto_83641 ) ) ( ON ?auto_83636 ?auto_83643 ) ( not ( = ?auto_83636 ?auto_83643 ) ) ( not ( = ?auto_83637 ?auto_83643 ) ) ( not ( = ?auto_83638 ?auto_83643 ) ) ( not ( = ?auto_83639 ?auto_83643 ) ) ( not ( = ?auto_83640 ?auto_83643 ) ) ( not ( = ?auto_83642 ?auto_83643 ) ) ( not ( = ?auto_83641 ?auto_83643 ) ) ( ON ?auto_83637 ?auto_83636 ) ( ON-TABLE ?auto_83643 ) ( CLEAR ?auto_83639 ) ( ON ?auto_83638 ?auto_83637 ) ( CLEAR ?auto_83638 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83641 ?auto_83636 ?auto_83637 )
+    ( ( MAKE-3PILE ?auto_83643 ?auto_83636 ?auto_83637 )
       ( MAKE-5PILE ?auto_83636 ?auto_83637 ?auto_83638 ?auto_83639 ?auto_83640 ) )
   )
 
@@ -6031,12 +6031,12 @@
     )
     :vars
     (
-      ?auto_83659 - BLOCK
       ?auto_83658 - BLOCK
+      ?auto_83659 - BLOCK
       ?auto_83657 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83652 ?auto_83653 ) ) ( not ( = ?auto_83652 ?auto_83654 ) ) ( not ( = ?auto_83652 ?auto_83655 ) ) ( not ( = ?auto_83652 ?auto_83656 ) ) ( not ( = ?auto_83653 ?auto_83654 ) ) ( not ( = ?auto_83653 ?auto_83655 ) ) ( not ( = ?auto_83653 ?auto_83656 ) ) ( not ( = ?auto_83654 ?auto_83655 ) ) ( not ( = ?auto_83654 ?auto_83656 ) ) ( not ( = ?auto_83655 ?auto_83656 ) ) ( ON ?auto_83656 ?auto_83659 ) ( not ( = ?auto_83652 ?auto_83659 ) ) ( not ( = ?auto_83653 ?auto_83659 ) ) ( not ( = ?auto_83654 ?auto_83659 ) ) ( not ( = ?auto_83655 ?auto_83659 ) ) ( not ( = ?auto_83656 ?auto_83659 ) ) ( ON-TABLE ?auto_83658 ) ( ON ?auto_83659 ?auto_83658 ) ( not ( = ?auto_83658 ?auto_83659 ) ) ( not ( = ?auto_83658 ?auto_83656 ) ) ( not ( = ?auto_83658 ?auto_83655 ) ) ( not ( = ?auto_83652 ?auto_83658 ) ) ( not ( = ?auto_83653 ?auto_83658 ) ) ( not ( = ?auto_83654 ?auto_83658 ) ) ( ON ?auto_83652 ?auto_83657 ) ( not ( = ?auto_83652 ?auto_83657 ) ) ( not ( = ?auto_83653 ?auto_83657 ) ) ( not ( = ?auto_83654 ?auto_83657 ) ) ( not ( = ?auto_83655 ?auto_83657 ) ) ( not ( = ?auto_83656 ?auto_83657 ) ) ( not ( = ?auto_83659 ?auto_83657 ) ) ( not ( = ?auto_83658 ?auto_83657 ) ) ( ON ?auto_83653 ?auto_83652 ) ( ON-TABLE ?auto_83657 ) ( ON ?auto_83654 ?auto_83653 ) ( CLEAR ?auto_83656 ) ( ON ?auto_83655 ?auto_83654 ) ( CLEAR ?auto_83655 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83652 ?auto_83653 ) ) ( not ( = ?auto_83652 ?auto_83654 ) ) ( not ( = ?auto_83652 ?auto_83655 ) ) ( not ( = ?auto_83652 ?auto_83656 ) ) ( not ( = ?auto_83653 ?auto_83654 ) ) ( not ( = ?auto_83653 ?auto_83655 ) ) ( not ( = ?auto_83653 ?auto_83656 ) ) ( not ( = ?auto_83654 ?auto_83655 ) ) ( not ( = ?auto_83654 ?auto_83656 ) ) ( not ( = ?auto_83655 ?auto_83656 ) ) ( ON ?auto_83656 ?auto_83658 ) ( not ( = ?auto_83652 ?auto_83658 ) ) ( not ( = ?auto_83653 ?auto_83658 ) ) ( not ( = ?auto_83654 ?auto_83658 ) ) ( not ( = ?auto_83655 ?auto_83658 ) ) ( not ( = ?auto_83656 ?auto_83658 ) ) ( ON-TABLE ?auto_83659 ) ( ON ?auto_83658 ?auto_83659 ) ( not ( = ?auto_83659 ?auto_83658 ) ) ( not ( = ?auto_83659 ?auto_83656 ) ) ( not ( = ?auto_83659 ?auto_83655 ) ) ( not ( = ?auto_83652 ?auto_83659 ) ) ( not ( = ?auto_83653 ?auto_83659 ) ) ( not ( = ?auto_83654 ?auto_83659 ) ) ( ON ?auto_83652 ?auto_83657 ) ( not ( = ?auto_83652 ?auto_83657 ) ) ( not ( = ?auto_83653 ?auto_83657 ) ) ( not ( = ?auto_83654 ?auto_83657 ) ) ( not ( = ?auto_83655 ?auto_83657 ) ) ( not ( = ?auto_83656 ?auto_83657 ) ) ( not ( = ?auto_83658 ?auto_83657 ) ) ( not ( = ?auto_83659 ?auto_83657 ) ) ( ON ?auto_83653 ?auto_83652 ) ( ON-TABLE ?auto_83657 ) ( ON ?auto_83654 ?auto_83653 ) ( CLEAR ?auto_83656 ) ( ON ?auto_83655 ?auto_83654 ) ( CLEAR ?auto_83655 ) ( HAND-EMPTY ) )
     :subtasks
     ( ( MAKE-4PILE ?auto_83657 ?auto_83652 ?auto_83653 ?auto_83654 )
       ( MAKE-5PILE ?auto_83652 ?auto_83653 ?auto_83654 ?auto_83655 ?auto_83656 ) )
@@ -6053,14 +6053,14 @@
     )
     :vars
     (
-      ?auto_83665 - BLOCK
-      ?auto_83666 - BLOCK
       ?auto_83667 - BLOCK
+      ?auto_83666 - BLOCK
+      ?auto_83665 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83660 ?auto_83661 ) ) ( not ( = ?auto_83660 ?auto_83662 ) ) ( not ( = ?auto_83660 ?auto_83663 ) ) ( not ( = ?auto_83660 ?auto_83664 ) ) ( not ( = ?auto_83661 ?auto_83662 ) ) ( not ( = ?auto_83661 ?auto_83663 ) ) ( not ( = ?auto_83661 ?auto_83664 ) ) ( not ( = ?auto_83662 ?auto_83663 ) ) ( not ( = ?auto_83662 ?auto_83664 ) ) ( not ( = ?auto_83663 ?auto_83664 ) ) ( not ( = ?auto_83660 ?auto_83665 ) ) ( not ( = ?auto_83661 ?auto_83665 ) ) ( not ( = ?auto_83662 ?auto_83665 ) ) ( not ( = ?auto_83663 ?auto_83665 ) ) ( not ( = ?auto_83664 ?auto_83665 ) ) ( ON-TABLE ?auto_83666 ) ( ON ?auto_83665 ?auto_83666 ) ( not ( = ?auto_83666 ?auto_83665 ) ) ( not ( = ?auto_83666 ?auto_83664 ) ) ( not ( = ?auto_83666 ?auto_83663 ) ) ( not ( = ?auto_83660 ?auto_83666 ) ) ( not ( = ?auto_83661 ?auto_83666 ) ) ( not ( = ?auto_83662 ?auto_83666 ) ) ( ON ?auto_83660 ?auto_83667 ) ( not ( = ?auto_83660 ?auto_83667 ) ) ( not ( = ?auto_83661 ?auto_83667 ) ) ( not ( = ?auto_83662 ?auto_83667 ) ) ( not ( = ?auto_83663 ?auto_83667 ) ) ( not ( = ?auto_83664 ?auto_83667 ) ) ( not ( = ?auto_83665 ?auto_83667 ) ) ( not ( = ?auto_83666 ?auto_83667 ) ) ( ON ?auto_83661 ?auto_83660 ) ( ON-TABLE ?auto_83667 ) ( ON ?auto_83662 ?auto_83661 ) ( ON ?auto_83663 ?auto_83662 ) ( CLEAR ?auto_83663 ) ( HOLDING ?auto_83664 ) ( CLEAR ?auto_83665 ) )
+    ( and ( not ( = ?auto_83660 ?auto_83661 ) ) ( not ( = ?auto_83660 ?auto_83662 ) ) ( not ( = ?auto_83660 ?auto_83663 ) ) ( not ( = ?auto_83660 ?auto_83664 ) ) ( not ( = ?auto_83661 ?auto_83662 ) ) ( not ( = ?auto_83661 ?auto_83663 ) ) ( not ( = ?auto_83661 ?auto_83664 ) ) ( not ( = ?auto_83662 ?auto_83663 ) ) ( not ( = ?auto_83662 ?auto_83664 ) ) ( not ( = ?auto_83663 ?auto_83664 ) ) ( not ( = ?auto_83660 ?auto_83667 ) ) ( not ( = ?auto_83661 ?auto_83667 ) ) ( not ( = ?auto_83662 ?auto_83667 ) ) ( not ( = ?auto_83663 ?auto_83667 ) ) ( not ( = ?auto_83664 ?auto_83667 ) ) ( ON-TABLE ?auto_83666 ) ( ON ?auto_83667 ?auto_83666 ) ( not ( = ?auto_83666 ?auto_83667 ) ) ( not ( = ?auto_83666 ?auto_83664 ) ) ( not ( = ?auto_83666 ?auto_83663 ) ) ( not ( = ?auto_83660 ?auto_83666 ) ) ( not ( = ?auto_83661 ?auto_83666 ) ) ( not ( = ?auto_83662 ?auto_83666 ) ) ( ON ?auto_83660 ?auto_83665 ) ( not ( = ?auto_83660 ?auto_83665 ) ) ( not ( = ?auto_83661 ?auto_83665 ) ) ( not ( = ?auto_83662 ?auto_83665 ) ) ( not ( = ?auto_83663 ?auto_83665 ) ) ( not ( = ?auto_83664 ?auto_83665 ) ) ( not ( = ?auto_83667 ?auto_83665 ) ) ( not ( = ?auto_83666 ?auto_83665 ) ) ( ON ?auto_83661 ?auto_83660 ) ( ON-TABLE ?auto_83665 ) ( ON ?auto_83662 ?auto_83661 ) ( ON ?auto_83663 ?auto_83662 ) ( CLEAR ?auto_83663 ) ( HOLDING ?auto_83664 ) ( CLEAR ?auto_83667 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83666 ?auto_83665 ?auto_83664 )
+    ( ( MAKE-3PILE ?auto_83666 ?auto_83667 ?auto_83664 )
       ( MAKE-5PILE ?auto_83660 ?auto_83661 ?auto_83662 ?auto_83663 ?auto_83664 ) )
   )
 
@@ -6076,13 +6076,13 @@
     :vars
     (
       ?auto_83675 - BLOCK
-      ?auto_83673 - BLOCK
       ?auto_83674 - BLOCK
+      ?auto_83673 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83668 ?auto_83669 ) ) ( not ( = ?auto_83668 ?auto_83670 ) ) ( not ( = ?auto_83668 ?auto_83671 ) ) ( not ( = ?auto_83668 ?auto_83672 ) ) ( not ( = ?auto_83669 ?auto_83670 ) ) ( not ( = ?auto_83669 ?auto_83671 ) ) ( not ( = ?auto_83669 ?auto_83672 ) ) ( not ( = ?auto_83670 ?auto_83671 ) ) ( not ( = ?auto_83670 ?auto_83672 ) ) ( not ( = ?auto_83671 ?auto_83672 ) ) ( not ( = ?auto_83668 ?auto_83675 ) ) ( not ( = ?auto_83669 ?auto_83675 ) ) ( not ( = ?auto_83670 ?auto_83675 ) ) ( not ( = ?auto_83671 ?auto_83675 ) ) ( not ( = ?auto_83672 ?auto_83675 ) ) ( ON-TABLE ?auto_83673 ) ( ON ?auto_83675 ?auto_83673 ) ( not ( = ?auto_83673 ?auto_83675 ) ) ( not ( = ?auto_83673 ?auto_83672 ) ) ( not ( = ?auto_83673 ?auto_83671 ) ) ( not ( = ?auto_83668 ?auto_83673 ) ) ( not ( = ?auto_83669 ?auto_83673 ) ) ( not ( = ?auto_83670 ?auto_83673 ) ) ( ON ?auto_83668 ?auto_83674 ) ( not ( = ?auto_83668 ?auto_83674 ) ) ( not ( = ?auto_83669 ?auto_83674 ) ) ( not ( = ?auto_83670 ?auto_83674 ) ) ( not ( = ?auto_83671 ?auto_83674 ) ) ( not ( = ?auto_83672 ?auto_83674 ) ) ( not ( = ?auto_83675 ?auto_83674 ) ) ( not ( = ?auto_83673 ?auto_83674 ) ) ( ON ?auto_83669 ?auto_83668 ) ( ON-TABLE ?auto_83674 ) ( ON ?auto_83670 ?auto_83669 ) ( ON ?auto_83671 ?auto_83670 ) ( CLEAR ?auto_83675 ) ( ON ?auto_83672 ?auto_83671 ) ( CLEAR ?auto_83672 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83668 ?auto_83669 ) ) ( not ( = ?auto_83668 ?auto_83670 ) ) ( not ( = ?auto_83668 ?auto_83671 ) ) ( not ( = ?auto_83668 ?auto_83672 ) ) ( not ( = ?auto_83669 ?auto_83670 ) ) ( not ( = ?auto_83669 ?auto_83671 ) ) ( not ( = ?auto_83669 ?auto_83672 ) ) ( not ( = ?auto_83670 ?auto_83671 ) ) ( not ( = ?auto_83670 ?auto_83672 ) ) ( not ( = ?auto_83671 ?auto_83672 ) ) ( not ( = ?auto_83668 ?auto_83675 ) ) ( not ( = ?auto_83669 ?auto_83675 ) ) ( not ( = ?auto_83670 ?auto_83675 ) ) ( not ( = ?auto_83671 ?auto_83675 ) ) ( not ( = ?auto_83672 ?auto_83675 ) ) ( ON-TABLE ?auto_83674 ) ( ON ?auto_83675 ?auto_83674 ) ( not ( = ?auto_83674 ?auto_83675 ) ) ( not ( = ?auto_83674 ?auto_83672 ) ) ( not ( = ?auto_83674 ?auto_83671 ) ) ( not ( = ?auto_83668 ?auto_83674 ) ) ( not ( = ?auto_83669 ?auto_83674 ) ) ( not ( = ?auto_83670 ?auto_83674 ) ) ( ON ?auto_83668 ?auto_83673 ) ( not ( = ?auto_83668 ?auto_83673 ) ) ( not ( = ?auto_83669 ?auto_83673 ) ) ( not ( = ?auto_83670 ?auto_83673 ) ) ( not ( = ?auto_83671 ?auto_83673 ) ) ( not ( = ?auto_83672 ?auto_83673 ) ) ( not ( = ?auto_83675 ?auto_83673 ) ) ( not ( = ?auto_83674 ?auto_83673 ) ) ( ON ?auto_83669 ?auto_83668 ) ( ON-TABLE ?auto_83673 ) ( ON ?auto_83670 ?auto_83669 ) ( ON ?auto_83671 ?auto_83670 ) ( CLEAR ?auto_83675 ) ( ON ?auto_83672 ?auto_83671 ) ( CLEAR ?auto_83672 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83674 ?auto_83668 ?auto_83669 ?auto_83670 ?auto_83671 )
+    ( ( MAKE-5PILE ?auto_83673 ?auto_83668 ?auto_83669 ?auto_83670 ?auto_83671 )
       ( MAKE-5PILE ?auto_83668 ?auto_83669 ?auto_83670 ?auto_83671 ?auto_83672 ) )
   )
 
@@ -6097,14 +6097,14 @@
     )
     :vars
     (
-      ?auto_83683 - BLOCK
-      ?auto_83681 - BLOCK
       ?auto_83682 - BLOCK
+      ?auto_83681 - BLOCK
+      ?auto_83683 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83676 ?auto_83677 ) ) ( not ( = ?auto_83676 ?auto_83678 ) ) ( not ( = ?auto_83676 ?auto_83679 ) ) ( not ( = ?auto_83676 ?auto_83680 ) ) ( not ( = ?auto_83677 ?auto_83678 ) ) ( not ( = ?auto_83677 ?auto_83679 ) ) ( not ( = ?auto_83677 ?auto_83680 ) ) ( not ( = ?auto_83678 ?auto_83679 ) ) ( not ( = ?auto_83678 ?auto_83680 ) ) ( not ( = ?auto_83679 ?auto_83680 ) ) ( not ( = ?auto_83676 ?auto_83683 ) ) ( not ( = ?auto_83677 ?auto_83683 ) ) ( not ( = ?auto_83678 ?auto_83683 ) ) ( not ( = ?auto_83679 ?auto_83683 ) ) ( not ( = ?auto_83680 ?auto_83683 ) ) ( ON-TABLE ?auto_83681 ) ( not ( = ?auto_83681 ?auto_83683 ) ) ( not ( = ?auto_83681 ?auto_83680 ) ) ( not ( = ?auto_83681 ?auto_83679 ) ) ( not ( = ?auto_83676 ?auto_83681 ) ) ( not ( = ?auto_83677 ?auto_83681 ) ) ( not ( = ?auto_83678 ?auto_83681 ) ) ( ON ?auto_83676 ?auto_83682 ) ( not ( = ?auto_83676 ?auto_83682 ) ) ( not ( = ?auto_83677 ?auto_83682 ) ) ( not ( = ?auto_83678 ?auto_83682 ) ) ( not ( = ?auto_83679 ?auto_83682 ) ) ( not ( = ?auto_83680 ?auto_83682 ) ) ( not ( = ?auto_83683 ?auto_83682 ) ) ( not ( = ?auto_83681 ?auto_83682 ) ) ( ON ?auto_83677 ?auto_83676 ) ( ON-TABLE ?auto_83682 ) ( ON ?auto_83678 ?auto_83677 ) ( ON ?auto_83679 ?auto_83678 ) ( ON ?auto_83680 ?auto_83679 ) ( CLEAR ?auto_83680 ) ( HOLDING ?auto_83683 ) ( CLEAR ?auto_83681 ) )
+    ( and ( not ( = ?auto_83676 ?auto_83677 ) ) ( not ( = ?auto_83676 ?auto_83678 ) ) ( not ( = ?auto_83676 ?auto_83679 ) ) ( not ( = ?auto_83676 ?auto_83680 ) ) ( not ( = ?auto_83677 ?auto_83678 ) ) ( not ( = ?auto_83677 ?auto_83679 ) ) ( not ( = ?auto_83677 ?auto_83680 ) ) ( not ( = ?auto_83678 ?auto_83679 ) ) ( not ( = ?auto_83678 ?auto_83680 ) ) ( not ( = ?auto_83679 ?auto_83680 ) ) ( not ( = ?auto_83676 ?auto_83682 ) ) ( not ( = ?auto_83677 ?auto_83682 ) ) ( not ( = ?auto_83678 ?auto_83682 ) ) ( not ( = ?auto_83679 ?auto_83682 ) ) ( not ( = ?auto_83680 ?auto_83682 ) ) ( ON-TABLE ?auto_83681 ) ( not ( = ?auto_83681 ?auto_83682 ) ) ( not ( = ?auto_83681 ?auto_83680 ) ) ( not ( = ?auto_83681 ?auto_83679 ) ) ( not ( = ?auto_83676 ?auto_83681 ) ) ( not ( = ?auto_83677 ?auto_83681 ) ) ( not ( = ?auto_83678 ?auto_83681 ) ) ( ON ?auto_83676 ?auto_83683 ) ( not ( = ?auto_83676 ?auto_83683 ) ) ( not ( = ?auto_83677 ?auto_83683 ) ) ( not ( = ?auto_83678 ?auto_83683 ) ) ( not ( = ?auto_83679 ?auto_83683 ) ) ( not ( = ?auto_83680 ?auto_83683 ) ) ( not ( = ?auto_83682 ?auto_83683 ) ) ( not ( = ?auto_83681 ?auto_83683 ) ) ( ON ?auto_83677 ?auto_83676 ) ( ON-TABLE ?auto_83683 ) ( ON ?auto_83678 ?auto_83677 ) ( ON ?auto_83679 ?auto_83678 ) ( ON ?auto_83680 ?auto_83679 ) ( CLEAR ?auto_83680 ) ( HOLDING ?auto_83682 ) ( CLEAR ?auto_83681 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83681 ?auto_83683 )
+    ( ( MAKE-2PILE ?auto_83681 ?auto_83682 )
       ( MAKE-5PILE ?auto_83676 ?auto_83677 ?auto_83678 ?auto_83679 ?auto_83680 ) )
   )
 
@@ -6163,14 +6163,14 @@
     )
     :vars
     (
+      ?auto_83705 - BLOCK
       ?auto_83706 - BLOCK
       ?auto_83707 - BLOCK
-      ?auto_83705 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83700 ?auto_83701 ) ) ( not ( = ?auto_83700 ?auto_83702 ) ) ( not ( = ?auto_83700 ?auto_83703 ) ) ( not ( = ?auto_83700 ?auto_83704 ) ) ( not ( = ?auto_83701 ?auto_83702 ) ) ( not ( = ?auto_83701 ?auto_83703 ) ) ( not ( = ?auto_83701 ?auto_83704 ) ) ( not ( = ?auto_83702 ?auto_83703 ) ) ( not ( = ?auto_83702 ?auto_83704 ) ) ( not ( = ?auto_83703 ?auto_83704 ) ) ( not ( = ?auto_83700 ?auto_83706 ) ) ( not ( = ?auto_83701 ?auto_83706 ) ) ( not ( = ?auto_83702 ?auto_83706 ) ) ( not ( = ?auto_83703 ?auto_83706 ) ) ( not ( = ?auto_83704 ?auto_83706 ) ) ( not ( = ?auto_83707 ?auto_83706 ) ) ( not ( = ?auto_83707 ?auto_83704 ) ) ( not ( = ?auto_83707 ?auto_83703 ) ) ( not ( = ?auto_83700 ?auto_83707 ) ) ( not ( = ?auto_83701 ?auto_83707 ) ) ( not ( = ?auto_83702 ?auto_83707 ) ) ( ON ?auto_83700 ?auto_83705 ) ( not ( = ?auto_83700 ?auto_83705 ) ) ( not ( = ?auto_83701 ?auto_83705 ) ) ( not ( = ?auto_83702 ?auto_83705 ) ) ( not ( = ?auto_83703 ?auto_83705 ) ) ( not ( = ?auto_83704 ?auto_83705 ) ) ( not ( = ?auto_83706 ?auto_83705 ) ) ( not ( = ?auto_83707 ?auto_83705 ) ) ( ON ?auto_83701 ?auto_83700 ) ( ON-TABLE ?auto_83705 ) ( ON ?auto_83702 ?auto_83701 ) ( ON ?auto_83703 ?auto_83702 ) ( ON ?auto_83704 ?auto_83703 ) ( ON ?auto_83706 ?auto_83704 ) ( ON ?auto_83707 ?auto_83706 ) ( CLEAR ?auto_83707 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83700 ?auto_83701 ) ) ( not ( = ?auto_83700 ?auto_83702 ) ) ( not ( = ?auto_83700 ?auto_83703 ) ) ( not ( = ?auto_83700 ?auto_83704 ) ) ( not ( = ?auto_83701 ?auto_83702 ) ) ( not ( = ?auto_83701 ?auto_83703 ) ) ( not ( = ?auto_83701 ?auto_83704 ) ) ( not ( = ?auto_83702 ?auto_83703 ) ) ( not ( = ?auto_83702 ?auto_83704 ) ) ( not ( = ?auto_83703 ?auto_83704 ) ) ( not ( = ?auto_83700 ?auto_83705 ) ) ( not ( = ?auto_83701 ?auto_83705 ) ) ( not ( = ?auto_83702 ?auto_83705 ) ) ( not ( = ?auto_83703 ?auto_83705 ) ) ( not ( = ?auto_83704 ?auto_83705 ) ) ( not ( = ?auto_83706 ?auto_83705 ) ) ( not ( = ?auto_83706 ?auto_83704 ) ) ( not ( = ?auto_83706 ?auto_83703 ) ) ( not ( = ?auto_83700 ?auto_83706 ) ) ( not ( = ?auto_83701 ?auto_83706 ) ) ( not ( = ?auto_83702 ?auto_83706 ) ) ( ON ?auto_83700 ?auto_83707 ) ( not ( = ?auto_83700 ?auto_83707 ) ) ( not ( = ?auto_83701 ?auto_83707 ) ) ( not ( = ?auto_83702 ?auto_83707 ) ) ( not ( = ?auto_83703 ?auto_83707 ) ) ( not ( = ?auto_83704 ?auto_83707 ) ) ( not ( = ?auto_83705 ?auto_83707 ) ) ( not ( = ?auto_83706 ?auto_83707 ) ) ( ON ?auto_83701 ?auto_83700 ) ( ON-TABLE ?auto_83707 ) ( ON ?auto_83702 ?auto_83701 ) ( ON ?auto_83703 ?auto_83702 ) ( ON ?auto_83704 ?auto_83703 ) ( ON ?auto_83705 ?auto_83704 ) ( ON ?auto_83706 ?auto_83705 ) ( CLEAR ?auto_83706 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83705 ?auto_83700 ?auto_83701 ?auto_83702 ?auto_83703 ?auto_83704 ?auto_83706 )
+    ( ( MAKE-7PILE ?auto_83707 ?auto_83700 ?auto_83701 ?auto_83702 ?auto_83703 ?auto_83704 ?auto_83705 )
       ( MAKE-5PILE ?auto_83700 ?auto_83701 ?auto_83702 ?auto_83703 ?auto_83704 ) )
   )
 
@@ -6214,14 +6214,14 @@
     )
     :vars
     (
-      ?auto_83716 - BLOCK
       ?auto_83717 - BLOCK
       ?auto_83718 - BLOCK
+      ?auto_83716 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83716 ?auto_83715 ) ( ON-TABLE ?auto_83715 ) ( not ( = ?auto_83715 ?auto_83716 ) ) ( CLEAR ?auto_83717 ) ( not ( = ?auto_83715 ?auto_83718 ) ) ( not ( = ?auto_83715 ?auto_83717 ) ) ( not ( = ?auto_83716 ?auto_83718 ) ) ( not ( = ?auto_83716 ?auto_83717 ) ) ( not ( = ?auto_83718 ?auto_83717 ) ) ( ON ?auto_83718 ?auto_83716 ) ( CLEAR ?auto_83718 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83717 ?auto_83715 ) ( ON-TABLE ?auto_83715 ) ( not ( = ?auto_83715 ?auto_83717 ) ) ( CLEAR ?auto_83718 ) ( not ( = ?auto_83715 ?auto_83716 ) ) ( not ( = ?auto_83715 ?auto_83718 ) ) ( not ( = ?auto_83717 ?auto_83716 ) ) ( not ( = ?auto_83717 ?auto_83718 ) ) ( not ( = ?auto_83716 ?auto_83718 ) ) ( ON ?auto_83716 ?auto_83717 ) ( CLEAR ?auto_83716 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83715 ?auto_83716 )
+    ( ( MAKE-2PILE ?auto_83715 ?auto_83717 )
       ( MAKE-1PILE ?auto_83715 ) )
   )
 
@@ -6235,14 +6235,14 @@
       ?auto_83721 - BLOCK
       ?auto_83722 - BLOCK
       ?auto_83720 - BLOCK
-      ?auto_83725 - BLOCK
       ?auto_83723 - BLOCK
       ?auto_83724 - BLOCK
+      ?auto_83725 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83721 ?auto_83719 ) ( ON-TABLE ?auto_83719 ) ( not ( = ?auto_83719 ?auto_83721 ) ) ( not ( = ?auto_83719 ?auto_83722 ) ) ( not ( = ?auto_83719 ?auto_83720 ) ) ( not ( = ?auto_83721 ?auto_83722 ) ) ( not ( = ?auto_83721 ?auto_83720 ) ) ( not ( = ?auto_83722 ?auto_83720 ) ) ( ON ?auto_83722 ?auto_83721 ) ( CLEAR ?auto_83722 ) ( HOLDING ?auto_83720 ) ( CLEAR ?auto_83725 ) ( ON-TABLE ?auto_83723 ) ( ON ?auto_83724 ?auto_83723 ) ( ON ?auto_83725 ?auto_83724 ) ( not ( = ?auto_83723 ?auto_83724 ) ) ( not ( = ?auto_83723 ?auto_83725 ) ) ( not ( = ?auto_83723 ?auto_83720 ) ) ( not ( = ?auto_83724 ?auto_83725 ) ) ( not ( = ?auto_83724 ?auto_83720 ) ) ( not ( = ?auto_83725 ?auto_83720 ) ) ( not ( = ?auto_83719 ?auto_83725 ) ) ( not ( = ?auto_83719 ?auto_83723 ) ) ( not ( = ?auto_83719 ?auto_83724 ) ) ( not ( = ?auto_83721 ?auto_83725 ) ) ( not ( = ?auto_83721 ?auto_83723 ) ) ( not ( = ?auto_83721 ?auto_83724 ) ) ( not ( = ?auto_83722 ?auto_83725 ) ) ( not ( = ?auto_83722 ?auto_83723 ) ) ( not ( = ?auto_83722 ?auto_83724 ) ) )
+    ( and ( ON ?auto_83721 ?auto_83719 ) ( ON-TABLE ?auto_83719 ) ( not ( = ?auto_83719 ?auto_83721 ) ) ( not ( = ?auto_83719 ?auto_83722 ) ) ( not ( = ?auto_83719 ?auto_83720 ) ) ( not ( = ?auto_83721 ?auto_83722 ) ) ( not ( = ?auto_83721 ?auto_83720 ) ) ( not ( = ?auto_83722 ?auto_83720 ) ) ( ON ?auto_83722 ?auto_83721 ) ( CLEAR ?auto_83722 ) ( HOLDING ?auto_83720 ) ( CLEAR ?auto_83723 ) ( ON-TABLE ?auto_83724 ) ( ON ?auto_83725 ?auto_83724 ) ( ON ?auto_83723 ?auto_83725 ) ( not ( = ?auto_83724 ?auto_83725 ) ) ( not ( = ?auto_83724 ?auto_83723 ) ) ( not ( = ?auto_83724 ?auto_83720 ) ) ( not ( = ?auto_83725 ?auto_83723 ) ) ( not ( = ?auto_83725 ?auto_83720 ) ) ( not ( = ?auto_83723 ?auto_83720 ) ) ( not ( = ?auto_83719 ?auto_83723 ) ) ( not ( = ?auto_83719 ?auto_83724 ) ) ( not ( = ?auto_83719 ?auto_83725 ) ) ( not ( = ?auto_83721 ?auto_83723 ) ) ( not ( = ?auto_83721 ?auto_83724 ) ) ( not ( = ?auto_83721 ?auto_83725 ) ) ( not ( = ?auto_83722 ?auto_83723 ) ) ( not ( = ?auto_83722 ?auto_83724 ) ) ( not ( = ?auto_83722 ?auto_83725 ) ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83723 ?auto_83724 ?auto_83725 ?auto_83720 )
+    ( ( MAKE-4PILE ?auto_83724 ?auto_83725 ?auto_83723 ?auto_83720 )
       ( MAKE-1PILE ?auto_83719 ) )
   )
 
@@ -6253,17 +6253,17 @@
     )
     :vars
     (
-      ?auto_83731 - BLOCK
-      ?auto_83730 - BLOCK
-      ?auto_83729 - BLOCK
-      ?auto_83727 - BLOCK
       ?auto_83732 - BLOCK
+      ?auto_83727 - BLOCK
       ?auto_83728 - BLOCK
+      ?auto_83729 - BLOCK
+      ?auto_83730 - BLOCK
+      ?auto_83731 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83731 ?auto_83726 ) ( ON-TABLE ?auto_83726 ) ( not ( = ?auto_83726 ?auto_83731 ) ) ( not ( = ?auto_83726 ?auto_83730 ) ) ( not ( = ?auto_83726 ?auto_83729 ) ) ( not ( = ?auto_83731 ?auto_83730 ) ) ( not ( = ?auto_83731 ?auto_83729 ) ) ( not ( = ?auto_83730 ?auto_83729 ) ) ( ON ?auto_83730 ?auto_83731 ) ( CLEAR ?auto_83727 ) ( ON-TABLE ?auto_83732 ) ( ON ?auto_83728 ?auto_83732 ) ( ON ?auto_83727 ?auto_83728 ) ( not ( = ?auto_83732 ?auto_83728 ) ) ( not ( = ?auto_83732 ?auto_83727 ) ) ( not ( = ?auto_83732 ?auto_83729 ) ) ( not ( = ?auto_83728 ?auto_83727 ) ) ( not ( = ?auto_83728 ?auto_83729 ) ) ( not ( = ?auto_83727 ?auto_83729 ) ) ( not ( = ?auto_83726 ?auto_83727 ) ) ( not ( = ?auto_83726 ?auto_83732 ) ) ( not ( = ?auto_83726 ?auto_83728 ) ) ( not ( = ?auto_83731 ?auto_83727 ) ) ( not ( = ?auto_83731 ?auto_83732 ) ) ( not ( = ?auto_83731 ?auto_83728 ) ) ( not ( = ?auto_83730 ?auto_83727 ) ) ( not ( = ?auto_83730 ?auto_83732 ) ) ( not ( = ?auto_83730 ?auto_83728 ) ) ( ON ?auto_83729 ?auto_83730 ) ( CLEAR ?auto_83729 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83732 ?auto_83726 ) ( ON-TABLE ?auto_83726 ) ( not ( = ?auto_83726 ?auto_83732 ) ) ( not ( = ?auto_83726 ?auto_83727 ) ) ( not ( = ?auto_83726 ?auto_83728 ) ) ( not ( = ?auto_83732 ?auto_83727 ) ) ( not ( = ?auto_83732 ?auto_83728 ) ) ( not ( = ?auto_83727 ?auto_83728 ) ) ( ON ?auto_83727 ?auto_83732 ) ( CLEAR ?auto_83729 ) ( ON-TABLE ?auto_83730 ) ( ON ?auto_83731 ?auto_83730 ) ( ON ?auto_83729 ?auto_83731 ) ( not ( = ?auto_83730 ?auto_83731 ) ) ( not ( = ?auto_83730 ?auto_83729 ) ) ( not ( = ?auto_83730 ?auto_83728 ) ) ( not ( = ?auto_83731 ?auto_83729 ) ) ( not ( = ?auto_83731 ?auto_83728 ) ) ( not ( = ?auto_83729 ?auto_83728 ) ) ( not ( = ?auto_83726 ?auto_83729 ) ) ( not ( = ?auto_83726 ?auto_83730 ) ) ( not ( = ?auto_83726 ?auto_83731 ) ) ( not ( = ?auto_83732 ?auto_83729 ) ) ( not ( = ?auto_83732 ?auto_83730 ) ) ( not ( = ?auto_83732 ?auto_83731 ) ) ( not ( = ?auto_83727 ?auto_83729 ) ) ( not ( = ?auto_83727 ?auto_83730 ) ) ( not ( = ?auto_83727 ?auto_83731 ) ) ( ON ?auto_83728 ?auto_83727 ) ( CLEAR ?auto_83728 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83726 ?auto_83731 ?auto_83730 )
+    ( ( MAKE-3PILE ?auto_83726 ?auto_83732 ?auto_83727 )
       ( MAKE-1PILE ?auto_83726 ) )
   )
 
@@ -6274,17 +6274,17 @@
     )
     :vars
     (
-      ?auto_83736 - BLOCK
+      ?auto_83734 - BLOCK
       ?auto_83739 - BLOCK
       ?auto_83738 - BLOCK
-      ?auto_83735 - BLOCK
-      ?auto_83734 - BLOCK
       ?auto_83737 - BLOCK
+      ?auto_83735 - BLOCK
+      ?auto_83736 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83736 ?auto_83733 ) ( ON-TABLE ?auto_83733 ) ( not ( = ?auto_83733 ?auto_83736 ) ) ( not ( = ?auto_83733 ?auto_83739 ) ) ( not ( = ?auto_83733 ?auto_83738 ) ) ( not ( = ?auto_83736 ?auto_83739 ) ) ( not ( = ?auto_83736 ?auto_83738 ) ) ( not ( = ?auto_83739 ?auto_83738 ) ) ( ON ?auto_83739 ?auto_83736 ) ( ON-TABLE ?auto_83735 ) ( ON ?auto_83734 ?auto_83735 ) ( not ( = ?auto_83735 ?auto_83734 ) ) ( not ( = ?auto_83735 ?auto_83737 ) ) ( not ( = ?auto_83735 ?auto_83738 ) ) ( not ( = ?auto_83734 ?auto_83737 ) ) ( not ( = ?auto_83734 ?auto_83738 ) ) ( not ( = ?auto_83737 ?auto_83738 ) ) ( not ( = ?auto_83733 ?auto_83737 ) ) ( not ( = ?auto_83733 ?auto_83735 ) ) ( not ( = ?auto_83733 ?auto_83734 ) ) ( not ( = ?auto_83736 ?auto_83737 ) ) ( not ( = ?auto_83736 ?auto_83735 ) ) ( not ( = ?auto_83736 ?auto_83734 ) ) ( not ( = ?auto_83739 ?auto_83737 ) ) ( not ( = ?auto_83739 ?auto_83735 ) ) ( not ( = ?auto_83739 ?auto_83734 ) ) ( ON ?auto_83738 ?auto_83739 ) ( CLEAR ?auto_83738 ) ( HOLDING ?auto_83737 ) ( CLEAR ?auto_83734 ) )
+    ( and ( ON ?auto_83734 ?auto_83733 ) ( ON-TABLE ?auto_83733 ) ( not ( = ?auto_83733 ?auto_83734 ) ) ( not ( = ?auto_83733 ?auto_83739 ) ) ( not ( = ?auto_83733 ?auto_83738 ) ) ( not ( = ?auto_83734 ?auto_83739 ) ) ( not ( = ?auto_83734 ?auto_83738 ) ) ( not ( = ?auto_83739 ?auto_83738 ) ) ( ON ?auto_83739 ?auto_83734 ) ( ON-TABLE ?auto_83737 ) ( ON ?auto_83735 ?auto_83737 ) ( not ( = ?auto_83737 ?auto_83735 ) ) ( not ( = ?auto_83737 ?auto_83736 ) ) ( not ( = ?auto_83737 ?auto_83738 ) ) ( not ( = ?auto_83735 ?auto_83736 ) ) ( not ( = ?auto_83735 ?auto_83738 ) ) ( not ( = ?auto_83736 ?auto_83738 ) ) ( not ( = ?auto_83733 ?auto_83736 ) ) ( not ( = ?auto_83733 ?auto_83737 ) ) ( not ( = ?auto_83733 ?auto_83735 ) ) ( not ( = ?auto_83734 ?auto_83736 ) ) ( not ( = ?auto_83734 ?auto_83737 ) ) ( not ( = ?auto_83734 ?auto_83735 ) ) ( not ( = ?auto_83739 ?auto_83736 ) ) ( not ( = ?auto_83739 ?auto_83737 ) ) ( not ( = ?auto_83739 ?auto_83735 ) ) ( ON ?auto_83738 ?auto_83739 ) ( CLEAR ?auto_83738 ) ( HOLDING ?auto_83736 ) ( CLEAR ?auto_83735 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83735 ?auto_83734 ?auto_83737 )
+    ( ( MAKE-3PILE ?auto_83737 ?auto_83735 ?auto_83736 )
       ( MAKE-1PILE ?auto_83733 ) )
   )
 
@@ -6295,17 +6295,17 @@
     )
     :vars
     (
-      ?auto_83742 - BLOCK
-      ?auto_83745 - BLOCK
       ?auto_83746 - BLOCK
-      ?auto_83744 - BLOCK
       ?auto_83743 - BLOCK
       ?auto_83741 - BLOCK
+      ?auto_83744 - BLOCK
+      ?auto_83742 - BLOCK
+      ?auto_83745 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83742 ?auto_83740 ) ( ON-TABLE ?auto_83740 ) ( not ( = ?auto_83740 ?auto_83742 ) ) ( not ( = ?auto_83740 ?auto_83745 ) ) ( not ( = ?auto_83740 ?auto_83746 ) ) ( not ( = ?auto_83742 ?auto_83745 ) ) ( not ( = ?auto_83742 ?auto_83746 ) ) ( not ( = ?auto_83745 ?auto_83746 ) ) ( ON ?auto_83745 ?auto_83742 ) ( ON-TABLE ?auto_83744 ) ( ON ?auto_83743 ?auto_83744 ) ( not ( = ?auto_83744 ?auto_83743 ) ) ( not ( = ?auto_83744 ?auto_83741 ) ) ( not ( = ?auto_83744 ?auto_83746 ) ) ( not ( = ?auto_83743 ?auto_83741 ) ) ( not ( = ?auto_83743 ?auto_83746 ) ) ( not ( = ?auto_83741 ?auto_83746 ) ) ( not ( = ?auto_83740 ?auto_83741 ) ) ( not ( = ?auto_83740 ?auto_83744 ) ) ( not ( = ?auto_83740 ?auto_83743 ) ) ( not ( = ?auto_83742 ?auto_83741 ) ) ( not ( = ?auto_83742 ?auto_83744 ) ) ( not ( = ?auto_83742 ?auto_83743 ) ) ( not ( = ?auto_83745 ?auto_83741 ) ) ( not ( = ?auto_83745 ?auto_83744 ) ) ( not ( = ?auto_83745 ?auto_83743 ) ) ( ON ?auto_83746 ?auto_83745 ) ( CLEAR ?auto_83743 ) ( ON ?auto_83741 ?auto_83746 ) ( CLEAR ?auto_83741 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83746 ?auto_83740 ) ( ON-TABLE ?auto_83740 ) ( not ( = ?auto_83740 ?auto_83746 ) ) ( not ( = ?auto_83740 ?auto_83743 ) ) ( not ( = ?auto_83740 ?auto_83741 ) ) ( not ( = ?auto_83746 ?auto_83743 ) ) ( not ( = ?auto_83746 ?auto_83741 ) ) ( not ( = ?auto_83743 ?auto_83741 ) ) ( ON ?auto_83743 ?auto_83746 ) ( ON-TABLE ?auto_83744 ) ( ON ?auto_83742 ?auto_83744 ) ( not ( = ?auto_83744 ?auto_83742 ) ) ( not ( = ?auto_83744 ?auto_83745 ) ) ( not ( = ?auto_83744 ?auto_83741 ) ) ( not ( = ?auto_83742 ?auto_83745 ) ) ( not ( = ?auto_83742 ?auto_83741 ) ) ( not ( = ?auto_83745 ?auto_83741 ) ) ( not ( = ?auto_83740 ?auto_83745 ) ) ( not ( = ?auto_83740 ?auto_83744 ) ) ( not ( = ?auto_83740 ?auto_83742 ) ) ( not ( = ?auto_83746 ?auto_83745 ) ) ( not ( = ?auto_83746 ?auto_83744 ) ) ( not ( = ?auto_83746 ?auto_83742 ) ) ( not ( = ?auto_83743 ?auto_83745 ) ) ( not ( = ?auto_83743 ?auto_83744 ) ) ( not ( = ?auto_83743 ?auto_83742 ) ) ( ON ?auto_83741 ?auto_83743 ) ( CLEAR ?auto_83742 ) ( ON ?auto_83745 ?auto_83741 ) ( CLEAR ?auto_83745 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83740 ?auto_83742 ?auto_83745 ?auto_83746 )
+    ( ( MAKE-4PILE ?auto_83740 ?auto_83746 ?auto_83743 ?auto_83741 )
       ( MAKE-1PILE ?auto_83740 ) )
   )
 
@@ -6316,17 +6316,17 @@
     )
     :vars
     (
-      ?auto_83750 - BLOCK
-      ?auto_83748 - BLOCK
       ?auto_83749 - BLOCK
       ?auto_83753 - BLOCK
       ?auto_83751 - BLOCK
       ?auto_83752 - BLOCK
+      ?auto_83750 - BLOCK
+      ?auto_83748 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83750 ?auto_83747 ) ( ON-TABLE ?auto_83747 ) ( not ( = ?auto_83747 ?auto_83750 ) ) ( not ( = ?auto_83747 ?auto_83748 ) ) ( not ( = ?auto_83747 ?auto_83749 ) ) ( not ( = ?auto_83750 ?auto_83748 ) ) ( not ( = ?auto_83750 ?auto_83749 ) ) ( not ( = ?auto_83748 ?auto_83749 ) ) ( ON ?auto_83748 ?auto_83750 ) ( ON-TABLE ?auto_83753 ) ( not ( = ?auto_83753 ?auto_83751 ) ) ( not ( = ?auto_83753 ?auto_83752 ) ) ( not ( = ?auto_83753 ?auto_83749 ) ) ( not ( = ?auto_83751 ?auto_83752 ) ) ( not ( = ?auto_83751 ?auto_83749 ) ) ( not ( = ?auto_83752 ?auto_83749 ) ) ( not ( = ?auto_83747 ?auto_83752 ) ) ( not ( = ?auto_83747 ?auto_83753 ) ) ( not ( = ?auto_83747 ?auto_83751 ) ) ( not ( = ?auto_83750 ?auto_83752 ) ) ( not ( = ?auto_83750 ?auto_83753 ) ) ( not ( = ?auto_83750 ?auto_83751 ) ) ( not ( = ?auto_83748 ?auto_83752 ) ) ( not ( = ?auto_83748 ?auto_83753 ) ) ( not ( = ?auto_83748 ?auto_83751 ) ) ( ON ?auto_83749 ?auto_83748 ) ( ON ?auto_83752 ?auto_83749 ) ( CLEAR ?auto_83752 ) ( HOLDING ?auto_83751 ) ( CLEAR ?auto_83753 ) )
+    ( and ( ON ?auto_83749 ?auto_83747 ) ( ON-TABLE ?auto_83747 ) ( not ( = ?auto_83747 ?auto_83749 ) ) ( not ( = ?auto_83747 ?auto_83753 ) ) ( not ( = ?auto_83747 ?auto_83751 ) ) ( not ( = ?auto_83749 ?auto_83753 ) ) ( not ( = ?auto_83749 ?auto_83751 ) ) ( not ( = ?auto_83753 ?auto_83751 ) ) ( ON ?auto_83753 ?auto_83749 ) ( ON-TABLE ?auto_83752 ) ( not ( = ?auto_83752 ?auto_83750 ) ) ( not ( = ?auto_83752 ?auto_83748 ) ) ( not ( = ?auto_83752 ?auto_83751 ) ) ( not ( = ?auto_83750 ?auto_83748 ) ) ( not ( = ?auto_83750 ?auto_83751 ) ) ( not ( = ?auto_83748 ?auto_83751 ) ) ( not ( = ?auto_83747 ?auto_83748 ) ) ( not ( = ?auto_83747 ?auto_83752 ) ) ( not ( = ?auto_83747 ?auto_83750 ) ) ( not ( = ?auto_83749 ?auto_83748 ) ) ( not ( = ?auto_83749 ?auto_83752 ) ) ( not ( = ?auto_83749 ?auto_83750 ) ) ( not ( = ?auto_83753 ?auto_83748 ) ) ( not ( = ?auto_83753 ?auto_83752 ) ) ( not ( = ?auto_83753 ?auto_83750 ) ) ( ON ?auto_83751 ?auto_83753 ) ( ON ?auto_83748 ?auto_83751 ) ( CLEAR ?auto_83748 ) ( HOLDING ?auto_83750 ) ( CLEAR ?auto_83752 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83753 ?auto_83751 )
+    ( ( MAKE-2PILE ?auto_83752 ?auto_83750 )
       ( MAKE-1PILE ?auto_83747 ) )
   )
 
@@ -6337,17 +6337,17 @@
     )
     :vars
     (
-      ?auto_83756 - BLOCK
       ?auto_83758 - BLOCK
       ?auto_83755 - BLOCK
       ?auto_83760 - BLOCK
       ?auto_83757 - BLOCK
       ?auto_83759 - BLOCK
+      ?auto_83756 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83756 ?auto_83754 ) ( ON-TABLE ?auto_83754 ) ( not ( = ?auto_83754 ?auto_83756 ) ) ( not ( = ?auto_83754 ?auto_83758 ) ) ( not ( = ?auto_83754 ?auto_83755 ) ) ( not ( = ?auto_83756 ?auto_83758 ) ) ( not ( = ?auto_83756 ?auto_83755 ) ) ( not ( = ?auto_83758 ?auto_83755 ) ) ( ON ?auto_83758 ?auto_83756 ) ( ON-TABLE ?auto_83760 ) ( not ( = ?auto_83760 ?auto_83757 ) ) ( not ( = ?auto_83760 ?auto_83759 ) ) ( not ( = ?auto_83760 ?auto_83755 ) ) ( not ( = ?auto_83757 ?auto_83759 ) ) ( not ( = ?auto_83757 ?auto_83755 ) ) ( not ( = ?auto_83759 ?auto_83755 ) ) ( not ( = ?auto_83754 ?auto_83759 ) ) ( not ( = ?auto_83754 ?auto_83760 ) ) ( not ( = ?auto_83754 ?auto_83757 ) ) ( not ( = ?auto_83756 ?auto_83759 ) ) ( not ( = ?auto_83756 ?auto_83760 ) ) ( not ( = ?auto_83756 ?auto_83757 ) ) ( not ( = ?auto_83758 ?auto_83759 ) ) ( not ( = ?auto_83758 ?auto_83760 ) ) ( not ( = ?auto_83758 ?auto_83757 ) ) ( ON ?auto_83755 ?auto_83758 ) ( ON ?auto_83759 ?auto_83755 ) ( CLEAR ?auto_83760 ) ( ON ?auto_83757 ?auto_83759 ) ( CLEAR ?auto_83757 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83758 ?auto_83754 ) ( ON-TABLE ?auto_83754 ) ( not ( = ?auto_83754 ?auto_83758 ) ) ( not ( = ?auto_83754 ?auto_83755 ) ) ( not ( = ?auto_83754 ?auto_83760 ) ) ( not ( = ?auto_83758 ?auto_83755 ) ) ( not ( = ?auto_83758 ?auto_83760 ) ) ( not ( = ?auto_83755 ?auto_83760 ) ) ( ON ?auto_83755 ?auto_83758 ) ( ON-TABLE ?auto_83757 ) ( not ( = ?auto_83757 ?auto_83759 ) ) ( not ( = ?auto_83757 ?auto_83756 ) ) ( not ( = ?auto_83757 ?auto_83760 ) ) ( not ( = ?auto_83759 ?auto_83756 ) ) ( not ( = ?auto_83759 ?auto_83760 ) ) ( not ( = ?auto_83756 ?auto_83760 ) ) ( not ( = ?auto_83754 ?auto_83756 ) ) ( not ( = ?auto_83754 ?auto_83757 ) ) ( not ( = ?auto_83754 ?auto_83759 ) ) ( not ( = ?auto_83758 ?auto_83756 ) ) ( not ( = ?auto_83758 ?auto_83757 ) ) ( not ( = ?auto_83758 ?auto_83759 ) ) ( not ( = ?auto_83755 ?auto_83756 ) ) ( not ( = ?auto_83755 ?auto_83757 ) ) ( not ( = ?auto_83755 ?auto_83759 ) ) ( ON ?auto_83760 ?auto_83755 ) ( ON ?auto_83756 ?auto_83760 ) ( CLEAR ?auto_83757 ) ( ON ?auto_83759 ?auto_83756 ) ( CLEAR ?auto_83759 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83754 ?auto_83756 ?auto_83758 ?auto_83755 ?auto_83759 )
+    ( ( MAKE-5PILE ?auto_83754 ?auto_83758 ?auto_83755 ?auto_83760 ?auto_83756 )
       ( MAKE-1PILE ?auto_83754 ) )
   )
 
@@ -6358,17 +6358,17 @@
     )
     :vars
     (
-      ?auto_83762 - BLOCK
-      ?auto_83765 - BLOCK
-      ?auto_83766 - BLOCK
       ?auto_83767 - BLOCK
+      ?auto_83762 - BLOCK
       ?auto_83764 - BLOCK
+      ?auto_83766 - BLOCK
+      ?auto_83765 - BLOCK
       ?auto_83763 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83762 ?auto_83761 ) ( ON-TABLE ?auto_83761 ) ( not ( = ?auto_83761 ?auto_83762 ) ) ( not ( = ?auto_83761 ?auto_83765 ) ) ( not ( = ?auto_83761 ?auto_83766 ) ) ( not ( = ?auto_83762 ?auto_83765 ) ) ( not ( = ?auto_83762 ?auto_83766 ) ) ( not ( = ?auto_83765 ?auto_83766 ) ) ( ON ?auto_83765 ?auto_83762 ) ( not ( = ?auto_83767 ?auto_83764 ) ) ( not ( = ?auto_83767 ?auto_83763 ) ) ( not ( = ?auto_83767 ?auto_83766 ) ) ( not ( = ?auto_83764 ?auto_83763 ) ) ( not ( = ?auto_83764 ?auto_83766 ) ) ( not ( = ?auto_83763 ?auto_83766 ) ) ( not ( = ?auto_83761 ?auto_83763 ) ) ( not ( = ?auto_83761 ?auto_83767 ) ) ( not ( = ?auto_83761 ?auto_83764 ) ) ( not ( = ?auto_83762 ?auto_83763 ) ) ( not ( = ?auto_83762 ?auto_83767 ) ) ( not ( = ?auto_83762 ?auto_83764 ) ) ( not ( = ?auto_83765 ?auto_83763 ) ) ( not ( = ?auto_83765 ?auto_83767 ) ) ( not ( = ?auto_83765 ?auto_83764 ) ) ( ON ?auto_83766 ?auto_83765 ) ( ON ?auto_83763 ?auto_83766 ) ( ON ?auto_83764 ?auto_83763 ) ( CLEAR ?auto_83764 ) ( HOLDING ?auto_83767 ) )
+    ( and ( ON ?auto_83767 ?auto_83761 ) ( ON-TABLE ?auto_83761 ) ( not ( = ?auto_83761 ?auto_83767 ) ) ( not ( = ?auto_83761 ?auto_83762 ) ) ( not ( = ?auto_83761 ?auto_83764 ) ) ( not ( = ?auto_83767 ?auto_83762 ) ) ( not ( = ?auto_83767 ?auto_83764 ) ) ( not ( = ?auto_83762 ?auto_83764 ) ) ( ON ?auto_83762 ?auto_83767 ) ( not ( = ?auto_83766 ?auto_83765 ) ) ( not ( = ?auto_83766 ?auto_83763 ) ) ( not ( = ?auto_83766 ?auto_83764 ) ) ( not ( = ?auto_83765 ?auto_83763 ) ) ( not ( = ?auto_83765 ?auto_83764 ) ) ( not ( = ?auto_83763 ?auto_83764 ) ) ( not ( = ?auto_83761 ?auto_83763 ) ) ( not ( = ?auto_83761 ?auto_83766 ) ) ( not ( = ?auto_83761 ?auto_83765 ) ) ( not ( = ?auto_83767 ?auto_83763 ) ) ( not ( = ?auto_83767 ?auto_83766 ) ) ( not ( = ?auto_83767 ?auto_83765 ) ) ( not ( = ?auto_83762 ?auto_83763 ) ) ( not ( = ?auto_83762 ?auto_83766 ) ) ( not ( = ?auto_83762 ?auto_83765 ) ) ( ON ?auto_83764 ?auto_83762 ) ( ON ?auto_83763 ?auto_83764 ) ( ON ?auto_83765 ?auto_83763 ) ( CLEAR ?auto_83765 ) ( HOLDING ?auto_83766 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_83767 )
+    ( ( MAKE-1PILE ?auto_83766 )
       ( MAKE-1PILE ?auto_83761 ) )
   )
 
@@ -6380,16 +6380,16 @@
     :vars
     (
       ?auto_83769 - BLOCK
-      ?auto_83771 - BLOCK
-      ?auto_83774 - BLOCK
-      ?auto_83773 - BLOCK
-      ?auto_83772 - BLOCK
       ?auto_83770 - BLOCK
+      ?auto_83772 - BLOCK
+      ?auto_83773 - BLOCK
+      ?auto_83774 - BLOCK
+      ?auto_83771 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83769 ?auto_83768 ) ( ON-TABLE ?auto_83768 ) ( not ( = ?auto_83768 ?auto_83769 ) ) ( not ( = ?auto_83768 ?auto_83771 ) ) ( not ( = ?auto_83768 ?auto_83774 ) ) ( not ( = ?auto_83769 ?auto_83771 ) ) ( not ( = ?auto_83769 ?auto_83774 ) ) ( not ( = ?auto_83771 ?auto_83774 ) ) ( ON ?auto_83771 ?auto_83769 ) ( not ( = ?auto_83773 ?auto_83772 ) ) ( not ( = ?auto_83773 ?auto_83770 ) ) ( not ( = ?auto_83773 ?auto_83774 ) ) ( not ( = ?auto_83772 ?auto_83770 ) ) ( not ( = ?auto_83772 ?auto_83774 ) ) ( not ( = ?auto_83770 ?auto_83774 ) ) ( not ( = ?auto_83768 ?auto_83770 ) ) ( not ( = ?auto_83768 ?auto_83773 ) ) ( not ( = ?auto_83768 ?auto_83772 ) ) ( not ( = ?auto_83769 ?auto_83770 ) ) ( not ( = ?auto_83769 ?auto_83773 ) ) ( not ( = ?auto_83769 ?auto_83772 ) ) ( not ( = ?auto_83771 ?auto_83770 ) ) ( not ( = ?auto_83771 ?auto_83773 ) ) ( not ( = ?auto_83771 ?auto_83772 ) ) ( ON ?auto_83774 ?auto_83771 ) ( ON ?auto_83770 ?auto_83774 ) ( ON ?auto_83772 ?auto_83770 ) ( ON ?auto_83773 ?auto_83772 ) ( CLEAR ?auto_83773 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83769 ?auto_83768 ) ( ON-TABLE ?auto_83768 ) ( not ( = ?auto_83768 ?auto_83769 ) ) ( not ( = ?auto_83768 ?auto_83770 ) ) ( not ( = ?auto_83768 ?auto_83772 ) ) ( not ( = ?auto_83769 ?auto_83770 ) ) ( not ( = ?auto_83769 ?auto_83772 ) ) ( not ( = ?auto_83770 ?auto_83772 ) ) ( ON ?auto_83770 ?auto_83769 ) ( not ( = ?auto_83773 ?auto_83774 ) ) ( not ( = ?auto_83773 ?auto_83771 ) ) ( not ( = ?auto_83773 ?auto_83772 ) ) ( not ( = ?auto_83774 ?auto_83771 ) ) ( not ( = ?auto_83774 ?auto_83772 ) ) ( not ( = ?auto_83771 ?auto_83772 ) ) ( not ( = ?auto_83768 ?auto_83771 ) ) ( not ( = ?auto_83768 ?auto_83773 ) ) ( not ( = ?auto_83768 ?auto_83774 ) ) ( not ( = ?auto_83769 ?auto_83771 ) ) ( not ( = ?auto_83769 ?auto_83773 ) ) ( not ( = ?auto_83769 ?auto_83774 ) ) ( not ( = ?auto_83770 ?auto_83771 ) ) ( not ( = ?auto_83770 ?auto_83773 ) ) ( not ( = ?auto_83770 ?auto_83774 ) ) ( ON ?auto_83772 ?auto_83770 ) ( ON ?auto_83771 ?auto_83772 ) ( ON ?auto_83774 ?auto_83771 ) ( ON ?auto_83773 ?auto_83774 ) ( CLEAR ?auto_83773 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83768 ?auto_83769 ?auto_83771 ?auto_83774 ?auto_83770 ?auto_83772 )
+    ( ( MAKE-6PILE ?auto_83768 ?auto_83769 ?auto_83770 ?auto_83772 ?auto_83771 ?auto_83774 )
       ( MAKE-1PILE ?auto_83768 ) )
   )
 
@@ -6400,17 +6400,17 @@
     )
     :vars
     (
-      ?auto_83781 - BLOCK
       ?auto_83778 - BLOCK
-      ?auto_83777 - BLOCK
-      ?auto_83780 - BLOCK
       ?auto_83779 - BLOCK
       ?auto_83776 - BLOCK
+      ?auto_83781 - BLOCK
+      ?auto_83780 - BLOCK
+      ?auto_83777 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83781 ?auto_83775 ) ( ON-TABLE ?auto_83775 ) ( not ( = ?auto_83775 ?auto_83781 ) ) ( not ( = ?auto_83775 ?auto_83778 ) ) ( not ( = ?auto_83775 ?auto_83777 ) ) ( not ( = ?auto_83781 ?auto_83778 ) ) ( not ( = ?auto_83781 ?auto_83777 ) ) ( not ( = ?auto_83778 ?auto_83777 ) ) ( ON ?auto_83778 ?auto_83781 ) ( not ( = ?auto_83780 ?auto_83779 ) ) ( not ( = ?auto_83780 ?auto_83776 ) ) ( not ( = ?auto_83780 ?auto_83777 ) ) ( not ( = ?auto_83779 ?auto_83776 ) ) ( not ( = ?auto_83779 ?auto_83777 ) ) ( not ( = ?auto_83776 ?auto_83777 ) ) ( not ( = ?auto_83775 ?auto_83776 ) ) ( not ( = ?auto_83775 ?auto_83780 ) ) ( not ( = ?auto_83775 ?auto_83779 ) ) ( not ( = ?auto_83781 ?auto_83776 ) ) ( not ( = ?auto_83781 ?auto_83780 ) ) ( not ( = ?auto_83781 ?auto_83779 ) ) ( not ( = ?auto_83778 ?auto_83776 ) ) ( not ( = ?auto_83778 ?auto_83780 ) ) ( not ( = ?auto_83778 ?auto_83779 ) ) ( ON ?auto_83777 ?auto_83778 ) ( ON ?auto_83776 ?auto_83777 ) ( ON ?auto_83779 ?auto_83776 ) ( HOLDING ?auto_83780 ) ( CLEAR ?auto_83779 ) )
+    ( and ( ON ?auto_83778 ?auto_83775 ) ( ON-TABLE ?auto_83775 ) ( not ( = ?auto_83775 ?auto_83778 ) ) ( not ( = ?auto_83775 ?auto_83779 ) ) ( not ( = ?auto_83775 ?auto_83776 ) ) ( not ( = ?auto_83778 ?auto_83779 ) ) ( not ( = ?auto_83778 ?auto_83776 ) ) ( not ( = ?auto_83779 ?auto_83776 ) ) ( ON ?auto_83779 ?auto_83778 ) ( not ( = ?auto_83781 ?auto_83780 ) ) ( not ( = ?auto_83781 ?auto_83777 ) ) ( not ( = ?auto_83781 ?auto_83776 ) ) ( not ( = ?auto_83780 ?auto_83777 ) ) ( not ( = ?auto_83780 ?auto_83776 ) ) ( not ( = ?auto_83777 ?auto_83776 ) ) ( not ( = ?auto_83775 ?auto_83777 ) ) ( not ( = ?auto_83775 ?auto_83781 ) ) ( not ( = ?auto_83775 ?auto_83780 ) ) ( not ( = ?auto_83778 ?auto_83777 ) ) ( not ( = ?auto_83778 ?auto_83781 ) ) ( not ( = ?auto_83778 ?auto_83780 ) ) ( not ( = ?auto_83779 ?auto_83777 ) ) ( not ( = ?auto_83779 ?auto_83781 ) ) ( not ( = ?auto_83779 ?auto_83780 ) ) ( ON ?auto_83776 ?auto_83779 ) ( ON ?auto_83777 ?auto_83776 ) ( ON ?auto_83780 ?auto_83777 ) ( HOLDING ?auto_83781 ) ( CLEAR ?auto_83780 ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83775 ?auto_83781 ?auto_83778 ?auto_83777 ?auto_83776 ?auto_83779 ?auto_83780 )
+    ( ( MAKE-7PILE ?auto_83775 ?auto_83778 ?auto_83779 ?auto_83776 ?auto_83777 ?auto_83780 ?auto_83781 )
       ( MAKE-1PILE ?auto_83775 ) )
   )
 
@@ -6421,18 +6421,18 @@
     )
     :vars
     (
-      ?auto_83784 - BLOCK
-      ?auto_83787 - BLOCK
-      ?auto_83788 - BLOCK
-      ?auto_83783 - BLOCK
       ?auto_83786 - BLOCK
+      ?auto_83784 - BLOCK
+      ?auto_83783 - BLOCK
       ?auto_83785 - BLOCK
+      ?auto_83788 - BLOCK
+      ?auto_83787 - BLOCK
       ?auto_83789 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83784 ?auto_83782 ) ( ON-TABLE ?auto_83782 ) ( not ( = ?auto_83782 ?auto_83784 ) ) ( not ( = ?auto_83782 ?auto_83787 ) ) ( not ( = ?auto_83782 ?auto_83788 ) ) ( not ( = ?auto_83784 ?auto_83787 ) ) ( not ( = ?auto_83784 ?auto_83788 ) ) ( not ( = ?auto_83787 ?auto_83788 ) ) ( ON ?auto_83787 ?auto_83784 ) ( not ( = ?auto_83783 ?auto_83786 ) ) ( not ( = ?auto_83783 ?auto_83785 ) ) ( not ( = ?auto_83783 ?auto_83788 ) ) ( not ( = ?auto_83786 ?auto_83785 ) ) ( not ( = ?auto_83786 ?auto_83788 ) ) ( not ( = ?auto_83785 ?auto_83788 ) ) ( not ( = ?auto_83782 ?auto_83785 ) ) ( not ( = ?auto_83782 ?auto_83783 ) ) ( not ( = ?auto_83782 ?auto_83786 ) ) ( not ( = ?auto_83784 ?auto_83785 ) ) ( not ( = ?auto_83784 ?auto_83783 ) ) ( not ( = ?auto_83784 ?auto_83786 ) ) ( not ( = ?auto_83787 ?auto_83785 ) ) ( not ( = ?auto_83787 ?auto_83783 ) ) ( not ( = ?auto_83787 ?auto_83786 ) ) ( ON ?auto_83788 ?auto_83787 ) ( ON ?auto_83785 ?auto_83788 ) ( ON ?auto_83786 ?auto_83785 ) ( CLEAR ?auto_83786 ) ( ON ?auto_83783 ?auto_83789 ) ( CLEAR ?auto_83783 ) ( HAND-EMPTY ) ( not ( = ?auto_83782 ?auto_83789 ) ) ( not ( = ?auto_83784 ?auto_83789 ) ) ( not ( = ?auto_83787 ?auto_83789 ) ) ( not ( = ?auto_83788 ?auto_83789 ) ) ( not ( = ?auto_83783 ?auto_83789 ) ) ( not ( = ?auto_83786 ?auto_83789 ) ) ( not ( = ?auto_83785 ?auto_83789 ) ) )
+    ( and ( ON ?auto_83786 ?auto_83782 ) ( ON-TABLE ?auto_83782 ) ( not ( = ?auto_83782 ?auto_83786 ) ) ( not ( = ?auto_83782 ?auto_83784 ) ) ( not ( = ?auto_83782 ?auto_83783 ) ) ( not ( = ?auto_83786 ?auto_83784 ) ) ( not ( = ?auto_83786 ?auto_83783 ) ) ( not ( = ?auto_83784 ?auto_83783 ) ) ( ON ?auto_83784 ?auto_83786 ) ( not ( = ?auto_83785 ?auto_83788 ) ) ( not ( = ?auto_83785 ?auto_83787 ) ) ( not ( = ?auto_83785 ?auto_83783 ) ) ( not ( = ?auto_83788 ?auto_83787 ) ) ( not ( = ?auto_83788 ?auto_83783 ) ) ( not ( = ?auto_83787 ?auto_83783 ) ) ( not ( = ?auto_83782 ?auto_83787 ) ) ( not ( = ?auto_83782 ?auto_83785 ) ) ( not ( = ?auto_83782 ?auto_83788 ) ) ( not ( = ?auto_83786 ?auto_83787 ) ) ( not ( = ?auto_83786 ?auto_83785 ) ) ( not ( = ?auto_83786 ?auto_83788 ) ) ( not ( = ?auto_83784 ?auto_83787 ) ) ( not ( = ?auto_83784 ?auto_83785 ) ) ( not ( = ?auto_83784 ?auto_83788 ) ) ( ON ?auto_83783 ?auto_83784 ) ( ON ?auto_83787 ?auto_83783 ) ( ON ?auto_83788 ?auto_83787 ) ( CLEAR ?auto_83788 ) ( ON ?auto_83785 ?auto_83789 ) ( CLEAR ?auto_83785 ) ( HAND-EMPTY ) ( not ( = ?auto_83782 ?auto_83789 ) ) ( not ( = ?auto_83786 ?auto_83789 ) ) ( not ( = ?auto_83784 ?auto_83789 ) ) ( not ( = ?auto_83783 ?auto_83789 ) ) ( not ( = ?auto_83785 ?auto_83789 ) ) ( not ( = ?auto_83788 ?auto_83789 ) ) ( not ( = ?auto_83787 ?auto_83789 ) ) )
     :subtasks
-    ( ( !UNSTACK ?auto_83783 ?auto_83789 )
+    ( ( !UNSTACK ?auto_83785 ?auto_83789 )
       ( MAKE-1PILE ?auto_83782 ) )
   )
 
@@ -6443,18 +6443,18 @@
     )
     :vars
     (
-      ?auto_83797 - BLOCK
-      ?auto_83793 - BLOCK
-      ?auto_83795 - BLOCK
       ?auto_83792 - BLOCK
-      ?auto_83794 - BLOCK
       ?auto_83796 - BLOCK
       ?auto_83791 - BLOCK
+      ?auto_83795 - BLOCK
+      ?auto_83793 - BLOCK
+      ?auto_83797 - BLOCK
+      ?auto_83794 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83797 ?auto_83790 ) ( ON-TABLE ?auto_83790 ) ( not ( = ?auto_83790 ?auto_83797 ) ) ( not ( = ?auto_83790 ?auto_83793 ) ) ( not ( = ?auto_83790 ?auto_83795 ) ) ( not ( = ?auto_83797 ?auto_83793 ) ) ( not ( = ?auto_83797 ?auto_83795 ) ) ( not ( = ?auto_83793 ?auto_83795 ) ) ( ON ?auto_83793 ?auto_83797 ) ( not ( = ?auto_83792 ?auto_83794 ) ) ( not ( = ?auto_83792 ?auto_83796 ) ) ( not ( = ?auto_83792 ?auto_83795 ) ) ( not ( = ?auto_83794 ?auto_83796 ) ) ( not ( = ?auto_83794 ?auto_83795 ) ) ( not ( = ?auto_83796 ?auto_83795 ) ) ( not ( = ?auto_83790 ?auto_83796 ) ) ( not ( = ?auto_83790 ?auto_83792 ) ) ( not ( = ?auto_83790 ?auto_83794 ) ) ( not ( = ?auto_83797 ?auto_83796 ) ) ( not ( = ?auto_83797 ?auto_83792 ) ) ( not ( = ?auto_83797 ?auto_83794 ) ) ( not ( = ?auto_83793 ?auto_83796 ) ) ( not ( = ?auto_83793 ?auto_83792 ) ) ( not ( = ?auto_83793 ?auto_83794 ) ) ( ON ?auto_83795 ?auto_83793 ) ( ON ?auto_83796 ?auto_83795 ) ( ON ?auto_83792 ?auto_83791 ) ( CLEAR ?auto_83792 ) ( not ( = ?auto_83790 ?auto_83791 ) ) ( not ( = ?auto_83797 ?auto_83791 ) ) ( not ( = ?auto_83793 ?auto_83791 ) ) ( not ( = ?auto_83795 ?auto_83791 ) ) ( not ( = ?auto_83792 ?auto_83791 ) ) ( not ( = ?auto_83794 ?auto_83791 ) ) ( not ( = ?auto_83796 ?auto_83791 ) ) ( HOLDING ?auto_83794 ) ( CLEAR ?auto_83796 ) )
+    ( and ( ON ?auto_83792 ?auto_83790 ) ( ON-TABLE ?auto_83790 ) ( not ( = ?auto_83790 ?auto_83792 ) ) ( not ( = ?auto_83790 ?auto_83796 ) ) ( not ( = ?auto_83790 ?auto_83791 ) ) ( not ( = ?auto_83792 ?auto_83796 ) ) ( not ( = ?auto_83792 ?auto_83791 ) ) ( not ( = ?auto_83796 ?auto_83791 ) ) ( ON ?auto_83796 ?auto_83792 ) ( not ( = ?auto_83795 ?auto_83793 ) ) ( not ( = ?auto_83795 ?auto_83797 ) ) ( not ( = ?auto_83795 ?auto_83791 ) ) ( not ( = ?auto_83793 ?auto_83797 ) ) ( not ( = ?auto_83793 ?auto_83791 ) ) ( not ( = ?auto_83797 ?auto_83791 ) ) ( not ( = ?auto_83790 ?auto_83797 ) ) ( not ( = ?auto_83790 ?auto_83795 ) ) ( not ( = ?auto_83790 ?auto_83793 ) ) ( not ( = ?auto_83792 ?auto_83797 ) ) ( not ( = ?auto_83792 ?auto_83795 ) ) ( not ( = ?auto_83792 ?auto_83793 ) ) ( not ( = ?auto_83796 ?auto_83797 ) ) ( not ( = ?auto_83796 ?auto_83795 ) ) ( not ( = ?auto_83796 ?auto_83793 ) ) ( ON ?auto_83791 ?auto_83796 ) ( ON ?auto_83797 ?auto_83791 ) ( ON ?auto_83795 ?auto_83794 ) ( CLEAR ?auto_83795 ) ( not ( = ?auto_83790 ?auto_83794 ) ) ( not ( = ?auto_83792 ?auto_83794 ) ) ( not ( = ?auto_83796 ?auto_83794 ) ) ( not ( = ?auto_83791 ?auto_83794 ) ) ( not ( = ?auto_83795 ?auto_83794 ) ) ( not ( = ?auto_83793 ?auto_83794 ) ) ( not ( = ?auto_83797 ?auto_83794 ) ) ( HOLDING ?auto_83793 ) ( CLEAR ?auto_83797 ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_83790 ?auto_83797 ?auto_83793 ?auto_83795 ?auto_83796 ?auto_83794 )
+    ( ( MAKE-6PILE ?auto_83790 ?auto_83792 ?auto_83796 ?auto_83791 ?auto_83797 ?auto_83793 )
       ( MAKE-1PILE ?auto_83790 ) )
   )
 
@@ -6465,18 +6465,18 @@
     )
     :vars
     (
-      ?auto_83805 - BLOCK
-      ?auto_83802 - BLOCK
-      ?auto_83804 - BLOCK
+      ?auto_83801 - BLOCK
       ?auto_83800 - BLOCK
+      ?auto_83802 - BLOCK
+      ?auto_83805 - BLOCK
       ?auto_83803 - BLOCK
       ?auto_83799 - BLOCK
-      ?auto_83801 - BLOCK
+      ?auto_83804 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83805 ?auto_83798 ) ( ON-TABLE ?auto_83798 ) ( not ( = ?auto_83798 ?auto_83805 ) ) ( not ( = ?auto_83798 ?auto_83802 ) ) ( not ( = ?auto_83798 ?auto_83804 ) ) ( not ( = ?auto_83805 ?auto_83802 ) ) ( not ( = ?auto_83805 ?auto_83804 ) ) ( not ( = ?auto_83802 ?auto_83804 ) ) ( ON ?auto_83802 ?auto_83805 ) ( not ( = ?auto_83800 ?auto_83803 ) ) ( not ( = ?auto_83800 ?auto_83799 ) ) ( not ( = ?auto_83800 ?auto_83804 ) ) ( not ( = ?auto_83803 ?auto_83799 ) ) ( not ( = ?auto_83803 ?auto_83804 ) ) ( not ( = ?auto_83799 ?auto_83804 ) ) ( not ( = ?auto_83798 ?auto_83799 ) ) ( not ( = ?auto_83798 ?auto_83800 ) ) ( not ( = ?auto_83798 ?auto_83803 ) ) ( not ( = ?auto_83805 ?auto_83799 ) ) ( not ( = ?auto_83805 ?auto_83800 ) ) ( not ( = ?auto_83805 ?auto_83803 ) ) ( not ( = ?auto_83802 ?auto_83799 ) ) ( not ( = ?auto_83802 ?auto_83800 ) ) ( not ( = ?auto_83802 ?auto_83803 ) ) ( ON ?auto_83804 ?auto_83802 ) ( ON ?auto_83799 ?auto_83804 ) ( ON ?auto_83800 ?auto_83801 ) ( not ( = ?auto_83798 ?auto_83801 ) ) ( not ( = ?auto_83805 ?auto_83801 ) ) ( not ( = ?auto_83802 ?auto_83801 ) ) ( not ( = ?auto_83804 ?auto_83801 ) ) ( not ( = ?auto_83800 ?auto_83801 ) ) ( not ( = ?auto_83803 ?auto_83801 ) ) ( not ( = ?auto_83799 ?auto_83801 ) ) ( CLEAR ?auto_83799 ) ( ON ?auto_83803 ?auto_83800 ) ( CLEAR ?auto_83803 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83801 ) )
+    ( and ( ON ?auto_83801 ?auto_83798 ) ( ON-TABLE ?auto_83798 ) ( not ( = ?auto_83798 ?auto_83801 ) ) ( not ( = ?auto_83798 ?auto_83800 ) ) ( not ( = ?auto_83798 ?auto_83802 ) ) ( not ( = ?auto_83801 ?auto_83800 ) ) ( not ( = ?auto_83801 ?auto_83802 ) ) ( not ( = ?auto_83800 ?auto_83802 ) ) ( ON ?auto_83800 ?auto_83801 ) ( not ( = ?auto_83805 ?auto_83803 ) ) ( not ( = ?auto_83805 ?auto_83799 ) ) ( not ( = ?auto_83805 ?auto_83802 ) ) ( not ( = ?auto_83803 ?auto_83799 ) ) ( not ( = ?auto_83803 ?auto_83802 ) ) ( not ( = ?auto_83799 ?auto_83802 ) ) ( not ( = ?auto_83798 ?auto_83799 ) ) ( not ( = ?auto_83798 ?auto_83805 ) ) ( not ( = ?auto_83798 ?auto_83803 ) ) ( not ( = ?auto_83801 ?auto_83799 ) ) ( not ( = ?auto_83801 ?auto_83805 ) ) ( not ( = ?auto_83801 ?auto_83803 ) ) ( not ( = ?auto_83800 ?auto_83799 ) ) ( not ( = ?auto_83800 ?auto_83805 ) ) ( not ( = ?auto_83800 ?auto_83803 ) ) ( ON ?auto_83802 ?auto_83800 ) ( ON ?auto_83799 ?auto_83802 ) ( ON ?auto_83805 ?auto_83804 ) ( not ( = ?auto_83798 ?auto_83804 ) ) ( not ( = ?auto_83801 ?auto_83804 ) ) ( not ( = ?auto_83800 ?auto_83804 ) ) ( not ( = ?auto_83802 ?auto_83804 ) ) ( not ( = ?auto_83805 ?auto_83804 ) ) ( not ( = ?auto_83803 ?auto_83804 ) ) ( not ( = ?auto_83799 ?auto_83804 ) ) ( CLEAR ?auto_83799 ) ( ON ?auto_83803 ?auto_83805 ) ( CLEAR ?auto_83803 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_83804 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83801 ?auto_83800 )
+    ( ( MAKE-2PILE ?auto_83804 ?auto_83805 )
       ( MAKE-1PILE ?auto_83798 ) )
   )
 
@@ -6487,18 +6487,18 @@
     )
     :vars
     (
-      ?auto_83812 - BLOCK
+      ?auto_83808 - BLOCK
+      ?auto_83810 - BLOCK
+      ?auto_83813 - BLOCK
       ?auto_83809 - BLOCK
       ?auto_83807 - BLOCK
-      ?auto_83813 - BLOCK
-      ?auto_83808 - BLOCK
       ?auto_83811 - BLOCK
-      ?auto_83810 - BLOCK
+      ?auto_83812 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83812 ?auto_83806 ) ( ON-TABLE ?auto_83806 ) ( not ( = ?auto_83806 ?auto_83812 ) ) ( not ( = ?auto_83806 ?auto_83809 ) ) ( not ( = ?auto_83806 ?auto_83807 ) ) ( not ( = ?auto_83812 ?auto_83809 ) ) ( not ( = ?auto_83812 ?auto_83807 ) ) ( not ( = ?auto_83809 ?auto_83807 ) ) ( ON ?auto_83809 ?auto_83812 ) ( not ( = ?auto_83813 ?auto_83808 ) ) ( not ( = ?auto_83813 ?auto_83811 ) ) ( not ( = ?auto_83813 ?auto_83807 ) ) ( not ( = ?auto_83808 ?auto_83811 ) ) ( not ( = ?auto_83808 ?auto_83807 ) ) ( not ( = ?auto_83811 ?auto_83807 ) ) ( not ( = ?auto_83806 ?auto_83811 ) ) ( not ( = ?auto_83806 ?auto_83813 ) ) ( not ( = ?auto_83806 ?auto_83808 ) ) ( not ( = ?auto_83812 ?auto_83811 ) ) ( not ( = ?auto_83812 ?auto_83813 ) ) ( not ( = ?auto_83812 ?auto_83808 ) ) ( not ( = ?auto_83809 ?auto_83811 ) ) ( not ( = ?auto_83809 ?auto_83813 ) ) ( not ( = ?auto_83809 ?auto_83808 ) ) ( ON ?auto_83807 ?auto_83809 ) ( ON ?auto_83813 ?auto_83810 ) ( not ( = ?auto_83806 ?auto_83810 ) ) ( not ( = ?auto_83812 ?auto_83810 ) ) ( not ( = ?auto_83809 ?auto_83810 ) ) ( not ( = ?auto_83807 ?auto_83810 ) ) ( not ( = ?auto_83813 ?auto_83810 ) ) ( not ( = ?auto_83808 ?auto_83810 ) ) ( not ( = ?auto_83811 ?auto_83810 ) ) ( ON ?auto_83808 ?auto_83813 ) ( CLEAR ?auto_83808 ) ( ON-TABLE ?auto_83810 ) ( HOLDING ?auto_83811 ) ( CLEAR ?auto_83807 ) )
+    ( and ( ON ?auto_83808 ?auto_83806 ) ( ON-TABLE ?auto_83806 ) ( not ( = ?auto_83806 ?auto_83808 ) ) ( not ( = ?auto_83806 ?auto_83810 ) ) ( not ( = ?auto_83806 ?auto_83813 ) ) ( not ( = ?auto_83808 ?auto_83810 ) ) ( not ( = ?auto_83808 ?auto_83813 ) ) ( not ( = ?auto_83810 ?auto_83813 ) ) ( ON ?auto_83810 ?auto_83808 ) ( not ( = ?auto_83809 ?auto_83807 ) ) ( not ( = ?auto_83809 ?auto_83811 ) ) ( not ( = ?auto_83809 ?auto_83813 ) ) ( not ( = ?auto_83807 ?auto_83811 ) ) ( not ( = ?auto_83807 ?auto_83813 ) ) ( not ( = ?auto_83811 ?auto_83813 ) ) ( not ( = ?auto_83806 ?auto_83811 ) ) ( not ( = ?auto_83806 ?auto_83809 ) ) ( not ( = ?auto_83806 ?auto_83807 ) ) ( not ( = ?auto_83808 ?auto_83811 ) ) ( not ( = ?auto_83808 ?auto_83809 ) ) ( not ( = ?auto_83808 ?auto_83807 ) ) ( not ( = ?auto_83810 ?auto_83811 ) ) ( not ( = ?auto_83810 ?auto_83809 ) ) ( not ( = ?auto_83810 ?auto_83807 ) ) ( ON ?auto_83813 ?auto_83810 ) ( ON ?auto_83809 ?auto_83812 ) ( not ( = ?auto_83806 ?auto_83812 ) ) ( not ( = ?auto_83808 ?auto_83812 ) ) ( not ( = ?auto_83810 ?auto_83812 ) ) ( not ( = ?auto_83813 ?auto_83812 ) ) ( not ( = ?auto_83809 ?auto_83812 ) ) ( not ( = ?auto_83807 ?auto_83812 ) ) ( not ( = ?auto_83811 ?auto_83812 ) ) ( ON ?auto_83807 ?auto_83809 ) ( CLEAR ?auto_83807 ) ( ON-TABLE ?auto_83812 ) ( HOLDING ?auto_83811 ) ( CLEAR ?auto_83813 ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83806 ?auto_83812 ?auto_83809 ?auto_83807 ?auto_83811 )
+    ( ( MAKE-5PILE ?auto_83806 ?auto_83808 ?auto_83810 ?auto_83813 ?auto_83811 )
       ( MAKE-1PILE ?auto_83806 ) )
   )
 
@@ -6509,18 +6509,18 @@
     )
     :vars
     (
-      ?auto_83815 - BLOCK
-      ?auto_83816 - BLOCK
       ?auto_83819 - BLOCK
       ?auto_83818 - BLOCK
-      ?auto_83817 - BLOCK
       ?auto_83820 - BLOCK
+      ?auto_83817 - BLOCK
+      ?auto_83815 - BLOCK
       ?auto_83821 - BLOCK
+      ?auto_83816 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83815 ?auto_83814 ) ( ON-TABLE ?auto_83814 ) ( not ( = ?auto_83814 ?auto_83815 ) ) ( not ( = ?auto_83814 ?auto_83816 ) ) ( not ( = ?auto_83814 ?auto_83819 ) ) ( not ( = ?auto_83815 ?auto_83816 ) ) ( not ( = ?auto_83815 ?auto_83819 ) ) ( not ( = ?auto_83816 ?auto_83819 ) ) ( ON ?auto_83816 ?auto_83815 ) ( not ( = ?auto_83818 ?auto_83817 ) ) ( not ( = ?auto_83818 ?auto_83820 ) ) ( not ( = ?auto_83818 ?auto_83819 ) ) ( not ( = ?auto_83817 ?auto_83820 ) ) ( not ( = ?auto_83817 ?auto_83819 ) ) ( not ( = ?auto_83820 ?auto_83819 ) ) ( not ( = ?auto_83814 ?auto_83820 ) ) ( not ( = ?auto_83814 ?auto_83818 ) ) ( not ( = ?auto_83814 ?auto_83817 ) ) ( not ( = ?auto_83815 ?auto_83820 ) ) ( not ( = ?auto_83815 ?auto_83818 ) ) ( not ( = ?auto_83815 ?auto_83817 ) ) ( not ( = ?auto_83816 ?auto_83820 ) ) ( not ( = ?auto_83816 ?auto_83818 ) ) ( not ( = ?auto_83816 ?auto_83817 ) ) ( ON ?auto_83819 ?auto_83816 ) ( ON ?auto_83818 ?auto_83821 ) ( not ( = ?auto_83814 ?auto_83821 ) ) ( not ( = ?auto_83815 ?auto_83821 ) ) ( not ( = ?auto_83816 ?auto_83821 ) ) ( not ( = ?auto_83819 ?auto_83821 ) ) ( not ( = ?auto_83818 ?auto_83821 ) ) ( not ( = ?auto_83817 ?auto_83821 ) ) ( not ( = ?auto_83820 ?auto_83821 ) ) ( ON ?auto_83817 ?auto_83818 ) ( ON-TABLE ?auto_83821 ) ( CLEAR ?auto_83819 ) ( ON ?auto_83820 ?auto_83817 ) ( CLEAR ?auto_83820 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83819 ?auto_83814 ) ( ON-TABLE ?auto_83814 ) ( not ( = ?auto_83814 ?auto_83819 ) ) ( not ( = ?auto_83814 ?auto_83818 ) ) ( not ( = ?auto_83814 ?auto_83820 ) ) ( not ( = ?auto_83819 ?auto_83818 ) ) ( not ( = ?auto_83819 ?auto_83820 ) ) ( not ( = ?auto_83818 ?auto_83820 ) ) ( ON ?auto_83818 ?auto_83819 ) ( not ( = ?auto_83817 ?auto_83815 ) ) ( not ( = ?auto_83817 ?auto_83821 ) ) ( not ( = ?auto_83817 ?auto_83820 ) ) ( not ( = ?auto_83815 ?auto_83821 ) ) ( not ( = ?auto_83815 ?auto_83820 ) ) ( not ( = ?auto_83821 ?auto_83820 ) ) ( not ( = ?auto_83814 ?auto_83821 ) ) ( not ( = ?auto_83814 ?auto_83817 ) ) ( not ( = ?auto_83814 ?auto_83815 ) ) ( not ( = ?auto_83819 ?auto_83821 ) ) ( not ( = ?auto_83819 ?auto_83817 ) ) ( not ( = ?auto_83819 ?auto_83815 ) ) ( not ( = ?auto_83818 ?auto_83821 ) ) ( not ( = ?auto_83818 ?auto_83817 ) ) ( not ( = ?auto_83818 ?auto_83815 ) ) ( ON ?auto_83820 ?auto_83818 ) ( ON ?auto_83817 ?auto_83816 ) ( not ( = ?auto_83814 ?auto_83816 ) ) ( not ( = ?auto_83819 ?auto_83816 ) ) ( not ( = ?auto_83818 ?auto_83816 ) ) ( not ( = ?auto_83820 ?auto_83816 ) ) ( not ( = ?auto_83817 ?auto_83816 ) ) ( not ( = ?auto_83815 ?auto_83816 ) ) ( not ( = ?auto_83821 ?auto_83816 ) ) ( ON ?auto_83815 ?auto_83817 ) ( ON-TABLE ?auto_83816 ) ( CLEAR ?auto_83820 ) ( ON ?auto_83821 ?auto_83815 ) ( CLEAR ?auto_83821 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_83821 ?auto_83818 ?auto_83817 )
+    ( ( MAKE-3PILE ?auto_83816 ?auto_83817 ?auto_83815 )
       ( MAKE-1PILE ?auto_83814 ) )
   )
 
@@ -6531,18 +6531,18 @@
     )
     :vars
     (
-      ?auto_83823 - BLOCK
+      ?auto_83824 - BLOCK
+      ?auto_83825 - BLOCK
       ?auto_83827 - BLOCK
       ?auto_83829 - BLOCK
-      ?auto_83828 - BLOCK
-      ?auto_83825 - BLOCK
       ?auto_83826 - BLOCK
-      ?auto_83824 - BLOCK
+      ?auto_83823 - BLOCK
+      ?auto_83828 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83823 ?auto_83822 ) ( ON-TABLE ?auto_83822 ) ( not ( = ?auto_83822 ?auto_83823 ) ) ( not ( = ?auto_83822 ?auto_83827 ) ) ( not ( = ?auto_83822 ?auto_83829 ) ) ( not ( = ?auto_83823 ?auto_83827 ) ) ( not ( = ?auto_83823 ?auto_83829 ) ) ( not ( = ?auto_83827 ?auto_83829 ) ) ( ON ?auto_83827 ?auto_83823 ) ( not ( = ?auto_83828 ?auto_83825 ) ) ( not ( = ?auto_83828 ?auto_83826 ) ) ( not ( = ?auto_83828 ?auto_83829 ) ) ( not ( = ?auto_83825 ?auto_83826 ) ) ( not ( = ?auto_83825 ?auto_83829 ) ) ( not ( = ?auto_83826 ?auto_83829 ) ) ( not ( = ?auto_83822 ?auto_83826 ) ) ( not ( = ?auto_83822 ?auto_83828 ) ) ( not ( = ?auto_83822 ?auto_83825 ) ) ( not ( = ?auto_83823 ?auto_83826 ) ) ( not ( = ?auto_83823 ?auto_83828 ) ) ( not ( = ?auto_83823 ?auto_83825 ) ) ( not ( = ?auto_83827 ?auto_83826 ) ) ( not ( = ?auto_83827 ?auto_83828 ) ) ( not ( = ?auto_83827 ?auto_83825 ) ) ( ON ?auto_83828 ?auto_83824 ) ( not ( = ?auto_83822 ?auto_83824 ) ) ( not ( = ?auto_83823 ?auto_83824 ) ) ( not ( = ?auto_83827 ?auto_83824 ) ) ( not ( = ?auto_83829 ?auto_83824 ) ) ( not ( = ?auto_83828 ?auto_83824 ) ) ( not ( = ?auto_83825 ?auto_83824 ) ) ( not ( = ?auto_83826 ?auto_83824 ) ) ( ON ?auto_83825 ?auto_83828 ) ( ON-TABLE ?auto_83824 ) ( ON ?auto_83826 ?auto_83825 ) ( CLEAR ?auto_83826 ) ( HOLDING ?auto_83829 ) ( CLEAR ?auto_83827 ) )
+    ( and ( ON ?auto_83824 ?auto_83822 ) ( ON-TABLE ?auto_83822 ) ( not ( = ?auto_83822 ?auto_83824 ) ) ( not ( = ?auto_83822 ?auto_83825 ) ) ( not ( = ?auto_83822 ?auto_83827 ) ) ( not ( = ?auto_83824 ?auto_83825 ) ) ( not ( = ?auto_83824 ?auto_83827 ) ) ( not ( = ?auto_83825 ?auto_83827 ) ) ( ON ?auto_83825 ?auto_83824 ) ( not ( = ?auto_83829 ?auto_83826 ) ) ( not ( = ?auto_83829 ?auto_83823 ) ) ( not ( = ?auto_83829 ?auto_83827 ) ) ( not ( = ?auto_83826 ?auto_83823 ) ) ( not ( = ?auto_83826 ?auto_83827 ) ) ( not ( = ?auto_83823 ?auto_83827 ) ) ( not ( = ?auto_83822 ?auto_83823 ) ) ( not ( = ?auto_83822 ?auto_83829 ) ) ( not ( = ?auto_83822 ?auto_83826 ) ) ( not ( = ?auto_83824 ?auto_83823 ) ) ( not ( = ?auto_83824 ?auto_83829 ) ) ( not ( = ?auto_83824 ?auto_83826 ) ) ( not ( = ?auto_83825 ?auto_83823 ) ) ( not ( = ?auto_83825 ?auto_83829 ) ) ( not ( = ?auto_83825 ?auto_83826 ) ) ( ON ?auto_83829 ?auto_83828 ) ( not ( = ?auto_83822 ?auto_83828 ) ) ( not ( = ?auto_83824 ?auto_83828 ) ) ( not ( = ?auto_83825 ?auto_83828 ) ) ( not ( = ?auto_83827 ?auto_83828 ) ) ( not ( = ?auto_83829 ?auto_83828 ) ) ( not ( = ?auto_83826 ?auto_83828 ) ) ( not ( = ?auto_83823 ?auto_83828 ) ) ( ON ?auto_83826 ?auto_83829 ) ( ON-TABLE ?auto_83828 ) ( ON ?auto_83823 ?auto_83826 ) ( CLEAR ?auto_83823 ) ( HOLDING ?auto_83827 ) ( CLEAR ?auto_83825 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83822 ?auto_83823 ?auto_83827 ?auto_83829 )
+    ( ( MAKE-4PILE ?auto_83822 ?auto_83824 ?auto_83825 ?auto_83827 )
       ( MAKE-1PILE ?auto_83822 ) )
   )
 
@@ -6553,18 +6553,18 @@
     )
     :vars
     (
+      ?auto_83836 - BLOCK
       ?auto_83837 - BLOCK
+      ?auto_83832 - BLOCK
+      ?auto_83831 - BLOCK
       ?auto_83835 - BLOCK
       ?auto_83834 - BLOCK
-      ?auto_83836 - BLOCK
-      ?auto_83831 - BLOCK
-      ?auto_83832 - BLOCK
       ?auto_83833 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83837 ?auto_83830 ) ( ON-TABLE ?auto_83830 ) ( not ( = ?auto_83830 ?auto_83837 ) ) ( not ( = ?auto_83830 ?auto_83835 ) ) ( not ( = ?auto_83830 ?auto_83834 ) ) ( not ( = ?auto_83837 ?auto_83835 ) ) ( not ( = ?auto_83837 ?auto_83834 ) ) ( not ( = ?auto_83835 ?auto_83834 ) ) ( ON ?auto_83835 ?auto_83837 ) ( not ( = ?auto_83836 ?auto_83831 ) ) ( not ( = ?auto_83836 ?auto_83832 ) ) ( not ( = ?auto_83836 ?auto_83834 ) ) ( not ( = ?auto_83831 ?auto_83832 ) ) ( not ( = ?auto_83831 ?auto_83834 ) ) ( not ( = ?auto_83832 ?auto_83834 ) ) ( not ( = ?auto_83830 ?auto_83832 ) ) ( not ( = ?auto_83830 ?auto_83836 ) ) ( not ( = ?auto_83830 ?auto_83831 ) ) ( not ( = ?auto_83837 ?auto_83832 ) ) ( not ( = ?auto_83837 ?auto_83836 ) ) ( not ( = ?auto_83837 ?auto_83831 ) ) ( not ( = ?auto_83835 ?auto_83832 ) ) ( not ( = ?auto_83835 ?auto_83836 ) ) ( not ( = ?auto_83835 ?auto_83831 ) ) ( ON ?auto_83836 ?auto_83833 ) ( not ( = ?auto_83830 ?auto_83833 ) ) ( not ( = ?auto_83837 ?auto_83833 ) ) ( not ( = ?auto_83835 ?auto_83833 ) ) ( not ( = ?auto_83834 ?auto_83833 ) ) ( not ( = ?auto_83836 ?auto_83833 ) ) ( not ( = ?auto_83831 ?auto_83833 ) ) ( not ( = ?auto_83832 ?auto_83833 ) ) ( ON ?auto_83831 ?auto_83836 ) ( ON-TABLE ?auto_83833 ) ( ON ?auto_83832 ?auto_83831 ) ( CLEAR ?auto_83835 ) ( ON ?auto_83834 ?auto_83832 ) ( CLEAR ?auto_83834 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83836 ?auto_83830 ) ( ON-TABLE ?auto_83830 ) ( not ( = ?auto_83830 ?auto_83836 ) ) ( not ( = ?auto_83830 ?auto_83837 ) ) ( not ( = ?auto_83830 ?auto_83832 ) ) ( not ( = ?auto_83836 ?auto_83837 ) ) ( not ( = ?auto_83836 ?auto_83832 ) ) ( not ( = ?auto_83837 ?auto_83832 ) ) ( ON ?auto_83837 ?auto_83836 ) ( not ( = ?auto_83831 ?auto_83835 ) ) ( not ( = ?auto_83831 ?auto_83834 ) ) ( not ( = ?auto_83831 ?auto_83832 ) ) ( not ( = ?auto_83835 ?auto_83834 ) ) ( not ( = ?auto_83835 ?auto_83832 ) ) ( not ( = ?auto_83834 ?auto_83832 ) ) ( not ( = ?auto_83830 ?auto_83834 ) ) ( not ( = ?auto_83830 ?auto_83831 ) ) ( not ( = ?auto_83830 ?auto_83835 ) ) ( not ( = ?auto_83836 ?auto_83834 ) ) ( not ( = ?auto_83836 ?auto_83831 ) ) ( not ( = ?auto_83836 ?auto_83835 ) ) ( not ( = ?auto_83837 ?auto_83834 ) ) ( not ( = ?auto_83837 ?auto_83831 ) ) ( not ( = ?auto_83837 ?auto_83835 ) ) ( ON ?auto_83831 ?auto_83833 ) ( not ( = ?auto_83830 ?auto_83833 ) ) ( not ( = ?auto_83836 ?auto_83833 ) ) ( not ( = ?auto_83837 ?auto_83833 ) ) ( not ( = ?auto_83832 ?auto_83833 ) ) ( not ( = ?auto_83831 ?auto_83833 ) ) ( not ( = ?auto_83835 ?auto_83833 ) ) ( not ( = ?auto_83834 ?auto_83833 ) ) ( ON ?auto_83835 ?auto_83831 ) ( ON-TABLE ?auto_83833 ) ( ON ?auto_83834 ?auto_83835 ) ( CLEAR ?auto_83837 ) ( ON ?auto_83832 ?auto_83834 ) ( CLEAR ?auto_83832 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_83833 ?auto_83836 ?auto_83831 ?auto_83832 )
+    ( ( MAKE-4PILE ?auto_83833 ?auto_83831 ?auto_83835 ?auto_83834 )
       ( MAKE-1PILE ?auto_83830 ) )
   )
 
@@ -6577,14 +6577,14 @@
     (
       ?auto_83845 - BLOCK
       ?auto_83844 - BLOCK
-      ?auto_83842 - BLOCK
+      ?auto_83843 - BLOCK
       ?auto_83840 - BLOCK
       ?auto_83841 - BLOCK
-      ?auto_83843 - BLOCK
       ?auto_83839 - BLOCK
+      ?auto_83842 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83845 ?auto_83838 ) ( ON-TABLE ?auto_83838 ) ( not ( = ?auto_83838 ?auto_83845 ) ) ( not ( = ?auto_83838 ?auto_83844 ) ) ( not ( = ?auto_83838 ?auto_83842 ) ) ( not ( = ?auto_83845 ?auto_83844 ) ) ( not ( = ?auto_83845 ?auto_83842 ) ) ( not ( = ?auto_83844 ?auto_83842 ) ) ( not ( = ?auto_83840 ?auto_83841 ) ) ( not ( = ?auto_83840 ?auto_83843 ) ) ( not ( = ?auto_83840 ?auto_83842 ) ) ( not ( = ?auto_83841 ?auto_83843 ) ) ( not ( = ?auto_83841 ?auto_83842 ) ) ( not ( = ?auto_83843 ?auto_83842 ) ) ( not ( = ?auto_83838 ?auto_83843 ) ) ( not ( = ?auto_83838 ?auto_83840 ) ) ( not ( = ?auto_83838 ?auto_83841 ) ) ( not ( = ?auto_83845 ?auto_83843 ) ) ( not ( = ?auto_83845 ?auto_83840 ) ) ( not ( = ?auto_83845 ?auto_83841 ) ) ( not ( = ?auto_83844 ?auto_83843 ) ) ( not ( = ?auto_83844 ?auto_83840 ) ) ( not ( = ?auto_83844 ?auto_83841 ) ) ( ON ?auto_83840 ?auto_83839 ) ( not ( = ?auto_83838 ?auto_83839 ) ) ( not ( = ?auto_83845 ?auto_83839 ) ) ( not ( = ?auto_83844 ?auto_83839 ) ) ( not ( = ?auto_83842 ?auto_83839 ) ) ( not ( = ?auto_83840 ?auto_83839 ) ) ( not ( = ?auto_83841 ?auto_83839 ) ) ( not ( = ?auto_83843 ?auto_83839 ) ) ( ON ?auto_83841 ?auto_83840 ) ( ON-TABLE ?auto_83839 ) ( ON ?auto_83843 ?auto_83841 ) ( ON ?auto_83842 ?auto_83843 ) ( CLEAR ?auto_83842 ) ( HOLDING ?auto_83844 ) ( CLEAR ?auto_83845 ) )
+    ( and ( ON ?auto_83845 ?auto_83838 ) ( ON-TABLE ?auto_83838 ) ( not ( = ?auto_83838 ?auto_83845 ) ) ( not ( = ?auto_83838 ?auto_83844 ) ) ( not ( = ?auto_83838 ?auto_83843 ) ) ( not ( = ?auto_83845 ?auto_83844 ) ) ( not ( = ?auto_83845 ?auto_83843 ) ) ( not ( = ?auto_83844 ?auto_83843 ) ) ( not ( = ?auto_83840 ?auto_83841 ) ) ( not ( = ?auto_83840 ?auto_83839 ) ) ( not ( = ?auto_83840 ?auto_83843 ) ) ( not ( = ?auto_83841 ?auto_83839 ) ) ( not ( = ?auto_83841 ?auto_83843 ) ) ( not ( = ?auto_83839 ?auto_83843 ) ) ( not ( = ?auto_83838 ?auto_83839 ) ) ( not ( = ?auto_83838 ?auto_83840 ) ) ( not ( = ?auto_83838 ?auto_83841 ) ) ( not ( = ?auto_83845 ?auto_83839 ) ) ( not ( = ?auto_83845 ?auto_83840 ) ) ( not ( = ?auto_83845 ?auto_83841 ) ) ( not ( = ?auto_83844 ?auto_83839 ) ) ( not ( = ?auto_83844 ?auto_83840 ) ) ( not ( = ?auto_83844 ?auto_83841 ) ) ( ON ?auto_83840 ?auto_83842 ) ( not ( = ?auto_83838 ?auto_83842 ) ) ( not ( = ?auto_83845 ?auto_83842 ) ) ( not ( = ?auto_83844 ?auto_83842 ) ) ( not ( = ?auto_83843 ?auto_83842 ) ) ( not ( = ?auto_83840 ?auto_83842 ) ) ( not ( = ?auto_83841 ?auto_83842 ) ) ( not ( = ?auto_83839 ?auto_83842 ) ) ( ON ?auto_83841 ?auto_83840 ) ( ON-TABLE ?auto_83842 ) ( ON ?auto_83839 ?auto_83841 ) ( ON ?auto_83843 ?auto_83839 ) ( CLEAR ?auto_83843 ) ( HOLDING ?auto_83844 ) ( CLEAR ?auto_83845 ) )
     :subtasks
     ( ( MAKE-3PILE ?auto_83838 ?auto_83845 ?auto_83844 )
       ( MAKE-1PILE ?auto_83838 ) )
@@ -6597,18 +6597,18 @@
     )
     :vars
     (
+      ?auto_83849 - BLOCK
       ?auto_83847 - BLOCK
-      ?auto_83852 - BLOCK
+      ?auto_83853 - BLOCK
+      ?auto_83851 - BLOCK
       ?auto_83850 - BLOCK
       ?auto_83848 - BLOCK
-      ?auto_83849 - BLOCK
-      ?auto_83851 - BLOCK
-      ?auto_83853 - BLOCK
+      ?auto_83852 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_83847 ?auto_83846 ) ( ON-TABLE ?auto_83846 ) ( not ( = ?auto_83846 ?auto_83847 ) ) ( not ( = ?auto_83846 ?auto_83852 ) ) ( not ( = ?auto_83846 ?auto_83850 ) ) ( not ( = ?auto_83847 ?auto_83852 ) ) ( not ( = ?auto_83847 ?auto_83850 ) ) ( not ( = ?auto_83852 ?auto_83850 ) ) ( not ( = ?auto_83848 ?auto_83849 ) ) ( not ( = ?auto_83848 ?auto_83851 ) ) ( not ( = ?auto_83848 ?auto_83850 ) ) ( not ( = ?auto_83849 ?auto_83851 ) ) ( not ( = ?auto_83849 ?auto_83850 ) ) ( not ( = ?auto_83851 ?auto_83850 ) ) ( not ( = ?auto_83846 ?auto_83851 ) ) ( not ( = ?auto_83846 ?auto_83848 ) ) ( not ( = ?auto_83846 ?auto_83849 ) ) ( not ( = ?auto_83847 ?auto_83851 ) ) ( not ( = ?auto_83847 ?auto_83848 ) ) ( not ( = ?auto_83847 ?auto_83849 ) ) ( not ( = ?auto_83852 ?auto_83851 ) ) ( not ( = ?auto_83852 ?auto_83848 ) ) ( not ( = ?auto_83852 ?auto_83849 ) ) ( ON ?auto_83848 ?auto_83853 ) ( not ( = ?auto_83846 ?auto_83853 ) ) ( not ( = ?auto_83847 ?auto_83853 ) ) ( not ( = ?auto_83852 ?auto_83853 ) ) ( not ( = ?auto_83850 ?auto_83853 ) ) ( not ( = ?auto_83848 ?auto_83853 ) ) ( not ( = ?auto_83849 ?auto_83853 ) ) ( not ( = ?auto_83851 ?auto_83853 ) ) ( ON ?auto_83849 ?auto_83848 ) ( ON-TABLE ?auto_83853 ) ( ON ?auto_83851 ?auto_83849 ) ( ON ?auto_83850 ?auto_83851 ) ( CLEAR ?auto_83847 ) ( ON ?auto_83852 ?auto_83850 ) ( CLEAR ?auto_83852 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_83849 ?auto_83846 ) ( ON-TABLE ?auto_83846 ) ( not ( = ?auto_83846 ?auto_83849 ) ) ( not ( = ?auto_83846 ?auto_83847 ) ) ( not ( = ?auto_83846 ?auto_83853 ) ) ( not ( = ?auto_83849 ?auto_83847 ) ) ( not ( = ?auto_83849 ?auto_83853 ) ) ( not ( = ?auto_83847 ?auto_83853 ) ) ( not ( = ?auto_83851 ?auto_83850 ) ) ( not ( = ?auto_83851 ?auto_83848 ) ) ( not ( = ?auto_83851 ?auto_83853 ) ) ( not ( = ?auto_83850 ?auto_83848 ) ) ( not ( = ?auto_83850 ?auto_83853 ) ) ( not ( = ?auto_83848 ?auto_83853 ) ) ( not ( = ?auto_83846 ?auto_83848 ) ) ( not ( = ?auto_83846 ?auto_83851 ) ) ( not ( = ?auto_83846 ?auto_83850 ) ) ( not ( = ?auto_83849 ?auto_83848 ) ) ( not ( = ?auto_83849 ?auto_83851 ) ) ( not ( = ?auto_83849 ?auto_83850 ) ) ( not ( = ?auto_83847 ?auto_83848 ) ) ( not ( = ?auto_83847 ?auto_83851 ) ) ( not ( = ?auto_83847 ?auto_83850 ) ) ( ON ?auto_83851 ?auto_83852 ) ( not ( = ?auto_83846 ?auto_83852 ) ) ( not ( = ?auto_83849 ?auto_83852 ) ) ( not ( = ?auto_83847 ?auto_83852 ) ) ( not ( = ?auto_83853 ?auto_83852 ) ) ( not ( = ?auto_83851 ?auto_83852 ) ) ( not ( = ?auto_83850 ?auto_83852 ) ) ( not ( = ?auto_83848 ?auto_83852 ) ) ( ON ?auto_83850 ?auto_83851 ) ( ON-TABLE ?auto_83852 ) ( ON ?auto_83848 ?auto_83850 ) ( ON ?auto_83853 ?auto_83848 ) ( CLEAR ?auto_83849 ) ( ON ?auto_83847 ?auto_83853 ) ( CLEAR ?auto_83847 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-5PILE ?auto_83853 ?auto_83848 ?auto_83849 ?auto_83851 ?auto_83850 )
+    ( ( MAKE-5PILE ?auto_83852 ?auto_83851 ?auto_83850 ?auto_83848 ?auto_83853 )
       ( MAKE-1PILE ?auto_83846 ) )
   )
 
@@ -6619,18 +6619,18 @@
     )
     :vars
     (
-      ?auto_83875 - BLOCK
-      ?auto_83874 - BLOCK
-      ?auto_83877 - BLOCK
-      ?auto_83876 - BLOCK
-      ?auto_83871 - BLOCK
-      ?auto_83873 - BLOCK
       ?auto_83872 - BLOCK
+      ?auto_83877 - BLOCK
+      ?auto_83874 - BLOCK
+      ?auto_83871 - BLOCK
+      ?auto_83876 - BLOCK
+      ?auto_83875 - BLOCK
+      ?auto_83873 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83870 ?auto_83875 ) ) ( not ( = ?auto_83870 ?auto_83874 ) ) ( not ( = ?auto_83870 ?auto_83877 ) ) ( not ( = ?auto_83875 ?auto_83874 ) ) ( not ( = ?auto_83875 ?auto_83877 ) ) ( not ( = ?auto_83874 ?auto_83877 ) ) ( not ( = ?auto_83876 ?auto_83871 ) ) ( not ( = ?auto_83876 ?auto_83873 ) ) ( not ( = ?auto_83876 ?auto_83877 ) ) ( not ( = ?auto_83871 ?auto_83873 ) ) ( not ( = ?auto_83871 ?auto_83877 ) ) ( not ( = ?auto_83873 ?auto_83877 ) ) ( not ( = ?auto_83870 ?auto_83873 ) ) ( not ( = ?auto_83870 ?auto_83876 ) ) ( not ( = ?auto_83870 ?auto_83871 ) ) ( not ( = ?auto_83875 ?auto_83873 ) ) ( not ( = ?auto_83875 ?auto_83876 ) ) ( not ( = ?auto_83875 ?auto_83871 ) ) ( not ( = ?auto_83874 ?auto_83873 ) ) ( not ( = ?auto_83874 ?auto_83876 ) ) ( not ( = ?auto_83874 ?auto_83871 ) ) ( ON ?auto_83876 ?auto_83872 ) ( not ( = ?auto_83870 ?auto_83872 ) ) ( not ( = ?auto_83875 ?auto_83872 ) ) ( not ( = ?auto_83874 ?auto_83872 ) ) ( not ( = ?auto_83877 ?auto_83872 ) ) ( not ( = ?auto_83876 ?auto_83872 ) ) ( not ( = ?auto_83871 ?auto_83872 ) ) ( not ( = ?auto_83873 ?auto_83872 ) ) ( ON ?auto_83871 ?auto_83876 ) ( ON-TABLE ?auto_83872 ) ( ON ?auto_83873 ?auto_83871 ) ( ON ?auto_83877 ?auto_83873 ) ( ON ?auto_83874 ?auto_83877 ) ( ON ?auto_83875 ?auto_83874 ) ( CLEAR ?auto_83875 ) ( HOLDING ?auto_83870 ) )
+    ( and ( not ( = ?auto_83870 ?auto_83872 ) ) ( not ( = ?auto_83870 ?auto_83877 ) ) ( not ( = ?auto_83870 ?auto_83874 ) ) ( not ( = ?auto_83872 ?auto_83877 ) ) ( not ( = ?auto_83872 ?auto_83874 ) ) ( not ( = ?auto_83877 ?auto_83874 ) ) ( not ( = ?auto_83871 ?auto_83876 ) ) ( not ( = ?auto_83871 ?auto_83875 ) ) ( not ( = ?auto_83871 ?auto_83874 ) ) ( not ( = ?auto_83876 ?auto_83875 ) ) ( not ( = ?auto_83876 ?auto_83874 ) ) ( not ( = ?auto_83875 ?auto_83874 ) ) ( not ( = ?auto_83870 ?auto_83875 ) ) ( not ( = ?auto_83870 ?auto_83871 ) ) ( not ( = ?auto_83870 ?auto_83876 ) ) ( not ( = ?auto_83872 ?auto_83875 ) ) ( not ( = ?auto_83872 ?auto_83871 ) ) ( not ( = ?auto_83872 ?auto_83876 ) ) ( not ( = ?auto_83877 ?auto_83875 ) ) ( not ( = ?auto_83877 ?auto_83871 ) ) ( not ( = ?auto_83877 ?auto_83876 ) ) ( ON ?auto_83871 ?auto_83873 ) ( not ( = ?auto_83870 ?auto_83873 ) ) ( not ( = ?auto_83872 ?auto_83873 ) ) ( not ( = ?auto_83877 ?auto_83873 ) ) ( not ( = ?auto_83874 ?auto_83873 ) ) ( not ( = ?auto_83871 ?auto_83873 ) ) ( not ( = ?auto_83876 ?auto_83873 ) ) ( not ( = ?auto_83875 ?auto_83873 ) ) ( ON ?auto_83876 ?auto_83871 ) ( ON-TABLE ?auto_83873 ) ( ON ?auto_83875 ?auto_83876 ) ( ON ?auto_83874 ?auto_83875 ) ( ON ?auto_83877 ?auto_83874 ) ( ON ?auto_83872 ?auto_83877 ) ( CLEAR ?auto_83872 ) ( HOLDING ?auto_83870 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_83870 ?auto_83875 )
+    ( ( MAKE-2PILE ?auto_83870 ?auto_83872 )
       ( MAKE-1PILE ?auto_83870 ) )
   )
 
@@ -6641,18 +6641,18 @@
     )
     :vars
     (
-      ?auto_83881 - BLOCK
+      ?auto_83882 - BLOCK
       ?auto_83884 - BLOCK
+      ?auto_83881 - BLOCK
       ?auto_83883 - BLOCK
       ?auto_83885 - BLOCK
-      ?auto_83882 - BLOCK
-      ?auto_83879 - BLOCK
       ?auto_83880 - BLOCK
+      ?auto_83879 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83878 ?auto_83881 ) ) ( not ( = ?auto_83878 ?auto_83884 ) ) ( not ( = ?auto_83878 ?auto_83883 ) ) ( not ( = ?auto_83881 ?auto_83884 ) ) ( not ( = ?auto_83881 ?auto_83883 ) ) ( not ( = ?auto_83884 ?auto_83883 ) ) ( not ( = ?auto_83885 ?auto_83882 ) ) ( not ( = ?auto_83885 ?auto_83879 ) ) ( not ( = ?auto_83885 ?auto_83883 ) ) ( not ( = ?auto_83882 ?auto_83879 ) ) ( not ( = ?auto_83882 ?auto_83883 ) ) ( not ( = ?auto_83879 ?auto_83883 ) ) ( not ( = ?auto_83878 ?auto_83879 ) ) ( not ( = ?auto_83878 ?auto_83885 ) ) ( not ( = ?auto_83878 ?auto_83882 ) ) ( not ( = ?auto_83881 ?auto_83879 ) ) ( not ( = ?auto_83881 ?auto_83885 ) ) ( not ( = ?auto_83881 ?auto_83882 ) ) ( not ( = ?auto_83884 ?auto_83879 ) ) ( not ( = ?auto_83884 ?auto_83885 ) ) ( not ( = ?auto_83884 ?auto_83882 ) ) ( ON ?auto_83885 ?auto_83880 ) ( not ( = ?auto_83878 ?auto_83880 ) ) ( not ( = ?auto_83881 ?auto_83880 ) ) ( not ( = ?auto_83884 ?auto_83880 ) ) ( not ( = ?auto_83883 ?auto_83880 ) ) ( not ( = ?auto_83885 ?auto_83880 ) ) ( not ( = ?auto_83882 ?auto_83880 ) ) ( not ( = ?auto_83879 ?auto_83880 ) ) ( ON ?auto_83882 ?auto_83885 ) ( ON-TABLE ?auto_83880 ) ( ON ?auto_83879 ?auto_83882 ) ( ON ?auto_83883 ?auto_83879 ) ( ON ?auto_83884 ?auto_83883 ) ( ON ?auto_83881 ?auto_83884 ) ( ON ?auto_83878 ?auto_83881 ) ( CLEAR ?auto_83878 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_83878 ?auto_83882 ) ) ( not ( = ?auto_83878 ?auto_83884 ) ) ( not ( = ?auto_83878 ?auto_83881 ) ) ( not ( = ?auto_83882 ?auto_83884 ) ) ( not ( = ?auto_83882 ?auto_83881 ) ) ( not ( = ?auto_83884 ?auto_83881 ) ) ( not ( = ?auto_83883 ?auto_83885 ) ) ( not ( = ?auto_83883 ?auto_83880 ) ) ( not ( = ?auto_83883 ?auto_83881 ) ) ( not ( = ?auto_83885 ?auto_83880 ) ) ( not ( = ?auto_83885 ?auto_83881 ) ) ( not ( = ?auto_83880 ?auto_83881 ) ) ( not ( = ?auto_83878 ?auto_83880 ) ) ( not ( = ?auto_83878 ?auto_83883 ) ) ( not ( = ?auto_83878 ?auto_83885 ) ) ( not ( = ?auto_83882 ?auto_83880 ) ) ( not ( = ?auto_83882 ?auto_83883 ) ) ( not ( = ?auto_83882 ?auto_83885 ) ) ( not ( = ?auto_83884 ?auto_83880 ) ) ( not ( = ?auto_83884 ?auto_83883 ) ) ( not ( = ?auto_83884 ?auto_83885 ) ) ( ON ?auto_83883 ?auto_83879 ) ( not ( = ?auto_83878 ?auto_83879 ) ) ( not ( = ?auto_83882 ?auto_83879 ) ) ( not ( = ?auto_83884 ?auto_83879 ) ) ( not ( = ?auto_83881 ?auto_83879 ) ) ( not ( = ?auto_83883 ?auto_83879 ) ) ( not ( = ?auto_83885 ?auto_83879 ) ) ( not ( = ?auto_83880 ?auto_83879 ) ) ( ON ?auto_83885 ?auto_83883 ) ( ON-TABLE ?auto_83879 ) ( ON ?auto_83880 ?auto_83885 ) ( ON ?auto_83881 ?auto_83880 ) ( ON ?auto_83884 ?auto_83881 ) ( ON ?auto_83882 ?auto_83884 ) ( ON ?auto_83878 ?auto_83882 ) ( CLEAR ?auto_83878 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_83880 ?auto_83885 ?auto_83882 ?auto_83879 ?auto_83883 ?auto_83884 ?auto_83881 )
+    ( ( MAKE-7PILE ?auto_83879 ?auto_83883 ?auto_83885 ?auto_83880 ?auto_83881 ?auto_83884 ?auto_83882 )
       ( MAKE-1PILE ?auto_83878 ) )
   )
 
@@ -6980,13 +6980,13 @@
     )
     :vars
     (
-      ?auto_84005 - BLOCK
       ?auto_84004 - BLOCK
+      ?auto_84005 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_83998 ?auto_83999 ) ) ( not ( = ?auto_83998 ?auto_84000 ) ) ( not ( = ?auto_83998 ?auto_84001 ) ) ( not ( = ?auto_83998 ?auto_84002 ) ) ( not ( = ?auto_83998 ?auto_84003 ) ) ( not ( = ?auto_83999 ?auto_84000 ) ) ( not ( = ?auto_83999 ?auto_84001 ) ) ( not ( = ?auto_83999 ?auto_84002 ) ) ( not ( = ?auto_83999 ?auto_84003 ) ) ( not ( = ?auto_84000 ?auto_84001 ) ) ( not ( = ?auto_84000 ?auto_84002 ) ) ( not ( = ?auto_84000 ?auto_84003 ) ) ( not ( = ?auto_84001 ?auto_84002 ) ) ( not ( = ?auto_84001 ?auto_84003 ) ) ( not ( = ?auto_84002 ?auto_84003 ) ) ( ON ?auto_84003 ?auto_84005 ) ( not ( = ?auto_83998 ?auto_84005 ) ) ( not ( = ?auto_83999 ?auto_84005 ) ) ( not ( = ?auto_84000 ?auto_84005 ) ) ( not ( = ?auto_84001 ?auto_84005 ) ) ( not ( = ?auto_84002 ?auto_84005 ) ) ( not ( = ?auto_84003 ?auto_84005 ) ) ( ON ?auto_84002 ?auto_84003 ) ( ON-TABLE ?auto_84005 ) ( ON ?auto_84001 ?auto_84002 ) ( ON ?auto_84000 ?auto_84001 ) ( ON ?auto_83998 ?auto_84004 ) ( not ( = ?auto_83998 ?auto_84004 ) ) ( not ( = ?auto_83999 ?auto_84004 ) ) ( not ( = ?auto_84000 ?auto_84004 ) ) ( not ( = ?auto_84001 ?auto_84004 ) ) ( not ( = ?auto_84002 ?auto_84004 ) ) ( not ( = ?auto_84003 ?auto_84004 ) ) ( not ( = ?auto_84005 ?auto_84004 ) ) ( CLEAR ?auto_84000 ) ( ON ?auto_83999 ?auto_83998 ) ( CLEAR ?auto_83999 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_84004 ) )
+    ( and ( not ( = ?auto_83998 ?auto_83999 ) ) ( not ( = ?auto_83998 ?auto_84000 ) ) ( not ( = ?auto_83998 ?auto_84001 ) ) ( not ( = ?auto_83998 ?auto_84002 ) ) ( not ( = ?auto_83998 ?auto_84003 ) ) ( not ( = ?auto_83999 ?auto_84000 ) ) ( not ( = ?auto_83999 ?auto_84001 ) ) ( not ( = ?auto_83999 ?auto_84002 ) ) ( not ( = ?auto_83999 ?auto_84003 ) ) ( not ( = ?auto_84000 ?auto_84001 ) ) ( not ( = ?auto_84000 ?auto_84002 ) ) ( not ( = ?auto_84000 ?auto_84003 ) ) ( not ( = ?auto_84001 ?auto_84002 ) ) ( not ( = ?auto_84001 ?auto_84003 ) ) ( not ( = ?auto_84002 ?auto_84003 ) ) ( ON ?auto_84003 ?auto_84004 ) ( not ( = ?auto_83998 ?auto_84004 ) ) ( not ( = ?auto_83999 ?auto_84004 ) ) ( not ( = ?auto_84000 ?auto_84004 ) ) ( not ( = ?auto_84001 ?auto_84004 ) ) ( not ( = ?auto_84002 ?auto_84004 ) ) ( not ( = ?auto_84003 ?auto_84004 ) ) ( ON ?auto_84002 ?auto_84003 ) ( ON-TABLE ?auto_84004 ) ( ON ?auto_84001 ?auto_84002 ) ( ON ?auto_84000 ?auto_84001 ) ( ON ?auto_83998 ?auto_84005 ) ( not ( = ?auto_83998 ?auto_84005 ) ) ( not ( = ?auto_83999 ?auto_84005 ) ) ( not ( = ?auto_84000 ?auto_84005 ) ) ( not ( = ?auto_84001 ?auto_84005 ) ) ( not ( = ?auto_84002 ?auto_84005 ) ) ( not ( = ?auto_84003 ?auto_84005 ) ) ( not ( = ?auto_84004 ?auto_84005 ) ) ( CLEAR ?auto_84000 ) ( ON ?auto_83999 ?auto_83998 ) ( CLEAR ?auto_83999 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_84005 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_84004 ?auto_83998 )
+    ( ( MAKE-2PILE ?auto_84005 ?auto_83998 )
       ( MAKE-6PILE ?auto_83998 ?auto_83999 ?auto_84000 ?auto_84001 ?auto_84002 ?auto_84003 ) )
   )
 
@@ -7046,13 +7046,13 @@
     )
     :vars
     (
-      ?auto_84028 - BLOCK
       ?auto_84029 - BLOCK
+      ?auto_84028 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_84022 ?auto_84023 ) ) ( not ( = ?auto_84022 ?auto_84024 ) ) ( not ( = ?auto_84022 ?auto_84025 ) ) ( not ( = ?auto_84022 ?auto_84026 ) ) ( not ( = ?auto_84022 ?auto_84027 ) ) ( not ( = ?auto_84023 ?auto_84024 ) ) ( not ( = ?auto_84023 ?auto_84025 ) ) ( not ( = ?auto_84023 ?auto_84026 ) ) ( not ( = ?auto_84023 ?auto_84027 ) ) ( not ( = ?auto_84024 ?auto_84025 ) ) ( not ( = ?auto_84024 ?auto_84026 ) ) ( not ( = ?auto_84024 ?auto_84027 ) ) ( not ( = ?auto_84025 ?auto_84026 ) ) ( not ( = ?auto_84025 ?auto_84027 ) ) ( not ( = ?auto_84026 ?auto_84027 ) ) ( ON ?auto_84027 ?auto_84028 ) ( not ( = ?auto_84022 ?auto_84028 ) ) ( not ( = ?auto_84023 ?auto_84028 ) ) ( not ( = ?auto_84024 ?auto_84028 ) ) ( not ( = ?auto_84025 ?auto_84028 ) ) ( not ( = ?auto_84026 ?auto_84028 ) ) ( not ( = ?auto_84027 ?auto_84028 ) ) ( ON ?auto_84026 ?auto_84027 ) ( ON-TABLE ?auto_84028 ) ( ON ?auto_84022 ?auto_84029 ) ( not ( = ?auto_84022 ?auto_84029 ) ) ( not ( = ?auto_84023 ?auto_84029 ) ) ( not ( = ?auto_84024 ?auto_84029 ) ) ( not ( = ?auto_84025 ?auto_84029 ) ) ( not ( = ?auto_84026 ?auto_84029 ) ) ( not ( = ?auto_84027 ?auto_84029 ) ) ( not ( = ?auto_84028 ?auto_84029 ) ) ( ON ?auto_84023 ?auto_84022 ) ( ON-TABLE ?auto_84029 ) ( ON ?auto_84024 ?auto_84023 ) ( CLEAR ?auto_84024 ) ( HOLDING ?auto_84025 ) ( CLEAR ?auto_84026 ) )
+    ( and ( not ( = ?auto_84022 ?auto_84023 ) ) ( not ( = ?auto_84022 ?auto_84024 ) ) ( not ( = ?auto_84022 ?auto_84025 ) ) ( not ( = ?auto_84022 ?auto_84026 ) ) ( not ( = ?auto_84022 ?auto_84027 ) ) ( not ( = ?auto_84023 ?auto_84024 ) ) ( not ( = ?auto_84023 ?auto_84025 ) ) ( not ( = ?auto_84023 ?auto_84026 ) ) ( not ( = ?auto_84023 ?auto_84027 ) ) ( not ( = ?auto_84024 ?auto_84025 ) ) ( not ( = ?auto_84024 ?auto_84026 ) ) ( not ( = ?auto_84024 ?auto_84027 ) ) ( not ( = ?auto_84025 ?auto_84026 ) ) ( not ( = ?auto_84025 ?auto_84027 ) ) ( not ( = ?auto_84026 ?auto_84027 ) ) ( ON ?auto_84027 ?auto_84029 ) ( not ( = ?auto_84022 ?auto_84029 ) ) ( not ( = ?auto_84023 ?auto_84029 ) ) ( not ( = ?auto_84024 ?auto_84029 ) ) ( not ( = ?auto_84025 ?auto_84029 ) ) ( not ( = ?auto_84026 ?auto_84029 ) ) ( not ( = ?auto_84027 ?auto_84029 ) ) ( ON ?auto_84026 ?auto_84027 ) ( ON-TABLE ?auto_84029 ) ( ON ?auto_84022 ?auto_84028 ) ( not ( = ?auto_84022 ?auto_84028 ) ) ( not ( = ?auto_84023 ?auto_84028 ) ) ( not ( = ?auto_84024 ?auto_84028 ) ) ( not ( = ?auto_84025 ?auto_84028 ) ) ( not ( = ?auto_84026 ?auto_84028 ) ) ( not ( = ?auto_84027 ?auto_84028 ) ) ( not ( = ?auto_84029 ?auto_84028 ) ) ( ON ?auto_84023 ?auto_84022 ) ( ON-TABLE ?auto_84028 ) ( ON ?auto_84024 ?auto_84023 ) ( CLEAR ?auto_84024 ) ( HOLDING ?auto_84025 ) ( CLEAR ?auto_84026 ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_84028 ?auto_84027 ?auto_84026 ?auto_84025 )
+    ( ( MAKE-4PILE ?auto_84029 ?auto_84027 ?auto_84026 ?auto_84025 )
       ( MAKE-6PILE ?auto_84022 ?auto_84023 ?auto_84024 ?auto_84025 ?auto_84026 ?auto_84027 ) )
   )
 
@@ -7068,13 +7068,13 @@
     )
     :vars
     (
-      ?auto_84037 - BLOCK
       ?auto_84036 - BLOCK
+      ?auto_84037 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_84030 ?auto_84031 ) ) ( not ( = ?auto_84030 ?auto_84032 ) ) ( not ( = ?auto_84030 ?auto_84033 ) ) ( not ( = ?auto_84030 ?auto_84034 ) ) ( not ( = ?auto_84030 ?auto_84035 ) ) ( not ( = ?auto_84031 ?auto_84032 ) ) ( not ( = ?auto_84031 ?auto_84033 ) ) ( not ( = ?auto_84031 ?auto_84034 ) ) ( not ( = ?auto_84031 ?auto_84035 ) ) ( not ( = ?auto_84032 ?auto_84033 ) ) ( not ( = ?auto_84032 ?auto_84034 ) ) ( not ( = ?auto_84032 ?auto_84035 ) ) ( not ( = ?auto_84033 ?auto_84034 ) ) ( not ( = ?auto_84033 ?auto_84035 ) ) ( not ( = ?auto_84034 ?auto_84035 ) ) ( ON ?auto_84035 ?auto_84037 ) ( not ( = ?auto_84030 ?auto_84037 ) ) ( not ( = ?auto_84031 ?auto_84037 ) ) ( not ( = ?auto_84032 ?auto_84037 ) ) ( not ( = ?auto_84033 ?auto_84037 ) ) ( not ( = ?auto_84034 ?auto_84037 ) ) ( not ( = ?auto_84035 ?auto_84037 ) ) ( ON ?auto_84034 ?auto_84035 ) ( ON-TABLE ?auto_84037 ) ( ON ?auto_84030 ?auto_84036 ) ( not ( = ?auto_84030 ?auto_84036 ) ) ( not ( = ?auto_84031 ?auto_84036 ) ) ( not ( = ?auto_84032 ?auto_84036 ) ) ( not ( = ?auto_84033 ?auto_84036 ) ) ( not ( = ?auto_84034 ?auto_84036 ) ) ( not ( = ?auto_84035 ?auto_84036 ) ) ( not ( = ?auto_84037 ?auto_84036 ) ) ( ON ?auto_84031 ?auto_84030 ) ( ON-TABLE ?auto_84036 ) ( ON ?auto_84032 ?auto_84031 ) ( CLEAR ?auto_84034 ) ( ON ?auto_84033 ?auto_84032 ) ( CLEAR ?auto_84033 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_84030 ?auto_84031 ) ) ( not ( = ?auto_84030 ?auto_84032 ) ) ( not ( = ?auto_84030 ?auto_84033 ) ) ( not ( = ?auto_84030 ?auto_84034 ) ) ( not ( = ?auto_84030 ?auto_84035 ) ) ( not ( = ?auto_84031 ?auto_84032 ) ) ( not ( = ?auto_84031 ?auto_84033 ) ) ( not ( = ?auto_84031 ?auto_84034 ) ) ( not ( = ?auto_84031 ?auto_84035 ) ) ( not ( = ?auto_84032 ?auto_84033 ) ) ( not ( = ?auto_84032 ?auto_84034 ) ) ( not ( = ?auto_84032 ?auto_84035 ) ) ( not ( = ?auto_84033 ?auto_84034 ) ) ( not ( = ?auto_84033 ?auto_84035 ) ) ( not ( = ?auto_84034 ?auto_84035 ) ) ( ON ?auto_84035 ?auto_84036 ) ( not ( = ?auto_84030 ?auto_84036 ) ) ( not ( = ?auto_84031 ?auto_84036 ) ) ( not ( = ?auto_84032 ?auto_84036 ) ) ( not ( = ?auto_84033 ?auto_84036 ) ) ( not ( = ?auto_84034 ?auto_84036 ) ) ( not ( = ?auto_84035 ?auto_84036 ) ) ( ON ?auto_84034 ?auto_84035 ) ( ON-TABLE ?auto_84036 ) ( ON ?auto_84030 ?auto_84037 ) ( not ( = ?auto_84030 ?auto_84037 ) ) ( not ( = ?auto_84031 ?auto_84037 ) ) ( not ( = ?auto_84032 ?auto_84037 ) ) ( not ( = ?auto_84033 ?auto_84037 ) ) ( not ( = ?auto_84034 ?auto_84037 ) ) ( not ( = ?auto_84035 ?auto_84037 ) ) ( not ( = ?auto_84036 ?auto_84037 ) ) ( ON ?auto_84031 ?auto_84030 ) ( ON-TABLE ?auto_84037 ) ( ON ?auto_84032 ?auto_84031 ) ( CLEAR ?auto_84034 ) ( ON ?auto_84033 ?auto_84032 ) ( CLEAR ?auto_84033 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-4PILE ?auto_84036 ?auto_84030 ?auto_84031 ?auto_84032 )
+    ( ( MAKE-4PILE ?auto_84037 ?auto_84030 ?auto_84031 ?auto_84032 )
       ( MAKE-6PILE ?auto_84030 ?auto_84031 ?auto_84032 ?auto_84033 ?auto_84034 ?auto_84035 ) )
   )
 
@@ -7090,13 +7090,13 @@
     )
     :vars
     (
-      ?auto_84045 - BLOCK
       ?auto_84044 - BLOCK
+      ?auto_84045 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_84038 ?auto_84039 ) ) ( not ( = ?auto_84038 ?auto_84040 ) ) ( not ( = ?auto_84038 ?auto_84041 ) ) ( not ( = ?auto_84038 ?auto_84042 ) ) ( not ( = ?auto_84038 ?auto_84043 ) ) ( not ( = ?auto_84039 ?auto_84040 ) ) ( not ( = ?auto_84039 ?auto_84041 ) ) ( not ( = ?auto_84039 ?auto_84042 ) ) ( not ( = ?auto_84039 ?auto_84043 ) ) ( not ( = ?auto_84040 ?auto_84041 ) ) ( not ( = ?auto_84040 ?auto_84042 ) ) ( not ( = ?auto_84040 ?auto_84043 ) ) ( not ( = ?auto_84041 ?auto_84042 ) ) ( not ( = ?auto_84041 ?auto_84043 ) ) ( not ( = ?auto_84042 ?auto_84043 ) ) ( ON ?auto_84043 ?auto_84045 ) ( not ( = ?auto_84038 ?auto_84045 ) ) ( not ( = ?auto_84039 ?auto_84045 ) ) ( not ( = ?auto_84040 ?auto_84045 ) ) ( not ( = ?auto_84041 ?auto_84045 ) ) ( not ( = ?auto_84042 ?auto_84045 ) ) ( not ( = ?auto_84043 ?auto_84045 ) ) ( ON-TABLE ?auto_84045 ) ( ON ?auto_84038 ?auto_84044 ) ( not ( = ?auto_84038 ?auto_84044 ) ) ( not ( = ?auto_84039 ?auto_84044 ) ) ( not ( = ?auto_84040 ?auto_84044 ) ) ( not ( = ?auto_84041 ?auto_84044 ) ) ( not ( = ?auto_84042 ?auto_84044 ) ) ( not ( = ?auto_84043 ?auto_84044 ) ) ( not ( = ?auto_84045 ?auto_84044 ) ) ( ON ?auto_84039 ?auto_84038 ) ( ON-TABLE ?auto_84044 ) ( ON ?auto_84040 ?auto_84039 ) ( ON ?auto_84041 ?auto_84040 ) ( CLEAR ?auto_84041 ) ( HOLDING ?auto_84042 ) ( CLEAR ?auto_84043 ) )
+    ( and ( not ( = ?auto_84038 ?auto_84039 ) ) ( not ( = ?auto_84038 ?auto_84040 ) ) ( not ( = ?auto_84038 ?auto_84041 ) ) ( not ( = ?auto_84038 ?auto_84042 ) ) ( not ( = ?auto_84038 ?auto_84043 ) ) ( not ( = ?auto_84039 ?auto_84040 ) ) ( not ( = ?auto_84039 ?auto_84041 ) ) ( not ( = ?auto_84039 ?auto_84042 ) ) ( not ( = ?auto_84039 ?auto_84043 ) ) ( not ( = ?auto_84040 ?auto_84041 ) ) ( not ( = ?auto_84040 ?auto_84042 ) ) ( not ( = ?auto_84040 ?auto_84043 ) ) ( not ( = ?auto_84041 ?auto_84042 ) ) ( not ( = ?auto_84041 ?auto_84043 ) ) ( not ( = ?auto_84042 ?auto_84043 ) ) ( ON ?auto_84043 ?auto_84044 ) ( not ( = ?auto_84038 ?auto_84044 ) ) ( not ( = ?auto_84039 ?auto_84044 ) ) ( not ( = ?auto_84040 ?auto_84044 ) ) ( not ( = ?auto_84041 ?auto_84044 ) ) ( not ( = ?auto_84042 ?auto_84044 ) ) ( not ( = ?auto_84043 ?auto_84044 ) ) ( ON-TABLE ?auto_84044 ) ( ON ?auto_84038 ?auto_84045 ) ( not ( = ?auto_84038 ?auto_84045 ) ) ( not ( = ?auto_84039 ?auto_84045 ) ) ( not ( = ?auto_84040 ?auto_84045 ) ) ( not ( = ?auto_84041 ?auto_84045 ) ) ( not ( = ?auto_84042 ?auto_84045 ) ) ( not ( = ?auto_84043 ?auto_84045 ) ) ( not ( = ?auto_84044 ?auto_84045 ) ) ( ON ?auto_84039 ?auto_84038 ) ( ON-TABLE ?auto_84045 ) ( ON ?auto_84040 ?auto_84039 ) ( ON ?auto_84041 ?auto_84040 ) ( CLEAR ?auto_84041 ) ( HOLDING ?auto_84042 ) ( CLEAR ?auto_84043 ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_84045 ?auto_84043 ?auto_84042 )
+    ( ( MAKE-3PILE ?auto_84044 ?auto_84043 ?auto_84042 )
       ( MAKE-6PILE ?auto_84038 ?auto_84039 ?auto_84040 ?auto_84041 ?auto_84042 ?auto_84043 ) )
   )
 
@@ -7156,13 +7156,13 @@
     )
     :vars
     (
-      ?auto_84069 - BLOCK
       ?auto_84068 - BLOCK
+      ?auto_84069 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_84062 ?auto_84063 ) ) ( not ( = ?auto_84062 ?auto_84064 ) ) ( not ( = ?auto_84062 ?auto_84065 ) ) ( not ( = ?auto_84062 ?auto_84066 ) ) ( not ( = ?auto_84062 ?auto_84067 ) ) ( not ( = ?auto_84063 ?auto_84064 ) ) ( not ( = ?auto_84063 ?auto_84065 ) ) ( not ( = ?auto_84063 ?auto_84066 ) ) ( not ( = ?auto_84063 ?auto_84067 ) ) ( not ( = ?auto_84064 ?auto_84065 ) ) ( not ( = ?auto_84064 ?auto_84066 ) ) ( not ( = ?auto_84064 ?auto_84067 ) ) ( not ( = ?auto_84065 ?auto_84066 ) ) ( not ( = ?auto_84065 ?auto_84067 ) ) ( not ( = ?auto_84066 ?auto_84067 ) ) ( not ( = ?auto_84062 ?auto_84069 ) ) ( not ( = ?auto_84063 ?auto_84069 ) ) ( not ( = ?auto_84064 ?auto_84069 ) ) ( not ( = ?auto_84065 ?auto_84069 ) ) ( not ( = ?auto_84066 ?auto_84069 ) ) ( not ( = ?auto_84067 ?auto_84069 ) ) ( ON-TABLE ?auto_84069 ) ( ON ?auto_84062 ?auto_84068 ) ( not ( = ?auto_84062 ?auto_84068 ) ) ( not ( = ?auto_84063 ?auto_84068 ) ) ( not ( = ?auto_84064 ?auto_84068 ) ) ( not ( = ?auto_84065 ?auto_84068 ) ) ( not ( = ?auto_84066 ?auto_84068 ) ) ( not ( = ?auto_84067 ?auto_84068 ) ) ( not ( = ?auto_84069 ?auto_84068 ) ) ( ON ?auto_84063 ?auto_84062 ) ( ON-TABLE ?auto_84068 ) ( ON ?auto_84064 ?auto_84063 ) ( ON ?auto_84065 ?auto_84064 ) ( ON ?auto_84066 ?auto_84065 ) ( CLEAR ?auto_84069 ) ( ON ?auto_84067 ?auto_84066 ) ( CLEAR ?auto_84067 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_84062 ?auto_84063 ) ) ( not ( = ?auto_84062 ?auto_84064 ) ) ( not ( = ?auto_84062 ?auto_84065 ) ) ( not ( = ?auto_84062 ?auto_84066 ) ) ( not ( = ?auto_84062 ?auto_84067 ) ) ( not ( = ?auto_84063 ?auto_84064 ) ) ( not ( = ?auto_84063 ?auto_84065 ) ) ( not ( = ?auto_84063 ?auto_84066 ) ) ( not ( = ?auto_84063 ?auto_84067 ) ) ( not ( = ?auto_84064 ?auto_84065 ) ) ( not ( = ?auto_84064 ?auto_84066 ) ) ( not ( = ?auto_84064 ?auto_84067 ) ) ( not ( = ?auto_84065 ?auto_84066 ) ) ( not ( = ?auto_84065 ?auto_84067 ) ) ( not ( = ?auto_84066 ?auto_84067 ) ) ( not ( = ?auto_84062 ?auto_84068 ) ) ( not ( = ?auto_84063 ?auto_84068 ) ) ( not ( = ?auto_84064 ?auto_84068 ) ) ( not ( = ?auto_84065 ?auto_84068 ) ) ( not ( = ?auto_84066 ?auto_84068 ) ) ( not ( = ?auto_84067 ?auto_84068 ) ) ( ON-TABLE ?auto_84068 ) ( ON ?auto_84062 ?auto_84069 ) ( not ( = ?auto_84062 ?auto_84069 ) ) ( not ( = ?auto_84063 ?auto_84069 ) ) ( not ( = ?auto_84064 ?auto_84069 ) ) ( not ( = ?auto_84065 ?auto_84069 ) ) ( not ( = ?auto_84066 ?auto_84069 ) ) ( not ( = ?auto_84067 ?auto_84069 ) ) ( not ( = ?auto_84068 ?auto_84069 ) ) ( ON ?auto_84063 ?auto_84062 ) ( ON-TABLE ?auto_84069 ) ( ON ?auto_84064 ?auto_84063 ) ( ON ?auto_84065 ?auto_84064 ) ( ON ?auto_84066 ?auto_84065 ) ( CLEAR ?auto_84068 ) ( ON ?auto_84067 ?auto_84066 ) ( CLEAR ?auto_84067 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-6PILE ?auto_84068 ?auto_84062 ?auto_84063 ?auto_84064 ?auto_84065 ?auto_84066 )
+    ( ( MAKE-6PILE ?auto_84069 ?auto_84062 ?auto_84063 ?auto_84064 ?auto_84065 ?auto_84066 )
       ( MAKE-6PILE ?auto_84062 ?auto_84063 ?auto_84064 ?auto_84065 ?auto_84066 ?auto_84067 ) )
   )
 
@@ -7178,13 +7178,13 @@
     )
     :vars
     (
-      ?auto_84077 - BLOCK
       ?auto_84076 - BLOCK
+      ?auto_84077 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_84070 ?auto_84071 ) ) ( not ( = ?auto_84070 ?auto_84072 ) ) ( not ( = ?auto_84070 ?auto_84073 ) ) ( not ( = ?auto_84070 ?auto_84074 ) ) ( not ( = ?auto_84070 ?auto_84075 ) ) ( not ( = ?auto_84071 ?auto_84072 ) ) ( not ( = ?auto_84071 ?auto_84073 ) ) ( not ( = ?auto_84071 ?auto_84074 ) ) ( not ( = ?auto_84071 ?auto_84075 ) ) ( not ( = ?auto_84072 ?auto_84073 ) ) ( not ( = ?auto_84072 ?auto_84074 ) ) ( not ( = ?auto_84072 ?auto_84075 ) ) ( not ( = ?auto_84073 ?auto_84074 ) ) ( not ( = ?auto_84073 ?auto_84075 ) ) ( not ( = ?auto_84074 ?auto_84075 ) ) ( not ( = ?auto_84070 ?auto_84077 ) ) ( not ( = ?auto_84071 ?auto_84077 ) ) ( not ( = ?auto_84072 ?auto_84077 ) ) ( not ( = ?auto_84073 ?auto_84077 ) ) ( not ( = ?auto_84074 ?auto_84077 ) ) ( not ( = ?auto_84075 ?auto_84077 ) ) ( ON ?auto_84070 ?auto_84076 ) ( not ( = ?auto_84070 ?auto_84076 ) ) ( not ( = ?auto_84071 ?auto_84076 ) ) ( not ( = ?auto_84072 ?auto_84076 ) ) ( not ( = ?auto_84073 ?auto_84076 ) ) ( not ( = ?auto_84074 ?auto_84076 ) ) ( not ( = ?auto_84075 ?auto_84076 ) ) ( not ( = ?auto_84077 ?auto_84076 ) ) ( ON ?auto_84071 ?auto_84070 ) ( ON-TABLE ?auto_84076 ) ( ON ?auto_84072 ?auto_84071 ) ( ON ?auto_84073 ?auto_84072 ) ( ON ?auto_84074 ?auto_84073 ) ( ON ?auto_84075 ?auto_84074 ) ( CLEAR ?auto_84075 ) ( HOLDING ?auto_84077 ) )
+    ( and ( not ( = ?auto_84070 ?auto_84071 ) ) ( not ( = ?auto_84070 ?auto_84072 ) ) ( not ( = ?auto_84070 ?auto_84073 ) ) ( not ( = ?auto_84070 ?auto_84074 ) ) ( not ( = ?auto_84070 ?auto_84075 ) ) ( not ( = ?auto_84071 ?auto_84072 ) ) ( not ( = ?auto_84071 ?auto_84073 ) ) ( not ( = ?auto_84071 ?auto_84074 ) ) ( not ( = ?auto_84071 ?auto_84075 ) ) ( not ( = ?auto_84072 ?auto_84073 ) ) ( not ( = ?auto_84072 ?auto_84074 ) ) ( not ( = ?auto_84072 ?auto_84075 ) ) ( not ( = ?auto_84073 ?auto_84074 ) ) ( not ( = ?auto_84073 ?auto_84075 ) ) ( not ( = ?auto_84074 ?auto_84075 ) ) ( not ( = ?auto_84070 ?auto_84076 ) ) ( not ( = ?auto_84071 ?auto_84076 ) ) ( not ( = ?auto_84072 ?auto_84076 ) ) ( not ( = ?auto_84073 ?auto_84076 ) ) ( not ( = ?auto_84074 ?auto_84076 ) ) ( not ( = ?auto_84075 ?auto_84076 ) ) ( ON ?auto_84070 ?auto_84077 ) ( not ( = ?auto_84070 ?auto_84077 ) ) ( not ( = ?auto_84071 ?auto_84077 ) ) ( not ( = ?auto_84072 ?auto_84077 ) ) ( not ( = ?auto_84073 ?auto_84077 ) ) ( not ( = ?auto_84074 ?auto_84077 ) ) ( not ( = ?auto_84075 ?auto_84077 ) ) ( not ( = ?auto_84076 ?auto_84077 ) ) ( ON ?auto_84071 ?auto_84070 ) ( ON-TABLE ?auto_84077 ) ( ON ?auto_84072 ?auto_84071 ) ( ON ?auto_84073 ?auto_84072 ) ( ON ?auto_84074 ?auto_84073 ) ( ON ?auto_84075 ?auto_84074 ) ( CLEAR ?auto_84075 ) ( HOLDING ?auto_84076 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_84077 )
+    ( ( MAKE-1PILE ?auto_84076 )
       ( MAKE-6PILE ?auto_84070 ?auto_84071 ?auto_84072 ?auto_84073 ?auto_84074 ?auto_84075 ) )
   )
 
@@ -7200,13 +7200,13 @@
     )
     :vars
     (
-      ?auto_84085 - BLOCK
       ?auto_84084 - BLOCK
+      ?auto_84085 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_84078 ?auto_84079 ) ) ( not ( = ?auto_84078 ?auto_84080 ) ) ( not ( = ?auto_84078 ?auto_84081 ) ) ( not ( = ?auto_84078 ?auto_84082 ) ) ( not ( = ?auto_84078 ?auto_84083 ) ) ( not ( = ?auto_84079 ?auto_84080 ) ) ( not ( = ?auto_84079 ?auto_84081 ) ) ( not ( = ?auto_84079 ?auto_84082 ) ) ( not ( = ?auto_84079 ?auto_84083 ) ) ( not ( = ?auto_84080 ?auto_84081 ) ) ( not ( = ?auto_84080 ?auto_84082 ) ) ( not ( = ?auto_84080 ?auto_84083 ) ) ( not ( = ?auto_84081 ?auto_84082 ) ) ( not ( = ?auto_84081 ?auto_84083 ) ) ( not ( = ?auto_84082 ?auto_84083 ) ) ( not ( = ?auto_84078 ?auto_84085 ) ) ( not ( = ?auto_84079 ?auto_84085 ) ) ( not ( = ?auto_84080 ?auto_84085 ) ) ( not ( = ?auto_84081 ?auto_84085 ) ) ( not ( = ?auto_84082 ?auto_84085 ) ) ( not ( = ?auto_84083 ?auto_84085 ) ) ( ON ?auto_84078 ?auto_84084 ) ( not ( = ?auto_84078 ?auto_84084 ) ) ( not ( = ?auto_84079 ?auto_84084 ) ) ( not ( = ?auto_84080 ?auto_84084 ) ) ( not ( = ?auto_84081 ?auto_84084 ) ) ( not ( = ?auto_84082 ?auto_84084 ) ) ( not ( = ?auto_84083 ?auto_84084 ) ) ( not ( = ?auto_84085 ?auto_84084 ) ) ( ON ?auto_84079 ?auto_84078 ) ( ON-TABLE ?auto_84084 ) ( ON ?auto_84080 ?auto_84079 ) ( ON ?auto_84081 ?auto_84080 ) ( ON ?auto_84082 ?auto_84081 ) ( ON ?auto_84083 ?auto_84082 ) ( ON ?auto_84085 ?auto_84083 ) ( CLEAR ?auto_84085 ) ( HAND-EMPTY ) )
+    ( and ( not ( = ?auto_84078 ?auto_84079 ) ) ( not ( = ?auto_84078 ?auto_84080 ) ) ( not ( = ?auto_84078 ?auto_84081 ) ) ( not ( = ?auto_84078 ?auto_84082 ) ) ( not ( = ?auto_84078 ?auto_84083 ) ) ( not ( = ?auto_84079 ?auto_84080 ) ) ( not ( = ?auto_84079 ?auto_84081 ) ) ( not ( = ?auto_84079 ?auto_84082 ) ) ( not ( = ?auto_84079 ?auto_84083 ) ) ( not ( = ?auto_84080 ?auto_84081 ) ) ( not ( = ?auto_84080 ?auto_84082 ) ) ( not ( = ?auto_84080 ?auto_84083 ) ) ( not ( = ?auto_84081 ?auto_84082 ) ) ( not ( = ?auto_84081 ?auto_84083 ) ) ( not ( = ?auto_84082 ?auto_84083 ) ) ( not ( = ?auto_84078 ?auto_84084 ) ) ( not ( = ?auto_84079 ?auto_84084 ) ) ( not ( = ?auto_84080 ?auto_84084 ) ) ( not ( = ?auto_84081 ?auto_84084 ) ) ( not ( = ?auto_84082 ?auto_84084 ) ) ( not ( = ?auto_84083 ?auto_84084 ) ) ( ON ?auto_84078 ?auto_84085 ) ( not ( = ?auto_84078 ?auto_84085 ) ) ( not ( = ?auto_84079 ?auto_84085 ) ) ( not ( = ?auto_84080 ?auto_84085 ) ) ( not ( = ?auto_84081 ?auto_84085 ) ) ( not ( = ?auto_84082 ?auto_84085 ) ) ( not ( = ?auto_84083 ?auto_84085 ) ) ( not ( = ?auto_84084 ?auto_84085 ) ) ( ON ?auto_84079 ?auto_84078 ) ( ON-TABLE ?auto_84085 ) ( ON ?auto_84080 ?auto_84079 ) ( ON ?auto_84081 ?auto_84080 ) ( ON ?auto_84082 ?auto_84081 ) ( ON ?auto_84083 ?auto_84082 ) ( ON ?auto_84084 ?auto_84083 ) ( CLEAR ?auto_84084 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-7PILE ?auto_84084 ?auto_84078 ?auto_84079 ?auto_84080 ?auto_84081 ?auto_84082 ?auto_84083 )
+    ( ( MAKE-7PILE ?auto_84085 ?auto_84078 ?auto_84079 ?auto_84080 ?auto_84081 ?auto_84082 ?auto_84083 )
       ( MAKE-6PILE ?auto_84078 ?auto_84079 ?auto_84080 ?auto_84081 ?auto_84082 ?auto_84083 ) )
   )
 

@@ -166,13 +166,13 @@
     )
     :vars
     (
-      ?auto_979 - BLOCK
       ?auto_978 - BLOCK
+      ?auto_979 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_979 ?auto_977 ) ( ON-TABLE ?auto_977 ) ( not ( = ?auto_977 ?auto_979 ) ) ( not ( = ?auto_977 ?auto_978 ) ) ( not ( = ?auto_979 ?auto_978 ) ) ( ON ?auto_978 ?auto_979 ) ( CLEAR ?auto_978 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_978 ?auto_977 ) ( ON-TABLE ?auto_977 ) ( not ( = ?auto_977 ?auto_978 ) ) ( not ( = ?auto_977 ?auto_979 ) ) ( not ( = ?auto_978 ?auto_979 ) ) ( ON ?auto_979 ?auto_978 ) ( CLEAR ?auto_979 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_977 ?auto_979 )
+    ( ( MAKE-2PILE ?auto_977 ?auto_978 )
       ( MAKE-1PILE ?auto_977 ) )
   )
 

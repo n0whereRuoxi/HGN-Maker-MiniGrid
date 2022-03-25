@@ -2,68 +2,68 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b607 - block
-    b309 - block
-    b835 - block
-    b151 - block
-    b646 - block
-    b593 - block
-    b977 - block
-    b371 - block
-    b29 - block
-    b932 - block
-    b328 - block
-    b612 - block
-    b924 - block
-    b491 - block
-    b535 - block
-    b778 - block
-    b494 - block
-    b682 - block
-    b180 - block
-    b823 - block
-    b697 - block
-    b395 - block
-    b776 - block
-    b43 - block
-    b878 - block
-    b175 - block
-    b845 - block
+    b984 - block
+    b238 - block
+    b613 - block
+    b968 - block
+    b583 - block
+    b961 - block
+    b515 - block
+    b767 - block
+    b936 - block
+    b481 - block
+    b433 - block
+    b219 - block
+    b834 - block
+    b960 - block
+    b77 - block
+    b753 - block
+    b45 - block
+    b369 - block
+    b640 - block
+    b138 - block
+    b572 - block
+    b325 - block
+    b366 - block
+    b374 - block
+    b617 - block
+    b895 - block
+    b994 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b607 )
-    ( on b309 b607 )
-    ( on b835 b309 )
-    ( on b151 b835 )
-    ( on b646 b151 )
-    ( on b593 b646 )
-    ( on b977 b593 )
-    ( on b371 b977 )
-    ( on b29 b371 )
-    ( on b932 b29 )
-    ( on b328 b932 )
-    ( on b612 b328 )
-    ( on b924 b612 )
-    ( on b491 b924 )
-    ( on b535 b491 )
-    ( on b778 b535 )
-    ( on b494 b778 )
-    ( on b682 b494 )
-    ( on b180 b682 )
-    ( on b823 b180 )
-    ( on b697 b823 )
-    ( on b395 b697 )
-    ( on b776 b395 )
-    ( on b43 b776 )
-    ( on b878 b43 )
-    ( on b175 b878 )
-    ( on b845 b175 )
-    ( clear b845 )
+    ( on-table b984 )
+    ( on b238 b984 )
+    ( on b613 b238 )
+    ( on b968 b613 )
+    ( on b583 b968 )
+    ( on b961 b583 )
+    ( on b515 b961 )
+    ( on b767 b515 )
+    ( on b936 b767 )
+    ( on b481 b936 )
+    ( on b433 b481 )
+    ( on b219 b433 )
+    ( on b834 b219 )
+    ( on b960 b834 )
+    ( on b77 b960 )
+    ( on b753 b77 )
+    ( on b45 b753 )
+    ( on b369 b45 )
+    ( on b640 b369 )
+    ( on b138 b640 )
+    ( on b572 b138 )
+    ( on b325 b572 )
+    ( on b366 b325 )
+    ( on b374 b366 )
+    ( on b617 b374 )
+    ( on b895 b617 )
+    ( on b994 b895 )
+    ( clear b994 )
   )
   ( :goal
     ( and
-      ( clear b607 )
+      ( clear b984 )
     )
   )
 )

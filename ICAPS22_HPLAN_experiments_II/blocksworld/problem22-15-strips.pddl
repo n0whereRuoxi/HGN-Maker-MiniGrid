@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b493 - block
-    b261 - block
-    b708 - block
-    b748 - block
-    b4 - block
-    b14 - block
-    b772 - block
-    b873 - block
-    b512 - block
-    b870 - block
-    b524 - block
-    b964 - block
-    b568 - block
-    b707 - block
-    b37 - block
-    b645 - block
-    b130 - block
-    b537 - block
-    b352 - block
-    b155 - block
-    b932 - block
-    b919 - block
-    b750 - block
+    b114 - block
+    b71 - block
+    b749 - block
+    b790 - block
+    b49 - block
+    b732 - block
+    b445 - block
+    b557 - block
+    b274 - block
+    b815 - block
+    b644 - block
+    b328 - block
+    b673 - block
+    b481 - block
+    b446 - block
+    b921 - block
+    b484 - block
+    b690 - block
+    b933 - block
+    b876 - block
+    b814 - block
+    b797 - block
+    b729 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b493 )
-    ( on b261 b493 )
-    ( on b708 b261 )
-    ( on b748 b708 )
-    ( on b4 b748 )
-    ( on b14 b4 )
-    ( on b772 b14 )
-    ( on b873 b772 )
-    ( on b512 b873 )
-    ( on b870 b512 )
-    ( on b524 b870 )
-    ( on b964 b524 )
-    ( on b568 b964 )
-    ( on b707 b568 )
-    ( on b37 b707 )
-    ( on b645 b37 )
-    ( on b130 b645 )
-    ( on b537 b130 )
-    ( on b352 b537 )
-    ( on b155 b352 )
-    ( on b932 b155 )
-    ( on b919 b932 )
-    ( on b750 b919 )
-    ( clear b750 )
+    ( on-table b114 )
+    ( on b71 b114 )
+    ( on b749 b71 )
+    ( on b790 b749 )
+    ( on b49 b790 )
+    ( on b732 b49 )
+    ( on b445 b732 )
+    ( on b557 b445 )
+    ( on b274 b557 )
+    ( on b815 b274 )
+    ( on b644 b815 )
+    ( on b328 b644 )
+    ( on b673 b328 )
+    ( on b481 b673 )
+    ( on b446 b481 )
+    ( on b921 b446 )
+    ( on b484 b921 )
+    ( on b690 b484 )
+    ( on b933 b690 )
+    ( on b876 b933 )
+    ( on b814 b876 )
+    ( on b797 b814 )
+    ( on b729 b797 )
+    ( clear b729 )
   )
   ( :goal
     ( and
-      ( clear b493 )
+      ( clear b114 )
     )
   )
 )

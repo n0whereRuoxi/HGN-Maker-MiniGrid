@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b790 - block
-    b559 - block
-    b67 - block
-    b36 - block
-    b933 - block
-    b433 - block
-    b184 - block
-    b696 - block
-    b715 - block
-    b527 - block
+    b899 - block
+    b309 - block
+    b29 - block
+    b553 - block
+    b929 - block
+    b781 - block
+    b198 - block
+    b844 - block
+    b282 - block
+    b882 - block
+    b49 - block
+    b938 - block
+    b179 - block
+    b211 - block
+    b799 - block
+    b344 - block
+    b617 - block
     b374 - block
-    b59 - block
-    b958 - block
-    b546 - block
-    b741 - block
-    b238 - block
-    b148 - block
-    b14 - block
-    b671 - block
-    b675 - block
-    b334 - block
-    b935 - block
-    b930 - block
+    b281 - block
+    b242 - block
+    b326 - block
+    b328 - block
+    b266 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b790 )
-    ( on b559 b790 )
-    ( on b67 b559 )
-    ( on b36 b67 )
-    ( on b933 b36 )
-    ( on b433 b933 )
-    ( on b184 b433 )
-    ( on b696 b184 )
-    ( on b715 b696 )
-    ( on b527 b715 )
-    ( on b374 b527 )
-    ( on b59 b374 )
-    ( on b958 b59 )
-    ( on b546 b958 )
-    ( on b741 b546 )
-    ( on b238 b741 )
-    ( on b148 b238 )
-    ( on b14 b148 )
-    ( on b671 b14 )
-    ( on b675 b671 )
-    ( on b334 b675 )
-    ( on b935 b334 )
-    ( on b930 b935 )
-    ( clear b930 )
+    ( on-table b899 )
+    ( on b309 b899 )
+    ( on b29 b309 )
+    ( on b553 b29 )
+    ( on b929 b553 )
+    ( on b781 b929 )
+    ( on b198 b781 )
+    ( on b844 b198 )
+    ( on b282 b844 )
+    ( on b882 b282 )
+    ( on b49 b882 )
+    ( on b938 b49 )
+    ( on b179 b938 )
+    ( on b211 b179 )
+    ( on b799 b211 )
+    ( on b344 b799 )
+    ( on b617 b344 )
+    ( on b374 b617 )
+    ( on b281 b374 )
+    ( on b242 b281 )
+    ( on b326 b242 )
+    ( on b328 b326 )
+    ( on b266 b328 )
+    ( clear b266 )
   )
   ( :goal
     ( and
-      ( clear b790 )
+      ( clear b899 )
     )
   )
 )

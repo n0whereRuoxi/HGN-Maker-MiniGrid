@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b261 - block
-    b480 - block
-    b770 - block
-    b692 - block
-    b871 - block
-    b968 - block
+    b771 - block
+    b78 - block
+    b782 - block
+    b701 - block
+    b568 - block
+    b728 - block
+    b967 - block
+    b277 - block
+    b347 - block
+    b551 - block
+    b467 - block
+    b27 - block
+    b581 - block
     b501 - block
-    b124 - block
-    b385 - block
-    b210 - block
-    b355 - block
-    b994 - block
-    b711 - block
-    b89 - block
-    b614 - block
-    b639 - block
-    b587 - block
-    b881 - block
-    b703 - block
-    b950 - block
-    b974 - block
-    b68 - block
-    b598 - block
+    b42 - block
+    b504 - block
+    b732 - block
+    b884 - block
+    b665 - block
+    b123 - block
+    b754 - block
+    b828 - block
+    b493 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b261 )
-    ( on b480 b261 )
-    ( on b770 b480 )
-    ( on b692 b770 )
-    ( on b871 b692 )
-    ( on b968 b871 )
-    ( on b501 b968 )
-    ( on b124 b501 )
-    ( on b385 b124 )
-    ( on b210 b385 )
-    ( on b355 b210 )
-    ( on b994 b355 )
-    ( on b711 b994 )
-    ( on b89 b711 )
-    ( on b614 b89 )
-    ( on b639 b614 )
-    ( on b587 b639 )
-    ( on b881 b587 )
-    ( on b703 b881 )
-    ( on b950 b703 )
-    ( on b974 b950 )
-    ( on b68 b974 )
-    ( on b598 b68 )
-    ( clear b598 )
+    ( on-table b771 )
+    ( on b78 b771 )
+    ( on b782 b78 )
+    ( on b701 b782 )
+    ( on b568 b701 )
+    ( on b728 b568 )
+    ( on b967 b728 )
+    ( on b277 b967 )
+    ( on b347 b277 )
+    ( on b551 b347 )
+    ( on b467 b551 )
+    ( on b27 b467 )
+    ( on b581 b27 )
+    ( on b501 b581 )
+    ( on b42 b501 )
+    ( on b504 b42 )
+    ( on b732 b504 )
+    ( on b884 b732 )
+    ( on b665 b884 )
+    ( on b123 b665 )
+    ( on b754 b123 )
+    ( on b828 b754 )
+    ( on b493 b828 )
+    ( clear b493 )
   )
   ( :goal
     ( and
-      ( clear b261 )
+      ( clear b771 )
     )
   )
 )

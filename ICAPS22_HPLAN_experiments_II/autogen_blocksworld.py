@@ -17,7 +17,7 @@ def generateProblemsAndSolutions(num,times):
 def writeHTNProblem(j, blocksIdx):
     fname = 'blocksworld/problem{}-{}-htn.pddl'.format(len(blocksIdx)-1, j)
     file = open(fname,"w") 
-    writeHeader(file)
+    writeHTNHeader(file)
     writeObjects(file, blocksIdx)
     writeInit(file, blocksIdx)
     writeTasksInProblem(file, blocksIdx)
@@ -36,6 +36,11 @@ def writeProblem(j, blocksIdx):
     writeInit(file, blocksIdx)
     writeGoal(file, blocksIdx)
     file.write(")\n")
+
+def writeHTNHeader(file):
+    file.write("( define ( htn-problem probname )\n")
+    file.write("  ( :domain blocks4 )\n")
+    file.write("  ( :requirements :strips :htn :typing :equality )\n")
 
 def writeHeader(file):
     file.write("( define ( problem probname )\n")

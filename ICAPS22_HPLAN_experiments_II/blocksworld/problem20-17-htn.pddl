@@ -1,55 +1,55 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain blocks4 )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
-    b892 - block
-    b490 - block
-    b218 - block
-    b734 - block
-    b87 - block
-    b62 - block
-    b422 - block
-    b618 - block
-    b288 - block
-    b213 - block
+    b625 - block
+    b837 - block
+    b154 - block
+    b498 - block
+    b682 - block
+    b692 - block
+    b560 - block
+    b162 - block
+    b240 - block
+    b96 - block
+    b816 - block
+    b706 - block
+    b860 - block
+    b405 - block
+    b556 - block
     b850 - block
-    b803 - block
-    b963 - block
-    b251 - block
-    b964 - block
-    b661 - block
-    b737 - block
-    b217 - block
-    b426 - block
-    b720 - block
-    b865 - block
+    b362 - block
+    b867 - block
+    b52 - block
+    b626 - block
+    b275 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b892 )
-    ( on b490 b892 )
-    ( on b218 b490 )
-    ( on b734 b218 )
-    ( on b87 b734 )
-    ( on b62 b87 )
-    ( on b422 b62 )
-    ( on b618 b422 )
-    ( on b288 b618 )
-    ( on b213 b288 )
-    ( on b850 b213 )
-    ( on b803 b850 )
-    ( on b963 b803 )
-    ( on b251 b963 )
-    ( on b964 b251 )
-    ( on b661 b964 )
-    ( on b737 b661 )
-    ( on b217 b737 )
-    ( on b426 b217 )
-    ( on b720 b426 )
-    ( on b865 b720 )
-    ( clear b865 )
+    ( on-table b625 )
+    ( on b837 b625 )
+    ( on b154 b837 )
+    ( on b498 b154 )
+    ( on b682 b498 )
+    ( on b692 b682 )
+    ( on b560 b692 )
+    ( on b162 b560 )
+    ( on b240 b162 )
+    ( on b96 b240 )
+    ( on b816 b96 )
+    ( on b706 b816 )
+    ( on b860 b706 )
+    ( on b405 b860 )
+    ( on b556 b405 )
+    ( on b850 b556 )
+    ( on b362 b850 )
+    ( on b867 b362 )
+    ( on b52 b867 )
+    ( on b626 b52 )
+    ( on b275 b626 )
+    ( clear b275 )
   )
   ( :tasks
-    ( Make-20Pile b490 b218 b734 b87 b62 b422 b618 b288 b213 b850 b803 b963 b251 b964 b661 b737 b217 b426 b720 b865 )
+    ( Make-20Pile b837 b154 b498 b682 b692 b560 b162 b240 b96 b816 b706 b860 b405 b556 b850 b362 b867 b52 b626 b275 )
   )
 )

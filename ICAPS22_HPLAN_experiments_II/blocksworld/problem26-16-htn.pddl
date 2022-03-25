@@ -1,67 +1,67 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain blocks4 )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
-    b83 - block
-    b198 - block
-    b917 - block
-    b972 - block
-    b538 - block
-    b622 - block
-    b965 - block
-    b15 - block
-    b650 - block
-    b50 - block
-    b579 - block
-    b612 - block
-    b153 - block
-    b847 - block
-    b937 - block
-    b955 - block
-    b444 - block
-    b159 - block
-    b353 - block
-    b939 - block
-    b387 - block
-    b48 - block
-    b344 - block
-    b532 - block
-    b865 - block
-    b61 - block
-    b80 - block
+    b116 - block
+    b869 - block
+    b167 - block
+    b335 - block
+    b309 - block
+    b137 - block
+    b823 - block
+    b548 - block
+    b522 - block
+    b297 - block
+    b756 - block
+    b572 - block
+    b500 - block
+    b325 - block
+    b337 - block
+    b788 - block
+    b24 - block
+    b130 - block
+    b829 - block
+    b291 - block
+    b927 - block
+    b787 - block
+    b171 - block
+    b101 - block
+    b134 - block
+    b143 - block
+    b800 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b83 )
-    ( on b198 b83 )
-    ( on b917 b198 )
-    ( on b972 b917 )
-    ( on b538 b972 )
-    ( on b622 b538 )
-    ( on b965 b622 )
-    ( on b15 b965 )
-    ( on b650 b15 )
-    ( on b50 b650 )
-    ( on b579 b50 )
-    ( on b612 b579 )
-    ( on b153 b612 )
-    ( on b847 b153 )
-    ( on b937 b847 )
-    ( on b955 b937 )
-    ( on b444 b955 )
-    ( on b159 b444 )
-    ( on b353 b159 )
-    ( on b939 b353 )
-    ( on b387 b939 )
-    ( on b48 b387 )
-    ( on b344 b48 )
-    ( on b532 b344 )
-    ( on b865 b532 )
-    ( on b61 b865 )
-    ( on b80 b61 )
-    ( clear b80 )
+    ( on-table b116 )
+    ( on b869 b116 )
+    ( on b167 b869 )
+    ( on b335 b167 )
+    ( on b309 b335 )
+    ( on b137 b309 )
+    ( on b823 b137 )
+    ( on b548 b823 )
+    ( on b522 b548 )
+    ( on b297 b522 )
+    ( on b756 b297 )
+    ( on b572 b756 )
+    ( on b500 b572 )
+    ( on b325 b500 )
+    ( on b337 b325 )
+    ( on b788 b337 )
+    ( on b24 b788 )
+    ( on b130 b24 )
+    ( on b829 b130 )
+    ( on b291 b829 )
+    ( on b927 b291 )
+    ( on b787 b927 )
+    ( on b171 b787 )
+    ( on b101 b171 )
+    ( on b134 b101 )
+    ( on b143 b134 )
+    ( on b800 b143 )
+    ( clear b800 )
   )
   ( :tasks
-    ( Make-26Pile b198 b917 b972 b538 b622 b965 b15 b650 b50 b579 b612 b153 b847 b937 b955 b444 b159 b353 b939 b387 b48 b344 b532 b865 b61 b80 )
+    ( Make-26Pile b869 b167 b335 b309 b137 b823 b548 b522 b297 b756 b572 b500 b325 b337 b788 b24 b130 b829 b291 b927 b787 b171 b101 b134 b143 b800 )
   )
 )

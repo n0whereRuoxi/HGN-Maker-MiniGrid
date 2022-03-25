@@ -2,60 +2,60 @@
   ( :domain blocks4 )
   ( :requirements :strips :typing :equality )
   ( :objects
-    b674 - block
-    b79 - block
-    b964 - block
-    b308 - block
-    b479 - block
-    b651 - block
-    b675 - block
-    b431 - block
-    b998 - block
-    b804 - block
-    b857 - block
-    b844 - block
-    b227 - block
-    b217 - block
-    b28 - block
-    b15 - block
-    b381 - block
-    b196 - block
-    b888 - block
-    b401 - block
-    b729 - block
-    b538 - block
-    b902 - block
+    b633 - block
+    b645 - block
+    b954 - block
+    b709 - block
+    b858 - block
+    b362 - block
+    b440 - block
+    b50 - block
+    b683 - block
+    b926 - block
+    b9 - block
+    b849 - block
+    b370 - block
+    b475 - block
+    b929 - block
+    b560 - block
+    b285 - block
+    b911 - block
+    b309 - block
+    b893 - block
+    b939 - block
+    b778 - block
+    b55 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b674 )
-    ( on b79 b674 )
-    ( on b964 b79 )
-    ( on b308 b964 )
-    ( on b479 b308 )
-    ( on b651 b479 )
-    ( on b675 b651 )
-    ( on b431 b675 )
-    ( on b998 b431 )
-    ( on b804 b998 )
-    ( on b857 b804 )
-    ( on b844 b857 )
-    ( on b227 b844 )
-    ( on b217 b227 )
-    ( on b28 b217 )
-    ( on b15 b28 )
-    ( on b381 b15 )
-    ( on b196 b381 )
-    ( on b888 b196 )
-    ( on b401 b888 )
-    ( on b729 b401 )
-    ( on b538 b729 )
-    ( on b902 b538 )
-    ( clear b902 )
+    ( on-table b633 )
+    ( on b645 b633 )
+    ( on b954 b645 )
+    ( on b709 b954 )
+    ( on b858 b709 )
+    ( on b362 b858 )
+    ( on b440 b362 )
+    ( on b50 b440 )
+    ( on b683 b50 )
+    ( on b926 b683 )
+    ( on b9 b926 )
+    ( on b849 b9 )
+    ( on b370 b849 )
+    ( on b475 b370 )
+    ( on b929 b475 )
+    ( on b560 b929 )
+    ( on b285 b560 )
+    ( on b911 b285 )
+    ( on b309 b911 )
+    ( on b893 b309 )
+    ( on b939 b893 )
+    ( on b778 b939 )
+    ( on b55 b778 )
+    ( clear b55 )
   )
   ( :goal
     ( and
-      ( clear b674 )
+      ( clear b633 )
     )
   )
 )

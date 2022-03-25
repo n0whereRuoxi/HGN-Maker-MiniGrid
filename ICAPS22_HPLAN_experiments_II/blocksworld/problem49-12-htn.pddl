@@ -1,113 +1,113 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain blocks4 )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
-    b724 - block
-    b641 - block
-    b123 - block
-    b761 - block
-    b807 - block
-    b499 - block
-    b888 - block
-    b141 - block
-    b287 - block
-    b898 - block
-    b620 - block
-    b163 - block
-    b575 - block
-    b484 - block
-    b783 - block
-    b465 - block
-    b699 - block
-    b698 - block
-    b352 - block
-    b903 - block
-    b145 - block
-    b837 - block
-    b378 - block
-    b795 - block
-    b518 - block
-    b487 - block
-    b265 - block
-    b325 - block
-    b880 - block
-    b276 - block
-    b555 - block
-    b414 - block
-    b125 - block
-    b891 - block
-    b456 - block
-    b987 - block
-    b199 - block
+    b263 - block
+    b763 - block
+    b886 - block
+    b248 - block
+    b231 - block
+    b39 - block
+    b779 - block
+    b234 - block
+    b772 - block
+    b71 - block
+    b652 - block
+    b850 - block
+    b495 - block
+    b730 - block
+    b312 - block
+    b829 - block
     b789 - block
-    b601 - block
-    b327 - block
-    b705 - block
-    b496 - block
-    b824 - block
-    b111 - block
-    b184 - block
-    b209 - block
-    b295 - block
-    b645 - block
-    b381 - block
-    b78 - block
+    b982 - block
+    b814 - block
+    b198 - block
+    b640 - block
+    b82 - block
+    b849 - block
+    b843 - block
+    b813 - block
+    b469 - block
+    b186 - block
+    b482 - block
+    b608 - block
+    b927 - block
+    b797 - block
+    b684 - block
+    b126 - block
+    b36 - block
+    b574 - block
+    b756 - block
+    b282 - block
+    b931 - block
+    b144 - block
+    b483 - block
+    b838 - block
+    b960 - block
+    b377 - block
+    b928 - block
+    b494 - block
+    b187 - block
+    b271 - block
+    b528 - block
+    b910 - block
+    b590 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b724 )
-    ( on b641 b724 )
-    ( on b123 b641 )
-    ( on b761 b123 )
-    ( on b807 b761 )
-    ( on b499 b807 )
-    ( on b888 b499 )
-    ( on b141 b888 )
-    ( on b287 b141 )
-    ( on b898 b287 )
-    ( on b620 b898 )
-    ( on b163 b620 )
-    ( on b575 b163 )
-    ( on b484 b575 )
-    ( on b783 b484 )
-    ( on b465 b783 )
-    ( on b699 b465 )
-    ( on b698 b699 )
-    ( on b352 b698 )
-    ( on b903 b352 )
-    ( on b145 b903 )
-    ( on b837 b145 )
-    ( on b378 b837 )
-    ( on b795 b378 )
-    ( on b518 b795 )
-    ( on b487 b518 )
-    ( on b265 b487 )
-    ( on b325 b265 )
-    ( on b880 b325 )
-    ( on b276 b880 )
-    ( on b555 b276 )
-    ( on b414 b555 )
-    ( on b125 b414 )
-    ( on b891 b125 )
-    ( on b456 b891 )
-    ( on b987 b456 )
-    ( on b199 b987 )
-    ( on b789 b199 )
-    ( on b601 b789 )
-    ( on b327 b601 )
-    ( on b705 b327 )
-    ( on b496 b705 )
-    ( on b824 b496 )
-    ( on b111 b824 )
-    ( on b184 b111 )
-    ( on b209 b184 )
-    ( on b295 b209 )
-    ( on b645 b295 )
-    ( on b381 b645 )
-    ( on b78 b381 )
-    ( clear b78 )
+    ( on-table b263 )
+    ( on b763 b263 )
+    ( on b886 b763 )
+    ( on b248 b886 )
+    ( on b231 b248 )
+    ( on b39 b231 )
+    ( on b779 b39 )
+    ( on b234 b779 )
+    ( on b772 b234 )
+    ( on b71 b772 )
+    ( on b652 b71 )
+    ( on b850 b652 )
+    ( on b495 b850 )
+    ( on b730 b495 )
+    ( on b312 b730 )
+    ( on b829 b312 )
+    ( on b789 b829 )
+    ( on b982 b789 )
+    ( on b814 b982 )
+    ( on b198 b814 )
+    ( on b640 b198 )
+    ( on b82 b640 )
+    ( on b849 b82 )
+    ( on b843 b849 )
+    ( on b813 b843 )
+    ( on b469 b813 )
+    ( on b186 b469 )
+    ( on b482 b186 )
+    ( on b608 b482 )
+    ( on b927 b608 )
+    ( on b797 b927 )
+    ( on b684 b797 )
+    ( on b126 b684 )
+    ( on b36 b126 )
+    ( on b574 b36 )
+    ( on b756 b574 )
+    ( on b282 b756 )
+    ( on b931 b282 )
+    ( on b144 b931 )
+    ( on b483 b144 )
+    ( on b838 b483 )
+    ( on b960 b838 )
+    ( on b377 b960 )
+    ( on b928 b377 )
+    ( on b494 b928 )
+    ( on b187 b494 )
+    ( on b271 b187 )
+    ( on b528 b271 )
+    ( on b910 b528 )
+    ( on b590 b910 )
+    ( clear b590 )
   )
   ( :tasks
-    ( Make-49Pile b641 b123 b761 b807 b499 b888 b141 b287 b898 b620 b163 b575 b484 b783 b465 b699 b698 b352 b903 b145 b837 b378 b795 b518 b487 b265 b325 b880 b276 b555 b414 b125 b891 b456 b987 b199 b789 b601 b327 b705 b496 b824 b111 b184 b209 b295 b645 b381 b78 )
+    ( Make-49Pile b763 b886 b248 b231 b39 b779 b234 b772 b71 b652 b850 b495 b730 b312 b829 b789 b982 b814 b198 b640 b82 b849 b843 b813 b469 b186 b482 b608 b927 b797 b684 b126 b36 b574 b756 b282 b931 b144 b483 b838 b960 b377 b928 b494 b187 b271 b528 b910 b590 )
   )
 )

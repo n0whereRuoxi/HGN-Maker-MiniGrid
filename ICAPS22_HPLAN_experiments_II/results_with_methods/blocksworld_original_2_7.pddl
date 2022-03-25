@@ -355,13 +355,13 @@
     )
     :vars
     (
-      ?auto_623 - BLOCK
       ?auto_622 - BLOCK
+      ?auto_623 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_621 ?auto_623 ) ) ( ON ?auto_621 ?auto_622 ) ( CLEAR ?auto_621 ) ( not ( = ?auto_621 ?auto_622 ) ) ( not ( = ?auto_623 ?auto_622 ) ) ( HOLDING ?auto_623 ) )
+    ( and ( not ( = ?auto_621 ?auto_622 ) ) ( ON ?auto_621 ?auto_623 ) ( CLEAR ?auto_621 ) ( not ( = ?auto_621 ?auto_623 ) ) ( not ( = ?auto_622 ?auto_623 ) ) ( HOLDING ?auto_622 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_623 )
+    ( ( MAKE-1PILE ?auto_622 )
       ( MAKE-1PILE ?auto_621 ) )
   )
 

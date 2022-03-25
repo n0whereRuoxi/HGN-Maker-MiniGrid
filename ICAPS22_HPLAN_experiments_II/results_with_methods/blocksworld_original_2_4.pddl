@@ -166,13 +166,13 @@
     )
     :vars
     (
-      ?auto_341 - BLOCK
       ?auto_340 - BLOCK
+      ?auto_341 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_341 ?auto_339 ) ( ON-TABLE ?auto_339 ) ( not ( = ?auto_339 ?auto_341 ) ) ( not ( = ?auto_339 ?auto_340 ) ) ( not ( = ?auto_341 ?auto_340 ) ) ( ON ?auto_340 ?auto_341 ) ( CLEAR ?auto_340 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_340 ?auto_339 ) ( ON-TABLE ?auto_339 ) ( not ( = ?auto_339 ?auto_340 ) ) ( not ( = ?auto_339 ?auto_341 ) ) ( not ( = ?auto_340 ?auto_341 ) ) ( ON ?auto_341 ?auto_340 ) ( CLEAR ?auto_341 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_339 ?auto_341 )
+    ( ( MAKE-2PILE ?auto_339 ?auto_340 )
       ( MAKE-1PILE ?auto_339 ) )
   )
 
@@ -278,13 +278,13 @@
     )
     :vars
     (
-      ?auto_367 - BLOCK
       ?auto_368 - BLOCK
+      ?auto_367 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_366 ?auto_367 ) ) ( ON ?auto_367 ?auto_368 ) ( not ( = ?auto_366 ?auto_368 ) ) ( not ( = ?auto_367 ?auto_368 ) ) ( ON ?auto_366 ?auto_367 ) ( CLEAR ?auto_366 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_368 ) )
+    ( and ( not ( = ?auto_366 ?auto_368 ) ) ( ON ?auto_368 ?auto_367 ) ( not ( = ?auto_366 ?auto_367 ) ) ( not ( = ?auto_368 ?auto_367 ) ) ( ON ?auto_366 ?auto_368 ) ( CLEAR ?auto_366 ) ( HAND-EMPTY ) ( ON-TABLE ?auto_367 ) )
     :subtasks
-    ( ( MAKE-2PILE ?auto_368 ?auto_367 )
+    ( ( MAKE-2PILE ?auto_367 ?auto_368 )
       ( MAKE-1PILE ?auto_366 ) )
   )
 
@@ -355,13 +355,13 @@
     )
     :vars
     (
-      ?auto_379 - BLOCK
       ?auto_380 - BLOCK
+      ?auto_379 - BLOCK
     )
     :precondition
-    ( and ( not ( = ?auto_378 ?auto_379 ) ) ( ON ?auto_378 ?auto_380 ) ( CLEAR ?auto_378 ) ( not ( = ?auto_378 ?auto_380 ) ) ( not ( = ?auto_379 ?auto_380 ) ) ( HOLDING ?auto_379 ) )
+    ( and ( not ( = ?auto_378 ?auto_380 ) ) ( ON ?auto_378 ?auto_379 ) ( CLEAR ?auto_378 ) ( not ( = ?auto_378 ?auto_379 ) ) ( not ( = ?auto_380 ?auto_379 ) ) ( HOLDING ?auto_380 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_379 )
+    ( ( MAKE-1PILE ?auto_380 )
       ( MAKE-1PILE ?auto_378 ) )
   )
 

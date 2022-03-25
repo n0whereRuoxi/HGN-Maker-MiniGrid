@@ -301,14 +301,14 @@
     )
     :vars
     (
-      ?auto_1532 - BLOCK
-      ?auto_1530 - BLOCK
       ?auto_1531 - BLOCK
+      ?auto_1530 - BLOCK
+      ?auto_1532 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_1532 ?auto_1529 ) ( ON-TABLE ?auto_1529 ) ( not ( = ?auto_1529 ?auto_1532 ) ) ( not ( = ?auto_1529 ?auto_1530 ) ) ( not ( = ?auto_1529 ?auto_1531 ) ) ( not ( = ?auto_1532 ?auto_1530 ) ) ( not ( = ?auto_1532 ?auto_1531 ) ) ( not ( = ?auto_1530 ?auto_1531 ) ) ( ON ?auto_1530 ?auto_1532 ) ( CLEAR ?auto_1530 ) ( HOLDING ?auto_1531 ) )
+    ( and ( ON ?auto_1531 ?auto_1529 ) ( ON-TABLE ?auto_1529 ) ( not ( = ?auto_1529 ?auto_1531 ) ) ( not ( = ?auto_1529 ?auto_1530 ) ) ( not ( = ?auto_1529 ?auto_1532 ) ) ( not ( = ?auto_1531 ?auto_1530 ) ) ( not ( = ?auto_1531 ?auto_1532 ) ) ( not ( = ?auto_1530 ?auto_1532 ) ) ( ON ?auto_1530 ?auto_1531 ) ( CLEAR ?auto_1530 ) ( HOLDING ?auto_1532 ) )
     :subtasks
-    ( ( MAKE-1PILE ?auto_1531 )
+    ( ( MAKE-1PILE ?auto_1532 )
       ( MAKE-1PILE ?auto_1529 ) )
   )
 
@@ -319,14 +319,14 @@
     )
     :vars
     (
-      ?auto_1536 - BLOCK
-      ?auto_1535 - BLOCK
       ?auto_1534 - BLOCK
+      ?auto_1535 - BLOCK
+      ?auto_1536 - BLOCK
     )
     :precondition
-    ( and ( ON ?auto_1536 ?auto_1533 ) ( ON-TABLE ?auto_1533 ) ( not ( = ?auto_1533 ?auto_1536 ) ) ( not ( = ?auto_1533 ?auto_1535 ) ) ( not ( = ?auto_1533 ?auto_1534 ) ) ( not ( = ?auto_1536 ?auto_1535 ) ) ( not ( = ?auto_1536 ?auto_1534 ) ) ( not ( = ?auto_1535 ?auto_1534 ) ) ( ON ?auto_1535 ?auto_1536 ) ( ON ?auto_1534 ?auto_1535 ) ( CLEAR ?auto_1534 ) ( HAND-EMPTY ) )
+    ( and ( ON ?auto_1534 ?auto_1533 ) ( ON-TABLE ?auto_1533 ) ( not ( = ?auto_1533 ?auto_1534 ) ) ( not ( = ?auto_1533 ?auto_1535 ) ) ( not ( = ?auto_1533 ?auto_1536 ) ) ( not ( = ?auto_1534 ?auto_1535 ) ) ( not ( = ?auto_1534 ?auto_1536 ) ) ( not ( = ?auto_1535 ?auto_1536 ) ) ( ON ?auto_1535 ?auto_1534 ) ( ON ?auto_1536 ?auto_1535 ) ( CLEAR ?auto_1536 ) ( HAND-EMPTY ) )
     :subtasks
-    ( ( MAKE-3PILE ?auto_1533 ?auto_1536 ?auto_1535 )
+    ( ( MAKE-3PILE ?auto_1533 ?auto_1534 ?auto_1535 )
       ( MAKE-1PILE ?auto_1533 ) )
   )
 

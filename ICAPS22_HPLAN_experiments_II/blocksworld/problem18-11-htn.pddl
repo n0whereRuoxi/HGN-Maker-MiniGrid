@@ -1,51 +1,51 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain blocks4 )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
-    b627 - block
-    b341 - block
-    b601 - block
-    b773 - block
-    b287 - block
-    b393 - block
-    b417 - block
-    b169 - block
-    b58 - block
-    b123 - block
-    b980 - block
-    b405 - block
-    b96 - block
-    b288 - block
-    b398 - block
-    b188 - block
-    b955 - block
-    b514 - block
-    b902 - block
+    b649 - block
+    b625 - block
+    b244 - block
+    b554 - block
+    b657 - block
+    b66 - block
+    b906 - block
+    b454 - block
+    b613 - block
+    b136 - block
+    b469 - block
+    b400 - block
+    b944 - block
+    b466 - block
+    b438 - block
+    b92 - block
+    b205 - block
+    b606 - block
+    b529 - block
   )
   ( :init
     ( hand-empty )
-    ( on-table b627 )
-    ( on b341 b627 )
-    ( on b601 b341 )
-    ( on b773 b601 )
-    ( on b287 b773 )
-    ( on b393 b287 )
-    ( on b417 b393 )
-    ( on b169 b417 )
-    ( on b58 b169 )
-    ( on b123 b58 )
-    ( on b980 b123 )
-    ( on b405 b980 )
-    ( on b96 b405 )
-    ( on b288 b96 )
-    ( on b398 b288 )
-    ( on b188 b398 )
-    ( on b955 b188 )
-    ( on b514 b955 )
-    ( on b902 b514 )
-    ( clear b902 )
+    ( on-table b649 )
+    ( on b625 b649 )
+    ( on b244 b625 )
+    ( on b554 b244 )
+    ( on b657 b554 )
+    ( on b66 b657 )
+    ( on b906 b66 )
+    ( on b454 b906 )
+    ( on b613 b454 )
+    ( on b136 b613 )
+    ( on b469 b136 )
+    ( on b400 b469 )
+    ( on b944 b400 )
+    ( on b466 b944 )
+    ( on b438 b466 )
+    ( on b92 b438 )
+    ( on b205 b92 )
+    ( on b606 b205 )
+    ( on b529 b606 )
+    ( clear b529 )
   )
   ( :tasks
-    ( Make-18Pile b341 b601 b773 b287 b393 b417 b169 b58 b123 b980 b405 b96 b288 b398 b188 b955 b514 b902 )
+    ( Make-18Pile b625 b244 b554 b657 b66 b906 b454 b613 b136 b469 b400 b944 b466 b438 b92 b205 b606 b529 )
   )
 )
