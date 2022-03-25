@@ -5,43 +5,33 @@
     c000 - city
     t000-000 - truck
     l000-000 - location
-    l000-997 - location
-    l000-280 - location
-    l000-541 - location
-    l000-570 - location
-    l000-567 - location
-    l000-772 - location
-    l000-427 - location
-    p291 - obj
-    p694 - obj
-    p745 - obj
-    p770 - obj
-    p977 - obj
+    l000-349 - location
+    l000-311 - location
+    p577 - obj
+    p761 - obj
+    p548 - obj
+    p869 - obj
+    p391 - obj
   )
   ( :init
     ( in-city l000-000 c000 )
     ( airport l000-000 )
     ( truck-at t000-000 l000-000 )
-    ( in-city l000-997 c000 )
-    ( in-city l000-280 c000 )
-    ( in-city l000-541 c000 )
-    ( in-city l000-570 c000 )
-    ( in-city l000-567 c000 )
-    ( in-city l000-772 c000 )
-    ( in-city l000-427 c000 )
-    ( obj-at p291 l000-541 )
-    ( obj-at p694 l000-541 )
-    ( obj-at p745 l000-280 )
-    ( obj-at p770 l000-772 )
-    ( obj-at p977 l000-570 )
+    ( in-city l000-349 c000 )
+    ( in-city l000-311 c000 )
+    ( obj-at p577 l000-349 )
+    ( obj-at p761 l000-349 )
+    ( obj-at p548 l000-311 )
+    ( obj-at p869 l000-311 )
+    ( obj-at p391 l000-311 )
   )
   ( :goal
     ( and
-      ( obj-at p291 l000-000 )
-      ( obj-at p694 l000-000 )
-      ( obj-at p745 l000-000 )
-      ( obj-at p770 l000-000 )
-      ( obj-at p977 l000-000 )
+      ( obj-at p577 l000-000 )
+      ( obj-at p761 l000-000 )
+      ( obj-at p548 l000-000 )
+      ( obj-at p869 l000-000 )
+      ( obj-at p391 l000-000 )
     )
   )
 )

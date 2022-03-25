@@ -5,52 +5,46 @@
     c000 - city
     t000-000 - truck
     l000-000 - location
-    l000-631 - location
-    l000-543 - location
-    l000-515 - location
-    l000-545 - location
-    l000-567 - location
-    l000-664 - location
-    l000-905 - location
-    l000-9 - location
-    l000-876 - location
-    l000-916 - location
-    p205 - obj
-    p574 - obj
-    p816 - obj
-    p207 - obj
-    p446 - obj
-    p319 - obj
+    l000-470 - location
+    l000-253 - location
+    l000-147 - location
+    l000-829 - location
+    l000-917 - location
+    l000-328 - location
+    l000-823 - location
+    p18 - obj
+    p782 - obj
+    p146 - obj
+    p298 - obj
+    p785 - obj
+    p331 - obj
   )
   ( :init
     ( in-city l000-000 c000 )
     ( airport l000-000 )
     ( truck-at t000-000 l000-000 )
-    ( in-city l000-631 c000 )
-    ( in-city l000-543 c000 )
-    ( in-city l000-515 c000 )
-    ( in-city l000-545 c000 )
-    ( in-city l000-567 c000 )
-    ( in-city l000-664 c000 )
-    ( in-city l000-905 c000 )
-    ( in-city l000-9 c000 )
-    ( in-city l000-876 c000 )
-    ( in-city l000-916 c000 )
-    ( obj-at p205 l000-631 )
-    ( obj-at p574 l000-567 )
-    ( obj-at p816 l000-545 )
-    ( obj-at p207 l000-631 )
-    ( obj-at p446 l000-9 )
-    ( obj-at p319 l000-664 )
+    ( in-city l000-470 c000 )
+    ( in-city l000-253 c000 )
+    ( in-city l000-147 c000 )
+    ( in-city l000-829 c000 )
+    ( in-city l000-917 c000 )
+    ( in-city l000-328 c000 )
+    ( in-city l000-823 c000 )
+    ( obj-at p18 l000-328 )
+    ( obj-at p782 l000-470 )
+    ( obj-at p146 l000-253 )
+    ( obj-at p298 l000-253 )
+    ( obj-at p785 l000-253 )
+    ( obj-at p331 l000-253 )
   )
   ( :goal
     ( and
-      ( obj-at p205 l000-000 )
-      ( obj-at p574 l000-000 )
-      ( obj-at p816 l000-000 )
-      ( obj-at p207 l000-000 )
-      ( obj-at p446 l000-000 )
-      ( obj-at p319 l000-000 )
+      ( obj-at p18 l000-000 )
+      ( obj-at p782 l000-000 )
+      ( obj-at p146 l000-000 )
+      ( obj-at p298 l000-000 )
+      ( obj-at p785 l000-000 )
+      ( obj-at p331 l000-000 )
     )
   )
 )

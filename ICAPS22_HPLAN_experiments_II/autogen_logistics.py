@@ -13,6 +13,7 @@ def generateProblemsAndSolutions(num,times):
             packagesLoc = np.random.choice(locationsIdx, i+2)
             print(locationsIdx, packagesIdx, packagesLoc)
             writeProblem(j, locationsIdx, packagesIdx, packagesLoc)
+            writeHTNProblem(j, locationsIdx, packagesIdx, packagesLoc)
             writeSolution(j, packagesIdx, packagesLoc)
 
 def writeProblem(j, locationsIdx, packagesIdx, packagesLoc):
@@ -24,10 +25,27 @@ def writeProblem(j, locationsIdx, packagesIdx, packagesLoc):
     writeGoal(file, packagesIdx)
     file.write(")\n")
 
+def writeHTNProblem(j, locationsIdx, packagesIdx, packagesLoc):
+    fname = 'logistics/problem{}-{}-htn.pddl'.format(len(packagesIdx), j)
+    file = open(fname,"w") 
+    writeHTNHeader(file)
+    writeObjects(file, locationsIdx, packagesIdx)
+    writeInit(file, locationsIdx, packagesIdx, packagesLoc)
+    writeHTNGoals(file, packagesIdx)
+    file.write(")\n")
+
+
 def writeHeader(file):
     file.write("( define ( problem probname )\n")
     file.write("  ( :domain logistics )\n")
     file.write("  ( :requirements :strips :typing :equality )\n")
+
+
+def writeHTNHeader(file):
+    file.write("( define ( htn-problem probname )\n")
+    file.write("  ( :domain logistics )\n")
+    file.write("  ( :requirements :strips :htn :typing :equality )\n")
+
 
 def writeObjects(file, locationsIdx, packagesIdx):
     file.write("  ( :objects\n")
@@ -59,13 +77,10 @@ def writeGoal(file, packagesIdx):
     file.write("    )\n")
     file.write("  )\n")
 
-# def writeTasks(n, file):
-#     file.write("  ( :goal\n")
-#     file.write("    ( and\n")
-#     for i in range(n):
-#         file.write("      ( obj-at p00{} l000-000 )\n".format(i+1))
-#     file.write("    )\n")
-#     file.write("  )\n")
+def writeHTNGoals(file, packagesIdx):
+    file.write("  ( :tasks\n")
+    file.write("    ( Deliver-{}Pkg p".format(len(packagesIdx)) + " p".join(map(str,packagesIdx)) + " l000-000 )\n")
+    file.write("  )\n")
 
 def writeSolution(j, packagesIdx, packagesLoc):
     fname = 'logistics/problem{}-{}-solution.plan'.format(len(packagesIdx), j)
