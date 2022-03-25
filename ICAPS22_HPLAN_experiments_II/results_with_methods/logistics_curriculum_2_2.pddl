@@ -147,11 +147,12 @@
     :vars
     (
       ?auto_118 - LOCATION
-      ?auto_117 - CITY
-      ?auto_116 - TRUCK
+      ?auto_116 - CITY
+      ?auto_119 - LOCATION
+      ?auto_117 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_118 ?auto_117 ) ( IN-CITY ?auto_113 ?auto_117 ) ( not ( = ?auto_113 ?auto_118 ) ) ( OBJ-AT ?auto_115 ?auto_118 ) ( OBJ-AT ?auto_114 ?auto_118 ) ( TRUCK-AT ?auto_116 ?auto_113 ) ( not ( = ?auto_114 ?auto_115 ) ) )
+    ( and ( IN-CITY ?auto_118 ?auto_116 ) ( IN-CITY ?auto_113 ?auto_116 ) ( not ( = ?auto_113 ?auto_118 ) ) ( OBJ-AT ?auto_115 ?auto_118 ) ( IN-CITY ?auto_119 ?auto_116 ) ( not ( = ?auto_113 ?auto_119 ) ) ( OBJ-AT ?auto_114 ?auto_119 ) ( TRUCK-AT ?auto_117 ?auto_113 ) ( not ( = ?auto_114 ?auto_115 ) ) ( not ( = ?auto_118 ?auto_119 ) ) )
     :subtasks
     ( ( DELIVER-1PKG ?auto_114 ?auto_113 )
       ( DELIVER-1PKG ?auto_115 ?auto_113 ) )
@@ -160,20 +161,21 @@
   ( :method DELIVER-2PKG
     :parameters
     (
-      ?auto_120 - OBJ
       ?auto_121 - OBJ
-      ?auto_119 - LOCATION
+      ?auto_122 - OBJ
+      ?auto_120 - LOCATION
     )
     :vars
     (
-      ?auto_123 - LOCATION
-      ?auto_124 - CITY
-      ?auto_122 - TRUCK
+      ?auto_124 - LOCATION
+      ?auto_123 - CITY
+      ?auto_126 - LOCATION
+      ?auto_125 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_123 ?auto_124 ) ( IN-CITY ?auto_119 ?auto_124 ) ( not ( = ?auto_119 ?auto_123 ) ) ( OBJ-AT ?auto_120 ?auto_123 ) ( OBJ-AT ?auto_121 ?auto_123 ) ( TRUCK-AT ?auto_122 ?auto_119 ) ( not ( = ?auto_121 ?auto_120 ) ) )
+    ( and ( IN-CITY ?auto_124 ?auto_123 ) ( IN-CITY ?auto_120 ?auto_123 ) ( not ( = ?auto_120 ?auto_124 ) ) ( OBJ-AT ?auto_121 ?auto_124 ) ( IN-CITY ?auto_126 ?auto_123 ) ( not ( = ?auto_120 ?auto_126 ) ) ( OBJ-AT ?auto_122 ?auto_126 ) ( TRUCK-AT ?auto_125 ?auto_120 ) ( not ( = ?auto_122 ?auto_121 ) ) ( not ( = ?auto_124 ?auto_126 ) ) )
     :subtasks
-    ( ( DELIVER-2PKG ?auto_121 ?auto_120 ?auto_119 ) )
+    ( ( DELIVER-2PKG ?auto_122 ?auto_121 ?auto_120 ) )
   )
 
 )

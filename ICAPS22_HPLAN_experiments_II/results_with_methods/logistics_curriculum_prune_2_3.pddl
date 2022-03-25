@@ -98,43 +98,42 @@
   ( :method DELIVER-1PKG
     :parameters
     (
-      ?auto_124 - OBJ
-      ?auto_123 - LOCATION
+      ?auto_126 - OBJ
+      ?auto_125 - LOCATION
     )
     :vars
     (
-      ?auto_126 - LOCATION
-      ?auto_127 - CITY
-      ?auto_125 - TRUCK
+      ?auto_128 - LOCATION
+      ?auto_129 - CITY
+      ?auto_127 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_126 ?auto_127 ) ( IN-CITY ?auto_123 ?auto_127 ) ( not ( = ?auto_123 ?auto_126 ) ) ( OBJ-AT ?auto_124 ?auto_126 ) ( TRUCK-AT ?auto_125 ?auto_123 ) )
+    ( and ( IN-CITY ?auto_128 ?auto_129 ) ( IN-CITY ?auto_125 ?auto_129 ) ( not ( = ?auto_125 ?auto_128 ) ) ( OBJ-AT ?auto_126 ?auto_128 ) ( TRUCK-AT ?auto_127 ?auto_125 ) )
     :subtasks
-    ( ( !DRIVE-TRUCK ?auto_125 ?auto_123 ?auto_126 ?auto_127 )
-      ( !LOAD-TRUCK ?auto_124 ?auto_125 ?auto_126 )
-      ( !DRIVE-TRUCK ?auto_125 ?auto_126 ?auto_123 ?auto_127 )
-      ( !UNLOAD-TRUCK ?auto_124 ?auto_125 ?auto_123 ) )
+    ( ( !DRIVE-TRUCK ?auto_127 ?auto_125 ?auto_128 ?auto_129 )
+      ( !LOAD-TRUCK ?auto_126 ?auto_127 ?auto_128 )
+      ( !DRIVE-TRUCK ?auto_127 ?auto_128 ?auto_125 ?auto_129 )
+      ( !UNLOAD-TRUCK ?auto_126 ?auto_127 ?auto_125 ) )
   )
 
   ( :method DELIVER-2PKG
     :parameters
     (
-      ?auto_145 - OBJ
-      ?auto_146 - OBJ
-      ?auto_144 - LOCATION
+      ?auto_147 - OBJ
+      ?auto_148 - OBJ
+      ?auto_146 - LOCATION
     )
     :vars
     (
-      ?auto_148 - LOCATION
-      ?auto_149 - CITY
       ?auto_150 - LOCATION
-      ?auto_147 - TRUCK
+      ?auto_149 - CITY
+      ?auto_151 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_148 ?auto_149 ) ( IN-CITY ?auto_144 ?auto_149 ) ( not ( = ?auto_144 ?auto_148 ) ) ( OBJ-AT ?auto_146 ?auto_148 ) ( IN-CITY ?auto_150 ?auto_149 ) ( not ( = ?auto_144 ?auto_150 ) ) ( OBJ-AT ?auto_145 ?auto_150 ) ( TRUCK-AT ?auto_147 ?auto_144 ) ( not ( = ?auto_145 ?auto_146 ) ) ( not ( = ?auto_148 ?auto_150 ) ) )
+    ( and ( IN-CITY ?auto_150 ?auto_149 ) ( IN-CITY ?auto_146 ?auto_149 ) ( not ( = ?auto_146 ?auto_150 ) ) ( OBJ-AT ?auto_148 ?auto_150 ) ( OBJ-AT ?auto_147 ?auto_150 ) ( TRUCK-AT ?auto_151 ?auto_146 ) ( not ( = ?auto_147 ?auto_148 ) ) )
     :subtasks
-    ( ( DELIVER-1PKG ?auto_145 ?auto_144 )
-      ( DELIVER-1PKG ?auto_146 ?auto_144 ) )
+    ( ( DELIVER-1PKG ?auto_147 ?auto_146 )
+      ( DELIVER-1PKG ?auto_148 ?auto_146 ) )
   )
 
 )
