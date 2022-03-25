@@ -32,16 +32,22 @@
 #include "htn_solution.hpp"
 
 bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
-	       const HtnSolution * p_pPartial,
-	       unsigned int p_iDepth );
+  const HtnSolution * p_pPartial,
+  unsigned int p_iDepth,
+  std::ofstream l_oFile,
+  std::ofstream l_oFileMeta );
 bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
-		   const HtnSolution * p_pPartial,
-		   unsigned int p_iDepth );
+  const HtnSolution * p_pPartial,
+  unsigned int p_iDepth,
+  std::ofstream l_oFile,
+  std::ofstream l_oFileMeta );
 bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
-		     const HtnSolution * p_pPartial,
-		     unsigned int p_iDepth );
+  const HtnSolution * p_pPartial,
+  unsigned int p_iDepth,
+  std::ofstream l_oFile,
+  std::ofstream l_oFileMeta );
 
-void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile);
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream l_oFile, std::ofstream l_oFileMeta);
 
 int DoExperiments(std::string l_sDomainName);
 
@@ -135,27 +141,35 @@ int DoExperiments(std::string l_sDomainName)
     else
       l_sResultFileName = "original_prune";
   }
+  std::ofstream l_oPlanMeta;
+  l_oPlanMeta.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "/" + l_sDomainName + "_" + l_sResultFileName + ".txt")
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
       if (i == 2 && j == 0) {
-      l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
-      l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
-      std::cout << l_sDomainFile << std::endl;
-      std::cout << l_sProblemFile << std::endl;
-      std::clock_t c_start = std::clock();
-      DoOneExperiment(l_sDomainFile, l_sProblemFile);
-      std::clock_t c_end = std::clock();
-      //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
-      long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
-      std::cout << time_elapsed_ms << std::endl;
+        std::ofstream l_oPlan;
+        l_oPlan.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan")
+        l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
+        l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
+        std::cout << l_sDomainFile << std::endl;
+        std::cout << l_sProblemFile << std::endl;
+        l_oPlanMeta << i << "," << j << ",";
+        std::clock_t c_start = std::clock();
+        DoOneExperiment(l_sDomainFile, l_sProblemFile, l_oPlan, l_oPlanMeta);
+        std::clock_t c_end = std::clock();
+        //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
+        long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
+        std::cout << time_elapsed_ms << std::endl;
+        l_oPlanMeta << time_elapsed_ms << "," << std::endl;
+        l_oPlan.close()
       }
     }
   }
+  l_oPlanMeta.close()
   return 0;
 }
 
 
-void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile)
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream l_oFile, std::ofstream l_oFileMeta)
 {
 
   std::tr1::shared_ptr< HtnDomain > l_pDomain;
@@ -188,7 +202,7 @@ void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile)
   if( g_bUseQValues )
     l_pDomain->SortMethods();
 
-  if( !FindPlan( l_pDomain, l_pProblem, 0 ) )
+  if( !FindPlan( l_pDomain, l_pProblem, 0, l_oFile, l_oFileMeta) )
     std::cout << "\nNo legal plans.\n";
 
   delete l_pProblem;
@@ -265,7 +279,9 @@ void UpdateQValues( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 
 bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
 	       const HtnSolution * p_pPartial,
-	       unsigned int p_iDepth )
+	       unsigned int p_iDepth,
+         std::ofstream l_oFile,
+         std::ofstream l_oFileMeta)
 {
   if( p_pPartial->IsComplete() )
   {
@@ -274,14 +290,16 @@ bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
   }
 
   if( p_pPartial->GetCTopTask()->GetName()[0] == '!' )
-    return FindPlanOper( p_pDomain, p_pPartial, p_iDepth + 1 );
+    return FindPlanOper( p_pDomain, p_pPartial, p_iDepth + 1, l_oFile, l_oFileMeta);
   else
-    return FindPlanMethod( p_pDomain, p_pPartial, p_iDepth + 1 );
+    return FindPlanMethod( p_pDomain, p_pPartial, p_iDepth + 1, l_oFile, l_oFileMeta);
 }
 
 bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
 		   const HtnSolution * p_pPartial,
-		   unsigned int p_iDepth )
+		   unsigned int p_iDepth,
+       std::ofstream l_oFile,
+      std::ofstream l_oFileMeta))
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
@@ -313,21 +331,19 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
       if( l_pNewSolution->IsComplete() )
       {
         std::cout << "\nPlan found!\n";
-        std::ofstream l_oFile;
-        std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_II/results_with_methods";
-        l_oFile.open(l_sRootDir + "/test.txt");
         std::cout << l_pNewSolution->Print( g_bShowTrace );
         l_oFile << l_pNewSolution->Print( g_bShowTrace );
+        l_oFileMeta << l_pNewSolution.GetPlanLength() << ",";
         l_bSuccess = true;
         UpdateQValues( p_pDomain, l_pNewSolution );
       }
       else if( l_pNewSolution->GetCTopTask()->GetName()[0] == '!' )
       {
-	l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1 );
+	l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
       }
       else
       {
-	l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1 );
+	l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
       }
 
       delete l_pNewSolution;
@@ -376,7 +392,9 @@ void RemoveIrrelevantBindings( std::vector< Substitution * > * p_pInstances,
 
 bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
 		     const HtnSolution * p_pPartial,
-		     unsigned int p_iDepth )
+		     unsigned int p_iDepth,
+         std::ofstream l_oFile,
+      std::ofstream l_oFileMeta))
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
@@ -447,11 +465,11 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 	  }
 	  else if( l_pNewSolution->GetCTopTask()->GetName()[0] == '!' )
 	  {
-	    l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1 );
+	    l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
 	  }
 	  else
 	  {
-	    l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1 );
+	    l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
 	  }
 
 	  delete l_pNewSolution;
