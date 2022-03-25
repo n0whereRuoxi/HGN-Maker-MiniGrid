@@ -95,6 +95,31 @@
     (  )
   )
 
+  ( :method DELIVER-1PKG-VERIFY
+    :parameters
+    (
+      ?obj1 - OBJ
+      ?dst - LOCATION
+    )
+    :precondition
+    ( and ( OBJ-AT ?obj1 ?dst ) )
+    :subtasks
+    (  )
+  )
+
+  ( :method DELIVER-2PKG-VERIFY
+    :parameters
+    (
+      ?obj1 - OBJ
+      ?obj2 - OBJ
+      ?dst - LOCATION
+    )
+    :precondition
+    ( and ( OBJ-AT ?obj1 ?dst ) ( OBJ-AT ?obj2 ?dst ) )
+    :subtasks
+    (  )
+  )
+
   ( :method DELIVER-1PKG
     :parameters
     (
@@ -113,7 +138,8 @@
     ( ( !DRIVE-TRUCK ?auto_4 ?auto_2 ?auto_5 ?auto_6 )
       ( !LOAD-TRUCK ?auto_3 ?auto_4 ?auto_5 )
       ( !DRIVE-TRUCK ?auto_4 ?auto_5 ?auto_2 ?auto_6 )
-      ( !UNLOAD-TRUCK ?auto_3 ?auto_4 ?auto_2 ) )
+      ( !UNLOAD-TRUCK ?auto_3 ?auto_4 ?auto_2 )
+      ( DELIVER-1PKG-VERIFY ?auto_3 ?auto_2 ) )
   )
 
   ( :method DELIVER-1PKG
@@ -134,7 +160,8 @@
     ( ( !DRIVE-TRUCK ?auto_11 ?auto_9 ?auto_12 ?auto_13 )
       ( !LOAD-TRUCK ?auto_10 ?auto_11 ?auto_12 )
       ( !DRIVE-TRUCK ?auto_11 ?auto_12 ?auto_9 ?auto_13 )
-      ( !UNLOAD-TRUCK ?auto_10 ?auto_11 ?auto_9 ) )
+      ( !UNLOAD-TRUCK ?auto_10 ?auto_11 ?auto_9 )
+      ( DELIVER-1PKG-VERIFY ?auto_10 ?auto_9 ) )
   )
 
   ( :method DELIVER-2PKG
@@ -146,16 +173,17 @@
     )
     :vars
     (
-      ?auto_26 - LOCATION
-      ?auto_27 - CITY
+      ?auto_27 - LOCATION
+      ?auto_26 - CITY
       ?auto_29 - LOCATION
       ?auto_28 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_26 ?auto_27 ) ( IN-CITY ?auto_23 ?auto_27 ) ( not ( = ?auto_23 ?auto_26 ) ) ( OBJ-AT ?auto_25 ?auto_26 ) ( IN-CITY ?auto_29 ?auto_27 ) ( not ( = ?auto_23 ?auto_29 ) ) ( OBJ-AT ?auto_24 ?auto_29 ) ( TRUCK-AT ?auto_28 ?auto_23 ) ( not ( = ?auto_24 ?auto_25 ) ) ( not ( = ?auto_26 ?auto_29 ) ) )
+    ( and ( IN-CITY ?auto_27 ?auto_26 ) ( IN-CITY ?auto_23 ?auto_26 ) ( not ( = ?auto_23 ?auto_27 ) ) ( OBJ-AT ?auto_25 ?auto_27 ) ( IN-CITY ?auto_29 ?auto_26 ) ( not ( = ?auto_23 ?auto_29 ) ) ( OBJ-AT ?auto_24 ?auto_29 ) ( TRUCK-AT ?auto_28 ?auto_23 ) ( not ( = ?auto_24 ?auto_25 ) ) ( not ( = ?auto_27 ?auto_29 ) ) )
     :subtasks
     ( ( DELIVER-1PKG ?auto_24 ?auto_23 )
-      ( DELIVER-1PKG ?auto_25 ?auto_23 ) )
+      ( DELIVER-1PKG ?auto_25 ?auto_23 )
+      ( DELIVER-2PKG-VERIFY ?auto_24 ?auto_25 ?auto_23 ) )
   )
 
   ( :method DELIVER-2PKG
@@ -167,15 +195,16 @@
     )
     :vars
     (
-      ?auto_34 - LOCATION
+      ?auto_33 - LOCATION
       ?auto_35 - CITY
       ?auto_36 - LOCATION
-      ?auto_33 - TRUCK
+      ?auto_34 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_34 ?auto_35 ) ( IN-CITY ?auto_30 ?auto_35 ) ( not ( = ?auto_30 ?auto_34 ) ) ( OBJ-AT ?auto_31 ?auto_34 ) ( IN-CITY ?auto_36 ?auto_35 ) ( not ( = ?auto_30 ?auto_36 ) ) ( OBJ-AT ?auto_32 ?auto_36 ) ( TRUCK-AT ?auto_33 ?auto_30 ) ( not ( = ?auto_32 ?auto_31 ) ) ( not ( = ?auto_34 ?auto_36 ) ) )
+    ( and ( IN-CITY ?auto_33 ?auto_35 ) ( IN-CITY ?auto_30 ?auto_35 ) ( not ( = ?auto_30 ?auto_33 ) ) ( OBJ-AT ?auto_31 ?auto_33 ) ( IN-CITY ?auto_36 ?auto_35 ) ( not ( = ?auto_30 ?auto_36 ) ) ( OBJ-AT ?auto_32 ?auto_36 ) ( TRUCK-AT ?auto_34 ?auto_30 ) ( not ( = ?auto_32 ?auto_31 ) ) ( not ( = ?auto_33 ?auto_36 ) ) )
     :subtasks
-    ( ( DELIVER-2PKG ?auto_32 ?auto_31 ?auto_30 ) )
+    ( ( DELIVER-2PKG ?auto_32 ?auto_31 ?auto_30 )
+      ( DELIVER-2PKG-VERIFY ?auto_31 ?auto_32 ?auto_30 ) )
   )
 
 )
