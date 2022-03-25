@@ -312,10 +312,14 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 
       if( l_pNewSolution->IsComplete() )
       {
-	std::cout << "\nPlan found!\n";
-	std::cout << l_pNewSolution->Print( g_bShowTrace );
-	l_bSuccess = true;
-	UpdateQValues( p_pDomain, l_pNewSolution );
+        std::cout << "\nPlan found!\n";
+        std::ofstream l_oFile;
+        std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_II/results_with_methods";
+        l_oFile.open(l_sRootDir + "/test.txt");
+        std::cout << l_pNewSolution->Print( g_bShowTrace );
+        l_oFile << l_pNewSolution->Print( g_bShowTrace );
+        l_bSuccess = true;
+        UpdateQValues( p_pDomain, l_pNsewSolution );
       }
       else if( l_pNewSolution->GetCTopTask()->GetName()[0] == '!' )
       {
