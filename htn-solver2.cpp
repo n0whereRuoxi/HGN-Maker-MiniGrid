@@ -147,7 +147,7 @@ int DoExperiments(std::string l_sDomainName)
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
       if (i == 2 && j == 0) {
         std::ofstream l_oPlan;
-        l_oPlan.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
+        l_oPlan.open(l_sRootDir + "/results_with_methods" + "/plan" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
         l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
         l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
         std::cout << l_sDomainFile << std::endl;
