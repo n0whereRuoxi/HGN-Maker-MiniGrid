@@ -319,7 +319,7 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
         std::cout << l_pNewSolution->Print( g_bShowTrace );
         l_oFile << l_pNewSolution->Print( g_bShowTrace );
         l_bSuccess = true;
-        UpdateQValues( p_pDomain, l_pNsewSolution );
+        UpdateQValues( p_pDomain, l_pNewSolution );
       }
       else if( l_pNewSolution->GetCTopTask()->GetName()[0] == '!' )
       {
