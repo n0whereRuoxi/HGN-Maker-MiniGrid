@@ -5,21 +5,21 @@
     c000 - city
     t000-000 - truck
     l000-000 - location
-    l000-538 - location
-    l000-694 - location
-    p101 - obj
-    p977 - obj
+    l000-146 - location
+    l000-552 - location
+    p990 - obj
+    p78 - obj
   )
   ( :init
     ( in-city l000-000 c000 )
     ( airport l000-000 )
     ( truck-at t000-000 l000-000 )
-    ( in-city l000-538 c000 )
-    ( in-city l000-694 c000 )
-    ( obj-at p101 l000-694 )
-    ( obj-at p977 l000-694 )
+    ( in-city l000-146 c000 )
+    ( in-city l000-552 c000 )
+    ( obj-at p990 l000-552 )
+    ( obj-at p78 l000-552 )
   )
   ( :tasks
-    ( Deliver-2Pkg p101 p977 l000-000 )
+    ( Deliver-2Pkg p990 p78 l000-000 )
   )
 )

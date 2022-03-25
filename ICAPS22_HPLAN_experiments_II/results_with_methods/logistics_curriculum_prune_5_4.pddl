@@ -168,123 +168,123 @@
   ( :method DELIVER-1PKG
     :parameters
     (
-      ?auto_187490 - OBJ
-      ?auto_187489 - LOCATION
+      ?auto_187994 - OBJ
+      ?auto_187993 - LOCATION
     )
     :vars
     (
-      ?auto_187492 - LOCATION
-      ?auto_187493 - CITY
-      ?auto_187491 - TRUCK
+      ?auto_187996 - LOCATION
+      ?auto_187997 - CITY
+      ?auto_187995 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_187492 ?auto_187493 ) ( IN-CITY ?auto_187489 ?auto_187493 ) ( not ( = ?auto_187489 ?auto_187492 ) ) ( OBJ-AT ?auto_187490 ?auto_187492 ) ( TRUCK-AT ?auto_187491 ?auto_187489 ) )
+    ( and ( IN-CITY ?auto_187996 ?auto_187997 ) ( IN-CITY ?auto_187993 ?auto_187997 ) ( not ( = ?auto_187993 ?auto_187996 ) ) ( OBJ-AT ?auto_187994 ?auto_187996 ) ( TRUCK-AT ?auto_187995 ?auto_187993 ) )
     :subtasks
-    ( ( !DRIVE-TRUCK ?auto_187491 ?auto_187489 ?auto_187492 ?auto_187493 )
-      ( !LOAD-TRUCK ?auto_187490 ?auto_187491 ?auto_187492 )
-      ( !DRIVE-TRUCK ?auto_187491 ?auto_187492 ?auto_187489 ?auto_187493 )
-      ( !UNLOAD-TRUCK ?auto_187490 ?auto_187491 ?auto_187489 )
-      ( DELIVER-1PKG-VERIFY ?auto_187490 ?auto_187489 ) )
+    ( ( !DRIVE-TRUCK ?auto_187995 ?auto_187993 ?auto_187996 ?auto_187997 )
+      ( !LOAD-TRUCK ?auto_187994 ?auto_187995 ?auto_187996 )
+      ( !DRIVE-TRUCK ?auto_187995 ?auto_187996 ?auto_187993 ?auto_187997 )
+      ( !UNLOAD-TRUCK ?auto_187994 ?auto_187995 ?auto_187993 )
+      ( DELIVER-1PKG-VERIFY ?auto_187994 ?auto_187993 ) )
   )
 
   ( :method DELIVER-2PKG
     :parameters
     (
-      ?auto_187511 - OBJ
-      ?auto_187512 - OBJ
-      ?auto_187510 - LOCATION
+      ?auto_188015 - OBJ
+      ?auto_188016 - OBJ
+      ?auto_188014 - LOCATION
     )
     :vars
     (
-      ?auto_187515 - LOCATION
-      ?auto_187514 - CITY
-      ?auto_187516 - LOCATION
-      ?auto_187513 - TRUCK
+      ?auto_188017 - LOCATION
+      ?auto_188018 - CITY
+      ?auto_188020 - LOCATION
+      ?auto_188019 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_187515 ?auto_187514 ) ( IN-CITY ?auto_187510 ?auto_187514 ) ( not ( = ?auto_187510 ?auto_187515 ) ) ( OBJ-AT ?auto_187512 ?auto_187515 ) ( IN-CITY ?auto_187516 ?auto_187514 ) ( not ( = ?auto_187510 ?auto_187516 ) ) ( OBJ-AT ?auto_187511 ?auto_187516 ) ( TRUCK-AT ?auto_187513 ?auto_187510 ) ( not ( = ?auto_187511 ?auto_187512 ) ) ( not ( = ?auto_187515 ?auto_187516 ) ) )
+    ( and ( IN-CITY ?auto_188017 ?auto_188018 ) ( IN-CITY ?auto_188014 ?auto_188018 ) ( not ( = ?auto_188014 ?auto_188017 ) ) ( OBJ-AT ?auto_188016 ?auto_188017 ) ( IN-CITY ?auto_188020 ?auto_188018 ) ( not ( = ?auto_188014 ?auto_188020 ) ) ( OBJ-AT ?auto_188015 ?auto_188020 ) ( TRUCK-AT ?auto_188019 ?auto_188014 ) ( not ( = ?auto_188015 ?auto_188016 ) ) ( not ( = ?auto_188017 ?auto_188020 ) ) )
     :subtasks
-    ( ( DELIVER-1PKG ?auto_187511 ?auto_187510 )
-      ( DELIVER-1PKG ?auto_187512 ?auto_187510 )
-      ( DELIVER-2PKG-VERIFY ?auto_187511 ?auto_187512 ?auto_187510 ) )
+    ( ( DELIVER-1PKG ?auto_188015 ?auto_188014 )
+      ( DELIVER-1PKG ?auto_188016 ?auto_188014 )
+      ( DELIVER-2PKG-VERIFY ?auto_188015 ?auto_188016 ?auto_188014 ) )
   )
 
   ( :method DELIVER-3PKG
     :parameters
     (
-      ?auto_187622 - OBJ
-      ?auto_187623 - OBJ
-      ?auto_187624 - OBJ
-      ?auto_187621 - LOCATION
+      ?auto_188126 - OBJ
+      ?auto_188127 - OBJ
+      ?auto_188128 - OBJ
+      ?auto_188125 - LOCATION
     )
     :vars
     (
-      ?auto_187627 - LOCATION
-      ?auto_187625 - CITY
-      ?auto_187628 - LOCATION
-      ?auto_187629 - LOCATION
-      ?auto_187626 - TRUCK
+      ?auto_188131 - LOCATION
+      ?auto_188130 - CITY
+      ?auto_188132 - LOCATION
+      ?auto_188133 - LOCATION
+      ?auto_188129 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_187627 ?auto_187625 ) ( IN-CITY ?auto_187621 ?auto_187625 ) ( not ( = ?auto_187621 ?auto_187627 ) ) ( OBJ-AT ?auto_187624 ?auto_187627 ) ( IN-CITY ?auto_187628 ?auto_187625 ) ( not ( = ?auto_187621 ?auto_187628 ) ) ( OBJ-AT ?auto_187623 ?auto_187628 ) ( IN-CITY ?auto_187629 ?auto_187625 ) ( not ( = ?auto_187621 ?auto_187629 ) ) ( OBJ-AT ?auto_187622 ?auto_187629 ) ( TRUCK-AT ?auto_187626 ?auto_187621 ) ( not ( = ?auto_187622 ?auto_187623 ) ) ( not ( = ?auto_187628 ?auto_187629 ) ) ( not ( = ?auto_187622 ?auto_187624 ) ) ( not ( = ?auto_187623 ?auto_187624 ) ) ( not ( = ?auto_187627 ?auto_187628 ) ) ( not ( = ?auto_187627 ?auto_187629 ) ) )
+    ( and ( IN-CITY ?auto_188131 ?auto_188130 ) ( IN-CITY ?auto_188125 ?auto_188130 ) ( not ( = ?auto_188125 ?auto_188131 ) ) ( OBJ-AT ?auto_188128 ?auto_188131 ) ( IN-CITY ?auto_188132 ?auto_188130 ) ( not ( = ?auto_188125 ?auto_188132 ) ) ( OBJ-AT ?auto_188127 ?auto_188132 ) ( IN-CITY ?auto_188133 ?auto_188130 ) ( not ( = ?auto_188125 ?auto_188133 ) ) ( OBJ-AT ?auto_188126 ?auto_188133 ) ( TRUCK-AT ?auto_188129 ?auto_188125 ) ( not ( = ?auto_188126 ?auto_188127 ) ) ( not ( = ?auto_188132 ?auto_188133 ) ) ( not ( = ?auto_188126 ?auto_188128 ) ) ( not ( = ?auto_188127 ?auto_188128 ) ) ( not ( = ?auto_188131 ?auto_188132 ) ) ( not ( = ?auto_188131 ?auto_188133 ) ) )
     :subtasks
-    ( ( DELIVER-2PKG ?auto_187622 ?auto_187623 ?auto_187621 )
-      ( DELIVER-1PKG ?auto_187624 ?auto_187621 )
-      ( DELIVER-3PKG-VERIFY ?auto_187622 ?auto_187623 ?auto_187624 ?auto_187621 ) )
+    ( ( DELIVER-2PKG ?auto_188126 ?auto_188127 ?auto_188125 )
+      ( DELIVER-1PKG ?auto_188128 ?auto_188125 )
+      ( DELIVER-3PKG-VERIFY ?auto_188126 ?auto_188127 ?auto_188128 ?auto_188125 ) )
   )
 
   ( :method DELIVER-4PKG
     :parameters
     (
-      ?auto_188765 - OBJ
-      ?auto_188766 - OBJ
-      ?auto_188767 - OBJ
-      ?auto_188768 - OBJ
-      ?auto_188764 - LOCATION
+      ?auto_189269 - OBJ
+      ?auto_189270 - OBJ
+      ?auto_189271 - OBJ
+      ?auto_189272 - OBJ
+      ?auto_189268 - LOCATION
     )
     :vars
     (
-      ?auto_188771 - LOCATION
-      ?auto_188770 - CITY
-      ?auto_188773 - LOCATION
-      ?auto_188772 - LOCATION
-      ?auto_188774 - LOCATION
-      ?auto_188769 - TRUCK
+      ?auto_189273 - LOCATION
+      ?auto_189274 - CITY
+      ?auto_189278 - LOCATION
+      ?auto_189276 - LOCATION
+      ?auto_189277 - LOCATION
+      ?auto_189275 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_188771 ?auto_188770 ) ( IN-CITY ?auto_188764 ?auto_188770 ) ( not ( = ?auto_188764 ?auto_188771 ) ) ( OBJ-AT ?auto_188768 ?auto_188771 ) ( IN-CITY ?auto_188773 ?auto_188770 ) ( not ( = ?auto_188764 ?auto_188773 ) ) ( OBJ-AT ?auto_188767 ?auto_188773 ) ( IN-CITY ?auto_188772 ?auto_188770 ) ( not ( = ?auto_188764 ?auto_188772 ) ) ( OBJ-AT ?auto_188766 ?auto_188772 ) ( IN-CITY ?auto_188774 ?auto_188770 ) ( not ( = ?auto_188764 ?auto_188774 ) ) ( OBJ-AT ?auto_188765 ?auto_188774 ) ( TRUCK-AT ?auto_188769 ?auto_188764 ) ( not ( = ?auto_188765 ?auto_188766 ) ) ( not ( = ?auto_188772 ?auto_188774 ) ) ( not ( = ?auto_188765 ?auto_188767 ) ) ( not ( = ?auto_188766 ?auto_188767 ) ) ( not ( = ?auto_188773 ?auto_188772 ) ) ( not ( = ?auto_188773 ?auto_188774 ) ) ( not ( = ?auto_188765 ?auto_188768 ) ) ( not ( = ?auto_188766 ?auto_188768 ) ) ( not ( = ?auto_188767 ?auto_188768 ) ) ( not ( = ?auto_188771 ?auto_188773 ) ) ( not ( = ?auto_188771 ?auto_188772 ) ) ( not ( = ?auto_188771 ?auto_188774 ) ) )
+    ( and ( IN-CITY ?auto_189273 ?auto_189274 ) ( IN-CITY ?auto_189268 ?auto_189274 ) ( not ( = ?auto_189268 ?auto_189273 ) ) ( OBJ-AT ?auto_189272 ?auto_189273 ) ( IN-CITY ?auto_189278 ?auto_189274 ) ( not ( = ?auto_189268 ?auto_189278 ) ) ( OBJ-AT ?auto_189271 ?auto_189278 ) ( IN-CITY ?auto_189276 ?auto_189274 ) ( not ( = ?auto_189268 ?auto_189276 ) ) ( OBJ-AT ?auto_189270 ?auto_189276 ) ( IN-CITY ?auto_189277 ?auto_189274 ) ( not ( = ?auto_189268 ?auto_189277 ) ) ( OBJ-AT ?auto_189269 ?auto_189277 ) ( TRUCK-AT ?auto_189275 ?auto_189268 ) ( not ( = ?auto_189269 ?auto_189270 ) ) ( not ( = ?auto_189276 ?auto_189277 ) ) ( not ( = ?auto_189269 ?auto_189271 ) ) ( not ( = ?auto_189270 ?auto_189271 ) ) ( not ( = ?auto_189278 ?auto_189276 ) ) ( not ( = ?auto_189278 ?auto_189277 ) ) ( not ( = ?auto_189269 ?auto_189272 ) ) ( not ( = ?auto_189270 ?auto_189272 ) ) ( not ( = ?auto_189271 ?auto_189272 ) ) ( not ( = ?auto_189273 ?auto_189278 ) ) ( not ( = ?auto_189273 ?auto_189276 ) ) ( not ( = ?auto_189273 ?auto_189277 ) ) )
     :subtasks
-    ( ( DELIVER-3PKG ?auto_188765 ?auto_188766 ?auto_188767 ?auto_188764 )
-      ( DELIVER-1PKG ?auto_188768 ?auto_188764 )
-      ( DELIVER-4PKG-VERIFY ?auto_188765 ?auto_188766 ?auto_188767 ?auto_188768 ?auto_188764 ) )
+    ( ( DELIVER-3PKG ?auto_189269 ?auto_189270 ?auto_189271 ?auto_189268 )
+      ( DELIVER-1PKG ?auto_189272 ?auto_189268 )
+      ( DELIVER-4PKG-VERIFY ?auto_189269 ?auto_189270 ?auto_189271 ?auto_189272 ?auto_189268 ) )
   )
 
   ( :method DELIVER-5PKG
     :parameters
     (
-      ?auto_204457 - OBJ
-      ?auto_204458 - OBJ
-      ?auto_204459 - OBJ
-      ?auto_204460 - OBJ
-      ?auto_204461 - OBJ
-      ?auto_204456 - LOCATION
+      ?auto_204961 - OBJ
+      ?auto_204962 - OBJ
+      ?auto_204963 - OBJ
+      ?auto_204964 - OBJ
+      ?auto_204965 - OBJ
+      ?auto_204960 - LOCATION
     )
     :vars
     (
-      ?auto_204464 - LOCATION
-      ?auto_204463 - CITY
-      ?auto_204467 - LOCATION
-      ?auto_204465 - LOCATION
-      ?auto_204466 - LOCATION
-      ?auto_204468 - LOCATION
-      ?auto_204462 - TRUCK
+      ?auto_204968 - LOCATION
+      ?auto_204967 - CITY
+      ?auto_204970 - LOCATION
+      ?auto_204971 - LOCATION
+      ?auto_204972 - LOCATION
+      ?auto_204969 - LOCATION
+      ?auto_204966 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_204464 ?auto_204463 ) ( IN-CITY ?auto_204456 ?auto_204463 ) ( not ( = ?auto_204456 ?auto_204464 ) ) ( OBJ-AT ?auto_204461 ?auto_204464 ) ( IN-CITY ?auto_204467 ?auto_204463 ) ( not ( = ?auto_204456 ?auto_204467 ) ) ( OBJ-AT ?auto_204460 ?auto_204467 ) ( IN-CITY ?auto_204465 ?auto_204463 ) ( not ( = ?auto_204456 ?auto_204465 ) ) ( OBJ-AT ?auto_204459 ?auto_204465 ) ( IN-CITY ?auto_204466 ?auto_204463 ) ( not ( = ?auto_204456 ?auto_204466 ) ) ( OBJ-AT ?auto_204458 ?auto_204466 ) ( IN-CITY ?auto_204468 ?auto_204463 ) ( not ( = ?auto_204456 ?auto_204468 ) ) ( OBJ-AT ?auto_204457 ?auto_204468 ) ( TRUCK-AT ?auto_204462 ?auto_204456 ) ( not ( = ?auto_204457 ?auto_204458 ) ) ( not ( = ?auto_204466 ?auto_204468 ) ) ( not ( = ?auto_204457 ?auto_204459 ) ) ( not ( = ?auto_204458 ?auto_204459 ) ) ( not ( = ?auto_204465 ?auto_204466 ) ) ( not ( = ?auto_204465 ?auto_204468 ) ) ( not ( = ?auto_204457 ?auto_204460 ) ) ( not ( = ?auto_204458 ?auto_204460 ) ) ( not ( = ?auto_204459 ?auto_204460 ) ) ( not ( = ?auto_204467 ?auto_204465 ) ) ( not ( = ?auto_204467 ?auto_204466 ) ) ( not ( = ?auto_204467 ?auto_204468 ) ) ( not ( = ?auto_204457 ?auto_204461 ) ) ( not ( = ?auto_204458 ?auto_204461 ) ) ( not ( = ?auto_204459 ?auto_204461 ) ) ( not ( = ?auto_204460 ?auto_204461 ) ) ( not ( = ?auto_204464 ?auto_204467 ) ) ( not ( = ?auto_204464 ?auto_204465 ) ) ( not ( = ?auto_204464 ?auto_204466 ) ) ( not ( = ?auto_204464 ?auto_204468 ) ) )
+    ( and ( IN-CITY ?auto_204968 ?auto_204967 ) ( IN-CITY ?auto_204960 ?auto_204967 ) ( not ( = ?auto_204960 ?auto_204968 ) ) ( OBJ-AT ?auto_204965 ?auto_204968 ) ( IN-CITY ?auto_204970 ?auto_204967 ) ( not ( = ?auto_204960 ?auto_204970 ) ) ( OBJ-AT ?auto_204964 ?auto_204970 ) ( IN-CITY ?auto_204971 ?auto_204967 ) ( not ( = ?auto_204960 ?auto_204971 ) ) ( OBJ-AT ?auto_204963 ?auto_204971 ) ( IN-CITY ?auto_204972 ?auto_204967 ) ( not ( = ?auto_204960 ?auto_204972 ) ) ( OBJ-AT ?auto_204962 ?auto_204972 ) ( IN-CITY ?auto_204969 ?auto_204967 ) ( not ( = ?auto_204960 ?auto_204969 ) ) ( OBJ-AT ?auto_204961 ?auto_204969 ) ( TRUCK-AT ?auto_204966 ?auto_204960 ) ( not ( = ?auto_204961 ?auto_204962 ) ) ( not ( = ?auto_204972 ?auto_204969 ) ) ( not ( = ?auto_204961 ?auto_204963 ) ) ( not ( = ?auto_204962 ?auto_204963 ) ) ( not ( = ?auto_204971 ?auto_204972 ) ) ( not ( = ?auto_204971 ?auto_204969 ) ) ( not ( = ?auto_204961 ?auto_204964 ) ) ( not ( = ?auto_204962 ?auto_204964 ) ) ( not ( = ?auto_204963 ?auto_204964 ) ) ( not ( = ?auto_204970 ?auto_204971 ) ) ( not ( = ?auto_204970 ?auto_204972 ) ) ( not ( = ?auto_204970 ?auto_204969 ) ) ( not ( = ?auto_204961 ?auto_204965 ) ) ( not ( = ?auto_204962 ?auto_204965 ) ) ( not ( = ?auto_204963 ?auto_204965 ) ) ( not ( = ?auto_204964 ?auto_204965 ) ) ( not ( = ?auto_204968 ?auto_204970 ) ) ( not ( = ?auto_204968 ?auto_204971 ) ) ( not ( = ?auto_204968 ?auto_204972 ) ) ( not ( = ?auto_204968 ?auto_204969 ) ) )
     :subtasks
-    ( ( DELIVER-4PKG ?auto_204457 ?auto_204458 ?auto_204459 ?auto_204460 ?auto_204456 )
-      ( DELIVER-1PKG ?auto_204461 ?auto_204456 )
-      ( DELIVER-5PKG-VERIFY ?auto_204457 ?auto_204458 ?auto_204459 ?auto_204460 ?auto_204461 ?auto_204456 ) )
+    ( ( DELIVER-4PKG ?auto_204961 ?auto_204962 ?auto_204963 ?auto_204964 ?auto_204960 )
+      ( DELIVER-1PKG ?auto_204965 ?auto_204960 )
+      ( DELIVER-5PKG-VERIFY ?auto_204961 ?auto_204962 ?auto_204963 ?auto_204964 ?auto_204965 ?auto_204960 ) )
   )
 
 )

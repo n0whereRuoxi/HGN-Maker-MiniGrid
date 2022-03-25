@@ -151,13 +151,12 @@
     )
     :vars
     (
-      ?auto_67 - LOCATION
+      ?auto_69 - LOCATION
       ?auto_68 - CITY
-      ?auto_70 - LOCATION
-      ?auto_69 - TRUCK
+      ?auto_67 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_67 ?auto_68 ) ( IN-CITY ?auto_64 ?auto_68 ) ( not ( = ?auto_64 ?auto_67 ) ) ( OBJ-AT ?auto_66 ?auto_67 ) ( IN-CITY ?auto_70 ?auto_68 ) ( not ( = ?auto_64 ?auto_70 ) ) ( OBJ-AT ?auto_65 ?auto_70 ) ( TRUCK-AT ?auto_69 ?auto_64 ) ( not ( = ?auto_65 ?auto_66 ) ) ( not ( = ?auto_67 ?auto_70 ) ) )
+    ( and ( IN-CITY ?auto_69 ?auto_68 ) ( IN-CITY ?auto_64 ?auto_68 ) ( not ( = ?auto_64 ?auto_69 ) ) ( OBJ-AT ?auto_66 ?auto_69 ) ( OBJ-AT ?auto_65 ?auto_69 ) ( TRUCK-AT ?auto_67 ?auto_64 ) ( not ( = ?auto_65 ?auto_66 ) ) )
     :subtasks
     ( ( DELIVER-1PKG ?auto_65 ?auto_64 )
       ( DELIVER-1PKG ?auto_66 ?auto_64 )

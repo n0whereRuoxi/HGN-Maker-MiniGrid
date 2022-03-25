@@ -173,13 +173,12 @@
     )
     :vars
     (
-      ?auto_71 - LOCATION
-      ?auto_72 - CITY
-      ?auto_74 - LOCATION
-      ?auto_73 - TRUCK
+      ?auto_73 - LOCATION
+      ?auto_71 - CITY
+      ?auto_72 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_71 ?auto_72 ) ( IN-CITY ?auto_68 ?auto_72 ) ( not ( = ?auto_68 ?auto_71 ) ) ( OBJ-AT ?auto_70 ?auto_71 ) ( IN-CITY ?auto_74 ?auto_72 ) ( not ( = ?auto_68 ?auto_74 ) ) ( OBJ-AT ?auto_69 ?auto_74 ) ( TRUCK-AT ?auto_73 ?auto_68 ) ( not ( = ?auto_69 ?auto_70 ) ) ( not ( = ?auto_71 ?auto_74 ) ) )
+    ( and ( IN-CITY ?auto_73 ?auto_71 ) ( IN-CITY ?auto_68 ?auto_71 ) ( not ( = ?auto_68 ?auto_73 ) ) ( OBJ-AT ?auto_70 ?auto_73 ) ( OBJ-AT ?auto_69 ?auto_73 ) ( TRUCK-AT ?auto_72 ?auto_68 ) ( not ( = ?auto_69 ?auto_70 ) ) )
     :subtasks
     ( ( DELIVER-1PKG ?auto_69 ?auto_68 )
       ( DELIVER-1PKG ?auto_70 ?auto_68 )
@@ -189,22 +188,21 @@
   ( :method DELIVER-2PKG
     :parameters
     (
+      ?auto_75 - OBJ
       ?auto_76 - OBJ
-      ?auto_77 - OBJ
-      ?auto_75 - LOCATION
+      ?auto_74 - LOCATION
     )
     :vars
     (
-      ?auto_79 - LOCATION
-      ?auto_80 - CITY
-      ?auto_81 - LOCATION
-      ?auto_78 - TRUCK
+      ?auto_78 - LOCATION
+      ?auto_77 - CITY
+      ?auto_79 - TRUCK
     )
     :precondition
-    ( and ( IN-CITY ?auto_79 ?auto_80 ) ( IN-CITY ?auto_75 ?auto_80 ) ( not ( = ?auto_75 ?auto_79 ) ) ( OBJ-AT ?auto_76 ?auto_79 ) ( IN-CITY ?auto_81 ?auto_80 ) ( not ( = ?auto_75 ?auto_81 ) ) ( OBJ-AT ?auto_77 ?auto_81 ) ( TRUCK-AT ?auto_78 ?auto_75 ) ( not ( = ?auto_77 ?auto_76 ) ) ( not ( = ?auto_79 ?auto_81 ) ) )
+    ( and ( IN-CITY ?auto_78 ?auto_77 ) ( IN-CITY ?auto_74 ?auto_77 ) ( not ( = ?auto_74 ?auto_78 ) ) ( OBJ-AT ?auto_75 ?auto_78 ) ( OBJ-AT ?auto_76 ?auto_78 ) ( TRUCK-AT ?auto_79 ?auto_74 ) ( not ( = ?auto_76 ?auto_75 ) ) )
     :subtasks
-    ( ( DELIVER-2PKG ?auto_77 ?auto_76 ?auto_75 )
-      ( DELIVER-2PKG-VERIFY ?auto_76 ?auto_77 ?auto_75 ) )
+    ( ( DELIVER-2PKG ?auto_76 ?auto_75 ?auto_74 )
+      ( DELIVER-2PKG-VERIFY ?auto_75 ?auto_76 ?auto_74 ) )
   )
 
 )

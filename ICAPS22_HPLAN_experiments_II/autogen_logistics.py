@@ -129,5 +129,5 @@ def writeTaskDeliverNPkg(file, n):
     file.write("  )\n")
 
 if __name__=="__main__":
-    generateProblemsAndSolutions(5,20)
+    generateProblemsAndSolutions(12,20)
 
