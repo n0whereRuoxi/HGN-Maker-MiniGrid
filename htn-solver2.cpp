@@ -145,23 +145,21 @@ int DoExperiments(std::string l_sDomainName)
   l_oPlanMeta.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "_" + l_sDomainName + "_" + l_sResultFileName + ".txt");
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
-      if (i == 2 && j == 0) {
-        std::ofstream l_oPlan;
-        l_oPlan.open(l_sRootDir + "/results_with_methods" + "/plan" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
-        l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
-        l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
-        std::cout << l_sDomainFile << std::endl;
-        std::cout << l_sProblemFile << std::endl;
-        l_oPlanMeta << i << "," << j << ",";
-        std::clock_t c_start = std::clock();
-        DoOneExperiment(l_sDomainFile, l_sProblemFile, l_oPlan, l_oPlanMeta);
-        std::clock_t c_end = std::clock();
-        //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
-        long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
-        std::cout << time_elapsed_ms << std::endl;
-        l_oPlanMeta << time_elapsed_ms << "," << std::endl;
-        l_oPlan.close();
-      }
+      std::ofstream l_oPlan;
+      l_oPlan.open(l_sRootDir + "/results_with_methods" + "/plan" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
+      l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
+      l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
+      std::cout << l_sDomainFile << std::endl;
+      std::cout << l_sProblemFile << std::endl;
+      l_oPlanMeta << i << "," << j << ",";
+      std::clock_t c_start = std::clock();
+      DoOneExperiment(l_sDomainFile, l_sProblemFile, l_oPlan, l_oPlanMeta);
+      std::clock_t c_end = std::clock();
+      //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
+      long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
+      std::cout << time_elapsed_ms << std::endl;
+      l_oPlanMeta << time_elapsed_ms << std::endl;
+      l_oPlan.close();
     }
   }
   l_oPlanMeta.close();
