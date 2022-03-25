@@ -34,20 +34,20 @@
 bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
   const HtnSolution * p_pPartial,
   unsigned int p_iDepth,
-  std::ofstream l_oFile,
-  std::ofstream l_oFileMeta );
+  std::ofstream &l_oFile,
+  std::ofstream &l_oFileMeta );
 bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
   const HtnSolution * p_pPartial,
   unsigned int p_iDepth,
-  std::ofstream l_oFile,
-  std::ofstream l_oFileMeta );
+  std::ofstream &l_oFile,
+  std::ofstream &l_oFileMeta );
 bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
   const HtnSolution * p_pPartial,
   unsigned int p_iDepth,
-  std::ofstream l_oFile,
-  std::ofstream l_oFileMeta );
+  std::ofstream &l_oFile,
+  std::ofstream &l_oFileMeta );
 
-void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream l_oFile, std::ofstream l_oFileMeta);
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream &l_oFile, std::ofstream &l_oFileMeta);
 
 int DoExperiments(std::string l_sDomainName);
 
@@ -147,7 +147,7 @@ int DoExperiments(std::string l_sDomainName)
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
       if (i == 2 && j == 0) {
         std::ofstream l_oPlan;
-        l_oPlan.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan")
+        l_oPlan.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
         l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
         l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
         std::cout << l_sDomainFile << std::endl;
@@ -160,7 +160,7 @@ int DoExperiments(std::string l_sDomainName)
         long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
         std::cout << time_elapsed_ms << std::endl;
         l_oPlanMeta << time_elapsed_ms << "," << std::endl;
-        l_oPlan.close()
+        l_oPlan.close();
       }
     }
   }
@@ -169,7 +169,7 @@ int DoExperiments(std::string l_sDomainName)
 }
 
 
-void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream l_oFile, std::ofstream l_oFileMeta)
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream &l_oFile, std::ofstream &l_oFileMeta)
 {
 
   std::tr1::shared_ptr< HtnDomain > l_pDomain;
@@ -280,8 +280,8 @@ void UpdateQValues( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
 	       const HtnSolution * p_pPartial,
 	       unsigned int p_iDepth,
-         std::ofstream l_oFile,
-         std::ofstream l_oFileMeta)
+         std::ofstream &l_oFile,
+         std::ofstream &l_oFileMeta)
 {
   if( p_pPartial->IsComplete() )
   {
@@ -298,8 +298,8 @@ bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
 		   const HtnSolution * p_pPartial,
 		   unsigned int p_iDepth,
-       std::ofstream l_oFile,
-      std::ofstream l_oFileMeta)
+       std::ofstream &l_oFile,
+      std::ofstream &l_oFileMeta)
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
@@ -333,7 +333,7 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
         std::cout << "\nPlan found!\n";
         std::cout << l_pNewSolution->Print( g_bShowTrace );
         l_oFile << l_pNewSolution->Print( g_bShowTrace );
-        l_oFileMeta << l_pNewSolution.GetPlanLength() << ",";
+        l_oFileMeta << l_pNewSolution->GetPlanLength() << ",";
         l_bSuccess = true;
         UpdateQValues( p_pDomain, l_pNewSolution );
       }
@@ -393,8 +393,8 @@ void RemoveIrrelevantBindings( std::vector< Substitution * > * p_pInstances,
 bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
 		     const HtnSolution * p_pPartial,
 		     unsigned int p_iDepth,
-         std::ofstream l_oFile,
-      std::ofstream l_oFileMeta)
+         std::ofstream &l_oFile,
+      std::ofstream &l_oFileMeta)
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
