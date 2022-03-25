@@ -200,9 +200,10 @@ void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std:
   if( g_bUseQValues )
     l_pDomain->SortMethods();
 
-  if( !FindPlan( l_pDomain, l_pProblem, 0, l_oFile, l_oFileMeta) )
+  if( !FindPlan( l_pDomain, l_pProblem, 0, l_oFile, l_oFileMeta) ) {
     std::cout << "\nNo legal plans.\n";
-
+    l_oFileMeta << 0 << ",";
+  }
   delete l_pProblem;
 
   if( g_bUpdateQValues )

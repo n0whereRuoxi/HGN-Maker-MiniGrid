@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import statistics
 
-domains = ['blocksworld']
+domains = ['blocksworld', 'logistics']
 curriculum = [True, False]
 prune = [True, False]
 plot = ['run_time', 'number_of_methods']
