@@ -142,7 +142,7 @@ int DoExperiments(std::string l_sDomainName)
       l_sResultFileName = "original_prune";
   }
   std::ofstream l_oPlanMeta;
-  l_oPlanMeta.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "/" + l_sDomainName + "_" + l_sResultFileName + ".txt")
+  l_oPlanMeta.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "/" + l_sDomainName + "_" + l_sResultFileName + ".txt");
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
       if (i == 2 && j == 0) {
@@ -164,7 +164,7 @@ int DoExperiments(std::string l_sDomainName)
       }
     }
   }
-  l_oPlanMeta.close()
+  l_oPlanMeta.close();
   return 0;
 }
 
@@ -299,7 +299,7 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 		   const HtnSolution * p_pPartial,
 		   unsigned int p_iDepth,
        std::ofstream l_oFile,
-      std::ofstream l_oFileMeta))
+      std::ofstream l_oFileMeta)
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
@@ -394,7 +394,7 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 		     const HtnSolution * p_pPartial,
 		     unsigned int p_iDepth,
          std::ofstream l_oFile,
-      std::ofstream l_oFileMeta))
+      std::ofstream l_oFileMeta)
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
