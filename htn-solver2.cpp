@@ -35,20 +35,23 @@ bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
   const HtnSolution * p_pPartial,
   unsigned int p_iDepth,
   std::ofstream &l_oFile,
-  std::ofstream &l_oFileMeta );
+  std::ofstream &l_oFileMeta,
+  std::clock_t c_start );
 bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
   const HtnSolution * p_pPartial,
   unsigned int p_iDepth,
   std::ofstream &l_oFile,
-  std::ofstream &l_oFileMeta );
+  std::ofstream &l_oFileMeta,
+  std::clock_t c_start );
 bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
   const HtnSolution * p_pPartial,
   unsigned int p_iDepth,
   std::ofstream &l_oFile,
-  std::ofstream &l_oFileMeta );
-
+  std::ofstream &l_oFileMeta,
+  std::clock_t c_start );
+bool TimeOut(std::clock_t c_start);
 void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, 
-  std::ofstream &l_oFile, std::ofstream &l_oFileMeta, int i, int j);
+  std::ofstream &l_oFile, std::ofstream &l_oFileMeta, int i, int j, std::clock_t c_start);
 
 int DoExperiments(std::string l_sDomainName);
 
@@ -59,6 +62,7 @@ bool g_bRandomSelection;
 bool g_bCurriculum;
 bool g_bPrune;
 int g_iDebugLevel;
+int g_iMaxTime;
 unsigned int g_iMaxDepth;
 
 int main( int argc, char * argv[] )
@@ -77,6 +81,7 @@ int main( int argc, char * argv[] )
     TCLAP::SwitchArg l_aShowTrace( "t", "show_trace", "Show a full decomposition trace of the solution.", l_cCmd, false );
     TCLAP::SwitchArg l_aCurriculum( "c", "curriculum", "Teachable-HTN-Maker.", l_cCmd, false );
     TCLAP::SwitchArg l_aPrune( "p", "prune", "Prune methods.", l_cCmd, false );
+    TCLAP::ValueArg<int> l_aMaxTime( "o", "timeout", "Determine when to timeout.", false, 2000, "int", l_cCmd );
     TCLAP::SwitchArg l_aUseQValues( "q", "use_qvalues", "When decomposing a task, use the applicable method with lowest Q-value.", l_cCmd, false );
     TCLAP::SwitchArg l_aUpdateQValues( "u", "update_qvalues", "After finding a solution, update the Q-values of the methods used.", l_cCmd, false );
     TCLAP::SwitchArg l_aRandomSelection( "r", "random_selection", "Select applicable methods in random order.", l_cCmd, false );
@@ -93,6 +98,7 @@ int main( int argc, char * argv[] )
     g_bUpdateQValues = l_aUpdateQValues.getValue();
     g_bRandomSelection = l_aRandomSelection.getValue();
     g_iDebugLevel = l_aDebugLevel.getValue();
+    g_iMaxTime = l_aMaxTime.getValue();
     g_iMaxDepth = l_aMaxDepth.getValue();
   }
   catch( TCLAP::ArgException &e )
@@ -109,6 +115,13 @@ int main( int argc, char * argv[] )
 #endif//CATCH_EXCEPTS
 }
 
+bool TimeOut(std::clock_t c_start) 
+{
+  std::clock_t c_end = std::clock();
+  long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
+  if (time_elapsed_ms > g_iMaxTime) return true
+  else return false
+}
 
 int DoExperiments(std::string l_sDomainName)
 {
@@ -155,7 +168,7 @@ int DoExperiments(std::string l_sDomainName)
       std::clock_t c_start = std::clock();
       try
       {
-        DoOneExperiment(l_sDomainFile, l_sProblemFile, l_oPlan, l_oPlanMeta, i, j);
+        DoOneExperiment(l_sDomainFile, l_sProblemFile, l_oPlan, l_oPlanMeta, i, j, c_start);
       }
       catch( FileReadException & e )
       {
@@ -175,8 +188,13 @@ int DoExperiments(std::string l_sDomainName)
   return 0;
 }
 
-
-void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream &l_oFile, std::ofstream &l_oFileMeta, int num_i, int num_j)
+void DoOneExperiment(std::string l_sDomainFile, 
+  std::string l_sProblemFile, 
+  std::ofstream &l_oFile, 
+  std::ofstream &l_oFileMeta, 
+  int num_i, 
+  int num_j,
+  std::clock_t c_start)
 {
 
   std::tr1::shared_ptr< HtnDomain > l_pDomain;
@@ -211,7 +229,7 @@ void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std:
 
   l_oFileMeta << num_i << "," << num_j << ",";
 
-  if( !FindPlan( l_pDomain, l_pProblem, 0, l_oFile, l_oFileMeta) ) {
+  if( !FindPlan( l_pDomain, l_pProblem, 0, l_oFile, l_oFileMeta, c_start) ) {
     std::cout << "\nNo legal plans.\n";
     l_oFileMeta << -1 << ",";
   }
@@ -291,7 +309,9 @@ bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 	       const HtnSolution * p_pPartial,
 	       unsigned int p_iDepth,
          std::ofstream &l_oFile,
-         std::ofstream &l_oFileMeta)
+         std::ofstream &l_oFileMeta,
+         std::clock_t c_start
+         )
 {
   std::cout << "debug: finding plan..." << std::endl;
   if( p_pPartial->IsComplete() )
@@ -301,20 +321,22 @@ bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
   }
 
   if( p_pPartial->GetCTopTask()->GetName()[0] == '!' )
-    return FindPlanOper( p_pDomain, p_pPartial, p_iDepth + 1, l_oFile, l_oFileMeta);
+    return FindPlanOper( p_pDomain, p_pPartial, p_iDepth + 1, l_oFile, l_oFileMeta, c_start);
   else
-    return FindPlanMethod( p_pDomain, p_pPartial, p_iDepth + 1, l_oFile, l_oFileMeta);
+    return FindPlanMethod( p_pDomain, p_pPartial, p_iDepth + 1, l_oFile, l_oFileMeta, c_start);
 }
 
 bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain, 
 		   const HtnSolution * p_pPartial,
 		   unsigned int p_iDepth,
        std::ofstream &l_oFile,
-      std::ofstream &l_oFileMeta)
+      std::ofstream &l_oFileMeta,
+      std::clock_t c_start)
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
-
+  if TimeOut(c_start)
+    return false;
   bool l_bSuccess = false;
 
   int l_iOperIndex = -1;
@@ -351,11 +373,11 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
       }
       else if( l_pNewSolution->GetCTopTask()->GetName()[0] == '!' )
       {
-	l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
+	l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta, c_start);
       }
       else
       {
-	l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
+	l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta, c_start);
       }
 
       delete l_pNewSolution;
@@ -406,9 +428,12 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 		     const HtnSolution * p_pPartial,
 		     unsigned int p_iDepth,
          std::ofstream &l_oFile,
-      std::ofstream &l_oFileMeta)
+      std::ofstream &l_oFileMeta,
+      stf::clock_t c_start)
 {
   if( p_iDepth > g_iMaxDepth )
+    return false;
+  if TimeOut(c_start)
     return false;
 
   bool l_bSuccess = false;
@@ -480,11 +505,11 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 	  }
 	  else if( l_pNewSolution->GetCTopTask()->GetName()[0] == '!' )
 	  {
-	    l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
+	    l_bSuccess = FindPlanOper( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta, c_start);
 	  }
 	  else
 	  {
-	    l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta);
+	    l_bSuccess = FindPlanMethod( p_pDomain, l_pNewSolution, p_iDepth + 1, l_oFile, l_oFileMeta, c_start);
 	  }
 
 	  delete l_pNewSolution;
