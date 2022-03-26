@@ -213,7 +213,7 @@ void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std:
 
   if( !FindPlan( l_pDomain, l_pProblem, 0, l_oFile, l_oFileMeta) ) {
     std::cout << "\nNo legal plans.\n";
-    l_oFileMeta << 0 << ",";
+    l_oFileMeta << -1 << ",";
   }
   delete l_pProblem;
 
