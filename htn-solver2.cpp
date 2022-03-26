@@ -47,7 +47,8 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
   std::ofstream &l_oFile,
   std::ofstream &l_oFileMeta );
 
-void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream &l_oFile, std::ofstream &l_oFileMeta);
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, 
+  std::ofstream &l_oFile, std::ofstream &l_oFileMeta, int i, int j);
 
 int DoExperiments(std::string l_sDomainName);
 
@@ -120,7 +121,7 @@ int DoExperiments(std::string l_sDomainName)
   std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_II";
 
   if (l_sDomainName == "logistics") {
-    l_iNumberOfProblems = 6;
+    l_iNumberOfProblems = 10;
     l_iNumberOfRunsPerProblem = 5;
   }
   else {
@@ -145,15 +146,23 @@ int DoExperiments(std::string l_sDomainName)
   l_oPlanMeta.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "_" + l_sDomainName + "_" + l_sResultFileName + ".txt");
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
-      std::ofstream l_oPlan;
+     std::ofstream l_oPlan;
       l_oPlan.open(l_sRootDir + "/results_with_methods" + "/plan" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
       l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
       l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
       std::cout << l_sDomainFile << std::endl;
       std::cout << l_sProblemFile << std::endl;
-      l_oPlanMeta << i << "," << j << ",";
       std::clock_t c_start = std::clock();
-      DoOneExperiment(l_sDomainFile, l_sProblemFile, l_oPlan, l_oPlanMeta);
+      try
+      {
+        DoOneExperiment(l_sDomainFile, l_sProblemFile, l_oPlan, l_oPlanMeta, i, j);
+      }
+      catch( FileReadException & e )
+      {
+        l_oPlan.close();
+        l_oPlanMeta.close();
+        return 0;
+      }
       std::clock_t c_end = std::clock();
       //if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
       long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
@@ -167,7 +176,7 @@ int DoExperiments(std::string l_sDomainName)
 }
 
 
-void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream &l_oFile, std::ofstream &l_oFileMeta)
+void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std::ofstream &l_oFile, std::ofstream &l_oFileMeta, int num_i, int num_j)
 {
 
   std::tr1::shared_ptr< HtnDomain > l_pDomain;
@@ -199,6 +208,8 @@ void DoOneExperiment(std::string l_sDomainFile, std::string l_sProblemFile, std:
 
   if( g_bUseQValues )
     l_pDomain->SortMethods();
+
+  l_oFileMeta << num_i << "," << num_j << ",";
 
   if( !FindPlan( l_pDomain, l_pProblem, 0, l_oFile, l_oFileMeta) ) {
     std::cout << "\nNo legal plans.\n";
@@ -282,6 +293,7 @@ bool FindPlan( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
          std::ofstream &l_oFile,
          std::ofstream &l_oFileMeta)
 {
+  std::cout << "debug: finding plan..." << std::endl;
   if( p_pPartial->IsComplete() )
   {
     std::cout << "\nPlan found!\nNo tasks to complete.\n";
@@ -329,10 +341,11 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 
       if( l_pNewSolution->IsComplete() )
       {
-        std::cout << "\nPlan found!\n";
+        std::cout << "\nPlan found!!!\n";
         std::cout << l_pNewSolution->Print( g_bShowTrace );
         l_oFile << l_pNewSolution->Print( g_bShowTrace );
         l_oFileMeta << l_pNewSolution->GetPlanLength() << ",";
+        std::cout << "plan length: " << l_pNewSolution->GetPlanLength() << std::endl;
         l_bSuccess = true;
         UpdateQValues( p_pDomain, l_pNewSolution );
       }
@@ -459,7 +472,10 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 	  {
 	    std::cout << "\nPlan found!\n";
 	    std::cout << l_pNewSolution->Print( g_bShowTrace );
-	    l_bSuccess = true;
+            l_oFile << l_pNewSolution->Print( g_bShowTrace );
+            l_oFileMeta << l_pNewSolution->GetPlanLength() << ",";
+            std::cout << "plan length: " << l_pNewSolution->GetPlanLength() << std::endl;
+            l_bSuccess = true;
 	    UpdateQValues( p_pDomain, l_pNewSolution );
 	  }
 	  else if( l_pNewSolution->GetCTopTask()->GetName()[0] == '!' )
