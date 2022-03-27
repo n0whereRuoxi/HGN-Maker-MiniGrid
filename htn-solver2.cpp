@@ -119,8 +119,11 @@ bool TimeOut(std::clock_t c_start)
 {
   std::clock_t c_end = std::clock();
   long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
-  if (time_elapsed_ms > g_iMaxTime) return true
-  else return false
+  if (time_elapsed_ms > g_iMaxTime) {
+    std::cout << "Time out: " << time_elapsed_ms << std::endl;
+    return true;
+  }
+  else return false;
 }
 
 int DoExperiments(std::string l_sDomainName)
@@ -335,7 +338,7 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
-  if TimeOut(c_start)
+  if (TimeOut(c_start))
     return false;
   bool l_bSuccess = false;
 
@@ -429,11 +432,11 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 		     unsigned int p_iDepth,
          std::ofstream &l_oFile,
       std::ofstream &l_oFileMeta,
-      stf::clock_t c_start)
+      std::clock_t c_start)
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
-  if TimeOut(c_start)
+  if (TimeOut(c_start))
     return false;
 
   bool l_bSuccess = false;
