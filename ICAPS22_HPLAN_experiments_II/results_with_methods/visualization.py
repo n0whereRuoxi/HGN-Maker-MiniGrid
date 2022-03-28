@@ -31,24 +31,25 @@ for domain in domains:
                 # print(e_number_of_methods)
                 # print(y_runtime)
                 # print(e_runtime)
-
+                # y_number_of_methods = [0 for i in y_number_of_methods]
                 axs[0].errorbar(x, y_number_of_methods, yerr=e_number_of_methods, 
                     color = '#377eb8' if is_curriculum else '#e41a1c',
                     # linewidth = '1.0' if is_prune else '1.5',
-                    label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''),
+                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruned' if is_prune else ''),
                     ls='-' if is_prune else '--')
                 axs[1].errorbar(x, y_runtime, yerr=e_runtime, 
                     color = '#377eb8' if is_curriculum else '#e41a1c',
                     # linewidth = '1.0' if is_prune else '1.5',
-                    label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''),
+                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruned' if is_prune else ''),
                     ls='-' if is_prune else '--',
                     )
     fig.suptitle('Blocks World domain' if domain == 'blocksworld' else 'Logistics domain')
-    axs[0].legend()
+    # axs[0].legend(ncol=4)
     axs[0].set_ylabel('Number of methods ')
-    axs[1].legend()
+    # axs[1].legend(ncol=4)
     axs[1].set_xlabel('Number of blocks')
     axs[1].set_ylabel('Run time (ms)')
-    axs[0].set_yscale('log')
-    axs[1].set_yscale('log')
+    if domain == 'logistics':
+        axs[0].set_yscale('log')
+        axs[1].set_yscale('log')
     plt.show()

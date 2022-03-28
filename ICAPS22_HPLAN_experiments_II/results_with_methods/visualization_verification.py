@@ -21,7 +21,7 @@ for domain in domains:
                         results[int(row[0])][0].append(int(row[2]))
                         results[int(row[0])][1].append(float(row[3]))
                 # print(results)
-                x = results.keys()
+                x = list(results.keys())
                 y_number_of_methods = [ statistics.mean(results[i][0]) for i in x]
                 e_number_of_methods = [ statistics.pstdev(results[i][0]) for i in x]
                 y_runtime = [ statistics.mean(results[i][1]) for i in x]
@@ -31,7 +31,6 @@ for domain in domains:
                 # print(e_number_of_methods)
                 # print(y_runtime)
                 # print(e_runtime)
-
                 axs[0].errorbar(x, y_number_of_methods, yerr=e_number_of_methods, 
                     color = '#377eb8' if is_curriculum else '#e41a1c',
                     # linewidth = '1.0' if is_prune else '1.5',
@@ -44,9 +43,9 @@ for domain in domains:
                     ls='-' if is_prune else '--',
                     )
     fig.suptitle('Blocks World domain' if domain == 'blocksworld' else 'Logistics domain')
-    axs[0].legend()
+    # axs[0].legend()
     axs[0].set_ylabel('Plan Length')
-    axs[1].legend()
+    # axs[1].legend()
     axs[1].set_xlabel('Number of blocks')
     axs[1].set_ylabel('Run time (ms)')
     plt.show()
