@@ -35,12 +35,12 @@ for domain in domains:
                 axs[0].errorbar(x, y_number_of_methods, yerr=e_number_of_methods, 
                     color = '#377eb8' if is_curriculum else '#e41a1c',
                     # linewidth = '1.0' if is_prune else '1.5',
-                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruned' if is_prune else ''),
+                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruning' if is_prune else ''),
                     ls='-' if is_prune else '--')
                 axs[1].errorbar(x, y_runtime, yerr=e_runtime, 
                     color = '#377eb8' if is_curriculum else '#e41a1c',
                     # linewidth = '1.0' if is_prune else '1.5',
-                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruned' if is_prune else ''),
+                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruning' if is_prune else ''),
                     ls='-' if is_prune else '--',
                     )
     fig.suptitle('Blocks World domain' if domain == 'blocksworld' else 'Logistics domain')
