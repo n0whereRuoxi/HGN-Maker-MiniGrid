@@ -302,7 +302,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
         std::cout << "Reading task files for depots domain with curriculum: " << std::endl;
         for (int i = 1; i < l_iProblemNumber + 1; i++) {
           std::cout << "Reading task: task_Make-" + std::to_string(i) + "Crate.pddl" << std::endl;
-          l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Pile.pddl" ) ) );
+          l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Crate.pddl" ) ) );
         }
       }
     }
