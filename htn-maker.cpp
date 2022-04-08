@@ -284,20 +284,27 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
     //import task files for curriculum
     if (g_iFlags & FLAG_CURRICULUM) {
 
-    if (l_sDomainName == "logistics") {
-      std::cout << "Reading task files for logistics domain with curriculum: " << std::endl;
-      for (int i = 1; i < l_iProblemNumber + 1; i++) {
-        std::cout << "Reading task: task_deliver" + std::to_string(i) + ".pddl" << std::endl;
-        l_vHtnTaskDeliverN.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_deliver" + std::to_string(i) + ".pddl" ) ) );
+      if (l_sDomainName == "logistics") {
+        std::cout << "Reading task files for logistics domain with curriculum: " << std::endl;
+        for (int i = 1; i < l_iProblemNumber + 1; i++) {
+          std::cout << "Reading task: task_deliver" + std::to_string(i) + ".pddl" << std::endl;
+          l_vHtnTaskDeliverN.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_deliver" + std::to_string(i) + ".pddl" ) ) );
+        }
       }
-    }
-    else {
-      std::cout << "Reading task files for blocksworld domain with curriculum: " << std::endl;
-      for (int i = 1; i < l_iProblemNumber + 1; i++) {
-        std::cout << "Reading task: task_Make-" + std::to_string(i) + "Pile.pddl" << std::endl;
-        l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Pile.pddl" ) ) );
+      else if (l_sDomainName == "blocksworld") {
+        std::cout << "Reading task files for blocksworld domain with curriculum: " << std::endl;
+        for (int i = 1; i < l_iProblemNumber + 1; i++) {
+          std::cout << "Reading task: task_Make-" + std::to_string(i) + "Pile.pddl" << std::endl;
+          l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Pile.pddl" ) ) );
+        }
       }
-    }
+      else {
+        std::cout << "Reading task files for depots domain with curriculum: " << std::endl;
+        for (int i = 1; i < l_iProblemNumber + 1; i++) {
+          std::cout << "Reading task: task_Make-" + std::to_string(i) + "Crate.pddl" << std::endl;
+          l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Pile.pddl" ) ) );
+        }
+      }
     }
   }
   catch( FileReadException & e )
