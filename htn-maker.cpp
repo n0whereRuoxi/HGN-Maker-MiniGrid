@@ -33,6 +33,7 @@
 #include "htn_task_list.hpp"
 #include "annotated_plan.hpp"
 #include "partial_htn_method.hpp"
+#include <functional>
 
 #define FLAG_REQUIRE_NEW                0x00000001
 #define FLAG_VARIABLE_LINKAGE           0x00000002
@@ -323,45 +324,48 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
     MakeTrivialNdCheckers( l_pHtnDomain );
 
   if (g_iFlags & FLAG_CURRICULUM) {
+    std::hash<std::string> hasher;
+    auto l_iDomainHash = hasher(l_sDomainName);
     switch (l_sDomainName) {
-    case "logistics":
-      LearnMethodsFromExactSequence(0,4, l_pStripsPlan,
-                l_vHtnTaskDeliverN[0],
-                l_pHtnDomain );
-      for (int n = 2; n < l_iProblemNumber + 1; n++) {
-        LearnMethodsFromExactSequence(n*4-4, n*4, l_pStripsPlan,
-                l_vHtnTaskDeliverN[0],
-                l_pHtnDomain );
-        LearnMethodsFromExactSequence(0,n*4, l_pStripsPlan,
-                l_vHtnTaskDeliverN[n-1],
-                l_pHtnDomain );
-      }
-    case "blocksworld":
-      for (int i = 0; i < l_iProblemNumber; i++) {
-        for (int j = 0; j < i+1; j++) {
-          LearnMethodsFromExactSequence(i*2-j*2, i*2+2, l_pStripsPlan,
-                l_vHtnTaskMakeNPile[i],
-                l_pHtnDomain );
-          LearnMethodsFromExactSequence(l_iProblemNumber*2+i*2-j*2, l_iProblemNumber*2+i*2+2, l_pStripsPlan,
-                l_vHtnTaskMakeNPile[i],
-                l_pHtnDomain );
+      case hasher("logistics"):
+        LearnMethodsFromExactSequence(0,4, l_pStripsPlan,
+                  l_vHtnTaskDeliverN[0],
+                  l_pHtnDomain );
+        for (int n = 2; n < l_iProblemNumber + 1; n++) {
+          LearnMethodsFromExactSequence(n*4-4, n*4, l_pStripsPlan,
+                  l_vHtnTaskDeliverN[0],
+                  l_pHtnDomain );
+          LearnMethodsFromExactSequence(0,n*4, l_pStripsPlan,
+                  l_vHtnTaskDeliverN[n-1],
+                  l_pHtnDomain );
         }
-      }
-      LearnMethodsFromExactSequence(0, l_iProblemNumber*4, l_pStripsPlan,
-            l_vHtnTaskMakeNPile[l_iProblemNumber-1],
-            l_pHtnDomain );
-    case "depots":
-      LearnMethodsFromExactSequence(0,6, l_pStripsPlan,
-                l_vHtnTaskDeliverN[0],
-                l_pHtnDomain );
-      for (int n = 2; n < l_iProblemNumber + 1; n++) {
-        LearnMethodsFromExactSequence(n*6-6, n*6, l_pStripsPlan,
-                l_vHtnTaskDeliverN[0],
-                l_pHtnDomain );
-        LearnMethodsFromExactSequence(0,n*6, l_pStripsPlan,
-                l_vHtnTaskDeliverN[n-1],
-                l_pHtnDomain );
-      }
+      case hasher("blocksworld"):
+        for (int i = 0; i < l_iProblemNumber; i++) {
+          for (int j = 0; j < i+1; j++) {
+            LearnMethodsFromExactSequence(i*2-j*2, i*2+2, l_pStripsPlan,
+                  l_vHtnTaskMakeNPile[i],
+                  l_pHtnDomain );
+            LearnMethodsFromExactSequence(l_iProblemNumber*2+i*2-j*2, l_iProblemNumber*2+i*2+2, l_pStripsPlan,
+                  l_vHtnTaskMakeNPile[i],
+                  l_pHtnDomain );
+          }
+        }
+        LearnMethodsFromExactSequence(0, l_iProblemNumber*4, l_pStripsPlan,
+              l_vHtnTaskMakeNPile[l_iProblemNumber-1],
+              l_pHtnDomain );
+      case hasher("depots"):
+        LearnMethodsFromExactSequence(0,6, l_pStripsPlan,
+                  l_vHtnTaskDeliverN[0],
+                  l_pHtnDomain );
+        for (int n = 2; n < l_iProblemNumber + 1; n++) {
+          LearnMethodsFromExactSequence(n*6-6, n*6, l_pStripsPlan,
+                  l_vHtnTaskDeliverN[0],
+                  l_pHtnDomain );
+          LearnMethodsFromExactSequence(0,n*6, l_pStripsPlan,
+                  l_vHtnTaskDeliverN[n-1],
+                  l_pHtnDomain );
+        }
+    }
   }
   else 
     LearnMethods( l_pStripsPlan,
