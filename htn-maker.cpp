@@ -363,14 +363,14 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
     }
     else {
       LearnMethodsFromExactSequence(0,6, l_pStripsPlan,
-                l_vHtnTaskDeliverN[0],
+                l_vHtnTaskMakeNCrate[0],
                 l_pHtnDomain );
       for (int n = 2; n < l_iProblemNumber + 1; n++) {
         LearnMethodsFromExactSequence(n*6-6, n*6, l_pStripsPlan,
-                l_vHtnTaskDeliverN[0],
+                l_vHtnTaskMakeNCrate[0],
                 l_pHtnDomain );
         LearnMethodsFromExactSequence(0,n*6, l_pStripsPlan,
-                l_vHtnTaskDeliverN[n-1],
+                l_vHtnTaskMakeNCrate[n-1],
                 l_pHtnDomain );
       }
     }
