@@ -149,7 +149,7 @@ int DoExperiments(std::string l_sDomainName)
   int l_iNumberOfProblems;
   int l_iNumberOfRunsPerProblem; 
   std::string l_sResultFileName;
-  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_II/results_with_methods";
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_III/results_with_methods";
 
   if (l_sDomainName == "logistics") {
     l_iNumberOfProblems = 10;
@@ -210,7 +210,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
   std::string l_sSolutionFile;
   std::string l_sHtnDomainFile;
 
-  std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_II/" + l_sDomainName + "/";
+  std::string l_sDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_III/" + l_sDomainName + "/";
 
   l_sStripsDomainFile = l_sDir + "domain_strips.pddl";
   l_sTasksFile = l_sDir + "tasks" + std::to_string(l_iProblemNumber) + ".pddl";
