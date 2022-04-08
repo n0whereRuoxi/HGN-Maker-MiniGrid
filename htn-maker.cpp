@@ -324,9 +324,6 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
     MakeTrivialNdCheckers( l_pHtnDomain );
 
   if (g_iFlags & FLAG_CURRICULUM) {
-    std::hash<std::string> hasher;
-    auto l_iDomainHash = hasher(l_sDomainName);
-    switch (l_iDomainHash) {
     if (l_sDomainName == "logistics") {
       LearnMethodsFromExactSequence(0,4, l_pStripsPlan,
                 l_vHtnTaskDeliverN[0],
