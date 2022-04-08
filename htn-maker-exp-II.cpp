@@ -182,19 +182,17 @@ int DoExperiments(std::string l_sDomainName)
 
   for (int i = 2; i < l_iNumberOfProblems + 1; i++) {
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
-      if (i == 3 && j == 0) {
-        std::clock_t c_start = std::clock();
-        HtnDomain * l_pHtnDomain = DoOneExperiment(l_sDomainName, i, j);
-        int l_iNumMethods = l_pHtnDomain->GetNumMethods();
-        std::clock_t c_end = std::clock();
-        std::cout << l_pHtnDomain->ToPddl() << std::endl;
-        long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
-        myfile << i << "," << j << "," << l_iNumMethods << "," << time_elapsed_ms << std::endl;
-        domainFile.open (l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl");
-        domainFile << l_pHtnDomain->ToPddl() << std::endl;
-        delete l_pHtnDomain;
-        domainFile.close();
-      }
+      std::clock_t c_start = std::clock();
+      HtnDomain * l_pHtnDomain = DoOneExperiment(l_sDomainName, i, j);
+      int l_iNumMethods = l_pHtnDomain->GetNumMethods();
+      std::clock_t c_end = std::clock();
+//      if (i == 2 && j == 0) std::cout << l_pHtnDomain->ToPddl() << std::endl; //debugging
+      long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
+      myfile << i << "," << j << "," << l_iNumMethods << "," << time_elapsed_ms << std::endl;
+      domainFile.open (l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl");
+      domainFile << l_pHtnDomain->ToPddl() << std::endl;
+      delete l_pHtnDomain;
+      domainFile.close();
     }
   }
   myfile.close();
