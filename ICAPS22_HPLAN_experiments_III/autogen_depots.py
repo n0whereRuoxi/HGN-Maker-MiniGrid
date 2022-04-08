@@ -11,26 +11,26 @@ def generateProblemsAndSolutions(num,times):
             locationsIdx = random.sample(range(1, 1000), random.randint(round((i+2)/2), (i+2)*2))
             packagesIdx = random.sample(range(1, 1000), i+2)
             packagesLoc = np.random.choice(locationsIdx, i+2)
-            print(packagesIdx, packagesLoc)
-            writeProblem(j, packagesIdx, packagesLoc)
-            writeHTNProblem(j, packagesIdx, packagesLoc)
-            writeSolution(j, packagesIdx, packagesLoc)
+            print(locationsIdx, packagesIdx, packagesLoc)
+            writeProblem(j, locationsIdx, packagesIdx, packagesLoc)
+            writeHTNProblem(j, locationsIdx, packagesIdx, packagesLoc)
+            writeSolution(j, locationsIdx, packagesIdx, packagesLoc)
 
-def writeProblem(j, packagesIdx, packagesLoc):
+def writeProblem(j, locationsIdx, packagesIdx, packagesLoc):
     fname = 'depots/problem{}-{}-strips.pddl'.format(len(packagesIdx), j)
     file = open(fname,"w") 
     writeHeader(file)
-    writeObjects(file, packagesLoc, packagesIdx)
-    writeInit(file, packagesIdx, packagesLoc)
+    writeObjects(file, locationsIdx, packagesLoc, packagesIdx)
+    writeInit(file, locationsIdx, packagesIdx, packagesLoc)
     writeGoal(file, packagesIdx)
     file.write(")\n")
 
-def writeHTNProblem(j, packagesIdx, packagesLoc):
+def writeHTNProblem(j, locationsIdx, packagesIdx, packagesLoc):
     fname = 'depots/problem{}-{}-htn.pddl'.format(len(packagesIdx), j)
     file = open(fname,"w") 
     writeHTNHeader(file)
-    writeObjects(file, packagesLoc, packagesIdx)
-    writeInit(file, packagesIdx, packagesLoc)
+    writeObjects(file, locationsIdx, packagesLoc, packagesIdx)
+    writeInit(file, locationsIdx, packagesIdx, packagesLoc)
     writeHTNGoals(file, packagesIdx)
     file.write(")\n")
 
@@ -47,30 +47,30 @@ def writeHTNHeader(file):
     file.write("  ( :requirements :strips :htn :typing :equality )\n")
 
 
-def writeObjects(file, packagesLoc, packagesIdx):
+def writeObjects(file, locationsIdx, packagesLoc, packagesIdx):
     file.write("  ( :objects\n")
     file.write("    truck0 - truck\n")
-    packagesLoc = np.append(packagesLoc, 0)
-    for idx in packagesLoc:
+    locationsIdx = np.append(locationsIdx, 0)
+    for idx in locationsIdx:
         file.write("    place{} - place\n".format(idx))
-        file.write("    pallet{} - surface\n".format(idx))
         file.write("    hoist{} - hoist\n".format(idx))
     for idx in packagesIdx:
         file.write("    crate{} - surface\n".format(idx))
+        file.write("    pallet{} - surface\n".format(idx))
     file.write("  )\n")
 
-def writeInit(file, packagesIdx, packagesLoc):
+def writeInit(file, locationsIdx, packagesIdx, packagesLoc):
     file.write("  ( :init\n")
     file.write("    ( truck-at truck0 place0 )\n")
     file.write("    ( clear pallet0 )\n")
-    packagesLoc = np.append(packagesLoc, 0)
-    for idx in packagesLoc:
+    locationsIdx = np.append(locationsIdx, 0)
+    for idx in locationsIdx:
         file.write("    ( hoist-at hoist{} place{} )\n".format(idx, idx))
         file.write("    ( available hoist{} )\n".format(idx))
-        file.write("    ( surface-at pallet{} place{} )\n".format(idx, idx))
     for i in range(len(packagesIdx)):
+        file.write("    ( surface-at pallet{} place{} )\n".format(packagesIdx[i], packagesLoc[i]))
         file.write("    ( surface-at crate{} place{} )\n".format(packagesIdx[i], packagesLoc[i]))
-        file.write("    ( on crate{} pallet{} )\n".format(packagesIdx[i], packagesLoc[i]))
+        file.write("    ( on crate{} pallet{} )\n".format(packagesIdx[i], packagesIdx[i]))
         file.write("    ( is-crate crate{} )\n".format(packagesIdx[i]))
         file.write("    ( clear crate{} )\n".format(packagesIdx[i]))
     file.write("  )\n")
@@ -88,7 +88,7 @@ def writeHTNGoals(file, packagesIdx):
     file.write("    ( Make-{}Crate crate".format(len(packagesIdx)) + " crate".join(map(str,packagesIdx)) + " l000 )\n")
     file.write("  )\n")
 
-def writeSolution(j, packagesIdx, packagesLoc):
+def writeSolution(j, locationsIdx, packagesIdx, packagesLoc):
     fname = 'depots/problem{}-{}-solution.plan'.format(len(packagesIdx), j)
     file = open(fname,"w") 
     file.write("( defplan depots Prob{}-{}\n".format(len(packagesIdx), j))

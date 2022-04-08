@@ -3,49 +3,43 @@
   ( :requirements :strips :typing :equality )
   ( :objects
     truck0 - truck
-    place767 - place
-    pallet767 - surface
-    hoist767 - hoist
-    place767 - place
-    pallet767 - surface
-    hoist767 - hoist
-    place590 - place
-    pallet590 - surface
-    hoist590 - hoist
+    place962 - place
+    hoist962 - hoist
+    place690 - place
+    hoist690 - hoist
     place0 - place
-    pallet0 - surface
     hoist0 - hoist
-    crate581 - surface
-    crate161 - surface
-    crate636 - surface
+    crate654 - surface
+    pallet654 - surface
+    crate136 - surface
+    pallet136 - surface
+    crate991 - surface
+    pallet991 - surface
   )
   ( :init
     ( truck-at truck0 place0 )
     ( clear pallet0 )
-    ( hoist-at hoist767 place767 )
-    ( available hoist767 )
-    ( surface-at pallet767 place767 )
-    ( hoist-at hoist767 place767 )
-    ( available hoist767 )
-    ( surface-at pallet767 place767 )
-    ( hoist-at hoist590 place590 )
-    ( available hoist590 )
-    ( surface-at pallet590 place590 )
+    ( hoist-at hoist962 place962 )
+    ( available hoist962 )
+    ( hoist-at hoist690 place690 )
+    ( available hoist690 )
     ( hoist-at hoist0 place0 )
     ( available hoist0 )
-    ( surface-at pallet0 place0 )
-    ( surface-at crate581 place767 )
-    ( on crate581 pallet767 )
-    ( is-crate crate581 )
-    ( clear crate581 )
-    ( surface-at crate161 place767 )
-    ( on crate161 pallet767 )
-    ( is-crate crate161 )
-    ( clear crate161 )
-    ( surface-at crate636 place590 )
-    ( on crate636 pallet590 )
-    ( is-crate crate636 )
-    ( clear crate636 )
+    ( surface-at pallet654 place962 )
+    ( surface-at crate654 place962 )
+    ( on crate654 pallet654 )
+    ( is-crate crate654 )
+    ( clear crate654 )
+    ( surface-at pallet136 place962 )
+    ( surface-at crate136 place962 )
+    ( on crate136 pallet136 )
+    ( is-crate crate136 )
+    ( clear crate136 )
+    ( surface-at pallet991 place690 )
+    ( surface-at crate991 place690 )
+    ( on crate991 pallet991 )
+    ( is-crate crate991 )
+    ( clear crate991 )
   )
   ( :goal
     ( and
