@@ -229,7 +229,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
 
   std::vector<HtnTaskList *> l_vHtnTaskDeliverN;
   std::vector<HtnTaskList *> l_vHtnTaskMakeNPile;
-
+  std::vector<HtnTaskList *> l_vHtnTaskMakeNCrate;
   try
   {
     std::cout << "Reading strip domain file " << l_sStripsDomainFile << std::endl;
@@ -302,10 +302,12 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
         std::cout << "Reading task files for depots domain with curriculum: " << std::endl;
         for (int i = 1; i < l_iProblemNumber + 1; i++) {
           std::cout << "Reading task: task_Make-" + std::to_string(i) + "Crate.pddl" << std::endl;
-          l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Crate.pddl" ) ) );
+          l_vHtnTaskMakeNCrate.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), 
+            ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Crate.pddl" ) ) );
         }
       }
     }
+    std::cout << " Done reading task file " << l_sTasksFile << std::endl;
   }
   catch( FileReadException & e )
   {
