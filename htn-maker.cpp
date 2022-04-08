@@ -187,7 +187,8 @@ int DoExperiments(std::string l_sDomainName)
         HtnDomain * l_pHtnDomain = DoOneExperiment(l_sDomainName, i, j);
         int l_iNumMethods = l_pHtnDomain->GetNumMethods();
         std::clock_t c_end = std::clock();
-        std::cout << l_pHtnDomain->ToPddl() << std::endl;
+        std::cout << l_pHtnDomain->ToPddl() << std::endl; //debug
+        std::cout << l_iNumMethods << std::endl; //debug
         long double time_elapsed_ms = 1000.0 * (c_end-c_start) / CLOCKS_PER_SEC;
         myfile << i << "," << j << "," << l_iNumMethods << "," << time_elapsed_ms << std::endl;
         domainFile.open (l_sRootDir + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl");
