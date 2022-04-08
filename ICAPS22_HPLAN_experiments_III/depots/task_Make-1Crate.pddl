@@ -1,6 +1,5 @@
 ( define
   ( tasks Depots-tasks )
-
   ( :task Make-1Crate
     :parameters
     (
@@ -16,5 +15,4 @@
       ( on ?c1 ?p0 )
     )
   )
-
 )
