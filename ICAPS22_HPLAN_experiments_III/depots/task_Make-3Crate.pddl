@@ -1,6 +1,5 @@
 ( define
-  ( tasks Depots-tasks )
-
+  ( tasks depots-tasks )
   ( :task Make-3Crate
     :parameters
     (
@@ -14,11 +13,10 @@
     )
     :effect
     ( and
-      ( clear ?c3 )
-      ( on ?c3 ?c2 )
-      ( on ?c2 ?c1 )
       ( on ?c1 ?p0 )
+      ( on ?c2 ?c1 )
+      ( on ?c3 ?c2 )
+      ( clear ?c3 )
     )
   )
-
 )

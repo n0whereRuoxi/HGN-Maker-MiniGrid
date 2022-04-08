@@ -1,6 +1,6 @@
-( define ( problem probname )
+( define ( htn-problem probname )
   ( :domain depots )
-  ( :requirements :strips :typing :equality )
+  ( :requirements :strips :htn :typing :equality )
   ( :objects
     truck0 - truck
     place767 - place
@@ -47,8 +47,7 @@
     ( is-crate crate636 )
     ( clear crate636 )
   )
-  ( :goal
-    ( and
-    )
+  ( :tasks
+    ( Make-3Crate crate581 crate161 crate636 l000 )
   )
 )
