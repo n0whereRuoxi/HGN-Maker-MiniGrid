@@ -96,7 +96,7 @@ def writeSolution(j, locationsIdx, packagesIdx, packagesLoc):
     file.write("( defplan depots Prob{}-{}\n".format(len(packagesIdx), j))
     for i in range(len(packagesIdx)):
         file.write("  ( !Drive truck0 place0 place{} )\n".format(packagesLoc[i]))
-        file.write("  ( !Lift hoist{} crate{} pallet{} place{} )\n".format(packagesLoc[i], packagesIdx[i], packagesLoc[i], packagesLoc[i]))
+        file.write("  ( !Lift hoist{} crate{} pallet{} place{} )\n".format(packagesLoc[i], packagesIdx[i], packagesIdx[i], packagesLoc[i]))
         file.write("  ( !Load hoist{} crate{} truck0 place{} )\n".format(packagesLoc[i], packagesIdx[i], packagesLoc[i]))
         file.write("  ( !Drive truck0 place{} place0 )\n".format(packagesLoc[i]))
         file.write("  ( !Unload hoist0 crate{} truck0 place0 )\n".format(packagesIdx[i]))
