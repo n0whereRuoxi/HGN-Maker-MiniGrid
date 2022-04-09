@@ -60,6 +60,7 @@ bool g_bUseQValues;
 bool g_bUpdateQValues;
 bool g_bRandomSelection;
 bool g_bCurriculum;
+bool g_bManual;
 bool g_bPrune;
 int g_iDebugLevel;
 int g_iMaxTime;
@@ -79,6 +80,7 @@ int main( int argc, char * argv[] )
     TCLAP::CmdLine l_cCmd( "Find an HTN plan", ' ', "1.1" );
     TCLAP::UnlabeledValueArg<std::string> l_aDomain( "domain", "Which domain?", true, "not_spec", "domain", l_cCmd );
     TCLAP::SwitchArg l_aShowTrace( "t", "show_trace", "Show a full decomposition trace of the solution.", l_cCmd, false );
+    TCLAP::SwitchArg l_aManual( "x", "manual", "Manual methods.", l_cCmd, false );
     TCLAP::SwitchArg l_aCurriculum( "c", "curriculum", "Teachable-HTN-Maker.", l_cCmd, false );
     TCLAP::SwitchArg l_aPrune( "p", "prune", "Prune methods.", l_cCmd, false );
     TCLAP::ValueArg<int> l_aMaxTime( "o", "timeout", "Determine when to timeout.", false, 50000, "int", l_cCmd );
@@ -93,6 +95,7 @@ int main( int argc, char * argv[] )
     l_sDomainName = l_aDomain.getValue();
     g_bShowTrace = l_aShowTrace.getValue();
     g_bCurriculum = l_aCurriculum.getValue();
+    g_bManual = l_aManual.getValue();
     g_bPrune = l_aPrune.getValue();
     g_bUseQValues = l_aUseQValues.getValue();
     g_bUpdateQValues = l_aUpdateQValues.getValue();
@@ -157,10 +160,14 @@ int DoExperiments(std::string l_sDomainName)
     }
   } 
   else {
-    if (!g_bPrune)
-      l_sResultFileName = "original";
-    else
-      l_sResultFileName = "original_prune";
+    if (g_bManual)
+      l_sResultFileName = "manual"
+    else {
+      if (!g_bPrune)
+        l_sResultFileName = "original";
+      else
+        l_sResultFileName = "original_prune";
+    }
   }
   std::ofstream l_oPlanMeta;
   l_oPlanMeta.open(l_sRootDir + "/results_with_methods" + "/planmeta" + "_" + l_sDomainName + "_" + l_sResultFileName + ".txt");
@@ -168,7 +175,8 @@ int DoExperiments(std::string l_sDomainName)
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
      std::ofstream l_oPlan;
       l_oPlan.open(l_sRootDir + "/results_with_methods" + "/plan" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
-      l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
+      if (g_bManual) l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "domain_htn.pddl"
+      else l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
       l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
       std::cout << l_sDomainFile << std::endl;
       std::cout << l_sProblemFile << std::endl;
