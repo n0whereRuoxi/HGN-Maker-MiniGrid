@@ -87,7 +87,7 @@ def writeGoal(file, packagesIdx):
 
 def writeHTNGoals(file, packagesIdx):
     file.write("  ( :tasks\n")
-    file.write("    ( Make-{}Crate crate".format(len(packagesIdx)) + " crate".join(map(str,packagesIdx)) + " l000 )\n")
+    file.write("    ( Make-{}Crate pallet0 crate".format(len(packagesIdx)) + " crate".join(map(str,packagesIdx)) + " )\n")
     file.write("  )\n")
 
 def writeSolution(j, locationsIdx, packagesIdx, packagesLoc):
