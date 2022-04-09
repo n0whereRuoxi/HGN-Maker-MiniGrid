@@ -161,7 +161,7 @@ int DoExperiments(std::string l_sDomainName)
   } 
   else {
     if (g_bManual)
-      l_sResultFileName = "manual"
+      l_sResultFileName = "manual";
     else {
       if (!g_bPrune)
         l_sResultFileName = "original";
@@ -175,7 +175,7 @@ int DoExperiments(std::string l_sDomainName)
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
      std::ofstream l_oPlan;
       l_oPlan.open(l_sRootDir + "/results_with_methods" + "/plan" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
-      if (g_bManual) l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "domain_htn.pddl"
+      if (g_bManual) l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "/" + "domain_htn.pddl";
       else l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
       l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";
       std::cout << l_sDomainFile << std::endl;
