@@ -50,6 +50,7 @@ def writeHTNHeader(file):
 def writeObjects(file, locationsIdx, packagesLoc, packagesIdx):
     file.write("  ( :objects\n")
     file.write("    truck0 - truck\n")
+    file.write("    pallet0 - surface\n")
     locationsIdx = np.append(locationsIdx, 0)
     for idx in locationsIdx:
         file.write("    place{} - place\n".format(idx))
@@ -62,6 +63,7 @@ def writeObjects(file, locationsIdx, packagesLoc, packagesIdx):
 def writeInit(file, locationsIdx, packagesIdx, packagesLoc):
     file.write("  ( :init\n")
     file.write("    ( truck-at truck0 place0 )\n")
+    file.write("    ( surface-at pallet0 place0 )\n")
     file.write("    ( clear pallet0 )\n")
     locationsIdx = np.append(locationsIdx, 0)
     for idx in locationsIdx:
