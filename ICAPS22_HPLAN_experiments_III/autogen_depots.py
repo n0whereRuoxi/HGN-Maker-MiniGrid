@@ -145,5 +145,5 @@ def writeTaskMakeNCrate(file, n):
 
 
 if __name__=="__main__":
-    generateProblemsAndSolutions(4,1)
+    generateProblemsAndSolutions(15,5)
 
