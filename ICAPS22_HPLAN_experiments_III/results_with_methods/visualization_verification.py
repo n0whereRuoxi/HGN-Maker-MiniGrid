@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import statistics
 
-domains = ['blocksworld', 'logistics']
+domains = ['depots']
 curriculum = [True, False]
 prune = [True, False]
 plot = ['run_time', 'number_of_methods']
@@ -43,7 +43,7 @@ for domain in domains:
                     label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''),
                     ls='-' if is_prune else '--',
                     alpha=0.9)
-    fig.suptitle('Blocks World domain' if domain == 'blocksworld' else 'Logistics domain')
+    fig.suptitle('Depots domain')
     # axs[0].legend()
     axs[0].set_ylabel('Plan Length')
     # axs[1].legend()
