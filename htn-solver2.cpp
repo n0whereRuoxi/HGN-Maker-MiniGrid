@@ -81,7 +81,7 @@ int main( int argc, char * argv[] )
     TCLAP::SwitchArg l_aShowTrace( "t", "show_trace", "Show a full decomposition trace of the solution.", l_cCmd, false );
     TCLAP::SwitchArg l_aCurriculum( "c", "curriculum", "Teachable-HTN-Maker.", l_cCmd, false );
     TCLAP::SwitchArg l_aPrune( "p", "prune", "Prune methods.", l_cCmd, false );
-    TCLAP::ValueArg<int> l_aMaxTime( "o", "timeout", "Determine when to timeout.", false, 2000, "int", l_cCmd );
+    TCLAP::ValueArg<int> l_aMaxTime( "o", "timeout", "Determine when to timeout.", false, 50000, "int", l_cCmd );
     TCLAP::SwitchArg l_aUseQValues( "q", "use_qvalues", "When decomposing a task, use the applicable method with lowest Q-value.", l_cCmd, false );
     TCLAP::SwitchArg l_aUpdateQValues( "u", "update_qvalues", "After finding a solution, update the Q-values of the methods used.", l_cCmd, false );
     TCLAP::SwitchArg l_aRandomSelection( "r", "random_selection", "Select applicable methods in random order.", l_cCmd, false );
@@ -338,8 +338,8 @@ bool FindPlanOper( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
-  if (TimeOut(c_start))
-    return false;
+//  if (TimeOut(c_start))
+//    return false;
   bool l_bSuccess = false;
 
   int l_iOperIndex = -1;
@@ -436,8 +436,8 @@ bool FindPlanMethod( const std::tr1::shared_ptr< HtnDomain > & p_pDomain,
 {
   if( p_iDepth > g_iMaxDepth )
     return false;
-  if (TimeOut(c_start))
-    return false;
+//  if (TimeOut(c_start))
+//    return false;
 
   bool l_bSuccess = false;
 

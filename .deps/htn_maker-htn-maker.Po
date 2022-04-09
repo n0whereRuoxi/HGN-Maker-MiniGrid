@@ -177,7 +177,8 @@ htn_maker-htn-maker.o: htn-maker.cpp /usr/include/stdc-predef.h \
  formula_equ.hpp formula_neg.hpp formula_conj.hpp operator.hpp state.hpp \
  strips_domain.hpp strips_problem.hpp strips_solution.hpp \
  htn_task_head.hpp htn_task_descr.hpp htn_method.hpp htn_domain.hpp \
- htn_task_list.hpp annotated_plan.hpp partial_htn_method.hpp
+ htn_task_list.hpp annotated_plan.hpp partial_htn_method.hpp \
+ /usr/include/c++/8/functional /usr/include/c++/8/bits/std_function.h
 
 /usr/include/stdc-predef.h:
 
@@ -748,3 +749,7 @@ htn_task_list.hpp:
 annotated_plan.hpp:
 
 partial_htn_method.hpp:
+
+/usr/include/c++/8/functional:
+
+/usr/include/c++/8/bits/std_function.h:
