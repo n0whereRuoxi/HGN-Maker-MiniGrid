@@ -134,15 +134,19 @@ int DoExperiments(std::string l_sDomainName)
   int l_iNumberOfProblems;
   int l_iNumberOfRunsPerProblem; 
   std::string l_sResultFileName;
-  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_II";
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_III";
 
   if (l_sDomainName == "logistics") {
     l_iNumberOfProblems = 10;
     l_iNumberOfRunsPerProblem = 5;
   }
-  else {
+  else if (l_sDomainName == "blocksworld") {
     l_iNumberOfProblems = 40;
     l_iNumberOfRunsPerProblem = 20;
+  }  
+  else {
+    l_iNumberOfProblems = 16;
+    l_iNumberOfRunsPerProblem = 5;
   }
 
   if (g_bCurriculum){
