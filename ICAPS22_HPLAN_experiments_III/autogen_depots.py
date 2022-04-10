@@ -14,6 +14,7 @@ def generateProblemsAndSolutions(num,times):
             print(locationsIdx, packagesIdx, packagesLoc)
             writeProblem(j, locationsIdx, packagesIdx, packagesLoc)
             writeHTNProblem(j, locationsIdx, packagesIdx, packagesLoc)
+            writeManualMethodProblem(j, locationsIdx, packagesIdx, packagesLoc)
             writeSolution(j, locationsIdx, packagesIdx, packagesLoc)
 
 def writeProblem(j, locationsIdx, packagesIdx, packagesLoc):
@@ -34,6 +35,14 @@ def writeHTNProblem(j, locationsIdx, packagesIdx, packagesLoc):
     writeHTNGoals(file, packagesIdx)
     file.write(")\n")
 
+def writeManualMethodProblem(j, locationsIdx, packagesIdx, packagesLoc):
+    fname = 'depots/problem{}-{}-manual-htn.pddl'.format(len(packagesIdx), j)
+    file = open(fname,"w") 
+    writeHTNHeader(file)
+    writeObjects(file, locationsIdx, packagesLoc, packagesIdx)
+    writeInit(file, locationsIdx, packagesIdx, packagesLoc)
+    writeManualMethodTasks(file, packagesIdx)
+    file.write(")\n")
 
 def writeHeader(file):
     file.write("( define ( problem probname )\n")
@@ -88,6 +97,13 @@ def writeGoal(file, packagesIdx):
 def writeHTNGoals(file, packagesIdx):
     file.write("  ( :tasks\n")
     file.write("    ( Make-{}Crate pallet0 crate".format(len(packagesIdx)) + " crate".join(map(str,packagesIdx)) + " )\n")
+    file.write("  )\n")
+
+def writeManualMethodTasks(file, packagesIdx):
+    file.write("  ( :tasks\n")
+    file.write("    ( Make-On crate{} pallet0 )".format(packagesIdx[0]))
+    for i in range(len(packagesIdx) - 1):
+        file.write("    ( Make-On crate{} crate{} )".format(packagesIdx[i+1], packagesIdx[i]))
     file.write("  )\n")
 
 def writeSolution(j, locationsIdx, packagesIdx, packagesLoc):

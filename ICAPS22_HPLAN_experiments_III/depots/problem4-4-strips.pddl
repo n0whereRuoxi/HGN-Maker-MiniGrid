@@ -4,67 +4,59 @@
   ( :objects
     truck0 - truck
     pallet0 - surface
-    place140 - place
-    hoist140 - hoist
-    place475 - place
-    hoist475 - hoist
-    place869 - place
-    hoist869 - hoist
-    place34 - place
-    hoist34 - hoist
-    place324 - place
-    hoist324 - hoist
-    place288 - place
-    hoist288 - hoist
+    place153 - place
+    hoist153 - hoist
+    place718 - place
+    hoist718 - hoist
+    place633 - place
+    hoist633 - hoist
+    place790 - place
+    hoist790 - hoist
     place0 - place
     hoist0 - hoist
-    crate558 - surface
-    pallet558 - surface
-    crate880 - surface
-    pallet880 - surface
-    crate977 - surface
-    pallet977 - surface
-    crate540 - surface
-    pallet540 - surface
+    crate466 - surface
+    pallet466 - surface
+    crate874 - surface
+    pallet874 - surface
+    crate228 - surface
+    pallet228 - surface
+    crate240 - surface
+    pallet240 - surface
   )
   ( :init
     ( truck-at truck0 place0 )
     ( surface-at pallet0 place0 )
     ( clear pallet0 )
-    ( hoist-at hoist140 place140 )
-    ( available hoist140 )
-    ( hoist-at hoist475 place475 )
-    ( available hoist475 )
-    ( hoist-at hoist869 place869 )
-    ( available hoist869 )
-    ( hoist-at hoist34 place34 )
-    ( available hoist34 )
-    ( hoist-at hoist324 place324 )
-    ( available hoist324 )
-    ( hoist-at hoist288 place288 )
-    ( available hoist288 )
+    ( hoist-at hoist153 place153 )
+    ( available hoist153 )
+    ( hoist-at hoist718 place718 )
+    ( available hoist718 )
+    ( hoist-at hoist633 place633 )
+    ( available hoist633 )
+    ( hoist-at hoist790 place790 )
+    ( available hoist790 )
     ( hoist-at hoist0 place0 )
     ( available hoist0 )
-    ( surface-at pallet558 place324 )
-    ( surface-at crate558 place324 )
-    ( on crate558 pallet558 )
-    ( is-crate crate558 )
-    ( clear crate558 )
-    ( surface-at pallet880 place140 )
-    ( surface-at crate880 place140 )
-    ( on crate880 pallet880 )
-    ( is-crate crate880 )
-    ( clear crate880 )
-    ( surface-at pallet977 place288 )
-    ( surface-at crate977 place288 )
-    ( on crate977 pallet977 )
-    ( is-crate crate977 )
-    ( clear crate977 )
-    ( surface-at pallet540 place475 )
-    ( surface-at crate540 place475 )
-    ( on crate540 pallet540 )
-    ( is-crate crate540 )
-    ( clear crate540 )
+    ( surface-at pallet466 place790 )
+    ( surface-at crate466 place790 )
+    ( on crate466 pallet466 )
+    ( is-crate crate466 )
+    ( clear crate466 )
+    ( surface-at pallet874 place718 )
+    ( surface-at crate874 place718 )
+    ( on crate874 pallet874 )
+    ( is-crate crate874 )
+    ( clear crate874 )
+    ( surface-at pallet228 place153 )
+    ( surface-at crate228 place153 )
+    ( on crate228 pallet228 )
+    ( is-crate crate228 )
+    ( clear crate228 )
+    ( surface-at pallet240 place790 )
+    ( surface-at crate240 place790 )
+    ( on crate240 pallet240 )
+    ( is-crate crate240 )
+    ( clear crate240 )
   )
   ( :goal
     ( and

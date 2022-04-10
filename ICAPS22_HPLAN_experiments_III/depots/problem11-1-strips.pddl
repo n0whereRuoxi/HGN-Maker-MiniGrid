@@ -4,168 +4,136 @@
   ( :objects
     truck0 - truck
     pallet0 - surface
-    place499 - place
-    hoist499 - hoist
-    place195 - place
-    hoist195 - hoist
-    place651 - place
-    hoist651 - hoist
-    place557 - place
-    hoist557 - hoist
-    place920 - place
-    hoist920 - hoist
-    place644 - place
-    hoist644 - hoist
-    place163 - place
-    hoist163 - hoist
-    place364 - place
-    hoist364 - hoist
-    place808 - place
-    hoist808 - hoist
-    place622 - place
-    hoist622 - hoist
-    place983 - place
-    hoist983 - hoist
-    place739 - place
-    hoist739 - hoist
-    place38 - place
-    hoist38 - hoist
-    place612 - place
-    hoist612 - hoist
-    place594 - place
-    hoist594 - hoist
-    place794 - place
-    hoist794 - hoist
-    place368 - place
-    hoist368 - hoist
-    place252 - place
-    hoist252 - hoist
-    place314 - place
-    hoist314 - hoist
+    place255 - place
+    hoist255 - hoist
+    place661 - place
+    hoist661 - hoist
+    place778 - place
+    hoist778 - hoist
+    place954 - place
+    hoist954 - hoist
+    place53 - place
+    hoist53 - hoist
+    place94 - place
+    hoist94 - hoist
+    place844 - place
+    hoist844 - hoist
+    place649 - place
+    hoist649 - hoist
+    place563 - place
+    hoist563 - hoist
+    place618 - place
+    hoist618 - hoist
+    place175 - place
+    hoist175 - hoist
     place0 - place
     hoist0 - hoist
-    crate384 - surface
-    pallet384 - surface
-    crate191 - surface
-    pallet191 - surface
-    crate603 - surface
-    pallet603 - surface
-    crate876 - surface
-    pallet876 - surface
-    crate194 - surface
-    pallet194 - surface
-    crate840 - surface
-    pallet840 - surface
-    crate921 - surface
-    pallet921 - surface
-    crate27 - surface
-    pallet27 - surface
-    crate101 - surface
-    pallet101 - surface
-    crate757 - surface
-    pallet757 - surface
-    crate31 - surface
-    pallet31 - surface
+    crate227 - surface
+    pallet227 - surface
+    crate51 - surface
+    pallet51 - surface
+    crate141 - surface
+    pallet141 - surface
+    crate143 - surface
+    pallet143 - surface
+    crate613 - surface
+    pallet613 - surface
+    crate11 - surface
+    pallet11 - surface
+    crate352 - surface
+    pallet352 - surface
+    crate70 - surface
+    pallet70 - surface
+    crate454 - surface
+    pallet454 - surface
+    crate226 - surface
+    pallet226 - surface
+    crate394 - surface
+    pallet394 - surface
   )
   ( :init
     ( truck-at truck0 place0 )
     ( surface-at pallet0 place0 )
     ( clear pallet0 )
-    ( hoist-at hoist499 place499 )
-    ( available hoist499 )
-    ( hoist-at hoist195 place195 )
-    ( available hoist195 )
-    ( hoist-at hoist651 place651 )
-    ( available hoist651 )
-    ( hoist-at hoist557 place557 )
-    ( available hoist557 )
-    ( hoist-at hoist920 place920 )
-    ( available hoist920 )
-    ( hoist-at hoist644 place644 )
-    ( available hoist644 )
-    ( hoist-at hoist163 place163 )
-    ( available hoist163 )
-    ( hoist-at hoist364 place364 )
-    ( available hoist364 )
-    ( hoist-at hoist808 place808 )
-    ( available hoist808 )
-    ( hoist-at hoist622 place622 )
-    ( available hoist622 )
-    ( hoist-at hoist983 place983 )
-    ( available hoist983 )
-    ( hoist-at hoist739 place739 )
-    ( available hoist739 )
-    ( hoist-at hoist38 place38 )
-    ( available hoist38 )
-    ( hoist-at hoist612 place612 )
-    ( available hoist612 )
-    ( hoist-at hoist594 place594 )
-    ( available hoist594 )
-    ( hoist-at hoist794 place794 )
-    ( available hoist794 )
-    ( hoist-at hoist368 place368 )
-    ( available hoist368 )
-    ( hoist-at hoist252 place252 )
-    ( available hoist252 )
-    ( hoist-at hoist314 place314 )
-    ( available hoist314 )
+    ( hoist-at hoist255 place255 )
+    ( available hoist255 )
+    ( hoist-at hoist661 place661 )
+    ( available hoist661 )
+    ( hoist-at hoist778 place778 )
+    ( available hoist778 )
+    ( hoist-at hoist954 place954 )
+    ( available hoist954 )
+    ( hoist-at hoist53 place53 )
+    ( available hoist53 )
+    ( hoist-at hoist94 place94 )
+    ( available hoist94 )
+    ( hoist-at hoist844 place844 )
+    ( available hoist844 )
+    ( hoist-at hoist649 place649 )
+    ( available hoist649 )
+    ( hoist-at hoist563 place563 )
+    ( available hoist563 )
+    ( hoist-at hoist618 place618 )
+    ( available hoist618 )
+    ( hoist-at hoist175 place175 )
+    ( available hoist175 )
     ( hoist-at hoist0 place0 )
     ( available hoist0 )
-    ( surface-at pallet384 place920 )
-    ( surface-at crate384 place920 )
-    ( on crate384 pallet384 )
-    ( is-crate crate384 )
-    ( clear crate384 )
-    ( surface-at pallet191 place368 )
-    ( surface-at crate191 place368 )
-    ( on crate191 pallet191 )
-    ( is-crate crate191 )
-    ( clear crate191 )
-    ( surface-at pallet603 place644 )
-    ( surface-at crate603 place644 )
-    ( on crate603 pallet603 )
-    ( is-crate crate603 )
-    ( clear crate603 )
-    ( surface-at pallet876 place314 )
-    ( surface-at crate876 place314 )
-    ( on crate876 pallet876 )
-    ( is-crate crate876 )
-    ( clear crate876 )
-    ( surface-at pallet194 place644 )
-    ( surface-at crate194 place644 )
-    ( on crate194 pallet194 )
-    ( is-crate crate194 )
-    ( clear crate194 )
-    ( surface-at pallet840 place368 )
-    ( surface-at crate840 place368 )
-    ( on crate840 pallet840 )
-    ( is-crate crate840 )
-    ( clear crate840 )
-    ( surface-at pallet921 place808 )
-    ( surface-at crate921 place808 )
-    ( on crate921 pallet921 )
-    ( is-crate crate921 )
-    ( clear crate921 )
-    ( surface-at pallet27 place739 )
-    ( surface-at crate27 place739 )
-    ( on crate27 pallet27 )
-    ( is-crate crate27 )
-    ( clear crate27 )
-    ( surface-at pallet101 place252 )
-    ( surface-at crate101 place252 )
-    ( on crate101 pallet101 )
-    ( is-crate crate101 )
-    ( clear crate101 )
-    ( surface-at pallet757 place368 )
-    ( surface-at crate757 place368 )
-    ( on crate757 pallet757 )
-    ( is-crate crate757 )
-    ( clear crate757 )
-    ( surface-at pallet31 place920 )
-    ( surface-at crate31 place920 )
-    ( on crate31 pallet31 )
-    ( is-crate crate31 )
-    ( clear crate31 )
+    ( surface-at pallet227 place618 )
+    ( surface-at crate227 place618 )
+    ( on crate227 pallet227 )
+    ( is-crate crate227 )
+    ( clear crate227 )
+    ( surface-at pallet51 place563 )
+    ( surface-at crate51 place563 )
+    ( on crate51 pallet51 )
+    ( is-crate crate51 )
+    ( clear crate51 )
+    ( surface-at pallet141 place563 )
+    ( surface-at crate141 place563 )
+    ( on crate141 pallet141 )
+    ( is-crate crate141 )
+    ( clear crate141 )
+    ( surface-at pallet143 place563 )
+    ( surface-at crate143 place563 )
+    ( on crate143 pallet143 )
+    ( is-crate crate143 )
+    ( clear crate143 )
+    ( surface-at pallet613 place954 )
+    ( surface-at crate613 place954 )
+    ( on crate613 pallet613 )
+    ( is-crate crate613 )
+    ( clear crate613 )
+    ( surface-at pallet11 place778 )
+    ( surface-at crate11 place778 )
+    ( on crate11 pallet11 )
+    ( is-crate crate11 )
+    ( clear crate11 )
+    ( surface-at pallet352 place53 )
+    ( surface-at crate352 place53 )
+    ( on crate352 pallet352 )
+    ( is-crate crate352 )
+    ( clear crate352 )
+    ( surface-at pallet70 place175 )
+    ( surface-at crate70 place175 )
+    ( on crate70 pallet70 )
+    ( is-crate crate70 )
+    ( clear crate70 )
+    ( surface-at pallet454 place563 )
+    ( surface-at crate454 place563 )
+    ( on crate454 pallet454 )
+    ( is-crate crate454 )
+    ( clear crate454 )
+    ( surface-at pallet226 place844 )
+    ( surface-at crate226 place844 )
+    ( on crate226 pallet226 )
+    ( is-crate crate226 )
+    ( clear crate226 )
+    ( surface-at pallet394 place175 )
+    ( surface-at crate394 place175 )
+    ( on crate394 pallet394 )
+    ( is-crate crate394 )
+    ( clear crate394 )
   )
   ( :goal
     ( and

@@ -4,76 +4,88 @@
   ( :objects
     truck0 - truck
     pallet0 - surface
-    place352 - place
-    hoist352 - hoist
-    place367 - place
-    hoist367 - hoist
-    place636 - place
-    hoist636 - hoist
-    place764 - place
-    hoist764 - hoist
-    place359 - place
-    hoist359 - hoist
-    place465 - place
-    hoist465 - hoist
+    place982 - place
+    hoist982 - hoist
+    place449 - place
+    hoist449 - hoist
+    place71 - place
+    hoist71 - hoist
+    place890 - place
+    hoist890 - hoist
+    place853 - place
+    hoist853 - hoist
+    place476 - place
+    hoist476 - hoist
+    place881 - place
+    hoist881 - hoist
+    place997 - place
+    hoist997 - hoist
+    place866 - place
+    hoist866 - hoist
     place0 - place
     hoist0 - hoist
-    crate96 - surface
-    pallet96 - surface
-    crate465 - surface
-    pallet465 - surface
-    crate479 - surface
-    pallet479 - surface
-    crate400 - surface
-    pallet400 - surface
-    crate469 - surface
-    pallet469 - surface
+    crate530 - surface
+    pallet530 - surface
+    crate405 - surface
+    pallet405 - surface
+    crate429 - surface
+    pallet429 - surface
+    crate158 - surface
+    pallet158 - surface
+    crate923 - surface
+    pallet923 - surface
   )
   ( :init
     ( truck-at truck0 place0 )
     ( surface-at pallet0 place0 )
     ( clear pallet0 )
-    ( hoist-at hoist352 place352 )
-    ( available hoist352 )
-    ( hoist-at hoist367 place367 )
-    ( available hoist367 )
-    ( hoist-at hoist636 place636 )
-    ( available hoist636 )
-    ( hoist-at hoist764 place764 )
-    ( available hoist764 )
-    ( hoist-at hoist359 place359 )
-    ( available hoist359 )
-    ( hoist-at hoist465 place465 )
-    ( available hoist465 )
+    ( hoist-at hoist982 place982 )
+    ( available hoist982 )
+    ( hoist-at hoist449 place449 )
+    ( available hoist449 )
+    ( hoist-at hoist71 place71 )
+    ( available hoist71 )
+    ( hoist-at hoist890 place890 )
+    ( available hoist890 )
+    ( hoist-at hoist853 place853 )
+    ( available hoist853 )
+    ( hoist-at hoist476 place476 )
+    ( available hoist476 )
+    ( hoist-at hoist881 place881 )
+    ( available hoist881 )
+    ( hoist-at hoist997 place997 )
+    ( available hoist997 )
+    ( hoist-at hoist866 place866 )
+    ( available hoist866 )
     ( hoist-at hoist0 place0 )
     ( available hoist0 )
-    ( surface-at pallet96 place359 )
-    ( surface-at crate96 place359 )
-    ( on crate96 pallet96 )
-    ( is-crate crate96 )
-    ( clear crate96 )
-    ( surface-at pallet465 place465 )
-    ( surface-at crate465 place465 )
-    ( on crate465 pallet465 )
-    ( is-crate crate465 )
-    ( clear crate465 )
-    ( surface-at pallet479 place367 )
-    ( surface-at crate479 place367 )
-    ( on crate479 pallet479 )
-    ( is-crate crate479 )
-    ( clear crate479 )
-    ( surface-at pallet400 place367 )
-    ( surface-at crate400 place367 )
-    ( on crate400 pallet400 )
-    ( is-crate crate400 )
-    ( clear crate400 )
-    ( surface-at pallet469 place359 )
-    ( surface-at crate469 place359 )
-    ( on crate469 pallet469 )
-    ( is-crate crate469 )
-    ( clear crate469 )
+    ( surface-at pallet530 place476 )
+    ( surface-at crate530 place476 )
+    ( on crate530 pallet530 )
+    ( is-crate crate530 )
+    ( clear crate530 )
+    ( surface-at pallet405 place71 )
+    ( surface-at crate405 place71 )
+    ( on crate405 pallet405 )
+    ( is-crate crate405 )
+    ( clear crate405 )
+    ( surface-at pallet429 place881 )
+    ( surface-at crate429 place881 )
+    ( on crate429 pallet429 )
+    ( is-crate crate429 )
+    ( clear crate429 )
+    ( surface-at pallet158 place997 )
+    ( surface-at crate158 place997 )
+    ( on crate158 pallet158 )
+    ( is-crate crate158 )
+    ( clear crate158 )
+    ( surface-at pallet923 place890 )
+    ( surface-at crate923 place890 )
+    ( on crate923 pallet923 )
+    ( is-crate crate923 )
+    ( clear crate923 )
   )
   ( :tasks
-    ( Make-5Crate pallet0 crate96 crate465 crate479 crate400 crate469 )
+    ( Make-5Crate pallet0 crate530 crate405 crate429 crate158 crate923 )
   )
 )
