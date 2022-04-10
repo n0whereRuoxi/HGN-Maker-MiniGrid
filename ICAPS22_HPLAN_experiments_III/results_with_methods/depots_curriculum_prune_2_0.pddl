@@ -154,11 +154,13 @@
       ?auto_26 - PLACE
       ?auto_28 - HOIST
       ?auto_30 - SURFACE
-      ?auto_32 - SURFACE
+      ?auto_32 - PLACE
+      ?auto_34 - HOIST
+      ?auto_33 - SURFACE
       ?auto_29 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_27 ?auto_31 ) ( IS-CRATE ?auto_25 ) ( not ( = ?auto_26 ?auto_31 ) ) ( HOIST-AT ?auto_28 ?auto_26 ) ( SURFACE-AT ?auto_25 ?auto_26 ) ( ON ?auto_25 ?auto_30 ) ( CLEAR ?auto_25 ) ( not ( = ?auto_24 ?auto_25 ) ) ( not ( = ?auto_24 ?auto_30 ) ) ( not ( = ?auto_25 ?auto_30 ) ) ( not ( = ?auto_27 ?auto_28 ) ) ( SURFACE-AT ?auto_23 ?auto_31 ) ( CLEAR ?auto_23 ) ( IS-CRATE ?auto_24 ) ( AVAILABLE ?auto_27 ) ( AVAILABLE ?auto_28 ) ( SURFACE-AT ?auto_24 ?auto_26 ) ( ON ?auto_24 ?auto_32 ) ( CLEAR ?auto_24 ) ( TRUCK-AT ?auto_29 ?auto_31 ) ( not ( = ?auto_23 ?auto_24 ) ) ( not ( = ?auto_23 ?auto_32 ) ) ( not ( = ?auto_24 ?auto_32 ) ) ( not ( = ?auto_23 ?auto_25 ) ) ( not ( = ?auto_23 ?auto_30 ) ) ( not ( = ?auto_25 ?auto_32 ) ) ( not ( = ?auto_30 ?auto_32 ) ) )
+    ( and ( HOIST-AT ?auto_27 ?auto_31 ) ( IS-CRATE ?auto_25 ) ( not ( = ?auto_26 ?auto_31 ) ) ( HOIST-AT ?auto_28 ?auto_26 ) ( AVAILABLE ?auto_28 ) ( SURFACE-AT ?auto_25 ?auto_26 ) ( ON ?auto_25 ?auto_30 ) ( CLEAR ?auto_25 ) ( not ( = ?auto_24 ?auto_25 ) ) ( not ( = ?auto_24 ?auto_30 ) ) ( not ( = ?auto_25 ?auto_30 ) ) ( not ( = ?auto_27 ?auto_28 ) ) ( SURFACE-AT ?auto_23 ?auto_31 ) ( CLEAR ?auto_23 ) ( IS-CRATE ?auto_24 ) ( AVAILABLE ?auto_27 ) ( not ( = ?auto_32 ?auto_31 ) ) ( HOIST-AT ?auto_34 ?auto_32 ) ( AVAILABLE ?auto_34 ) ( SURFACE-AT ?auto_24 ?auto_32 ) ( ON ?auto_24 ?auto_33 ) ( CLEAR ?auto_24 ) ( TRUCK-AT ?auto_29 ?auto_31 ) ( not ( = ?auto_23 ?auto_24 ) ) ( not ( = ?auto_23 ?auto_33 ) ) ( not ( = ?auto_24 ?auto_33 ) ) ( not ( = ?auto_27 ?auto_34 ) ) ( not ( = ?auto_23 ?auto_25 ) ) ( not ( = ?auto_23 ?auto_30 ) ) ( not ( = ?auto_25 ?auto_33 ) ) ( not ( = ?auto_26 ?auto_32 ) ) ( not ( = ?auto_28 ?auto_34 ) ) ( not ( = ?auto_30 ?auto_33 ) ) )
     :subtasks
     ( ( MAKE-1CRATE ?auto_23 ?auto_24 )
       ( MAKE-1CRATE ?auto_24 ?auto_25 )

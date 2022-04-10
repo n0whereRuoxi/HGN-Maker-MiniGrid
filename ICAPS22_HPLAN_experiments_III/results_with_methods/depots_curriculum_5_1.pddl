@@ -161,260 +161,264 @@
   ( :method MAKE-1CRATE
     :parameters
     (
-      ?auto_1108 - SURFACE
-      ?auto_1109 - SURFACE
+      ?auto_1104 - SURFACE
+      ?auto_1105 - SURFACE
     )
     :vars
     (
+      ?auto_1106 - HOIST
+      ?auto_1107 - PLACE
+      ?auto_1109 - PLACE
       ?auto_1110 - HOIST
-      ?auto_1111 - PLACE
-      ?auto_1113 - PLACE
-      ?auto_1114 - HOIST
-      ?auto_1115 - SURFACE
-      ?auto_1112 - TRUCK
+      ?auto_1111 - SURFACE
+      ?auto_1108 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1110 ?auto_1111 ) ( SURFACE-AT ?auto_1108 ?auto_1111 ) ( CLEAR ?auto_1108 ) ( IS-CRATE ?auto_1109 ) ( AVAILABLE ?auto_1110 ) ( not ( = ?auto_1113 ?auto_1111 ) ) ( HOIST-AT ?auto_1114 ?auto_1113 ) ( AVAILABLE ?auto_1114 ) ( SURFACE-AT ?auto_1109 ?auto_1113 ) ( ON ?auto_1109 ?auto_1115 ) ( CLEAR ?auto_1109 ) ( TRUCK-AT ?auto_1112 ?auto_1111 ) ( not ( = ?auto_1108 ?auto_1109 ) ) ( not ( = ?auto_1108 ?auto_1115 ) ) ( not ( = ?auto_1109 ?auto_1115 ) ) ( not ( = ?auto_1110 ?auto_1114 ) ) )
+    ( and ( HOIST-AT ?auto_1106 ?auto_1107 ) ( SURFACE-AT ?auto_1104 ?auto_1107 ) ( CLEAR ?auto_1104 ) ( IS-CRATE ?auto_1105 ) ( AVAILABLE ?auto_1106 ) ( not ( = ?auto_1109 ?auto_1107 ) ) ( HOIST-AT ?auto_1110 ?auto_1109 ) ( AVAILABLE ?auto_1110 ) ( SURFACE-AT ?auto_1105 ?auto_1109 ) ( ON ?auto_1105 ?auto_1111 ) ( CLEAR ?auto_1105 ) ( TRUCK-AT ?auto_1108 ?auto_1107 ) ( not ( = ?auto_1104 ?auto_1105 ) ) ( not ( = ?auto_1104 ?auto_1111 ) ) ( not ( = ?auto_1105 ?auto_1111 ) ) ( not ( = ?auto_1106 ?auto_1110 ) ) )
     :subtasks
-    ( ( !DRIVE ?auto_1112 ?auto_1111 ?auto_1113 )
-      ( !LIFT ?auto_1114 ?auto_1109 ?auto_1115 ?auto_1113 )
-      ( !LOAD ?auto_1114 ?auto_1109 ?auto_1112 ?auto_1113 )
-      ( !DRIVE ?auto_1112 ?auto_1113 ?auto_1111 )
-      ( !UNLOAD ?auto_1110 ?auto_1109 ?auto_1112 ?auto_1111 )
-      ( !DROP ?auto_1110 ?auto_1109 ?auto_1108 ?auto_1111 )
-      ( MAKE-1CRATE-VERIFY ?auto_1108 ?auto_1109 ) )
+    ( ( !DRIVE ?auto_1108 ?auto_1107 ?auto_1109 )
+      ( !LIFT ?auto_1110 ?auto_1105 ?auto_1111 ?auto_1109 )
+      ( !LOAD ?auto_1110 ?auto_1105 ?auto_1108 ?auto_1109 )
+      ( !DRIVE ?auto_1108 ?auto_1109 ?auto_1107 )
+      ( !UNLOAD ?auto_1106 ?auto_1105 ?auto_1108 ?auto_1107 )
+      ( !DROP ?auto_1106 ?auto_1105 ?auto_1104 ?auto_1107 )
+      ( MAKE-1CRATE-VERIFY ?auto_1104 ?auto_1105 ) )
   )
 
   ( :method MAKE-1CRATE
     :parameters
     (
-      ?auto_1118 - SURFACE
-      ?auto_1119 - SURFACE
+      ?auto_1114 - SURFACE
+      ?auto_1115 - SURFACE
     )
     :vars
     (
+      ?auto_1116 - HOIST
+      ?auto_1117 - PLACE
+      ?auto_1119 - PLACE
       ?auto_1120 - HOIST
-      ?auto_1121 - PLACE
-      ?auto_1123 - PLACE
-      ?auto_1124 - HOIST
-      ?auto_1125 - SURFACE
-      ?auto_1122 - TRUCK
+      ?auto_1121 - SURFACE
+      ?auto_1118 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1120 ?auto_1121 ) ( SURFACE-AT ?auto_1118 ?auto_1121 ) ( CLEAR ?auto_1118 ) ( IS-CRATE ?auto_1119 ) ( AVAILABLE ?auto_1120 ) ( not ( = ?auto_1123 ?auto_1121 ) ) ( HOIST-AT ?auto_1124 ?auto_1123 ) ( AVAILABLE ?auto_1124 ) ( SURFACE-AT ?auto_1119 ?auto_1123 ) ( ON ?auto_1119 ?auto_1125 ) ( CLEAR ?auto_1119 ) ( TRUCK-AT ?auto_1122 ?auto_1121 ) ( not ( = ?auto_1118 ?auto_1119 ) ) ( not ( = ?auto_1118 ?auto_1125 ) ) ( not ( = ?auto_1119 ?auto_1125 ) ) ( not ( = ?auto_1120 ?auto_1124 ) ) )
+    ( and ( HOIST-AT ?auto_1116 ?auto_1117 ) ( SURFACE-AT ?auto_1114 ?auto_1117 ) ( CLEAR ?auto_1114 ) ( IS-CRATE ?auto_1115 ) ( AVAILABLE ?auto_1116 ) ( not ( = ?auto_1119 ?auto_1117 ) ) ( HOIST-AT ?auto_1120 ?auto_1119 ) ( AVAILABLE ?auto_1120 ) ( SURFACE-AT ?auto_1115 ?auto_1119 ) ( ON ?auto_1115 ?auto_1121 ) ( CLEAR ?auto_1115 ) ( TRUCK-AT ?auto_1118 ?auto_1117 ) ( not ( = ?auto_1114 ?auto_1115 ) ) ( not ( = ?auto_1114 ?auto_1121 ) ) ( not ( = ?auto_1115 ?auto_1121 ) ) ( not ( = ?auto_1116 ?auto_1120 ) ) )
     :subtasks
-    ( ( !DRIVE ?auto_1122 ?auto_1121 ?auto_1123 )
-      ( !LIFT ?auto_1124 ?auto_1119 ?auto_1125 ?auto_1123 )
-      ( !LOAD ?auto_1124 ?auto_1119 ?auto_1122 ?auto_1123 )
-      ( !DRIVE ?auto_1122 ?auto_1123 ?auto_1121 )
-      ( !UNLOAD ?auto_1120 ?auto_1119 ?auto_1122 ?auto_1121 )
-      ( !DROP ?auto_1120 ?auto_1119 ?auto_1118 ?auto_1121 )
-      ( MAKE-1CRATE-VERIFY ?auto_1118 ?auto_1119 ) )
+    ( ( !DRIVE ?auto_1118 ?auto_1117 ?auto_1119 )
+      ( !LIFT ?auto_1120 ?auto_1115 ?auto_1121 ?auto_1119 )
+      ( !LOAD ?auto_1120 ?auto_1115 ?auto_1118 ?auto_1119 )
+      ( !DRIVE ?auto_1118 ?auto_1119 ?auto_1117 )
+      ( !UNLOAD ?auto_1116 ?auto_1115 ?auto_1118 ?auto_1117 )
+      ( !DROP ?auto_1116 ?auto_1115 ?auto_1114 ?auto_1117 )
+      ( MAKE-1CRATE-VERIFY ?auto_1114 ?auto_1115 ) )
   )
 
   ( :method MAKE-2CRATE
     :parameters
     (
-      ?auto_1129 - SURFACE
-      ?auto_1130 - SURFACE
-      ?auto_1131 - SURFACE
+      ?auto_1125 - SURFACE
+      ?auto_1126 - SURFACE
+      ?auto_1127 - SURFACE
     )
     :vars
     (
-      ?auto_1134 - HOIST
+      ?auto_1129 - HOIST
       ?auto_1132 - PLACE
-      ?auto_1133 - PLACE
+      ?auto_1130 - PLACE
+      ?auto_1133 - HOIST
+      ?auto_1131 - SURFACE
+      ?auto_1135 - PLACE
       ?auto_1136 - HOIST
-      ?auto_1135 - SURFACE
-      ?auto_1138 - PLACE
-      ?auto_1139 - HOIST
-      ?auto_1140 - SURFACE
-      ?auto_1137 - TRUCK
+      ?auto_1134 - SURFACE
+      ?auto_1128 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1134 ?auto_1132 ) ( IS-CRATE ?auto_1131 ) ( not ( = ?auto_1133 ?auto_1132 ) ) ( HOIST-AT ?auto_1136 ?auto_1133 ) ( AVAILABLE ?auto_1136 ) ( SURFACE-AT ?auto_1131 ?auto_1133 ) ( ON ?auto_1131 ?auto_1135 ) ( CLEAR ?auto_1131 ) ( not ( = ?auto_1130 ?auto_1131 ) ) ( not ( = ?auto_1130 ?auto_1135 ) ) ( not ( = ?auto_1131 ?auto_1135 ) ) ( not ( = ?auto_1134 ?auto_1136 ) ) ( SURFACE-AT ?auto_1129 ?auto_1132 ) ( CLEAR ?auto_1129 ) ( IS-CRATE ?auto_1130 ) ( AVAILABLE ?auto_1134 ) ( not ( = ?auto_1138 ?auto_1132 ) ) ( HOIST-AT ?auto_1139 ?auto_1138 ) ( AVAILABLE ?auto_1139 ) ( SURFACE-AT ?auto_1130 ?auto_1138 ) ( ON ?auto_1130 ?auto_1140 ) ( CLEAR ?auto_1130 ) ( TRUCK-AT ?auto_1137 ?auto_1132 ) ( not ( = ?auto_1129 ?auto_1130 ) ) ( not ( = ?auto_1129 ?auto_1140 ) ) ( not ( = ?auto_1130 ?auto_1140 ) ) ( not ( = ?auto_1134 ?auto_1139 ) ) ( not ( = ?auto_1129 ?auto_1131 ) ) ( not ( = ?auto_1129 ?auto_1135 ) ) ( not ( = ?auto_1131 ?auto_1140 ) ) ( not ( = ?auto_1133 ?auto_1138 ) ) ( not ( = ?auto_1136 ?auto_1139 ) ) ( not ( = ?auto_1135 ?auto_1140 ) ) )
+    ( and ( HOIST-AT ?auto_1129 ?auto_1132 ) ( IS-CRATE ?auto_1127 ) ( not ( = ?auto_1130 ?auto_1132 ) ) ( HOIST-AT ?auto_1133 ?auto_1130 ) ( AVAILABLE ?auto_1133 ) ( SURFACE-AT ?auto_1127 ?auto_1130 ) ( ON ?auto_1127 ?auto_1131 ) ( CLEAR ?auto_1127 ) ( not ( = ?auto_1126 ?auto_1127 ) ) ( not ( = ?auto_1126 ?auto_1131 ) ) ( not ( = ?auto_1127 ?auto_1131 ) ) ( not ( = ?auto_1129 ?auto_1133 ) ) ( SURFACE-AT ?auto_1125 ?auto_1132 ) ( CLEAR ?auto_1125 ) ( IS-CRATE ?auto_1126 ) ( AVAILABLE ?auto_1129 ) ( not ( = ?auto_1135 ?auto_1132 ) ) ( HOIST-AT ?auto_1136 ?auto_1135 ) ( AVAILABLE ?auto_1136 ) ( SURFACE-AT ?auto_1126 ?auto_1135 ) ( ON ?auto_1126 ?auto_1134 ) ( CLEAR ?auto_1126 ) ( TRUCK-AT ?auto_1128 ?auto_1132 ) ( not ( = ?auto_1125 ?auto_1126 ) ) ( not ( = ?auto_1125 ?auto_1134 ) ) ( not ( = ?auto_1126 ?auto_1134 ) ) ( not ( = ?auto_1129 ?auto_1136 ) ) ( not ( = ?auto_1125 ?auto_1127 ) ) ( not ( = ?auto_1125 ?auto_1131 ) ) ( not ( = ?auto_1127 ?auto_1134 ) ) ( not ( = ?auto_1130 ?auto_1135 ) ) ( not ( = ?auto_1133 ?auto_1136 ) ) ( not ( = ?auto_1131 ?auto_1134 ) ) )
     :subtasks
-    ( ( MAKE-1CRATE ?auto_1129 ?auto_1130 )
-      ( MAKE-1CRATE ?auto_1130 ?auto_1131 )
-      ( MAKE-2CRATE-VERIFY ?auto_1129 ?auto_1130 ?auto_1131 ) )
+    ( ( MAKE-1CRATE ?auto_1125 ?auto_1126 )
+      ( MAKE-1CRATE ?auto_1126 ?auto_1127 )
+      ( MAKE-2CRATE-VERIFY ?auto_1125 ?auto_1126 ?auto_1127 ) )
   )
 
   ( :method MAKE-1CRATE
     :parameters
     (
-      ?auto_1143 - SURFACE
-      ?auto_1144 - SURFACE
+      ?auto_1139 - SURFACE
+      ?auto_1140 - SURFACE
     )
     :vars
     (
+      ?auto_1141 - HOIST
+      ?auto_1142 - PLACE
+      ?auto_1144 - PLACE
       ?auto_1145 - HOIST
-      ?auto_1146 - PLACE
-      ?auto_1148 - PLACE
-      ?auto_1149 - HOIST
-      ?auto_1150 - SURFACE
-      ?auto_1147 - TRUCK
+      ?auto_1146 - SURFACE
+      ?auto_1143 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1145 ?auto_1146 ) ( SURFACE-AT ?auto_1143 ?auto_1146 ) ( CLEAR ?auto_1143 ) ( IS-CRATE ?auto_1144 ) ( AVAILABLE ?auto_1145 ) ( not ( = ?auto_1148 ?auto_1146 ) ) ( HOIST-AT ?auto_1149 ?auto_1148 ) ( AVAILABLE ?auto_1149 ) ( SURFACE-AT ?auto_1144 ?auto_1148 ) ( ON ?auto_1144 ?auto_1150 ) ( CLEAR ?auto_1144 ) ( TRUCK-AT ?auto_1147 ?auto_1146 ) ( not ( = ?auto_1143 ?auto_1144 ) ) ( not ( = ?auto_1143 ?auto_1150 ) ) ( not ( = ?auto_1144 ?auto_1150 ) ) ( not ( = ?auto_1145 ?auto_1149 ) ) )
+    ( and ( HOIST-AT ?auto_1141 ?auto_1142 ) ( SURFACE-AT ?auto_1139 ?auto_1142 ) ( CLEAR ?auto_1139 ) ( IS-CRATE ?auto_1140 ) ( AVAILABLE ?auto_1141 ) ( not ( = ?auto_1144 ?auto_1142 ) ) ( HOIST-AT ?auto_1145 ?auto_1144 ) ( AVAILABLE ?auto_1145 ) ( SURFACE-AT ?auto_1140 ?auto_1144 ) ( ON ?auto_1140 ?auto_1146 ) ( CLEAR ?auto_1140 ) ( TRUCK-AT ?auto_1143 ?auto_1142 ) ( not ( = ?auto_1139 ?auto_1140 ) ) ( not ( = ?auto_1139 ?auto_1146 ) ) ( not ( = ?auto_1140 ?auto_1146 ) ) ( not ( = ?auto_1141 ?auto_1145 ) ) )
     :subtasks
-    ( ( !DRIVE ?auto_1147 ?auto_1146 ?auto_1148 )
-      ( !LIFT ?auto_1149 ?auto_1144 ?auto_1150 ?auto_1148 )
-      ( !LOAD ?auto_1149 ?auto_1144 ?auto_1147 ?auto_1148 )
-      ( !DRIVE ?auto_1147 ?auto_1148 ?auto_1146 )
-      ( !UNLOAD ?auto_1145 ?auto_1144 ?auto_1147 ?auto_1146 )
-      ( !DROP ?auto_1145 ?auto_1144 ?auto_1143 ?auto_1146 )
-      ( MAKE-1CRATE-VERIFY ?auto_1143 ?auto_1144 ) )
+    ( ( !DRIVE ?auto_1143 ?auto_1142 ?auto_1144 )
+      ( !LIFT ?auto_1145 ?auto_1140 ?auto_1146 ?auto_1144 )
+      ( !LOAD ?auto_1145 ?auto_1140 ?auto_1143 ?auto_1144 )
+      ( !DRIVE ?auto_1143 ?auto_1144 ?auto_1142 )
+      ( !UNLOAD ?auto_1141 ?auto_1140 ?auto_1143 ?auto_1142 )
+      ( !DROP ?auto_1141 ?auto_1140 ?auto_1139 ?auto_1142 )
+      ( MAKE-1CRATE-VERIFY ?auto_1139 ?auto_1140 ) )
   )
 
   ( :method MAKE-3CRATE
     :parameters
     (
-      ?auto_1155 - SURFACE
-      ?auto_1156 - SURFACE
-      ?auto_1157 - SURFACE
-      ?auto_1158 - SURFACE
+      ?auto_1151 - SURFACE
+      ?auto_1152 - SURFACE
+      ?auto_1153 - SURFACE
+      ?auto_1154 - SURFACE
     )
     :vars
     (
-      ?auto_1160 - HOIST
-      ?auto_1163 - PLACE
-      ?auto_1162 - PLACE
+      ?auto_1156 - HOIST
+      ?auto_1158 - PLACE
+      ?auto_1155 - PLACE
       ?auto_1159 - HOIST
-      ?auto_1161 - SURFACE
-      ?auto_1167 - PLACE
+      ?auto_1160 - SURFACE
+      ?auto_1166 - PLACE
+      ?auto_1164 - HOIST
+      ?auto_1162 - SURFACE
+      ?auto_1163 - PLACE
       ?auto_1165 - HOIST
-      ?auto_1166 - SURFACE
-      ?auto_1168 - SURFACE
-      ?auto_1164 - TRUCK
+      ?auto_1161 - SURFACE
+      ?auto_1157 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1160 ?auto_1163 ) ( IS-CRATE ?auto_1158 ) ( not ( = ?auto_1162 ?auto_1163 ) ) ( HOIST-AT ?auto_1159 ?auto_1162 ) ( SURFACE-AT ?auto_1158 ?auto_1162 ) ( ON ?auto_1158 ?auto_1161 ) ( CLEAR ?auto_1158 ) ( not ( = ?auto_1157 ?auto_1158 ) ) ( not ( = ?auto_1157 ?auto_1161 ) ) ( not ( = ?auto_1158 ?auto_1161 ) ) ( not ( = ?auto_1160 ?auto_1159 ) ) ( IS-CRATE ?auto_1157 ) ( not ( = ?auto_1167 ?auto_1163 ) ) ( HOIST-AT ?auto_1165 ?auto_1167 ) ( AVAILABLE ?auto_1165 ) ( SURFACE-AT ?auto_1157 ?auto_1167 ) ( ON ?auto_1157 ?auto_1166 ) ( CLEAR ?auto_1157 ) ( not ( = ?auto_1156 ?auto_1157 ) ) ( not ( = ?auto_1156 ?auto_1166 ) ) ( not ( = ?auto_1157 ?auto_1166 ) ) ( not ( = ?auto_1160 ?auto_1165 ) ) ( SURFACE-AT ?auto_1155 ?auto_1163 ) ( CLEAR ?auto_1155 ) ( IS-CRATE ?auto_1156 ) ( AVAILABLE ?auto_1160 ) ( AVAILABLE ?auto_1159 ) ( SURFACE-AT ?auto_1156 ?auto_1162 ) ( ON ?auto_1156 ?auto_1168 ) ( CLEAR ?auto_1156 ) ( TRUCK-AT ?auto_1164 ?auto_1163 ) ( not ( = ?auto_1155 ?auto_1156 ) ) ( not ( = ?auto_1155 ?auto_1168 ) ) ( not ( = ?auto_1156 ?auto_1168 ) ) ( not ( = ?auto_1155 ?auto_1157 ) ) ( not ( = ?auto_1155 ?auto_1166 ) ) ( not ( = ?auto_1157 ?auto_1168 ) ) ( not ( = ?auto_1167 ?auto_1162 ) ) ( not ( = ?auto_1165 ?auto_1159 ) ) ( not ( = ?auto_1166 ?auto_1168 ) ) ( not ( = ?auto_1155 ?auto_1158 ) ) ( not ( = ?auto_1155 ?auto_1161 ) ) ( not ( = ?auto_1156 ?auto_1158 ) ) ( not ( = ?auto_1156 ?auto_1161 ) ) ( not ( = ?auto_1158 ?auto_1166 ) ) ( not ( = ?auto_1158 ?auto_1168 ) ) ( not ( = ?auto_1161 ?auto_1166 ) ) ( not ( = ?auto_1161 ?auto_1168 ) ) )
+    ( and ( HOIST-AT ?auto_1156 ?auto_1158 ) ( IS-CRATE ?auto_1154 ) ( not ( = ?auto_1155 ?auto_1158 ) ) ( HOIST-AT ?auto_1159 ?auto_1155 ) ( AVAILABLE ?auto_1159 ) ( SURFACE-AT ?auto_1154 ?auto_1155 ) ( ON ?auto_1154 ?auto_1160 ) ( CLEAR ?auto_1154 ) ( not ( = ?auto_1153 ?auto_1154 ) ) ( not ( = ?auto_1153 ?auto_1160 ) ) ( not ( = ?auto_1154 ?auto_1160 ) ) ( not ( = ?auto_1156 ?auto_1159 ) ) ( IS-CRATE ?auto_1153 ) ( not ( = ?auto_1166 ?auto_1158 ) ) ( HOIST-AT ?auto_1164 ?auto_1166 ) ( AVAILABLE ?auto_1164 ) ( SURFACE-AT ?auto_1153 ?auto_1166 ) ( ON ?auto_1153 ?auto_1162 ) ( CLEAR ?auto_1153 ) ( not ( = ?auto_1152 ?auto_1153 ) ) ( not ( = ?auto_1152 ?auto_1162 ) ) ( not ( = ?auto_1153 ?auto_1162 ) ) ( not ( = ?auto_1156 ?auto_1164 ) ) ( SURFACE-AT ?auto_1151 ?auto_1158 ) ( CLEAR ?auto_1151 ) ( IS-CRATE ?auto_1152 ) ( AVAILABLE ?auto_1156 ) ( not ( = ?auto_1163 ?auto_1158 ) ) ( HOIST-AT ?auto_1165 ?auto_1163 ) ( AVAILABLE ?auto_1165 ) ( SURFACE-AT ?auto_1152 ?auto_1163 ) ( ON ?auto_1152 ?auto_1161 ) ( CLEAR ?auto_1152 ) ( TRUCK-AT ?auto_1157 ?auto_1158 ) ( not ( = ?auto_1151 ?auto_1152 ) ) ( not ( = ?auto_1151 ?auto_1161 ) ) ( not ( = ?auto_1152 ?auto_1161 ) ) ( not ( = ?auto_1156 ?auto_1165 ) ) ( not ( = ?auto_1151 ?auto_1153 ) ) ( not ( = ?auto_1151 ?auto_1162 ) ) ( not ( = ?auto_1153 ?auto_1161 ) ) ( not ( = ?auto_1166 ?auto_1163 ) ) ( not ( = ?auto_1164 ?auto_1165 ) ) ( not ( = ?auto_1162 ?auto_1161 ) ) ( not ( = ?auto_1151 ?auto_1154 ) ) ( not ( = ?auto_1151 ?auto_1160 ) ) ( not ( = ?auto_1152 ?auto_1154 ) ) ( not ( = ?auto_1152 ?auto_1160 ) ) ( not ( = ?auto_1154 ?auto_1162 ) ) ( not ( = ?auto_1154 ?auto_1161 ) ) ( not ( = ?auto_1155 ?auto_1166 ) ) ( not ( = ?auto_1155 ?auto_1163 ) ) ( not ( = ?auto_1159 ?auto_1164 ) ) ( not ( = ?auto_1159 ?auto_1165 ) ) ( not ( = ?auto_1160 ?auto_1162 ) ) ( not ( = ?auto_1160 ?auto_1161 ) ) )
     :subtasks
-    ( ( MAKE-2CRATE ?auto_1155 ?auto_1156 ?auto_1157 )
-      ( MAKE-1CRATE ?auto_1157 ?auto_1158 )
-      ( MAKE-3CRATE-VERIFY ?auto_1155 ?auto_1156 ?auto_1157 ?auto_1158 ) )
+    ( ( MAKE-2CRATE ?auto_1151 ?auto_1152 ?auto_1153 )
+      ( MAKE-1CRATE ?auto_1153 ?auto_1154 )
+      ( MAKE-3CRATE-VERIFY ?auto_1151 ?auto_1152 ?auto_1153 ?auto_1154 ) )
   )
 
   ( :method MAKE-1CRATE
     :parameters
     (
-      ?auto_1171 - SURFACE
-      ?auto_1172 - SURFACE
+      ?auto_1169 - SURFACE
+      ?auto_1170 - SURFACE
     )
     :vars
     (
-      ?auto_1173 - HOIST
+      ?auto_1171 - HOIST
+      ?auto_1172 - PLACE
       ?auto_1174 - PLACE
-      ?auto_1176 - PLACE
-      ?auto_1177 - HOIST
-      ?auto_1178 - SURFACE
-      ?auto_1175 - TRUCK
+      ?auto_1175 - HOIST
+      ?auto_1176 - SURFACE
+      ?auto_1173 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1173 ?auto_1174 ) ( SURFACE-AT ?auto_1171 ?auto_1174 ) ( CLEAR ?auto_1171 ) ( IS-CRATE ?auto_1172 ) ( AVAILABLE ?auto_1173 ) ( not ( = ?auto_1176 ?auto_1174 ) ) ( HOIST-AT ?auto_1177 ?auto_1176 ) ( AVAILABLE ?auto_1177 ) ( SURFACE-AT ?auto_1172 ?auto_1176 ) ( ON ?auto_1172 ?auto_1178 ) ( CLEAR ?auto_1172 ) ( TRUCK-AT ?auto_1175 ?auto_1174 ) ( not ( = ?auto_1171 ?auto_1172 ) ) ( not ( = ?auto_1171 ?auto_1178 ) ) ( not ( = ?auto_1172 ?auto_1178 ) ) ( not ( = ?auto_1173 ?auto_1177 ) ) )
+    ( and ( HOIST-AT ?auto_1171 ?auto_1172 ) ( SURFACE-AT ?auto_1169 ?auto_1172 ) ( CLEAR ?auto_1169 ) ( IS-CRATE ?auto_1170 ) ( AVAILABLE ?auto_1171 ) ( not ( = ?auto_1174 ?auto_1172 ) ) ( HOIST-AT ?auto_1175 ?auto_1174 ) ( AVAILABLE ?auto_1175 ) ( SURFACE-AT ?auto_1170 ?auto_1174 ) ( ON ?auto_1170 ?auto_1176 ) ( CLEAR ?auto_1170 ) ( TRUCK-AT ?auto_1173 ?auto_1172 ) ( not ( = ?auto_1169 ?auto_1170 ) ) ( not ( = ?auto_1169 ?auto_1176 ) ) ( not ( = ?auto_1170 ?auto_1176 ) ) ( not ( = ?auto_1171 ?auto_1175 ) ) )
     :subtasks
-    ( ( !DRIVE ?auto_1175 ?auto_1174 ?auto_1176 )
-      ( !LIFT ?auto_1177 ?auto_1172 ?auto_1178 ?auto_1176 )
-      ( !LOAD ?auto_1177 ?auto_1172 ?auto_1175 ?auto_1176 )
-      ( !DRIVE ?auto_1175 ?auto_1176 ?auto_1174 )
-      ( !UNLOAD ?auto_1173 ?auto_1172 ?auto_1175 ?auto_1174 )
-      ( !DROP ?auto_1173 ?auto_1172 ?auto_1171 ?auto_1174 )
-      ( MAKE-1CRATE-VERIFY ?auto_1171 ?auto_1172 ) )
+    ( ( !DRIVE ?auto_1173 ?auto_1172 ?auto_1174 )
+      ( !LIFT ?auto_1175 ?auto_1170 ?auto_1176 ?auto_1174 )
+      ( !LOAD ?auto_1175 ?auto_1170 ?auto_1173 ?auto_1174 )
+      ( !DRIVE ?auto_1173 ?auto_1174 ?auto_1172 )
+      ( !UNLOAD ?auto_1171 ?auto_1170 ?auto_1173 ?auto_1172 )
+      ( !DROP ?auto_1171 ?auto_1170 ?auto_1169 ?auto_1172 )
+      ( MAKE-1CRATE-VERIFY ?auto_1169 ?auto_1170 ) )
   )
 
   ( :method MAKE-4CRATE
     :parameters
     (
+      ?auto_1182 - SURFACE
+      ?auto_1183 - SURFACE
       ?auto_1184 - SURFACE
       ?auto_1185 - SURFACE
       ?auto_1186 - SURFACE
-      ?auto_1187 - SURFACE
-      ?auto_1188 - SURFACE
     )
     :vars
     (
-      ?auto_1193 - HOIST
+      ?auto_1187 - HOIST
       ?auto_1190 - PLACE
-      ?auto_1194 - PLACE
-      ?auto_1192 - HOIST
-      ?auto_1191 - SURFACE
-      ?auto_1196 - PLACE
-      ?auto_1197 - HOIST
-      ?auto_1195 - SURFACE
-      ?auto_1198 - PLACE
+      ?auto_1191 - PLACE
+      ?auto_1189 - HOIST
+      ?auto_1188 - SURFACE
+      ?auto_1198 - SURFACE
+      ?auto_1195 - PLACE
       ?auto_1199 - HOIST
-      ?auto_1201 - SURFACE
-      ?auto_1200 - SURFACE
-      ?auto_1189 - TRUCK
+      ?auto_1197 - SURFACE
+      ?auto_1194 - PLACE
+      ?auto_1193 - HOIST
+      ?auto_1196 - SURFACE
+      ?auto_1192 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1193 ?auto_1190 ) ( IS-CRATE ?auto_1188 ) ( not ( = ?auto_1194 ?auto_1190 ) ) ( HOIST-AT ?auto_1192 ?auto_1194 ) ( AVAILABLE ?auto_1192 ) ( SURFACE-AT ?auto_1188 ?auto_1194 ) ( ON ?auto_1188 ?auto_1191 ) ( CLEAR ?auto_1188 ) ( not ( = ?auto_1187 ?auto_1188 ) ) ( not ( = ?auto_1187 ?auto_1191 ) ) ( not ( = ?auto_1188 ?auto_1191 ) ) ( not ( = ?auto_1193 ?auto_1192 ) ) ( IS-CRATE ?auto_1187 ) ( not ( = ?auto_1196 ?auto_1190 ) ) ( HOIST-AT ?auto_1197 ?auto_1196 ) ( SURFACE-AT ?auto_1187 ?auto_1196 ) ( ON ?auto_1187 ?auto_1195 ) ( CLEAR ?auto_1187 ) ( not ( = ?auto_1186 ?auto_1187 ) ) ( not ( = ?auto_1186 ?auto_1195 ) ) ( not ( = ?auto_1187 ?auto_1195 ) ) ( not ( = ?auto_1193 ?auto_1197 ) ) ( IS-CRATE ?auto_1186 ) ( not ( = ?auto_1198 ?auto_1190 ) ) ( HOIST-AT ?auto_1199 ?auto_1198 ) ( AVAILABLE ?auto_1199 ) ( SURFACE-AT ?auto_1186 ?auto_1198 ) ( ON ?auto_1186 ?auto_1201 ) ( CLEAR ?auto_1186 ) ( not ( = ?auto_1185 ?auto_1186 ) ) ( not ( = ?auto_1185 ?auto_1201 ) ) ( not ( = ?auto_1186 ?auto_1201 ) ) ( not ( = ?auto_1193 ?auto_1199 ) ) ( SURFACE-AT ?auto_1184 ?auto_1190 ) ( CLEAR ?auto_1184 ) ( IS-CRATE ?auto_1185 ) ( AVAILABLE ?auto_1193 ) ( AVAILABLE ?auto_1197 ) ( SURFACE-AT ?auto_1185 ?auto_1196 ) ( ON ?auto_1185 ?auto_1200 ) ( CLEAR ?auto_1185 ) ( TRUCK-AT ?auto_1189 ?auto_1190 ) ( not ( = ?auto_1184 ?auto_1185 ) ) ( not ( = ?auto_1184 ?auto_1200 ) ) ( not ( = ?auto_1185 ?auto_1200 ) ) ( not ( = ?auto_1184 ?auto_1186 ) ) ( not ( = ?auto_1184 ?auto_1201 ) ) ( not ( = ?auto_1186 ?auto_1200 ) ) ( not ( = ?auto_1198 ?auto_1196 ) ) ( not ( = ?auto_1199 ?auto_1197 ) ) ( not ( = ?auto_1201 ?auto_1200 ) ) ( not ( = ?auto_1184 ?auto_1187 ) ) ( not ( = ?auto_1184 ?auto_1195 ) ) ( not ( = ?auto_1185 ?auto_1187 ) ) ( not ( = ?auto_1185 ?auto_1195 ) ) ( not ( = ?auto_1187 ?auto_1201 ) ) ( not ( = ?auto_1187 ?auto_1200 ) ) ( not ( = ?auto_1195 ?auto_1201 ) ) ( not ( = ?auto_1195 ?auto_1200 ) ) ( not ( = ?auto_1184 ?auto_1188 ) ) ( not ( = ?auto_1184 ?auto_1191 ) ) ( not ( = ?auto_1185 ?auto_1188 ) ) ( not ( = ?auto_1185 ?auto_1191 ) ) ( not ( = ?auto_1186 ?auto_1188 ) ) ( not ( = ?auto_1186 ?auto_1191 ) ) ( not ( = ?auto_1188 ?auto_1195 ) ) ( not ( = ?auto_1188 ?auto_1201 ) ) ( not ( = ?auto_1188 ?auto_1200 ) ) ( not ( = ?auto_1194 ?auto_1196 ) ) ( not ( = ?auto_1194 ?auto_1198 ) ) ( not ( = ?auto_1192 ?auto_1197 ) ) ( not ( = ?auto_1192 ?auto_1199 ) ) ( not ( = ?auto_1191 ?auto_1195 ) ) ( not ( = ?auto_1191 ?auto_1201 ) ) ( not ( = ?auto_1191 ?auto_1200 ) ) )
+    ( and ( HOIST-AT ?auto_1187 ?auto_1190 ) ( IS-CRATE ?auto_1186 ) ( not ( = ?auto_1191 ?auto_1190 ) ) ( HOIST-AT ?auto_1189 ?auto_1191 ) ( SURFACE-AT ?auto_1186 ?auto_1191 ) ( ON ?auto_1186 ?auto_1188 ) ( CLEAR ?auto_1186 ) ( not ( = ?auto_1185 ?auto_1186 ) ) ( not ( = ?auto_1185 ?auto_1188 ) ) ( not ( = ?auto_1186 ?auto_1188 ) ) ( not ( = ?auto_1187 ?auto_1189 ) ) ( IS-CRATE ?auto_1185 ) ( AVAILABLE ?auto_1189 ) ( SURFACE-AT ?auto_1185 ?auto_1191 ) ( ON ?auto_1185 ?auto_1198 ) ( CLEAR ?auto_1185 ) ( not ( = ?auto_1184 ?auto_1185 ) ) ( not ( = ?auto_1184 ?auto_1198 ) ) ( not ( = ?auto_1185 ?auto_1198 ) ) ( IS-CRATE ?auto_1184 ) ( not ( = ?auto_1195 ?auto_1190 ) ) ( HOIST-AT ?auto_1199 ?auto_1195 ) ( AVAILABLE ?auto_1199 ) ( SURFACE-AT ?auto_1184 ?auto_1195 ) ( ON ?auto_1184 ?auto_1197 ) ( CLEAR ?auto_1184 ) ( not ( = ?auto_1183 ?auto_1184 ) ) ( not ( = ?auto_1183 ?auto_1197 ) ) ( not ( = ?auto_1184 ?auto_1197 ) ) ( not ( = ?auto_1187 ?auto_1199 ) ) ( SURFACE-AT ?auto_1182 ?auto_1190 ) ( CLEAR ?auto_1182 ) ( IS-CRATE ?auto_1183 ) ( AVAILABLE ?auto_1187 ) ( not ( = ?auto_1194 ?auto_1190 ) ) ( HOIST-AT ?auto_1193 ?auto_1194 ) ( AVAILABLE ?auto_1193 ) ( SURFACE-AT ?auto_1183 ?auto_1194 ) ( ON ?auto_1183 ?auto_1196 ) ( CLEAR ?auto_1183 ) ( TRUCK-AT ?auto_1192 ?auto_1190 ) ( not ( = ?auto_1182 ?auto_1183 ) ) ( not ( = ?auto_1182 ?auto_1196 ) ) ( not ( = ?auto_1183 ?auto_1196 ) ) ( not ( = ?auto_1187 ?auto_1193 ) ) ( not ( = ?auto_1182 ?auto_1184 ) ) ( not ( = ?auto_1182 ?auto_1197 ) ) ( not ( = ?auto_1184 ?auto_1196 ) ) ( not ( = ?auto_1195 ?auto_1194 ) ) ( not ( = ?auto_1199 ?auto_1193 ) ) ( not ( = ?auto_1197 ?auto_1196 ) ) ( not ( = ?auto_1182 ?auto_1185 ) ) ( not ( = ?auto_1182 ?auto_1198 ) ) ( not ( = ?auto_1183 ?auto_1185 ) ) ( not ( = ?auto_1183 ?auto_1198 ) ) ( not ( = ?auto_1185 ?auto_1197 ) ) ( not ( = ?auto_1185 ?auto_1196 ) ) ( not ( = ?auto_1191 ?auto_1195 ) ) ( not ( = ?auto_1191 ?auto_1194 ) ) ( not ( = ?auto_1189 ?auto_1199 ) ) ( not ( = ?auto_1189 ?auto_1193 ) ) ( not ( = ?auto_1198 ?auto_1197 ) ) ( not ( = ?auto_1198 ?auto_1196 ) ) ( not ( = ?auto_1182 ?auto_1186 ) ) ( not ( = ?auto_1182 ?auto_1188 ) ) ( not ( = ?auto_1183 ?auto_1186 ) ) ( not ( = ?auto_1183 ?auto_1188 ) ) ( not ( = ?auto_1184 ?auto_1186 ) ) ( not ( = ?auto_1184 ?auto_1188 ) ) ( not ( = ?auto_1186 ?auto_1198 ) ) ( not ( = ?auto_1186 ?auto_1197 ) ) ( not ( = ?auto_1186 ?auto_1196 ) ) ( not ( = ?auto_1188 ?auto_1198 ) ) ( not ( = ?auto_1188 ?auto_1197 ) ) ( not ( = ?auto_1188 ?auto_1196 ) ) )
     :subtasks
-    ( ( MAKE-3CRATE ?auto_1184 ?auto_1185 ?auto_1186 ?auto_1187 )
-      ( MAKE-1CRATE ?auto_1187 ?auto_1188 )
-      ( MAKE-4CRATE-VERIFY ?auto_1184 ?auto_1185 ?auto_1186 ?auto_1187 ?auto_1188 ) )
+    ( ( MAKE-3CRATE ?auto_1182 ?auto_1183 ?auto_1184 ?auto_1185 )
+      ( MAKE-1CRATE ?auto_1185 ?auto_1186 )
+      ( MAKE-4CRATE-VERIFY ?auto_1182 ?auto_1183 ?auto_1184 ?auto_1185 ?auto_1186 ) )
   )
 
   ( :method MAKE-1CRATE
     :parameters
     (
-      ?auto_1204 - SURFACE
-      ?auto_1205 - SURFACE
+      ?auto_1202 - SURFACE
+      ?auto_1203 - SURFACE
     )
     :vars
     (
-      ?auto_1206 - HOIST
+      ?auto_1204 - HOIST
+      ?auto_1205 - PLACE
       ?auto_1207 - PLACE
-      ?auto_1209 - PLACE
-      ?auto_1210 - HOIST
-      ?auto_1211 - SURFACE
-      ?auto_1208 - TRUCK
+      ?auto_1208 - HOIST
+      ?auto_1209 - SURFACE
+      ?auto_1206 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1206 ?auto_1207 ) ( SURFACE-AT ?auto_1204 ?auto_1207 ) ( CLEAR ?auto_1204 ) ( IS-CRATE ?auto_1205 ) ( AVAILABLE ?auto_1206 ) ( not ( = ?auto_1209 ?auto_1207 ) ) ( HOIST-AT ?auto_1210 ?auto_1209 ) ( AVAILABLE ?auto_1210 ) ( SURFACE-AT ?auto_1205 ?auto_1209 ) ( ON ?auto_1205 ?auto_1211 ) ( CLEAR ?auto_1205 ) ( TRUCK-AT ?auto_1208 ?auto_1207 ) ( not ( = ?auto_1204 ?auto_1205 ) ) ( not ( = ?auto_1204 ?auto_1211 ) ) ( not ( = ?auto_1205 ?auto_1211 ) ) ( not ( = ?auto_1206 ?auto_1210 ) ) )
+    ( and ( HOIST-AT ?auto_1204 ?auto_1205 ) ( SURFACE-AT ?auto_1202 ?auto_1205 ) ( CLEAR ?auto_1202 ) ( IS-CRATE ?auto_1203 ) ( AVAILABLE ?auto_1204 ) ( not ( = ?auto_1207 ?auto_1205 ) ) ( HOIST-AT ?auto_1208 ?auto_1207 ) ( AVAILABLE ?auto_1208 ) ( SURFACE-AT ?auto_1203 ?auto_1207 ) ( ON ?auto_1203 ?auto_1209 ) ( CLEAR ?auto_1203 ) ( TRUCK-AT ?auto_1206 ?auto_1205 ) ( not ( = ?auto_1202 ?auto_1203 ) ) ( not ( = ?auto_1202 ?auto_1209 ) ) ( not ( = ?auto_1203 ?auto_1209 ) ) ( not ( = ?auto_1204 ?auto_1208 ) ) )
     :subtasks
-    ( ( !DRIVE ?auto_1208 ?auto_1207 ?auto_1209 )
-      ( !LIFT ?auto_1210 ?auto_1205 ?auto_1211 ?auto_1209 )
-      ( !LOAD ?auto_1210 ?auto_1205 ?auto_1208 ?auto_1209 )
-      ( !DRIVE ?auto_1208 ?auto_1209 ?auto_1207 )
-      ( !UNLOAD ?auto_1206 ?auto_1205 ?auto_1208 ?auto_1207 )
-      ( !DROP ?auto_1206 ?auto_1205 ?auto_1204 ?auto_1207 )
-      ( MAKE-1CRATE-VERIFY ?auto_1204 ?auto_1205 ) )
+    ( ( !DRIVE ?auto_1206 ?auto_1205 ?auto_1207 )
+      ( !LIFT ?auto_1208 ?auto_1203 ?auto_1209 ?auto_1207 )
+      ( !LOAD ?auto_1208 ?auto_1203 ?auto_1206 ?auto_1207 )
+      ( !DRIVE ?auto_1206 ?auto_1207 ?auto_1205 )
+      ( !UNLOAD ?auto_1204 ?auto_1203 ?auto_1206 ?auto_1205 )
+      ( !DROP ?auto_1204 ?auto_1203 ?auto_1202 ?auto_1205 )
+      ( MAKE-1CRATE-VERIFY ?auto_1202 ?auto_1203 ) )
   )
 
   ( :method MAKE-5CRATE
     :parameters
     (
+      ?auto_1216 - SURFACE
+      ?auto_1217 - SURFACE
       ?auto_1218 - SURFACE
       ?auto_1219 - SURFACE
       ?auto_1220 - SURFACE
       ?auto_1221 - SURFACE
-      ?auto_1222 - SURFACE
-      ?auto_1223 - SURFACE
     )
     :vars
     (
-      ?auto_1224 - HOIST
-      ?auto_1227 - PLACE
-      ?auto_1228 - PLACE
-      ?auto_1226 - HOIST
-      ?auto_1229 - SURFACE
-      ?auto_1237 - PLACE
+      ?auto_1222 - HOIST
+      ?auto_1224 - PLACE
+      ?auto_1225 - PLACE
+      ?auto_1223 - HOIST
+      ?auto_1226 - SURFACE
+      ?auto_1230 - PLACE
       ?auto_1235 - HOIST
+      ?auto_1228 - SURFACE
+      ?auto_1237 - SURFACE
+      ?auto_1233 - PLACE
+      ?auto_1229 - HOIST
       ?auto_1236 - SURFACE
-      ?auto_1230 - SURFACE
-      ?auto_1234 - PLACE
-      ?auto_1232 - HOIST
-      ?auto_1231 - SURFACE
-      ?auto_1233 - SURFACE
-      ?auto_1225 - TRUCK
+      ?auto_1231 - PLACE
+      ?auto_1234 - HOIST
+      ?auto_1232 - SURFACE
+      ?auto_1227 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_1224 ?auto_1227 ) ( IS-CRATE ?auto_1223 ) ( not ( = ?auto_1228 ?auto_1227 ) ) ( HOIST-AT ?auto_1226 ?auto_1228 ) ( SURFACE-AT ?auto_1223 ?auto_1228 ) ( ON ?auto_1223 ?auto_1229 ) ( CLEAR ?auto_1223 ) ( not ( = ?auto_1222 ?auto_1223 ) ) ( not ( = ?auto_1222 ?auto_1229 ) ) ( not ( = ?auto_1223 ?auto_1229 ) ) ( not ( = ?auto_1224 ?auto_1226 ) ) ( IS-CRATE ?auto_1222 ) ( not ( = ?auto_1237 ?auto_1227 ) ) ( HOIST-AT ?auto_1235 ?auto_1237 ) ( AVAILABLE ?auto_1235 ) ( SURFACE-AT ?auto_1222 ?auto_1237 ) ( ON ?auto_1222 ?auto_1236 ) ( CLEAR ?auto_1222 ) ( not ( = ?auto_1221 ?auto_1222 ) ) ( not ( = ?auto_1221 ?auto_1236 ) ) ( not ( = ?auto_1222 ?auto_1236 ) ) ( not ( = ?auto_1224 ?auto_1235 ) ) ( IS-CRATE ?auto_1221 ) ( SURFACE-AT ?auto_1221 ?auto_1228 ) ( ON ?auto_1221 ?auto_1230 ) ( CLEAR ?auto_1221 ) ( not ( = ?auto_1220 ?auto_1221 ) ) ( not ( = ?auto_1220 ?auto_1230 ) ) ( not ( = ?auto_1221 ?auto_1230 ) ) ( IS-CRATE ?auto_1220 ) ( not ( = ?auto_1234 ?auto_1227 ) ) ( HOIST-AT ?auto_1232 ?auto_1234 ) ( AVAILABLE ?auto_1232 ) ( SURFACE-AT ?auto_1220 ?auto_1234 ) ( ON ?auto_1220 ?auto_1231 ) ( CLEAR ?auto_1220 ) ( not ( = ?auto_1219 ?auto_1220 ) ) ( not ( = ?auto_1219 ?auto_1231 ) ) ( not ( = ?auto_1220 ?auto_1231 ) ) ( not ( = ?auto_1224 ?auto_1232 ) ) ( SURFACE-AT ?auto_1218 ?auto_1227 ) ( CLEAR ?auto_1218 ) ( IS-CRATE ?auto_1219 ) ( AVAILABLE ?auto_1224 ) ( AVAILABLE ?auto_1226 ) ( SURFACE-AT ?auto_1219 ?auto_1228 ) ( ON ?auto_1219 ?auto_1233 ) ( CLEAR ?auto_1219 ) ( TRUCK-AT ?auto_1225 ?auto_1227 ) ( not ( = ?auto_1218 ?auto_1219 ) ) ( not ( = ?auto_1218 ?auto_1233 ) ) ( not ( = ?auto_1219 ?auto_1233 ) ) ( not ( = ?auto_1218 ?auto_1220 ) ) ( not ( = ?auto_1218 ?auto_1231 ) ) ( not ( = ?auto_1220 ?auto_1233 ) ) ( not ( = ?auto_1234 ?auto_1228 ) ) ( not ( = ?auto_1232 ?auto_1226 ) ) ( not ( = ?auto_1231 ?auto_1233 ) ) ( not ( = ?auto_1218 ?auto_1221 ) ) ( not ( = ?auto_1218 ?auto_1230 ) ) ( not ( = ?auto_1219 ?auto_1221 ) ) ( not ( = ?auto_1219 ?auto_1230 ) ) ( not ( = ?auto_1221 ?auto_1231 ) ) ( not ( = ?auto_1221 ?auto_1233 ) ) ( not ( = ?auto_1230 ?auto_1231 ) ) ( not ( = ?auto_1230 ?auto_1233 ) ) ( not ( = ?auto_1218 ?auto_1222 ) ) ( not ( = ?auto_1218 ?auto_1236 ) ) ( not ( = ?auto_1219 ?auto_1222 ) ) ( not ( = ?auto_1219 ?auto_1236 ) ) ( not ( = ?auto_1220 ?auto_1222 ) ) ( not ( = ?auto_1220 ?auto_1236 ) ) ( not ( = ?auto_1222 ?auto_1230 ) ) ( not ( = ?auto_1222 ?auto_1231 ) ) ( not ( = ?auto_1222 ?auto_1233 ) ) ( not ( = ?auto_1237 ?auto_1228 ) ) ( not ( = ?auto_1237 ?auto_1234 ) ) ( not ( = ?auto_1235 ?auto_1226 ) ) ( not ( = ?auto_1235 ?auto_1232 ) ) ( not ( = ?auto_1236 ?auto_1230 ) ) ( not ( = ?auto_1236 ?auto_1231 ) ) ( not ( = ?auto_1236 ?auto_1233 ) ) ( not ( = ?auto_1218 ?auto_1223 ) ) ( not ( = ?auto_1218 ?auto_1229 ) ) ( not ( = ?auto_1219 ?auto_1223 ) ) ( not ( = ?auto_1219 ?auto_1229 ) ) ( not ( = ?auto_1220 ?auto_1223 ) ) ( not ( = ?auto_1220 ?auto_1229 ) ) ( not ( = ?auto_1221 ?auto_1223 ) ) ( not ( = ?auto_1221 ?auto_1229 ) ) ( not ( = ?auto_1223 ?auto_1236 ) ) ( not ( = ?auto_1223 ?auto_1230 ) ) ( not ( = ?auto_1223 ?auto_1231 ) ) ( not ( = ?auto_1223 ?auto_1233 ) ) ( not ( = ?auto_1229 ?auto_1236 ) ) ( not ( = ?auto_1229 ?auto_1230 ) ) ( not ( = ?auto_1229 ?auto_1231 ) ) ( not ( = ?auto_1229 ?auto_1233 ) ) )
+    ( and ( HOIST-AT ?auto_1222 ?auto_1224 ) ( IS-CRATE ?auto_1221 ) ( not ( = ?auto_1225 ?auto_1224 ) ) ( HOIST-AT ?auto_1223 ?auto_1225 ) ( AVAILABLE ?auto_1223 ) ( SURFACE-AT ?auto_1221 ?auto_1225 ) ( ON ?auto_1221 ?auto_1226 ) ( CLEAR ?auto_1221 ) ( not ( = ?auto_1220 ?auto_1221 ) ) ( not ( = ?auto_1220 ?auto_1226 ) ) ( not ( = ?auto_1221 ?auto_1226 ) ) ( not ( = ?auto_1222 ?auto_1223 ) ) ( IS-CRATE ?auto_1220 ) ( not ( = ?auto_1230 ?auto_1224 ) ) ( HOIST-AT ?auto_1235 ?auto_1230 ) ( SURFACE-AT ?auto_1220 ?auto_1230 ) ( ON ?auto_1220 ?auto_1228 ) ( CLEAR ?auto_1220 ) ( not ( = ?auto_1219 ?auto_1220 ) ) ( not ( = ?auto_1219 ?auto_1228 ) ) ( not ( = ?auto_1220 ?auto_1228 ) ) ( not ( = ?auto_1222 ?auto_1235 ) ) ( IS-CRATE ?auto_1219 ) ( AVAILABLE ?auto_1235 ) ( SURFACE-AT ?auto_1219 ?auto_1230 ) ( ON ?auto_1219 ?auto_1237 ) ( CLEAR ?auto_1219 ) ( not ( = ?auto_1218 ?auto_1219 ) ) ( not ( = ?auto_1218 ?auto_1237 ) ) ( not ( = ?auto_1219 ?auto_1237 ) ) ( IS-CRATE ?auto_1218 ) ( not ( = ?auto_1233 ?auto_1224 ) ) ( HOIST-AT ?auto_1229 ?auto_1233 ) ( AVAILABLE ?auto_1229 ) ( SURFACE-AT ?auto_1218 ?auto_1233 ) ( ON ?auto_1218 ?auto_1236 ) ( CLEAR ?auto_1218 ) ( not ( = ?auto_1217 ?auto_1218 ) ) ( not ( = ?auto_1217 ?auto_1236 ) ) ( not ( = ?auto_1218 ?auto_1236 ) ) ( not ( = ?auto_1222 ?auto_1229 ) ) ( SURFACE-AT ?auto_1216 ?auto_1224 ) ( CLEAR ?auto_1216 ) ( IS-CRATE ?auto_1217 ) ( AVAILABLE ?auto_1222 ) ( not ( = ?auto_1231 ?auto_1224 ) ) ( HOIST-AT ?auto_1234 ?auto_1231 ) ( AVAILABLE ?auto_1234 ) ( SURFACE-AT ?auto_1217 ?auto_1231 ) ( ON ?auto_1217 ?auto_1232 ) ( CLEAR ?auto_1217 ) ( TRUCK-AT ?auto_1227 ?auto_1224 ) ( not ( = ?auto_1216 ?auto_1217 ) ) ( not ( = ?auto_1216 ?auto_1232 ) ) ( not ( = ?auto_1217 ?auto_1232 ) ) ( not ( = ?auto_1222 ?auto_1234 ) ) ( not ( = ?auto_1216 ?auto_1218 ) ) ( not ( = ?auto_1216 ?auto_1236 ) ) ( not ( = ?auto_1218 ?auto_1232 ) ) ( not ( = ?auto_1233 ?auto_1231 ) ) ( not ( = ?auto_1229 ?auto_1234 ) ) ( not ( = ?auto_1236 ?auto_1232 ) ) ( not ( = ?auto_1216 ?auto_1219 ) ) ( not ( = ?auto_1216 ?auto_1237 ) ) ( not ( = ?auto_1217 ?auto_1219 ) ) ( not ( = ?auto_1217 ?auto_1237 ) ) ( not ( = ?auto_1219 ?auto_1236 ) ) ( not ( = ?auto_1219 ?auto_1232 ) ) ( not ( = ?auto_1230 ?auto_1233 ) ) ( not ( = ?auto_1230 ?auto_1231 ) ) ( not ( = ?auto_1235 ?auto_1229 ) ) ( not ( = ?auto_1235 ?auto_1234 ) ) ( not ( = ?auto_1237 ?auto_1236 ) ) ( not ( = ?auto_1237 ?auto_1232 ) ) ( not ( = ?auto_1216 ?auto_1220 ) ) ( not ( = ?auto_1216 ?auto_1228 ) ) ( not ( = ?auto_1217 ?auto_1220 ) ) ( not ( = ?auto_1217 ?auto_1228 ) ) ( not ( = ?auto_1218 ?auto_1220 ) ) ( not ( = ?auto_1218 ?auto_1228 ) ) ( not ( = ?auto_1220 ?auto_1237 ) ) ( not ( = ?auto_1220 ?auto_1236 ) ) ( not ( = ?auto_1220 ?auto_1232 ) ) ( not ( = ?auto_1228 ?auto_1237 ) ) ( not ( = ?auto_1228 ?auto_1236 ) ) ( not ( = ?auto_1228 ?auto_1232 ) ) ( not ( = ?auto_1216 ?auto_1221 ) ) ( not ( = ?auto_1216 ?auto_1226 ) ) ( not ( = ?auto_1217 ?auto_1221 ) ) ( not ( = ?auto_1217 ?auto_1226 ) ) ( not ( = ?auto_1218 ?auto_1221 ) ) ( not ( = ?auto_1218 ?auto_1226 ) ) ( not ( = ?auto_1219 ?auto_1221 ) ) ( not ( = ?auto_1219 ?auto_1226 ) ) ( not ( = ?auto_1221 ?auto_1228 ) ) ( not ( = ?auto_1221 ?auto_1237 ) ) ( not ( = ?auto_1221 ?auto_1236 ) ) ( not ( = ?auto_1221 ?auto_1232 ) ) ( not ( = ?auto_1225 ?auto_1230 ) ) ( not ( = ?auto_1225 ?auto_1233 ) ) ( not ( = ?auto_1225 ?auto_1231 ) ) ( not ( = ?auto_1223 ?auto_1235 ) ) ( not ( = ?auto_1223 ?auto_1229 ) ) ( not ( = ?auto_1223 ?auto_1234 ) ) ( not ( = ?auto_1226 ?auto_1228 ) ) ( not ( = ?auto_1226 ?auto_1237 ) ) ( not ( = ?auto_1226 ?auto_1236 ) ) ( not ( = ?auto_1226 ?auto_1232 ) ) )
     :subtasks
-    ( ( MAKE-4CRATE ?auto_1218 ?auto_1219 ?auto_1220 ?auto_1221 ?auto_1222 )
-      ( MAKE-1CRATE ?auto_1222 ?auto_1223 )
-      ( MAKE-5CRATE-VERIFY ?auto_1218 ?auto_1219 ?auto_1220 ?auto_1221 ?auto_1222 ?auto_1223 ) )
+    ( ( MAKE-4CRATE ?auto_1216 ?auto_1217 ?auto_1218 ?auto_1219 ?auto_1220 )
+      ( MAKE-1CRATE ?auto_1220 ?auto_1221 )
+      ( MAKE-5CRATE-VERIFY ?auto_1216 ?auto_1217 ?auto_1218 ?auto_1219 ?auto_1220 ?auto_1221 ) )
   )
 
 )
