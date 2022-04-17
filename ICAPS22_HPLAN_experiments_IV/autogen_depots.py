@@ -32,7 +32,7 @@ def writeHTNProblem(j, locationsIdx, packagesIdx, packagesLoc):
     writeHTNHeader(file)
     writeObjects(file, locationsIdx, packagesLoc, packagesIdx)
     writeInit(file, locationsIdx, packagesIdx, packagesLoc)
-    writeHTNGoals(file, packagesIdx)
+    writeManualMethodTasks(file, packagesIdx)
     file.write(")\n")
 
 def writeManualMethodProblem(j, locationsIdx, packagesIdx, packagesLoc):
@@ -135,27 +135,22 @@ def writeTasks(n):
     file = open(fname,"w") 
     file.write("( define\n")
     file.write("  ( tasks depots-tasks )\n")
-    for i in range(n+2):
-        writeTaskMakeNCrate(file, i+1)
+    writeTaskMakeNCrate(file, 2)
     file.write(")\n")
 
 def writeTaskMakeNCrate(file, n):
-    file.write("  ( :task Make-{}Crate\n".format(n))
+    file.write("  ( :task Make-On\n".format(n))
     file.write("    :parameters\n")
     file.write("    (\n")
-    file.write("      ?p0 - surface\n")
-    for i in range(n):
-        file.write("      ?c{} - surface\n".format(i+1))
+    file.write("      ?c1 - surface\n")
+    file.write("      ?c2 - surface\n")
     file.write("    )\n")
     file.write("    :precondition\n")
     file.write("    (\n")
     file.write("    )\n")
     file.write("    :effect\n")
     file.write("    ( and\n")
-    file.write("      ( on ?c1 ?p0 )\n")
-    for i in range(n-1):
-        file.write("      ( on ?c{} ?c{} )\n".format(i+2, i+1))
-    file.write("      ( clear ?c{} )\n".format(n))
+    file.write("      ( on ?c1 ?c2 )\n")
     file.write("    )\n")
     file.write("  )\n")
 

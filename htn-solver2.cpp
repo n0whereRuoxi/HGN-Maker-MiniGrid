@@ -148,8 +148,8 @@ int DoExperiments(std::string l_sDomainName)
     l_iNumberOfRunsPerProblem = 20;
   }  
   else {
-    l_iNumberOfProblems = 3;
-    l_iNumberOfRunsPerProblem = 1;
+    l_iNumberOfProblems = 15;
+    l_iNumberOfRunsPerProblem = 5;
   }
 
   if (g_bCurriculum){

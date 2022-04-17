@@ -1,19 +1,17 @@
 ( define
-  ( tasks Depots-tasks )
-
+  ( tasks depots-tasks )
   ( :task Make-On
     :parameters
     (
-      ?above - surface
-      ?below - surface
+      ?c1 - surface
+      ?c2 - surface
     )
     :precondition
     (
     )
     :effect
     ( and
-      ( on ?above ?below )
+      ( on ?c1 ?c2 )
     )
   )
-
 )
