@@ -16,4 +16,33 @@
     )
   )
 
+  ( :task Make-Clear
+    :parameters
+    (
+      ?it - surface
+    )
+    :precondition
+    (
+    )
+    :effect
+    ( and
+      ( clear ?it )
+    )
+  )
+
+  ( :task Make-Keep-Clear
+    :parameters
+    (
+      ?it - surface
+      ?leave - surface
+    )
+    :precondition
+    (
+    )
+    :effect
+    ( and
+      ( clear ?it )
+      ( clear ?leave )
+    )
+  )
 )

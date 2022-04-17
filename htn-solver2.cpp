@@ -137,7 +137,7 @@ int DoExperiments(std::string l_sDomainName)
   int l_iNumberOfProblems;
   int l_iNumberOfRunsPerProblem; 
   std::string l_sResultFileName;
-  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_III";
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_IV";
 
   if (l_sDomainName == "logistics") {
     l_iNumberOfProblems = 10;
