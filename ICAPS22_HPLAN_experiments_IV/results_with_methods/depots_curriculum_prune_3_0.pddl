@@ -91,11 +91,11 @@
   ( :method MAKE-ON-VERIFY
     :parameters
     (
-      ?above - SURFACE
-      ?below - SURFACE
+      ?c1 - SURFACE
+      ?c2 - SURFACE
     )
     :precondition
-    ( and ( ON ?above ?below ) )
+    ( and ( ON ?c1 ?c2 ) )
     :subtasks
     (  )
   )
@@ -103,28 +103,28 @@
   ( :method MAKE-ON
     :parameters
     (
-      ?auto_23 - SURFACE
-      ?auto_22 - SURFACE
+      ?auto_102 - SURFACE
+      ?auto_103 - SURFACE
     )
     :vars
     (
-      ?auto_24 - HOIST
-      ?auto_25 - PLACE
-      ?auto_27 - PLACE
-      ?auto_28 - HOIST
-      ?auto_29 - SURFACE
-      ?auto_26 - TRUCK
+      ?auto_104 - HOIST
+      ?auto_105 - PLACE
+      ?auto_107 - PLACE
+      ?auto_108 - HOIST
+      ?auto_109 - SURFACE
+      ?auto_106 - TRUCK
     )
     :precondition
-    ( and ( HOIST-AT ?auto_24 ?auto_25 ) ( SURFACE-AT ?auto_22 ?auto_25 ) ( CLEAR ?auto_22 ) ( IS-CRATE ?auto_23 ) ( AVAILABLE ?auto_24 ) ( not ( = ?auto_27 ?auto_25 ) ) ( HOIST-AT ?auto_28 ?auto_27 ) ( AVAILABLE ?auto_28 ) ( SURFACE-AT ?auto_23 ?auto_27 ) ( ON ?auto_23 ?auto_29 ) ( CLEAR ?auto_23 ) ( TRUCK-AT ?auto_26 ?auto_25 ) ( not ( = ?auto_23 ?auto_22 ) ) ( not ( = ?auto_23 ?auto_29 ) ) ( not ( = ?auto_22 ?auto_29 ) ) ( not ( = ?auto_24 ?auto_28 ) ) )
+    ( and ( HOIST-AT ?auto_104 ?auto_105 ) ( SURFACE-AT ?auto_103 ?auto_105 ) ( CLEAR ?auto_103 ) ( IS-CRATE ?auto_102 ) ( AVAILABLE ?auto_104 ) ( not ( = ?auto_107 ?auto_105 ) ) ( HOIST-AT ?auto_108 ?auto_107 ) ( AVAILABLE ?auto_108 ) ( SURFACE-AT ?auto_102 ?auto_107 ) ( ON ?auto_102 ?auto_109 ) ( CLEAR ?auto_102 ) ( TRUCK-AT ?auto_106 ?auto_105 ) ( not ( = ?auto_102 ?auto_103 ) ) ( not ( = ?auto_102 ?auto_109 ) ) ( not ( = ?auto_103 ?auto_109 ) ) ( not ( = ?auto_104 ?auto_108 ) ) )
     :subtasks
-    ( ( !DRIVE ?auto_26 ?auto_25 ?auto_27 )
-      ( !LIFT ?auto_28 ?auto_23 ?auto_29 ?auto_27 )
-      ( !LOAD ?auto_28 ?auto_23 ?auto_26 ?auto_27 )
-      ( !DRIVE ?auto_26 ?auto_27 ?auto_25 )
-      ( !UNLOAD ?auto_24 ?auto_23 ?auto_26 ?auto_25 )
-      ( !DROP ?auto_24 ?auto_23 ?auto_22 ?auto_25 )
-      ( MAKE-ON-VERIFY ?auto_23 ?auto_22 ) )
+    ( ( !DRIVE ?auto_106 ?auto_105 ?auto_107 )
+      ( !LIFT ?auto_108 ?auto_102 ?auto_109 ?auto_107 )
+      ( !LOAD ?auto_108 ?auto_102 ?auto_106 ?auto_107 )
+      ( !DRIVE ?auto_106 ?auto_107 ?auto_105 )
+      ( !UNLOAD ?auto_104 ?auto_102 ?auto_106 ?auto_105 )
+      ( !DROP ?auto_104 ?auto_102 ?auto_103 ?auto_105 )
+      ( MAKE-ON-VERIFY ?auto_102 ?auto_103 ) )
   )
 
 )
