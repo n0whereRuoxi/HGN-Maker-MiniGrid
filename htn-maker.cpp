@@ -161,8 +161,8 @@ int DoExperiments(std::string l_sDomainName)
     l_iNumberOfRunsPerProblem = 20;
   }
   else {
-    l_iNumberOfProblems = 20;
-    l_iNumberOfRunsPerProblem = 5;
+    l_iNumberOfProblems = 4;
+    l_iNumberOfRunsPerProblem = 1;
   }
   if (g_iFlags & FLAG_CURRICULUM){
     if (g_iFlags & FLAG_NO_SUBSUMPTION)
