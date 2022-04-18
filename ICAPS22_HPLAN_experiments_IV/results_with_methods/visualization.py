@@ -10,7 +10,7 @@ plot = ['run_time', 'number_of_methods']
 for domain in domains:
     fig, axs = plt.subplots(2)
 
-    x = range(2, 4)
+    x = range(2, 16)
     y_number_of_methods = [ 38 for i in x]
     e_number_of_methods = [ 0 for i in x]
     # print(x)

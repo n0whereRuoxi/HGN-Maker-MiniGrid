@@ -67,14 +67,14 @@ for domain in domains:
                 axs[0].errorbar(x, y_number_of_methods, yerr=e_number_of_methods, 
                     color = '#377eb8' if is_curriculum else '#e41a1c',
                     # lw = '1.0' if is_prune else '1.5',
-                    label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''),
+                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruning' if is_prune else ''),
                     ls='-' if is_prune else '--',
                     marker = '.' if is_curriculum else '',
                     alpha=0.8)
                 axs[1].errorbar(x, y_runtime, yerr=e_runtime, 
                     color = '#377eb8' if is_curriculum else '#e41a1c',
                     # lw = '1.0' if is_prune else '1.5',
-                    label="{}{}".format('curriculum' if is_curriculum else 'original', ', pruned' if is_prune else ''),
+                    label="{}{}".format('Teachable-HTN-Maker' if is_curriculum else 'HTN-Maker', ', pruning' if is_prune else ''),
                     ls='-' if is_prune else '--',
                     alpha=0.8)
     fig.suptitle('Depots domain')
@@ -83,4 +83,5 @@ for domain in domains:
     # axs[1].legend()
     axs[1].set_xlabel('Number of blocks')
     axs[1].set_ylabel('Run time (ms)')
+    axs[1].set_ylim([0,100])
     plt.show()

@@ -137,7 +137,7 @@ int DoExperiments(std::string l_sDomainName)
   int l_iNumberOfProblems;
   int l_iNumberOfRunsPerProblem; 
   std::string l_sResultFileName;
-  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_IV";
+  std::string l_sRootDir = "/lustre/rli12314/HGN-Maker-MiniGrid/ICAPS22_HPLAN_experiments_III";
 
   if (l_sDomainName == "logistics") {
     l_iNumberOfProblems = 10;
@@ -175,7 +175,7 @@ int DoExperiments(std::string l_sDomainName)
     for (int j = 0; j < l_iNumberOfRunsPerProblem; j++) {
      std::ofstream l_oPlan;
       l_oPlan.open(l_sRootDir + "/results_with_methods" + "/plan" + "_" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".plan");
-      if (g_bManual) l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "/" + "domain_htn.pddl";
+      if (g_bManual) l_sDomainFile = l_sRootDir + "/" + l_sDomainName + "/" + "domain_htn_" + std::to_string(i) + ".pddl";
       else l_sDomainFile = l_sRootDir + "/results_with_methods" + "/" + l_sDomainName + "_" + l_sResultFileName + "_" + std::to_string(i) + "_" + std::to_string(j) + ".pddl";
       if (g_bManual) l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-manual-htn.pddl";
       else l_sProblemFile = l_sRootDir + "/" + l_sDomainName + "/" + "problem" + std::to_string(i) + "-" + std::to_string(j) + "-htn.pddl";

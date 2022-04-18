@@ -1208,3 +1208,72 @@
     )
   )
       
+  ( :method Make-1Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+    )
+)
+  ( :method Make-2Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+    )
+)
+  ( :method Make-3Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+    )
+)
+  ( :method Make-4Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+    )
+)
+)

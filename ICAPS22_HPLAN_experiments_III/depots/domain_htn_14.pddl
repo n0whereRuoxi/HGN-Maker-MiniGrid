@@ -1208,3 +1208,382 @@
     )
   )
       
+  ( :method Make-1Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+    )
+)
+  ( :method Make-2Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+    )
+)
+  ( :method Make-3Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+    )
+)
+  ( :method Make-4Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+    )
+)
+  ( :method Make-5Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+    )
+)
+  ( :method Make-6Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+    )
+)
+  ( :method Make-7Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+    )
+)
+  ( :method Make-8Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+      ?a7 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+      ( Make-On ?a7 ?a6 )
+    )
+)
+  ( :method Make-9Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+      ?a7 - surface
+      ?a8 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+      ( Make-On ?a7 ?a6 )
+      ( Make-On ?a8 ?a7 )
+    )
+)
+  ( :method Make-10Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+      ?a7 - surface
+      ?a8 - surface
+      ?a9 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+      ( Make-On ?a7 ?a6 )
+      ( Make-On ?a8 ?a7 )
+      ( Make-On ?a9 ?a8 )
+    )
+)
+  ( :method Make-11Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+      ?a7 - surface
+      ?a8 - surface
+      ?a9 - surface
+      ?a10 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+      ( Make-On ?a7 ?a6 )
+      ( Make-On ?a8 ?a7 )
+      ( Make-On ?a9 ?a8 )
+      ( Make-On ?a10 ?a9 )
+    )
+)
+  ( :method Make-12Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+      ?a7 - surface
+      ?a8 - surface
+      ?a9 - surface
+      ?a10 - surface
+      ?a11 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+      ( Make-On ?a7 ?a6 )
+      ( Make-On ?a8 ?a7 )
+      ( Make-On ?a9 ?a8 )
+      ( Make-On ?a10 ?a9 )
+      ( Make-On ?a11 ?a10 )
+    )
+)
+  ( :method Make-13Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+      ?a7 - surface
+      ?a8 - surface
+      ?a9 - surface
+      ?a10 - surface
+      ?a11 - surface
+      ?a12 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+      ( Make-On ?a7 ?a6 )
+      ( Make-On ?a8 ?a7 )
+      ( Make-On ?a9 ?a8 )
+      ( Make-On ?a10 ?a9 )
+      ( Make-On ?a11 ?a10 )
+      ( Make-On ?a12 ?a11 )
+    )
+)
+  ( :method Make-14Crate
+    :parameters
+    (
+      ?p - surface
+      ?a0 - surface
+      ?a1 - surface
+      ?a2 - surface
+      ?a3 - surface
+      ?a4 - surface
+      ?a5 - surface
+      ?a6 - surface
+      ?a7 - surface
+      ?a8 - surface
+      ?a9 - surface
+      ?a10 - surface
+      ?a11 - surface
+      ?a12 - surface
+      ?a13 - surface
+    )
+    :precondition
+    (
+    )
+    :subtasks
+    (
+      ( Make-On ?a0 ?p )
+      ( Make-On ?a1 ?a0 )
+      ( Make-On ?a2 ?a1 )
+      ( Make-On ?a3 ?a2 )
+      ( Make-On ?a4 ?a3 )
+      ( Make-On ?a5 ?a4 )
+      ( Make-On ?a6 ?a5 )
+      ( Make-On ?a7 ?a6 )
+      ( Make-On ?a8 ?a7 )
+      ( Make-On ?a9 ?a8 )
+      ( Make-On ?a10 ?a9 )
+      ( Make-On ?a11 ?a10 )
+      ( Make-On ?a12 ?a11 )
+      ( Make-On ?a13 ?a12 )
+    )
+)
+)
