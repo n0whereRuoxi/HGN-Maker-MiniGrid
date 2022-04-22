@@ -1,0 +1,96 @@
+( define ( problem probname )
+  ( :domain Rover )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    general - lander
+    wp000 - waypoint
+    wp001 - waypoint
+    wp002 - waypoint
+    wp003 - waypoint
+    wp004 - waypoint
+    wp005 - waypoint
+    rover000 - rover
+    store000 - store
+    mode000 - mode
+    mode001 - mode
+    obj000 - objective
+    obj001 - objective
+    obj002 - objective
+    cam000 - camera
+    cam001 - camera
+  )
+
+  ( :init
+    ( visible wp000 wp002 )
+    ( visible wp000 wp004 )
+    ( visible wp000 wp005 )
+    ( visible wp001 wp003 )
+    ( visible wp001 wp004 )
+    ( visible wp001 wp005 )
+    ( visible wp002 wp000 )
+    ( visible wp002 wp004 )
+    ( visible wp002 wp005 )
+    ( visible wp003 wp001 )
+    ( visible wp003 wp004 )
+    ( visible wp003 wp005 )
+    ( visible wp004 wp000 )
+    ( visible wp004 wp001 )
+    ( visible wp004 wp002 )
+    ( visible wp004 wp003 )
+    ( visible wp004 wp005 )
+    ( visible wp005 wp000 )
+    ( visible wp005 wp001 )
+    ( visible wp005 wp002 )
+    ( visible wp005 wp003 )
+    ( visible wp005 wp004 )
+    ( at_soil_sample wp002 )
+    ( at_soil_sample wp003 )
+    ( at_soil_sample wp005 )
+    ( at_rock_sample wp004 )
+    ( at_lander general wp003 )
+    ( channel_free general )
+    ( at rover000 wp001 )
+    ( available rover000 )
+    ( equipped_for_soil_analysis rover000 )
+    ( equipped_for_rock_analysis rover000 )
+    ( equipped_for_imaging rover000 )
+    ( can_traverse rover000 wp000 wp002 )
+    ( can_traverse rover000 wp000 wp004 )
+    ( can_traverse rover000 wp000 wp005 )
+    ( can_traverse rover000 wp001 wp003 )
+    ( can_traverse rover000 wp002 wp005 )
+    ( can_traverse rover000 wp003 wp004 )
+    ( can_traverse rover000 wp003 wp005 )
+    ( can_traverse rover000 wp004 wp005 )
+    ( can_traverse rover000 wp005 wp000 )
+    ( can_traverse rover000 wp005 wp001 )
+    ( can_traverse rover000 wp005 wp003 )
+    ( store_of store000 rover000 )
+    ( empty store000 )
+    ( visible_from obj000 wp005 )
+    ( visible_from obj001 wp002 )
+    ( visible_from obj001 wp005 )
+    ( visible_from obj002 wp002 )
+    ( visible_from obj002 wp005 )
+    ( on_board cam000 rover000 )
+    ( on_board cam001 rover000 )
+    ( supports cam000 mode001 )
+    ( supports cam000 mode000 )
+    ( supports cam001 mode001 )
+    ( calibration_target cam000 obj000 )
+    ( calibration_target cam001 obj002 )
+  )
+  ( :goal
+    ( and
+      ( communicated_soil_data wp002 )
+      ( communicated_soil_data wp003 )
+      ( communicated_soil_data wp005 )
+      ( communicated_rock_data wp004 )
+      ( communicated_image_data obj000 mode001 )
+      ( communicated_image_data obj002 mode000 )
+      ( communicated_image_data obj002 mode001 )
+    )
+  )
+)
+

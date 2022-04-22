@@ -1,0 +1,205 @@
+( define ( htn-problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :htn :typing :equality )
+  ( :objects
+    b034 - block
+    b036 - block
+    b039 - block
+    b033 - block
+    b032 - block
+    b044 - block
+    b042 - block
+    b040 - block
+    b043 - block
+    b041 - block
+    b057 - block
+    b055 - block
+    b058 - block
+    b056 - block
+    b059 - block
+    b020 - block
+    b029 - block
+    b027 - block
+    b026 - block
+    b028 - block
+    b048 - block
+    b047 - block
+    b045 - block
+    b049 - block
+    b046 - block
+    b037 - block
+    b030 - block
+    b031 - block
+    b035 - block
+    b038 - block
+    b050 - block
+    b052 - block
+    b053 - block
+    b051 - block
+    b054 - block
+    b006 - block
+    b001 - block
+    b000 - block
+    b004 - block
+    b005 - block
+    b013 - block
+    b009 - block
+    b017 - block
+    b021 - block
+    b018 - block
+    b010 - block
+    b002 - block
+    b008 - block
+    b012 - block
+    b007 - block
+    b022 - block
+    b024 - block
+    b014 - block
+    b011 - block
+    b025 - block
+    b023 - block
+    b016 - block
+    b019 - block
+    b003 - block
+    b015 - block
+  )
+
+  ( :init
+    ( on-table b034 )
+    ( on b036 b034 )
+    ( on b039 b036 )
+    ( on b033 b039 )
+    ( on b032 b033 )
+    ( clear b032 )
+    ( on-table b044 )
+    ( on b042 b044 )
+    ( on b040 b042 )
+    ( on b043 b040 )
+    ( on b041 b043 )
+    ( clear b041 )
+    ( on-table b057 )
+    ( on b055 b057 )
+    ( on b058 b055 )
+    ( on b056 b058 )
+    ( on b059 b056 )
+    ( clear b059 )
+    ( on-table b020 )
+    ( on b029 b020 )
+    ( on b027 b029 )
+    ( on b026 b027 )
+    ( on b028 b026 )
+    ( clear b028 )
+    ( on-table b048 )
+    ( on b047 b048 )
+    ( on b045 b047 )
+    ( on b049 b045 )
+    ( on b046 b049 )
+    ( clear b046 )
+    ( on-table b037 )
+    ( on b030 b037 )
+    ( on b031 b030 )
+    ( on b035 b031 )
+    ( on b038 b035 )
+    ( clear b038 )
+    ( on-table b050 )
+    ( on b052 b050 )
+    ( on b053 b052 )
+    ( on b051 b053 )
+    ( on b054 b051 )
+    ( clear b054 )
+    ( on-table b006 )
+    ( on b001 b006 )
+    ( on b000 b001 )
+    ( on b004 b000 )
+    ( on b005 b004 )
+    ( clear b005 )
+    ( on-table b013 )
+    ( on b009 b013 )
+    ( on b017 b009 )
+    ( on b021 b017 )
+    ( on b018 b021 )
+    ( clear b018 )
+    ( on-table b010 )
+    ( on b002 b010 )
+    ( on b008 b002 )
+    ( on b012 b008 )
+    ( on b007 b012 )
+    ( clear b007 )
+    ( on-table b022 )
+    ( on b024 b022 )
+    ( on b014 b024 )
+    ( on b011 b014 )
+    ( on b025 b011 )
+    ( clear b025 )
+    ( on-table b023 )
+    ( on b016 b023 )
+    ( on b019 b016 )
+    ( on b003 b019 )
+    ( on b015 b003 )
+    ( clear b015 )
+    ( hand-empty )
+  )
+  ( :tasks
+    ( make-on-table b025 )
+    ( make-on b022 b025 )
+    ( make-on b050 b022 )
+    ( make-on b047 b050 )
+    ( make-on b048 b047 )
+    ( make-on-table b052 )
+    ( make-on-table b020 )
+    ( make-on b017 b020 )
+    ( make-on b008 b017 )
+    ( make-on b012 b008 )
+    ( make-on b018 b012 )
+    ( make-on-table b057 )
+    ( make-on b031 b057 )
+    ( make-on b058 b031 )
+    ( make-on b055 b058 )
+    ( make-on b038 b055 )
+    ( make-on-table b041 )
+    ( make-on b056 b041 )
+    ( make-on b054 b056 )
+    ( make-on b051 b054 )
+    ( make-on b026 b051 )
+    ( make-on-table b027 )
+    ( make-on b039 b027 )
+    ( make-on b032 b039 )
+    ( make-on b019 b032 )
+    ( make-on b023 b019 )
+    ( make-on-table b035 )
+    ( make-on b033 b035 )
+    ( make-on b036 b033 )
+    ( make-on b029 b036 )
+    ( make-on b015 b029 )
+    ( make-on-table b005 )
+    ( make-on b016 b005 )
+    ( make-on b004 b016 )
+    ( make-on b009 b004 )
+    ( make-on b011 b009 )
+    ( make-on-table b030 )
+    ( make-on b014 b030 )
+    ( make-on b001 b014 )
+    ( make-on b007 b001 )
+    ( make-on b010 b007 )
+    ( make-on-table b046 )
+    ( make-on b059 b046 )
+    ( make-on b037 b059 )
+    ( make-on b034 b037 )
+    ( make-on-table b040 )
+    ( make-on b024 b040 )
+    ( make-on b044 b024 )
+    ( make-on b053 b044 )
+    ( make-on b049 b053 )
+    ( make-on-table b002 )
+    ( make-on b000 b002 )
+    ( make-on b003 b000 )
+    ( make-on b006 b003 )
+    ( make-on b013 b006 )
+    ( make-on-table b042 )
+    ( make-on b043 b042 )
+    ( make-on b021 b043 )
+    ( make-on b045 b021 )
+    ( make-on b028 b045 )
+  )
+)
+

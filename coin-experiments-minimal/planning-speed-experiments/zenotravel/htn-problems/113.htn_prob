@@ -1,0 +1,85 @@
+( define ( htn-problem probname )
+
+  ( :domain zeno-travel )
+
+  ( :requirements :strips :htn :typing )
+
+  ( :objects
+    level00 - flevel
+    level01 - flevel
+    aircraft000 - aircraft
+    aircraft001 - aircraft
+    aircraft002 - aircraft
+    person000 - person
+    person001 - person
+    person002 - person
+    person003 - person
+    person004 - person
+    person005 - person
+    person006 - person
+    person007 - person
+    person008 - person
+    person009 - person
+    person010 - person
+    person011 - person
+    person012 - person
+    person013 - person
+    person014 - person
+    city000 - city
+    city001 - city
+    city002 - city
+    city003 - city
+    city004 - city
+    city005 - city
+    city006 - city
+    city007 - city
+    city008 - city
+    city009 - city
+    city010 - city
+    city011 - city
+  )
+
+  ( :init
+    ( next level00 level01 )
+    ( aircraft-at aircraft000 city008 )
+    ( aircraft-at aircraft001 city004 )
+    ( aircraft-at aircraft002 city009 )
+    ( person-at person000 city005 )
+    ( person-at person001 city000 )
+    ( person-at person002 city001 )
+    ( person-at person003 city009 )
+    ( person-at person004 city007 )
+    ( person-at person005 city003 )
+    ( person-at person006 city005 )
+    ( person-at person007 city006 )
+    ( person-at person008 city004 )
+    ( person-at person009 city006 )
+    ( person-at person010 city009 )
+    ( person-at person011 city006 )
+    ( person-at person012 city008 )
+    ( person-at person013 city011 )
+    ( person-at person014 city007 )
+    ( fuel-level aircraft000 level01 )
+    ( fuel-level aircraft001 level00 )
+    ( fuel-level aircraft002 level00 )
+  )
+
+  ( :tasks
+    ( Travel person000 city011 )
+    ( Travel person001 city008 )
+    ( Travel person002 city011 )
+    ( Travel person003 city004 )
+    ( Travel person004 city005 )
+    ( Travel person005 city003 )
+    ( Travel person006 city003 )
+    ( Travel person007 city004 )
+    ( Travel person008 city003 )
+    ( Travel person009 city003 )
+    ( Travel person010 city000 )
+    ( Travel person011 city005 )
+    ( Travel person012 city004 )
+    ( Travel person013 city009 )
+    ( Travel person014 city002 )
+  )
+)
+

@@ -1,0 +1,113 @@
+( define ( problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    a001 - airplane
+    a002 - airplane
+    c000 - city
+    c001 - city
+    c002 - city
+    c003 - city
+    c004 - city
+    t000-000 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t002-000 - truck
+    t002-001 - truck
+    t002-002 - truck
+    t003-000 - truck
+    t003-001 - truck
+    t003-002 - truck
+    t004-000 - truck
+    l000-000 - location
+    l000-001 - location
+    l000-002 - location
+    l000-003 - location
+    l000-004 - location
+    l001-000 - location
+    l001-001 - location
+    l001-002 - location
+    l002-000 - location
+    l002-001 - location
+    l002-002 - location
+    l002-003 - location
+    l002-004 - location
+    l002-005 - location
+    l003-000 - location
+    l003-001 - location
+    l003-002 - location
+    l003-003 - location
+    l003-004 - location
+    l003-005 - location
+    l004-000 - location
+    l004-001 - location
+    l004-002 - location
+    l004-003 - location
+    l004-004 - location
+    l004-005 - location
+    p000 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l000-002 c000 )
+    ( in-city l000-003 c000 )
+    ( in-city l000-004 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l001-002 c001 )
+    ( in-city l002-000 c002 )
+    ( in-city l002-001 c002 )
+    ( in-city l002-002 c002 )
+    ( in-city l002-003 c002 )
+    ( in-city l002-004 c002 )
+    ( in-city l002-005 c002 )
+    ( in-city l003-000 c003 )
+    ( in-city l003-001 c003 )
+    ( in-city l003-002 c003 )
+    ( in-city l003-003 c003 )
+    ( in-city l003-004 c003 )
+    ( in-city l003-005 c003 )
+    ( in-city l004-000 c004 )
+    ( in-city l004-001 c004 )
+    ( in-city l004-002 c004 )
+    ( in-city l004-003 c004 )
+    ( in-city l004-004 c004 )
+    ( in-city l004-005 c004 )
+    ( airport l000-000 )
+    ( airport l000-004 )
+    ( airport l000-001 )
+    ( airport l001-002 )
+    ( airport l002-000 )
+    ( airport l003-000 )
+    ( airport l004-002 )
+    ( airport l004-004 )
+    ( airport l004-001 )
+    ( truck-at t000-000 l000-002 )
+    ( truck-at t001-000 l001-002 )
+    ( truck-at t001-001 l001-000 )
+    ( truck-at t002-000 l002-003 )
+    ( truck-at t002-001 l002-001 )
+    ( truck-at t002-002 l002-002 )
+    ( truck-at t003-000 l003-000 )
+    ( truck-at t003-001 l003-004 )
+    ( truck-at t003-002 l003-002 )
+    ( truck-at t004-000 l004-001 )
+    ( airplane-at a000 l004-004 )
+    ( airplane-at a001 l002-000 )
+    ( airplane-at a002 l002-000 )
+    ( obj-at p000 l002-003 )
+  )
+
+  ( :goal
+    ( and
+      ( obj-at p000 l004-005 )
+    )
+  )
+)
+

@@ -1,0 +1,764 @@
+( define ( htn-problem probname )
+
+  ( :domain zeno-travel )
+
+  ( :requirements :strips :htn :typing )
+
+  ( :objects
+    level00 - flevel
+    level01 - flevel
+    level02 - flevel
+    level03 - flevel
+    aircraft000 - aircraft
+    aircraft001 - aircraft
+    aircraft002 - aircraft
+    aircraft003 - aircraft
+    aircraft004 - aircraft
+    aircraft005 - aircraft
+    aircraft006 - aircraft
+    aircraft007 - aircraft
+    aircraft008 - aircraft
+    aircraft009 - aircraft
+    person000 - person
+    person001 - person
+    person002 - person
+    person003 - person
+    person004 - person
+    person005 - person
+    person006 - person
+    person007 - person
+    person008 - person
+    person009 - person
+    person010 - person
+    person011 - person
+    person012 - person
+    person013 - person
+    person014 - person
+    person015 - person
+    person016 - person
+    person017 - person
+    person018 - person
+    person019 - person
+    person020 - person
+    person021 - person
+    person022 - person
+    person023 - person
+    person024 - person
+    person025 - person
+    person026 - person
+    person027 - person
+    person028 - person
+    person029 - person
+    person030 - person
+    person031 - person
+    person032 - person
+    person033 - person
+    person034 - person
+    person035 - person
+    person036 - person
+    person037 - person
+    person038 - person
+    person039 - person
+    person040 - person
+    person041 - person
+    person042 - person
+    person043 - person
+    person044 - person
+    person045 - person
+    person046 - person
+    person047 - person
+    person048 - person
+    person049 - person
+    person050 - person
+    person051 - person
+    person052 - person
+    person053 - person
+    person054 - person
+    person055 - person
+    person056 - person
+    person057 - person
+    person058 - person
+    person059 - person
+    person060 - person
+    person061 - person
+    person062 - person
+    person063 - person
+    person064 - person
+    person065 - person
+    person066 - person
+    person067 - person
+    person068 - person
+    person069 - person
+    person070 - person
+    person071 - person
+    person072 - person
+    person073 - person
+    person074 - person
+    person075 - person
+    person076 - person
+    person077 - person
+    person078 - person
+    person079 - person
+    person080 - person
+    person081 - person
+    person082 - person
+    person083 - person
+    person084 - person
+    person085 - person
+    person086 - person
+    person087 - person
+    person088 - person
+    person089 - person
+    person090 - person
+    person091 - person
+    person092 - person
+    person093 - person
+    person094 - person
+    person095 - person
+    person096 - person
+    person097 - person
+    person098 - person
+    person099 - person
+    person100 - person
+    person101 - person
+    person102 - person
+    person103 - person
+    person104 - person
+    person105 - person
+    person106 - person
+    person107 - person
+    person108 - person
+    person109 - person
+    person110 - person
+    person111 - person
+    person112 - person
+    person113 - person
+    person114 - person
+    person115 - person
+    person116 - person
+    person117 - person
+    person118 - person
+    person119 - person
+    person120 - person
+    person121 - person
+    person122 - person
+    person123 - person
+    person124 - person
+    person125 - person
+    person126 - person
+    person127 - person
+    person128 - person
+    person129 - person
+    person130 - person
+    person131 - person
+    person132 - person
+    person133 - person
+    person134 - person
+    person135 - person
+    person136 - person
+    person137 - person
+    person138 - person
+    person139 - person
+    person140 - person
+    person141 - person
+    person142 - person
+    person143 - person
+    person144 - person
+    person145 - person
+    person146 - person
+    person147 - person
+    person148 - person
+    person149 - person
+    person150 - person
+    person151 - person
+    person152 - person
+    person153 - person
+    person154 - person
+    person155 - person
+    person156 - person
+    person157 - person
+    person158 - person
+    person159 - person
+    person160 - person
+    person161 - person
+    person162 - person
+    person163 - person
+    person164 - person
+    person165 - person
+    person166 - person
+    person167 - person
+    person168 - person
+    person169 - person
+    person170 - person
+    person171 - person
+    person172 - person
+    person173 - person
+    person174 - person
+    person175 - person
+    person176 - person
+    person177 - person
+    person178 - person
+    person179 - person
+    person180 - person
+    person181 - person
+    person182 - person
+    person183 - person
+    person184 - person
+    person185 - person
+    person186 - person
+    person187 - person
+    person188 - person
+    person189 - person
+    person190 - person
+    person191 - person
+    person192 - person
+    person193 - person
+    person194 - person
+    person195 - person
+    person196 - person
+    person197 - person
+    person198 - person
+    person199 - person
+    person200 - person
+    person201 - person
+    person202 - person
+    person203 - person
+    person204 - person
+    person205 - person
+    person206 - person
+    person207 - person
+    person208 - person
+    person209 - person
+    person210 - person
+    person211 - person
+    person212 - person
+    person213 - person
+    person214 - person
+    person215 - person
+    person216 - person
+    person217 - person
+    person218 - person
+    person219 - person
+    person220 - person
+    person221 - person
+    person222 - person
+    person223 - person
+    person224 - person
+    person225 - person
+    person226 - person
+    person227 - person
+    person228 - person
+    person229 - person
+    person230 - person
+    person231 - person
+    person232 - person
+    person233 - person
+    person234 - person
+    city000 - city
+    city001 - city
+    city002 - city
+    city003 - city
+    city004 - city
+    city005 - city
+  )
+
+  ( :init
+    ( next level00 level01 )
+    ( next level01 level02 )
+    ( next level02 level03 )
+    ( aircraft-at aircraft000 city003 )
+    ( aircraft-at aircraft001 city004 )
+    ( aircraft-at aircraft002 city003 )
+    ( aircraft-at aircraft003 city002 )
+    ( aircraft-at aircraft004 city000 )
+    ( aircraft-at aircraft005 city000 )
+    ( aircraft-at aircraft006 city001 )
+    ( aircraft-at aircraft007 city005 )
+    ( aircraft-at aircraft008 city005 )
+    ( aircraft-at aircraft009 city005 )
+    ( person-at person000 city004 )
+    ( person-at person001 city001 )
+    ( person-at person002 city000 )
+    ( person-at person003 city005 )
+    ( person-at person004 city003 )
+    ( person-at person005 city004 )
+    ( person-at person006 city004 )
+    ( person-at person007 city003 )
+    ( person-at person008 city005 )
+    ( person-at person009 city002 )
+    ( person-at person010 city005 )
+    ( person-at person011 city002 )
+    ( person-at person012 city000 )
+    ( person-at person013 city004 )
+    ( person-at person014 city003 )
+    ( person-at person015 city003 )
+    ( person-at person016 city004 )
+    ( person-at person017 city004 )
+    ( person-at person018 city000 )
+    ( person-at person019 city001 )
+    ( person-at person020 city000 )
+    ( person-at person021 city003 )
+    ( person-at person022 city005 )
+    ( person-at person023 city002 )
+    ( person-at person024 city003 )
+    ( person-at person025 city003 )
+    ( person-at person026 city000 )
+    ( person-at person027 city003 )
+    ( person-at person028 city002 )
+    ( person-at person029 city005 )
+    ( person-at person030 city000 )
+    ( person-at person031 city000 )
+    ( person-at person032 city005 )
+    ( person-at person033 city001 )
+    ( person-at person034 city004 )
+    ( person-at person035 city000 )
+    ( person-at person036 city003 )
+    ( person-at person037 city002 )
+    ( person-at person038 city004 )
+    ( person-at person039 city000 )
+    ( person-at person040 city004 )
+    ( person-at person041 city001 )
+    ( person-at person042 city002 )
+    ( person-at person043 city002 )
+    ( person-at person044 city000 )
+    ( person-at person045 city004 )
+    ( person-at person046 city005 )
+    ( person-at person047 city002 )
+    ( person-at person048 city002 )
+    ( person-at person049 city004 )
+    ( person-at person050 city001 )
+    ( person-at person051 city000 )
+    ( person-at person052 city005 )
+    ( person-at person053 city000 )
+    ( person-at person054 city002 )
+    ( person-at person055 city003 )
+    ( person-at person056 city003 )
+    ( person-at person057 city001 )
+    ( person-at person058 city000 )
+    ( person-at person059 city003 )
+    ( person-at person060 city000 )
+    ( person-at person061 city000 )
+    ( person-at person062 city002 )
+    ( person-at person063 city003 )
+    ( person-at person064 city005 )
+    ( person-at person065 city000 )
+    ( person-at person066 city004 )
+    ( person-at person067 city002 )
+    ( person-at person068 city000 )
+    ( person-at person069 city000 )
+    ( person-at person070 city003 )
+    ( person-at person071 city003 )
+    ( person-at person072 city001 )
+    ( person-at person073 city003 )
+    ( person-at person074 city005 )
+    ( person-at person075 city005 )
+    ( person-at person076 city001 )
+    ( person-at person077 city003 )
+    ( person-at person078 city000 )
+    ( person-at person079 city001 )
+    ( person-at person080 city001 )
+    ( person-at person081 city001 )
+    ( person-at person082 city002 )
+    ( person-at person083 city000 )
+    ( person-at person084 city000 )
+    ( person-at person085 city002 )
+    ( person-at person086 city001 )
+    ( person-at person087 city001 )
+    ( person-at person088 city003 )
+    ( person-at person089 city005 )
+    ( person-at person090 city005 )
+    ( person-at person091 city002 )
+    ( person-at person092 city004 )
+    ( person-at person093 city001 )
+    ( person-at person094 city005 )
+    ( person-at person095 city003 )
+    ( person-at person096 city005 )
+    ( person-at person097 city001 )
+    ( person-at person098 city004 )
+    ( person-at person099 city005 )
+    ( person-at person100 city005 )
+    ( person-at person101 city005 )
+    ( person-at person102 city000 )
+    ( person-at person103 city005 )
+    ( person-at person104 city000 )
+    ( person-at person105 city004 )
+    ( person-at person106 city002 )
+    ( person-at person107 city002 )
+    ( person-at person108 city001 )
+    ( person-at person109 city002 )
+    ( person-at person110 city003 )
+    ( person-at person111 city000 )
+    ( person-at person112 city002 )
+    ( person-at person113 city003 )
+    ( person-at person114 city004 )
+    ( person-at person115 city002 )
+    ( person-at person116 city000 )
+    ( person-at person117 city004 )
+    ( person-at person118 city003 )
+    ( person-at person119 city003 )
+    ( person-at person120 city003 )
+    ( person-at person121 city002 )
+    ( person-at person122 city005 )
+    ( person-at person123 city005 )
+    ( person-at person124 city001 )
+    ( person-at person125 city003 )
+    ( person-at person126 city001 )
+    ( person-at person127 city004 )
+    ( person-at person128 city002 )
+    ( person-at person129 city003 )
+    ( person-at person130 city004 )
+    ( person-at person131 city002 )
+    ( person-at person132 city002 )
+    ( person-at person133 city002 )
+    ( person-at person134 city005 )
+    ( person-at person135 city002 )
+    ( person-at person136 city000 )
+    ( person-at person137 city001 )
+    ( person-at person138 city002 )
+    ( person-at person139 city005 )
+    ( person-at person140 city004 )
+    ( person-at person141 city004 )
+    ( person-at person142 city003 )
+    ( person-at person143 city000 )
+    ( person-at person144 city001 )
+    ( person-at person145 city002 )
+    ( person-at person146 city002 )
+    ( person-at person147 city005 )
+    ( person-at person148 city004 )
+    ( person-at person149 city003 )
+    ( person-at person150 city003 )
+    ( person-at person151 city005 )
+    ( person-at person152 city004 )
+    ( person-at person153 city000 )
+    ( person-at person154 city005 )
+    ( person-at person155 city005 )
+    ( person-at person156 city001 )
+    ( person-at person157 city004 )
+    ( person-at person158 city004 )
+    ( person-at person159 city004 )
+    ( person-at person160 city001 )
+    ( person-at person161 city000 )
+    ( person-at person162 city004 )
+    ( person-at person163 city001 )
+    ( person-at person164 city002 )
+    ( person-at person165 city003 )
+    ( person-at person166 city001 )
+    ( person-at person167 city001 )
+    ( person-at person168 city004 )
+    ( person-at person169 city004 )
+    ( person-at person170 city004 )
+    ( person-at person171 city000 )
+    ( person-at person172 city000 )
+    ( person-at person173 city002 )
+    ( person-at person174 city004 )
+    ( person-at person175 city001 )
+    ( person-at person176 city002 )
+    ( person-at person177 city004 )
+    ( person-at person178 city001 )
+    ( person-at person179 city000 )
+    ( person-at person180 city002 )
+    ( person-at person181 city002 )
+    ( person-at person182 city003 )
+    ( person-at person183 city000 )
+    ( person-at person184 city000 )
+    ( person-at person185 city002 )
+    ( person-at person186 city003 )
+    ( person-at person187 city002 )
+    ( person-at person188 city004 )
+    ( person-at person189 city005 )
+    ( person-at person190 city004 )
+    ( person-at person191 city005 )
+    ( person-at person192 city005 )
+    ( person-at person193 city000 )
+    ( person-at person194 city004 )
+    ( person-at person195 city000 )
+    ( person-at person196 city001 )
+    ( person-at person197 city000 )
+    ( person-at person198 city005 )
+    ( person-at person199 city005 )
+    ( person-at person200 city002 )
+    ( person-at person201 city003 )
+    ( person-at person202 city004 )
+    ( person-at person203 city002 )
+    ( person-at person204 city003 )
+    ( person-at person205 city000 )
+    ( person-at person206 city001 )
+    ( person-at person207 city003 )
+    ( person-at person208 city005 )
+    ( person-at person209 city000 )
+    ( person-at person210 city001 )
+    ( person-at person211 city005 )
+    ( person-at person212 city002 )
+    ( person-at person213 city005 )
+    ( person-at person214 city003 )
+    ( person-at person215 city001 )
+    ( person-at person216 city005 )
+    ( person-at person217 city000 )
+    ( person-at person218 city003 )
+    ( person-at person219 city004 )
+    ( person-at person220 city004 )
+    ( person-at person221 city005 )
+    ( person-at person222 city001 )
+    ( person-at person223 city003 )
+    ( person-at person224 city005 )
+    ( person-at person225 city000 )
+    ( person-at person226 city001 )
+    ( person-at person227 city000 )
+    ( person-at person228 city004 )
+    ( person-at person229 city004 )
+    ( person-at person230 city003 )
+    ( person-at person231 city000 )
+    ( person-at person232 city000 )
+    ( person-at person233 city005 )
+    ( person-at person234 city000 )
+    ( fuel-level aircraft000 level00 )
+    ( fuel-level aircraft001 level00 )
+    ( fuel-level aircraft002 level02 )
+    ( fuel-level aircraft003 level03 )
+    ( fuel-level aircraft004 level03 )
+    ( fuel-level aircraft005 level00 )
+    ( fuel-level aircraft006 level01 )
+    ( fuel-level aircraft007 level02 )
+    ( fuel-level aircraft008 level02 )
+    ( fuel-level aircraft009 level02 )
+  )
+
+  ( :tasks
+    ( Travel person000 city001 )
+    ( Travel person001 city000 )
+    ( Travel person002 city001 )
+    ( Travel person003 city005 )
+    ( Travel person004 city003 )
+    ( Travel person005 city000 )
+    ( Travel person006 city000 )
+    ( Travel person007 city002 )
+    ( Travel person008 city002 )
+    ( Travel person009 city003 )
+    ( Travel person010 city003 )
+    ( Travel person011 city003 )
+    ( Travel person012 city003 )
+    ( Travel person013 city003 )
+    ( Travel person014 city004 )
+    ( Travel person015 city005 )
+    ( Travel person016 city005 )
+    ( Travel person017 city001 )
+    ( Travel person018 city000 )
+    ( Travel person019 city001 )
+    ( Travel person020 city004 )
+    ( Travel person021 city004 )
+    ( Travel person022 city002 )
+    ( Travel person023 city002 )
+    ( Travel person024 city000 )
+    ( Travel person025 city005 )
+    ( Travel person026 city004 )
+    ( Travel person027 city004 )
+    ( Travel person028 city005 )
+    ( Travel person029 city003 )
+    ( Travel person030 city004 )
+    ( Travel person031 city000 )
+    ( Travel person032 city001 )
+    ( Travel person033 city004 )
+    ( Travel person034 city003 )
+    ( Travel person035 city004 )
+    ( Travel person036 city004 )
+    ( Travel person037 city002 )
+    ( Travel person038 city004 )
+    ( Travel person039 city004 )
+    ( Travel person040 city005 )
+    ( Travel person041 city001 )
+    ( Travel person042 city000 )
+    ( Travel person043 city000 )
+    ( Travel person044 city003 )
+    ( Travel person045 city004 )
+    ( Travel person046 city005 )
+    ( Travel person047 city002 )
+    ( Travel person048 city004 )
+    ( Travel person049 city004 )
+    ( Travel person050 city003 )
+    ( Travel person051 city002 )
+    ( Travel person052 city000 )
+    ( Travel person053 city004 )
+    ( Travel person054 city005 )
+    ( Travel person055 city001 )
+    ( Travel person056 city003 )
+    ( Travel person057 city001 )
+    ( Travel person058 city005 )
+    ( Travel person059 city000 )
+    ( Travel person060 city004 )
+    ( Travel person061 city002 )
+    ( Travel person062 city000 )
+    ( Travel person063 city004 )
+    ( Travel person064 city000 )
+    ( Travel person065 city002 )
+    ( Travel person066 city000 )
+    ( Travel person067 city004 )
+    ( Travel person068 city004 )
+    ( Travel person069 city003 )
+    ( Travel person070 city002 )
+    ( Travel person071 city003 )
+    ( Travel person072 city004 )
+    ( Travel person073 city002 )
+    ( Travel person074 city004 )
+    ( Travel person075 city005 )
+    ( Travel person076 city005 )
+    ( Travel person077 city001 )
+    ( Travel person078 city000 )
+    ( Travel person079 city001 )
+    ( Travel person080 city005 )
+    ( Travel person081 city001 )
+    ( Travel person082 city003 )
+    ( Travel person083 city004 )
+    ( Travel person084 city005 )
+    ( Travel person085 city000 )
+    ( Travel person086 city005 )
+    ( Travel person087 city000 )
+    ( Travel person088 city001 )
+    ( Travel person089 city002 )
+    ( Travel person090 city004 )
+    ( Travel person091 city004 )
+    ( Travel person092 city004 )
+    ( Travel person093 city005 )
+    ( Travel person094 city000 )
+    ( Travel person095 city004 )
+    ( Travel person096 city001 )
+    ( Travel person097 city000 )
+    ( Travel person098 city000 )
+    ( Travel person099 city003 )
+    ( Travel person100 city003 )
+    ( Travel person101 city003 )
+    ( Travel person102 city000 )
+    ( Travel person103 city000 )
+    ( Travel person104 city003 )
+    ( Travel person105 city002 )
+    ( Travel person106 city003 )
+    ( Travel person107 city000 )
+    ( Travel person108 city004 )
+    ( Travel person109 city001 )
+    ( Travel person110 city001 )
+    ( Travel person111 city001 )
+    ( Travel person112 city003 )
+    ( Travel person113 city003 )
+    ( Travel person114 city005 )
+    ( Travel person115 city000 )
+    ( Travel person116 city001 )
+    ( Travel person117 city004 )
+    ( Travel person118 city005 )
+    ( Travel person119 city001 )
+    ( Travel person120 city005 )
+    ( Travel person121 city003 )
+    ( Travel person122 city005 )
+    ( Travel person123 city003 )
+    ( Travel person124 city000 )
+    ( Travel person125 city005 )
+    ( Travel person126 city002 )
+    ( Travel person127 city005 )
+    ( Travel person128 city003 )
+    ( Travel person129 city000 )
+    ( Travel person130 city002 )
+    ( Travel person131 city005 )
+    ( Travel person132 city001 )
+    ( Travel person133 city003 )
+    ( Travel person134 city003 )
+    ( Travel person135 city005 )
+    ( Travel person136 city005 )
+    ( Travel person137 city000 )
+    ( Travel person138 city003 )
+    ( Travel person139 city003 )
+    ( Travel person140 city002 )
+    ( Travel person141 city003 )
+    ( Travel person142 city005 )
+    ( Travel person143 city003 )
+    ( Travel person144 city004 )
+    ( Travel person145 city002 )
+    ( Travel person146 city003 )
+    ( Travel person147 city005 )
+    ( Travel person148 city001 )
+    ( Travel person149 city002 )
+    ( Travel person150 city000 )
+    ( Travel person151 city000 )
+    ( Travel person152 city000 )
+    ( Travel person153 city003 )
+    ( Travel person154 city001 )
+    ( Travel person155 city000 )
+    ( Travel person156 city000 )
+    ( Travel person157 city001 )
+    ( Travel person158 city000 )
+    ( Travel person159 city004 )
+    ( Travel person160 city002 )
+    ( Travel person161 city000 )
+    ( Travel person162 city003 )
+    ( Travel person163 city003 )
+    ( Travel person164 city003 )
+    ( Travel person165 city004 )
+    ( Travel person166 city000 )
+    ( Travel person167 city001 )
+    ( Travel person168 city004 )
+    ( Travel person169 city002 )
+    ( Travel person170 city002 )
+    ( Travel person171 city004 )
+    ( Travel person172 city003 )
+    ( Travel person173 city005 )
+    ( Travel person174 city001 )
+    ( Travel person175 city001 )
+    ( Travel person176 city002 )
+    ( Travel person177 city003 )
+    ( Travel person178 city004 )
+    ( Travel person179 city001 )
+    ( Travel person180 city005 )
+    ( Travel person181 city003 )
+    ( Travel person182 city005 )
+    ( Travel person183 city003 )
+    ( Travel person184 city000 )
+    ( Travel person185 city000 )
+    ( Travel person186 city002 )
+    ( Travel person187 city005 )
+    ( Travel person188 city002 )
+    ( Travel person189 city000 )
+    ( Travel person190 city003 )
+    ( Travel person191 city002 )
+    ( Travel person192 city000 )
+    ( Travel person193 city004 )
+    ( Travel person194 city003 )
+    ( Travel person195 city004 )
+    ( Travel person196 city002 )
+    ( Travel person197 city004 )
+    ( Travel person198 city003 )
+    ( Travel person199 city004 )
+    ( Travel person200 city004 )
+    ( Travel person201 city005 )
+    ( Travel person202 city001 )
+    ( Travel person203 city001 )
+    ( Travel person204 city005 )
+    ( Travel person205 city002 )
+    ( Travel person206 city002 )
+    ( Travel person207 city005 )
+    ( Travel person208 city005 )
+    ( Travel person209 city004 )
+    ( Travel person210 city000 )
+    ( Travel person211 city003 )
+    ( Travel person212 city001 )
+    ( Travel person213 city005 )
+    ( Travel person214 city000 )
+    ( Travel person215 city000 )
+    ( Travel person216 city003 )
+    ( Travel person217 city000 )
+    ( Travel person218 city005 )
+    ( Travel person219 city003 )
+    ( Travel person220 city000 )
+    ( Travel person221 city000 )
+    ( Travel person222 city005 )
+    ( Travel person223 city005 )
+    ( Travel person224 city002 )
+    ( Travel person225 city003 )
+    ( Travel person226 city001 )
+    ( Travel person227 city002 )
+    ( Travel person228 city005 )
+    ( Travel person229 city004 )
+    ( Travel person230 city004 )
+    ( Travel person231 city003 )
+    ( Travel person232 city003 )
+    ( Travel person233 city005 )
+    ( Travel person234 city004 )
+  )
+)
+

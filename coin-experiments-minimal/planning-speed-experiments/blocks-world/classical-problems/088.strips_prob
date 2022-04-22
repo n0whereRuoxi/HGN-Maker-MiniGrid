@@ -1,0 +1,102 @@
+( define ( problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    b000 - block
+    b001 - block
+    b006 - block
+    b011 - block
+    b002 - block
+    b014 - block
+    b015 - block
+    b004 - block
+    b013 - block
+    b017 - block
+    b023 - block
+    b016 - block
+    b024 - block
+    b021 - block
+    b022 - block
+    b018 - block
+    b010 - block
+    b007 - block
+    b020 - block
+    b019 - block
+    b009 - block
+    b012 - block
+    b008 - block
+    b003 - block
+    b005 - block
+  )
+
+  ( :init
+    ( on-table b000 )
+    ( on b001 b000 )
+    ( on b006 b001 )
+    ( on b011 b006 )
+    ( on b002 b011 )
+    ( clear b002 )
+    ( on-table b014 )
+    ( on b015 b014 )
+    ( on b004 b015 )
+    ( on b013 b004 )
+    ( on b017 b013 )
+    ( clear b017 )
+    ( on-table b023 )
+    ( on b016 b023 )
+    ( on b024 b016 )
+    ( on b021 b024 )
+    ( on b022 b021 )
+    ( clear b022 )
+    ( on-table b018 )
+    ( on b010 b018 )
+    ( on b007 b010 )
+    ( on b020 b007 )
+    ( on b019 b020 )
+    ( clear b019 )
+    ( on-table b009 )
+    ( on b012 b009 )
+    ( on b008 b012 )
+    ( on b003 b008 )
+    ( on b005 b003 )
+    ( clear b005 )
+    ( hand-empty )
+  )
+  ( :goal
+    ( and
+      ( on-table b013 )
+      ( on b021 b013 )
+      ( on b010 b021 )
+      ( on b019 b010 )
+      ( on b024 b019 )
+      ( clear b024 )
+      ( on-table b000 )
+      ( on b005 b000 )
+      ( on b015 b005 )
+      ( on b022 b015 )
+      ( clear b022 )
+      ( on-table b006 )
+      ( on b018 b006 )
+      ( on b017 b018 )
+      ( on b011 b017 )
+      ( on b016 b011 )
+      ( clear b016 )
+      ( on-table b023 )
+      ( clear b023 )
+      ( on-table b014 )
+      ( on b007 b014 )
+      ( on b012 b007 )
+      ( on b009 b012 )
+      ( on b020 b009 )
+      ( clear b020 )
+      ( on-table b002 )
+      ( on b008 b002 )
+      ( on b004 b008 )
+      ( on b003 b004 )
+      ( on b001 b003 )
+      ( clear b001 )
+    )
+  )
+)
+

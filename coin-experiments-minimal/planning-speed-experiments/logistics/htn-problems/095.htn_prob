@@ -1,0 +1,132 @@
+( define ( htn-problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :htn :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    c000 - city
+    c001 - city
+    c002 - city
+    t000-000 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t002-000 - truck
+    t002-001 - truck
+    l000-000 - location
+    l000-001 - location
+    l001-000 - location
+    l001-001 - location
+    l001-002 - location
+    l001-003 - location
+    l002-000 - location
+    l002-001 - location
+    l002-002 - location
+    p000 - obj
+    p001 - obj
+    p002 - obj
+    p003 - obj
+    p004 - obj
+    p005 - obj
+    p006 - obj
+    p007 - obj
+    p008 - obj
+    p009 - obj
+    p010 - obj
+    p011 - obj
+    p012 - obj
+    p013 - obj
+    p014 - obj
+    p015 - obj
+    p016 - obj
+    p017 - obj
+    p018 - obj
+    p019 - obj
+    p020 - obj
+    p021 - obj
+    p022 - obj
+    p023 - obj
+    p024 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l001-002 c001 )
+    ( in-city l001-003 c001 )
+    ( in-city l002-000 c002 )
+    ( in-city l002-001 c002 )
+    ( in-city l002-002 c002 )
+    ( airport l000-000 )
+    ( airport l000-001 )
+    ( airport l001-002 )
+    ( airport l001-003 )
+    ( airport l001-001 )
+    ( airport l002-002 )
+    ( airport l002-001 )
+    ( airport l002-000 )
+    ( truck-at t000-000 l000-001 )
+    ( truck-at t001-000 l001-001 )
+    ( truck-at t001-001 l001-003 )
+    ( truck-at t002-000 l002-001 )
+    ( truck-at t002-001 l002-001 )
+    ( airplane-at a000 l001-002 )
+    ( obj-at p000 l002-000 )
+    ( obj-at p001 l001-003 )
+    ( obj-at p002 l001-002 )
+    ( obj-at p003 l001-003 )
+    ( obj-at p004 l001-003 )
+    ( obj-at p005 l002-001 )
+    ( obj-at p006 l000-000 )
+    ( obj-at p007 l002-002 )
+    ( obj-at p008 l000-000 )
+    ( obj-at p009 l000-001 )
+    ( obj-at p010 l001-001 )
+    ( obj-at p011 l002-000 )
+    ( obj-at p012 l001-000 )
+    ( obj-at p013 l001-002 )
+    ( obj-at p014 l001-003 )
+    ( obj-at p015 l001-002 )
+    ( obj-at p016 l001-001 )
+    ( obj-at p017 l001-000 )
+    ( obj-at p018 l001-002 )
+    ( obj-at p019 l001-001 )
+    ( obj-at p020 l001-003 )
+    ( obj-at p021 l001-000 )
+    ( obj-at p022 l001-001 )
+    ( obj-at p023 l002-000 )
+    ( obj-at p024 l001-000 )
+  )
+
+  ( :tasks
+    ( DELIVER-PKG p000 l002-002 )
+    ( DELIVER-PKG p001 l001-002 )
+    ( DELIVER-PKG p002 l001-003 )
+    ( DELIVER-PKG p003 l001-000 )
+    ( DELIVER-PKG p004 l000-000 )
+    ( DELIVER-PKG p005 l000-001 )
+    ( DELIVER-PKG p006 l002-000 )
+    ( DELIVER-PKG p007 l000-000 )
+    ( DELIVER-PKG p008 l001-002 )
+    ( DELIVER-PKG p009 l002-002 )
+    ( DELIVER-PKG p010 l002-002 )
+    ( DELIVER-PKG p011 l001-000 )
+    ( DELIVER-PKG p012 l001-000 )
+    ( DELIVER-PKG p013 l000-000 )
+    ( DELIVER-PKG p014 l001-002 )
+    ( DELIVER-PKG p015 l002-000 )
+    ( DELIVER-PKG p016 l001-002 )
+    ( DELIVER-PKG p017 l001-002 )
+    ( DELIVER-PKG p018 l001-000 )
+    ( DELIVER-PKG p019 l001-002 )
+    ( DELIVER-PKG p020 l000-001 )
+    ( DELIVER-PKG p021 l000-001 )
+    ( DELIVER-PKG p022 l001-003 )
+    ( DELIVER-PKG p023 l002-002 )
+    ( DELIVER-PKG p024 l001-001 )
+  )
+)
+

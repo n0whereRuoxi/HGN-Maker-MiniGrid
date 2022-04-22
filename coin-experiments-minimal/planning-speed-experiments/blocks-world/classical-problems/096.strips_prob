@@ -1,0 +1,107 @@
+( define ( problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    b004 - block
+    b013 - block
+    b001 - block
+    b008 - block
+    b002 - block
+    b012 - block
+    b003 - block
+    b000 - block
+    b007 - block
+    b010 - block
+    b006 - block
+    b011 - block
+    b019 - block
+    b020 - block
+    b015 - block
+    b016 - block
+    b024 - block
+    b023 - block
+    b014 - block
+    b017 - block
+    b005 - block
+    b021 - block
+    b018 - block
+    b022 - block
+    b009 - block
+  )
+
+  ( :init
+    ( on-table b004 )
+    ( on b013 b004 )
+    ( on b001 b013 )
+    ( on b008 b001 )
+    ( on b002 b008 )
+    ( clear b002 )
+    ( on-table b012 )
+    ( on b003 b012 )
+    ( on b000 b003 )
+    ( on b007 b000 )
+    ( on b010 b007 )
+    ( clear b010 )
+    ( on-table b006 )
+    ( on b011 b006 )
+    ( on b019 b011 )
+    ( on b020 b019 )
+    ( on b015 b020 )
+    ( clear b015 )
+    ( on-table b016 )
+    ( on b024 b016 )
+    ( clear b024 )
+    ( on-table b023 )
+    ( clear b023 )
+    ( on-table b014 )
+    ( on b017 b014 )
+    ( on b005 b017 )
+    ( on b021 b005 )
+    ( on b018 b021 )
+    ( clear b018 )
+    ( on-table b022 )
+    ( on b009 b022 )
+    ( clear b009 )
+    ( hand-empty )
+  )
+  ( :goal
+    ( and
+      ( on-table b017 )
+      ( clear b017 )
+      ( on-table b005 )
+      ( on b007 b005 )
+      ( on b009 b007 )
+      ( clear b009 )
+      ( on-table b013 )
+      ( on b014 b013 )
+      ( on b020 b014 )
+      ( clear b020 )
+      ( on-table b019 )
+      ( on b001 b019 )
+      ( on b000 b001 )
+      ( on b015 b000 )
+      ( on b008 b015 )
+      ( clear b008 )
+      ( on-table b010 )
+      ( on b021 b010 )
+      ( on b004 b021 )
+      ( on b023 b004 )
+      ( clear b023 )
+      ( on-table b012 )
+      ( on b011 b012 )
+      ( clear b011 )
+      ( on-table b018 )
+      ( clear b018 )
+      ( on-table b024 )
+      ( on b016 b024 )
+      ( on b022 b016 )
+      ( clear b022 )
+      ( on-table b003 )
+      ( on b002 b003 )
+      ( on b006 b002 )
+      ( clear b006 )
+    )
+  )
+)
+

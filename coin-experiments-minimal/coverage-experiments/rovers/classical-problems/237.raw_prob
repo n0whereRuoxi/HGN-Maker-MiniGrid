@@ -1,0 +1,78 @@
+( define ( problem probname )
+  ( :domain Rover )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    general - lander
+    wp000 - waypoint
+    wp001 - waypoint
+    wp002 - waypoint
+    rover000 - rover
+    rover001 - rover
+    rover002 - rover
+    store000 - store
+    store001 - store
+    store002 - store
+    mode000 - mode
+    obj000 - objective
+    cam000 - camera
+    cam001 - camera
+  )
+
+  ( :init
+    ( visible wp000 wp001 )
+    ( visible wp000 wp002 )
+    ( visible wp001 wp000 )
+    ( visible wp001 wp002 )
+    ( visible wp002 wp000 )
+    ( visible wp002 wp001 )
+    ( at_soil_sample wp000 )
+    ( at_rock_sample wp000 )
+    ( at_lander general wp000 )
+    ( channel_free general )
+    ( at rover000 wp000 )
+    ( at rover001 wp000 )
+    ( at rover002 wp000 )
+    ( available rover000 )
+    ( available rover001 )
+    ( available rover002 )
+    ( equipped_for_soil_analysis rover000 )
+    ( equipped_for_rock_analysis rover001 )
+    ( equipped_for_rock_analysis rover002 )
+    ( equipped_for_imaging rover000 )
+    ( equipped_for_imaging rover001 )
+    ( can_traverse rover000 wp000 wp002 )
+    ( can_traverse rover000 wp001 wp002 )
+    ( can_traverse rover000 wp002 wp000 )
+    ( can_traverse rover000 wp002 wp001 )
+    ( can_traverse rover001 wp000 wp001 )
+    ( can_traverse rover001 wp000 wp002 )
+    ( can_traverse rover001 wp001 wp002 )
+    ( can_traverse rover001 wp002 wp000 )
+    ( can_traverse rover001 wp002 wp001 )
+    ( can_traverse rover002 wp000 wp002 )
+    ( can_traverse rover002 wp001 wp000 )
+    ( can_traverse rover002 wp002 wp001 )
+    ( store_of store000 rover000 )
+    ( store_of store001 rover001 )
+    ( store_of store002 rover002 )
+    ( empty store000 )
+    ( empty store001 )
+    ( empty store002 )
+    ( visible_from obj000 wp000 )
+    ( on_board cam000 rover000 )
+    ( on_board cam001 rover001 )
+    ( supports cam000 mode000 )
+    ( supports cam001 mode000 )
+    ( calibration_target cam000 obj000 )
+    ( calibration_target cam001 obj000 )
+  )
+  ( :goal
+    ( and
+      ( communicated_soil_data wp000 )
+      ( communicated_rock_data wp000 )
+      ( communicated_image_data obj000 mode000 )
+    )
+  )
+)
+

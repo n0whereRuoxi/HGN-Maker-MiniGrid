@@ -1,0 +1,978 @@
+( define ( htn-problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :htn :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    a001 - airplane
+    a002 - airplane
+    c000 - city
+    c001 - city
+    c002 - city
+    c003 - city
+    t000-000 - truck
+    t000-001 - truck
+    t000-002 - truck
+    t000-003 - truck
+    t000-004 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t001-002 - truck
+    t002-000 - truck
+    t003-000 - truck
+    t003-001 - truck
+    t003-002 - truck
+    l000-000 - location
+    l000-001 - location
+    l001-000 - location
+    l001-001 - location
+    l001-002 - location
+    l001-003 - location
+    l002-000 - location
+    l002-001 - location
+    l003-000 - location
+    l003-001 - location
+    p000 - obj
+    p001 - obj
+    p002 - obj
+    p003 - obj
+    p004 - obj
+    p005 - obj
+    p006 - obj
+    p007 - obj
+    p008 - obj
+    p009 - obj
+    p010 - obj
+    p011 - obj
+    p012 - obj
+    p013 - obj
+    p014 - obj
+    p015 - obj
+    p016 - obj
+    p017 - obj
+    p018 - obj
+    p019 - obj
+    p020 - obj
+    p021 - obj
+    p022 - obj
+    p023 - obj
+    p024 - obj
+    p025 - obj
+    p026 - obj
+    p027 - obj
+    p028 - obj
+    p029 - obj
+    p030 - obj
+    p031 - obj
+    p032 - obj
+    p033 - obj
+    p034 - obj
+    p035 - obj
+    p036 - obj
+    p037 - obj
+    p038 - obj
+    p039 - obj
+    p040 - obj
+    p041 - obj
+    p042 - obj
+    p043 - obj
+    p044 - obj
+    p045 - obj
+    p046 - obj
+    p047 - obj
+    p048 - obj
+    p049 - obj
+    p050 - obj
+    p051 - obj
+    p052 - obj
+    p053 - obj
+    p054 - obj
+    p055 - obj
+    p056 - obj
+    p057 - obj
+    p058 - obj
+    p059 - obj
+    p060 - obj
+    p061 - obj
+    p062 - obj
+    p063 - obj
+    p064 - obj
+    p065 - obj
+    p066 - obj
+    p067 - obj
+    p068 - obj
+    p069 - obj
+    p070 - obj
+    p071 - obj
+    p072 - obj
+    p073 - obj
+    p074 - obj
+    p075 - obj
+    p076 - obj
+    p077 - obj
+    p078 - obj
+    p079 - obj
+    p080 - obj
+    p081 - obj
+    p082 - obj
+    p083 - obj
+    p084 - obj
+    p085 - obj
+    p086 - obj
+    p087 - obj
+    p088 - obj
+    p089 - obj
+    p090 - obj
+    p091 - obj
+    p092 - obj
+    p093 - obj
+    p094 - obj
+    p095 - obj
+    p096 - obj
+    p097 - obj
+    p098 - obj
+    p099 - obj
+    p100 - obj
+    p101 - obj
+    p102 - obj
+    p103 - obj
+    p104 - obj
+    p105 - obj
+    p106 - obj
+    p107 - obj
+    p108 - obj
+    p109 - obj
+    p110 - obj
+    p111 - obj
+    p112 - obj
+    p113 - obj
+    p114 - obj
+    p115 - obj
+    p116 - obj
+    p117 - obj
+    p118 - obj
+    p119 - obj
+    p120 - obj
+    p121 - obj
+    p122 - obj
+    p123 - obj
+    p124 - obj
+    p125 - obj
+    p126 - obj
+    p127 - obj
+    p128 - obj
+    p129 - obj
+    p130 - obj
+    p131 - obj
+    p132 - obj
+    p133 - obj
+    p134 - obj
+    p135 - obj
+    p136 - obj
+    p137 - obj
+    p138 - obj
+    p139 - obj
+    p140 - obj
+    p141 - obj
+    p142 - obj
+    p143 - obj
+    p144 - obj
+    p145 - obj
+    p146 - obj
+    p147 - obj
+    p148 - obj
+    p149 - obj
+    p150 - obj
+    p151 - obj
+    p152 - obj
+    p153 - obj
+    p154 - obj
+    p155 - obj
+    p156 - obj
+    p157 - obj
+    p158 - obj
+    p159 - obj
+    p160 - obj
+    p161 - obj
+    p162 - obj
+    p163 - obj
+    p164 - obj
+    p165 - obj
+    p166 - obj
+    p167 - obj
+    p168 - obj
+    p169 - obj
+    p170 - obj
+    p171 - obj
+    p172 - obj
+    p173 - obj
+    p174 - obj
+    p175 - obj
+    p176 - obj
+    p177 - obj
+    p178 - obj
+    p179 - obj
+    p180 - obj
+    p181 - obj
+    p182 - obj
+    p183 - obj
+    p184 - obj
+    p185 - obj
+    p186 - obj
+    p187 - obj
+    p188 - obj
+    p189 - obj
+    p190 - obj
+    p191 - obj
+    p192 - obj
+    p193 - obj
+    p194 - obj
+    p195 - obj
+    p196 - obj
+    p197 - obj
+    p198 - obj
+    p199 - obj
+    p200 - obj
+    p201 - obj
+    p202 - obj
+    p203 - obj
+    p204 - obj
+    p205 - obj
+    p206 - obj
+    p207 - obj
+    p208 - obj
+    p209 - obj
+    p210 - obj
+    p211 - obj
+    p212 - obj
+    p213 - obj
+    p214 - obj
+    p215 - obj
+    p216 - obj
+    p217 - obj
+    p218 - obj
+    p219 - obj
+    p220 - obj
+    p221 - obj
+    p222 - obj
+    p223 - obj
+    p224 - obj
+    p225 - obj
+    p226 - obj
+    p227 - obj
+    p228 - obj
+    p229 - obj
+    p230 - obj
+    p231 - obj
+    p232 - obj
+    p233 - obj
+    p234 - obj
+    p235 - obj
+    p236 - obj
+    p237 - obj
+    p238 - obj
+    p239 - obj
+    p240 - obj
+    p241 - obj
+    p242 - obj
+    p243 - obj
+    p244 - obj
+    p245 - obj
+    p246 - obj
+    p247 - obj
+    p248 - obj
+    p249 - obj
+    p250 - obj
+    p251 - obj
+    p252 - obj
+    p253 - obj
+    p254 - obj
+    p255 - obj
+    p256 - obj
+    p257 - obj
+    p258 - obj
+    p259 - obj
+    p260 - obj
+    p261 - obj
+    p262 - obj
+    p263 - obj
+    p264 - obj
+    p265 - obj
+    p266 - obj
+    p267 - obj
+    p268 - obj
+    p269 - obj
+    p270 - obj
+    p271 - obj
+    p272 - obj
+    p273 - obj
+    p274 - obj
+    p275 - obj
+    p276 - obj
+    p277 - obj
+    p278 - obj
+    p279 - obj
+    p280 - obj
+    p281 - obj
+    p282 - obj
+    p283 - obj
+    p284 - obj
+    p285 - obj
+    p286 - obj
+    p287 - obj
+    p288 - obj
+    p289 - obj
+    p290 - obj
+    p291 - obj
+    p292 - obj
+    p293 - obj
+    p294 - obj
+    p295 - obj
+    p296 - obj
+    p297 - obj
+    p298 - obj
+    p299 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l001-002 c001 )
+    ( in-city l001-003 c001 )
+    ( in-city l002-000 c002 )
+    ( in-city l002-001 c002 )
+    ( in-city l003-000 c003 )
+    ( in-city l003-001 c003 )
+    ( airport l000-000 )
+    ( airport l000-001 )
+    ( airport l001-001 )
+    ( airport l001-002 )
+    ( airport l001-003 )
+    ( airport l002-000 )
+    ( airport l002-001 )
+    ( airport l003-001 )
+    ( truck-at t000-000 l000-000 )
+    ( truck-at t000-001 l000-001 )
+    ( truck-at t000-002 l000-000 )
+    ( truck-at t000-003 l000-001 )
+    ( truck-at t000-004 l000-000 )
+    ( truck-at t001-000 l001-003 )
+    ( truck-at t001-001 l001-002 )
+    ( truck-at t001-002 l001-003 )
+    ( truck-at t002-000 l002-001 )
+    ( truck-at t003-000 l003-001 )
+    ( truck-at t003-001 l003-001 )
+    ( truck-at t003-002 l003-000 )
+    ( airplane-at a000 l001-001 )
+    ( airplane-at a001 l001-003 )
+    ( airplane-at a002 l003-001 )
+    ( obj-at p000 l003-001 )
+    ( obj-at p001 l000-000 )
+    ( obj-at p002 l003-001 )
+    ( obj-at p003 l002-000 )
+    ( obj-at p004 l002-000 )
+    ( obj-at p005 l001-002 )
+    ( obj-at p006 l003-001 )
+    ( obj-at p007 l002-001 )
+    ( obj-at p008 l003-001 )
+    ( obj-at p009 l000-000 )
+    ( obj-at p010 l000-000 )
+    ( obj-at p011 l000-000 )
+    ( obj-at p012 l002-001 )
+    ( obj-at p013 l001-002 )
+    ( obj-at p014 l001-002 )
+    ( obj-at p015 l001-001 )
+    ( obj-at p016 l003-001 )
+    ( obj-at p017 l001-000 )
+    ( obj-at p018 l003-001 )
+    ( obj-at p019 l001-003 )
+    ( obj-at p020 l001-001 )
+    ( obj-at p021 l000-000 )
+    ( obj-at p022 l002-000 )
+    ( obj-at p023 l001-001 )
+    ( obj-at p024 l001-003 )
+    ( obj-at p025 l003-001 )
+    ( obj-at p026 l003-000 )
+    ( obj-at p027 l001-001 )
+    ( obj-at p028 l001-001 )
+    ( obj-at p029 l003-000 )
+    ( obj-at p030 l003-001 )
+    ( obj-at p031 l001-001 )
+    ( obj-at p032 l000-000 )
+    ( obj-at p033 l000-001 )
+    ( obj-at p034 l002-000 )
+    ( obj-at p035 l001-000 )
+    ( obj-at p036 l001-001 )
+    ( obj-at p037 l000-001 )
+    ( obj-at p038 l000-000 )
+    ( obj-at p039 l001-000 )
+    ( obj-at p040 l001-002 )
+    ( obj-at p041 l000-000 )
+    ( obj-at p042 l001-003 )
+    ( obj-at p043 l001-003 )
+    ( obj-at p044 l003-001 )
+    ( obj-at p045 l001-001 )
+    ( obj-at p046 l003-001 )
+    ( obj-at p047 l002-000 )
+    ( obj-at p048 l003-000 )
+    ( obj-at p049 l002-000 )
+    ( obj-at p050 l002-000 )
+    ( obj-at p051 l003-001 )
+    ( obj-at p052 l002-000 )
+    ( obj-at p053 l000-000 )
+    ( obj-at p054 l001-003 )
+    ( obj-at p055 l001-001 )
+    ( obj-at p056 l000-001 )
+    ( obj-at p057 l001-000 )
+    ( obj-at p058 l002-001 )
+    ( obj-at p059 l001-003 )
+    ( obj-at p060 l000-000 )
+    ( obj-at p061 l001-001 )
+    ( obj-at p062 l003-000 )
+    ( obj-at p063 l000-000 )
+    ( obj-at p064 l001-003 )
+    ( obj-at p065 l000-001 )
+    ( obj-at p066 l001-002 )
+    ( obj-at p067 l002-001 )
+    ( obj-at p068 l000-001 )
+    ( obj-at p069 l002-001 )
+    ( obj-at p070 l000-000 )
+    ( obj-at p071 l001-003 )
+    ( obj-at p072 l001-003 )
+    ( obj-at p073 l002-001 )
+    ( obj-at p074 l001-003 )
+    ( obj-at p075 l003-000 )
+    ( obj-at p076 l002-001 )
+    ( obj-at p077 l002-001 )
+    ( obj-at p078 l003-000 )
+    ( obj-at p079 l000-000 )
+    ( obj-at p080 l000-001 )
+    ( obj-at p081 l001-000 )
+    ( obj-at p082 l003-000 )
+    ( obj-at p083 l001-003 )
+    ( obj-at p084 l001-001 )
+    ( obj-at p085 l002-000 )
+    ( obj-at p086 l002-001 )
+    ( obj-at p087 l001-003 )
+    ( obj-at p088 l003-000 )
+    ( obj-at p089 l002-000 )
+    ( obj-at p090 l001-000 )
+    ( obj-at p091 l001-000 )
+    ( obj-at p092 l003-000 )
+    ( obj-at p093 l000-001 )
+    ( obj-at p094 l001-002 )
+    ( obj-at p095 l003-001 )
+    ( obj-at p096 l002-000 )
+    ( obj-at p097 l001-003 )
+    ( obj-at p098 l001-002 )
+    ( obj-at p099 l003-001 )
+    ( obj-at p100 l002-001 )
+    ( obj-at p101 l001-003 )
+    ( obj-at p102 l001-002 )
+    ( obj-at p103 l002-001 )
+    ( obj-at p104 l001-001 )
+    ( obj-at p105 l002-000 )
+    ( obj-at p106 l001-000 )
+    ( obj-at p107 l002-001 )
+    ( obj-at p108 l002-000 )
+    ( obj-at p109 l001-003 )
+    ( obj-at p110 l001-001 )
+    ( obj-at p111 l002-000 )
+    ( obj-at p112 l003-001 )
+    ( obj-at p113 l002-000 )
+    ( obj-at p114 l000-001 )
+    ( obj-at p115 l000-000 )
+    ( obj-at p116 l003-000 )
+    ( obj-at p117 l001-002 )
+    ( obj-at p118 l000-000 )
+    ( obj-at p119 l001-001 )
+    ( obj-at p120 l001-001 )
+    ( obj-at p121 l001-000 )
+    ( obj-at p122 l003-000 )
+    ( obj-at p123 l002-000 )
+    ( obj-at p124 l002-001 )
+    ( obj-at p125 l000-001 )
+    ( obj-at p126 l001-003 )
+    ( obj-at p127 l000-000 )
+    ( obj-at p128 l002-001 )
+    ( obj-at p129 l001-002 )
+    ( obj-at p130 l001-003 )
+    ( obj-at p131 l000-000 )
+    ( obj-at p132 l001-002 )
+    ( obj-at p133 l001-003 )
+    ( obj-at p134 l003-000 )
+    ( obj-at p135 l003-001 )
+    ( obj-at p136 l001-002 )
+    ( obj-at p137 l003-001 )
+    ( obj-at p138 l001-002 )
+    ( obj-at p139 l003-000 )
+    ( obj-at p140 l001-000 )
+    ( obj-at p141 l003-001 )
+    ( obj-at p142 l001-002 )
+    ( obj-at p143 l001-001 )
+    ( obj-at p144 l000-001 )
+    ( obj-at p145 l001-003 )
+    ( obj-at p146 l001-000 )
+    ( obj-at p147 l001-001 )
+    ( obj-at p148 l001-000 )
+    ( obj-at p149 l001-002 )
+    ( obj-at p150 l001-002 )
+    ( obj-at p151 l001-002 )
+    ( obj-at p152 l002-000 )
+    ( obj-at p153 l003-000 )
+    ( obj-at p154 l001-003 )
+    ( obj-at p155 l001-001 )
+    ( obj-at p156 l001-000 )
+    ( obj-at p157 l002-001 )
+    ( obj-at p158 l003-000 )
+    ( obj-at p159 l003-000 )
+    ( obj-at p160 l003-000 )
+    ( obj-at p161 l002-000 )
+    ( obj-at p162 l001-002 )
+    ( obj-at p163 l002-001 )
+    ( obj-at p164 l001-002 )
+    ( obj-at p165 l000-001 )
+    ( obj-at p166 l000-000 )
+    ( obj-at p167 l001-001 )
+    ( obj-at p168 l001-001 )
+    ( obj-at p169 l000-000 )
+    ( obj-at p170 l003-000 )
+    ( obj-at p171 l001-002 )
+    ( obj-at p172 l001-003 )
+    ( obj-at p173 l001-002 )
+    ( obj-at p174 l002-001 )
+    ( obj-at p175 l001-000 )
+    ( obj-at p176 l002-001 )
+    ( obj-at p177 l000-001 )
+    ( obj-at p178 l000-000 )
+    ( obj-at p179 l000-000 )
+    ( obj-at p180 l003-000 )
+    ( obj-at p181 l002-000 )
+    ( obj-at p182 l000-000 )
+    ( obj-at p183 l002-000 )
+    ( obj-at p184 l003-000 )
+    ( obj-at p185 l001-000 )
+    ( obj-at p186 l002-001 )
+    ( obj-at p187 l003-001 )
+    ( obj-at p188 l001-003 )
+    ( obj-at p189 l002-001 )
+    ( obj-at p190 l003-000 )
+    ( obj-at p191 l001-002 )
+    ( obj-at p192 l000-000 )
+    ( obj-at p193 l000-001 )
+    ( obj-at p194 l001-003 )
+    ( obj-at p195 l002-000 )
+    ( obj-at p196 l001-002 )
+    ( obj-at p197 l000-000 )
+    ( obj-at p198 l003-000 )
+    ( obj-at p199 l001-002 )
+    ( obj-at p200 l002-001 )
+    ( obj-at p201 l001-003 )
+    ( obj-at p202 l001-003 )
+    ( obj-at p203 l001-001 )
+    ( obj-at p204 l003-001 )
+    ( obj-at p205 l001-002 )
+    ( obj-at p206 l003-001 )
+    ( obj-at p207 l001-002 )
+    ( obj-at p208 l000-000 )
+    ( obj-at p209 l001-003 )
+    ( obj-at p210 l002-001 )
+    ( obj-at p211 l000-000 )
+    ( obj-at p212 l000-001 )
+    ( obj-at p213 l001-000 )
+    ( obj-at p214 l001-001 )
+    ( obj-at p215 l001-003 )
+    ( obj-at p216 l000-001 )
+    ( obj-at p217 l000-001 )
+    ( obj-at p218 l003-000 )
+    ( obj-at p219 l001-002 )
+    ( obj-at p220 l002-000 )
+    ( obj-at p221 l001-001 )
+    ( obj-at p222 l001-003 )
+    ( obj-at p223 l002-000 )
+    ( obj-at p224 l000-001 )
+    ( obj-at p225 l001-000 )
+    ( obj-at p226 l001-003 )
+    ( obj-at p227 l001-002 )
+    ( obj-at p228 l003-001 )
+    ( obj-at p229 l002-001 )
+    ( obj-at p230 l000-000 )
+    ( obj-at p231 l001-001 )
+    ( obj-at p232 l001-002 )
+    ( obj-at p233 l001-001 )
+    ( obj-at p234 l001-002 )
+    ( obj-at p235 l000-001 )
+    ( obj-at p236 l002-001 )
+    ( obj-at p237 l000-001 )
+    ( obj-at p238 l001-000 )
+    ( obj-at p239 l001-000 )
+    ( obj-at p240 l001-001 )
+    ( obj-at p241 l001-001 )
+    ( obj-at p242 l000-001 )
+    ( obj-at p243 l002-000 )
+    ( obj-at p244 l001-001 )
+    ( obj-at p245 l002-001 )
+    ( obj-at p246 l001-002 )
+    ( obj-at p247 l002-001 )
+    ( obj-at p248 l000-001 )
+    ( obj-at p249 l003-001 )
+    ( obj-at p250 l001-002 )
+    ( obj-at p251 l001-000 )
+    ( obj-at p252 l003-001 )
+    ( obj-at p253 l000-000 )
+    ( obj-at p254 l002-000 )
+    ( obj-at p255 l003-000 )
+    ( obj-at p256 l000-000 )
+    ( obj-at p257 l001-002 )
+    ( obj-at p258 l002-001 )
+    ( obj-at p259 l001-003 )
+    ( obj-at p260 l003-001 )
+    ( obj-at p261 l003-000 )
+    ( obj-at p262 l002-000 )
+    ( obj-at p263 l002-001 )
+    ( obj-at p264 l002-000 )
+    ( obj-at p265 l000-000 )
+    ( obj-at p266 l001-000 )
+    ( obj-at p267 l001-000 )
+    ( obj-at p268 l003-001 )
+    ( obj-at p269 l001-000 )
+    ( obj-at p270 l001-000 )
+    ( obj-at p271 l001-002 )
+    ( obj-at p272 l000-000 )
+    ( obj-at p273 l001-001 )
+    ( obj-at p274 l002-001 )
+    ( obj-at p275 l001-003 )
+    ( obj-at p276 l003-001 )
+    ( obj-at p277 l001-000 )
+    ( obj-at p278 l001-002 )
+    ( obj-at p279 l002-001 )
+    ( obj-at p280 l000-000 )
+    ( obj-at p281 l000-001 )
+    ( obj-at p282 l003-000 )
+    ( obj-at p283 l003-000 )
+    ( obj-at p284 l003-001 )
+    ( obj-at p285 l001-000 )
+    ( obj-at p286 l000-001 )
+    ( obj-at p287 l001-002 )
+    ( obj-at p288 l000-000 )
+    ( obj-at p289 l000-001 )
+    ( obj-at p290 l001-001 )
+    ( obj-at p291 l001-003 )
+    ( obj-at p292 l002-000 )
+    ( obj-at p293 l003-000 )
+    ( obj-at p294 l001-002 )
+    ( obj-at p295 l000-001 )
+    ( obj-at p296 l001-000 )
+    ( obj-at p297 l001-000 )
+    ( obj-at p298 l001-001 )
+    ( obj-at p299 l002-001 )
+  )
+
+  ( :tasks
+    ( DELIVER-PKG p000 l002-001 )
+    ( DELIVER-PKG p001 l003-000 )
+    ( DELIVER-PKG p002 l003-001 )
+    ( DELIVER-PKG p003 l001-003 )
+    ( DELIVER-PKG p004 l001-003 )
+    ( DELIVER-PKG p005 l002-001 )
+    ( DELIVER-PKG p006 l001-003 )
+    ( DELIVER-PKG p007 l002-001 )
+    ( DELIVER-PKG p008 l002-000 )
+    ( DELIVER-PKG p009 l001-001 )
+    ( DELIVER-PKG p010 l000-001 )
+    ( DELIVER-PKG p011 l001-000 )
+    ( DELIVER-PKG p012 l000-001 )
+    ( DELIVER-PKG p013 l003-001 )
+    ( DELIVER-PKG p014 l001-000 )
+    ( DELIVER-PKG p015 l001-000 )
+    ( DELIVER-PKG p016 l003-001 )
+    ( DELIVER-PKG p017 l002-000 )
+    ( DELIVER-PKG p018 l003-000 )
+    ( DELIVER-PKG p019 l000-001 )
+    ( DELIVER-PKG p020 l002-000 )
+    ( DELIVER-PKG p021 l002-001 )
+    ( DELIVER-PKG p022 l001-000 )
+    ( DELIVER-PKG p023 l002-000 )
+    ( DELIVER-PKG p024 l000-000 )
+    ( DELIVER-PKG p025 l001-002 )
+    ( DELIVER-PKG p026 l002-000 )
+    ( DELIVER-PKG p027 l002-001 )
+    ( DELIVER-PKG p028 l001-000 )
+    ( DELIVER-PKG p029 l001-000 )
+    ( DELIVER-PKG p030 l001-000 )
+    ( DELIVER-PKG p031 l002-000 )
+    ( DELIVER-PKG p032 l001-001 )
+    ( DELIVER-PKG p033 l003-000 )
+    ( DELIVER-PKG p034 l001-000 )
+    ( DELIVER-PKG p035 l001-002 )
+    ( DELIVER-PKG p036 l003-001 )
+    ( DELIVER-PKG p037 l001-003 )
+    ( DELIVER-PKG p038 l001-000 )
+    ( DELIVER-PKG p039 l002-000 )
+    ( DELIVER-PKG p040 l000-000 )
+    ( DELIVER-PKG p041 l001-003 )
+    ( DELIVER-PKG p042 l000-001 )
+    ( DELIVER-PKG p043 l002-000 )
+    ( DELIVER-PKG p044 l001-001 )
+    ( DELIVER-PKG p045 l003-001 )
+    ( DELIVER-PKG p046 l000-001 )
+    ( DELIVER-PKG p047 l000-000 )
+    ( DELIVER-PKG p048 l001-001 )
+    ( DELIVER-PKG p049 l001-002 )
+    ( DELIVER-PKG p050 l003-001 )
+    ( DELIVER-PKG p051 l001-002 )
+    ( DELIVER-PKG p052 l003-001 )
+    ( DELIVER-PKG p053 l003-000 )
+    ( DELIVER-PKG p054 l001-002 )
+    ( DELIVER-PKG p055 l001-003 )
+    ( DELIVER-PKG p056 l002-001 )
+    ( DELIVER-PKG p057 l001-000 )
+    ( DELIVER-PKG p058 l001-000 )
+    ( DELIVER-PKG p059 l002-000 )
+    ( DELIVER-PKG p060 l001-000 )
+    ( DELIVER-PKG p061 l001-001 )
+    ( DELIVER-PKG p062 l000-000 )
+    ( DELIVER-PKG p063 l000-000 )
+    ( DELIVER-PKG p064 l002-001 )
+    ( DELIVER-PKG p065 l001-003 )
+    ( DELIVER-PKG p066 l001-003 )
+    ( DELIVER-PKG p067 l000-001 )
+    ( DELIVER-PKG p068 l001-002 )
+    ( DELIVER-PKG p069 l001-000 )
+    ( DELIVER-PKG p070 l000-001 )
+    ( DELIVER-PKG p071 l002-000 )
+    ( DELIVER-PKG p072 l000-000 )
+    ( DELIVER-PKG p073 l001-002 )
+    ( DELIVER-PKG p074 l001-003 )
+    ( DELIVER-PKG p075 l001-000 )
+    ( DELIVER-PKG p076 l003-001 )
+    ( DELIVER-PKG p077 l000-000 )
+    ( DELIVER-PKG p078 l002-000 )
+    ( DELIVER-PKG p079 l001-001 )
+    ( DELIVER-PKG p080 l001-001 )
+    ( DELIVER-PKG p081 l000-001 )
+    ( DELIVER-PKG p082 l002-000 )
+    ( DELIVER-PKG p083 l000-001 )
+    ( DELIVER-PKG p084 l001-001 )
+    ( DELIVER-PKG p085 l001-001 )
+    ( DELIVER-PKG p086 l000-000 )
+    ( DELIVER-PKG p087 l000-000 )
+    ( DELIVER-PKG p088 l003-001 )
+    ( DELIVER-PKG p089 l000-001 )
+    ( DELIVER-PKG p090 l003-000 )
+    ( DELIVER-PKG p091 l003-000 )
+    ( DELIVER-PKG p092 l002-001 )
+    ( DELIVER-PKG p093 l001-001 )
+    ( DELIVER-PKG p094 l001-001 )
+    ( DELIVER-PKG p095 l001-001 )
+    ( DELIVER-PKG p096 l002-001 )
+    ( DELIVER-PKG p097 l001-000 )
+    ( DELIVER-PKG p098 l001-002 )
+    ( DELIVER-PKG p099 l000-001 )
+    ( DELIVER-PKG p100 l002-000 )
+    ( DELIVER-PKG p101 l000-001 )
+    ( DELIVER-PKG p102 l001-000 )
+    ( DELIVER-PKG p103 l002-001 )
+    ( DELIVER-PKG p104 l003-001 )
+    ( DELIVER-PKG p105 l000-001 )
+    ( DELIVER-PKG p106 l003-000 )
+    ( DELIVER-PKG p107 l000-000 )
+    ( DELIVER-PKG p108 l001-002 )
+    ( DELIVER-PKG p109 l001-003 )
+    ( DELIVER-PKG p110 l001-001 )
+    ( DELIVER-PKG p111 l002-001 )
+    ( DELIVER-PKG p112 l000-000 )
+    ( DELIVER-PKG p113 l000-000 )
+    ( DELIVER-PKG p114 l002-000 )
+    ( DELIVER-PKG p115 l002-000 )
+    ( DELIVER-PKG p116 l002-000 )
+    ( DELIVER-PKG p117 l001-002 )
+    ( DELIVER-PKG p118 l001-000 )
+    ( DELIVER-PKG p119 l002-001 )
+    ( DELIVER-PKG p120 l000-000 )
+    ( DELIVER-PKG p121 l000-000 )
+    ( DELIVER-PKG p122 l001-000 )
+    ( DELIVER-PKG p123 l001-001 )
+    ( DELIVER-PKG p124 l000-001 )
+    ( DELIVER-PKG p125 l003-001 )
+    ( DELIVER-PKG p126 l001-002 )
+    ( DELIVER-PKG p127 l001-002 )
+    ( DELIVER-PKG p128 l003-001 )
+    ( DELIVER-PKG p129 l002-001 )
+    ( DELIVER-PKG p130 l001-000 )
+    ( DELIVER-PKG p131 l001-000 )
+    ( DELIVER-PKG p132 l003-000 )
+    ( DELIVER-PKG p133 l001-003 )
+    ( DELIVER-PKG p134 l003-000 )
+    ( DELIVER-PKG p135 l002-001 )
+    ( DELIVER-PKG p136 l001-001 )
+    ( DELIVER-PKG p137 l003-000 )
+    ( DELIVER-PKG p138 l002-000 )
+    ( DELIVER-PKG p139 l000-000 )
+    ( DELIVER-PKG p140 l001-000 )
+    ( DELIVER-PKG p141 l003-000 )
+    ( DELIVER-PKG p142 l001-001 )
+    ( DELIVER-PKG p143 l001-000 )
+    ( DELIVER-PKG p144 l000-000 )
+    ( DELIVER-PKG p145 l001-002 )
+    ( DELIVER-PKG p146 l002-001 )
+    ( DELIVER-PKG p147 l000-000 )
+    ( DELIVER-PKG p148 l003-001 )
+    ( DELIVER-PKG p149 l003-001 )
+    ( DELIVER-PKG p150 l003-000 )
+    ( DELIVER-PKG p151 l003-000 )
+    ( DELIVER-PKG p152 l001-000 )
+    ( DELIVER-PKG p153 l001-003 )
+    ( DELIVER-PKG p154 l003-001 )
+    ( DELIVER-PKG p155 l001-002 )
+    ( DELIVER-PKG p156 l003-001 )
+    ( DELIVER-PKG p157 l001-000 )
+    ( DELIVER-PKG p158 l003-000 )
+    ( DELIVER-PKG p159 l001-003 )
+    ( DELIVER-PKG p160 l001-001 )
+    ( DELIVER-PKG p161 l002-000 )
+    ( DELIVER-PKG p162 l003-001 )
+    ( DELIVER-PKG p163 l002-000 )
+    ( DELIVER-PKG p164 l003-000 )
+    ( DELIVER-PKG p165 l003-000 )
+    ( DELIVER-PKG p166 l003-001 )
+    ( DELIVER-PKG p167 l001-001 )
+    ( DELIVER-PKG p168 l001-002 )
+    ( DELIVER-PKG p169 l002-001 )
+    ( DELIVER-PKG p170 l001-000 )
+    ( DELIVER-PKG p171 l000-000 )
+    ( DELIVER-PKG p172 l002-001 )
+    ( DELIVER-PKG p173 l001-000 )
+    ( DELIVER-PKG p174 l000-001 )
+    ( DELIVER-PKG p175 l001-001 )
+    ( DELIVER-PKG p176 l002-001 )
+    ( DELIVER-PKG p177 l001-000 )
+    ( DELIVER-PKG p178 l001-002 )
+    ( DELIVER-PKG p179 l002-000 )
+    ( DELIVER-PKG p180 l001-002 )
+    ( DELIVER-PKG p181 l003-001 )
+    ( DELIVER-PKG p182 l001-002 )
+    ( DELIVER-PKG p183 l000-001 )
+    ( DELIVER-PKG p184 l002-001 )
+    ( DELIVER-PKG p185 l003-001 )
+    ( DELIVER-PKG p186 l001-002 )
+    ( DELIVER-PKG p187 l003-000 )
+    ( DELIVER-PKG p188 l003-000 )
+    ( DELIVER-PKG p189 l002-000 )
+    ( DELIVER-PKG p190 l001-000 )
+    ( DELIVER-PKG p191 l002-000 )
+    ( DELIVER-PKG p192 l002-001 )
+    ( DELIVER-PKG p193 l002-000 )
+    ( DELIVER-PKG p194 l002-000 )
+    ( DELIVER-PKG p195 l001-001 )
+    ( DELIVER-PKG p196 l001-002 )
+    ( DELIVER-PKG p197 l001-002 )
+    ( DELIVER-PKG p198 l000-001 )
+    ( DELIVER-PKG p199 l002-000 )
+    ( DELIVER-PKG p200 l003-001 )
+    ( DELIVER-PKG p201 l001-003 )
+    ( DELIVER-PKG p202 l003-000 )
+    ( DELIVER-PKG p203 l002-001 )
+    ( DELIVER-PKG p204 l003-000 )
+    ( DELIVER-PKG p205 l001-001 )
+    ( DELIVER-PKG p206 l003-001 )
+    ( DELIVER-PKG p207 l001-002 )
+    ( DELIVER-PKG p208 l000-001 )
+    ( DELIVER-PKG p209 l000-000 )
+    ( DELIVER-PKG p210 l001-002 )
+    ( DELIVER-PKG p211 l002-001 )
+    ( DELIVER-PKG p212 l000-000 )
+    ( DELIVER-PKG p213 l003-000 )
+    ( DELIVER-PKG p214 l002-001 )
+    ( DELIVER-PKG p215 l001-003 )
+    ( DELIVER-PKG p216 l001-002 )
+    ( DELIVER-PKG p217 l002-001 )
+    ( DELIVER-PKG p218 l003-001 )
+    ( DELIVER-PKG p219 l001-000 )
+    ( DELIVER-PKG p220 l003-001 )
+    ( DELIVER-PKG p221 l001-000 )
+    ( DELIVER-PKG p222 l000-001 )
+    ( DELIVER-PKG p223 l002-000 )
+    ( DELIVER-PKG p224 l002-001 )
+    ( DELIVER-PKG p225 l000-001 )
+    ( DELIVER-PKG p226 l000-000 )
+    ( DELIVER-PKG p227 l000-000 )
+    ( DELIVER-PKG p228 l002-000 )
+    ( DELIVER-PKG p229 l001-000 )
+    ( DELIVER-PKG p230 l001-003 )
+    ( DELIVER-PKG p231 l002-001 )
+    ( DELIVER-PKG p232 l002-000 )
+    ( DELIVER-PKG p233 l001-002 )
+    ( DELIVER-PKG p234 l002-001 )
+    ( DELIVER-PKG p235 l002-000 )
+    ( DELIVER-PKG p236 l002-000 )
+    ( DELIVER-PKG p237 l002-001 )
+    ( DELIVER-PKG p238 l001-001 )
+    ( DELIVER-PKG p239 l002-000 )
+    ( DELIVER-PKG p240 l001-001 )
+    ( DELIVER-PKG p241 l000-001 )
+    ( DELIVER-PKG p242 l001-003 )
+    ( DELIVER-PKG p243 l000-001 )
+    ( DELIVER-PKG p244 l001-002 )
+    ( DELIVER-PKG p245 l000-000 )
+    ( DELIVER-PKG p246 l003-000 )
+    ( DELIVER-PKG p247 l001-003 )
+    ( DELIVER-PKG p248 l002-000 )
+    ( DELIVER-PKG p249 l002-000 )
+    ( DELIVER-PKG p250 l003-001 )
+    ( DELIVER-PKG p251 l003-000 )
+    ( DELIVER-PKG p252 l002-000 )
+    ( DELIVER-PKG p253 l000-000 )
+    ( DELIVER-PKG p254 l001-001 )
+    ( DELIVER-PKG p255 l003-000 )
+    ( DELIVER-PKG p256 l001-000 )
+    ( DELIVER-PKG p257 l002-001 )
+    ( DELIVER-PKG p258 l002-000 )
+    ( DELIVER-PKG p259 l000-001 )
+    ( DELIVER-PKG p260 l003-000 )
+    ( DELIVER-PKG p261 l002-001 )
+    ( DELIVER-PKG p262 l001-002 )
+    ( DELIVER-PKG p263 l001-001 )
+    ( DELIVER-PKG p264 l000-001 )
+    ( DELIVER-PKG p265 l003-000 )
+    ( DELIVER-PKG p266 l001-003 )
+    ( DELIVER-PKG p267 l000-001 )
+    ( DELIVER-PKG p268 l000-001 )
+    ( DELIVER-PKG p269 l001-001 )
+    ( DELIVER-PKG p270 l003-000 )
+    ( DELIVER-PKG p271 l003-001 )
+    ( DELIVER-PKG p272 l002-001 )
+    ( DELIVER-PKG p273 l003-000 )
+    ( DELIVER-PKG p274 l003-001 )
+    ( DELIVER-PKG p275 l000-000 )
+    ( DELIVER-PKG p276 l001-003 )
+    ( DELIVER-PKG p277 l001-001 )
+    ( DELIVER-PKG p278 l000-000 )
+    ( DELIVER-PKG p279 l001-000 )
+    ( DELIVER-PKG p280 l002-000 )
+    ( DELIVER-PKG p281 l001-001 )
+    ( DELIVER-PKG p282 l000-000 )
+    ( DELIVER-PKG p283 l001-000 )
+    ( DELIVER-PKG p284 l002-000 )
+    ( DELIVER-PKG p285 l001-003 )
+    ( DELIVER-PKG p286 l001-000 )
+    ( DELIVER-PKG p287 l001-003 )
+    ( DELIVER-PKG p288 l000-001 )
+    ( DELIVER-PKG p289 l001-000 )
+    ( DELIVER-PKG p290 l000-000 )
+    ( DELIVER-PKG p291 l001-001 )
+    ( DELIVER-PKG p292 l001-002 )
+    ( DELIVER-PKG p293 l000-000 )
+    ( DELIVER-PKG p294 l002-001 )
+    ( DELIVER-PKG p295 l000-001 )
+    ( DELIVER-PKG p296 l002-001 )
+    ( DELIVER-PKG p297 l002-001 )
+    ( DELIVER-PKG p298 l003-000 )
+    ( DELIVER-PKG p299 l001-001 )
+  )
+)
+

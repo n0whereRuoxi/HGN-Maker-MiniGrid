@@ -1,0 +1,54 @@
+( define ( htn-problem probname )
+  ( :domain Rover )
+  ( :requirements :strips :typing :htn :equality )
+
+  ( :objects
+    general - lander
+    wp000 - waypoint
+    wp001 - waypoint
+    wp002 - waypoint
+    rover000 - rover
+    store000 - store
+    mode000 - mode
+    obj000 - objective
+    obj001 - objective
+    cam000 - camera
+  )
+
+  ( :init
+    ( visible wp000 wp001 )
+    ( visible wp000 wp002 )
+    ( visible wp001 wp000 )
+    ( visible wp001 wp002 )
+    ( visible wp002 wp000 )
+    ( visible wp002 wp001 )
+    ( at_soil_sample wp000 )
+    ( at_rock_sample wp001 )
+    ( at_rock_sample wp002 )
+    ( at_lander general wp001 )
+    ( channel_free general )
+    ( at rover000 wp000 )
+    ( available rover000 )
+    ( equipped_for_soil_analysis rover000 )
+    ( equipped_for_rock_analysis rover000 )
+    ( equipped_for_imaging rover000 )
+    ( can_traverse rover000 wp000 wp002 )
+    ( can_traverse rover000 wp001 wp002 )
+    ( can_traverse rover000 wp002 wp000 )
+    ( can_traverse rover000 wp002 wp001 )
+    ( store_of store000 rover000 )
+    ( empty store000 )
+    ( visible_from obj000 wp000 )
+    ( visible_from obj001 wp000 )
+    ( on_board cam000 rover000 )
+    ( supports cam000 mode000 )
+    ( calibration_target cam000 obj000 )
+  )
+  ( :tasks
+    ( get_soil_data wp000 )
+    ( get_rock_data wp001 )
+    ( get_rock_data wp002 )
+    ( get_image_data obj000 mode000 )
+  )
+)
+

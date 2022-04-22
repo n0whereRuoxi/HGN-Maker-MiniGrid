@@ -1,0 +1,282 @@
+( define ( htn-problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :htn :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    a001 - airplane
+    c000 - city
+    c001 - city
+    c002 - city
+    c003 - city
+    c004 - city
+    t000-000 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t002-000 - truck
+    t003-000 - truck
+    t003-001 - truck
+    t004-000 - truck
+    t004-001 - truck
+    t004-002 - truck
+    t004-003 - truck
+    l000-000 - location
+    l000-001 - location
+    l001-000 - location
+    l001-001 - location
+    l001-002 - location
+    l002-000 - location
+    l002-001 - location
+    l002-002 - location
+    l002-003 - location
+    l002-004 - location
+    l003-000 - location
+    l003-001 - location
+    l003-002 - location
+    l004-000 - location
+    l004-001 - location
+    l004-002 - location
+    p000 - obj
+    p001 - obj
+    p002 - obj
+    p003 - obj
+    p004 - obj
+    p005 - obj
+    p006 - obj
+    p007 - obj
+    p008 - obj
+    p009 - obj
+    p010 - obj
+    p011 - obj
+    p012 - obj
+    p013 - obj
+    p014 - obj
+    p015 - obj
+    p016 - obj
+    p017 - obj
+    p018 - obj
+    p019 - obj
+    p020 - obj
+    p021 - obj
+    p022 - obj
+    p023 - obj
+    p024 - obj
+    p025 - obj
+    p026 - obj
+    p027 - obj
+    p028 - obj
+    p029 - obj
+    p030 - obj
+    p031 - obj
+    p032 - obj
+    p033 - obj
+    p034 - obj
+    p035 - obj
+    p036 - obj
+    p037 - obj
+    p038 - obj
+    p039 - obj
+    p040 - obj
+    p041 - obj
+    p042 - obj
+    p043 - obj
+    p044 - obj
+    p045 - obj
+    p046 - obj
+    p047 - obj
+    p048 - obj
+    p049 - obj
+    p050 - obj
+    p051 - obj
+    p052 - obj
+    p053 - obj
+    p054 - obj
+    p055 - obj
+    p056 - obj
+    p057 - obj
+    p058 - obj
+    p059 - obj
+    p060 - obj
+    p061 - obj
+    p062 - obj
+    p063 - obj
+    p064 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l001-002 c001 )
+    ( in-city l002-000 c002 )
+    ( in-city l002-001 c002 )
+    ( in-city l002-002 c002 )
+    ( in-city l002-003 c002 )
+    ( in-city l002-004 c002 )
+    ( in-city l003-000 c003 )
+    ( in-city l003-001 c003 )
+    ( in-city l003-002 c003 )
+    ( in-city l004-000 c004 )
+    ( in-city l004-001 c004 )
+    ( in-city l004-002 c004 )
+    ( airport l000-000 )
+    ( airport l001-000 )
+    ( airport l001-001 )
+    ( airport l002-004 )
+    ( airport l002-000 )
+    ( airport l002-002 )
+    ( airport l003-002 )
+    ( airport l004-000 )
+    ( airport l004-002 )
+    ( airport l004-001 )
+    ( truck-at t000-000 l000-000 )
+    ( truck-at t001-000 l001-001 )
+    ( truck-at t001-001 l001-000 )
+    ( truck-at t002-000 l002-003 )
+    ( truck-at t003-000 l003-001 )
+    ( truck-at t003-001 l003-000 )
+    ( truck-at t004-000 l004-002 )
+    ( truck-at t004-001 l004-001 )
+    ( truck-at t004-002 l004-002 )
+    ( truck-at t004-003 l004-000 )
+    ( airplane-at a000 l002-000 )
+    ( airplane-at a001 l002-004 )
+    ( obj-at p000 l001-001 )
+    ( obj-at p001 l002-000 )
+    ( obj-at p002 l002-000 )
+    ( obj-at p003 l003-002 )
+    ( obj-at p004 l000-000 )
+    ( obj-at p005 l002-000 )
+    ( obj-at p006 l002-004 )
+    ( obj-at p007 l002-003 )
+    ( obj-at p008 l001-001 )
+    ( obj-at p009 l001-000 )
+    ( obj-at p010 l000-000 )
+    ( obj-at p011 l002-004 )
+    ( obj-at p012 l002-002 )
+    ( obj-at p013 l001-001 )
+    ( obj-at p014 l003-002 )
+    ( obj-at p015 l001-000 )
+    ( obj-at p016 l004-000 )
+    ( obj-at p017 l004-000 )
+    ( obj-at p018 l004-002 )
+    ( obj-at p019 l002-004 )
+    ( obj-at p020 l002-000 )
+    ( obj-at p021 l002-002 )
+    ( obj-at p022 l002-001 )
+    ( obj-at p023 l003-000 )
+    ( obj-at p024 l002-001 )
+    ( obj-at p025 l002-003 )
+    ( obj-at p026 l002-000 )
+    ( obj-at p027 l002-001 )
+    ( obj-at p028 l001-000 )
+    ( obj-at p029 l000-000 )
+    ( obj-at p030 l001-001 )
+    ( obj-at p031 l004-001 )
+    ( obj-at p032 l001-000 )
+    ( obj-at p033 l001-000 )
+    ( obj-at p034 l000-000 )
+    ( obj-at p035 l001-002 )
+    ( obj-at p036 l002-000 )
+    ( obj-at p037 l000-001 )
+    ( obj-at p038 l003-000 )
+    ( obj-at p039 l002-003 )
+    ( obj-at p040 l004-000 )
+    ( obj-at p041 l001-000 )
+    ( obj-at p042 l002-002 )
+    ( obj-at p043 l000-000 )
+    ( obj-at p044 l000-000 )
+    ( obj-at p045 l001-002 )
+    ( obj-at p046 l002-001 )
+    ( obj-at p047 l001-000 )
+    ( obj-at p048 l001-001 )
+    ( obj-at p049 l003-001 )
+    ( obj-at p050 l004-001 )
+    ( obj-at p051 l004-001 )
+    ( obj-at p052 l003-002 )
+    ( obj-at p053 l001-001 )
+    ( obj-at p054 l003-002 )
+    ( obj-at p055 l003-001 )
+    ( obj-at p056 l002-003 )
+    ( obj-at p057 l003-000 )
+    ( obj-at p058 l004-000 )
+    ( obj-at p059 l002-003 )
+    ( obj-at p060 l002-002 )
+    ( obj-at p061 l002-004 )
+    ( obj-at p062 l003-001 )
+    ( obj-at p063 l003-001 )
+    ( obj-at p064 l002-002 )
+  )
+
+  ( :tasks
+    ( DELIVER-PKG p000 l004-001 )
+    ( DELIVER-PKG p001 l002-003 )
+    ( DELIVER-PKG p002 l004-001 )
+    ( DELIVER-PKG p003 l001-000 )
+    ( DELIVER-PKG p004 l001-001 )
+    ( DELIVER-PKG p005 l002-004 )
+    ( DELIVER-PKG p006 l003-002 )
+    ( DELIVER-PKG p007 l003-001 )
+    ( DELIVER-PKG p008 l001-000 )
+    ( DELIVER-PKG p009 l001-000 )
+    ( DELIVER-PKG p010 l004-000 )
+    ( DELIVER-PKG p011 l001-002 )
+    ( DELIVER-PKG p012 l002-002 )
+    ( DELIVER-PKG p013 l002-004 )
+    ( DELIVER-PKG p014 l002-000 )
+    ( DELIVER-PKG p015 l001-000 )
+    ( DELIVER-PKG p016 l003-001 )
+    ( DELIVER-PKG p017 l004-000 )
+    ( DELIVER-PKG p018 l000-001 )
+    ( DELIVER-PKG p019 l001-001 )
+    ( DELIVER-PKG p020 l003-002 )
+    ( DELIVER-PKG p021 l001-001 )
+    ( DELIVER-PKG p022 l001-002 )
+    ( DELIVER-PKG p023 l000-000 )
+    ( DELIVER-PKG p024 l002-002 )
+    ( DELIVER-PKG p025 l001-002 )
+    ( DELIVER-PKG p026 l000-001 )
+    ( DELIVER-PKG p027 l000-000 )
+    ( DELIVER-PKG p028 l002-003 )
+    ( DELIVER-PKG p029 l004-001 )
+    ( DELIVER-PKG p030 l002-000 )
+    ( DELIVER-PKG p031 l002-000 )
+    ( DELIVER-PKG p032 l001-002 )
+    ( DELIVER-PKG p033 l002-004 )
+    ( DELIVER-PKG p034 l001-001 )
+    ( DELIVER-PKG p035 l001-002 )
+    ( DELIVER-PKG p036 l001-000 )
+    ( DELIVER-PKG p037 l002-000 )
+    ( DELIVER-PKG p038 l000-001 )
+    ( DELIVER-PKG p039 l002-003 )
+    ( DELIVER-PKG p040 l001-001 )
+    ( DELIVER-PKG p041 l001-002 )
+    ( DELIVER-PKG p042 l004-002 )
+    ( DELIVER-PKG p043 l004-000 )
+    ( DELIVER-PKG p044 l000-000 )
+    ( DELIVER-PKG p045 l004-002 )
+    ( DELIVER-PKG p046 l003-002 )
+    ( DELIVER-PKG p047 l002-001 )
+    ( DELIVER-PKG p048 l004-001 )
+    ( DELIVER-PKG p049 l002-004 )
+    ( DELIVER-PKG p050 l001-001 )
+    ( DELIVER-PKG p051 l000-001 )
+    ( DELIVER-PKG p052 l000-001 )
+    ( DELIVER-PKG p053 l000-001 )
+    ( DELIVER-PKG p054 l002-000 )
+    ( DELIVER-PKG p055 l004-001 )
+    ( DELIVER-PKG p056 l003-002 )
+    ( DELIVER-PKG p057 l001-000 )
+    ( DELIVER-PKG p058 l000-000 )
+    ( DELIVER-PKG p059 l003-000 )
+    ( DELIVER-PKG p060 l004-000 )
+    ( DELIVER-PKG p061 l003-001 )
+    ( DELIVER-PKG p062 l002-003 )
+    ( DELIVER-PKG p063 l001-000 )
+    ( DELIVER-PKG p064 l002-002 )
+  )
+)
+

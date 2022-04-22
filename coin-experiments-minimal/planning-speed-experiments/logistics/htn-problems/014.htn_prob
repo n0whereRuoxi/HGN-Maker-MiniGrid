@@ -1,0 +1,75 @@
+( define ( htn-problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :htn :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    c000 - city
+    c001 - city
+    c002 - city
+    c003 - city
+    t000-000 - truck
+    t000-001 - truck
+    t000-002 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t001-002 - truck
+    t002-000 - truck
+    t003-000 - truck
+    t003-001 - truck
+    t003-002 - truck
+    l000-000 - location
+    l000-001 - location
+    l000-002 - location
+    l001-000 - location
+    l001-001 - location
+    l002-000 - location
+    l002-001 - location
+    l003-000 - location
+    l003-001 - location
+    l003-002 - location
+    l003-003 - location
+    l003-004 - location
+    p000 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l000-002 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l002-000 c002 )
+    ( in-city l002-001 c002 )
+    ( in-city l003-000 c003 )
+    ( in-city l003-001 c003 )
+    ( in-city l003-002 c003 )
+    ( in-city l003-003 c003 )
+    ( in-city l003-004 c003 )
+    ( airport l000-000 )
+    ( airport l001-000 )
+    ( airport l001-001 )
+    ( airport l002-001 )
+    ( airport l003-002 )
+    ( airport l003-004 )
+    ( truck-at t000-000 l000-002 )
+    ( truck-at t000-001 l000-001 )
+    ( truck-at t000-002 l000-002 )
+    ( truck-at t001-000 l001-000 )
+    ( truck-at t001-001 l001-001 )
+    ( truck-at t001-002 l001-001 )
+    ( truck-at t002-000 l002-001 )
+    ( truck-at t003-000 l003-003 )
+    ( truck-at t003-001 l003-000 )
+    ( truck-at t003-002 l003-004 )
+    ( airplane-at a000 l002-001 )
+    ( obj-at p000 l000-001 )
+  )
+
+  ( :tasks
+    ( DELIVER-PKG p000 l003-004 )
+  )
+)
+

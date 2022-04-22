@@ -1,0 +1,8 @@
+#Size	FF	SG	Hand	Learn1	Learn2	Learn3	Learn4	Count
+5	0.01	0.08	0.02	0.12	0.30	0.46	1.17	19
+10	0.02	0.11	0.02	0.13	0.31	0.45	1.05	20
+15	0.16	0.27	0.03	0.14	0.31	0.43	27.3	19
+20	20.5	0.99	0.05	0.17	0.38	0.49	1.19	20
+25	204	2.37	0.05	0.26	0.40	0.48	1.09	11
+
+# These use only data points that are defined across the entire table.

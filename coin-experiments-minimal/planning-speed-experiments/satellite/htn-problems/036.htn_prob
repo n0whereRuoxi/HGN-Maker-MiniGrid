@@ -1,0 +1,290 @@
+( define ( htn-problem probname )
+  ( :domain satellite )
+  ( :requirements :strips :htn :typing :equality )
+  ( :objects
+    sat000 - satellite
+    sat001 - satellite
+    sat002 - satellite
+    sat003 - satellite
+    sat004 - satellite
+    sat005 - satellite
+    sat006 - satellite
+    dir000 - direction
+    dir001 - direction
+    mode000 - mode
+    mode001 - mode
+    mode002 - mode
+    mode003 - mode
+    mode004 - mode
+    mode005 - mode
+    mode006 - mode
+    mode007 - mode
+    mode008 - mode
+    mode009 - mode
+    inst000-000 - instrument
+    inst000-001 - instrument
+    inst000-002 - instrument
+    inst000-003 - instrument
+    inst000-004 - instrument
+    inst000-005 - instrument
+    inst001-000 - instrument
+    inst001-001 - instrument
+    inst001-002 - instrument
+    inst001-003 - instrument
+    inst001-004 - instrument
+    inst001-005 - instrument
+    inst001-006 - instrument
+    inst001-007 - instrument
+    inst002-000 - instrument
+    inst002-001 - instrument
+    inst002-002 - instrument
+    inst002-003 - instrument
+    inst002-004 - instrument
+    inst002-005 - instrument
+    inst002-006 - instrument
+    inst003-000 - instrument
+    inst003-001 - instrument
+    inst003-002 - instrument
+    inst003-003 - instrument
+    inst003-004 - instrument
+    inst003-005 - instrument
+    inst003-006 - instrument
+    inst003-007 - instrument
+    inst004-000 - instrument
+    inst004-001 - instrument
+    inst004-002 - instrument
+    inst004-003 - instrument
+    inst004-004 - instrument
+    inst004-005 - instrument
+    inst004-006 - instrument
+    inst004-007 - instrument
+    inst005-000 - instrument
+    inst005-001 - instrument
+    inst005-002 - instrument
+    inst005-003 - instrument
+    inst006-000 - instrument
+    inst006-001 - instrument
+    inst006-002 - instrument
+    inst006-003 - instrument
+    inst006-004 - instrument
+    inst006-005 - instrument
+    inst006-006 - instrument
+  )
+
+  ( :init
+    ( pointing sat000 dir001 )
+    ( pointing sat001 dir001 )
+    ( pointing sat002 dir000 )
+    ( pointing sat003 dir000 )
+    ( pointing sat004 dir001 )
+    ( pointing sat005 dir000 )
+    ( pointing sat006 dir000 )
+    ( power_avail sat000 )
+    ( power_avail sat001 )
+    ( power_avail sat002 )
+    ( power_avail sat003 )
+    ( power_avail sat004 )
+    ( power_avail sat005 )
+    ( power_avail sat006 )
+    ( on_board inst000-000 sat000 )
+    ( on_board inst000-001 sat000 )
+    ( on_board inst000-002 sat000 )
+    ( on_board inst000-003 sat000 )
+    ( on_board inst000-004 sat000 )
+    ( on_board inst000-005 sat000 )
+    ( on_board inst001-000 sat001 )
+    ( on_board inst001-001 sat001 )
+    ( on_board inst001-002 sat001 )
+    ( on_board inst001-003 sat001 )
+    ( on_board inst001-004 sat001 )
+    ( on_board inst001-005 sat001 )
+    ( on_board inst001-006 sat001 )
+    ( on_board inst001-007 sat001 )
+    ( on_board inst002-000 sat002 )
+    ( on_board inst002-001 sat002 )
+    ( on_board inst002-002 sat002 )
+    ( on_board inst002-003 sat002 )
+    ( on_board inst002-004 sat002 )
+    ( on_board inst002-005 sat002 )
+    ( on_board inst002-006 sat002 )
+    ( on_board inst003-000 sat003 )
+    ( on_board inst003-001 sat003 )
+    ( on_board inst003-002 sat003 )
+    ( on_board inst003-003 sat003 )
+    ( on_board inst003-004 sat003 )
+    ( on_board inst003-005 sat003 )
+    ( on_board inst003-006 sat003 )
+    ( on_board inst003-007 sat003 )
+    ( on_board inst004-000 sat004 )
+    ( on_board inst004-001 sat004 )
+    ( on_board inst004-002 sat004 )
+    ( on_board inst004-003 sat004 )
+    ( on_board inst004-004 sat004 )
+    ( on_board inst004-005 sat004 )
+    ( on_board inst004-006 sat004 )
+    ( on_board inst004-007 sat004 )
+    ( on_board inst005-000 sat005 )
+    ( on_board inst005-001 sat005 )
+    ( on_board inst005-002 sat005 )
+    ( on_board inst005-003 sat005 )
+    ( on_board inst006-000 sat006 )
+    ( on_board inst006-001 sat006 )
+    ( on_board inst006-002 sat006 )
+    ( on_board inst006-003 sat006 )
+    ( on_board inst006-004 sat006 )
+    ( on_board inst006-005 sat006 )
+    ( on_board inst006-006 sat006 )
+    ( supports inst000-000 mode003 )
+    ( supports inst000-001 mode001 )
+    ( supports inst000-002 mode004 )
+    ( supports inst000-003 mode005 )
+    ( supports inst000-004 mode006 )
+    ( supports inst000-005 mode007 )
+    ( supports inst001-000 mode008 )
+    ( supports inst001-001 mode002 )
+    ( supports inst001-002 mode000 )
+    ( supports inst001-003 mode009 )
+    ( supports inst001-004 mode005 )
+    ( supports inst001-005 mode005 )
+    ( supports inst001-006 mode005 )
+    ( supports inst001-007 mode002 )
+    ( supports inst002-000 mode002 )
+    ( supports inst002-001 mode008 )
+    ( supports inst002-002 mode000 )
+    ( supports inst002-003 mode009 )
+    ( supports inst002-004 mode000 )
+    ( supports inst002-005 mode009 )
+    ( supports inst002-006 mode001 )
+    ( supports inst003-000 mode007 )
+    ( supports inst003-001 mode004 )
+    ( supports inst003-002 mode002 )
+    ( supports inst003-003 mode002 )
+    ( supports inst003-004 mode000 )
+    ( supports inst003-005 mode007 )
+    ( supports inst003-006 mode009 )
+    ( supports inst003-007 mode001 )
+    ( supports inst004-000 mode008 )
+    ( supports inst004-001 mode003 )
+    ( supports inst004-002 mode009 )
+    ( supports inst004-003 mode007 )
+    ( supports inst004-004 mode004 )
+    ( supports inst004-005 mode001 )
+    ( supports inst004-006 mode004 )
+    ( supports inst004-007 mode005 )
+    ( supports inst005-000 mode007 )
+    ( supports inst005-001 mode000 )
+    ( supports inst005-002 mode004 )
+    ( supports inst005-003 mode009 )
+    ( supports inst006-000 mode006 )
+    ( supports inst006-001 mode004 )
+    ( supports inst006-002 mode001 )
+    ( supports inst006-003 mode005 )
+    ( supports inst006-004 mode003 )
+    ( supports inst006-005 mode005 )
+    ( supports inst006-006 mode007 )
+    ( calibration_target inst000-000 dir001 )
+    ( calibration_target inst000-001 dir001 )
+    ( calibration_target inst000-002 dir000 )
+    ( calibration_target inst000-003 dir001 )
+    ( calibration_target inst000-004 dir001 )
+    ( calibration_target inst000-005 dir001 )
+    ( calibration_target inst001-000 dir000 )
+    ( calibration_target inst001-001 dir000 )
+    ( calibration_target inst001-002 dir000 )
+    ( calibration_target inst001-003 dir000 )
+    ( calibration_target inst001-004 dir001 )
+    ( calibration_target inst001-005 dir000 )
+    ( calibration_target inst001-006 dir000 )
+    ( calibration_target inst001-007 dir000 )
+    ( calibration_target inst002-000 dir000 )
+    ( calibration_target inst002-001 dir000 )
+    ( calibration_target inst002-002 dir001 )
+    ( calibration_target inst002-003 dir001 )
+    ( calibration_target inst002-004 dir001 )
+    ( calibration_target inst002-005 dir001 )
+    ( calibration_target inst002-006 dir001 )
+    ( calibration_target inst003-000 dir000 )
+    ( calibration_target inst003-001 dir000 )
+    ( calibration_target inst003-002 dir001 )
+    ( calibration_target inst003-003 dir000 )
+    ( calibration_target inst003-004 dir000 )
+    ( calibration_target inst003-005 dir001 )
+    ( calibration_target inst003-006 dir000 )
+    ( calibration_target inst003-007 dir001 )
+    ( calibration_target inst004-000 dir000 )
+    ( calibration_target inst004-001 dir000 )
+    ( calibration_target inst004-002 dir001 )
+    ( calibration_target inst004-003 dir001 )
+    ( calibration_target inst004-004 dir000 )
+    ( calibration_target inst004-005 dir001 )
+    ( calibration_target inst004-006 dir001 )
+    ( calibration_target inst004-007 dir000 )
+    ( calibration_target inst005-000 dir001 )
+    ( calibration_target inst005-001 dir001 )
+    ( calibration_target inst005-002 dir001 )
+    ( calibration_target inst005-003 dir000 )
+    ( calibration_target inst006-000 dir001 )
+    ( calibration_target inst006-001 dir000 )
+    ( calibration_target inst006-002 dir000 )
+    ( calibration_target inst006-003 dir001 )
+    ( calibration_target inst006-004 dir000 )
+    ( calibration_target inst006-005 dir000 )
+    ( calibration_target inst006-006 dir000 )
+    ( not_calibrated inst000-000 )
+    ( not_calibrated inst000-001 )
+    ( not_calibrated inst000-002 )
+    ( not_calibrated inst000-003 )
+    ( not_calibrated inst000-004 )
+    ( not_calibrated inst000-005 )
+    ( not_calibrated inst001-000 )
+    ( not_calibrated inst001-001 )
+    ( not_calibrated inst001-002 )
+    ( not_calibrated inst001-003 )
+    ( not_calibrated inst001-004 )
+    ( not_calibrated inst001-005 )
+    ( not_calibrated inst001-006 )
+    ( not_calibrated inst001-007 )
+    ( not_calibrated inst002-000 )
+    ( not_calibrated inst002-001 )
+    ( not_calibrated inst002-002 )
+    ( not_calibrated inst002-003 )
+    ( not_calibrated inst002-004 )
+    ( not_calibrated inst002-005 )
+    ( not_calibrated inst002-006 )
+    ( not_calibrated inst003-000 )
+    ( not_calibrated inst003-001 )
+    ( not_calibrated inst003-002 )
+    ( not_calibrated inst003-003 )
+    ( not_calibrated inst003-004 )
+    ( not_calibrated inst003-005 )
+    ( not_calibrated inst003-006 )
+    ( not_calibrated inst003-007 )
+    ( not_calibrated inst004-000 )
+    ( not_calibrated inst004-001 )
+    ( not_calibrated inst004-002 )
+    ( not_calibrated inst004-003 )
+    ( not_calibrated inst004-004 )
+    ( not_calibrated inst004-005 )
+    ( not_calibrated inst004-006 )
+    ( not_calibrated inst004-007 )
+    ( not_calibrated inst005-000 )
+    ( not_calibrated inst005-001 )
+    ( not_calibrated inst005-002 )
+    ( not_calibrated inst005-003 )
+    ( not_calibrated inst006-000 )
+    ( not_calibrated inst006-001 )
+    ( not_calibrated inst006-002 )
+    ( not_calibrated inst006-003 )
+    ( not_calibrated inst006-004 )
+    ( not_calibrated inst006-005 )
+    ( not_calibrated inst006-006 )
+  )
+  ( :tasks
+    ( GET_IMAGE dir000 mode003 )
+    ( GET_IMAGE dir000 mode000 )
+    ( GET_IMAGE dir001 mode006 )
+    ( GET_IMAGE dir001 mode008 )
+    ( GET_IMAGE dir001 mode002 )
+  )
+)
+

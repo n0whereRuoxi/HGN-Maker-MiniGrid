@@ -1,0 +1,18330 @@
+( define ( domain Rover )
+  ( :requirements :strips :typing :equality :htn )
+  ( :types camera lander mode objective rover store waypoint )
+  ( :predicates
+    ( AT ?R - ROVER ?Y - WAYPOINT )
+    ( AT_LANDER ?L - LANDER ?Y - WAYPOINT )
+    ( CAN_TRAVERSE ?R - ROVER ?X - WAYPOINT ?Y - WAYPOINT )
+    ( EQUIPPED_FOR_SOIL_ANALYSIS ?R - ROVER )
+    ( EQUIPPED_FOR_ROCK_ANALYSIS ?R - ROVER )
+    ( EQUIPPED_FOR_IMAGING ?R - ROVER )
+    ( EMPTY ?S - STORE )
+    ( HAVE_ROCK_ANALYSIS ?R - ROVER ?W - WAYPOINT )
+    ( HAVE_SOIL_ANALYSIS ?R - ROVER ?W - WAYPOINT )
+    ( FULL ?S - STORE )
+    ( CALIBRATED ?C - CAMERA ?R - ROVER )
+    ( SUPPORTS ?C - CAMERA ?M - MODE )
+    ( AVAILABLE ?R - ROVER )
+    ( VISIBLE ?W - WAYPOINT ?P - WAYPOINT )
+    ( HAVE_IMAGE ?R - ROVER ?O - OBJECTIVE ?M - MODE )
+    ( COMMUNICATED_SOIL_DATA ?W - WAYPOINT )
+    ( COMMUNICATED_ROCK_DATA ?W - WAYPOINT )
+    ( COMMUNICATED_IMAGE_DATA ?O - OBJECTIVE ?M - MODE )
+    ( AT_SOIL_SAMPLE ?W - WAYPOINT )
+    ( AT_ROCK_SAMPLE ?W - WAYPOINT )
+    ( VISIBLE_FROM ?O - OBJECTIVE ?W - WAYPOINT )
+    ( STORE_OF ?S - STORE ?R - ROVER )
+    ( CALIBRATION_TARGET ?I - CAMERA ?O - OBJECTIVE )
+    ( ON_BOARD ?I - CAMERA ?R - ROVER )
+    ( CHANNEL_FREE ?L - LANDER )
+  )
+  ( :action !NAVIGATE
+    :parameters
+    (
+      ?R - ROVER
+      ?Y - WAYPOINT
+      ?Z - WAYPOINT
+    )
+    :precondition
+    ( and ( CAN_TRAVERSE ?R ?Y ?Z ) ( AVAILABLE ?R ) ( AT ?R ?Y ) ( VISIBLE ?Y ?Z ) )
+    :effect
+    ( and ( not ( AT ?R ?Y ) ) ( AT ?R ?Z ) )
+  )
+  ( :action !SAMPLE_SOIL
+    :parameters
+    (
+      ?R - ROVER
+      ?S - STORE
+      ?P - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?R ?P ) ( AT_SOIL_SAMPLE ?P ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?R ) ( STORE_OF ?S ?R ) ( EMPTY ?S ) )
+    :effect
+    ( and ( not ( EMPTY ?S ) ) ( FULL ?S ) ( HAVE_SOIL_ANALYSIS ?R ?P ) ( not ( AT_SOIL_SAMPLE ?P ) ) )
+  )
+  ( :action !SAMPLE_ROCK
+    :parameters
+    (
+      ?R - ROVER
+      ?S - STORE
+      ?P - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?R ?P ) ( AT_ROCK_SAMPLE ?P ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?R ) ( STORE_OF ?S ?R ) ( EMPTY ?S ) )
+    :effect
+    ( and ( not ( EMPTY ?S ) ) ( FULL ?S ) ( HAVE_ROCK_ANALYSIS ?R ?P ) ( not ( AT_ROCK_SAMPLE ?P ) ) )
+  )
+  ( :action !DROP
+    :parameters
+    (
+      ?R - ROVER
+      ?S - STORE
+    )
+    :precondition
+    ( and ( STORE_OF ?S ?R ) ( FULL ?S ) )
+    :effect
+    ( and ( not ( FULL ?S ) ) ( EMPTY ?S ) )
+  )
+  ( :action !CALIBRATE
+    :parameters
+    (
+      ?R - ROVER
+      ?I - CAMERA
+      ?T - OBJECTIVE
+      ?W - WAYPOINT
+    )
+    :precondition
+    ( and ( EQUIPPED_FOR_IMAGING ?R ) ( CALIBRATION_TARGET ?I ?T ) ( AT ?R ?W ) ( VISIBLE_FROM ?T ?W ) ( ON_BOARD ?I ?R ) )
+    :effect
+    ( and ( CALIBRATED ?I ?R ) )
+  )
+  ( :action !TAKE_IMAGE
+    :parameters
+    (
+      ?R - ROVER
+      ?P - WAYPOINT
+      ?O - OBJECTIVE
+      ?I - CAMERA
+      ?M - MODE
+    )
+    :precondition
+    ( and ( CALIBRATED ?I ?R ) ( ON_BOARD ?I ?R ) ( EQUIPPED_FOR_IMAGING ?R ) ( SUPPORTS ?I ?M ) ( VISIBLE_FROM ?O ?P ) ( AT ?R ?P ) )
+    :effect
+    ( and ( HAVE_IMAGE ?R ?O ?M ) ( not ( CALIBRATED ?I ?R ) ) )
+  )
+  ( :action !COMMUNICATE_SOIL_DATA
+    :parameters
+    (
+      ?R - ROVER
+      ?L - LANDER
+      ?P - WAYPOINT
+      ?X - WAYPOINT
+      ?Y - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?R ?X ) ( AT_LANDER ?L ?Y ) ( HAVE_SOIL_ANALYSIS ?R ?P ) ( VISIBLE ?X ?Y ) ( AVAILABLE ?R ) ( CHANNEL_FREE ?L ) )
+    :effect
+    ( and ( CHANNEL_FREE ?L ) ( COMMUNICATED_SOIL_DATA ?P ) ( AVAILABLE ?R ) )
+  )
+  ( :action !COMMUNICATE_ROCK_DATA
+    :parameters
+    (
+      ?R - ROVER
+      ?L - LANDER
+      ?P - WAYPOINT
+      ?X - WAYPOINT
+      ?Y - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?R ?X ) ( AT_LANDER ?L ?Y ) ( HAVE_ROCK_ANALYSIS ?R ?P ) ( VISIBLE ?X ?Y ) ( AVAILABLE ?R ) ( CHANNEL_FREE ?L ) )
+    :effect
+    ( and ( CHANNEL_FREE ?L ) ( COMMUNICATED_ROCK_DATA ?P ) ( AVAILABLE ?R ) )
+  )
+  ( :action !COMMUNICATE_IMAGE_DATA
+    :parameters
+    (
+      ?R - ROVER
+      ?L - LANDER
+      ?O - OBJECTIVE
+      ?M - MODE
+      ?X - WAYPOINT
+      ?Y - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?R ?X ) ( AT_LANDER ?L ?Y ) ( HAVE_IMAGE ?R ?O ?M ) ( VISIBLE ?X ?Y ) ( AVAILABLE ?R ) ( CHANNEL_FREE ?L ) )
+    :effect
+    ( and ( CHANNEL_FREE ?L ) ( COMMUNICATED_IMAGE_DATA ?O ?M ) ( AVAILABLE ?R ) )
+  )
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?LOCATION - WAYPOINT
+    )
+    :precondition
+    ( and ( COMMUNICATED_SOIL_DATA ?LOCATION ) )
+    :subtasks
+    (  )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?LOCATION - WAYPOINT
+    )
+    :precondition
+    ( and ( COMMUNICATED_ROCK_DATA ?LOCATION ) )
+    :subtasks
+    (  )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?OBJECTIVE - OBJECTIVE
+      ?MODE - MODE
+    )
+    :precondition
+    ( and ( COMMUNICATED_IMAGE_DATA ?OBJECTIVE ?MODE ) )
+    :subtasks
+    (  )
+  )
+
+  ( :method GET_SOIL_DATA-VERIFY
+    :parameters
+    (
+      ?LOCATION - WAYPOINT
+    )
+    :precondition
+    ( and ( COMMUNICATED_SOIL_DATA ?LOCATION ) )
+    :subtasks
+    (  )
+  )
+
+  ( :method GET_ROCK_DATA-VERIFY
+    :parameters
+    (
+      ?LOCATION - WAYPOINT
+    )
+    :precondition
+    ( and ( COMMUNICATED_ROCK_DATA ?LOCATION ) )
+    :subtasks
+    (  )
+  )
+
+  ( :method GET_IMAGE_DATA-VERIFY
+    :parameters
+    (
+      ?OBJECTIVE - OBJECTIVE
+      ?MODE - MODE
+    )
+    :precondition
+    ( and ( COMMUNICATED_IMAGE_DATA ?OBJECTIVE ?MODE ) )
+    :subtasks
+    (  )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2 - ROVER
+      ?AUTO_5 - WAYPOINT
+      ?AUTO_4 - LANDER
+      ?AUTO_3 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2 ?AUTO_5 ) ( AT_LANDER ?AUTO_4 ?AUTO_3 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2 ?AUTO_1 ) ( VISIBLE ?AUTO_5 ?AUTO_3 ) ( AVAILABLE ?AUTO_2 ) ( CHANNEL_FREE ?AUTO_4 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2 ?AUTO_4 ?AUTO_1 ?AUTO_5 ?AUTO_3 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9 - ROVER
+      ?AUTO_12 - WAYPOINT
+      ?AUTO_11 - LANDER
+      ?AUTO_10 - WAYPOINT
+      ?AUTO_14 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_9 ?AUTO_12 ) ( AT_LANDER ?AUTO_11 ?AUTO_10 ) ( VISIBLE ?AUTO_12 ?AUTO_10 ) ( AVAILABLE ?AUTO_9 ) ( CHANNEL_FREE ?AUTO_11 ) ( AT ?AUTO_9 ?AUTO_7 ) ( AT_SOIL_SAMPLE ?AUTO_7 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9 ) ( STORE_OF ?AUTO_14 ?AUTO_9 ) ( EMPTY ?AUTO_14 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9 ?AUTO_14 ?AUTO_7 )
+      ( GET_SOIL_DATA ?AUTO_7 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_16 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_20 - LANDER
+      ?AUTO_21 - WAYPOINT
+      ?AUTO_18 - ROVER
+      ?AUTO_22 - STORE
+      ?AUTO_25 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_20 ?AUTO_21 ) ( VISIBLE ?AUTO_16 ?AUTO_21 ) ( AVAILABLE ?AUTO_18 ) ( CHANNEL_FREE ?AUTO_20 ) ( AT_SOIL_SAMPLE ?AUTO_16 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_18 ) ( STORE_OF ?AUTO_22 ?AUTO_18 ) ( EMPTY ?AUTO_22 ) ( CAN_TRAVERSE ?AUTO_18 ?AUTO_25 ?AUTO_16 ) ( AT ?AUTO_18 ?AUTO_25 ) ( VISIBLE ?AUTO_25 ?AUTO_16 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_18 ?AUTO_25 ?AUTO_16 )
+      ( GET_SOIL_DATA ?AUTO_16 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_16 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_26 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_31 - LANDER
+      ?AUTO_29 - WAYPOINT
+      ?AUTO_30 - ROVER
+      ?AUTO_27 - STORE
+      ?AUTO_32 - WAYPOINT
+      ?AUTO_35 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_31 ?AUTO_29 ) ( VISIBLE ?AUTO_26 ?AUTO_29 ) ( AVAILABLE ?AUTO_30 ) ( CHANNEL_FREE ?AUTO_31 ) ( AT_SOIL_SAMPLE ?AUTO_26 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_30 ) ( STORE_OF ?AUTO_27 ?AUTO_30 ) ( EMPTY ?AUTO_27 ) ( CAN_TRAVERSE ?AUTO_30 ?AUTO_32 ?AUTO_26 ) ( VISIBLE ?AUTO_32 ?AUTO_26 ) ( CAN_TRAVERSE ?AUTO_30 ?AUTO_35 ?AUTO_32 ) ( AT ?AUTO_30 ?AUTO_35 ) ( VISIBLE ?AUTO_35 ?AUTO_32 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_30 ?AUTO_35 ?AUTO_32 )
+      ( GET_SOIL_DATA ?AUTO_26 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_26 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_37 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_38 - ROVER
+      ?AUTO_41 - WAYPOINT
+      ?AUTO_40 - LANDER
+      ?AUTO_39 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_38 ?AUTO_41 ) ( AT_LANDER ?AUTO_40 ?AUTO_39 ) ( HAVE_ROCK_ANALYSIS ?AUTO_38 ?AUTO_37 ) ( VISIBLE ?AUTO_41 ?AUTO_39 ) ( AVAILABLE ?AUTO_38 ) ( CHANNEL_FREE ?AUTO_40 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_38 ?AUTO_40 ?AUTO_37 ?AUTO_41 ?AUTO_39 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_37 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_43 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_45 - ROVER
+      ?AUTO_48 - WAYPOINT
+      ?AUTO_47 - LANDER
+      ?AUTO_46 - WAYPOINT
+      ?AUTO_50 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_45 ?AUTO_48 ) ( AT_LANDER ?AUTO_47 ?AUTO_46 ) ( VISIBLE ?AUTO_48 ?AUTO_46 ) ( AVAILABLE ?AUTO_45 ) ( CHANNEL_FREE ?AUTO_47 ) ( AT ?AUTO_45 ?AUTO_43 ) ( AT_ROCK_SAMPLE ?AUTO_43 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_45 ) ( STORE_OF ?AUTO_50 ?AUTO_45 ) ( EMPTY ?AUTO_50 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_45 ?AUTO_50 ?AUTO_43 )
+      ( GET_ROCK_DATA ?AUTO_43 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_43 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_52 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_55 - ROVER
+      ?AUTO_56 - WAYPOINT
+      ?AUTO_57 - LANDER
+      ?AUTO_54 - WAYPOINT
+      ?AUTO_58 - STORE
+      ?AUTO_59 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_55 ?AUTO_56 ) ( AT_LANDER ?AUTO_57 ?AUTO_54 ) ( VISIBLE ?AUTO_56 ?AUTO_54 ) ( AVAILABLE ?AUTO_55 ) ( CHANNEL_FREE ?AUTO_57 ) ( AT ?AUTO_55 ?AUTO_52 ) ( AT_ROCK_SAMPLE ?AUTO_52 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_55 ) ( STORE_OF ?AUTO_58 ?AUTO_55 ) ( STORE_OF ?AUTO_58 ?AUTO_59 ) ( FULL ?AUTO_58 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_59 ?AUTO_58 )
+      ( GET_ROCK_DATA ?AUTO_52 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_52 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_63 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_64 - LANDER
+      ?AUTO_68 - WAYPOINT
+      ?AUTO_66 - ROVER
+      ?AUTO_69 - STORE
+      ?AUTO_72 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_64 ?AUTO_68 ) ( VISIBLE ?AUTO_63 ?AUTO_68 ) ( AVAILABLE ?AUTO_66 ) ( CHANNEL_FREE ?AUTO_64 ) ( AT_ROCK_SAMPLE ?AUTO_63 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_66 ) ( STORE_OF ?AUTO_69 ?AUTO_66 ) ( EMPTY ?AUTO_69 ) ( CAN_TRAVERSE ?AUTO_66 ?AUTO_72 ?AUTO_63 ) ( AT ?AUTO_66 ?AUTO_72 ) ( VISIBLE ?AUTO_72 ?AUTO_63 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_66 ?AUTO_72 ?AUTO_63 )
+      ( GET_ROCK_DATA ?AUTO_63 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_63 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_73 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_75 - LANDER
+      ?AUTO_76 - WAYPOINT
+      ?AUTO_77 - ROVER
+      ?AUTO_78 - STORE
+      ?AUTO_79 - WAYPOINT
+      ?AUTO_82 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_75 ?AUTO_76 ) ( VISIBLE ?AUTO_73 ?AUTO_76 ) ( AVAILABLE ?AUTO_77 ) ( CHANNEL_FREE ?AUTO_75 ) ( AT_ROCK_SAMPLE ?AUTO_73 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_77 ) ( STORE_OF ?AUTO_78 ?AUTO_77 ) ( EMPTY ?AUTO_78 ) ( CAN_TRAVERSE ?AUTO_77 ?AUTO_79 ?AUTO_73 ) ( VISIBLE ?AUTO_79 ?AUTO_73 ) ( CAN_TRAVERSE ?AUTO_77 ?AUTO_82 ?AUTO_79 ) ( AT ?AUTO_77 ?AUTO_82 ) ( VISIBLE ?AUTO_82 ?AUTO_79 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_77 ?AUTO_82 ?AUTO_79 )
+      ( GET_ROCK_DATA ?AUTO_73 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_73 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_84 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_85 - ROVER
+      ?AUTO_88 - WAYPOINT
+      ?AUTO_87 - LANDER
+      ?AUTO_86 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_85 ?AUTO_88 ) ( AT_LANDER ?AUTO_87 ?AUTO_86 ) ( HAVE_ROCK_ANALYSIS ?AUTO_85 ?AUTO_84 ) ( VISIBLE ?AUTO_88 ?AUTO_86 ) ( AVAILABLE ?AUTO_85 ) ( CHANNEL_FREE ?AUTO_87 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_85 ?AUTO_87 ?AUTO_84 ?AUTO_88 ?AUTO_86 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_84 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_90 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_91 - ROVER
+      ?AUTO_93 - WAYPOINT
+      ?AUTO_95 - LANDER
+      ?AUTO_94 - WAYPOINT
+      ?AUTO_97 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_91 ?AUTO_93 ) ( AT_LANDER ?AUTO_95 ?AUTO_94 ) ( VISIBLE ?AUTO_93 ?AUTO_94 ) ( AVAILABLE ?AUTO_91 ) ( CHANNEL_FREE ?AUTO_95 ) ( AT ?AUTO_91 ?AUTO_90 ) ( AT_ROCK_SAMPLE ?AUTO_90 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_91 ) ( STORE_OF ?AUTO_97 ?AUTO_91 ) ( EMPTY ?AUTO_97 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_91 ?AUTO_97 ?AUTO_90 )
+      ( GET_ROCK_DATA ?AUTO_90 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_90 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_107 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_108 - ROVER
+      ?AUTO_111 - WAYPOINT
+      ?AUTO_110 - LANDER
+      ?AUTO_109 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_108 ?AUTO_111 ) ( AT_LANDER ?AUTO_110 ?AUTO_109 ) ( HAVE_ROCK_ANALYSIS ?AUTO_108 ?AUTO_107 ) ( VISIBLE ?AUTO_111 ?AUTO_109 ) ( AVAILABLE ?AUTO_108 ) ( CHANNEL_FREE ?AUTO_110 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_108 ?AUTO_110 ?AUTO_107 ?AUTO_111 ?AUTO_109 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_107 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_113 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_117 - LANDER
+      ?AUTO_116 - WAYPOINT
+      ?AUTO_114 - ROVER
+      ?AUTO_118 - WAYPOINT
+      ?AUTO_121 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_117 ?AUTO_116 ) ( HAVE_ROCK_ANALYSIS ?AUTO_114 ?AUTO_113 ) ( VISIBLE ?AUTO_118 ?AUTO_116 ) ( AVAILABLE ?AUTO_114 ) ( CHANNEL_FREE ?AUTO_117 ) ( CAN_TRAVERSE ?AUTO_114 ?AUTO_121 ?AUTO_118 ) ( AT ?AUTO_114 ?AUTO_121 ) ( VISIBLE ?AUTO_121 ?AUTO_118 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_114 ?AUTO_121 ?AUTO_118 )
+      ( GET_ROCK_DATA ?AUTO_113 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_113 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_122 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_127 - LANDER
+      ?AUTO_124 - WAYPOINT
+      ?AUTO_126 - WAYPOINT
+      ?AUTO_123 - ROVER
+      ?AUTO_128 - WAYPOINT
+      ?AUTO_130 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_127 ?AUTO_124 ) ( VISIBLE ?AUTO_126 ?AUTO_124 ) ( AVAILABLE ?AUTO_123 ) ( CHANNEL_FREE ?AUTO_127 ) ( CAN_TRAVERSE ?AUTO_123 ?AUTO_128 ?AUTO_126 ) ( AT ?AUTO_123 ?AUTO_128 ) ( VISIBLE ?AUTO_128 ?AUTO_126 ) ( AT ?AUTO_123 ?AUTO_122 ) ( AT_ROCK_SAMPLE ?AUTO_122 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_123 ) ( STORE_OF ?AUTO_130 ?AUTO_123 ) ( EMPTY ?AUTO_130 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_123 ?AUTO_130 ?AUTO_122 )
+      ( GET_ROCK_DATA ?AUTO_122 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_122 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_134 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_138 - LANDER
+      ?AUTO_136 - WAYPOINT
+      ?AUTO_137 - WAYPOINT
+      ?AUTO_139 - ROVER
+      ?AUTO_135 - STORE
+      ?AUTO_144 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_138 ?AUTO_136 ) ( VISIBLE ?AUTO_137 ?AUTO_136 ) ( AVAILABLE ?AUTO_139 ) ( CHANNEL_FREE ?AUTO_138 ) ( CAN_TRAVERSE ?AUTO_139 ?AUTO_134 ?AUTO_137 ) ( VISIBLE ?AUTO_134 ?AUTO_137 ) ( AT_ROCK_SAMPLE ?AUTO_134 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_139 ) ( STORE_OF ?AUTO_135 ?AUTO_139 ) ( EMPTY ?AUTO_135 ) ( CAN_TRAVERSE ?AUTO_139 ?AUTO_144 ?AUTO_134 ) ( AT ?AUTO_139 ?AUTO_144 ) ( VISIBLE ?AUTO_144 ?AUTO_134 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_139 ?AUTO_144 ?AUTO_134 )
+      ( GET_ROCK_DATA ?AUTO_134 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_134 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_145 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_150 - LANDER
+      ?AUTO_148 - WAYPOINT
+      ?AUTO_151 - WAYPOINT
+      ?AUTO_149 - ROVER
+      ?AUTO_147 - STORE
+      ?AUTO_152 - WAYPOINT
+      ?AUTO_153 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_150 ?AUTO_148 ) ( VISIBLE ?AUTO_151 ?AUTO_148 ) ( AVAILABLE ?AUTO_149 ) ( CHANNEL_FREE ?AUTO_150 ) ( CAN_TRAVERSE ?AUTO_149 ?AUTO_145 ?AUTO_151 ) ( VISIBLE ?AUTO_145 ?AUTO_151 ) ( AT_ROCK_SAMPLE ?AUTO_145 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_149 ) ( STORE_OF ?AUTO_147 ?AUTO_149 ) ( CAN_TRAVERSE ?AUTO_149 ?AUTO_152 ?AUTO_145 ) ( AT ?AUTO_149 ?AUTO_152 ) ( VISIBLE ?AUTO_152 ?AUTO_145 ) ( STORE_OF ?AUTO_147 ?AUTO_153 ) ( FULL ?AUTO_147 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_153 ?AUTO_147 )
+      ( GET_ROCK_DATA ?AUTO_145 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_145 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_166 - OBJECTIVE
+      ?AUTO_167 - MODE
+    )
+    :vars
+    (
+      ?AUTO_168 - ROVER
+      ?AUTO_171 - WAYPOINT
+      ?AUTO_170 - LANDER
+      ?AUTO_169 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_168 ?AUTO_171 ) ( AT_LANDER ?AUTO_170 ?AUTO_169 ) ( HAVE_IMAGE ?AUTO_168 ?AUTO_166 ?AUTO_167 ) ( VISIBLE ?AUTO_171 ?AUTO_169 ) ( AVAILABLE ?AUTO_168 ) ( CHANNEL_FREE ?AUTO_170 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_168 ?AUTO_170 ?AUTO_166 ?AUTO_167 ?AUTO_171 ?AUTO_169 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_166 ?AUTO_167 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_176 - OBJECTIVE
+      ?AUTO_177 - MODE
+    )
+    :vars
+    (
+      ?AUTO_183 - LANDER
+      ?AUTO_179 - WAYPOINT
+      ?AUTO_178 - ROVER
+      ?AUTO_181 - WAYPOINT
+      ?AUTO_186 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_183 ?AUTO_179 ) ( HAVE_IMAGE ?AUTO_178 ?AUTO_176 ?AUTO_177 ) ( VISIBLE ?AUTO_181 ?AUTO_179 ) ( AVAILABLE ?AUTO_178 ) ( CHANNEL_FREE ?AUTO_183 ) ( CAN_TRAVERSE ?AUTO_178 ?AUTO_186 ?AUTO_181 ) ( AT ?AUTO_178 ?AUTO_186 ) ( VISIBLE ?AUTO_186 ?AUTO_181 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_178 ?AUTO_186 ?AUTO_181 )
+      ( GET_IMAGE_DATA ?AUTO_176 ?AUTO_177 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_176 ?AUTO_177 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_189 - OBJECTIVE
+      ?AUTO_190 - MODE
+    )
+    :vars
+    (
+      ?AUTO_196 - LANDER
+      ?AUTO_197 - WAYPOINT
+      ?AUTO_194 - WAYPOINT
+      ?AUTO_195 - ROVER
+      ?AUTO_193 - WAYPOINT
+      ?AUTO_202 - CAMERA
+      ?AUTO_200 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_196 ?AUTO_197 ) ( VISIBLE ?AUTO_194 ?AUTO_197 ) ( AVAILABLE ?AUTO_195 ) ( CHANNEL_FREE ?AUTO_196 ) ( CAN_TRAVERSE ?AUTO_195 ?AUTO_193 ?AUTO_194 ) ( AT ?AUTO_195 ?AUTO_193 ) ( VISIBLE ?AUTO_193 ?AUTO_194 ) ( CALIBRATED ?AUTO_202 ?AUTO_195 ) ( ON_BOARD ?AUTO_202 ?AUTO_195 ) ( EQUIPPED_FOR_IMAGING ?AUTO_195 ) ( SUPPORTS ?AUTO_202 ?AUTO_190 ) ( VISIBLE_FROM ?AUTO_189 ?AUTO_200 ) ( AT ?AUTO_195 ?AUTO_200 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_195 ?AUTO_200 ?AUTO_189 ?AUTO_202 ?AUTO_190 )
+      ( GET_IMAGE_DATA ?AUTO_189 ?AUTO_190 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_189 ?AUTO_190 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_203 - OBJECTIVE
+      ?AUTO_204 - MODE
+    )
+    :vars
+    (
+      ?AUTO_209 - LANDER
+      ?AUTO_207 - WAYPOINT
+      ?AUTO_208 - WAYPOINT
+      ?AUTO_210 - ROVER
+      ?AUTO_211 - WAYPOINT
+      ?AUTO_213 - CAMERA
+      ?AUTO_212 - WAYPOINT
+      ?AUTO_217 - OBJECTIVE
+      ?AUTO_215 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_209 ?AUTO_207 ) ( VISIBLE ?AUTO_208 ?AUTO_207 ) ( AVAILABLE ?AUTO_210 ) ( CHANNEL_FREE ?AUTO_209 ) ( CAN_TRAVERSE ?AUTO_210 ?AUTO_211 ?AUTO_208 ) ( AT ?AUTO_210 ?AUTO_211 ) ( VISIBLE ?AUTO_211 ?AUTO_208 ) ( ON_BOARD ?AUTO_213 ?AUTO_210 ) ( EQUIPPED_FOR_IMAGING ?AUTO_210 ) ( SUPPORTS ?AUTO_213 ?AUTO_204 ) ( VISIBLE_FROM ?AUTO_203 ?AUTO_212 ) ( AT ?AUTO_210 ?AUTO_212 ) ( CALIBRATION_TARGET ?AUTO_213 ?AUTO_217 ) ( AT ?AUTO_210 ?AUTO_215 ) ( VISIBLE_FROM ?AUTO_217 ?AUTO_215 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_210 ?AUTO_213 ?AUTO_217 ?AUTO_215 )
+      ( GET_IMAGE_DATA ?AUTO_203 ?AUTO_204 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_203 ?AUTO_204 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_218 - OBJECTIVE
+      ?AUTO_219 - MODE
+    )
+    :vars
+    (
+      ?AUTO_228 - LANDER
+      ?AUTO_229 - WAYPOINT
+      ?AUTO_227 - WAYPOINT
+      ?AUTO_221 - ROVER
+      ?AUTO_220 - WAYPOINT
+      ?AUTO_223 - CAMERA
+      ?AUTO_230 - OBJECTIVE
+      ?AUTO_233 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_228 ?AUTO_229 ) ( VISIBLE ?AUTO_227 ?AUTO_229 ) ( AVAILABLE ?AUTO_221 ) ( CHANNEL_FREE ?AUTO_228 ) ( CAN_TRAVERSE ?AUTO_221 ?AUTO_220 ?AUTO_227 ) ( VISIBLE ?AUTO_220 ?AUTO_227 ) ( ON_BOARD ?AUTO_223 ?AUTO_221 ) ( EQUIPPED_FOR_IMAGING ?AUTO_221 ) ( SUPPORTS ?AUTO_223 ?AUTO_219 ) ( VISIBLE_FROM ?AUTO_218 ?AUTO_220 ) ( CALIBRATION_TARGET ?AUTO_223 ?AUTO_230 ) ( VISIBLE_FROM ?AUTO_230 ?AUTO_220 ) ( CAN_TRAVERSE ?AUTO_221 ?AUTO_233 ?AUTO_220 ) ( AT ?AUTO_221 ?AUTO_233 ) ( VISIBLE ?AUTO_233 ?AUTO_220 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_221 ?AUTO_233 ?AUTO_220 )
+      ( GET_IMAGE_DATA ?AUTO_218 ?AUTO_219 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_218 ?AUTO_219 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_236 - OBJECTIVE
+      ?AUTO_237 - MODE
+    )
+    :vars
+    (
+      ?AUTO_238 - ROVER
+      ?AUTO_241 - WAYPOINT
+      ?AUTO_240 - LANDER
+      ?AUTO_239 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_238 ?AUTO_241 ) ( AT_LANDER ?AUTO_240 ?AUTO_239 ) ( HAVE_IMAGE ?AUTO_238 ?AUTO_236 ?AUTO_237 ) ( VISIBLE ?AUTO_241 ?AUTO_239 ) ( AVAILABLE ?AUTO_238 ) ( CHANNEL_FREE ?AUTO_240 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_238 ?AUTO_240 ?AUTO_236 ?AUTO_237 ?AUTO_241 ?AUTO_239 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_236 ?AUTO_237 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_244 - OBJECTIVE
+      ?AUTO_245 - MODE
+    )
+    :vars
+    (
+      ?AUTO_248 - ROVER
+      ?AUTO_251 - WAYPOINT
+      ?AUTO_250 - LANDER
+      ?AUTO_249 - WAYPOINT
+      ?AUTO_256 - CAMERA
+      ?AUTO_254 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_248 ?AUTO_251 ) ( AT_LANDER ?AUTO_250 ?AUTO_249 ) ( VISIBLE ?AUTO_251 ?AUTO_249 ) ( AVAILABLE ?AUTO_248 ) ( CHANNEL_FREE ?AUTO_250 ) ( CALIBRATED ?AUTO_256 ?AUTO_248 ) ( ON_BOARD ?AUTO_256 ?AUTO_248 ) ( EQUIPPED_FOR_IMAGING ?AUTO_248 ) ( SUPPORTS ?AUTO_256 ?AUTO_245 ) ( VISIBLE_FROM ?AUTO_244 ?AUTO_254 ) ( AT ?AUTO_248 ?AUTO_254 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_248 ?AUTO_254 ?AUTO_244 ?AUTO_256 ?AUTO_245 )
+      ( GET_IMAGE_DATA ?AUTO_244 ?AUTO_245 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_244 ?AUTO_245 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_257 - OBJECTIVE
+      ?AUTO_258 - MODE
+    )
+    :vars
+    (
+      ?AUTO_260 - ROVER
+      ?AUTO_264 - WAYPOINT
+      ?AUTO_262 - LANDER
+      ?AUTO_259 - WAYPOINT
+      ?AUTO_266 - CAMERA
+      ?AUTO_265 - WAYPOINT
+      ?AUTO_270 - OBJECTIVE
+      ?AUTO_268 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_260 ?AUTO_264 ) ( AT_LANDER ?AUTO_262 ?AUTO_259 ) ( VISIBLE ?AUTO_264 ?AUTO_259 ) ( AVAILABLE ?AUTO_260 ) ( CHANNEL_FREE ?AUTO_262 ) ( ON_BOARD ?AUTO_266 ?AUTO_260 ) ( EQUIPPED_FOR_IMAGING ?AUTO_260 ) ( SUPPORTS ?AUTO_266 ?AUTO_258 ) ( VISIBLE_FROM ?AUTO_257 ?AUTO_265 ) ( AT ?AUTO_260 ?AUTO_265 ) ( CALIBRATION_TARGET ?AUTO_266 ?AUTO_270 ) ( AT ?AUTO_260 ?AUTO_268 ) ( VISIBLE_FROM ?AUTO_270 ?AUTO_268 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_260 ?AUTO_266 ?AUTO_270 ?AUTO_268 )
+      ( GET_IMAGE_DATA ?AUTO_257 ?AUTO_258 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_257 ?AUTO_258 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_272 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_273 - ROVER
+      ?AUTO_276 - WAYPOINT
+      ?AUTO_275 - LANDER
+      ?AUTO_274 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_273 ?AUTO_276 ) ( AT_LANDER ?AUTO_275 ?AUTO_274 ) ( HAVE_SOIL_ANALYSIS ?AUTO_273 ?AUTO_272 ) ( VISIBLE ?AUTO_276 ?AUTO_274 ) ( AVAILABLE ?AUTO_273 ) ( CHANNEL_FREE ?AUTO_275 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_273 ?AUTO_275 ?AUTO_272 ?AUTO_276 ?AUTO_274 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_272 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_278 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_283 - LANDER
+      ?AUTO_282 - WAYPOINT
+      ?AUTO_281 - ROVER
+      ?AUTO_279 - WAYPOINT
+      ?AUTO_286 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_283 ?AUTO_282 ) ( HAVE_SOIL_ANALYSIS ?AUTO_281 ?AUTO_278 ) ( VISIBLE ?AUTO_279 ?AUTO_282 ) ( AVAILABLE ?AUTO_281 ) ( CHANNEL_FREE ?AUTO_283 ) ( CAN_TRAVERSE ?AUTO_281 ?AUTO_286 ?AUTO_279 ) ( AT ?AUTO_281 ?AUTO_286 ) ( VISIBLE ?AUTO_286 ?AUTO_279 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_281 ?AUTO_286 ?AUTO_279 )
+      ( GET_SOIL_DATA ?AUTO_278 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_278 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_287 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_291 - LANDER
+      ?AUTO_292 - WAYPOINT
+      ?AUTO_288 - WAYPOINT
+      ?AUTO_289 - ROVER
+      ?AUTO_293 - WAYPOINT
+      ?AUTO_295 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_291 ?AUTO_292 ) ( VISIBLE ?AUTO_288 ?AUTO_292 ) ( AVAILABLE ?AUTO_289 ) ( CHANNEL_FREE ?AUTO_291 ) ( CAN_TRAVERSE ?AUTO_289 ?AUTO_293 ?AUTO_288 ) ( AT ?AUTO_289 ?AUTO_293 ) ( VISIBLE ?AUTO_293 ?AUTO_288 ) ( AT ?AUTO_289 ?AUTO_287 ) ( AT_SOIL_SAMPLE ?AUTO_287 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_289 ) ( STORE_OF ?AUTO_295 ?AUTO_289 ) ( EMPTY ?AUTO_295 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_289 ?AUTO_295 ?AUTO_287 )
+      ( GET_SOIL_DATA ?AUTO_287 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_287 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_299 - OBJECTIVE
+      ?AUTO_300 - MODE
+    )
+    :vars
+    (
+      ?AUTO_301 - ROVER
+      ?AUTO_304 - WAYPOINT
+      ?AUTO_303 - LANDER
+      ?AUTO_302 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_301 ?AUTO_304 ) ( AT_LANDER ?AUTO_303 ?AUTO_302 ) ( HAVE_IMAGE ?AUTO_301 ?AUTO_299 ?AUTO_300 ) ( VISIBLE ?AUTO_304 ?AUTO_302 ) ( AVAILABLE ?AUTO_301 ) ( CHANNEL_FREE ?AUTO_303 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_301 ?AUTO_303 ?AUTO_299 ?AUTO_300 ?AUTO_304 ?AUTO_302 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_299 ?AUTO_300 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_307 - OBJECTIVE
+      ?AUTO_308 - MODE
+    )
+    :vars
+    (
+      ?AUTO_309 - LANDER
+      ?AUTO_311 - WAYPOINT
+      ?AUTO_314 - ROVER
+      ?AUTO_310 - WAYPOINT
+      ?AUTO_317 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_309 ?AUTO_311 ) ( HAVE_IMAGE ?AUTO_314 ?AUTO_307 ?AUTO_308 ) ( VISIBLE ?AUTO_310 ?AUTO_311 ) ( AVAILABLE ?AUTO_314 ) ( CHANNEL_FREE ?AUTO_309 ) ( CAN_TRAVERSE ?AUTO_314 ?AUTO_317 ?AUTO_310 ) ( AT ?AUTO_314 ?AUTO_317 ) ( VISIBLE ?AUTO_317 ?AUTO_310 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_314 ?AUTO_317 ?AUTO_310 )
+      ( GET_IMAGE_DATA ?AUTO_307 ?AUTO_308 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_307 ?AUTO_308 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_318 - OBJECTIVE
+      ?AUTO_319 - MODE
+    )
+    :vars
+    (
+      ?AUTO_322 - LANDER
+      ?AUTO_325 - WAYPOINT
+      ?AUTO_320 - WAYPOINT
+      ?AUTO_321 - ROVER
+      ?AUTO_326 - WAYPOINT
+      ?AUTO_331 - CAMERA
+      ?AUTO_329 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_322 ?AUTO_325 ) ( VISIBLE ?AUTO_320 ?AUTO_325 ) ( AVAILABLE ?AUTO_321 ) ( CHANNEL_FREE ?AUTO_322 ) ( CAN_TRAVERSE ?AUTO_321 ?AUTO_326 ?AUTO_320 ) ( AT ?AUTO_321 ?AUTO_326 ) ( VISIBLE ?AUTO_326 ?AUTO_320 ) ( CALIBRATED ?AUTO_331 ?AUTO_321 ) ( ON_BOARD ?AUTO_331 ?AUTO_321 ) ( EQUIPPED_FOR_IMAGING ?AUTO_321 ) ( SUPPORTS ?AUTO_331 ?AUTO_319 ) ( VISIBLE_FROM ?AUTO_318 ?AUTO_329 ) ( AT ?AUTO_321 ?AUTO_329 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_321 ?AUTO_329 ?AUTO_318 ?AUTO_331 ?AUTO_319 )
+      ( GET_IMAGE_DATA ?AUTO_318 ?AUTO_319 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_318 ?AUTO_319 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_332 - OBJECTIVE
+      ?AUTO_333 - MODE
+    )
+    :vars
+    (
+      ?AUTO_340 - LANDER
+      ?AUTO_337 - WAYPOINT
+      ?AUTO_338 - WAYPOINT
+      ?AUTO_335 - ROVER
+      ?AUTO_339 - WAYPOINT
+      ?AUTO_342 - CAMERA
+      ?AUTO_341 - WAYPOINT
+      ?AUTO_346 - OBJECTIVE
+      ?AUTO_344 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_340 ?AUTO_337 ) ( VISIBLE ?AUTO_338 ?AUTO_337 ) ( AVAILABLE ?AUTO_335 ) ( CHANNEL_FREE ?AUTO_340 ) ( CAN_TRAVERSE ?AUTO_335 ?AUTO_339 ?AUTO_338 ) ( AT ?AUTO_335 ?AUTO_339 ) ( VISIBLE ?AUTO_339 ?AUTO_338 ) ( ON_BOARD ?AUTO_342 ?AUTO_335 ) ( EQUIPPED_FOR_IMAGING ?AUTO_335 ) ( SUPPORTS ?AUTO_342 ?AUTO_333 ) ( VISIBLE_FROM ?AUTO_332 ?AUTO_341 ) ( AT ?AUTO_335 ?AUTO_341 ) ( CALIBRATION_TARGET ?AUTO_342 ?AUTO_346 ) ( AT ?AUTO_335 ?AUTO_344 ) ( VISIBLE_FROM ?AUTO_346 ?AUTO_344 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_335 ?AUTO_342 ?AUTO_346 ?AUTO_344 )
+      ( GET_IMAGE_DATA ?AUTO_332 ?AUTO_333 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_332 ?AUTO_333 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_347 - OBJECTIVE
+      ?AUTO_348 - MODE
+    )
+    :vars
+    (
+      ?AUTO_351 - LANDER
+      ?AUTO_355 - WAYPOINT
+      ?AUTO_354 - WAYPOINT
+      ?AUTO_353 - ROVER
+      ?AUTO_352 - WAYPOINT
+      ?AUTO_349 - CAMERA
+      ?AUTO_359 - OBJECTIVE
+      ?AUTO_362 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_351 ?AUTO_355 ) ( VISIBLE ?AUTO_354 ?AUTO_355 ) ( AVAILABLE ?AUTO_353 ) ( CHANNEL_FREE ?AUTO_351 ) ( CAN_TRAVERSE ?AUTO_353 ?AUTO_352 ?AUTO_354 ) ( VISIBLE ?AUTO_352 ?AUTO_354 ) ( ON_BOARD ?AUTO_349 ?AUTO_353 ) ( EQUIPPED_FOR_IMAGING ?AUTO_353 ) ( SUPPORTS ?AUTO_349 ?AUTO_348 ) ( VISIBLE_FROM ?AUTO_347 ?AUTO_352 ) ( CALIBRATION_TARGET ?AUTO_349 ?AUTO_359 ) ( VISIBLE_FROM ?AUTO_359 ?AUTO_352 ) ( CAN_TRAVERSE ?AUTO_353 ?AUTO_362 ?AUTO_352 ) ( AT ?AUTO_353 ?AUTO_362 ) ( VISIBLE ?AUTO_362 ?AUTO_352 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_353 ?AUTO_362 ?AUTO_352 )
+      ( GET_IMAGE_DATA ?AUTO_347 ?AUTO_348 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_347 ?AUTO_348 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_363 - OBJECTIVE
+      ?AUTO_364 - MODE
+    )
+    :vars
+    (
+      ?AUTO_371 - LANDER
+      ?AUTO_372 - WAYPOINT
+      ?AUTO_366 - WAYPOINT
+      ?AUTO_367 - ROVER
+      ?AUTO_369 - WAYPOINT
+      ?AUTO_374 - CAMERA
+      ?AUTO_373 - OBJECTIVE
+      ?AUTO_370 - WAYPOINT
+      ?AUTO_377 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_371 ?AUTO_372 ) ( VISIBLE ?AUTO_366 ?AUTO_372 ) ( AVAILABLE ?AUTO_367 ) ( CHANNEL_FREE ?AUTO_371 ) ( CAN_TRAVERSE ?AUTO_367 ?AUTO_369 ?AUTO_366 ) ( VISIBLE ?AUTO_369 ?AUTO_366 ) ( ON_BOARD ?AUTO_374 ?AUTO_367 ) ( EQUIPPED_FOR_IMAGING ?AUTO_367 ) ( SUPPORTS ?AUTO_374 ?AUTO_364 ) ( VISIBLE_FROM ?AUTO_363 ?AUTO_369 ) ( CALIBRATION_TARGET ?AUTO_374 ?AUTO_373 ) ( VISIBLE_FROM ?AUTO_373 ?AUTO_369 ) ( CAN_TRAVERSE ?AUTO_367 ?AUTO_370 ?AUTO_369 ) ( VISIBLE ?AUTO_370 ?AUTO_369 ) ( CAN_TRAVERSE ?AUTO_367 ?AUTO_377 ?AUTO_370 ) ( AT ?AUTO_367 ?AUTO_377 ) ( VISIBLE ?AUTO_377 ?AUTO_370 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_367 ?AUTO_377 ?AUTO_370 )
+      ( GET_IMAGE_DATA ?AUTO_363 ?AUTO_364 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_363 ?AUTO_364 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_378 - OBJECTIVE
+      ?AUTO_379 - MODE
+    )
+    :vars
+    (
+      ?AUTO_384 - LANDER
+      ?AUTO_381 - WAYPOINT
+      ?AUTO_383 - WAYPOINT
+      ?AUTO_389 - ROVER
+      ?AUTO_386 - WAYPOINT
+      ?AUTO_387 - CAMERA
+      ?AUTO_382 - OBJECTIVE
+      ?AUTO_385 - WAYPOINT
+      ?AUTO_390 - WAYPOINT
+      ?AUTO_393 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_384 ?AUTO_381 ) ( VISIBLE ?AUTO_383 ?AUTO_381 ) ( AVAILABLE ?AUTO_389 ) ( CHANNEL_FREE ?AUTO_384 ) ( CAN_TRAVERSE ?AUTO_389 ?AUTO_386 ?AUTO_383 ) ( VISIBLE ?AUTO_386 ?AUTO_383 ) ( ON_BOARD ?AUTO_387 ?AUTO_389 ) ( EQUIPPED_FOR_IMAGING ?AUTO_389 ) ( SUPPORTS ?AUTO_387 ?AUTO_379 ) ( VISIBLE_FROM ?AUTO_378 ?AUTO_386 ) ( CALIBRATION_TARGET ?AUTO_387 ?AUTO_382 ) ( VISIBLE_FROM ?AUTO_382 ?AUTO_386 ) ( CAN_TRAVERSE ?AUTO_389 ?AUTO_385 ?AUTO_386 ) ( VISIBLE ?AUTO_385 ?AUTO_386 ) ( CAN_TRAVERSE ?AUTO_389 ?AUTO_390 ?AUTO_385 ) ( VISIBLE ?AUTO_390 ?AUTO_385 ) ( CAN_TRAVERSE ?AUTO_389 ?AUTO_393 ?AUTO_390 ) ( AT ?AUTO_389 ?AUTO_393 ) ( VISIBLE ?AUTO_393 ?AUTO_390 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_389 ?AUTO_393 ?AUTO_390 )
+      ( GET_IMAGE_DATA ?AUTO_378 ?AUTO_379 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_378 ?AUTO_379 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_401 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_402 - ROVER
+      ?AUTO_405 - WAYPOINT
+      ?AUTO_404 - LANDER
+      ?AUTO_403 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_402 ?AUTO_405 ) ( AT_LANDER ?AUTO_404 ?AUTO_403 ) ( HAVE_ROCK_ANALYSIS ?AUTO_402 ?AUTO_401 ) ( VISIBLE ?AUTO_405 ?AUTO_403 ) ( AVAILABLE ?AUTO_402 ) ( CHANNEL_FREE ?AUTO_404 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_402 ?AUTO_404 ?AUTO_401 ?AUTO_405 ?AUTO_403 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_401 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_407 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_409 - ROVER
+      ?AUTO_412 - WAYPOINT
+      ?AUTO_411 - LANDER
+      ?AUTO_410 - WAYPOINT
+      ?AUTO_414 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_409 ?AUTO_412 ) ( AT_LANDER ?AUTO_411 ?AUTO_410 ) ( VISIBLE ?AUTO_412 ?AUTO_410 ) ( AVAILABLE ?AUTO_409 ) ( CHANNEL_FREE ?AUTO_411 ) ( AT ?AUTO_409 ?AUTO_407 ) ( AT_ROCK_SAMPLE ?AUTO_407 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_409 ) ( STORE_OF ?AUTO_414 ?AUTO_409 ) ( EMPTY ?AUTO_414 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_409 ?AUTO_414 ?AUTO_407 )
+      ( GET_ROCK_DATA ?AUTO_407 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_407 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_427 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_428 - ROVER
+      ?AUTO_431 - WAYPOINT
+      ?AUTO_430 - LANDER
+      ?AUTO_429 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_428 ?AUTO_431 ) ( AT_LANDER ?AUTO_430 ?AUTO_429 ) ( HAVE_ROCK_ANALYSIS ?AUTO_428 ?AUTO_427 ) ( VISIBLE ?AUTO_431 ?AUTO_429 ) ( AVAILABLE ?AUTO_428 ) ( CHANNEL_FREE ?AUTO_430 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_428 ?AUTO_430 ?AUTO_427 ?AUTO_431 ?AUTO_429 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_427 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_433 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_436 - ROVER
+      ?AUTO_438 - WAYPOINT
+      ?AUTO_437 - LANDER
+      ?AUTO_435 - WAYPOINT
+      ?AUTO_440 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_436 ?AUTO_438 ) ( AT_LANDER ?AUTO_437 ?AUTO_435 ) ( VISIBLE ?AUTO_438 ?AUTO_435 ) ( AVAILABLE ?AUTO_436 ) ( CHANNEL_FREE ?AUTO_437 ) ( AT ?AUTO_436 ?AUTO_433 ) ( AT_ROCK_SAMPLE ?AUTO_433 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_436 ) ( STORE_OF ?AUTO_440 ?AUTO_436 ) ( EMPTY ?AUTO_440 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_436 ?AUTO_440 ?AUTO_433 )
+      ( GET_ROCK_DATA ?AUTO_433 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_433 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_442 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_446 - LANDER
+      ?AUTO_444 - WAYPOINT
+      ?AUTO_447 - ROVER
+      ?AUTO_448 - STORE
+      ?AUTO_451 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_446 ?AUTO_444 ) ( VISIBLE ?AUTO_442 ?AUTO_444 ) ( AVAILABLE ?AUTO_447 ) ( CHANNEL_FREE ?AUTO_446 ) ( AT_ROCK_SAMPLE ?AUTO_442 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_447 ) ( STORE_OF ?AUTO_448 ?AUTO_447 ) ( EMPTY ?AUTO_448 ) ( CAN_TRAVERSE ?AUTO_447 ?AUTO_451 ?AUTO_442 ) ( AT ?AUTO_447 ?AUTO_451 ) ( VISIBLE ?AUTO_451 ?AUTO_442 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_447 ?AUTO_451 ?AUTO_442 )
+      ( GET_ROCK_DATA ?AUTO_442 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_442 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_452 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_458 - LANDER
+      ?AUTO_457 - WAYPOINT
+      ?AUTO_455 - ROVER
+      ?AUTO_454 - STORE
+      ?AUTO_456 - WAYPOINT
+      ?AUTO_459 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_458 ?AUTO_457 ) ( VISIBLE ?AUTO_452 ?AUTO_457 ) ( AVAILABLE ?AUTO_455 ) ( CHANNEL_FREE ?AUTO_458 ) ( AT_ROCK_SAMPLE ?AUTO_452 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_455 ) ( STORE_OF ?AUTO_454 ?AUTO_455 ) ( CAN_TRAVERSE ?AUTO_455 ?AUTO_456 ?AUTO_452 ) ( AT ?AUTO_455 ?AUTO_456 ) ( VISIBLE ?AUTO_456 ?AUTO_452 ) ( STORE_OF ?AUTO_454 ?AUTO_459 ) ( FULL ?AUTO_454 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_459 ?AUTO_454 )
+      ( GET_ROCK_DATA ?AUTO_452 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_452 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_461 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_462 - LANDER
+      ?AUTO_464 - WAYPOINT
+      ?AUTO_468 - ROVER
+      ?AUTO_466 - STORE
+      ?AUTO_463 - WAYPOINT
+      ?AUTO_465 - ROVER
+      ?AUTO_471 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_462 ?AUTO_464 ) ( VISIBLE ?AUTO_461 ?AUTO_464 ) ( AVAILABLE ?AUTO_468 ) ( CHANNEL_FREE ?AUTO_462 ) ( AT_ROCK_SAMPLE ?AUTO_461 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_468 ) ( STORE_OF ?AUTO_466 ?AUTO_468 ) ( CAN_TRAVERSE ?AUTO_468 ?AUTO_463 ?AUTO_461 ) ( VISIBLE ?AUTO_463 ?AUTO_461 ) ( STORE_OF ?AUTO_466 ?AUTO_465 ) ( FULL ?AUTO_466 ) ( CAN_TRAVERSE ?AUTO_468 ?AUTO_471 ?AUTO_463 ) ( AT ?AUTO_468 ?AUTO_471 ) ( VISIBLE ?AUTO_471 ?AUTO_463 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_468 ?AUTO_471 ?AUTO_463 )
+      ( GET_ROCK_DATA ?AUTO_461 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_461 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_473 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_481 - LANDER
+      ?AUTO_476 - WAYPOINT
+      ?AUTO_479 - ROVER
+      ?AUTO_480 - STORE
+      ?AUTO_474 - WAYPOINT
+      ?AUTO_475 - ROVER
+      ?AUTO_478 - WAYPOINT
+      ?AUTO_482 - ROVER
+      ?AUTO_484 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_481 ?AUTO_476 ) ( VISIBLE ?AUTO_473 ?AUTO_476 ) ( AVAILABLE ?AUTO_479 ) ( CHANNEL_FREE ?AUTO_481 ) ( AT_ROCK_SAMPLE ?AUTO_473 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_479 ) ( STORE_OF ?AUTO_480 ?AUTO_479 ) ( CAN_TRAVERSE ?AUTO_479 ?AUTO_474 ?AUTO_473 ) ( VISIBLE ?AUTO_474 ?AUTO_473 ) ( STORE_OF ?AUTO_480 ?AUTO_475 ) ( CAN_TRAVERSE ?AUTO_479 ?AUTO_478 ?AUTO_474 ) ( AT ?AUTO_479 ?AUTO_478 ) ( VISIBLE ?AUTO_478 ?AUTO_474 ) ( AT ?AUTO_482 ?AUTO_484 ) ( AT_ROCK_SAMPLE ?AUTO_484 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_482 ) ( STORE_OF ?AUTO_480 ?AUTO_482 ) ( EMPTY ?AUTO_480 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_482 ?AUTO_480 ?AUTO_484 )
+      ( GET_ROCK_DATA ?AUTO_473 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_473 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_487 - OBJECTIVE
+      ?AUTO_488 - MODE
+    )
+    :vars
+    (
+      ?AUTO_489 - ROVER
+      ?AUTO_492 - WAYPOINT
+      ?AUTO_491 - LANDER
+      ?AUTO_490 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_489 ?AUTO_492 ) ( AT_LANDER ?AUTO_491 ?AUTO_490 ) ( HAVE_IMAGE ?AUTO_489 ?AUTO_487 ?AUTO_488 ) ( VISIBLE ?AUTO_492 ?AUTO_490 ) ( AVAILABLE ?AUTO_489 ) ( CHANNEL_FREE ?AUTO_491 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_489 ?AUTO_491 ?AUTO_487 ?AUTO_488 ?AUTO_492 ?AUTO_490 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_487 ?AUTO_488 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_495 - OBJECTIVE
+      ?AUTO_496 - MODE
+    )
+    :vars
+    (
+      ?AUTO_501 - LANDER
+      ?AUTO_500 - WAYPOINT
+      ?AUTO_499 - ROVER
+      ?AUTO_502 - WAYPOINT
+      ?AUTO_505 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_501 ?AUTO_500 ) ( HAVE_IMAGE ?AUTO_499 ?AUTO_495 ?AUTO_496 ) ( VISIBLE ?AUTO_502 ?AUTO_500 ) ( AVAILABLE ?AUTO_499 ) ( CHANNEL_FREE ?AUTO_501 ) ( CAN_TRAVERSE ?AUTO_499 ?AUTO_505 ?AUTO_502 ) ( AT ?AUTO_499 ?AUTO_505 ) ( VISIBLE ?AUTO_505 ?AUTO_502 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_499 ?AUTO_505 ?AUTO_502 )
+      ( GET_IMAGE_DATA ?AUTO_495 ?AUTO_496 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_495 ?AUTO_496 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_510 - OBJECTIVE
+      ?AUTO_511 - MODE
+    )
+    :vars
+    (
+      ?AUTO_514 - LANDER
+      ?AUTO_515 - WAYPOINT
+      ?AUTO_518 - WAYPOINT
+      ?AUTO_513 - ROVER
+      ?AUTO_512 - WAYPOINT
+      ?AUTO_523 - CAMERA
+      ?AUTO_521 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_514 ?AUTO_515 ) ( VISIBLE ?AUTO_518 ?AUTO_515 ) ( AVAILABLE ?AUTO_513 ) ( CHANNEL_FREE ?AUTO_514 ) ( CAN_TRAVERSE ?AUTO_513 ?AUTO_512 ?AUTO_518 ) ( AT ?AUTO_513 ?AUTO_512 ) ( VISIBLE ?AUTO_512 ?AUTO_518 ) ( CALIBRATED ?AUTO_523 ?AUTO_513 ) ( ON_BOARD ?AUTO_523 ?AUTO_513 ) ( EQUIPPED_FOR_IMAGING ?AUTO_513 ) ( SUPPORTS ?AUTO_523 ?AUTO_511 ) ( VISIBLE_FROM ?AUTO_510 ?AUTO_521 ) ( AT ?AUTO_513 ?AUTO_521 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_513 ?AUTO_521 ?AUTO_510 ?AUTO_523 ?AUTO_511 )
+      ( GET_IMAGE_DATA ?AUTO_510 ?AUTO_511 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_510 ?AUTO_511 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_524 - OBJECTIVE
+      ?AUTO_525 - MODE
+    )
+    :vars
+    (
+      ?AUTO_532 - LANDER
+      ?AUTO_531 - WAYPOINT
+      ?AUTO_526 - WAYPOINT
+      ?AUTO_530 - ROVER
+      ?AUTO_529 - WAYPOINT
+      ?AUTO_534 - CAMERA
+      ?AUTO_533 - WAYPOINT
+      ?AUTO_538 - OBJECTIVE
+      ?AUTO_536 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_532 ?AUTO_531 ) ( VISIBLE ?AUTO_526 ?AUTO_531 ) ( AVAILABLE ?AUTO_530 ) ( CHANNEL_FREE ?AUTO_532 ) ( CAN_TRAVERSE ?AUTO_530 ?AUTO_529 ?AUTO_526 ) ( AT ?AUTO_530 ?AUTO_529 ) ( VISIBLE ?AUTO_529 ?AUTO_526 ) ( ON_BOARD ?AUTO_534 ?AUTO_530 ) ( EQUIPPED_FOR_IMAGING ?AUTO_530 ) ( SUPPORTS ?AUTO_534 ?AUTO_525 ) ( VISIBLE_FROM ?AUTO_524 ?AUTO_533 ) ( AT ?AUTO_530 ?AUTO_533 ) ( CALIBRATION_TARGET ?AUTO_534 ?AUTO_538 ) ( AT ?AUTO_530 ?AUTO_536 ) ( VISIBLE_FROM ?AUTO_538 ?AUTO_536 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_530 ?AUTO_534 ?AUTO_538 ?AUTO_536 )
+      ( GET_IMAGE_DATA ?AUTO_524 ?AUTO_525 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_524 ?AUTO_525 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_541 - OBJECTIVE
+      ?AUTO_542 - MODE
+    )
+    :vars
+    (
+      ?AUTO_543 - ROVER
+      ?AUTO_546 - WAYPOINT
+      ?AUTO_545 - LANDER
+      ?AUTO_544 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_543 ?AUTO_546 ) ( AT_LANDER ?AUTO_545 ?AUTO_544 ) ( HAVE_IMAGE ?AUTO_543 ?AUTO_541 ?AUTO_542 ) ( VISIBLE ?AUTO_546 ?AUTO_544 ) ( AVAILABLE ?AUTO_543 ) ( CHANNEL_FREE ?AUTO_545 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_543 ?AUTO_545 ?AUTO_541 ?AUTO_542 ?AUTO_546 ?AUTO_544 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_541 ?AUTO_542 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_553 - OBJECTIVE
+      ?AUTO_554 - MODE
+    )
+    :vars
+    (
+      ?AUTO_559 - LANDER
+      ?AUTO_557 - WAYPOINT
+      ?AUTO_555 - WAYPOINT
+      ?AUTO_558 - ROVER
+      ?AUTO_556 - WAYPOINT
+      ?AUTO_566 - CAMERA
+      ?AUTO_564 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_559 ?AUTO_557 ) ( VISIBLE ?AUTO_555 ?AUTO_557 ) ( AVAILABLE ?AUTO_558 ) ( CHANNEL_FREE ?AUTO_559 ) ( CAN_TRAVERSE ?AUTO_558 ?AUTO_556 ?AUTO_555 ) ( AT ?AUTO_558 ?AUTO_556 ) ( VISIBLE ?AUTO_556 ?AUTO_555 ) ( CALIBRATED ?AUTO_566 ?AUTO_558 ) ( ON_BOARD ?AUTO_566 ?AUTO_558 ) ( EQUIPPED_FOR_IMAGING ?AUTO_558 ) ( SUPPORTS ?AUTO_566 ?AUTO_554 ) ( VISIBLE_FROM ?AUTO_553 ?AUTO_564 ) ( AT ?AUTO_558 ?AUTO_564 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_558 ?AUTO_564 ?AUTO_553 ?AUTO_566 ?AUTO_554 )
+      ( GET_IMAGE_DATA ?AUTO_553 ?AUTO_554 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_553 ?AUTO_554 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_567 - OBJECTIVE
+      ?AUTO_568 - MODE
+    )
+    :vars
+    (
+      ?AUTO_573 - LANDER
+      ?AUTO_575 - WAYPOINT
+      ?AUTO_572 - WAYPOINT
+      ?AUTO_574 - ROVER
+      ?AUTO_571 - WAYPOINT
+      ?AUTO_577 - CAMERA
+      ?AUTO_576 - WAYPOINT
+      ?AUTO_581 - OBJECTIVE
+      ?AUTO_579 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_573 ?AUTO_575 ) ( VISIBLE ?AUTO_572 ?AUTO_575 ) ( AVAILABLE ?AUTO_574 ) ( CHANNEL_FREE ?AUTO_573 ) ( CAN_TRAVERSE ?AUTO_574 ?AUTO_571 ?AUTO_572 ) ( AT ?AUTO_574 ?AUTO_571 ) ( VISIBLE ?AUTO_571 ?AUTO_572 ) ( ON_BOARD ?AUTO_577 ?AUTO_574 ) ( EQUIPPED_FOR_IMAGING ?AUTO_574 ) ( SUPPORTS ?AUTO_577 ?AUTO_568 ) ( VISIBLE_FROM ?AUTO_567 ?AUTO_576 ) ( AT ?AUTO_574 ?AUTO_576 ) ( CALIBRATION_TARGET ?AUTO_577 ?AUTO_581 ) ( AT ?AUTO_574 ?AUTO_579 ) ( VISIBLE_FROM ?AUTO_581 ?AUTO_579 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_574 ?AUTO_577 ?AUTO_581 ?AUTO_579 )
+      ( GET_IMAGE_DATA ?AUTO_567 ?AUTO_568 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_567 ?AUTO_568 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_587 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_588 - ROVER
+      ?AUTO_591 - WAYPOINT
+      ?AUTO_590 - LANDER
+      ?AUTO_589 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_588 ?AUTO_591 ) ( AT_LANDER ?AUTO_590 ?AUTO_589 ) ( HAVE_ROCK_ANALYSIS ?AUTO_588 ?AUTO_587 ) ( VISIBLE ?AUTO_591 ?AUTO_589 ) ( AVAILABLE ?AUTO_588 ) ( CHANNEL_FREE ?AUTO_590 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_588 ?AUTO_590 ?AUTO_587 ?AUTO_591 ?AUTO_589 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_587 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_593 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_595 - LANDER
+      ?AUTO_594 - WAYPOINT
+      ?AUTO_598 - ROVER
+      ?AUTO_596 - WAYPOINT
+      ?AUTO_601 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_595 ?AUTO_594 ) ( HAVE_ROCK_ANALYSIS ?AUTO_598 ?AUTO_593 ) ( VISIBLE ?AUTO_596 ?AUTO_594 ) ( AVAILABLE ?AUTO_598 ) ( CHANNEL_FREE ?AUTO_595 ) ( CAN_TRAVERSE ?AUTO_598 ?AUTO_601 ?AUTO_596 ) ( AT ?AUTO_598 ?AUTO_601 ) ( VISIBLE ?AUTO_601 ?AUTO_596 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_598 ?AUTO_601 ?AUTO_596 )
+      ( GET_ROCK_DATA ?AUTO_593 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_593 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_602 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_603 - LANDER
+      ?AUTO_605 - WAYPOINT
+      ?AUTO_606 - WAYPOINT
+      ?AUTO_607 - ROVER
+      ?AUTO_608 - WAYPOINT
+      ?AUTO_610 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_603 ?AUTO_605 ) ( VISIBLE ?AUTO_606 ?AUTO_605 ) ( AVAILABLE ?AUTO_607 ) ( CHANNEL_FREE ?AUTO_603 ) ( CAN_TRAVERSE ?AUTO_607 ?AUTO_608 ?AUTO_606 ) ( AT ?AUTO_607 ?AUTO_608 ) ( VISIBLE ?AUTO_608 ?AUTO_606 ) ( AT ?AUTO_607 ?AUTO_602 ) ( AT_ROCK_SAMPLE ?AUTO_602 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_607 ) ( STORE_OF ?AUTO_610 ?AUTO_607 ) ( EMPTY ?AUTO_610 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_607 ?AUTO_610 ?AUTO_602 )
+      ( GET_ROCK_DATA ?AUTO_602 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_602 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_612 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_619 - LANDER
+      ?AUTO_614 - WAYPOINT
+      ?AUTO_615 - WAYPOINT
+      ?AUTO_617 - ROVER
+      ?AUTO_616 - STORE
+      ?AUTO_622 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_619 ?AUTO_614 ) ( VISIBLE ?AUTO_615 ?AUTO_614 ) ( AVAILABLE ?AUTO_617 ) ( CHANNEL_FREE ?AUTO_619 ) ( CAN_TRAVERSE ?AUTO_617 ?AUTO_612 ?AUTO_615 ) ( VISIBLE ?AUTO_612 ?AUTO_615 ) ( AT_ROCK_SAMPLE ?AUTO_612 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_617 ) ( STORE_OF ?AUTO_616 ?AUTO_617 ) ( EMPTY ?AUTO_616 ) ( CAN_TRAVERSE ?AUTO_617 ?AUTO_622 ?AUTO_612 ) ( AT ?AUTO_617 ?AUTO_622 ) ( VISIBLE ?AUTO_622 ?AUTO_612 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_617 ?AUTO_622 ?AUTO_612 )
+      ( GET_ROCK_DATA ?AUTO_612 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_612 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_625 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_631 - LANDER
+      ?AUTO_627 - WAYPOINT
+      ?AUTO_626 - WAYPOINT
+      ?AUTO_630 - ROVER
+      ?AUTO_629 - STORE
+      ?AUTO_628 - WAYPOINT
+      ?AUTO_635 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_631 ?AUTO_627 ) ( VISIBLE ?AUTO_626 ?AUTO_627 ) ( AVAILABLE ?AUTO_630 ) ( CHANNEL_FREE ?AUTO_631 ) ( CAN_TRAVERSE ?AUTO_630 ?AUTO_625 ?AUTO_626 ) ( VISIBLE ?AUTO_625 ?AUTO_626 ) ( AT_ROCK_SAMPLE ?AUTO_625 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_630 ) ( STORE_OF ?AUTO_629 ?AUTO_630 ) ( EMPTY ?AUTO_629 ) ( CAN_TRAVERSE ?AUTO_630 ?AUTO_628 ?AUTO_625 ) ( VISIBLE ?AUTO_628 ?AUTO_625 ) ( CAN_TRAVERSE ?AUTO_630 ?AUTO_635 ?AUTO_628 ) ( AT ?AUTO_630 ?AUTO_635 ) ( VISIBLE ?AUTO_635 ?AUTO_628 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_630 ?AUTO_635 ?AUTO_628 )
+      ( GET_ROCK_DATA ?AUTO_625 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_625 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_638 - OBJECTIVE
+      ?AUTO_639 - MODE
+    )
+    :vars
+    (
+      ?AUTO_640 - ROVER
+      ?AUTO_643 - WAYPOINT
+      ?AUTO_642 - LANDER
+      ?AUTO_641 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_640 ?AUTO_643 ) ( AT_LANDER ?AUTO_642 ?AUTO_641 ) ( HAVE_IMAGE ?AUTO_640 ?AUTO_638 ?AUTO_639 ) ( VISIBLE ?AUTO_643 ?AUTO_641 ) ( AVAILABLE ?AUTO_640 ) ( CHANNEL_FREE ?AUTO_642 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_640 ?AUTO_642 ?AUTO_638 ?AUTO_639 ?AUTO_643 ?AUTO_641 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_638 ?AUTO_639 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_646 - OBJECTIVE
+      ?AUTO_647 - MODE
+    )
+    :vars
+    (
+      ?AUTO_650 - ROVER
+      ?AUTO_653 - WAYPOINT
+      ?AUTO_652 - LANDER
+      ?AUTO_651 - WAYPOINT
+      ?AUTO_658 - CAMERA
+      ?AUTO_656 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_650 ?AUTO_653 ) ( AT_LANDER ?AUTO_652 ?AUTO_651 ) ( VISIBLE ?AUTO_653 ?AUTO_651 ) ( AVAILABLE ?AUTO_650 ) ( CHANNEL_FREE ?AUTO_652 ) ( CALIBRATED ?AUTO_658 ?AUTO_650 ) ( ON_BOARD ?AUTO_658 ?AUTO_650 ) ( EQUIPPED_FOR_IMAGING ?AUTO_650 ) ( SUPPORTS ?AUTO_658 ?AUTO_647 ) ( VISIBLE_FROM ?AUTO_646 ?AUTO_656 ) ( AT ?AUTO_650 ?AUTO_656 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_650 ?AUTO_656 ?AUTO_646 ?AUTO_658 ?AUTO_647 )
+      ( GET_IMAGE_DATA ?AUTO_646 ?AUTO_647 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_646 ?AUTO_647 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_659 - OBJECTIVE
+      ?AUTO_660 - MODE
+    )
+    :vars
+    (
+      ?AUTO_664 - ROVER
+      ?AUTO_661 - WAYPOINT
+      ?AUTO_666 - LANDER
+      ?AUTO_665 - WAYPOINT
+      ?AUTO_668 - CAMERA
+      ?AUTO_667 - WAYPOINT
+      ?AUTO_672 - OBJECTIVE
+      ?AUTO_670 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_664 ?AUTO_661 ) ( AT_LANDER ?AUTO_666 ?AUTO_665 ) ( VISIBLE ?AUTO_661 ?AUTO_665 ) ( AVAILABLE ?AUTO_664 ) ( CHANNEL_FREE ?AUTO_666 ) ( ON_BOARD ?AUTO_668 ?AUTO_664 ) ( EQUIPPED_FOR_IMAGING ?AUTO_664 ) ( SUPPORTS ?AUTO_668 ?AUTO_660 ) ( VISIBLE_FROM ?AUTO_659 ?AUTO_667 ) ( AT ?AUTO_664 ?AUTO_667 ) ( CALIBRATION_TARGET ?AUTO_668 ?AUTO_672 ) ( AT ?AUTO_664 ?AUTO_670 ) ( VISIBLE_FROM ?AUTO_672 ?AUTO_670 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_664 ?AUTO_668 ?AUTO_672 ?AUTO_670 )
+      ( GET_IMAGE_DATA ?AUTO_659 ?AUTO_660 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_659 ?AUTO_660 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_674 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_675 - ROVER
+      ?AUTO_678 - WAYPOINT
+      ?AUTO_677 - LANDER
+      ?AUTO_676 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_675 ?AUTO_678 ) ( AT_LANDER ?AUTO_677 ?AUTO_676 ) ( HAVE_ROCK_ANALYSIS ?AUTO_675 ?AUTO_674 ) ( VISIBLE ?AUTO_678 ?AUTO_676 ) ( AVAILABLE ?AUTO_675 ) ( CHANNEL_FREE ?AUTO_677 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_675 ?AUTO_677 ?AUTO_674 ?AUTO_678 ?AUTO_676 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_674 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_680 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_683 - LANDER
+      ?AUTO_682 - WAYPOINT
+      ?AUTO_681 - ROVER
+      ?AUTO_685 - WAYPOINT
+      ?AUTO_688 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_683 ?AUTO_682 ) ( HAVE_ROCK_ANALYSIS ?AUTO_681 ?AUTO_680 ) ( VISIBLE ?AUTO_685 ?AUTO_682 ) ( AVAILABLE ?AUTO_681 ) ( CHANNEL_FREE ?AUTO_683 ) ( CAN_TRAVERSE ?AUTO_681 ?AUTO_688 ?AUTO_685 ) ( AT ?AUTO_681 ?AUTO_688 ) ( VISIBLE ?AUTO_688 ?AUTO_685 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_681 ?AUTO_688 ?AUTO_685 )
+      ( GET_ROCK_DATA ?AUTO_680 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_680 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_689 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_690 - LANDER
+      ?AUTO_692 - WAYPOINT
+      ?AUTO_694 - WAYPOINT
+      ?AUTO_691 - ROVER
+      ?AUTO_695 - WAYPOINT
+      ?AUTO_697 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_690 ?AUTO_692 ) ( VISIBLE ?AUTO_694 ?AUTO_692 ) ( AVAILABLE ?AUTO_691 ) ( CHANNEL_FREE ?AUTO_690 ) ( CAN_TRAVERSE ?AUTO_691 ?AUTO_695 ?AUTO_694 ) ( AT ?AUTO_691 ?AUTO_695 ) ( VISIBLE ?AUTO_695 ?AUTO_694 ) ( AT ?AUTO_691 ?AUTO_689 ) ( AT_ROCK_SAMPLE ?AUTO_689 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_691 ) ( STORE_OF ?AUTO_697 ?AUTO_691 ) ( EMPTY ?AUTO_697 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_691 ?AUTO_697 ?AUTO_689 )
+      ( GET_ROCK_DATA ?AUTO_689 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_689 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_699 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_704 - LANDER
+      ?AUTO_705 - WAYPOINT
+      ?AUTO_702 - WAYPOINT
+      ?AUTO_701 - ROVER
+      ?AUTO_706 - STORE
+      ?AUTO_709 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_704 ?AUTO_705 ) ( VISIBLE ?AUTO_702 ?AUTO_705 ) ( AVAILABLE ?AUTO_701 ) ( CHANNEL_FREE ?AUTO_704 ) ( CAN_TRAVERSE ?AUTO_701 ?AUTO_699 ?AUTO_702 ) ( VISIBLE ?AUTO_699 ?AUTO_702 ) ( AT_ROCK_SAMPLE ?AUTO_699 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_701 ) ( STORE_OF ?AUTO_706 ?AUTO_701 ) ( EMPTY ?AUTO_706 ) ( CAN_TRAVERSE ?AUTO_701 ?AUTO_709 ?AUTO_699 ) ( AT ?AUTO_701 ?AUTO_709 ) ( VISIBLE ?AUTO_709 ?AUTO_699 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_701 ?AUTO_709 ?AUTO_699 )
+      ( GET_ROCK_DATA ?AUTO_699 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_699 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_716 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_717 - ROVER
+      ?AUTO_720 - WAYPOINT
+      ?AUTO_719 - LANDER
+      ?AUTO_718 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_717 ?AUTO_720 ) ( AT_LANDER ?AUTO_719 ?AUTO_718 ) ( HAVE_SOIL_ANALYSIS ?AUTO_717 ?AUTO_716 ) ( VISIBLE ?AUTO_720 ?AUTO_718 ) ( AVAILABLE ?AUTO_717 ) ( CHANNEL_FREE ?AUTO_719 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_717 ?AUTO_719 ?AUTO_716 ?AUTO_720 ?AUTO_718 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_716 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_722 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_724 - ROVER
+      ?AUTO_727 - WAYPOINT
+      ?AUTO_726 - LANDER
+      ?AUTO_725 - WAYPOINT
+      ?AUTO_729 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_724 ?AUTO_727 ) ( AT_LANDER ?AUTO_726 ?AUTO_725 ) ( VISIBLE ?AUTO_727 ?AUTO_725 ) ( AVAILABLE ?AUTO_724 ) ( CHANNEL_FREE ?AUTO_726 ) ( AT ?AUTO_724 ?AUTO_722 ) ( AT_SOIL_SAMPLE ?AUTO_722 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_724 ) ( STORE_OF ?AUTO_729 ?AUTO_724 ) ( EMPTY ?AUTO_729 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_724 ?AUTO_729 ?AUTO_722 )
+      ( GET_SOIL_DATA ?AUTO_722 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_722 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_735 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_739 - LANDER
+      ?AUTO_738 - WAYPOINT
+      ?AUTO_737 - ROVER
+      ?AUTO_740 - STORE
+      ?AUTO_744 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_739 ?AUTO_738 ) ( VISIBLE ?AUTO_735 ?AUTO_738 ) ( AVAILABLE ?AUTO_737 ) ( CHANNEL_FREE ?AUTO_739 ) ( AT_SOIL_SAMPLE ?AUTO_735 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_737 ) ( STORE_OF ?AUTO_740 ?AUTO_737 ) ( EMPTY ?AUTO_740 ) ( CAN_TRAVERSE ?AUTO_737 ?AUTO_744 ?AUTO_735 ) ( AT ?AUTO_737 ?AUTO_744 ) ( VISIBLE ?AUTO_744 ?AUTO_735 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_737 ?AUTO_744 ?AUTO_735 )
+      ( GET_SOIL_DATA ?AUTO_735 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_735 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_745 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_749 - LANDER
+      ?AUTO_750 - WAYPOINT
+      ?AUTO_747 - ROVER
+      ?AUTO_748 - STORE
+      ?AUTO_751 - WAYPOINT
+      ?AUTO_754 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_749 ?AUTO_750 ) ( VISIBLE ?AUTO_745 ?AUTO_750 ) ( AVAILABLE ?AUTO_747 ) ( CHANNEL_FREE ?AUTO_749 ) ( AT_SOIL_SAMPLE ?AUTO_745 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_747 ) ( STORE_OF ?AUTO_748 ?AUTO_747 ) ( EMPTY ?AUTO_748 ) ( CAN_TRAVERSE ?AUTO_747 ?AUTO_751 ?AUTO_745 ) ( VISIBLE ?AUTO_751 ?AUTO_745 ) ( CAN_TRAVERSE ?AUTO_747 ?AUTO_754 ?AUTO_751 ) ( AT ?AUTO_747 ?AUTO_754 ) ( VISIBLE ?AUTO_754 ?AUTO_751 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_747 ?AUTO_754 ?AUTO_751 )
+      ( GET_SOIL_DATA ?AUTO_745 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_745 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_759 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_760 - ROVER
+      ?AUTO_763 - WAYPOINT
+      ?AUTO_762 - LANDER
+      ?AUTO_761 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_760 ?AUTO_763 ) ( AT_LANDER ?AUTO_762 ?AUTO_761 ) ( HAVE_SOIL_ANALYSIS ?AUTO_760 ?AUTO_759 ) ( VISIBLE ?AUTO_763 ?AUTO_761 ) ( AVAILABLE ?AUTO_760 ) ( CHANNEL_FREE ?AUTO_762 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_760 ?AUTO_762 ?AUTO_759 ?AUTO_763 ?AUTO_761 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_759 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_765 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_769 - LANDER
+      ?AUTO_768 - WAYPOINT
+      ?AUTO_767 - ROVER
+      ?AUTO_770 - WAYPOINT
+      ?AUTO_773 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_769 ?AUTO_768 ) ( HAVE_SOIL_ANALYSIS ?AUTO_767 ?AUTO_765 ) ( VISIBLE ?AUTO_770 ?AUTO_768 ) ( AVAILABLE ?AUTO_767 ) ( CHANNEL_FREE ?AUTO_769 ) ( CAN_TRAVERSE ?AUTO_767 ?AUTO_773 ?AUTO_770 ) ( AT ?AUTO_767 ?AUTO_773 ) ( VISIBLE ?AUTO_773 ?AUTO_770 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_767 ?AUTO_773 ?AUTO_770 )
+      ( GET_SOIL_DATA ?AUTO_765 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_765 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_774 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_779 - LANDER
+      ?AUTO_776 - WAYPOINT
+      ?AUTO_778 - WAYPOINT
+      ?AUTO_777 - ROVER
+      ?AUTO_780 - WAYPOINT
+      ?AUTO_782 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_779 ?AUTO_776 ) ( VISIBLE ?AUTO_778 ?AUTO_776 ) ( AVAILABLE ?AUTO_777 ) ( CHANNEL_FREE ?AUTO_779 ) ( CAN_TRAVERSE ?AUTO_777 ?AUTO_780 ?AUTO_778 ) ( AT ?AUTO_777 ?AUTO_780 ) ( VISIBLE ?AUTO_780 ?AUTO_778 ) ( AT ?AUTO_777 ?AUTO_774 ) ( AT_SOIL_SAMPLE ?AUTO_774 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_777 ) ( STORE_OF ?AUTO_782 ?AUTO_777 ) ( EMPTY ?AUTO_782 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_777 ?AUTO_782 ?AUTO_774 )
+      ( GET_SOIL_DATA ?AUTO_774 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_774 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_784 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_788 - LANDER
+      ?AUTO_787 - WAYPOINT
+      ?AUTO_786 - WAYPOINT
+      ?AUTO_790 - ROVER
+      ?AUTO_791 - STORE
+      ?AUTO_794 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_788 ?AUTO_787 ) ( VISIBLE ?AUTO_786 ?AUTO_787 ) ( AVAILABLE ?AUTO_790 ) ( CHANNEL_FREE ?AUTO_788 ) ( CAN_TRAVERSE ?AUTO_790 ?AUTO_784 ?AUTO_786 ) ( VISIBLE ?AUTO_784 ?AUTO_786 ) ( AT_SOIL_SAMPLE ?AUTO_784 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_790 ) ( STORE_OF ?AUTO_791 ?AUTO_790 ) ( EMPTY ?AUTO_791 ) ( CAN_TRAVERSE ?AUTO_790 ?AUTO_794 ?AUTO_784 ) ( AT ?AUTO_790 ?AUTO_794 ) ( VISIBLE ?AUTO_794 ?AUTO_784 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_790 ?AUTO_794 ?AUTO_784 )
+      ( GET_SOIL_DATA ?AUTO_784 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_784 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_795 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_798 - LANDER
+      ?AUTO_799 - WAYPOINT
+      ?AUTO_801 - WAYPOINT
+      ?AUTO_800 - ROVER
+      ?AUTO_802 - STORE
+      ?AUTO_797 - WAYPOINT
+      ?AUTO_803 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_798 ?AUTO_799 ) ( VISIBLE ?AUTO_801 ?AUTO_799 ) ( AVAILABLE ?AUTO_800 ) ( CHANNEL_FREE ?AUTO_798 ) ( CAN_TRAVERSE ?AUTO_800 ?AUTO_795 ?AUTO_801 ) ( VISIBLE ?AUTO_795 ?AUTO_801 ) ( AT_SOIL_SAMPLE ?AUTO_795 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_800 ) ( STORE_OF ?AUTO_802 ?AUTO_800 ) ( CAN_TRAVERSE ?AUTO_800 ?AUTO_797 ?AUTO_795 ) ( AT ?AUTO_800 ?AUTO_797 ) ( VISIBLE ?AUTO_797 ?AUTO_795 ) ( STORE_OF ?AUTO_802 ?AUTO_803 ) ( FULL ?AUTO_802 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_803 ?AUTO_802 )
+      ( GET_SOIL_DATA ?AUTO_795 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_795 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_811 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_816 - LANDER
+      ?AUTO_812 - WAYPOINT
+      ?AUTO_813 - WAYPOINT
+      ?AUTO_814 - ROVER
+      ?AUTO_818 - STORE
+      ?AUTO_817 - WAYPOINT
+      ?AUTO_821 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_816 ?AUTO_812 ) ( VISIBLE ?AUTO_813 ?AUTO_812 ) ( AVAILABLE ?AUTO_814 ) ( CHANNEL_FREE ?AUTO_816 ) ( CAN_TRAVERSE ?AUTO_814 ?AUTO_811 ?AUTO_813 ) ( VISIBLE ?AUTO_811 ?AUTO_813 ) ( AT_SOIL_SAMPLE ?AUTO_811 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_814 ) ( STORE_OF ?AUTO_818 ?AUTO_814 ) ( EMPTY ?AUTO_818 ) ( CAN_TRAVERSE ?AUTO_814 ?AUTO_817 ?AUTO_811 ) ( VISIBLE ?AUTO_817 ?AUTO_811 ) ( CAN_TRAVERSE ?AUTO_814 ?AUTO_821 ?AUTO_817 ) ( AT ?AUTO_814 ?AUTO_821 ) ( VISIBLE ?AUTO_821 ?AUTO_817 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_814 ?AUTO_821 ?AUTO_817 )
+      ( GET_SOIL_DATA ?AUTO_811 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_811 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_822 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_829 - LANDER
+      ?AUTO_825 - WAYPOINT
+      ?AUTO_826 - WAYPOINT
+      ?AUTO_828 - ROVER
+      ?AUTO_824 - STORE
+      ?AUTO_827 - WAYPOINT
+      ?AUTO_830 - WAYPOINT
+      ?AUTO_833 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_829 ?AUTO_825 ) ( VISIBLE ?AUTO_826 ?AUTO_825 ) ( AVAILABLE ?AUTO_828 ) ( CHANNEL_FREE ?AUTO_829 ) ( CAN_TRAVERSE ?AUTO_828 ?AUTO_822 ?AUTO_826 ) ( VISIBLE ?AUTO_822 ?AUTO_826 ) ( AT_SOIL_SAMPLE ?AUTO_822 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_828 ) ( STORE_OF ?AUTO_824 ?AUTO_828 ) ( EMPTY ?AUTO_824 ) ( CAN_TRAVERSE ?AUTO_828 ?AUTO_827 ?AUTO_822 ) ( VISIBLE ?AUTO_827 ?AUTO_822 ) ( CAN_TRAVERSE ?AUTO_828 ?AUTO_830 ?AUTO_827 ) ( VISIBLE ?AUTO_830 ?AUTO_827 ) ( CAN_TRAVERSE ?AUTO_828 ?AUTO_833 ?AUTO_830 ) ( AT ?AUTO_828 ?AUTO_833 ) ( VISIBLE ?AUTO_833 ?AUTO_830 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_828 ?AUTO_833 ?AUTO_830 )
+      ( GET_SOIL_DATA ?AUTO_822 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_822 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_835 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_836 - ROVER
+      ?AUTO_839 - WAYPOINT
+      ?AUTO_838 - LANDER
+      ?AUTO_837 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_836 ?AUTO_839 ) ( AT_LANDER ?AUTO_838 ?AUTO_837 ) ( HAVE_SOIL_ANALYSIS ?AUTO_836 ?AUTO_835 ) ( VISIBLE ?AUTO_839 ?AUTO_837 ) ( AVAILABLE ?AUTO_836 ) ( CHANNEL_FREE ?AUTO_838 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_836 ?AUTO_838 ?AUTO_835 ?AUTO_839 ?AUTO_837 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_835 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_841 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_843 - ROVER
+      ?AUTO_846 - WAYPOINT
+      ?AUTO_845 - LANDER
+      ?AUTO_844 - WAYPOINT
+      ?AUTO_848 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_843 ?AUTO_846 ) ( AT_LANDER ?AUTO_845 ?AUTO_844 ) ( VISIBLE ?AUTO_846 ?AUTO_844 ) ( AVAILABLE ?AUTO_843 ) ( CHANNEL_FREE ?AUTO_845 ) ( AT ?AUTO_843 ?AUTO_841 ) ( AT_SOIL_SAMPLE ?AUTO_841 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_843 ) ( STORE_OF ?AUTO_848 ?AUTO_843 ) ( EMPTY ?AUTO_848 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_843 ?AUTO_848 ?AUTO_841 )
+      ( GET_SOIL_DATA ?AUTO_841 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_841 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_850 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_854 - LANDER
+      ?AUTO_855 - WAYPOINT
+      ?AUTO_852 - ROVER
+      ?AUTO_856 - STORE
+      ?AUTO_859 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_854 ?AUTO_855 ) ( VISIBLE ?AUTO_850 ?AUTO_855 ) ( AVAILABLE ?AUTO_852 ) ( CHANNEL_FREE ?AUTO_854 ) ( AT_SOIL_SAMPLE ?AUTO_850 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_852 ) ( STORE_OF ?AUTO_856 ?AUTO_852 ) ( EMPTY ?AUTO_856 ) ( CAN_TRAVERSE ?AUTO_852 ?AUTO_859 ?AUTO_850 ) ( AT ?AUTO_852 ?AUTO_859 ) ( VISIBLE ?AUTO_859 ?AUTO_850 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_852 ?AUTO_859 ?AUTO_850 )
+      ( GET_SOIL_DATA ?AUTO_850 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_850 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_863 - OBJECTIVE
+      ?AUTO_864 - MODE
+    )
+    :vars
+    (
+      ?AUTO_865 - ROVER
+      ?AUTO_868 - WAYPOINT
+      ?AUTO_867 - LANDER
+      ?AUTO_866 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_865 ?AUTO_868 ) ( AT_LANDER ?AUTO_867 ?AUTO_866 ) ( HAVE_IMAGE ?AUTO_865 ?AUTO_863 ?AUTO_864 ) ( VISIBLE ?AUTO_868 ?AUTO_866 ) ( AVAILABLE ?AUTO_865 ) ( CHANNEL_FREE ?AUTO_867 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_865 ?AUTO_867 ?AUTO_863 ?AUTO_864 ?AUTO_868 ?AUTO_866 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_863 ?AUTO_864 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_871 - OBJECTIVE
+      ?AUTO_872 - MODE
+    )
+    :vars
+    (
+      ?AUTO_877 - LANDER
+      ?AUTO_876 - WAYPOINT
+      ?AUTO_875 - ROVER
+      ?AUTO_878 - WAYPOINT
+      ?AUTO_881 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_877 ?AUTO_876 ) ( HAVE_IMAGE ?AUTO_875 ?AUTO_871 ?AUTO_872 ) ( VISIBLE ?AUTO_878 ?AUTO_876 ) ( AVAILABLE ?AUTO_875 ) ( CHANNEL_FREE ?AUTO_877 ) ( CAN_TRAVERSE ?AUTO_875 ?AUTO_881 ?AUTO_878 ) ( AT ?AUTO_875 ?AUTO_881 ) ( VISIBLE ?AUTO_881 ?AUTO_878 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_875 ?AUTO_881 ?AUTO_878 )
+      ( GET_IMAGE_DATA ?AUTO_871 ?AUTO_872 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_871 ?AUTO_872 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_882 - OBJECTIVE
+      ?AUTO_883 - MODE
+    )
+    :vars
+    (
+      ?AUTO_888 - LANDER
+      ?AUTO_887 - WAYPOINT
+      ?AUTO_884 - WAYPOINT
+      ?AUTO_889 - ROVER
+      ?AUTO_890 - WAYPOINT
+      ?AUTO_895 - CAMERA
+      ?AUTO_893 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_888 ?AUTO_887 ) ( VISIBLE ?AUTO_884 ?AUTO_887 ) ( AVAILABLE ?AUTO_889 ) ( CHANNEL_FREE ?AUTO_888 ) ( CAN_TRAVERSE ?AUTO_889 ?AUTO_890 ?AUTO_884 ) ( AT ?AUTO_889 ?AUTO_890 ) ( VISIBLE ?AUTO_890 ?AUTO_884 ) ( CALIBRATED ?AUTO_895 ?AUTO_889 ) ( ON_BOARD ?AUTO_895 ?AUTO_889 ) ( EQUIPPED_FOR_IMAGING ?AUTO_889 ) ( SUPPORTS ?AUTO_895 ?AUTO_883 ) ( VISIBLE_FROM ?AUTO_882 ?AUTO_893 ) ( AT ?AUTO_889 ?AUTO_893 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_889 ?AUTO_893 ?AUTO_882 ?AUTO_895 ?AUTO_883 )
+      ( GET_IMAGE_DATA ?AUTO_882 ?AUTO_883 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_882 ?AUTO_883 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_896 - OBJECTIVE
+      ?AUTO_897 - MODE
+    )
+    :vars
+    (
+      ?AUTO_898 - LANDER
+      ?AUTO_900 - WAYPOINT
+      ?AUTO_903 - WAYPOINT
+      ?AUTO_902 - ROVER
+      ?AUTO_905 - WAYPOINT
+      ?AUTO_906 - CAMERA
+      ?AUTO_909 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_898 ?AUTO_900 ) ( VISIBLE ?AUTO_903 ?AUTO_900 ) ( AVAILABLE ?AUTO_902 ) ( CHANNEL_FREE ?AUTO_898 ) ( CAN_TRAVERSE ?AUTO_902 ?AUTO_905 ?AUTO_903 ) ( VISIBLE ?AUTO_905 ?AUTO_903 ) ( CALIBRATED ?AUTO_906 ?AUTO_902 ) ( ON_BOARD ?AUTO_906 ?AUTO_902 ) ( EQUIPPED_FOR_IMAGING ?AUTO_902 ) ( SUPPORTS ?AUTO_906 ?AUTO_897 ) ( VISIBLE_FROM ?AUTO_896 ?AUTO_905 ) ( CAN_TRAVERSE ?AUTO_902 ?AUTO_909 ?AUTO_905 ) ( AT ?AUTO_902 ?AUTO_909 ) ( VISIBLE ?AUTO_909 ?AUTO_905 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_902 ?AUTO_909 ?AUTO_905 )
+      ( GET_IMAGE_DATA ?AUTO_896 ?AUTO_897 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_896 ?AUTO_897 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_914 - OBJECTIVE
+      ?AUTO_915 - MODE
+    )
+    :vars
+    (
+      ?AUTO_917 - LANDER
+      ?AUTO_921 - WAYPOINT
+      ?AUTO_919 - WAYPOINT
+      ?AUTO_923 - ROVER
+      ?AUTO_918 - WAYPOINT
+      ?AUTO_920 - CAMERA
+      ?AUTO_922 - WAYPOINT
+      ?AUTO_927 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_917 ?AUTO_921 ) ( VISIBLE ?AUTO_919 ?AUTO_921 ) ( AVAILABLE ?AUTO_923 ) ( CHANNEL_FREE ?AUTO_917 ) ( CAN_TRAVERSE ?AUTO_923 ?AUTO_918 ?AUTO_919 ) ( VISIBLE ?AUTO_918 ?AUTO_919 ) ( CALIBRATED ?AUTO_920 ?AUTO_923 ) ( ON_BOARD ?AUTO_920 ?AUTO_923 ) ( EQUIPPED_FOR_IMAGING ?AUTO_923 ) ( SUPPORTS ?AUTO_920 ?AUTO_915 ) ( VISIBLE_FROM ?AUTO_914 ?AUTO_918 ) ( CAN_TRAVERSE ?AUTO_923 ?AUTO_922 ?AUTO_918 ) ( VISIBLE ?AUTO_922 ?AUTO_918 ) ( CAN_TRAVERSE ?AUTO_923 ?AUTO_927 ?AUTO_922 ) ( AT ?AUTO_923 ?AUTO_927 ) ( VISIBLE ?AUTO_927 ?AUTO_922 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_923 ?AUTO_927 ?AUTO_922 )
+      ( GET_IMAGE_DATA ?AUTO_914 ?AUTO_915 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_914 ?AUTO_915 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_928 - OBJECTIVE
+      ?AUTO_929 - MODE
+    )
+    :vars
+    (
+      ?AUTO_939 - LANDER
+      ?AUTO_934 - WAYPOINT
+      ?AUTO_935 - WAYPOINT
+      ?AUTO_932 - ROVER
+      ?AUTO_936 - WAYPOINT
+      ?AUTO_931 - CAMERA
+      ?AUTO_933 - WAYPOINT
+      ?AUTO_930 - WAYPOINT
+      ?AUTO_943 - OBJECTIVE
+      ?AUTO_941 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_939 ?AUTO_934 ) ( VISIBLE ?AUTO_935 ?AUTO_934 ) ( AVAILABLE ?AUTO_932 ) ( CHANNEL_FREE ?AUTO_939 ) ( CAN_TRAVERSE ?AUTO_932 ?AUTO_936 ?AUTO_935 ) ( VISIBLE ?AUTO_936 ?AUTO_935 ) ( ON_BOARD ?AUTO_931 ?AUTO_932 ) ( EQUIPPED_FOR_IMAGING ?AUTO_932 ) ( SUPPORTS ?AUTO_931 ?AUTO_929 ) ( VISIBLE_FROM ?AUTO_928 ?AUTO_936 ) ( CAN_TRAVERSE ?AUTO_932 ?AUTO_933 ?AUTO_936 ) ( VISIBLE ?AUTO_933 ?AUTO_936 ) ( CAN_TRAVERSE ?AUTO_932 ?AUTO_930 ?AUTO_933 ) ( AT ?AUTO_932 ?AUTO_930 ) ( VISIBLE ?AUTO_930 ?AUTO_933 ) ( CALIBRATION_TARGET ?AUTO_931 ?AUTO_943 ) ( AT ?AUTO_932 ?AUTO_941 ) ( VISIBLE_FROM ?AUTO_943 ?AUTO_941 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_932 ?AUTO_931 ?AUTO_943 ?AUTO_941 )
+      ( GET_IMAGE_DATA ?AUTO_928 ?AUTO_929 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_928 ?AUTO_929 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_945 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_946 - ROVER
+      ?AUTO_949 - WAYPOINT
+      ?AUTO_948 - LANDER
+      ?AUTO_947 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_946 ?AUTO_949 ) ( AT_LANDER ?AUTO_948 ?AUTO_947 ) ( HAVE_SOIL_ANALYSIS ?AUTO_946 ?AUTO_945 ) ( VISIBLE ?AUTO_949 ?AUTO_947 ) ( AVAILABLE ?AUTO_946 ) ( CHANNEL_FREE ?AUTO_948 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_946 ?AUTO_948 ?AUTO_945 ?AUTO_949 ?AUTO_947 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_945 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_951 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_955 - LANDER
+      ?AUTO_954 - WAYPOINT
+      ?AUTO_953 - ROVER
+      ?AUTO_956 - WAYPOINT
+      ?AUTO_959 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_955 ?AUTO_954 ) ( HAVE_SOIL_ANALYSIS ?AUTO_953 ?AUTO_951 ) ( VISIBLE ?AUTO_956 ?AUTO_954 ) ( AVAILABLE ?AUTO_953 ) ( CHANNEL_FREE ?AUTO_955 ) ( CAN_TRAVERSE ?AUTO_953 ?AUTO_959 ?AUTO_956 ) ( AT ?AUTO_953 ?AUTO_959 ) ( VISIBLE ?AUTO_959 ?AUTO_956 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_953 ?AUTO_959 ?AUTO_956 )
+      ( GET_SOIL_DATA ?AUTO_951 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_951 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_963 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_964 - LANDER
+      ?AUTO_969 - WAYPOINT
+      ?AUTO_968 - WAYPOINT
+      ?AUTO_966 - ROVER
+      ?AUTO_967 - WAYPOINT
+      ?AUTO_971 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_964 ?AUTO_969 ) ( VISIBLE ?AUTO_968 ?AUTO_969 ) ( AVAILABLE ?AUTO_966 ) ( CHANNEL_FREE ?AUTO_964 ) ( CAN_TRAVERSE ?AUTO_966 ?AUTO_967 ?AUTO_968 ) ( AT ?AUTO_966 ?AUTO_967 ) ( VISIBLE ?AUTO_967 ?AUTO_968 ) ( AT ?AUTO_966 ?AUTO_963 ) ( AT_SOIL_SAMPLE ?AUTO_963 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_966 ) ( STORE_OF ?AUTO_971 ?AUTO_966 ) ( EMPTY ?AUTO_971 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_966 ?AUTO_971 ?AUTO_963 )
+      ( GET_SOIL_DATA ?AUTO_963 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_963 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_974 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_975 - LANDER
+      ?AUTO_980 - WAYPOINT
+      ?AUTO_979 - WAYPOINT
+      ?AUTO_977 - ROVER
+      ?AUTO_976 - STORE
+      ?AUTO_984 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_975 ?AUTO_980 ) ( VISIBLE ?AUTO_979 ?AUTO_980 ) ( AVAILABLE ?AUTO_977 ) ( CHANNEL_FREE ?AUTO_975 ) ( CAN_TRAVERSE ?AUTO_977 ?AUTO_974 ?AUTO_979 ) ( VISIBLE ?AUTO_974 ?AUTO_979 ) ( AT_SOIL_SAMPLE ?AUTO_974 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_977 ) ( STORE_OF ?AUTO_976 ?AUTO_977 ) ( EMPTY ?AUTO_976 ) ( CAN_TRAVERSE ?AUTO_977 ?AUTO_984 ?AUTO_974 ) ( AT ?AUTO_977 ?AUTO_984 ) ( VISIBLE ?AUTO_984 ?AUTO_974 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_977 ?AUTO_984 ?AUTO_974 )
+      ( GET_SOIL_DATA ?AUTO_974 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_974 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_985 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_988 - LANDER
+      ?AUTO_990 - WAYPOINT
+      ?AUTO_987 - WAYPOINT
+      ?AUTO_989 - ROVER
+      ?AUTO_991 - STORE
+      ?AUTO_992 - WAYPOINT
+      ?AUTO_995 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_988 ?AUTO_990 ) ( VISIBLE ?AUTO_987 ?AUTO_990 ) ( AVAILABLE ?AUTO_989 ) ( CHANNEL_FREE ?AUTO_988 ) ( CAN_TRAVERSE ?AUTO_989 ?AUTO_985 ?AUTO_987 ) ( VISIBLE ?AUTO_985 ?AUTO_987 ) ( AT_SOIL_SAMPLE ?AUTO_985 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_989 ) ( STORE_OF ?AUTO_991 ?AUTO_989 ) ( EMPTY ?AUTO_991 ) ( CAN_TRAVERSE ?AUTO_989 ?AUTO_992 ?AUTO_985 ) ( VISIBLE ?AUTO_992 ?AUTO_985 ) ( CAN_TRAVERSE ?AUTO_989 ?AUTO_995 ?AUTO_992 ) ( AT ?AUTO_989 ?AUTO_995 ) ( VISIBLE ?AUTO_995 ?AUTO_992 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_989 ?AUTO_995 ?AUTO_992 )
+      ( GET_SOIL_DATA ?AUTO_985 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_985 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_997 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_998 - ROVER
+      ?AUTO_1001 - WAYPOINT
+      ?AUTO_1000 - LANDER
+      ?AUTO_999 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_998 ?AUTO_1001 ) ( AT_LANDER ?AUTO_1000 ?AUTO_999 ) ( HAVE_ROCK_ANALYSIS ?AUTO_998 ?AUTO_997 ) ( VISIBLE ?AUTO_1001 ?AUTO_999 ) ( AVAILABLE ?AUTO_998 ) ( CHANNEL_FREE ?AUTO_1000 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_998 ?AUTO_1000 ?AUTO_997 ?AUTO_1001 ?AUTO_999 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_997 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1004 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1006 - LANDER
+      ?AUTO_1009 - WAYPOINT
+      ?AUTO_1005 - ROVER
+      ?AUTO_1007 - WAYPOINT
+      ?AUTO_1012 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1006 ?AUTO_1009 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1005 ?AUTO_1004 ) ( VISIBLE ?AUTO_1007 ?AUTO_1009 ) ( AVAILABLE ?AUTO_1005 ) ( CHANNEL_FREE ?AUTO_1006 ) ( CAN_TRAVERSE ?AUTO_1005 ?AUTO_1012 ?AUTO_1007 ) ( AT ?AUTO_1005 ?AUTO_1012 ) ( VISIBLE ?AUTO_1012 ?AUTO_1007 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1005 ?AUTO_1012 ?AUTO_1007 )
+      ( GET_ROCK_DATA ?AUTO_1004 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1004 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1014 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1016 - LANDER
+      ?AUTO_1020 - WAYPOINT
+      ?AUTO_1015 - WAYPOINT
+      ?AUTO_1017 - ROVER
+      ?AUTO_1019 - WAYPOINT
+      ?AUTO_1022 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1016 ?AUTO_1020 ) ( VISIBLE ?AUTO_1015 ?AUTO_1020 ) ( AVAILABLE ?AUTO_1017 ) ( CHANNEL_FREE ?AUTO_1016 ) ( CAN_TRAVERSE ?AUTO_1017 ?AUTO_1019 ?AUTO_1015 ) ( AT ?AUTO_1017 ?AUTO_1019 ) ( VISIBLE ?AUTO_1019 ?AUTO_1015 ) ( AT ?AUTO_1017 ?AUTO_1014 ) ( AT_ROCK_SAMPLE ?AUTO_1014 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1017 ) ( STORE_OF ?AUTO_1022 ?AUTO_1017 ) ( EMPTY ?AUTO_1022 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1017 ?AUTO_1022 ?AUTO_1014 )
+      ( GET_ROCK_DATA ?AUTO_1014 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1014 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1024 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1029 - LANDER
+      ?AUTO_1027 - WAYPOINT
+      ?AUTO_1030 - WAYPOINT
+      ?AUTO_1025 - ROVER
+      ?AUTO_1026 - WAYPOINT
+      ?AUTO_1031 - STORE
+      ?AUTO_1032 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1029 ?AUTO_1027 ) ( VISIBLE ?AUTO_1030 ?AUTO_1027 ) ( AVAILABLE ?AUTO_1025 ) ( CHANNEL_FREE ?AUTO_1029 ) ( CAN_TRAVERSE ?AUTO_1025 ?AUTO_1026 ?AUTO_1030 ) ( AT ?AUTO_1025 ?AUTO_1026 ) ( VISIBLE ?AUTO_1026 ?AUTO_1030 ) ( AT ?AUTO_1025 ?AUTO_1024 ) ( AT_ROCK_SAMPLE ?AUTO_1024 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1025 ) ( STORE_OF ?AUTO_1031 ?AUTO_1025 ) ( STORE_OF ?AUTO_1031 ?AUTO_1032 ) ( FULL ?AUTO_1031 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1032 ?AUTO_1031 )
+      ( GET_ROCK_DATA ?AUTO_1024 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1024 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1036 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1039 - LANDER
+      ?AUTO_1043 - WAYPOINT
+      ?AUTO_1041 - WAYPOINT
+      ?AUTO_1042 - ROVER
+      ?AUTO_1038 - STORE
+      ?AUTO_1046 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1039 ?AUTO_1043 ) ( VISIBLE ?AUTO_1041 ?AUTO_1043 ) ( AVAILABLE ?AUTO_1042 ) ( CHANNEL_FREE ?AUTO_1039 ) ( CAN_TRAVERSE ?AUTO_1042 ?AUTO_1036 ?AUTO_1041 ) ( VISIBLE ?AUTO_1036 ?AUTO_1041 ) ( AT_ROCK_SAMPLE ?AUTO_1036 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1042 ) ( STORE_OF ?AUTO_1038 ?AUTO_1042 ) ( EMPTY ?AUTO_1038 ) ( CAN_TRAVERSE ?AUTO_1042 ?AUTO_1046 ?AUTO_1036 ) ( AT ?AUTO_1042 ?AUTO_1046 ) ( VISIBLE ?AUTO_1046 ?AUTO_1036 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1042 ?AUTO_1046 ?AUTO_1036 )
+      ( GET_ROCK_DATA ?AUTO_1036 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1036 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1047 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1053 - LANDER
+      ?AUTO_1051 - WAYPOINT
+      ?AUTO_1050 - WAYPOINT
+      ?AUTO_1052 - ROVER
+      ?AUTO_1049 - STORE
+      ?AUTO_1054 - WAYPOINT
+      ?AUTO_1057 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1053 ?AUTO_1051 ) ( VISIBLE ?AUTO_1050 ?AUTO_1051 ) ( AVAILABLE ?AUTO_1052 ) ( CHANNEL_FREE ?AUTO_1053 ) ( CAN_TRAVERSE ?AUTO_1052 ?AUTO_1047 ?AUTO_1050 ) ( VISIBLE ?AUTO_1047 ?AUTO_1050 ) ( AT_ROCK_SAMPLE ?AUTO_1047 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1052 ) ( STORE_OF ?AUTO_1049 ?AUTO_1052 ) ( EMPTY ?AUTO_1049 ) ( CAN_TRAVERSE ?AUTO_1052 ?AUTO_1054 ?AUTO_1047 ) ( VISIBLE ?AUTO_1054 ?AUTO_1047 ) ( CAN_TRAVERSE ?AUTO_1052 ?AUTO_1057 ?AUTO_1054 ) ( AT ?AUTO_1052 ?AUTO_1057 ) ( VISIBLE ?AUTO_1057 ?AUTO_1054 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1052 ?AUTO_1057 ?AUTO_1054 )
+      ( GET_ROCK_DATA ?AUTO_1047 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1047 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1059 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1060 - ROVER
+      ?AUTO_1063 - WAYPOINT
+      ?AUTO_1062 - LANDER
+      ?AUTO_1061 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1060 ?AUTO_1063 ) ( AT_LANDER ?AUTO_1062 ?AUTO_1061 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1060 ?AUTO_1059 ) ( VISIBLE ?AUTO_1063 ?AUTO_1061 ) ( AVAILABLE ?AUTO_1060 ) ( CHANNEL_FREE ?AUTO_1062 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_1060 ?AUTO_1062 ?AUTO_1059 ?AUTO_1063 ?AUTO_1061 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1059 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1065 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1067 - ROVER
+      ?AUTO_1070 - WAYPOINT
+      ?AUTO_1069 - LANDER
+      ?AUTO_1068 - WAYPOINT
+      ?AUTO_1072 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_1067 ?AUTO_1070 ) ( AT_LANDER ?AUTO_1069 ?AUTO_1068 ) ( VISIBLE ?AUTO_1070 ?AUTO_1068 ) ( AVAILABLE ?AUTO_1067 ) ( CHANNEL_FREE ?AUTO_1069 ) ( AT ?AUTO_1067 ?AUTO_1065 ) ( AT_SOIL_SAMPLE ?AUTO_1065 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1067 ) ( STORE_OF ?AUTO_1072 ?AUTO_1067 ) ( EMPTY ?AUTO_1072 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_1067 ?AUTO_1072 ?AUTO_1065 )
+      ( GET_SOIL_DATA ?AUTO_1065 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1065 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1076 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1082 - LANDER
+      ?AUTO_1080 - WAYPOINT
+      ?AUTO_1079 - ROVER
+      ?AUTO_1081 - STORE
+      ?AUTO_1085 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1082 ?AUTO_1080 ) ( VISIBLE ?AUTO_1076 ?AUTO_1080 ) ( AVAILABLE ?AUTO_1079 ) ( CHANNEL_FREE ?AUTO_1082 ) ( AT_SOIL_SAMPLE ?AUTO_1076 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1079 ) ( STORE_OF ?AUTO_1081 ?AUTO_1079 ) ( EMPTY ?AUTO_1081 ) ( CAN_TRAVERSE ?AUTO_1079 ?AUTO_1085 ?AUTO_1076 ) ( AT ?AUTO_1079 ?AUTO_1085 ) ( VISIBLE ?AUTO_1085 ?AUTO_1076 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1079 ?AUTO_1085 ?AUTO_1076 )
+      ( GET_SOIL_DATA ?AUTO_1076 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1076 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1086 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1089 - LANDER
+      ?AUTO_1090 - WAYPOINT
+      ?AUTO_1091 - ROVER
+      ?AUTO_1088 - STORE
+      ?AUTO_1092 - WAYPOINT
+      ?AUTO_1093 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1089 ?AUTO_1090 ) ( VISIBLE ?AUTO_1086 ?AUTO_1090 ) ( AVAILABLE ?AUTO_1091 ) ( CHANNEL_FREE ?AUTO_1089 ) ( AT_SOIL_SAMPLE ?AUTO_1086 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1091 ) ( STORE_OF ?AUTO_1088 ?AUTO_1091 ) ( CAN_TRAVERSE ?AUTO_1091 ?AUTO_1092 ?AUTO_1086 ) ( AT ?AUTO_1091 ?AUTO_1092 ) ( VISIBLE ?AUTO_1092 ?AUTO_1086 ) ( STORE_OF ?AUTO_1088 ?AUTO_1093 ) ( FULL ?AUTO_1088 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1093 ?AUTO_1088 )
+      ( GET_SOIL_DATA ?AUTO_1086 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1086 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1099 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1101 - LANDER
+      ?AUTO_1100 - WAYPOINT
+      ?AUTO_1102 - ROVER
+      ?AUTO_1105 - STORE
+      ?AUTO_1103 - WAYPOINT
+      ?AUTO_1108 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1101 ?AUTO_1100 ) ( VISIBLE ?AUTO_1099 ?AUTO_1100 ) ( AVAILABLE ?AUTO_1102 ) ( CHANNEL_FREE ?AUTO_1101 ) ( AT_SOIL_SAMPLE ?AUTO_1099 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1102 ) ( STORE_OF ?AUTO_1105 ?AUTO_1102 ) ( EMPTY ?AUTO_1105 ) ( CAN_TRAVERSE ?AUTO_1102 ?AUTO_1103 ?AUTO_1099 ) ( VISIBLE ?AUTO_1103 ?AUTO_1099 ) ( CAN_TRAVERSE ?AUTO_1102 ?AUTO_1108 ?AUTO_1103 ) ( AT ?AUTO_1102 ?AUTO_1108 ) ( VISIBLE ?AUTO_1108 ?AUTO_1103 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1102 ?AUTO_1108 ?AUTO_1103 )
+      ( GET_SOIL_DATA ?AUTO_1099 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1099 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1109 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1111 - LANDER
+      ?AUTO_1113 - WAYPOINT
+      ?AUTO_1115 - ROVER
+      ?AUTO_1112 - STORE
+      ?AUTO_1114 - WAYPOINT
+      ?AUTO_1116 - WAYPOINT
+      ?AUTO_1119 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1111 ?AUTO_1113 ) ( VISIBLE ?AUTO_1109 ?AUTO_1113 ) ( AVAILABLE ?AUTO_1115 ) ( CHANNEL_FREE ?AUTO_1111 ) ( AT_SOIL_SAMPLE ?AUTO_1109 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1115 ) ( STORE_OF ?AUTO_1112 ?AUTO_1115 ) ( EMPTY ?AUTO_1112 ) ( CAN_TRAVERSE ?AUTO_1115 ?AUTO_1114 ?AUTO_1109 ) ( VISIBLE ?AUTO_1114 ?AUTO_1109 ) ( CAN_TRAVERSE ?AUTO_1115 ?AUTO_1116 ?AUTO_1114 ) ( VISIBLE ?AUTO_1116 ?AUTO_1114 ) ( CAN_TRAVERSE ?AUTO_1115 ?AUTO_1119 ?AUTO_1116 ) ( AT ?AUTO_1115 ?AUTO_1119 ) ( VISIBLE ?AUTO_1119 ?AUTO_1116 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1115 ?AUTO_1119 ?AUTO_1116 )
+      ( GET_SOIL_DATA ?AUTO_1109 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1109 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1121 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1122 - ROVER
+      ?AUTO_1125 - WAYPOINT
+      ?AUTO_1124 - LANDER
+      ?AUTO_1123 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1122 ?AUTO_1125 ) ( AT_LANDER ?AUTO_1124 ?AUTO_1123 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1122 ?AUTO_1121 ) ( VISIBLE ?AUTO_1125 ?AUTO_1123 ) ( AVAILABLE ?AUTO_1122 ) ( CHANNEL_FREE ?AUTO_1124 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_1122 ?AUTO_1124 ?AUTO_1121 ?AUTO_1125 ?AUTO_1123 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1121 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1127 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1131 - ROVER
+      ?AUTO_1128 - WAYPOINT
+      ?AUTO_1132 - LANDER
+      ?AUTO_1130 - WAYPOINT
+      ?AUTO_1134 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_1131 ?AUTO_1128 ) ( AT_LANDER ?AUTO_1132 ?AUTO_1130 ) ( VISIBLE ?AUTO_1128 ?AUTO_1130 ) ( AVAILABLE ?AUTO_1131 ) ( CHANNEL_FREE ?AUTO_1132 ) ( AT ?AUTO_1131 ?AUTO_1127 ) ( AT_ROCK_SAMPLE ?AUTO_1127 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1131 ) ( STORE_OF ?AUTO_1134 ?AUTO_1131 ) ( EMPTY ?AUTO_1134 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1131 ?AUTO_1134 ?AUTO_1127 )
+      ( GET_ROCK_DATA ?AUTO_1127 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1127 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1136 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1141 - ROVER
+      ?AUTO_1140 - WAYPOINT
+      ?AUTO_1138 - LANDER
+      ?AUTO_1139 - WAYPOINT
+      ?AUTO_1142 - STORE
+      ?AUTO_1143 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_1141 ?AUTO_1140 ) ( AT_LANDER ?AUTO_1138 ?AUTO_1139 ) ( VISIBLE ?AUTO_1140 ?AUTO_1139 ) ( AVAILABLE ?AUTO_1141 ) ( CHANNEL_FREE ?AUTO_1138 ) ( AT ?AUTO_1141 ?AUTO_1136 ) ( AT_ROCK_SAMPLE ?AUTO_1136 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1141 ) ( STORE_OF ?AUTO_1142 ?AUTO_1141 ) ( STORE_OF ?AUTO_1142 ?AUTO_1143 ) ( FULL ?AUTO_1142 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1143 ?AUTO_1142 )
+      ( GET_ROCK_DATA ?AUTO_1136 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1136 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1149 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1152 - LANDER
+      ?AUTO_1153 - WAYPOINT
+      ?AUTO_1151 - ROVER
+      ?AUTO_1150 - STORE
+      ?AUTO_1158 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1152 ?AUTO_1153 ) ( VISIBLE ?AUTO_1149 ?AUTO_1153 ) ( AVAILABLE ?AUTO_1151 ) ( CHANNEL_FREE ?AUTO_1152 ) ( AT_ROCK_SAMPLE ?AUTO_1149 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1151 ) ( STORE_OF ?AUTO_1150 ?AUTO_1151 ) ( EMPTY ?AUTO_1150 ) ( CAN_TRAVERSE ?AUTO_1151 ?AUTO_1158 ?AUTO_1149 ) ( AT ?AUTO_1151 ?AUTO_1158 ) ( VISIBLE ?AUTO_1158 ?AUTO_1149 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1151 ?AUTO_1158 ?AUTO_1149 )
+      ( GET_ROCK_DATA ?AUTO_1149 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1149 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1159 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1164 - LANDER
+      ?AUTO_1161 - WAYPOINT
+      ?AUTO_1162 - ROVER
+      ?AUTO_1163 - STORE
+      ?AUTO_1165 - WAYPOINT
+      ?AUTO_1166 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1164 ?AUTO_1161 ) ( VISIBLE ?AUTO_1159 ?AUTO_1161 ) ( AVAILABLE ?AUTO_1162 ) ( CHANNEL_FREE ?AUTO_1164 ) ( AT_ROCK_SAMPLE ?AUTO_1159 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1162 ) ( STORE_OF ?AUTO_1163 ?AUTO_1162 ) ( CAN_TRAVERSE ?AUTO_1162 ?AUTO_1165 ?AUTO_1159 ) ( AT ?AUTO_1162 ?AUTO_1165 ) ( VISIBLE ?AUTO_1165 ?AUTO_1159 ) ( STORE_OF ?AUTO_1163 ?AUTO_1166 ) ( FULL ?AUTO_1163 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1166 ?AUTO_1163 )
+      ( GET_ROCK_DATA ?AUTO_1159 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1159 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1172 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1175 - LANDER
+      ?AUTO_1178 - WAYPOINT
+      ?AUTO_1174 - ROVER
+      ?AUTO_1173 - STORE
+      ?AUTO_1176 - WAYPOINT
+      ?AUTO_1181 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1175 ?AUTO_1178 ) ( VISIBLE ?AUTO_1172 ?AUTO_1178 ) ( AVAILABLE ?AUTO_1174 ) ( CHANNEL_FREE ?AUTO_1175 ) ( AT_ROCK_SAMPLE ?AUTO_1172 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1174 ) ( STORE_OF ?AUTO_1173 ?AUTO_1174 ) ( EMPTY ?AUTO_1173 ) ( CAN_TRAVERSE ?AUTO_1174 ?AUTO_1176 ?AUTO_1172 ) ( VISIBLE ?AUTO_1176 ?AUTO_1172 ) ( CAN_TRAVERSE ?AUTO_1174 ?AUTO_1181 ?AUTO_1176 ) ( AT ?AUTO_1174 ?AUTO_1181 ) ( VISIBLE ?AUTO_1181 ?AUTO_1176 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1174 ?AUTO_1181 ?AUTO_1176 )
+      ( GET_ROCK_DATA ?AUTO_1172 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1172 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1182 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1188 - LANDER
+      ?AUTO_1184 - WAYPOINT
+      ?AUTO_1185 - ROVER
+      ?AUTO_1186 - STORE
+      ?AUTO_1187 - WAYPOINT
+      ?AUTO_1189 - WAYPOINT
+      ?AUTO_1192 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1188 ?AUTO_1184 ) ( VISIBLE ?AUTO_1182 ?AUTO_1184 ) ( AVAILABLE ?AUTO_1185 ) ( CHANNEL_FREE ?AUTO_1188 ) ( AT_ROCK_SAMPLE ?AUTO_1182 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1185 ) ( STORE_OF ?AUTO_1186 ?AUTO_1185 ) ( EMPTY ?AUTO_1186 ) ( CAN_TRAVERSE ?AUTO_1185 ?AUTO_1187 ?AUTO_1182 ) ( VISIBLE ?AUTO_1187 ?AUTO_1182 ) ( CAN_TRAVERSE ?AUTO_1185 ?AUTO_1189 ?AUTO_1187 ) ( VISIBLE ?AUTO_1189 ?AUTO_1187 ) ( CAN_TRAVERSE ?AUTO_1185 ?AUTO_1192 ?AUTO_1189 ) ( AT ?AUTO_1185 ?AUTO_1192 ) ( VISIBLE ?AUTO_1192 ?AUTO_1189 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1185 ?AUTO_1192 ?AUTO_1189 )
+      ( GET_ROCK_DATA ?AUTO_1182 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1182 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1195 - OBJECTIVE
+      ?AUTO_1196 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1197 - ROVER
+      ?AUTO_1200 - WAYPOINT
+      ?AUTO_1199 - LANDER
+      ?AUTO_1198 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1197 ?AUTO_1200 ) ( AT_LANDER ?AUTO_1199 ?AUTO_1198 ) ( HAVE_IMAGE ?AUTO_1197 ?AUTO_1195 ?AUTO_1196 ) ( VISIBLE ?AUTO_1200 ?AUTO_1198 ) ( AVAILABLE ?AUTO_1197 ) ( CHANNEL_FREE ?AUTO_1199 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_1197 ?AUTO_1199 ?AUTO_1195 ?AUTO_1196 ?AUTO_1200 ?AUTO_1198 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1195 ?AUTO_1196 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1203 - OBJECTIVE
+      ?AUTO_1204 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1210 - LANDER
+      ?AUTO_1209 - WAYPOINT
+      ?AUTO_1208 - ROVER
+      ?AUTO_1205 - WAYPOINT
+      ?AUTO_1213 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1210 ?AUTO_1209 ) ( HAVE_IMAGE ?AUTO_1208 ?AUTO_1203 ?AUTO_1204 ) ( VISIBLE ?AUTO_1205 ?AUTO_1209 ) ( AVAILABLE ?AUTO_1208 ) ( CHANNEL_FREE ?AUTO_1210 ) ( CAN_TRAVERSE ?AUTO_1208 ?AUTO_1213 ?AUTO_1205 ) ( AT ?AUTO_1208 ?AUTO_1213 ) ( VISIBLE ?AUTO_1213 ?AUTO_1205 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1208 ?AUTO_1213 ?AUTO_1205 )
+      ( GET_IMAGE_DATA ?AUTO_1203 ?AUTO_1204 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1203 ?AUTO_1204 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1214 - OBJECTIVE
+      ?AUTO_1215 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1216 - LANDER
+      ?AUTO_1220 - WAYPOINT
+      ?AUTO_1217 - WAYPOINT
+      ?AUTO_1221 - ROVER
+      ?AUTO_1222 - WAYPOINT
+      ?AUTO_1227 - CAMERA
+      ?AUTO_1225 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1216 ?AUTO_1220 ) ( VISIBLE ?AUTO_1217 ?AUTO_1220 ) ( AVAILABLE ?AUTO_1221 ) ( CHANNEL_FREE ?AUTO_1216 ) ( CAN_TRAVERSE ?AUTO_1221 ?AUTO_1222 ?AUTO_1217 ) ( AT ?AUTO_1221 ?AUTO_1222 ) ( VISIBLE ?AUTO_1222 ?AUTO_1217 ) ( CALIBRATED ?AUTO_1227 ?AUTO_1221 ) ( ON_BOARD ?AUTO_1227 ?AUTO_1221 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1221 ) ( SUPPORTS ?AUTO_1227 ?AUTO_1215 ) ( VISIBLE_FROM ?AUTO_1214 ?AUTO_1225 ) ( AT ?AUTO_1221 ?AUTO_1225 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_1221 ?AUTO_1225 ?AUTO_1214 ?AUTO_1227 ?AUTO_1215 )
+      ( GET_IMAGE_DATA ?AUTO_1214 ?AUTO_1215 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1214 ?AUTO_1215 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1230 - OBJECTIVE
+      ?AUTO_1231 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1239 - LANDER
+      ?AUTO_1236 - WAYPOINT
+      ?AUTO_1234 - WAYPOINT
+      ?AUTO_1238 - ROVER
+      ?AUTO_1232 - WAYPOINT
+      ?AUTO_1233 - CAMERA
+      ?AUTO_1243 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1239 ?AUTO_1236 ) ( VISIBLE ?AUTO_1234 ?AUTO_1236 ) ( AVAILABLE ?AUTO_1238 ) ( CHANNEL_FREE ?AUTO_1239 ) ( CAN_TRAVERSE ?AUTO_1238 ?AUTO_1232 ?AUTO_1234 ) ( VISIBLE ?AUTO_1232 ?AUTO_1234 ) ( CALIBRATED ?AUTO_1233 ?AUTO_1238 ) ( ON_BOARD ?AUTO_1233 ?AUTO_1238 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1238 ) ( SUPPORTS ?AUTO_1233 ?AUTO_1231 ) ( VISIBLE_FROM ?AUTO_1230 ?AUTO_1232 ) ( CAN_TRAVERSE ?AUTO_1238 ?AUTO_1243 ?AUTO_1232 ) ( AT ?AUTO_1238 ?AUTO_1243 ) ( VISIBLE ?AUTO_1243 ?AUTO_1232 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1238 ?AUTO_1243 ?AUTO_1232 )
+      ( GET_IMAGE_DATA ?AUTO_1230 ?AUTO_1231 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1230 ?AUTO_1231 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1258 - OBJECTIVE
+      ?AUTO_1259 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1264 - LANDER
+      ?AUTO_1261 - WAYPOINT
+      ?AUTO_1262 - WAYPOINT
+      ?AUTO_1260 - ROVER
+      ?AUTO_1265 - WAYPOINT
+      ?AUTO_1263 - CAMERA
+      ?AUTO_1268 - WAYPOINT
+      ?AUTO_1271 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1264 ?AUTO_1261 ) ( VISIBLE ?AUTO_1262 ?AUTO_1261 ) ( AVAILABLE ?AUTO_1260 ) ( CHANNEL_FREE ?AUTO_1264 ) ( CAN_TRAVERSE ?AUTO_1260 ?AUTO_1265 ?AUTO_1262 ) ( VISIBLE ?AUTO_1265 ?AUTO_1262 ) ( CALIBRATED ?AUTO_1263 ?AUTO_1260 ) ( ON_BOARD ?AUTO_1263 ?AUTO_1260 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1260 ) ( SUPPORTS ?AUTO_1263 ?AUTO_1259 ) ( VISIBLE_FROM ?AUTO_1258 ?AUTO_1265 ) ( CAN_TRAVERSE ?AUTO_1260 ?AUTO_1268 ?AUTO_1265 ) ( VISIBLE ?AUTO_1268 ?AUTO_1265 ) ( CAN_TRAVERSE ?AUTO_1260 ?AUTO_1271 ?AUTO_1268 ) ( AT ?AUTO_1260 ?AUTO_1271 ) ( VISIBLE ?AUTO_1271 ?AUTO_1268 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1260 ?AUTO_1271 ?AUTO_1268 )
+      ( GET_IMAGE_DATA ?AUTO_1258 ?AUTO_1259 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1258 ?AUTO_1259 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1280 - OBJECTIVE
+      ?AUTO_1281 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1291 - LANDER
+      ?AUTO_1283 - WAYPOINT
+      ?AUTO_1282 - WAYPOINT
+      ?AUTO_1288 - ROVER
+      ?AUTO_1286 - WAYPOINT
+      ?AUTO_1289 - CAMERA
+      ?AUTO_1287 - WAYPOINT
+      ?AUTO_1285 - WAYPOINT
+      ?AUTO_1295 - OBJECTIVE
+      ?AUTO_1293 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1291 ?AUTO_1283 ) ( VISIBLE ?AUTO_1282 ?AUTO_1283 ) ( AVAILABLE ?AUTO_1288 ) ( CHANNEL_FREE ?AUTO_1291 ) ( CAN_TRAVERSE ?AUTO_1288 ?AUTO_1286 ?AUTO_1282 ) ( VISIBLE ?AUTO_1286 ?AUTO_1282 ) ( ON_BOARD ?AUTO_1289 ?AUTO_1288 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1288 ) ( SUPPORTS ?AUTO_1289 ?AUTO_1281 ) ( VISIBLE_FROM ?AUTO_1280 ?AUTO_1286 ) ( CAN_TRAVERSE ?AUTO_1288 ?AUTO_1287 ?AUTO_1286 ) ( VISIBLE ?AUTO_1287 ?AUTO_1286 ) ( CAN_TRAVERSE ?AUTO_1288 ?AUTO_1285 ?AUTO_1287 ) ( AT ?AUTO_1288 ?AUTO_1285 ) ( VISIBLE ?AUTO_1285 ?AUTO_1287 ) ( CALIBRATION_TARGET ?AUTO_1289 ?AUTO_1295 ) ( AT ?AUTO_1288 ?AUTO_1293 ) ( VISIBLE_FROM ?AUTO_1295 ?AUTO_1293 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_1288 ?AUTO_1289 ?AUTO_1295 ?AUTO_1293 )
+      ( GET_IMAGE_DATA ?AUTO_1280 ?AUTO_1281 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1280 ?AUTO_1281 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1296 - OBJECTIVE
+      ?AUTO_1297 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1300 - LANDER
+      ?AUTO_1304 - WAYPOINT
+      ?AUTO_1301 - WAYPOINT
+      ?AUTO_1302 - ROVER
+      ?AUTO_1306 - WAYPOINT
+      ?AUTO_1303 - CAMERA
+      ?AUTO_1305 - WAYPOINT
+      ?AUTO_1308 - WAYPOINT
+      ?AUTO_1309 - OBJECTIVE
+      ?AUTO_1312 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1300 ?AUTO_1304 ) ( VISIBLE ?AUTO_1301 ?AUTO_1304 ) ( AVAILABLE ?AUTO_1302 ) ( CHANNEL_FREE ?AUTO_1300 ) ( CAN_TRAVERSE ?AUTO_1302 ?AUTO_1306 ?AUTO_1301 ) ( VISIBLE ?AUTO_1306 ?AUTO_1301 ) ( ON_BOARD ?AUTO_1303 ?AUTO_1302 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1302 ) ( SUPPORTS ?AUTO_1303 ?AUTO_1297 ) ( VISIBLE_FROM ?AUTO_1296 ?AUTO_1306 ) ( CAN_TRAVERSE ?AUTO_1302 ?AUTO_1305 ?AUTO_1306 ) ( VISIBLE ?AUTO_1305 ?AUTO_1306 ) ( CAN_TRAVERSE ?AUTO_1302 ?AUTO_1308 ?AUTO_1305 ) ( VISIBLE ?AUTO_1308 ?AUTO_1305 ) ( CALIBRATION_TARGET ?AUTO_1303 ?AUTO_1309 ) ( VISIBLE_FROM ?AUTO_1309 ?AUTO_1308 ) ( CAN_TRAVERSE ?AUTO_1302 ?AUTO_1312 ?AUTO_1308 ) ( AT ?AUTO_1302 ?AUTO_1312 ) ( VISIBLE ?AUTO_1312 ?AUTO_1308 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1302 ?AUTO_1312 ?AUTO_1308 )
+      ( GET_IMAGE_DATA ?AUTO_1296 ?AUTO_1297 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1296 ?AUTO_1297 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1313 - OBJECTIVE
+      ?AUTO_1314 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1325 - LANDER
+      ?AUTO_1319 - WAYPOINT
+      ?AUTO_1317 - WAYPOINT
+      ?AUTO_1324 - ROVER
+      ?AUTO_1320 - WAYPOINT
+      ?AUTO_1321 - CAMERA
+      ?AUTO_1323 - WAYPOINT
+      ?AUTO_1322 - WAYPOINT
+      ?AUTO_1315 - OBJECTIVE
+      ?AUTO_1326 - WAYPOINT
+      ?AUTO_1329 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1325 ?AUTO_1319 ) ( VISIBLE ?AUTO_1317 ?AUTO_1319 ) ( AVAILABLE ?AUTO_1324 ) ( CHANNEL_FREE ?AUTO_1325 ) ( CAN_TRAVERSE ?AUTO_1324 ?AUTO_1320 ?AUTO_1317 ) ( VISIBLE ?AUTO_1320 ?AUTO_1317 ) ( ON_BOARD ?AUTO_1321 ?AUTO_1324 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1324 ) ( SUPPORTS ?AUTO_1321 ?AUTO_1314 ) ( VISIBLE_FROM ?AUTO_1313 ?AUTO_1320 ) ( CAN_TRAVERSE ?AUTO_1324 ?AUTO_1323 ?AUTO_1320 ) ( VISIBLE ?AUTO_1323 ?AUTO_1320 ) ( CAN_TRAVERSE ?AUTO_1324 ?AUTO_1322 ?AUTO_1323 ) ( VISIBLE ?AUTO_1322 ?AUTO_1323 ) ( CALIBRATION_TARGET ?AUTO_1321 ?AUTO_1315 ) ( VISIBLE_FROM ?AUTO_1315 ?AUTO_1322 ) ( CAN_TRAVERSE ?AUTO_1324 ?AUTO_1326 ?AUTO_1322 ) ( VISIBLE ?AUTO_1326 ?AUTO_1322 ) ( CAN_TRAVERSE ?AUTO_1324 ?AUTO_1329 ?AUTO_1326 ) ( AT ?AUTO_1324 ?AUTO_1329 ) ( VISIBLE ?AUTO_1329 ?AUTO_1326 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1324 ?AUTO_1329 ?AUTO_1326 )
+      ( GET_IMAGE_DATA ?AUTO_1313 ?AUTO_1314 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1313 ?AUTO_1314 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1331 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1332 - ROVER
+      ?AUTO_1335 - WAYPOINT
+      ?AUTO_1334 - LANDER
+      ?AUTO_1333 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1332 ?AUTO_1335 ) ( AT_LANDER ?AUTO_1334 ?AUTO_1333 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1332 ?AUTO_1331 ) ( VISIBLE ?AUTO_1335 ?AUTO_1333 ) ( AVAILABLE ?AUTO_1332 ) ( CHANNEL_FREE ?AUTO_1334 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_1332 ?AUTO_1334 ?AUTO_1331 ?AUTO_1335 ?AUTO_1333 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1331 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1337 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1339 - ROVER
+      ?AUTO_1340 - WAYPOINT
+      ?AUTO_1342 - LANDER
+      ?AUTO_1341 - WAYPOINT
+      ?AUTO_1344 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_1339 ?AUTO_1340 ) ( AT_LANDER ?AUTO_1342 ?AUTO_1341 ) ( VISIBLE ?AUTO_1340 ?AUTO_1341 ) ( AVAILABLE ?AUTO_1339 ) ( CHANNEL_FREE ?AUTO_1342 ) ( AT ?AUTO_1339 ?AUTO_1337 ) ( AT_SOIL_SAMPLE ?AUTO_1337 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1339 ) ( STORE_OF ?AUTO_1344 ?AUTO_1339 ) ( EMPTY ?AUTO_1344 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_1339 ?AUTO_1344 ?AUTO_1337 )
+      ( GET_SOIL_DATA ?AUTO_1337 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1337 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1347 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1348 - LANDER
+      ?AUTO_1352 - WAYPOINT
+      ?AUTO_1350 - ROVER
+      ?AUTO_1353 - STORE
+      ?AUTO_1356 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1348 ?AUTO_1352 ) ( VISIBLE ?AUTO_1347 ?AUTO_1352 ) ( AVAILABLE ?AUTO_1350 ) ( CHANNEL_FREE ?AUTO_1348 ) ( AT_SOIL_SAMPLE ?AUTO_1347 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1350 ) ( STORE_OF ?AUTO_1353 ?AUTO_1350 ) ( EMPTY ?AUTO_1353 ) ( CAN_TRAVERSE ?AUTO_1350 ?AUTO_1356 ?AUTO_1347 ) ( AT ?AUTO_1350 ?AUTO_1356 ) ( VISIBLE ?AUTO_1356 ?AUTO_1347 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1350 ?AUTO_1356 ?AUTO_1347 )
+      ( GET_SOIL_DATA ?AUTO_1347 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1347 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1358 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1359 - LANDER
+      ?AUTO_1363 - WAYPOINT
+      ?AUTO_1362 - ROVER
+      ?AUTO_1360 - STORE
+      ?AUTO_1364 - WAYPOINT
+      ?AUTO_1365 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1359 ?AUTO_1363 ) ( VISIBLE ?AUTO_1358 ?AUTO_1363 ) ( AVAILABLE ?AUTO_1362 ) ( CHANNEL_FREE ?AUTO_1359 ) ( AT_SOIL_SAMPLE ?AUTO_1358 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1362 ) ( STORE_OF ?AUTO_1360 ?AUTO_1362 ) ( CAN_TRAVERSE ?AUTO_1362 ?AUTO_1364 ?AUTO_1358 ) ( AT ?AUTO_1362 ?AUTO_1364 ) ( VISIBLE ?AUTO_1364 ?AUTO_1358 ) ( STORE_OF ?AUTO_1360 ?AUTO_1365 ) ( FULL ?AUTO_1360 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1365 ?AUTO_1360 )
+      ( GET_SOIL_DATA ?AUTO_1358 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1358 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1367 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1369 - LANDER
+      ?AUTO_1372 - WAYPOINT
+      ?AUTO_1368 - ROVER
+      ?AUTO_1370 - STORE
+      ?AUTO_1371 - WAYPOINT
+      ?AUTO_1373 - ROVER
+      ?AUTO_1377 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1369 ?AUTO_1372 ) ( VISIBLE ?AUTO_1367 ?AUTO_1372 ) ( AVAILABLE ?AUTO_1368 ) ( CHANNEL_FREE ?AUTO_1369 ) ( AT_SOIL_SAMPLE ?AUTO_1367 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1368 ) ( STORE_OF ?AUTO_1370 ?AUTO_1368 ) ( CAN_TRAVERSE ?AUTO_1368 ?AUTO_1371 ?AUTO_1367 ) ( VISIBLE ?AUTO_1371 ?AUTO_1367 ) ( STORE_OF ?AUTO_1370 ?AUTO_1373 ) ( FULL ?AUTO_1370 ) ( CAN_TRAVERSE ?AUTO_1368 ?AUTO_1377 ?AUTO_1371 ) ( AT ?AUTO_1368 ?AUTO_1377 ) ( VISIBLE ?AUTO_1377 ?AUTO_1371 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1368 ?AUTO_1377 ?AUTO_1371 )
+      ( GET_SOIL_DATA ?AUTO_1367 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1367 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1379 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1381 - LANDER
+      ?AUTO_1383 - WAYPOINT
+      ?AUTO_1382 - ROVER
+      ?AUTO_1385 - STORE
+      ?AUTO_1387 - WAYPOINT
+      ?AUTO_1384 - ROVER
+      ?AUTO_1386 - WAYPOINT
+      ?AUTO_1388 - ROVER
+      ?AUTO_1390 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1381 ?AUTO_1383 ) ( VISIBLE ?AUTO_1379 ?AUTO_1383 ) ( AVAILABLE ?AUTO_1382 ) ( CHANNEL_FREE ?AUTO_1381 ) ( AT_SOIL_SAMPLE ?AUTO_1379 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1382 ) ( STORE_OF ?AUTO_1385 ?AUTO_1382 ) ( CAN_TRAVERSE ?AUTO_1382 ?AUTO_1387 ?AUTO_1379 ) ( VISIBLE ?AUTO_1387 ?AUTO_1379 ) ( STORE_OF ?AUTO_1385 ?AUTO_1384 ) ( CAN_TRAVERSE ?AUTO_1382 ?AUTO_1386 ?AUTO_1387 ) ( AT ?AUTO_1382 ?AUTO_1386 ) ( VISIBLE ?AUTO_1386 ?AUTO_1387 ) ( AT ?AUTO_1388 ?AUTO_1390 ) ( AT_ROCK_SAMPLE ?AUTO_1390 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1388 ) ( STORE_OF ?AUTO_1385 ?AUTO_1388 ) ( EMPTY ?AUTO_1385 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1388 ?AUTO_1385 ?AUTO_1390 )
+      ( GET_SOIL_DATA ?AUTO_1379 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1379 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1396 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1402 - LANDER
+      ?AUTO_1406 - WAYPOINT
+      ?AUTO_1397 - ROVER
+      ?AUTO_1403 - STORE
+      ?AUTO_1404 - WAYPOINT
+      ?AUTO_1401 - ROVER
+      ?AUTO_1398 - WAYPOINT
+      ?AUTO_1409 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1402 ?AUTO_1406 ) ( VISIBLE ?AUTO_1396 ?AUTO_1406 ) ( AVAILABLE ?AUTO_1397 ) ( CHANNEL_FREE ?AUTO_1402 ) ( AT_SOIL_SAMPLE ?AUTO_1396 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1397 ) ( STORE_OF ?AUTO_1403 ?AUTO_1397 ) ( CAN_TRAVERSE ?AUTO_1397 ?AUTO_1404 ?AUTO_1396 ) ( VISIBLE ?AUTO_1404 ?AUTO_1396 ) ( STORE_OF ?AUTO_1403 ?AUTO_1401 ) ( CAN_TRAVERSE ?AUTO_1397 ?AUTO_1398 ?AUTO_1404 ) ( VISIBLE ?AUTO_1398 ?AUTO_1404 ) ( AT_ROCK_SAMPLE ?AUTO_1398 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1397 ) ( EMPTY ?AUTO_1403 ) ( CAN_TRAVERSE ?AUTO_1397 ?AUTO_1409 ?AUTO_1398 ) ( AT ?AUTO_1397 ?AUTO_1409 ) ( VISIBLE ?AUTO_1409 ?AUTO_1398 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1397 ?AUTO_1409 ?AUTO_1398 )
+      ( GET_SOIL_DATA ?AUTO_1396 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1396 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1410 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1412 - LANDER
+      ?AUTO_1419 - WAYPOINT
+      ?AUTO_1413 - ROVER
+      ?AUTO_1416 - STORE
+      ?AUTO_1411 - WAYPOINT
+      ?AUTO_1414 - ROVER
+      ?AUTO_1415 - WAYPOINT
+      ?AUTO_1417 - WAYPOINT
+      ?AUTO_1420 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1412 ?AUTO_1419 ) ( VISIBLE ?AUTO_1410 ?AUTO_1419 ) ( AVAILABLE ?AUTO_1413 ) ( CHANNEL_FREE ?AUTO_1412 ) ( AT_SOIL_SAMPLE ?AUTO_1410 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1413 ) ( STORE_OF ?AUTO_1416 ?AUTO_1413 ) ( CAN_TRAVERSE ?AUTO_1413 ?AUTO_1411 ?AUTO_1410 ) ( VISIBLE ?AUTO_1411 ?AUTO_1410 ) ( STORE_OF ?AUTO_1416 ?AUTO_1414 ) ( CAN_TRAVERSE ?AUTO_1413 ?AUTO_1415 ?AUTO_1411 ) ( VISIBLE ?AUTO_1415 ?AUTO_1411 ) ( AT_ROCK_SAMPLE ?AUTO_1415 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1413 ) ( CAN_TRAVERSE ?AUTO_1413 ?AUTO_1417 ?AUTO_1415 ) ( AT ?AUTO_1413 ?AUTO_1417 ) ( VISIBLE ?AUTO_1417 ?AUTO_1415 ) ( STORE_OF ?AUTO_1416 ?AUTO_1420 ) ( FULL ?AUTO_1416 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1420 ?AUTO_1416 )
+      ( GET_SOIL_DATA ?AUTO_1410 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1410 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1429 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1430 - ROVER
+      ?AUTO_1433 - WAYPOINT
+      ?AUTO_1432 - LANDER
+      ?AUTO_1431 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1430 ?AUTO_1433 ) ( AT_LANDER ?AUTO_1432 ?AUTO_1431 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1430 ?AUTO_1429 ) ( VISIBLE ?AUTO_1433 ?AUTO_1431 ) ( AVAILABLE ?AUTO_1430 ) ( CHANNEL_FREE ?AUTO_1432 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_1430 ?AUTO_1432 ?AUTO_1429 ?AUTO_1433 ?AUTO_1431 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1429 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1435 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1439 - LANDER
+      ?AUTO_1438 - WAYPOINT
+      ?AUTO_1437 - ROVER
+      ?AUTO_1440 - WAYPOINT
+      ?AUTO_1443 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1439 ?AUTO_1438 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1437 ?AUTO_1435 ) ( VISIBLE ?AUTO_1440 ?AUTO_1438 ) ( AVAILABLE ?AUTO_1437 ) ( CHANNEL_FREE ?AUTO_1439 ) ( CAN_TRAVERSE ?AUTO_1437 ?AUTO_1443 ?AUTO_1440 ) ( AT ?AUTO_1437 ?AUTO_1443 ) ( VISIBLE ?AUTO_1443 ?AUTO_1440 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1437 ?AUTO_1443 ?AUTO_1440 )
+      ( GET_ROCK_DATA ?AUTO_1435 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1435 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1444 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1449 - LANDER
+      ?AUTO_1445 - WAYPOINT
+      ?AUTO_1448 - WAYPOINT
+      ?AUTO_1446 - ROVER
+      ?AUTO_1450 - WAYPOINT
+      ?AUTO_1452 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1449 ?AUTO_1445 ) ( VISIBLE ?AUTO_1448 ?AUTO_1445 ) ( AVAILABLE ?AUTO_1446 ) ( CHANNEL_FREE ?AUTO_1449 ) ( CAN_TRAVERSE ?AUTO_1446 ?AUTO_1450 ?AUTO_1448 ) ( AT ?AUTO_1446 ?AUTO_1450 ) ( VISIBLE ?AUTO_1450 ?AUTO_1448 ) ( AT ?AUTO_1446 ?AUTO_1444 ) ( AT_ROCK_SAMPLE ?AUTO_1444 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1446 ) ( STORE_OF ?AUTO_1452 ?AUTO_1446 ) ( EMPTY ?AUTO_1452 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1446 ?AUTO_1452 ?AUTO_1444 )
+      ( GET_ROCK_DATA ?AUTO_1444 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1444 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1454 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1457 - LANDER
+      ?AUTO_1459 - WAYPOINT
+      ?AUTO_1460 - WAYPOINT
+      ?AUTO_1456 - ROVER
+      ?AUTO_1461 - STORE
+      ?AUTO_1464 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1457 ?AUTO_1459 ) ( VISIBLE ?AUTO_1460 ?AUTO_1459 ) ( AVAILABLE ?AUTO_1456 ) ( CHANNEL_FREE ?AUTO_1457 ) ( CAN_TRAVERSE ?AUTO_1456 ?AUTO_1454 ?AUTO_1460 ) ( VISIBLE ?AUTO_1454 ?AUTO_1460 ) ( AT_ROCK_SAMPLE ?AUTO_1454 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1456 ) ( STORE_OF ?AUTO_1461 ?AUTO_1456 ) ( EMPTY ?AUTO_1461 ) ( CAN_TRAVERSE ?AUTO_1456 ?AUTO_1464 ?AUTO_1454 ) ( AT ?AUTO_1456 ?AUTO_1464 ) ( VISIBLE ?AUTO_1464 ?AUTO_1454 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1456 ?AUTO_1464 ?AUTO_1454 )
+      ( GET_ROCK_DATA ?AUTO_1454 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1454 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1465 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1471 - LANDER
+      ?AUTO_1468 - WAYPOINT
+      ?AUTO_1466 - WAYPOINT
+      ?AUTO_1469 - ROVER
+      ?AUTO_1470 - STORE
+      ?AUTO_1472 - WAYPOINT
+      ?AUTO_1473 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1471 ?AUTO_1468 ) ( VISIBLE ?AUTO_1466 ?AUTO_1468 ) ( AVAILABLE ?AUTO_1469 ) ( CHANNEL_FREE ?AUTO_1471 ) ( CAN_TRAVERSE ?AUTO_1469 ?AUTO_1465 ?AUTO_1466 ) ( VISIBLE ?AUTO_1465 ?AUTO_1466 ) ( AT_ROCK_SAMPLE ?AUTO_1465 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1469 ) ( STORE_OF ?AUTO_1470 ?AUTO_1469 ) ( CAN_TRAVERSE ?AUTO_1469 ?AUTO_1472 ?AUTO_1465 ) ( AT ?AUTO_1469 ?AUTO_1472 ) ( VISIBLE ?AUTO_1472 ?AUTO_1465 ) ( STORE_OF ?AUTO_1470 ?AUTO_1473 ) ( FULL ?AUTO_1470 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1473 ?AUTO_1470 )
+      ( GET_ROCK_DATA ?AUTO_1465 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1465 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1480 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1483 - LANDER
+      ?AUTO_1481 - WAYPOINT
+      ?AUTO_1482 - WAYPOINT
+      ?AUTO_1487 - ROVER
+      ?AUTO_1486 - WAYPOINT
+      ?AUTO_1484 - STORE
+      ?AUTO_1488 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1483 ?AUTO_1481 ) ( VISIBLE ?AUTO_1482 ?AUTO_1481 ) ( AVAILABLE ?AUTO_1487 ) ( CHANNEL_FREE ?AUTO_1483 ) ( CAN_TRAVERSE ?AUTO_1487 ?AUTO_1486 ?AUTO_1482 ) ( AT ?AUTO_1487 ?AUTO_1486 ) ( VISIBLE ?AUTO_1486 ?AUTO_1482 ) ( AT ?AUTO_1487 ?AUTO_1480 ) ( AT_ROCK_SAMPLE ?AUTO_1480 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1487 ) ( STORE_OF ?AUTO_1484 ?AUTO_1487 ) ( STORE_OF ?AUTO_1484 ?AUTO_1488 ) ( FULL ?AUTO_1484 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1488 ?AUTO_1484 )
+      ( GET_ROCK_DATA ?AUTO_1480 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1480 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1498 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1502 - LANDER
+      ?AUTO_1503 - WAYPOINT
+      ?AUTO_1504 - WAYPOINT
+      ?AUTO_1505 - ROVER
+      ?AUTO_1499 - STORE
+      ?AUTO_1501 - WAYPOINT
+      ?AUTO_1508 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1502 ?AUTO_1503 ) ( VISIBLE ?AUTO_1504 ?AUTO_1503 ) ( AVAILABLE ?AUTO_1505 ) ( CHANNEL_FREE ?AUTO_1502 ) ( CAN_TRAVERSE ?AUTO_1505 ?AUTO_1498 ?AUTO_1504 ) ( VISIBLE ?AUTO_1498 ?AUTO_1504 ) ( AT_ROCK_SAMPLE ?AUTO_1498 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1505 ) ( STORE_OF ?AUTO_1499 ?AUTO_1505 ) ( EMPTY ?AUTO_1499 ) ( CAN_TRAVERSE ?AUTO_1505 ?AUTO_1501 ?AUTO_1498 ) ( VISIBLE ?AUTO_1501 ?AUTO_1498 ) ( CAN_TRAVERSE ?AUTO_1505 ?AUTO_1508 ?AUTO_1501 ) ( AT ?AUTO_1505 ?AUTO_1508 ) ( VISIBLE ?AUTO_1508 ?AUTO_1501 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1505 ?AUTO_1508 ?AUTO_1501 )
+      ( GET_ROCK_DATA ?AUTO_1498 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1498 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1509 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1513 - LANDER
+      ?AUTO_1512 - WAYPOINT
+      ?AUTO_1517 - WAYPOINT
+      ?AUTO_1511 - ROVER
+      ?AUTO_1516 - STORE
+      ?AUTO_1510 - WAYPOINT
+      ?AUTO_1514 - WAYPOINT
+      ?AUTO_1518 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1513 ?AUTO_1512 ) ( VISIBLE ?AUTO_1517 ?AUTO_1512 ) ( AVAILABLE ?AUTO_1511 ) ( CHANNEL_FREE ?AUTO_1513 ) ( CAN_TRAVERSE ?AUTO_1511 ?AUTO_1509 ?AUTO_1517 ) ( VISIBLE ?AUTO_1509 ?AUTO_1517 ) ( AT_ROCK_SAMPLE ?AUTO_1509 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1511 ) ( STORE_OF ?AUTO_1516 ?AUTO_1511 ) ( CAN_TRAVERSE ?AUTO_1511 ?AUTO_1510 ?AUTO_1509 ) ( VISIBLE ?AUTO_1510 ?AUTO_1509 ) ( CAN_TRAVERSE ?AUTO_1511 ?AUTO_1514 ?AUTO_1510 ) ( AT ?AUTO_1511 ?AUTO_1514 ) ( VISIBLE ?AUTO_1514 ?AUTO_1510 ) ( STORE_OF ?AUTO_1516 ?AUTO_1518 ) ( FULL ?AUTO_1516 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1518 ?AUTO_1516 )
+      ( GET_ROCK_DATA ?AUTO_1509 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1509 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1520 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1521 - ROVER
+      ?AUTO_1524 - WAYPOINT
+      ?AUTO_1523 - LANDER
+      ?AUTO_1522 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1521 ?AUTO_1524 ) ( AT_LANDER ?AUTO_1523 ?AUTO_1522 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1521 ?AUTO_1520 ) ( VISIBLE ?AUTO_1524 ?AUTO_1522 ) ( AVAILABLE ?AUTO_1521 ) ( CHANNEL_FREE ?AUTO_1523 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_1521 ?AUTO_1523 ?AUTO_1520 ?AUTO_1524 ?AUTO_1522 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1520 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1527 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1530 - LANDER
+      ?AUTO_1528 - WAYPOINT
+      ?AUTO_1532 - ROVER
+      ?AUTO_1529 - WAYPOINT
+      ?AUTO_1535 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1530 ?AUTO_1528 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1532 ?AUTO_1527 ) ( VISIBLE ?AUTO_1529 ?AUTO_1528 ) ( AVAILABLE ?AUTO_1532 ) ( CHANNEL_FREE ?AUTO_1530 ) ( CAN_TRAVERSE ?AUTO_1532 ?AUTO_1535 ?AUTO_1529 ) ( AT ?AUTO_1532 ?AUTO_1535 ) ( VISIBLE ?AUTO_1535 ?AUTO_1529 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1532 ?AUTO_1535 ?AUTO_1529 )
+      ( GET_ROCK_DATA ?AUTO_1527 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1527 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1537 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1539 - LANDER
+      ?AUTO_1540 - WAYPOINT
+      ?AUTO_1538 - WAYPOINT
+      ?AUTO_1543 - ROVER
+      ?AUTO_1542 - WAYPOINT
+      ?AUTO_1545 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1539 ?AUTO_1540 ) ( VISIBLE ?AUTO_1538 ?AUTO_1540 ) ( AVAILABLE ?AUTO_1543 ) ( CHANNEL_FREE ?AUTO_1539 ) ( CAN_TRAVERSE ?AUTO_1543 ?AUTO_1542 ?AUTO_1538 ) ( AT ?AUTO_1543 ?AUTO_1542 ) ( VISIBLE ?AUTO_1542 ?AUTO_1538 ) ( AT ?AUTO_1543 ?AUTO_1537 ) ( AT_ROCK_SAMPLE ?AUTO_1537 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1543 ) ( STORE_OF ?AUTO_1545 ?AUTO_1543 ) ( EMPTY ?AUTO_1545 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1543 ?AUTO_1545 ?AUTO_1537 )
+      ( GET_ROCK_DATA ?AUTO_1537 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1537 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1550 - OBJECTIVE
+      ?AUTO_1551 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1552 - ROVER
+      ?AUTO_1555 - WAYPOINT
+      ?AUTO_1554 - LANDER
+      ?AUTO_1553 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1552 ?AUTO_1555 ) ( AT_LANDER ?AUTO_1554 ?AUTO_1553 ) ( HAVE_IMAGE ?AUTO_1552 ?AUTO_1550 ?AUTO_1551 ) ( VISIBLE ?AUTO_1555 ?AUTO_1553 ) ( AVAILABLE ?AUTO_1552 ) ( CHANNEL_FREE ?AUTO_1554 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_1552 ?AUTO_1554 ?AUTO_1550 ?AUTO_1551 ?AUTO_1555 ?AUTO_1553 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1550 ?AUTO_1551 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1558 - OBJECTIVE
+      ?AUTO_1559 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1562 - ROVER
+      ?AUTO_1565 - WAYPOINT
+      ?AUTO_1564 - LANDER
+      ?AUTO_1563 - WAYPOINT
+      ?AUTO_1570 - CAMERA
+      ?AUTO_1568 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1562 ?AUTO_1565 ) ( AT_LANDER ?AUTO_1564 ?AUTO_1563 ) ( VISIBLE ?AUTO_1565 ?AUTO_1563 ) ( AVAILABLE ?AUTO_1562 ) ( CHANNEL_FREE ?AUTO_1564 ) ( CALIBRATED ?AUTO_1570 ?AUTO_1562 ) ( ON_BOARD ?AUTO_1570 ?AUTO_1562 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1562 ) ( SUPPORTS ?AUTO_1570 ?AUTO_1559 ) ( VISIBLE_FROM ?AUTO_1558 ?AUTO_1568 ) ( AT ?AUTO_1562 ?AUTO_1568 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_1562 ?AUTO_1568 ?AUTO_1558 ?AUTO_1570 ?AUTO_1559 )
+      ( GET_IMAGE_DATA ?AUTO_1558 ?AUTO_1559 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1558 ?AUTO_1559 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1573 - OBJECTIVE
+      ?AUTO_1574 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1577 - ROVER
+      ?AUTO_1576 - WAYPOINT
+      ?AUTO_1575 - LANDER
+      ?AUTO_1578 - WAYPOINT
+      ?AUTO_1582 - CAMERA
+      ?AUTO_1579 - WAYPOINT
+      ?AUTO_1586 - OBJECTIVE
+      ?AUTO_1584 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1577 ?AUTO_1576 ) ( AT_LANDER ?AUTO_1575 ?AUTO_1578 ) ( VISIBLE ?AUTO_1576 ?AUTO_1578 ) ( AVAILABLE ?AUTO_1577 ) ( CHANNEL_FREE ?AUTO_1575 ) ( ON_BOARD ?AUTO_1582 ?AUTO_1577 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1577 ) ( SUPPORTS ?AUTO_1582 ?AUTO_1574 ) ( VISIBLE_FROM ?AUTO_1573 ?AUTO_1579 ) ( AT ?AUTO_1577 ?AUTO_1579 ) ( CALIBRATION_TARGET ?AUTO_1582 ?AUTO_1586 ) ( AT ?AUTO_1577 ?AUTO_1584 ) ( VISIBLE_FROM ?AUTO_1586 ?AUTO_1584 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_1577 ?AUTO_1582 ?AUTO_1586 ?AUTO_1584 )
+      ( GET_IMAGE_DATA ?AUTO_1573 ?AUTO_1574 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1573 ?AUTO_1574 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1587 - OBJECTIVE
+      ?AUTO_1588 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1592 - LANDER
+      ?AUTO_1597 - WAYPOINT
+      ?AUTO_1594 - WAYPOINT
+      ?AUTO_1589 - ROVER
+      ?AUTO_1593 - CAMERA
+      ?AUTO_1598 - OBJECTIVE
+      ?AUTO_1601 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1592 ?AUTO_1597 ) ( VISIBLE ?AUTO_1594 ?AUTO_1597 ) ( AVAILABLE ?AUTO_1589 ) ( CHANNEL_FREE ?AUTO_1592 ) ( ON_BOARD ?AUTO_1593 ?AUTO_1589 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1589 ) ( SUPPORTS ?AUTO_1593 ?AUTO_1588 ) ( VISIBLE_FROM ?AUTO_1587 ?AUTO_1594 ) ( CALIBRATION_TARGET ?AUTO_1593 ?AUTO_1598 ) ( VISIBLE_FROM ?AUTO_1598 ?AUTO_1594 ) ( CAN_TRAVERSE ?AUTO_1589 ?AUTO_1601 ?AUTO_1594 ) ( AT ?AUTO_1589 ?AUTO_1601 ) ( VISIBLE ?AUTO_1601 ?AUTO_1594 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1589 ?AUTO_1601 ?AUTO_1594 )
+      ( GET_IMAGE_DATA ?AUTO_1587 ?AUTO_1588 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1587 ?AUTO_1588 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1609 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1610 - ROVER
+      ?AUTO_1613 - WAYPOINT
+      ?AUTO_1612 - LANDER
+      ?AUTO_1611 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1610 ?AUTO_1613 ) ( AT_LANDER ?AUTO_1612 ?AUTO_1611 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1610 ?AUTO_1609 ) ( VISIBLE ?AUTO_1613 ?AUTO_1611 ) ( AVAILABLE ?AUTO_1610 ) ( CHANNEL_FREE ?AUTO_1612 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_1610 ?AUTO_1612 ?AUTO_1609 ?AUTO_1613 ?AUTO_1611 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1609 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1615 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1617 - ROVER
+      ?AUTO_1620 - WAYPOINT
+      ?AUTO_1619 - LANDER
+      ?AUTO_1618 - WAYPOINT
+      ?AUTO_1622 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_1617 ?AUTO_1620 ) ( AT_LANDER ?AUTO_1619 ?AUTO_1618 ) ( VISIBLE ?AUTO_1620 ?AUTO_1618 ) ( AVAILABLE ?AUTO_1617 ) ( CHANNEL_FREE ?AUTO_1619 ) ( AT ?AUTO_1617 ?AUTO_1615 ) ( AT_SOIL_SAMPLE ?AUTO_1615 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1617 ) ( STORE_OF ?AUTO_1622 ?AUTO_1617 ) ( EMPTY ?AUTO_1622 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_1617 ?AUTO_1622 ?AUTO_1615 )
+      ( GET_SOIL_DATA ?AUTO_1615 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1615 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1629 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1630 - LANDER
+      ?AUTO_1631 - WAYPOINT
+      ?AUTO_1632 - ROVER
+      ?AUTO_1635 - STORE
+      ?AUTO_1638 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1630 ?AUTO_1631 ) ( VISIBLE ?AUTO_1629 ?AUTO_1631 ) ( AVAILABLE ?AUTO_1632 ) ( CHANNEL_FREE ?AUTO_1630 ) ( AT_SOIL_SAMPLE ?AUTO_1629 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1632 ) ( STORE_OF ?AUTO_1635 ?AUTO_1632 ) ( EMPTY ?AUTO_1635 ) ( CAN_TRAVERSE ?AUTO_1632 ?AUTO_1638 ?AUTO_1629 ) ( AT ?AUTO_1632 ?AUTO_1638 ) ( VISIBLE ?AUTO_1638 ?AUTO_1629 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1632 ?AUTO_1638 ?AUTO_1629 )
+      ( GET_SOIL_DATA ?AUTO_1629 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1629 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1642 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1643 - ROVER
+      ?AUTO_1646 - WAYPOINT
+      ?AUTO_1645 - LANDER
+      ?AUTO_1644 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1643 ?AUTO_1646 ) ( AT_LANDER ?AUTO_1645 ?AUTO_1644 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1643 ?AUTO_1642 ) ( VISIBLE ?AUTO_1646 ?AUTO_1644 ) ( AVAILABLE ?AUTO_1643 ) ( CHANNEL_FREE ?AUTO_1645 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_1643 ?AUTO_1645 ?AUTO_1642 ?AUTO_1646 ?AUTO_1644 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1642 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1648 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1650 - ROVER
+      ?AUTO_1653 - WAYPOINT
+      ?AUTO_1652 - LANDER
+      ?AUTO_1651 - WAYPOINT
+      ?AUTO_1655 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_1650 ?AUTO_1653 ) ( AT_LANDER ?AUTO_1652 ?AUTO_1651 ) ( VISIBLE ?AUTO_1653 ?AUTO_1651 ) ( AVAILABLE ?AUTO_1650 ) ( CHANNEL_FREE ?AUTO_1652 ) ( AT ?AUTO_1650 ?AUTO_1648 ) ( AT_ROCK_SAMPLE ?AUTO_1648 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1650 ) ( STORE_OF ?AUTO_1655 ?AUTO_1650 ) ( EMPTY ?AUTO_1655 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1650 ?AUTO_1655 ?AUTO_1648 )
+      ( GET_ROCK_DATA ?AUTO_1648 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1648 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1657 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1659 - ROVER
+      ?AUTO_1658 - WAYPOINT
+      ?AUTO_1661 - LANDER
+      ?AUTO_1662 - WAYPOINT
+      ?AUTO_1663 - STORE
+      ?AUTO_1664 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_1659 ?AUTO_1658 ) ( AT_LANDER ?AUTO_1661 ?AUTO_1662 ) ( VISIBLE ?AUTO_1658 ?AUTO_1662 ) ( AVAILABLE ?AUTO_1659 ) ( CHANNEL_FREE ?AUTO_1661 ) ( AT ?AUTO_1659 ?AUTO_1657 ) ( AT_ROCK_SAMPLE ?AUTO_1657 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1659 ) ( STORE_OF ?AUTO_1663 ?AUTO_1659 ) ( STORE_OF ?AUTO_1663 ?AUTO_1664 ) ( FULL ?AUTO_1663 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1664 ?AUTO_1663 )
+      ( GET_ROCK_DATA ?AUTO_1657 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1657 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1673 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1679 - LANDER
+      ?AUTO_1675 - WAYPOINT
+      ?AUTO_1674 - ROVER
+      ?AUTO_1677 - STORE
+      ?AUTO_1682 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1679 ?AUTO_1675 ) ( VISIBLE ?AUTO_1673 ?AUTO_1675 ) ( AVAILABLE ?AUTO_1674 ) ( CHANNEL_FREE ?AUTO_1679 ) ( AT_ROCK_SAMPLE ?AUTO_1673 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1674 ) ( STORE_OF ?AUTO_1677 ?AUTO_1674 ) ( EMPTY ?AUTO_1677 ) ( CAN_TRAVERSE ?AUTO_1674 ?AUTO_1682 ?AUTO_1673 ) ( AT ?AUTO_1674 ?AUTO_1682 ) ( VISIBLE ?AUTO_1682 ?AUTO_1673 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1674 ?AUTO_1682 ?AUTO_1673 )
+      ( GET_ROCK_DATA ?AUTO_1673 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1673 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1686 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1687 - ROVER
+      ?AUTO_1690 - WAYPOINT
+      ?AUTO_1689 - LANDER
+      ?AUTO_1688 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1687 ?AUTO_1690 ) ( AT_LANDER ?AUTO_1689 ?AUTO_1688 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1687 ?AUTO_1686 ) ( VISIBLE ?AUTO_1690 ?AUTO_1688 ) ( AVAILABLE ?AUTO_1687 ) ( CHANNEL_FREE ?AUTO_1689 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_1687 ?AUTO_1689 ?AUTO_1686 ?AUTO_1690 ?AUTO_1688 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1686 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1692 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1696 - LANDER
+      ?AUTO_1695 - WAYPOINT
+      ?AUTO_1694 - ROVER
+      ?AUTO_1697 - WAYPOINT
+      ?AUTO_1700 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1696 ?AUTO_1695 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1694 ?AUTO_1692 ) ( VISIBLE ?AUTO_1697 ?AUTO_1695 ) ( AVAILABLE ?AUTO_1694 ) ( CHANNEL_FREE ?AUTO_1696 ) ( CAN_TRAVERSE ?AUTO_1694 ?AUTO_1700 ?AUTO_1697 ) ( AT ?AUTO_1694 ?AUTO_1700 ) ( VISIBLE ?AUTO_1700 ?AUTO_1697 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1694 ?AUTO_1700 ?AUTO_1697 )
+      ( GET_SOIL_DATA ?AUTO_1692 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1692 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1701 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1706 - LANDER
+      ?AUTO_1702 - WAYPOINT
+      ?AUTO_1703 - ROVER
+      ?AUTO_1705 - WAYPOINT
+      ?AUTO_1707 - WAYPOINT
+      ?AUTO_1710 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1706 ?AUTO_1702 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1703 ?AUTO_1701 ) ( VISIBLE ?AUTO_1705 ?AUTO_1702 ) ( AVAILABLE ?AUTO_1703 ) ( CHANNEL_FREE ?AUTO_1706 ) ( CAN_TRAVERSE ?AUTO_1703 ?AUTO_1707 ?AUTO_1705 ) ( VISIBLE ?AUTO_1707 ?AUTO_1705 ) ( CAN_TRAVERSE ?AUTO_1703 ?AUTO_1710 ?AUTO_1707 ) ( AT ?AUTO_1703 ?AUTO_1710 ) ( VISIBLE ?AUTO_1710 ?AUTO_1707 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1703 ?AUTO_1710 ?AUTO_1707 )
+      ( GET_SOIL_DATA ?AUTO_1701 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1701 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1711 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1715 - LANDER
+      ?AUTO_1717 - WAYPOINT
+      ?AUTO_1718 - WAYPOINT
+      ?AUTO_1713 - ROVER
+      ?AUTO_1716 - WAYPOINT
+      ?AUTO_1714 - WAYPOINT
+      ?AUTO_1720 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1715 ?AUTO_1717 ) ( VISIBLE ?AUTO_1718 ?AUTO_1717 ) ( AVAILABLE ?AUTO_1713 ) ( CHANNEL_FREE ?AUTO_1715 ) ( CAN_TRAVERSE ?AUTO_1713 ?AUTO_1716 ?AUTO_1718 ) ( VISIBLE ?AUTO_1716 ?AUTO_1718 ) ( CAN_TRAVERSE ?AUTO_1713 ?AUTO_1714 ?AUTO_1716 ) ( AT ?AUTO_1713 ?AUTO_1714 ) ( VISIBLE ?AUTO_1714 ?AUTO_1716 ) ( AT ?AUTO_1713 ?AUTO_1711 ) ( AT_SOIL_SAMPLE ?AUTO_1711 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1713 ) ( STORE_OF ?AUTO_1720 ?AUTO_1713 ) ( EMPTY ?AUTO_1720 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_1713 ?AUTO_1720 ?AUTO_1711 )
+      ( GET_SOIL_DATA ?AUTO_1711 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1711 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1722 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1726 - LANDER
+      ?AUTO_1728 - WAYPOINT
+      ?AUTO_1725 - WAYPOINT
+      ?AUTO_1724 - ROVER
+      ?AUTO_1729 - WAYPOINT
+      ?AUTO_1727 - STORE
+      ?AUTO_1733 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1726 ?AUTO_1728 ) ( VISIBLE ?AUTO_1725 ?AUTO_1728 ) ( AVAILABLE ?AUTO_1724 ) ( CHANNEL_FREE ?AUTO_1726 ) ( CAN_TRAVERSE ?AUTO_1724 ?AUTO_1729 ?AUTO_1725 ) ( VISIBLE ?AUTO_1729 ?AUTO_1725 ) ( CAN_TRAVERSE ?AUTO_1724 ?AUTO_1722 ?AUTO_1729 ) ( VISIBLE ?AUTO_1722 ?AUTO_1729 ) ( AT_SOIL_SAMPLE ?AUTO_1722 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1724 ) ( STORE_OF ?AUTO_1727 ?AUTO_1724 ) ( EMPTY ?AUTO_1727 ) ( CAN_TRAVERSE ?AUTO_1724 ?AUTO_1733 ?AUTO_1722 ) ( AT ?AUTO_1724 ?AUTO_1733 ) ( VISIBLE ?AUTO_1733 ?AUTO_1722 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1724 ?AUTO_1733 ?AUTO_1722 )
+      ( GET_SOIL_DATA ?AUTO_1722 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1722 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1734 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1742 - LANDER
+      ?AUTO_1741 - WAYPOINT
+      ?AUTO_1735 - WAYPOINT
+      ?AUTO_1739 - ROVER
+      ?AUTO_1740 - WAYPOINT
+      ?AUTO_1738 - STORE
+      ?AUTO_1737 - WAYPOINT
+      ?AUTO_1743 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1742 ?AUTO_1741 ) ( VISIBLE ?AUTO_1735 ?AUTO_1741 ) ( AVAILABLE ?AUTO_1739 ) ( CHANNEL_FREE ?AUTO_1742 ) ( CAN_TRAVERSE ?AUTO_1739 ?AUTO_1740 ?AUTO_1735 ) ( VISIBLE ?AUTO_1740 ?AUTO_1735 ) ( CAN_TRAVERSE ?AUTO_1739 ?AUTO_1734 ?AUTO_1740 ) ( VISIBLE ?AUTO_1734 ?AUTO_1740 ) ( AT_SOIL_SAMPLE ?AUTO_1734 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1739 ) ( STORE_OF ?AUTO_1738 ?AUTO_1739 ) ( CAN_TRAVERSE ?AUTO_1739 ?AUTO_1737 ?AUTO_1734 ) ( AT ?AUTO_1739 ?AUTO_1737 ) ( VISIBLE ?AUTO_1737 ?AUTO_1734 ) ( STORE_OF ?AUTO_1738 ?AUTO_1743 ) ( FULL ?AUTO_1738 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1743 ?AUTO_1738 )
+      ( GET_SOIL_DATA ?AUTO_1734 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1734 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1746 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1748 - LANDER
+      ?AUTO_1749 - WAYPOINT
+      ?AUTO_1751 - WAYPOINT
+      ?AUTO_1750 - ROVER
+      ?AUTO_1752 - WAYPOINT
+      ?AUTO_1754 - STORE
+      ?AUTO_1747 - WAYPOINT
+      ?AUTO_1757 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1748 ?AUTO_1749 ) ( VISIBLE ?AUTO_1751 ?AUTO_1749 ) ( AVAILABLE ?AUTO_1750 ) ( CHANNEL_FREE ?AUTO_1748 ) ( CAN_TRAVERSE ?AUTO_1750 ?AUTO_1752 ?AUTO_1751 ) ( VISIBLE ?AUTO_1752 ?AUTO_1751 ) ( CAN_TRAVERSE ?AUTO_1750 ?AUTO_1746 ?AUTO_1752 ) ( VISIBLE ?AUTO_1746 ?AUTO_1752 ) ( AT_SOIL_SAMPLE ?AUTO_1746 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1750 ) ( STORE_OF ?AUTO_1754 ?AUTO_1750 ) ( EMPTY ?AUTO_1754 ) ( CAN_TRAVERSE ?AUTO_1750 ?AUTO_1747 ?AUTO_1746 ) ( VISIBLE ?AUTO_1747 ?AUTO_1746 ) ( CAN_TRAVERSE ?AUTO_1750 ?AUTO_1757 ?AUTO_1747 ) ( AT ?AUTO_1750 ?AUTO_1757 ) ( VISIBLE ?AUTO_1757 ?AUTO_1747 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1750 ?AUTO_1757 ?AUTO_1747 )
+      ( GET_SOIL_DATA ?AUTO_1746 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1746 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1758 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1765 - LANDER
+      ?AUTO_1767 - WAYPOINT
+      ?AUTO_1766 - WAYPOINT
+      ?AUTO_1759 - ROVER
+      ?AUTO_1762 - WAYPOINT
+      ?AUTO_1764 - STORE
+      ?AUTO_1763 - WAYPOINT
+      ?AUTO_1760 - WAYPOINT
+      ?AUTO_1768 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1765 ?AUTO_1767 ) ( VISIBLE ?AUTO_1766 ?AUTO_1767 ) ( AVAILABLE ?AUTO_1759 ) ( CHANNEL_FREE ?AUTO_1765 ) ( CAN_TRAVERSE ?AUTO_1759 ?AUTO_1762 ?AUTO_1766 ) ( VISIBLE ?AUTO_1762 ?AUTO_1766 ) ( CAN_TRAVERSE ?AUTO_1759 ?AUTO_1758 ?AUTO_1762 ) ( VISIBLE ?AUTO_1758 ?AUTO_1762 ) ( AT_SOIL_SAMPLE ?AUTO_1758 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1759 ) ( STORE_OF ?AUTO_1764 ?AUTO_1759 ) ( CAN_TRAVERSE ?AUTO_1759 ?AUTO_1763 ?AUTO_1758 ) ( VISIBLE ?AUTO_1763 ?AUTO_1758 ) ( CAN_TRAVERSE ?AUTO_1759 ?AUTO_1760 ?AUTO_1763 ) ( AT ?AUTO_1759 ?AUTO_1760 ) ( VISIBLE ?AUTO_1760 ?AUTO_1763 ) ( STORE_OF ?AUTO_1764 ?AUTO_1768 ) ( FULL ?AUTO_1764 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1768 ?AUTO_1764 )
+      ( GET_SOIL_DATA ?AUTO_1758 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1758 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1784 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1785 - ROVER
+      ?AUTO_1788 - WAYPOINT
+      ?AUTO_1787 - LANDER
+      ?AUTO_1786 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1785 ?AUTO_1788 ) ( AT_LANDER ?AUTO_1787 ?AUTO_1786 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1785 ?AUTO_1784 ) ( VISIBLE ?AUTO_1788 ?AUTO_1786 ) ( AVAILABLE ?AUTO_1785 ) ( CHANNEL_FREE ?AUTO_1787 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_1785 ?AUTO_1787 ?AUTO_1784 ?AUTO_1788 ?AUTO_1786 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1784 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1791 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1793 - LANDER
+      ?AUTO_1796 - WAYPOINT
+      ?AUTO_1792 - ROVER
+      ?AUTO_1794 - WAYPOINT
+      ?AUTO_1799 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1793 ?AUTO_1796 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1792 ?AUTO_1791 ) ( VISIBLE ?AUTO_1794 ?AUTO_1796 ) ( AVAILABLE ?AUTO_1792 ) ( CHANNEL_FREE ?AUTO_1793 ) ( CAN_TRAVERSE ?AUTO_1792 ?AUTO_1799 ?AUTO_1794 ) ( AT ?AUTO_1792 ?AUTO_1799 ) ( VISIBLE ?AUTO_1799 ?AUTO_1794 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1792 ?AUTO_1799 ?AUTO_1794 )
+      ( GET_ROCK_DATA ?AUTO_1791 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1791 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1800 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1802 - LANDER
+      ?AUTO_1804 - WAYPOINT
+      ?AUTO_1805 - ROVER
+      ?AUTO_1803 - WAYPOINT
+      ?AUTO_1806 - WAYPOINT
+      ?AUTO_1809 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1802 ?AUTO_1804 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1805 ?AUTO_1800 ) ( VISIBLE ?AUTO_1803 ?AUTO_1804 ) ( AVAILABLE ?AUTO_1805 ) ( CHANNEL_FREE ?AUTO_1802 ) ( CAN_TRAVERSE ?AUTO_1805 ?AUTO_1806 ?AUTO_1803 ) ( VISIBLE ?AUTO_1806 ?AUTO_1803 ) ( CAN_TRAVERSE ?AUTO_1805 ?AUTO_1809 ?AUTO_1806 ) ( AT ?AUTO_1805 ?AUTO_1809 ) ( VISIBLE ?AUTO_1809 ?AUTO_1806 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1805 ?AUTO_1809 ?AUTO_1806 )
+      ( GET_ROCK_DATA ?AUTO_1800 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1800 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1813 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1814 - LANDER
+      ?AUTO_1818 - WAYPOINT
+      ?AUTO_1819 - WAYPOINT
+      ?AUTO_1817 - ROVER
+      ?AUTO_1816 - WAYPOINT
+      ?AUTO_1821 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1814 ?AUTO_1818 ) ( VISIBLE ?AUTO_1819 ?AUTO_1818 ) ( AVAILABLE ?AUTO_1817 ) ( CHANNEL_FREE ?AUTO_1814 ) ( CAN_TRAVERSE ?AUTO_1817 ?AUTO_1816 ?AUTO_1819 ) ( AT ?AUTO_1817 ?AUTO_1816 ) ( VISIBLE ?AUTO_1816 ?AUTO_1819 ) ( AT ?AUTO_1817 ?AUTO_1813 ) ( AT_ROCK_SAMPLE ?AUTO_1813 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1817 ) ( STORE_OF ?AUTO_1821 ?AUTO_1817 ) ( EMPTY ?AUTO_1821 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1817 ?AUTO_1821 ?AUTO_1813 )
+      ( GET_ROCK_DATA ?AUTO_1813 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1813 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1823 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1826 - LANDER
+      ?AUTO_1829 - WAYPOINT
+      ?AUTO_1827 - WAYPOINT
+      ?AUTO_1825 - ROVER
+      ?AUTO_1830 - STORE
+      ?AUTO_1833 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1826 ?AUTO_1829 ) ( VISIBLE ?AUTO_1827 ?AUTO_1829 ) ( AVAILABLE ?AUTO_1825 ) ( CHANNEL_FREE ?AUTO_1826 ) ( CAN_TRAVERSE ?AUTO_1825 ?AUTO_1823 ?AUTO_1827 ) ( VISIBLE ?AUTO_1823 ?AUTO_1827 ) ( AT_ROCK_SAMPLE ?AUTO_1823 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1825 ) ( STORE_OF ?AUTO_1830 ?AUTO_1825 ) ( EMPTY ?AUTO_1830 ) ( CAN_TRAVERSE ?AUTO_1825 ?AUTO_1833 ?AUTO_1823 ) ( AT ?AUTO_1825 ?AUTO_1833 ) ( VISIBLE ?AUTO_1833 ?AUTO_1823 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1825 ?AUTO_1833 ?AUTO_1823 )
+      ( GET_ROCK_DATA ?AUTO_1823 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1823 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1834 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1841 - LANDER
+      ?AUTO_1838 - WAYPOINT
+      ?AUTO_1840 - WAYPOINT
+      ?AUTO_1839 - ROVER
+      ?AUTO_1836 - STORE
+      ?AUTO_1837 - WAYPOINT
+      ?AUTO_1842 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1841 ?AUTO_1838 ) ( VISIBLE ?AUTO_1840 ?AUTO_1838 ) ( AVAILABLE ?AUTO_1839 ) ( CHANNEL_FREE ?AUTO_1841 ) ( CAN_TRAVERSE ?AUTO_1839 ?AUTO_1834 ?AUTO_1840 ) ( VISIBLE ?AUTO_1834 ?AUTO_1840 ) ( AT_ROCK_SAMPLE ?AUTO_1834 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1839 ) ( STORE_OF ?AUTO_1836 ?AUTO_1839 ) ( CAN_TRAVERSE ?AUTO_1839 ?AUTO_1837 ?AUTO_1834 ) ( AT ?AUTO_1839 ?AUTO_1837 ) ( VISIBLE ?AUTO_1837 ?AUTO_1834 ) ( STORE_OF ?AUTO_1836 ?AUTO_1842 ) ( FULL ?AUTO_1836 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1842 ?AUTO_1836 )
+      ( GET_ROCK_DATA ?AUTO_1834 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1834 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1846 - OBJECTIVE
+      ?AUTO_1845 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1847 - ROVER
+      ?AUTO_1850 - WAYPOINT
+      ?AUTO_1849 - LANDER
+      ?AUTO_1848 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1847 ?AUTO_1850 ) ( AT_LANDER ?AUTO_1849 ?AUTO_1848 ) ( HAVE_IMAGE ?AUTO_1847 ?AUTO_1846 ?AUTO_1845 ) ( VISIBLE ?AUTO_1850 ?AUTO_1848 ) ( AVAILABLE ?AUTO_1847 ) ( CHANNEL_FREE ?AUTO_1849 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_1847 ?AUTO_1849 ?AUTO_1846 ?AUTO_1845 ?AUTO_1850 ?AUTO_1848 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1846 ?AUTO_1845 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1854 - OBJECTIVE
+      ?AUTO_1853 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1857 - ROVER
+      ?AUTO_1860 - WAYPOINT
+      ?AUTO_1859 - LANDER
+      ?AUTO_1858 - WAYPOINT
+      ?AUTO_1865 - CAMERA
+      ?AUTO_1863 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1857 ?AUTO_1860 ) ( AT_LANDER ?AUTO_1859 ?AUTO_1858 ) ( VISIBLE ?AUTO_1860 ?AUTO_1858 ) ( AVAILABLE ?AUTO_1857 ) ( CHANNEL_FREE ?AUTO_1859 ) ( CALIBRATED ?AUTO_1865 ?AUTO_1857 ) ( ON_BOARD ?AUTO_1865 ?AUTO_1857 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1857 ) ( SUPPORTS ?AUTO_1865 ?AUTO_1853 ) ( VISIBLE_FROM ?AUTO_1854 ?AUTO_1863 ) ( AT ?AUTO_1857 ?AUTO_1863 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_1857 ?AUTO_1863 ?AUTO_1854 ?AUTO_1865 ?AUTO_1853 )
+      ( GET_IMAGE_DATA ?AUTO_1854 ?AUTO_1853 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1854 ?AUTO_1853 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1867 - OBJECTIVE
+      ?AUTO_1866 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1871 - ROVER
+      ?AUTO_1868 - WAYPOINT
+      ?AUTO_1873 - LANDER
+      ?AUTO_1872 - WAYPOINT
+      ?AUTO_1875 - CAMERA
+      ?AUTO_1874 - WAYPOINT
+      ?AUTO_1879 - OBJECTIVE
+      ?AUTO_1877 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1871 ?AUTO_1868 ) ( AT_LANDER ?AUTO_1873 ?AUTO_1872 ) ( VISIBLE ?AUTO_1868 ?AUTO_1872 ) ( AVAILABLE ?AUTO_1871 ) ( CHANNEL_FREE ?AUTO_1873 ) ( ON_BOARD ?AUTO_1875 ?AUTO_1871 ) ( EQUIPPED_FOR_IMAGING ?AUTO_1871 ) ( SUPPORTS ?AUTO_1875 ?AUTO_1866 ) ( VISIBLE_FROM ?AUTO_1867 ?AUTO_1874 ) ( AT ?AUTO_1871 ?AUTO_1874 ) ( CALIBRATION_TARGET ?AUTO_1875 ?AUTO_1879 ) ( AT ?AUTO_1871 ?AUTO_1877 ) ( VISIBLE_FROM ?AUTO_1879 ?AUTO_1877 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_1871 ?AUTO_1875 ?AUTO_1879 ?AUTO_1877 )
+      ( GET_IMAGE_DATA ?AUTO_1867 ?AUTO_1866 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1867 ?AUTO_1866 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1881 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1882 - ROVER
+      ?AUTO_1885 - WAYPOINT
+      ?AUTO_1884 - LANDER
+      ?AUTO_1883 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1882 ?AUTO_1885 ) ( AT_LANDER ?AUTO_1884 ?AUTO_1883 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1882 ?AUTO_1881 ) ( VISIBLE ?AUTO_1885 ?AUTO_1883 ) ( AVAILABLE ?AUTO_1882 ) ( CHANNEL_FREE ?AUTO_1884 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_1882 ?AUTO_1884 ?AUTO_1881 ?AUTO_1885 ?AUTO_1883 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1881 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1887 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1890 - LANDER
+      ?AUTO_1889 - WAYPOINT
+      ?AUTO_1888 - ROVER
+      ?AUTO_1891 - WAYPOINT
+      ?AUTO_1895 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1890 ?AUTO_1889 ) ( HAVE_SOIL_ANALYSIS ?AUTO_1888 ?AUTO_1887 ) ( VISIBLE ?AUTO_1891 ?AUTO_1889 ) ( AVAILABLE ?AUTO_1888 ) ( CHANNEL_FREE ?AUTO_1890 ) ( CAN_TRAVERSE ?AUTO_1888 ?AUTO_1895 ?AUTO_1891 ) ( AT ?AUTO_1888 ?AUTO_1895 ) ( VISIBLE ?AUTO_1895 ?AUTO_1891 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1888 ?AUTO_1895 ?AUTO_1891 )
+      ( GET_SOIL_DATA ?AUTO_1887 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1887 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1896 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1897 - LANDER
+      ?AUTO_1899 - WAYPOINT
+      ?AUTO_1901 - WAYPOINT
+      ?AUTO_1898 - ROVER
+      ?AUTO_1902 - WAYPOINT
+      ?AUTO_1904 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1897 ?AUTO_1899 ) ( VISIBLE ?AUTO_1901 ?AUTO_1899 ) ( AVAILABLE ?AUTO_1898 ) ( CHANNEL_FREE ?AUTO_1897 ) ( CAN_TRAVERSE ?AUTO_1898 ?AUTO_1902 ?AUTO_1901 ) ( AT ?AUTO_1898 ?AUTO_1902 ) ( VISIBLE ?AUTO_1902 ?AUTO_1901 ) ( AT ?AUTO_1898 ?AUTO_1896 ) ( AT_SOIL_SAMPLE ?AUTO_1896 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1898 ) ( STORE_OF ?AUTO_1904 ?AUTO_1898 ) ( EMPTY ?AUTO_1904 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_1898 ?AUTO_1904 ?AUTO_1896 )
+      ( GET_SOIL_DATA ?AUTO_1896 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1896 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_1906 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1912 - LANDER
+      ?AUTO_1913 - WAYPOINT
+      ?AUTO_1910 - WAYPOINT
+      ?AUTO_1908 - ROVER
+      ?AUTO_1909 - STORE
+      ?AUTO_1916 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1912 ?AUTO_1913 ) ( VISIBLE ?AUTO_1910 ?AUTO_1913 ) ( AVAILABLE ?AUTO_1908 ) ( CHANNEL_FREE ?AUTO_1912 ) ( CAN_TRAVERSE ?AUTO_1908 ?AUTO_1906 ?AUTO_1910 ) ( VISIBLE ?AUTO_1906 ?AUTO_1910 ) ( AT_SOIL_SAMPLE ?AUTO_1906 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1908 ) ( STORE_OF ?AUTO_1909 ?AUTO_1908 ) ( EMPTY ?AUTO_1909 ) ( CAN_TRAVERSE ?AUTO_1908 ?AUTO_1916 ?AUTO_1906 ) ( AT ?AUTO_1908 ?AUTO_1916 ) ( VISIBLE ?AUTO_1916 ?AUTO_1906 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1908 ?AUTO_1916 ?AUTO_1906 )
+      ( GET_SOIL_DATA ?AUTO_1906 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_1906 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1921 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1922 - ROVER
+      ?AUTO_1925 - WAYPOINT
+      ?AUTO_1924 - LANDER
+      ?AUTO_1923 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1922 ?AUTO_1925 ) ( AT_LANDER ?AUTO_1924 ?AUTO_1923 ) ( HAVE_ROCK_ANALYSIS ?AUTO_1922 ?AUTO_1921 ) ( VISIBLE ?AUTO_1925 ?AUTO_1923 ) ( AVAILABLE ?AUTO_1922 ) ( CHANNEL_FREE ?AUTO_1924 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_1922 ?AUTO_1924 ?AUTO_1921 ?AUTO_1925 ?AUTO_1923 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1921 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1927 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1929 - ROVER
+      ?AUTO_1932 - WAYPOINT
+      ?AUTO_1931 - LANDER
+      ?AUTO_1930 - WAYPOINT
+      ?AUTO_1934 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_1929 ?AUTO_1932 ) ( AT_LANDER ?AUTO_1931 ?AUTO_1930 ) ( VISIBLE ?AUTO_1932 ?AUTO_1930 ) ( AVAILABLE ?AUTO_1929 ) ( CHANNEL_FREE ?AUTO_1931 ) ( AT ?AUTO_1929 ?AUTO_1927 ) ( AT_ROCK_SAMPLE ?AUTO_1927 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1929 ) ( STORE_OF ?AUTO_1934 ?AUTO_1929 ) ( EMPTY ?AUTO_1934 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_1929 ?AUTO_1934 ?AUTO_1927 )
+      ( GET_ROCK_DATA ?AUTO_1927 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1927 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1936 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1938 - ROVER
+      ?AUTO_1937 - WAYPOINT
+      ?AUTO_1940 - LANDER
+      ?AUTO_1941 - WAYPOINT
+      ?AUTO_1942 - STORE
+      ?AUTO_1943 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_1938 ?AUTO_1937 ) ( AT_LANDER ?AUTO_1940 ?AUTO_1941 ) ( VISIBLE ?AUTO_1937 ?AUTO_1941 ) ( AVAILABLE ?AUTO_1938 ) ( CHANNEL_FREE ?AUTO_1940 ) ( AT ?AUTO_1938 ?AUTO_1936 ) ( AT_ROCK_SAMPLE ?AUTO_1936 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1938 ) ( STORE_OF ?AUTO_1942 ?AUTO_1938 ) ( STORE_OF ?AUTO_1942 ?AUTO_1943 ) ( FULL ?AUTO_1942 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_1943 ?AUTO_1942 )
+      ( GET_ROCK_DATA ?AUTO_1936 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1936 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1945 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1949 - LANDER
+      ?AUTO_1952 - WAYPOINT
+      ?AUTO_1950 - ROVER
+      ?AUTO_1948 - STORE
+      ?AUTO_1951 - ROVER
+      ?AUTO_1955 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1949 ?AUTO_1952 ) ( VISIBLE ?AUTO_1945 ?AUTO_1952 ) ( AVAILABLE ?AUTO_1950 ) ( CHANNEL_FREE ?AUTO_1949 ) ( AT_ROCK_SAMPLE ?AUTO_1945 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1950 ) ( STORE_OF ?AUTO_1948 ?AUTO_1950 ) ( STORE_OF ?AUTO_1948 ?AUTO_1951 ) ( FULL ?AUTO_1948 ) ( CAN_TRAVERSE ?AUTO_1950 ?AUTO_1955 ?AUTO_1945 ) ( AT ?AUTO_1950 ?AUTO_1955 ) ( VISIBLE ?AUTO_1955 ?AUTO_1945 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1950 ?AUTO_1955 ?AUTO_1945 )
+      ( GET_ROCK_DATA ?AUTO_1945 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1945 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1957 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1964 - LANDER
+      ?AUTO_1962 - WAYPOINT
+      ?AUTO_1960 - ROVER
+      ?AUTO_1959 - STORE
+      ?AUTO_1961 - ROVER
+      ?AUTO_1963 - WAYPOINT
+      ?AUTO_1967 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1964 ?AUTO_1962 ) ( VISIBLE ?AUTO_1957 ?AUTO_1962 ) ( AVAILABLE ?AUTO_1960 ) ( CHANNEL_FREE ?AUTO_1964 ) ( AT_ROCK_SAMPLE ?AUTO_1957 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1960 ) ( STORE_OF ?AUTO_1959 ?AUTO_1960 ) ( STORE_OF ?AUTO_1959 ?AUTO_1961 ) ( FULL ?AUTO_1959 ) ( CAN_TRAVERSE ?AUTO_1960 ?AUTO_1963 ?AUTO_1957 ) ( VISIBLE ?AUTO_1963 ?AUTO_1957 ) ( CAN_TRAVERSE ?AUTO_1960 ?AUTO_1967 ?AUTO_1963 ) ( AT ?AUTO_1960 ?AUTO_1967 ) ( VISIBLE ?AUTO_1967 ?AUTO_1963 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1960 ?AUTO_1967 ?AUTO_1963 )
+      ( GET_ROCK_DATA ?AUTO_1957 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1957 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1968 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1969 - LANDER
+      ?AUTO_1972 - WAYPOINT
+      ?AUTO_1975 - ROVER
+      ?AUTO_1973 - STORE
+      ?AUTO_1971 - ROVER
+      ?AUTO_1974 - WAYPOINT
+      ?AUTO_1976 - WAYPOINT
+      ?AUTO_1977 - ROVER
+      ?AUTO_1979 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1969 ?AUTO_1972 ) ( VISIBLE ?AUTO_1968 ?AUTO_1972 ) ( AVAILABLE ?AUTO_1975 ) ( CHANNEL_FREE ?AUTO_1969 ) ( AT_ROCK_SAMPLE ?AUTO_1968 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1975 ) ( STORE_OF ?AUTO_1973 ?AUTO_1975 ) ( STORE_OF ?AUTO_1973 ?AUTO_1971 ) ( CAN_TRAVERSE ?AUTO_1975 ?AUTO_1974 ?AUTO_1968 ) ( VISIBLE ?AUTO_1974 ?AUTO_1968 ) ( CAN_TRAVERSE ?AUTO_1975 ?AUTO_1976 ?AUTO_1974 ) ( AT ?AUTO_1975 ?AUTO_1976 ) ( VISIBLE ?AUTO_1976 ?AUTO_1974 ) ( AT ?AUTO_1977 ?AUTO_1979 ) ( AT_SOIL_SAMPLE ?AUTO_1979 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1977 ) ( STORE_OF ?AUTO_1973 ?AUTO_1977 ) ( EMPTY ?AUTO_1973 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_1977 ?AUTO_1973 ?AUTO_1979 )
+      ( GET_ROCK_DATA ?AUTO_1968 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1968 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_1980 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_1986 - LANDER
+      ?AUTO_1985 - WAYPOINT
+      ?AUTO_1983 - ROVER
+      ?AUTO_1981 - STORE
+      ?AUTO_1984 - ROVER
+      ?AUTO_1989 - WAYPOINT
+      ?AUTO_1990 - WAYPOINT
+      ?AUTO_1993 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_1986 ?AUTO_1985 ) ( VISIBLE ?AUTO_1980 ?AUTO_1985 ) ( AVAILABLE ?AUTO_1983 ) ( CHANNEL_FREE ?AUTO_1986 ) ( AT_ROCK_SAMPLE ?AUTO_1980 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_1983 ) ( STORE_OF ?AUTO_1981 ?AUTO_1983 ) ( STORE_OF ?AUTO_1981 ?AUTO_1984 ) ( CAN_TRAVERSE ?AUTO_1983 ?AUTO_1989 ?AUTO_1980 ) ( VISIBLE ?AUTO_1989 ?AUTO_1980 ) ( CAN_TRAVERSE ?AUTO_1983 ?AUTO_1990 ?AUTO_1989 ) ( VISIBLE ?AUTO_1990 ?AUTO_1989 ) ( AT_SOIL_SAMPLE ?AUTO_1990 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_1983 ) ( EMPTY ?AUTO_1981 ) ( CAN_TRAVERSE ?AUTO_1983 ?AUTO_1993 ?AUTO_1990 ) ( AT ?AUTO_1983 ?AUTO_1993 ) ( VISIBLE ?AUTO_1993 ?AUTO_1990 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_1983 ?AUTO_1993 ?AUTO_1990 )
+      ( GET_ROCK_DATA ?AUTO_1980 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_1980 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_1996 - OBJECTIVE
+      ?AUTO_1997 - MODE
+    )
+    :vars
+    (
+      ?AUTO_1998 - ROVER
+      ?AUTO_2001 - WAYPOINT
+      ?AUTO_2000 - LANDER
+      ?AUTO_1999 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_1998 ?AUTO_2001 ) ( AT_LANDER ?AUTO_2000 ?AUTO_1999 ) ( HAVE_IMAGE ?AUTO_1998 ?AUTO_1996 ?AUTO_1997 ) ( VISIBLE ?AUTO_2001 ?AUTO_1999 ) ( AVAILABLE ?AUTO_1998 ) ( CHANNEL_FREE ?AUTO_2000 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_1998 ?AUTO_2000 ?AUTO_1996 ?AUTO_1997 ?AUTO_2001 ?AUTO_1999 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_1996 ?AUTO_1997 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2004 - OBJECTIVE
+      ?AUTO_2005 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2008 - ROVER
+      ?AUTO_2011 - WAYPOINT
+      ?AUTO_2010 - LANDER
+      ?AUTO_2009 - WAYPOINT
+      ?AUTO_2016 - CAMERA
+      ?AUTO_2014 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2008 ?AUTO_2011 ) ( AT_LANDER ?AUTO_2010 ?AUTO_2009 ) ( VISIBLE ?AUTO_2011 ?AUTO_2009 ) ( AVAILABLE ?AUTO_2008 ) ( CHANNEL_FREE ?AUTO_2010 ) ( CALIBRATED ?AUTO_2016 ?AUTO_2008 ) ( ON_BOARD ?AUTO_2016 ?AUTO_2008 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2008 ) ( SUPPORTS ?AUTO_2016 ?AUTO_2005 ) ( VISIBLE_FROM ?AUTO_2004 ?AUTO_2014 ) ( AT ?AUTO_2008 ?AUTO_2014 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_2008 ?AUTO_2014 ?AUTO_2004 ?AUTO_2016 ?AUTO_2005 )
+      ( GET_IMAGE_DATA ?AUTO_2004 ?AUTO_2005 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2004 ?AUTO_2005 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2017 - OBJECTIVE
+      ?AUTO_2018 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2022 - ROVER
+      ?AUTO_2019 - WAYPOINT
+      ?AUTO_2024 - LANDER
+      ?AUTO_2023 - WAYPOINT
+      ?AUTO_2026 - CAMERA
+      ?AUTO_2025 - WAYPOINT
+      ?AUTO_2030 - OBJECTIVE
+      ?AUTO_2028 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2022 ?AUTO_2019 ) ( AT_LANDER ?AUTO_2024 ?AUTO_2023 ) ( VISIBLE ?AUTO_2019 ?AUTO_2023 ) ( AVAILABLE ?AUTO_2022 ) ( CHANNEL_FREE ?AUTO_2024 ) ( ON_BOARD ?AUTO_2026 ?AUTO_2022 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2022 ) ( SUPPORTS ?AUTO_2026 ?AUTO_2018 ) ( VISIBLE_FROM ?AUTO_2017 ?AUTO_2025 ) ( AT ?AUTO_2022 ?AUTO_2025 ) ( CALIBRATION_TARGET ?AUTO_2026 ?AUTO_2030 ) ( AT ?AUTO_2022 ?AUTO_2028 ) ( VISIBLE_FROM ?AUTO_2030 ?AUTO_2028 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_2022 ?AUTO_2026 ?AUTO_2030 ?AUTO_2028 )
+      ( GET_IMAGE_DATA ?AUTO_2017 ?AUTO_2018 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2017 ?AUTO_2018 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2031 - OBJECTIVE
+      ?AUTO_2032 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2033 - LANDER
+      ?AUTO_2038 - WAYPOINT
+      ?AUTO_2034 - WAYPOINT
+      ?AUTO_2037 - ROVER
+      ?AUTO_2035 - CAMERA
+      ?AUTO_2042 - OBJECTIVE
+      ?AUTO_2045 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2033 ?AUTO_2038 ) ( VISIBLE ?AUTO_2034 ?AUTO_2038 ) ( AVAILABLE ?AUTO_2037 ) ( CHANNEL_FREE ?AUTO_2033 ) ( ON_BOARD ?AUTO_2035 ?AUTO_2037 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2037 ) ( SUPPORTS ?AUTO_2035 ?AUTO_2032 ) ( VISIBLE_FROM ?AUTO_2031 ?AUTO_2034 ) ( CALIBRATION_TARGET ?AUTO_2035 ?AUTO_2042 ) ( VISIBLE_FROM ?AUTO_2042 ?AUTO_2034 ) ( CAN_TRAVERSE ?AUTO_2037 ?AUTO_2045 ?AUTO_2034 ) ( AT ?AUTO_2037 ?AUTO_2045 ) ( VISIBLE ?AUTO_2045 ?AUTO_2034 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2037 ?AUTO_2045 ?AUTO_2034 )
+      ( GET_IMAGE_DATA ?AUTO_2031 ?AUTO_2032 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2031 ?AUTO_2032 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2046 - OBJECTIVE
+      ?AUTO_2047 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2054 - LANDER
+      ?AUTO_2053 - WAYPOINT
+      ?AUTO_2050 - WAYPOINT
+      ?AUTO_2049 - ROVER
+      ?AUTO_2055 - CAMERA
+      ?AUTO_2051 - OBJECTIVE
+      ?AUTO_2056 - WAYPOINT
+      ?AUTO_2059 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2054 ?AUTO_2053 ) ( VISIBLE ?AUTO_2050 ?AUTO_2053 ) ( AVAILABLE ?AUTO_2049 ) ( CHANNEL_FREE ?AUTO_2054 ) ( ON_BOARD ?AUTO_2055 ?AUTO_2049 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2049 ) ( SUPPORTS ?AUTO_2055 ?AUTO_2047 ) ( VISIBLE_FROM ?AUTO_2046 ?AUTO_2050 ) ( CALIBRATION_TARGET ?AUTO_2055 ?AUTO_2051 ) ( VISIBLE_FROM ?AUTO_2051 ?AUTO_2050 ) ( CAN_TRAVERSE ?AUTO_2049 ?AUTO_2056 ?AUTO_2050 ) ( VISIBLE ?AUTO_2056 ?AUTO_2050 ) ( CAN_TRAVERSE ?AUTO_2049 ?AUTO_2059 ?AUTO_2056 ) ( AT ?AUTO_2049 ?AUTO_2059 ) ( VISIBLE ?AUTO_2059 ?AUTO_2056 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2049 ?AUTO_2059 ?AUTO_2056 )
+      ( GET_IMAGE_DATA ?AUTO_2046 ?AUTO_2047 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2046 ?AUTO_2047 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2060 - OBJECTIVE
+      ?AUTO_2061 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2065 - LANDER
+      ?AUTO_2062 - WAYPOINT
+      ?AUTO_2070 - WAYPOINT
+      ?AUTO_2069 - ROVER
+      ?AUTO_2067 - CAMERA
+      ?AUTO_2066 - OBJECTIVE
+      ?AUTO_2064 - WAYPOINT
+      ?AUTO_2071 - WAYPOINT
+      ?AUTO_2074 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2065 ?AUTO_2062 ) ( VISIBLE ?AUTO_2070 ?AUTO_2062 ) ( AVAILABLE ?AUTO_2069 ) ( CHANNEL_FREE ?AUTO_2065 ) ( ON_BOARD ?AUTO_2067 ?AUTO_2069 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2069 ) ( SUPPORTS ?AUTO_2067 ?AUTO_2061 ) ( VISIBLE_FROM ?AUTO_2060 ?AUTO_2070 ) ( CALIBRATION_TARGET ?AUTO_2067 ?AUTO_2066 ) ( VISIBLE_FROM ?AUTO_2066 ?AUTO_2070 ) ( CAN_TRAVERSE ?AUTO_2069 ?AUTO_2064 ?AUTO_2070 ) ( VISIBLE ?AUTO_2064 ?AUTO_2070 ) ( CAN_TRAVERSE ?AUTO_2069 ?AUTO_2071 ?AUTO_2064 ) ( VISIBLE ?AUTO_2071 ?AUTO_2064 ) ( CAN_TRAVERSE ?AUTO_2069 ?AUTO_2074 ?AUTO_2071 ) ( AT ?AUTO_2069 ?AUTO_2074 ) ( VISIBLE ?AUTO_2074 ?AUTO_2071 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2069 ?AUTO_2074 ?AUTO_2071 )
+      ( GET_IMAGE_DATA ?AUTO_2060 ?AUTO_2061 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2060 ?AUTO_2061 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2076 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2077 - ROVER
+      ?AUTO_2080 - WAYPOINT
+      ?AUTO_2079 - LANDER
+      ?AUTO_2078 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2077 ?AUTO_2080 ) ( AT_LANDER ?AUTO_2079 ?AUTO_2078 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2077 ?AUTO_2076 ) ( VISIBLE ?AUTO_2080 ?AUTO_2078 ) ( AVAILABLE ?AUTO_2077 ) ( CHANNEL_FREE ?AUTO_2079 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_2077 ?AUTO_2079 ?AUTO_2076 ?AUTO_2080 ?AUTO_2078 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2076 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2082 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2084 - ROVER
+      ?AUTO_2087 - WAYPOINT
+      ?AUTO_2086 - LANDER
+      ?AUTO_2085 - WAYPOINT
+      ?AUTO_2089 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2084 ?AUTO_2087 ) ( AT_LANDER ?AUTO_2086 ?AUTO_2085 ) ( VISIBLE ?AUTO_2087 ?AUTO_2085 ) ( AVAILABLE ?AUTO_2084 ) ( CHANNEL_FREE ?AUTO_2086 ) ( AT ?AUTO_2084 ?AUTO_2082 ) ( AT_ROCK_SAMPLE ?AUTO_2082 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2084 ) ( STORE_OF ?AUTO_2089 ?AUTO_2084 ) ( EMPTY ?AUTO_2089 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2084 ?AUTO_2089 ?AUTO_2082 )
+      ( GET_ROCK_DATA ?AUTO_2082 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2082 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2094 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2100 - LANDER
+      ?AUTO_2096 - WAYPOINT
+      ?AUTO_2097 - ROVER
+      ?AUTO_2095 - STORE
+      ?AUTO_2103 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2100 ?AUTO_2096 ) ( VISIBLE ?AUTO_2094 ?AUTO_2096 ) ( AVAILABLE ?AUTO_2097 ) ( CHANNEL_FREE ?AUTO_2100 ) ( AT_ROCK_SAMPLE ?AUTO_2094 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2097 ) ( STORE_OF ?AUTO_2095 ?AUTO_2097 ) ( EMPTY ?AUTO_2095 ) ( CAN_TRAVERSE ?AUTO_2097 ?AUTO_2103 ?AUTO_2094 ) ( AT ?AUTO_2097 ?AUTO_2103 ) ( VISIBLE ?AUTO_2103 ?AUTO_2094 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2097 ?AUTO_2103 ?AUTO_2094 )
+      ( GET_ROCK_DATA ?AUTO_2094 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2094 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2104 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2108 - LANDER
+      ?AUTO_2106 - WAYPOINT
+      ?AUTO_2109 - ROVER
+      ?AUTO_2107 - STORE
+      ?AUTO_2110 - WAYPOINT
+      ?AUTO_2113 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2108 ?AUTO_2106 ) ( VISIBLE ?AUTO_2104 ?AUTO_2106 ) ( AVAILABLE ?AUTO_2109 ) ( CHANNEL_FREE ?AUTO_2108 ) ( AT_ROCK_SAMPLE ?AUTO_2104 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2109 ) ( STORE_OF ?AUTO_2107 ?AUTO_2109 ) ( EMPTY ?AUTO_2107 ) ( CAN_TRAVERSE ?AUTO_2109 ?AUTO_2110 ?AUTO_2104 ) ( VISIBLE ?AUTO_2110 ?AUTO_2104 ) ( CAN_TRAVERSE ?AUTO_2109 ?AUTO_2113 ?AUTO_2110 ) ( AT ?AUTO_2109 ?AUTO_2113 ) ( VISIBLE ?AUTO_2113 ?AUTO_2110 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2109 ?AUTO_2113 ?AUTO_2110 )
+      ( GET_ROCK_DATA ?AUTO_2104 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2104 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2114 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2120 - LANDER
+      ?AUTO_2116 - WAYPOINT
+      ?AUTO_2119 - ROVER
+      ?AUTO_2115 - STORE
+      ?AUTO_2121 - WAYPOINT
+      ?AUTO_2117 - WAYPOINT
+      ?AUTO_2124 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2120 ?AUTO_2116 ) ( VISIBLE ?AUTO_2114 ?AUTO_2116 ) ( AVAILABLE ?AUTO_2119 ) ( CHANNEL_FREE ?AUTO_2120 ) ( AT_ROCK_SAMPLE ?AUTO_2114 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2119 ) ( STORE_OF ?AUTO_2115 ?AUTO_2119 ) ( EMPTY ?AUTO_2115 ) ( CAN_TRAVERSE ?AUTO_2119 ?AUTO_2121 ?AUTO_2114 ) ( VISIBLE ?AUTO_2121 ?AUTO_2114 ) ( CAN_TRAVERSE ?AUTO_2119 ?AUTO_2117 ?AUTO_2121 ) ( VISIBLE ?AUTO_2117 ?AUTO_2121 ) ( CAN_TRAVERSE ?AUTO_2119 ?AUTO_2124 ?AUTO_2117 ) ( AT ?AUTO_2119 ?AUTO_2124 ) ( VISIBLE ?AUTO_2124 ?AUTO_2117 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2119 ?AUTO_2124 ?AUTO_2117 )
+      ( GET_ROCK_DATA ?AUTO_2114 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2114 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2126 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2127 - ROVER
+      ?AUTO_2130 - WAYPOINT
+      ?AUTO_2129 - LANDER
+      ?AUTO_2128 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2127 ?AUTO_2130 ) ( AT_LANDER ?AUTO_2129 ?AUTO_2128 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2127 ?AUTO_2126 ) ( VISIBLE ?AUTO_2130 ?AUTO_2128 ) ( AVAILABLE ?AUTO_2127 ) ( CHANNEL_FREE ?AUTO_2129 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2127 ?AUTO_2129 ?AUTO_2126 ?AUTO_2130 ?AUTO_2128 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2126 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2132 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2134 - ROVER
+      ?AUTO_2137 - WAYPOINT
+      ?AUTO_2136 - LANDER
+      ?AUTO_2135 - WAYPOINT
+      ?AUTO_2139 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2134 ?AUTO_2137 ) ( AT_LANDER ?AUTO_2136 ?AUTO_2135 ) ( VISIBLE ?AUTO_2137 ?AUTO_2135 ) ( AVAILABLE ?AUTO_2134 ) ( CHANNEL_FREE ?AUTO_2136 ) ( AT ?AUTO_2134 ?AUTO_2132 ) ( AT_SOIL_SAMPLE ?AUTO_2132 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2134 ) ( STORE_OF ?AUTO_2139 ?AUTO_2134 ) ( EMPTY ?AUTO_2139 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2134 ?AUTO_2139 ?AUTO_2132 )
+      ( GET_SOIL_DATA ?AUTO_2132 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2132 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2141 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2143 - ROVER
+      ?AUTO_2142 - WAYPOINT
+      ?AUTO_2145 - LANDER
+      ?AUTO_2146 - WAYPOINT
+      ?AUTO_2147 - STORE
+      ?AUTO_2148 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_2143 ?AUTO_2142 ) ( AT_LANDER ?AUTO_2145 ?AUTO_2146 ) ( VISIBLE ?AUTO_2142 ?AUTO_2146 ) ( AVAILABLE ?AUTO_2143 ) ( CHANNEL_FREE ?AUTO_2145 ) ( AT ?AUTO_2143 ?AUTO_2141 ) ( AT_SOIL_SAMPLE ?AUTO_2141 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2143 ) ( STORE_OF ?AUTO_2147 ?AUTO_2143 ) ( STORE_OF ?AUTO_2147 ?AUTO_2148 ) ( FULL ?AUTO_2147 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_2148 ?AUTO_2147 )
+      ( GET_SOIL_DATA ?AUTO_2141 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2141 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2150 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2154 - LANDER
+      ?AUTO_2157 - WAYPOINT
+      ?AUTO_2156 - ROVER
+      ?AUTO_2153 - STORE
+      ?AUTO_2155 - ROVER
+      ?AUTO_2160 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2154 ?AUTO_2157 ) ( VISIBLE ?AUTO_2150 ?AUTO_2157 ) ( AVAILABLE ?AUTO_2156 ) ( CHANNEL_FREE ?AUTO_2154 ) ( AT_SOIL_SAMPLE ?AUTO_2150 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2156 ) ( STORE_OF ?AUTO_2153 ?AUTO_2156 ) ( STORE_OF ?AUTO_2153 ?AUTO_2155 ) ( FULL ?AUTO_2153 ) ( CAN_TRAVERSE ?AUTO_2156 ?AUTO_2160 ?AUTO_2150 ) ( AT ?AUTO_2156 ?AUTO_2160 ) ( VISIBLE ?AUTO_2160 ?AUTO_2150 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2156 ?AUTO_2160 ?AUTO_2150 )
+      ( GET_SOIL_DATA ?AUTO_2150 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2150 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2162 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2163 - LANDER
+      ?AUTO_2169 - WAYPOINT
+      ?AUTO_2168 - ROVER
+      ?AUTO_2165 - STORE
+      ?AUTO_2167 - ROVER
+      ?AUTO_2166 - WAYPOINT
+      ?AUTO_2170 - ROVER
+      ?AUTO_2172 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2163 ?AUTO_2169 ) ( VISIBLE ?AUTO_2162 ?AUTO_2169 ) ( AVAILABLE ?AUTO_2168 ) ( CHANNEL_FREE ?AUTO_2163 ) ( AT_SOIL_SAMPLE ?AUTO_2162 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2168 ) ( STORE_OF ?AUTO_2165 ?AUTO_2168 ) ( STORE_OF ?AUTO_2165 ?AUTO_2167 ) ( CAN_TRAVERSE ?AUTO_2168 ?AUTO_2166 ?AUTO_2162 ) ( AT ?AUTO_2168 ?AUTO_2166 ) ( VISIBLE ?AUTO_2166 ?AUTO_2162 ) ( AT ?AUTO_2170 ?AUTO_2172 ) ( AT_ROCK_SAMPLE ?AUTO_2172 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2170 ) ( STORE_OF ?AUTO_2165 ?AUTO_2170 ) ( EMPTY ?AUTO_2165 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2170 ?AUTO_2165 ?AUTO_2172 )
+      ( GET_SOIL_DATA ?AUTO_2162 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2162 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2176 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2180 - LANDER
+      ?AUTO_2182 - WAYPOINT
+      ?AUTO_2181 - ROVER
+      ?AUTO_2179 - STORE
+      ?AUTO_2183 - ROVER
+      ?AUTO_2178 - WAYPOINT
+      ?AUTO_2188 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2180 ?AUTO_2182 ) ( VISIBLE ?AUTO_2176 ?AUTO_2182 ) ( AVAILABLE ?AUTO_2181 ) ( CHANNEL_FREE ?AUTO_2180 ) ( AT_SOIL_SAMPLE ?AUTO_2176 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2181 ) ( STORE_OF ?AUTO_2179 ?AUTO_2181 ) ( STORE_OF ?AUTO_2179 ?AUTO_2183 ) ( CAN_TRAVERSE ?AUTO_2181 ?AUTO_2178 ?AUTO_2176 ) ( VISIBLE ?AUTO_2178 ?AUTO_2176 ) ( AT_ROCK_SAMPLE ?AUTO_2178 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2181 ) ( EMPTY ?AUTO_2179 ) ( CAN_TRAVERSE ?AUTO_2181 ?AUTO_2188 ?AUTO_2178 ) ( AT ?AUTO_2181 ?AUTO_2188 ) ( VISIBLE ?AUTO_2188 ?AUTO_2178 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2181 ?AUTO_2188 ?AUTO_2178 )
+      ( GET_SOIL_DATA ?AUTO_2176 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2176 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2189 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2197 - LANDER
+      ?AUTO_2193 - WAYPOINT
+      ?AUTO_2191 - ROVER
+      ?AUTO_2194 - STORE
+      ?AUTO_2190 - ROVER
+      ?AUTO_2192 - WAYPOINT
+      ?AUTO_2195 - WAYPOINT
+      ?AUTO_2200 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2197 ?AUTO_2193 ) ( VISIBLE ?AUTO_2189 ?AUTO_2193 ) ( AVAILABLE ?AUTO_2191 ) ( CHANNEL_FREE ?AUTO_2197 ) ( AT_SOIL_SAMPLE ?AUTO_2189 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2191 ) ( STORE_OF ?AUTO_2194 ?AUTO_2191 ) ( STORE_OF ?AUTO_2194 ?AUTO_2190 ) ( CAN_TRAVERSE ?AUTO_2191 ?AUTO_2192 ?AUTO_2189 ) ( VISIBLE ?AUTO_2192 ?AUTO_2189 ) ( AT_ROCK_SAMPLE ?AUTO_2192 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2191 ) ( EMPTY ?AUTO_2194 ) ( CAN_TRAVERSE ?AUTO_2191 ?AUTO_2195 ?AUTO_2192 ) ( VISIBLE ?AUTO_2195 ?AUTO_2192 ) ( CAN_TRAVERSE ?AUTO_2191 ?AUTO_2200 ?AUTO_2195 ) ( AT ?AUTO_2191 ?AUTO_2200 ) ( VISIBLE ?AUTO_2200 ?AUTO_2195 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2191 ?AUTO_2200 ?AUTO_2195 )
+      ( GET_SOIL_DATA ?AUTO_2189 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2189 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2201 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2202 - LANDER
+      ?AUTO_2209 - WAYPOINT
+      ?AUTO_2210 - ROVER
+      ?AUTO_2207 - STORE
+      ?AUTO_2203 - ROVER
+      ?AUTO_2205 - WAYPOINT
+      ?AUTO_2208 - WAYPOINT
+      ?AUTO_2204 - WAYPOINT
+      ?AUTO_2213 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2202 ?AUTO_2209 ) ( VISIBLE ?AUTO_2201 ?AUTO_2209 ) ( AVAILABLE ?AUTO_2210 ) ( CHANNEL_FREE ?AUTO_2202 ) ( AT_SOIL_SAMPLE ?AUTO_2201 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2210 ) ( STORE_OF ?AUTO_2207 ?AUTO_2210 ) ( STORE_OF ?AUTO_2207 ?AUTO_2203 ) ( CAN_TRAVERSE ?AUTO_2210 ?AUTO_2205 ?AUTO_2201 ) ( VISIBLE ?AUTO_2205 ?AUTO_2201 ) ( AT_ROCK_SAMPLE ?AUTO_2205 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2210 ) ( EMPTY ?AUTO_2207 ) ( CAN_TRAVERSE ?AUTO_2210 ?AUTO_2208 ?AUTO_2205 ) ( VISIBLE ?AUTO_2208 ?AUTO_2205 ) ( CAN_TRAVERSE ?AUTO_2210 ?AUTO_2204 ?AUTO_2208 ) ( VISIBLE ?AUTO_2204 ?AUTO_2208 ) ( CAN_TRAVERSE ?AUTO_2210 ?AUTO_2213 ?AUTO_2204 ) ( AT ?AUTO_2210 ?AUTO_2213 ) ( VISIBLE ?AUTO_2213 ?AUTO_2204 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2210 ?AUTO_2213 ?AUTO_2204 )
+      ( GET_SOIL_DATA ?AUTO_2201 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2201 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2215 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2216 - ROVER
+      ?AUTO_2219 - WAYPOINT
+      ?AUTO_2218 - LANDER
+      ?AUTO_2217 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2216 ?AUTO_2219 ) ( AT_LANDER ?AUTO_2218 ?AUTO_2217 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2216 ?AUTO_2215 ) ( VISIBLE ?AUTO_2219 ?AUTO_2217 ) ( AVAILABLE ?AUTO_2216 ) ( CHANNEL_FREE ?AUTO_2218 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_2216 ?AUTO_2218 ?AUTO_2215 ?AUTO_2219 ?AUTO_2217 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2215 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2221 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2223 - ROVER
+      ?AUTO_2226 - WAYPOINT
+      ?AUTO_2225 - LANDER
+      ?AUTO_2224 - WAYPOINT
+      ?AUTO_2228 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2223 ?AUTO_2226 ) ( AT_LANDER ?AUTO_2225 ?AUTO_2224 ) ( VISIBLE ?AUTO_2226 ?AUTO_2224 ) ( AVAILABLE ?AUTO_2223 ) ( CHANNEL_FREE ?AUTO_2225 ) ( AT ?AUTO_2223 ?AUTO_2221 ) ( AT_ROCK_SAMPLE ?AUTO_2221 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2223 ) ( STORE_OF ?AUTO_2228 ?AUTO_2223 ) ( EMPTY ?AUTO_2228 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2223 ?AUTO_2228 ?AUTO_2221 )
+      ( GET_ROCK_DATA ?AUTO_2221 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2221 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2230 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2232 - ROVER
+      ?AUTO_2231 - WAYPOINT
+      ?AUTO_2234 - LANDER
+      ?AUTO_2235 - WAYPOINT
+      ?AUTO_2236 - STORE
+      ?AUTO_2237 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_2232 ?AUTO_2231 ) ( AT_LANDER ?AUTO_2234 ?AUTO_2235 ) ( VISIBLE ?AUTO_2231 ?AUTO_2235 ) ( AVAILABLE ?AUTO_2232 ) ( CHANNEL_FREE ?AUTO_2234 ) ( AT ?AUTO_2232 ?AUTO_2230 ) ( AT_ROCK_SAMPLE ?AUTO_2230 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2232 ) ( STORE_OF ?AUTO_2236 ?AUTO_2232 ) ( STORE_OF ?AUTO_2236 ?AUTO_2237 ) ( FULL ?AUTO_2236 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_2237 ?AUTO_2236 )
+      ( GET_ROCK_DATA ?AUTO_2230 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2230 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2239 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2243 - LANDER
+      ?AUTO_2246 - WAYPOINT
+      ?AUTO_2244 - ROVER
+      ?AUTO_2242 - STORE
+      ?AUTO_2245 - ROVER
+      ?AUTO_2249 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2243 ?AUTO_2246 ) ( VISIBLE ?AUTO_2239 ?AUTO_2246 ) ( AVAILABLE ?AUTO_2244 ) ( CHANNEL_FREE ?AUTO_2243 ) ( AT_ROCK_SAMPLE ?AUTO_2239 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2244 ) ( STORE_OF ?AUTO_2242 ?AUTO_2244 ) ( STORE_OF ?AUTO_2242 ?AUTO_2245 ) ( FULL ?AUTO_2242 ) ( CAN_TRAVERSE ?AUTO_2244 ?AUTO_2249 ?AUTO_2239 ) ( AT ?AUTO_2244 ?AUTO_2249 ) ( VISIBLE ?AUTO_2249 ?AUTO_2239 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2244 ?AUTO_2249 ?AUTO_2239 )
+      ( GET_ROCK_DATA ?AUTO_2239 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2239 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2251 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2258 - LANDER
+      ?AUTO_2256 - WAYPOINT
+      ?AUTO_2254 - ROVER
+      ?AUTO_2253 - STORE
+      ?AUTO_2255 - ROVER
+      ?AUTO_2257 - WAYPOINT
+      ?AUTO_2259 - ROVER
+      ?AUTO_2261 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2258 ?AUTO_2256 ) ( VISIBLE ?AUTO_2251 ?AUTO_2256 ) ( AVAILABLE ?AUTO_2254 ) ( CHANNEL_FREE ?AUTO_2258 ) ( AT_ROCK_SAMPLE ?AUTO_2251 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2254 ) ( STORE_OF ?AUTO_2253 ?AUTO_2254 ) ( STORE_OF ?AUTO_2253 ?AUTO_2255 ) ( CAN_TRAVERSE ?AUTO_2254 ?AUTO_2257 ?AUTO_2251 ) ( AT ?AUTO_2254 ?AUTO_2257 ) ( VISIBLE ?AUTO_2257 ?AUTO_2251 ) ( AT ?AUTO_2259 ?AUTO_2261 ) ( AT_SOIL_SAMPLE ?AUTO_2261 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2259 ) ( STORE_OF ?AUTO_2253 ?AUTO_2259 ) ( EMPTY ?AUTO_2253 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2259 ?AUTO_2253 ?AUTO_2261 )
+      ( GET_ROCK_DATA ?AUTO_2251 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2251 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2263 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2270 - LANDER
+      ?AUTO_2267 - WAYPOINT
+      ?AUTO_2264 - ROVER
+      ?AUTO_2269 - STORE
+      ?AUTO_2265 - ROVER
+      ?AUTO_2266 - WAYPOINT
+      ?AUTO_2273 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2270 ?AUTO_2267 ) ( VISIBLE ?AUTO_2263 ?AUTO_2267 ) ( AVAILABLE ?AUTO_2264 ) ( CHANNEL_FREE ?AUTO_2270 ) ( AT_ROCK_SAMPLE ?AUTO_2263 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2264 ) ( STORE_OF ?AUTO_2269 ?AUTO_2264 ) ( STORE_OF ?AUTO_2269 ?AUTO_2265 ) ( FULL ?AUTO_2269 ) ( CAN_TRAVERSE ?AUTO_2264 ?AUTO_2266 ?AUTO_2263 ) ( VISIBLE ?AUTO_2266 ?AUTO_2263 ) ( CAN_TRAVERSE ?AUTO_2264 ?AUTO_2273 ?AUTO_2266 ) ( AT ?AUTO_2264 ?AUTO_2273 ) ( VISIBLE ?AUTO_2273 ?AUTO_2266 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2264 ?AUTO_2273 ?AUTO_2266 )
+      ( GET_ROCK_DATA ?AUTO_2263 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2263 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2275 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2282 - LANDER
+      ?AUTO_2283 - WAYPOINT
+      ?AUTO_2279 - ROVER
+      ?AUTO_2278 - STORE
+      ?AUTO_2277 - ROVER
+      ?AUTO_2280 - WAYPOINT
+      ?AUTO_2281 - WAYPOINT
+      ?AUTO_2284 - ROVER
+      ?AUTO_2286 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2282 ?AUTO_2283 ) ( VISIBLE ?AUTO_2275 ?AUTO_2283 ) ( AVAILABLE ?AUTO_2279 ) ( CHANNEL_FREE ?AUTO_2282 ) ( AT_ROCK_SAMPLE ?AUTO_2275 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2279 ) ( STORE_OF ?AUTO_2278 ?AUTO_2279 ) ( STORE_OF ?AUTO_2278 ?AUTO_2277 ) ( CAN_TRAVERSE ?AUTO_2279 ?AUTO_2280 ?AUTO_2275 ) ( VISIBLE ?AUTO_2280 ?AUTO_2275 ) ( CAN_TRAVERSE ?AUTO_2279 ?AUTO_2281 ?AUTO_2280 ) ( AT ?AUTO_2279 ?AUTO_2281 ) ( VISIBLE ?AUTO_2281 ?AUTO_2280 ) ( AT ?AUTO_2284 ?AUTO_2286 ) ( AT_ROCK_SAMPLE ?AUTO_2286 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2284 ) ( STORE_OF ?AUTO_2278 ?AUTO_2284 ) ( EMPTY ?AUTO_2278 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2284 ?AUTO_2278 ?AUTO_2286 )
+      ( GET_ROCK_DATA ?AUTO_2275 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2275 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2290 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2294 - LANDER
+      ?AUTO_2296 - WAYPOINT
+      ?AUTO_2300 - ROVER
+      ?AUTO_2298 - STORE
+      ?AUTO_2291 - ROVER
+      ?AUTO_2293 - WAYPOINT
+      ?AUTO_2299 - WAYPOINT
+      ?AUTO_2303 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2294 ?AUTO_2296 ) ( VISIBLE ?AUTO_2290 ?AUTO_2296 ) ( AVAILABLE ?AUTO_2300 ) ( CHANNEL_FREE ?AUTO_2294 ) ( AT_ROCK_SAMPLE ?AUTO_2290 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2300 ) ( STORE_OF ?AUTO_2298 ?AUTO_2300 ) ( STORE_OF ?AUTO_2298 ?AUTO_2291 ) ( CAN_TRAVERSE ?AUTO_2300 ?AUTO_2293 ?AUTO_2290 ) ( VISIBLE ?AUTO_2293 ?AUTO_2290 ) ( CAN_TRAVERSE ?AUTO_2300 ?AUTO_2299 ?AUTO_2293 ) ( VISIBLE ?AUTO_2299 ?AUTO_2293 ) ( AT_ROCK_SAMPLE ?AUTO_2299 ) ( EMPTY ?AUTO_2298 ) ( CAN_TRAVERSE ?AUTO_2300 ?AUTO_2303 ?AUTO_2299 ) ( AT ?AUTO_2300 ?AUTO_2303 ) ( VISIBLE ?AUTO_2303 ?AUTO_2299 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2300 ?AUTO_2303 ?AUTO_2299 )
+      ( GET_ROCK_DATA ?AUTO_2290 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2290 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2305 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2306 - ROVER
+      ?AUTO_2309 - WAYPOINT
+      ?AUTO_2308 - LANDER
+      ?AUTO_2307 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2306 ?AUTO_2309 ) ( AT_LANDER ?AUTO_2308 ?AUTO_2307 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2306 ?AUTO_2305 ) ( VISIBLE ?AUTO_2309 ?AUTO_2307 ) ( AVAILABLE ?AUTO_2306 ) ( CHANNEL_FREE ?AUTO_2308 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_2306 ?AUTO_2308 ?AUTO_2305 ?AUTO_2309 ?AUTO_2307 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2305 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2311 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2313 - ROVER
+      ?AUTO_2316 - WAYPOINT
+      ?AUTO_2315 - LANDER
+      ?AUTO_2314 - WAYPOINT
+      ?AUTO_2318 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2313 ?AUTO_2316 ) ( AT_LANDER ?AUTO_2315 ?AUTO_2314 ) ( VISIBLE ?AUTO_2316 ?AUTO_2314 ) ( AVAILABLE ?AUTO_2313 ) ( CHANNEL_FREE ?AUTO_2315 ) ( AT ?AUTO_2313 ?AUTO_2311 ) ( AT_ROCK_SAMPLE ?AUTO_2311 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2313 ) ( STORE_OF ?AUTO_2318 ?AUTO_2313 ) ( EMPTY ?AUTO_2318 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2313 ?AUTO_2318 ?AUTO_2311 )
+      ( GET_ROCK_DATA ?AUTO_2311 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2311 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2323 - OBJECTIVE
+      ?AUTO_2324 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2325 - ROVER
+      ?AUTO_2328 - WAYPOINT
+      ?AUTO_2327 - LANDER
+      ?AUTO_2326 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2325 ?AUTO_2328 ) ( AT_LANDER ?AUTO_2327 ?AUTO_2326 ) ( HAVE_IMAGE ?AUTO_2325 ?AUTO_2323 ?AUTO_2324 ) ( VISIBLE ?AUTO_2328 ?AUTO_2326 ) ( AVAILABLE ?AUTO_2325 ) ( CHANNEL_FREE ?AUTO_2327 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_2325 ?AUTO_2327 ?AUTO_2323 ?AUTO_2324 ?AUTO_2328 ?AUTO_2326 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2323 ?AUTO_2324 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2333 - OBJECTIVE
+      ?AUTO_2334 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2335 - ROVER
+      ?AUTO_2338 - WAYPOINT
+      ?AUTO_2340 - LANDER
+      ?AUTO_2336 - WAYPOINT
+      ?AUTO_2345 - CAMERA
+      ?AUTO_2343 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2335 ?AUTO_2338 ) ( AT_LANDER ?AUTO_2340 ?AUTO_2336 ) ( VISIBLE ?AUTO_2338 ?AUTO_2336 ) ( AVAILABLE ?AUTO_2335 ) ( CHANNEL_FREE ?AUTO_2340 ) ( CALIBRATED ?AUTO_2345 ?AUTO_2335 ) ( ON_BOARD ?AUTO_2345 ?AUTO_2335 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2335 ) ( SUPPORTS ?AUTO_2345 ?AUTO_2334 ) ( VISIBLE_FROM ?AUTO_2333 ?AUTO_2343 ) ( AT ?AUTO_2335 ?AUTO_2343 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_2335 ?AUTO_2343 ?AUTO_2333 ?AUTO_2345 ?AUTO_2334 )
+      ( GET_IMAGE_DATA ?AUTO_2333 ?AUTO_2334 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2333 ?AUTO_2334 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2350 - OBJECTIVE
+      ?AUTO_2351 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2354 - ROVER
+      ?AUTO_2355 - WAYPOINT
+      ?AUTO_2358 - LANDER
+      ?AUTO_2356 - WAYPOINT
+      ?AUTO_2353 - CAMERA
+      ?AUTO_2359 - WAYPOINT
+      ?AUTO_2363 - OBJECTIVE
+      ?AUTO_2361 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2354 ?AUTO_2355 ) ( AT_LANDER ?AUTO_2358 ?AUTO_2356 ) ( VISIBLE ?AUTO_2355 ?AUTO_2356 ) ( AVAILABLE ?AUTO_2354 ) ( CHANNEL_FREE ?AUTO_2358 ) ( ON_BOARD ?AUTO_2353 ?AUTO_2354 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2354 ) ( SUPPORTS ?AUTO_2353 ?AUTO_2351 ) ( VISIBLE_FROM ?AUTO_2350 ?AUTO_2359 ) ( AT ?AUTO_2354 ?AUTO_2359 ) ( CALIBRATION_TARGET ?AUTO_2353 ?AUTO_2363 ) ( AT ?AUTO_2354 ?AUTO_2361 ) ( VISIBLE_FROM ?AUTO_2363 ?AUTO_2361 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_2354 ?AUTO_2353 ?AUTO_2363 ?AUTO_2361 )
+      ( GET_IMAGE_DATA ?AUTO_2350 ?AUTO_2351 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2350 ?AUTO_2351 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2366 - OBJECTIVE
+      ?AUTO_2367 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2368 - ROVER
+      ?AUTO_2371 - WAYPOINT
+      ?AUTO_2370 - LANDER
+      ?AUTO_2369 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2368 ?AUTO_2371 ) ( AT_LANDER ?AUTO_2370 ?AUTO_2369 ) ( HAVE_IMAGE ?AUTO_2368 ?AUTO_2366 ?AUTO_2367 ) ( VISIBLE ?AUTO_2371 ?AUTO_2369 ) ( AVAILABLE ?AUTO_2368 ) ( CHANNEL_FREE ?AUTO_2370 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_2368 ?AUTO_2370 ?AUTO_2366 ?AUTO_2367 ?AUTO_2371 ?AUTO_2369 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2366 ?AUTO_2367 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2374 - OBJECTIVE
+      ?AUTO_2375 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2379 - LANDER
+      ?AUTO_2378 - WAYPOINT
+      ?AUTO_2377 - ROVER
+      ?AUTO_2381 - WAYPOINT
+      ?AUTO_2384 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2379 ?AUTO_2378 ) ( HAVE_IMAGE ?AUTO_2377 ?AUTO_2374 ?AUTO_2375 ) ( VISIBLE ?AUTO_2381 ?AUTO_2378 ) ( AVAILABLE ?AUTO_2377 ) ( CHANNEL_FREE ?AUTO_2379 ) ( CAN_TRAVERSE ?AUTO_2377 ?AUTO_2384 ?AUTO_2381 ) ( AT ?AUTO_2377 ?AUTO_2384 ) ( VISIBLE ?AUTO_2384 ?AUTO_2381 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2377 ?AUTO_2384 ?AUTO_2381 )
+      ( GET_IMAGE_DATA ?AUTO_2374 ?AUTO_2375 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2374 ?AUTO_2375 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2385 - OBJECTIVE
+      ?AUTO_2386 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2391 - LANDER
+      ?AUTO_2392 - WAYPOINT
+      ?AUTO_2388 - WAYPOINT
+      ?AUTO_2387 - ROVER
+      ?AUTO_2393 - WAYPOINT
+      ?AUTO_2398 - CAMERA
+      ?AUTO_2396 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2391 ?AUTO_2392 ) ( VISIBLE ?AUTO_2388 ?AUTO_2392 ) ( AVAILABLE ?AUTO_2387 ) ( CHANNEL_FREE ?AUTO_2391 ) ( CAN_TRAVERSE ?AUTO_2387 ?AUTO_2393 ?AUTO_2388 ) ( AT ?AUTO_2387 ?AUTO_2393 ) ( VISIBLE ?AUTO_2393 ?AUTO_2388 ) ( CALIBRATED ?AUTO_2398 ?AUTO_2387 ) ( ON_BOARD ?AUTO_2398 ?AUTO_2387 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2387 ) ( SUPPORTS ?AUTO_2398 ?AUTO_2386 ) ( VISIBLE_FROM ?AUTO_2385 ?AUTO_2396 ) ( AT ?AUTO_2387 ?AUTO_2396 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_2387 ?AUTO_2396 ?AUTO_2385 ?AUTO_2398 ?AUTO_2386 )
+      ( GET_IMAGE_DATA ?AUTO_2385 ?AUTO_2386 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2385 ?AUTO_2386 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2399 - OBJECTIVE
+      ?AUTO_2400 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2402 - LANDER
+      ?AUTO_2405 - WAYPOINT
+      ?AUTO_2401 - WAYPOINT
+      ?AUTO_2406 - ROVER
+      ?AUTO_2408 - WAYPOINT
+      ?AUTO_2409 - CAMERA
+      ?AUTO_2412 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2402 ?AUTO_2405 ) ( VISIBLE ?AUTO_2401 ?AUTO_2405 ) ( AVAILABLE ?AUTO_2406 ) ( CHANNEL_FREE ?AUTO_2402 ) ( CAN_TRAVERSE ?AUTO_2406 ?AUTO_2408 ?AUTO_2401 ) ( VISIBLE ?AUTO_2408 ?AUTO_2401 ) ( CALIBRATED ?AUTO_2409 ?AUTO_2406 ) ( ON_BOARD ?AUTO_2409 ?AUTO_2406 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2406 ) ( SUPPORTS ?AUTO_2409 ?AUTO_2400 ) ( VISIBLE_FROM ?AUTO_2399 ?AUTO_2408 ) ( CAN_TRAVERSE ?AUTO_2406 ?AUTO_2412 ?AUTO_2408 ) ( AT ?AUTO_2406 ?AUTO_2412 ) ( VISIBLE ?AUTO_2412 ?AUTO_2408 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2406 ?AUTO_2412 ?AUTO_2408 )
+      ( GET_IMAGE_DATA ?AUTO_2399 ?AUTO_2400 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2399 ?AUTO_2400 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2415 - OBJECTIVE
+      ?AUTO_2416 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2419 - LANDER
+      ?AUTO_2422 - WAYPOINT
+      ?AUTO_2420 - WAYPOINT
+      ?AUTO_2424 - ROVER
+      ?AUTO_2417 - WAYPOINT
+      ?AUTO_2425 - CAMERA
+      ?AUTO_2418 - WAYPOINT
+      ?AUTO_2429 - OBJECTIVE
+      ?AUTO_2427 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2419 ?AUTO_2422 ) ( VISIBLE ?AUTO_2420 ?AUTO_2422 ) ( AVAILABLE ?AUTO_2424 ) ( CHANNEL_FREE ?AUTO_2419 ) ( CAN_TRAVERSE ?AUTO_2424 ?AUTO_2417 ?AUTO_2420 ) ( VISIBLE ?AUTO_2417 ?AUTO_2420 ) ( ON_BOARD ?AUTO_2425 ?AUTO_2424 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2424 ) ( SUPPORTS ?AUTO_2425 ?AUTO_2416 ) ( VISIBLE_FROM ?AUTO_2415 ?AUTO_2417 ) ( CAN_TRAVERSE ?AUTO_2424 ?AUTO_2418 ?AUTO_2417 ) ( AT ?AUTO_2424 ?AUTO_2418 ) ( VISIBLE ?AUTO_2418 ?AUTO_2417 ) ( CALIBRATION_TARGET ?AUTO_2425 ?AUTO_2429 ) ( AT ?AUTO_2424 ?AUTO_2427 ) ( VISIBLE_FROM ?AUTO_2429 ?AUTO_2427 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_2424 ?AUTO_2425 ?AUTO_2429 ?AUTO_2427 )
+      ( GET_IMAGE_DATA ?AUTO_2415 ?AUTO_2416 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2415 ?AUTO_2416 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2439 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2440 - ROVER
+      ?AUTO_2443 - WAYPOINT
+      ?AUTO_2442 - LANDER
+      ?AUTO_2441 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2440 ?AUTO_2443 ) ( AT_LANDER ?AUTO_2442 ?AUTO_2441 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2440 ?AUTO_2439 ) ( VISIBLE ?AUTO_2443 ?AUTO_2441 ) ( AVAILABLE ?AUTO_2440 ) ( CHANNEL_FREE ?AUTO_2442 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2440 ?AUTO_2442 ?AUTO_2439 ?AUTO_2443 ?AUTO_2441 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2439 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2445 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2449 - LANDER
+      ?AUTO_2448 - WAYPOINT
+      ?AUTO_2447 - ROVER
+      ?AUTO_2450 - WAYPOINT
+      ?AUTO_2453 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2449 ?AUTO_2448 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2447 ?AUTO_2445 ) ( VISIBLE ?AUTO_2450 ?AUTO_2448 ) ( AVAILABLE ?AUTO_2447 ) ( CHANNEL_FREE ?AUTO_2449 ) ( CAN_TRAVERSE ?AUTO_2447 ?AUTO_2453 ?AUTO_2450 ) ( AT ?AUTO_2447 ?AUTO_2453 ) ( VISIBLE ?AUTO_2453 ?AUTO_2450 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2447 ?AUTO_2453 ?AUTO_2450 )
+      ( GET_SOIL_DATA ?AUTO_2445 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2445 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2455 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2458 - LANDER
+      ?AUTO_2459 - WAYPOINT
+      ?AUTO_2461 - WAYPOINT
+      ?AUTO_2457 - ROVER
+      ?AUTO_2460 - WAYPOINT
+      ?AUTO_2463 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2458 ?AUTO_2459 ) ( VISIBLE ?AUTO_2461 ?AUTO_2459 ) ( AVAILABLE ?AUTO_2457 ) ( CHANNEL_FREE ?AUTO_2458 ) ( CAN_TRAVERSE ?AUTO_2457 ?AUTO_2460 ?AUTO_2461 ) ( AT ?AUTO_2457 ?AUTO_2460 ) ( VISIBLE ?AUTO_2460 ?AUTO_2461 ) ( AT ?AUTO_2457 ?AUTO_2455 ) ( AT_SOIL_SAMPLE ?AUTO_2455 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2457 ) ( STORE_OF ?AUTO_2463 ?AUTO_2457 ) ( EMPTY ?AUTO_2463 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2457 ?AUTO_2463 ?AUTO_2455 )
+      ( GET_SOIL_DATA ?AUTO_2455 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2455 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2476 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2477 - ROVER
+      ?AUTO_2480 - WAYPOINT
+      ?AUTO_2479 - LANDER
+      ?AUTO_2478 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2477 ?AUTO_2480 ) ( AT_LANDER ?AUTO_2479 ?AUTO_2478 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2477 ?AUTO_2476 ) ( VISIBLE ?AUTO_2480 ?AUTO_2478 ) ( AVAILABLE ?AUTO_2477 ) ( CHANNEL_FREE ?AUTO_2479 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2477 ?AUTO_2479 ?AUTO_2476 ?AUTO_2480 ?AUTO_2478 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2476 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2482 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2486 - LANDER
+      ?AUTO_2485 - WAYPOINT
+      ?AUTO_2484 - ROVER
+      ?AUTO_2487 - WAYPOINT
+      ?AUTO_2490 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2486 ?AUTO_2485 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2484 ?AUTO_2482 ) ( VISIBLE ?AUTO_2487 ?AUTO_2485 ) ( AVAILABLE ?AUTO_2484 ) ( CHANNEL_FREE ?AUTO_2486 ) ( CAN_TRAVERSE ?AUTO_2484 ?AUTO_2490 ?AUTO_2487 ) ( AT ?AUTO_2484 ?AUTO_2490 ) ( VISIBLE ?AUTO_2490 ?AUTO_2487 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2484 ?AUTO_2490 ?AUTO_2487 )
+      ( GET_SOIL_DATA ?AUTO_2482 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2482 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2491 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2496 - LANDER
+      ?AUTO_2492 - WAYPOINT
+      ?AUTO_2495 - WAYPOINT
+      ?AUTO_2493 - ROVER
+      ?AUTO_2497 - WAYPOINT
+      ?AUTO_2499 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2496 ?AUTO_2492 ) ( VISIBLE ?AUTO_2495 ?AUTO_2492 ) ( AVAILABLE ?AUTO_2493 ) ( CHANNEL_FREE ?AUTO_2496 ) ( CAN_TRAVERSE ?AUTO_2493 ?AUTO_2497 ?AUTO_2495 ) ( AT ?AUTO_2493 ?AUTO_2497 ) ( VISIBLE ?AUTO_2497 ?AUTO_2495 ) ( AT ?AUTO_2493 ?AUTO_2491 ) ( AT_SOIL_SAMPLE ?AUTO_2491 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2493 ) ( STORE_OF ?AUTO_2499 ?AUTO_2493 ) ( EMPTY ?AUTO_2499 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2493 ?AUTO_2499 ?AUTO_2491 )
+      ( GET_SOIL_DATA ?AUTO_2491 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2491 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2501 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2506 - LANDER
+      ?AUTO_2508 - WAYPOINT
+      ?AUTO_2503 - WAYPOINT
+      ?AUTO_2504 - ROVER
+      ?AUTO_2505 - STORE
+      ?AUTO_2511 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2506 ?AUTO_2508 ) ( VISIBLE ?AUTO_2503 ?AUTO_2508 ) ( AVAILABLE ?AUTO_2504 ) ( CHANNEL_FREE ?AUTO_2506 ) ( CAN_TRAVERSE ?AUTO_2504 ?AUTO_2501 ?AUTO_2503 ) ( VISIBLE ?AUTO_2501 ?AUTO_2503 ) ( AT_SOIL_SAMPLE ?AUTO_2501 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2504 ) ( STORE_OF ?AUTO_2505 ?AUTO_2504 ) ( EMPTY ?AUTO_2505 ) ( CAN_TRAVERSE ?AUTO_2504 ?AUTO_2511 ?AUTO_2501 ) ( AT ?AUTO_2504 ?AUTO_2511 ) ( VISIBLE ?AUTO_2511 ?AUTO_2501 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2504 ?AUTO_2511 ?AUTO_2501 )
+      ( GET_SOIL_DATA ?AUTO_2501 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2501 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2512 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2515 - LANDER
+      ?AUTO_2519 - WAYPOINT
+      ?AUTO_2518 - WAYPOINT
+      ?AUTO_2514 - ROVER
+      ?AUTO_2516 - STORE
+      ?AUTO_2517 - WAYPOINT
+      ?AUTO_2522 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2515 ?AUTO_2519 ) ( VISIBLE ?AUTO_2518 ?AUTO_2519 ) ( AVAILABLE ?AUTO_2514 ) ( CHANNEL_FREE ?AUTO_2515 ) ( CAN_TRAVERSE ?AUTO_2514 ?AUTO_2512 ?AUTO_2518 ) ( VISIBLE ?AUTO_2512 ?AUTO_2518 ) ( AT_SOIL_SAMPLE ?AUTO_2512 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2514 ) ( STORE_OF ?AUTO_2516 ?AUTO_2514 ) ( EMPTY ?AUTO_2516 ) ( CAN_TRAVERSE ?AUTO_2514 ?AUTO_2517 ?AUTO_2512 ) ( VISIBLE ?AUTO_2517 ?AUTO_2512 ) ( CAN_TRAVERSE ?AUTO_2514 ?AUTO_2522 ?AUTO_2517 ) ( AT ?AUTO_2514 ?AUTO_2522 ) ( VISIBLE ?AUTO_2522 ?AUTO_2517 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2514 ?AUTO_2522 ?AUTO_2517 )
+      ( GET_SOIL_DATA ?AUTO_2512 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2512 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2524 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2531 - LANDER
+      ?AUTO_2527 - WAYPOINT
+      ?AUTO_2530 - WAYPOINT
+      ?AUTO_2528 - ROVER
+      ?AUTO_2529 - STORE
+      ?AUTO_2526 - WAYPOINT
+      ?AUTO_2525 - WAYPOINT
+      ?AUTO_2535 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2531 ?AUTO_2527 ) ( VISIBLE ?AUTO_2530 ?AUTO_2527 ) ( AVAILABLE ?AUTO_2528 ) ( CHANNEL_FREE ?AUTO_2531 ) ( CAN_TRAVERSE ?AUTO_2528 ?AUTO_2524 ?AUTO_2530 ) ( VISIBLE ?AUTO_2524 ?AUTO_2530 ) ( AT_SOIL_SAMPLE ?AUTO_2524 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2528 ) ( STORE_OF ?AUTO_2529 ?AUTO_2528 ) ( EMPTY ?AUTO_2529 ) ( CAN_TRAVERSE ?AUTO_2528 ?AUTO_2526 ?AUTO_2524 ) ( VISIBLE ?AUTO_2526 ?AUTO_2524 ) ( CAN_TRAVERSE ?AUTO_2528 ?AUTO_2525 ?AUTO_2526 ) ( VISIBLE ?AUTO_2525 ?AUTO_2526 ) ( CAN_TRAVERSE ?AUTO_2528 ?AUTO_2535 ?AUTO_2525 ) ( AT ?AUTO_2528 ?AUTO_2535 ) ( VISIBLE ?AUTO_2535 ?AUTO_2525 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2528 ?AUTO_2535 ?AUTO_2525 )
+      ( GET_SOIL_DATA ?AUTO_2524 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2524 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2536 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2544 - LANDER
+      ?AUTO_2538 - WAYPOINT
+      ?AUTO_2537 - WAYPOINT
+      ?AUTO_2542 - ROVER
+      ?AUTO_2541 - STORE
+      ?AUTO_2545 - WAYPOINT
+      ?AUTO_2543 - WAYPOINT
+      ?AUTO_2539 - WAYPOINT
+      ?AUTO_2546 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2544 ?AUTO_2538 ) ( VISIBLE ?AUTO_2537 ?AUTO_2538 ) ( AVAILABLE ?AUTO_2542 ) ( CHANNEL_FREE ?AUTO_2544 ) ( CAN_TRAVERSE ?AUTO_2542 ?AUTO_2536 ?AUTO_2537 ) ( VISIBLE ?AUTO_2536 ?AUTO_2537 ) ( AT_SOIL_SAMPLE ?AUTO_2536 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2542 ) ( STORE_OF ?AUTO_2541 ?AUTO_2542 ) ( CAN_TRAVERSE ?AUTO_2542 ?AUTO_2545 ?AUTO_2536 ) ( VISIBLE ?AUTO_2545 ?AUTO_2536 ) ( CAN_TRAVERSE ?AUTO_2542 ?AUTO_2543 ?AUTO_2545 ) ( VISIBLE ?AUTO_2543 ?AUTO_2545 ) ( CAN_TRAVERSE ?AUTO_2542 ?AUTO_2539 ?AUTO_2543 ) ( AT ?AUTO_2542 ?AUTO_2539 ) ( VISIBLE ?AUTO_2539 ?AUTO_2543 ) ( STORE_OF ?AUTO_2541 ?AUTO_2546 ) ( FULL ?AUTO_2541 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_2546 ?AUTO_2541 )
+      ( GET_SOIL_DATA ?AUTO_2536 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2536 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2549 - OBJECTIVE
+      ?AUTO_2550 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2551 - ROVER
+      ?AUTO_2554 - WAYPOINT
+      ?AUTO_2553 - LANDER
+      ?AUTO_2552 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2551 ?AUTO_2554 ) ( AT_LANDER ?AUTO_2553 ?AUTO_2552 ) ( HAVE_IMAGE ?AUTO_2551 ?AUTO_2549 ?AUTO_2550 ) ( VISIBLE ?AUTO_2554 ?AUTO_2552 ) ( AVAILABLE ?AUTO_2551 ) ( CHANNEL_FREE ?AUTO_2553 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_2551 ?AUTO_2553 ?AUTO_2549 ?AUTO_2550 ?AUTO_2554 ?AUTO_2552 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2549 ?AUTO_2550 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2557 - OBJECTIVE
+      ?AUTO_2558 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2563 - LANDER
+      ?AUTO_2562 - WAYPOINT
+      ?AUTO_2561 - ROVER
+      ?AUTO_2564 - WAYPOINT
+      ?AUTO_2567 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2563 ?AUTO_2562 ) ( HAVE_IMAGE ?AUTO_2561 ?AUTO_2557 ?AUTO_2558 ) ( VISIBLE ?AUTO_2564 ?AUTO_2562 ) ( AVAILABLE ?AUTO_2561 ) ( CHANNEL_FREE ?AUTO_2563 ) ( CAN_TRAVERSE ?AUTO_2561 ?AUTO_2567 ?AUTO_2564 ) ( AT ?AUTO_2561 ?AUTO_2567 ) ( VISIBLE ?AUTO_2567 ?AUTO_2564 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2561 ?AUTO_2567 ?AUTO_2564 )
+      ( GET_IMAGE_DATA ?AUTO_2557 ?AUTO_2558 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2557 ?AUTO_2558 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2568 - OBJECTIVE
+      ?AUTO_2569 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2574 - LANDER
+      ?AUTO_2573 - WAYPOINT
+      ?AUTO_2570 - WAYPOINT
+      ?AUTO_2575 - ROVER
+      ?AUTO_2576 - WAYPOINT
+      ?AUTO_2581 - CAMERA
+      ?AUTO_2579 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2574 ?AUTO_2573 ) ( VISIBLE ?AUTO_2570 ?AUTO_2573 ) ( AVAILABLE ?AUTO_2575 ) ( CHANNEL_FREE ?AUTO_2574 ) ( CAN_TRAVERSE ?AUTO_2575 ?AUTO_2576 ?AUTO_2570 ) ( AT ?AUTO_2575 ?AUTO_2576 ) ( VISIBLE ?AUTO_2576 ?AUTO_2570 ) ( CALIBRATED ?AUTO_2581 ?AUTO_2575 ) ( ON_BOARD ?AUTO_2581 ?AUTO_2575 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2575 ) ( SUPPORTS ?AUTO_2581 ?AUTO_2569 ) ( VISIBLE_FROM ?AUTO_2568 ?AUTO_2579 ) ( AT ?AUTO_2575 ?AUTO_2579 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_2575 ?AUTO_2579 ?AUTO_2568 ?AUTO_2581 ?AUTO_2569 )
+      ( GET_IMAGE_DATA ?AUTO_2568 ?AUTO_2569 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2568 ?AUTO_2569 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2582 - OBJECTIVE
+      ?AUTO_2583 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2584 - LANDER
+      ?AUTO_2586 - WAYPOINT
+      ?AUTO_2589 - WAYPOINT
+      ?AUTO_2588 - ROVER
+      ?AUTO_2591 - WAYPOINT
+      ?AUTO_2592 - CAMERA
+      ?AUTO_2595 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2584 ?AUTO_2586 ) ( VISIBLE ?AUTO_2589 ?AUTO_2586 ) ( AVAILABLE ?AUTO_2588 ) ( CHANNEL_FREE ?AUTO_2584 ) ( CAN_TRAVERSE ?AUTO_2588 ?AUTO_2591 ?AUTO_2589 ) ( VISIBLE ?AUTO_2591 ?AUTO_2589 ) ( CALIBRATED ?AUTO_2592 ?AUTO_2588 ) ( ON_BOARD ?AUTO_2592 ?AUTO_2588 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2588 ) ( SUPPORTS ?AUTO_2592 ?AUTO_2583 ) ( VISIBLE_FROM ?AUTO_2582 ?AUTO_2591 ) ( CAN_TRAVERSE ?AUTO_2588 ?AUTO_2595 ?AUTO_2591 ) ( AT ?AUTO_2588 ?AUTO_2595 ) ( VISIBLE ?AUTO_2595 ?AUTO_2591 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2588 ?AUTO_2595 ?AUTO_2591 )
+      ( GET_IMAGE_DATA ?AUTO_2582 ?AUTO_2583 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2582 ?AUTO_2583 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2596 - OBJECTIVE
+      ?AUTO_2597 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2601 - LANDER
+      ?AUTO_2604 - WAYPOINT
+      ?AUTO_2602 - WAYPOINT
+      ?AUTO_2605 - ROVER
+      ?AUTO_2598 - WAYPOINT
+      ?AUTO_2603 - CAMERA
+      ?AUTO_2606 - WAYPOINT
+      ?AUTO_2610 - OBJECTIVE
+      ?AUTO_2608 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2601 ?AUTO_2604 ) ( VISIBLE ?AUTO_2602 ?AUTO_2604 ) ( AVAILABLE ?AUTO_2605 ) ( CHANNEL_FREE ?AUTO_2601 ) ( CAN_TRAVERSE ?AUTO_2605 ?AUTO_2598 ?AUTO_2602 ) ( VISIBLE ?AUTO_2598 ?AUTO_2602 ) ( ON_BOARD ?AUTO_2603 ?AUTO_2605 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2605 ) ( SUPPORTS ?AUTO_2603 ?AUTO_2597 ) ( VISIBLE_FROM ?AUTO_2596 ?AUTO_2598 ) ( CAN_TRAVERSE ?AUTO_2605 ?AUTO_2606 ?AUTO_2598 ) ( AT ?AUTO_2605 ?AUTO_2606 ) ( VISIBLE ?AUTO_2606 ?AUTO_2598 ) ( CALIBRATION_TARGET ?AUTO_2603 ?AUTO_2610 ) ( AT ?AUTO_2605 ?AUTO_2608 ) ( VISIBLE_FROM ?AUTO_2610 ?AUTO_2608 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_2605 ?AUTO_2603 ?AUTO_2610 ?AUTO_2608 )
+      ( GET_IMAGE_DATA ?AUTO_2596 ?AUTO_2597 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2596 ?AUTO_2597 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2612 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2613 - ROVER
+      ?AUTO_2616 - WAYPOINT
+      ?AUTO_2615 - LANDER
+      ?AUTO_2614 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2613 ?AUTO_2616 ) ( AT_LANDER ?AUTO_2615 ?AUTO_2614 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2613 ?AUTO_2612 ) ( VISIBLE ?AUTO_2616 ?AUTO_2614 ) ( AVAILABLE ?AUTO_2613 ) ( CHANNEL_FREE ?AUTO_2615 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2613 ?AUTO_2615 ?AUTO_2612 ?AUTO_2616 ?AUTO_2614 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2612 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2618 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2622 - LANDER
+      ?AUTO_2621 - WAYPOINT
+      ?AUTO_2620 - ROVER
+      ?AUTO_2623 - WAYPOINT
+      ?AUTO_2626 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2622 ?AUTO_2621 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2620 ?AUTO_2618 ) ( VISIBLE ?AUTO_2623 ?AUTO_2621 ) ( AVAILABLE ?AUTO_2620 ) ( CHANNEL_FREE ?AUTO_2622 ) ( CAN_TRAVERSE ?AUTO_2620 ?AUTO_2626 ?AUTO_2623 ) ( AT ?AUTO_2620 ?AUTO_2626 ) ( VISIBLE ?AUTO_2626 ?AUTO_2623 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2620 ?AUTO_2626 ?AUTO_2623 )
+      ( GET_SOIL_DATA ?AUTO_2618 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2618 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2628 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2631 - LANDER
+      ?AUTO_2632 - WAYPOINT
+      ?AUTO_2634 - WAYPOINT
+      ?AUTO_2630 - ROVER
+      ?AUTO_2633 - WAYPOINT
+      ?AUTO_2636 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2631 ?AUTO_2632 ) ( VISIBLE ?AUTO_2634 ?AUTO_2632 ) ( AVAILABLE ?AUTO_2630 ) ( CHANNEL_FREE ?AUTO_2631 ) ( CAN_TRAVERSE ?AUTO_2630 ?AUTO_2633 ?AUTO_2634 ) ( AT ?AUTO_2630 ?AUTO_2633 ) ( VISIBLE ?AUTO_2633 ?AUTO_2634 ) ( AT ?AUTO_2630 ?AUTO_2628 ) ( AT_SOIL_SAMPLE ?AUTO_2628 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2630 ) ( STORE_OF ?AUTO_2636 ?AUTO_2630 ) ( EMPTY ?AUTO_2636 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2630 ?AUTO_2636 ?AUTO_2628 )
+      ( GET_SOIL_DATA ?AUTO_2628 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2628 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2644 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2645 - ROVER
+      ?AUTO_2648 - WAYPOINT
+      ?AUTO_2647 - LANDER
+      ?AUTO_2646 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2645 ?AUTO_2648 ) ( AT_LANDER ?AUTO_2647 ?AUTO_2646 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2645 ?AUTO_2644 ) ( VISIBLE ?AUTO_2648 ?AUTO_2646 ) ( AVAILABLE ?AUTO_2645 ) ( CHANNEL_FREE ?AUTO_2647 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_2645 ?AUTO_2647 ?AUTO_2644 ?AUTO_2648 ?AUTO_2646 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2644 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2650 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2654 - LANDER
+      ?AUTO_2653 - WAYPOINT
+      ?AUTO_2652 - ROVER
+      ?AUTO_2655 - WAYPOINT
+      ?AUTO_2658 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2654 ?AUTO_2653 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2652 ?AUTO_2650 ) ( VISIBLE ?AUTO_2655 ?AUTO_2653 ) ( AVAILABLE ?AUTO_2652 ) ( CHANNEL_FREE ?AUTO_2654 ) ( CAN_TRAVERSE ?AUTO_2652 ?AUTO_2658 ?AUTO_2655 ) ( AT ?AUTO_2652 ?AUTO_2658 ) ( VISIBLE ?AUTO_2658 ?AUTO_2655 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2652 ?AUTO_2658 ?AUTO_2655 )
+      ( GET_ROCK_DATA ?AUTO_2650 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2650 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2659 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2664 - LANDER
+      ?AUTO_2660 - WAYPOINT
+      ?AUTO_2663 - WAYPOINT
+      ?AUTO_2661 - ROVER
+      ?AUTO_2665 - WAYPOINT
+      ?AUTO_2667 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2664 ?AUTO_2660 ) ( VISIBLE ?AUTO_2663 ?AUTO_2660 ) ( AVAILABLE ?AUTO_2661 ) ( CHANNEL_FREE ?AUTO_2664 ) ( CAN_TRAVERSE ?AUTO_2661 ?AUTO_2665 ?AUTO_2663 ) ( AT ?AUTO_2661 ?AUTO_2665 ) ( VISIBLE ?AUTO_2665 ?AUTO_2663 ) ( AT ?AUTO_2661 ?AUTO_2659 ) ( AT_ROCK_SAMPLE ?AUTO_2659 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2661 ) ( STORE_OF ?AUTO_2667 ?AUTO_2661 ) ( EMPTY ?AUTO_2667 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2661 ?AUTO_2667 ?AUTO_2659 )
+      ( GET_ROCK_DATA ?AUTO_2659 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2659 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2669 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2674 - LANDER
+      ?AUTO_2676 - WAYPOINT
+      ?AUTO_2671 - WAYPOINT
+      ?AUTO_2672 - ROVER
+      ?AUTO_2673 - STORE
+      ?AUTO_2679 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2674 ?AUTO_2676 ) ( VISIBLE ?AUTO_2671 ?AUTO_2676 ) ( AVAILABLE ?AUTO_2672 ) ( CHANNEL_FREE ?AUTO_2674 ) ( CAN_TRAVERSE ?AUTO_2672 ?AUTO_2669 ?AUTO_2671 ) ( VISIBLE ?AUTO_2669 ?AUTO_2671 ) ( AT_ROCK_SAMPLE ?AUTO_2669 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2672 ) ( STORE_OF ?AUTO_2673 ?AUTO_2672 ) ( EMPTY ?AUTO_2673 ) ( CAN_TRAVERSE ?AUTO_2672 ?AUTO_2679 ?AUTO_2669 ) ( AT ?AUTO_2672 ?AUTO_2679 ) ( VISIBLE ?AUTO_2679 ?AUTO_2669 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2672 ?AUTO_2679 ?AUTO_2669 )
+      ( GET_ROCK_DATA ?AUTO_2669 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2669 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2690 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2691 - ROVER
+      ?AUTO_2694 - WAYPOINT
+      ?AUTO_2693 - LANDER
+      ?AUTO_2692 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2691 ?AUTO_2694 ) ( AT_LANDER ?AUTO_2693 ?AUTO_2692 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2691 ?AUTO_2690 ) ( VISIBLE ?AUTO_2694 ?AUTO_2692 ) ( AVAILABLE ?AUTO_2691 ) ( CHANNEL_FREE ?AUTO_2693 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2691 ?AUTO_2693 ?AUTO_2690 ?AUTO_2694 ?AUTO_2692 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2690 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2697 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2698 - ROVER
+      ?AUTO_2700 - WAYPOINT
+      ?AUTO_2699 - LANDER
+      ?AUTO_2702 - WAYPOINT
+      ?AUTO_2704 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2698 ?AUTO_2700 ) ( AT_LANDER ?AUTO_2699 ?AUTO_2702 ) ( VISIBLE ?AUTO_2700 ?AUTO_2702 ) ( AVAILABLE ?AUTO_2698 ) ( CHANNEL_FREE ?AUTO_2699 ) ( AT ?AUTO_2698 ?AUTO_2697 ) ( AT_SOIL_SAMPLE ?AUTO_2697 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2698 ) ( STORE_OF ?AUTO_2704 ?AUTO_2698 ) ( EMPTY ?AUTO_2704 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2698 ?AUTO_2704 ?AUTO_2697 )
+      ( GET_SOIL_DATA ?AUTO_2697 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2697 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2711 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2714 - LANDER
+      ?AUTO_2712 - WAYPOINT
+      ?AUTO_2713 - ROVER
+      ?AUTO_2717 - STORE
+      ?AUTO_2720 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2714 ?AUTO_2712 ) ( VISIBLE ?AUTO_2711 ?AUTO_2712 ) ( AVAILABLE ?AUTO_2713 ) ( CHANNEL_FREE ?AUTO_2714 ) ( AT_SOIL_SAMPLE ?AUTO_2711 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2713 ) ( STORE_OF ?AUTO_2717 ?AUTO_2713 ) ( EMPTY ?AUTO_2717 ) ( CAN_TRAVERSE ?AUTO_2713 ?AUTO_2720 ?AUTO_2711 ) ( AT ?AUTO_2713 ?AUTO_2720 ) ( VISIBLE ?AUTO_2720 ?AUTO_2711 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2713 ?AUTO_2720 ?AUTO_2711 )
+      ( GET_SOIL_DATA ?AUTO_2711 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2711 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2721 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2723 - LANDER
+      ?AUTO_2724 - WAYPOINT
+      ?AUTO_2725 - ROVER
+      ?AUTO_2726 - STORE
+      ?AUTO_2727 - WAYPOINT
+      ?AUTO_2728 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2723 ?AUTO_2724 ) ( VISIBLE ?AUTO_2721 ?AUTO_2724 ) ( AVAILABLE ?AUTO_2725 ) ( CHANNEL_FREE ?AUTO_2723 ) ( AT_SOIL_SAMPLE ?AUTO_2721 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2725 ) ( STORE_OF ?AUTO_2726 ?AUTO_2725 ) ( CAN_TRAVERSE ?AUTO_2725 ?AUTO_2727 ?AUTO_2721 ) ( AT ?AUTO_2725 ?AUTO_2727 ) ( VISIBLE ?AUTO_2727 ?AUTO_2721 ) ( STORE_OF ?AUTO_2726 ?AUTO_2728 ) ( FULL ?AUTO_2726 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_2728 ?AUTO_2726 )
+      ( GET_SOIL_DATA ?AUTO_2721 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2721 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2737 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2738 - ROVER
+      ?AUTO_2741 - WAYPOINT
+      ?AUTO_2740 - LANDER
+      ?AUTO_2739 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2738 ?AUTO_2741 ) ( AT_LANDER ?AUTO_2740 ?AUTO_2739 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2738 ?AUTO_2737 ) ( VISIBLE ?AUTO_2741 ?AUTO_2739 ) ( AVAILABLE ?AUTO_2738 ) ( CHANNEL_FREE ?AUTO_2740 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_2738 ?AUTO_2740 ?AUTO_2737 ?AUTO_2741 ?AUTO_2739 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2737 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2743 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2745 - ROVER
+      ?AUTO_2748 - WAYPOINT
+      ?AUTO_2747 - LANDER
+      ?AUTO_2746 - WAYPOINT
+      ?AUTO_2750 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2745 ?AUTO_2748 ) ( AT_LANDER ?AUTO_2747 ?AUTO_2746 ) ( VISIBLE ?AUTO_2748 ?AUTO_2746 ) ( AVAILABLE ?AUTO_2745 ) ( CHANNEL_FREE ?AUTO_2747 ) ( AT ?AUTO_2745 ?AUTO_2743 ) ( AT_ROCK_SAMPLE ?AUTO_2743 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2745 ) ( STORE_OF ?AUTO_2750 ?AUTO_2745 ) ( EMPTY ?AUTO_2750 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2745 ?AUTO_2750 ?AUTO_2743 )
+      ( GET_ROCK_DATA ?AUTO_2743 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2743 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2753 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2756 - ROVER
+      ?AUTO_2758 - WAYPOINT
+      ?AUTO_2754 - LANDER
+      ?AUTO_2755 - WAYPOINT
+      ?AUTO_2759 - STORE
+      ?AUTO_2760 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_2756 ?AUTO_2758 ) ( AT_LANDER ?AUTO_2754 ?AUTO_2755 ) ( VISIBLE ?AUTO_2758 ?AUTO_2755 ) ( AVAILABLE ?AUTO_2756 ) ( CHANNEL_FREE ?AUTO_2754 ) ( AT ?AUTO_2756 ?AUTO_2753 ) ( AT_ROCK_SAMPLE ?AUTO_2753 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2756 ) ( STORE_OF ?AUTO_2759 ?AUTO_2756 ) ( STORE_OF ?AUTO_2759 ?AUTO_2760 ) ( FULL ?AUTO_2759 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_2760 ?AUTO_2759 )
+      ( GET_ROCK_DATA ?AUTO_2753 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2753 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2772 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2777 - LANDER
+      ?AUTO_2774 - WAYPOINT
+      ?AUTO_2776 - ROVER
+      ?AUTO_2778 - STORE
+      ?AUTO_2781 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2777 ?AUTO_2774 ) ( VISIBLE ?AUTO_2772 ?AUTO_2774 ) ( AVAILABLE ?AUTO_2776 ) ( CHANNEL_FREE ?AUTO_2777 ) ( AT_ROCK_SAMPLE ?AUTO_2772 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2776 ) ( STORE_OF ?AUTO_2778 ?AUTO_2776 ) ( EMPTY ?AUTO_2778 ) ( CAN_TRAVERSE ?AUTO_2776 ?AUTO_2781 ?AUTO_2772 ) ( AT ?AUTO_2776 ?AUTO_2781 ) ( VISIBLE ?AUTO_2781 ?AUTO_2772 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2776 ?AUTO_2781 ?AUTO_2772 )
+      ( GET_ROCK_DATA ?AUTO_2772 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2772 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2786 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2787 - ROVER
+      ?AUTO_2790 - WAYPOINT
+      ?AUTO_2789 - LANDER
+      ?AUTO_2788 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2787 ?AUTO_2790 ) ( AT_LANDER ?AUTO_2789 ?AUTO_2788 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2787 ?AUTO_2786 ) ( VISIBLE ?AUTO_2790 ?AUTO_2788 ) ( AVAILABLE ?AUTO_2787 ) ( CHANNEL_FREE ?AUTO_2789 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_2787 ?AUTO_2789 ?AUTO_2786 ?AUTO_2790 ?AUTO_2788 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2786 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2792 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2796 - LANDER
+      ?AUTO_2795 - WAYPOINT
+      ?AUTO_2794 - ROVER
+      ?AUTO_2797 - WAYPOINT
+      ?AUTO_2800 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2796 ?AUTO_2795 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2794 ?AUTO_2792 ) ( VISIBLE ?AUTO_2797 ?AUTO_2795 ) ( AVAILABLE ?AUTO_2794 ) ( CHANNEL_FREE ?AUTO_2796 ) ( CAN_TRAVERSE ?AUTO_2794 ?AUTO_2800 ?AUTO_2797 ) ( AT ?AUTO_2794 ?AUTO_2800 ) ( VISIBLE ?AUTO_2800 ?AUTO_2797 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2794 ?AUTO_2800 ?AUTO_2797 )
+      ( GET_ROCK_DATA ?AUTO_2792 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2792 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2801 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2806 - LANDER
+      ?AUTO_2802 - WAYPOINT
+      ?AUTO_2803 - ROVER
+      ?AUTO_2805 - WAYPOINT
+      ?AUTO_2807 - WAYPOINT
+      ?AUTO_2810 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2806 ?AUTO_2802 ) ( HAVE_ROCK_ANALYSIS ?AUTO_2803 ?AUTO_2801 ) ( VISIBLE ?AUTO_2805 ?AUTO_2802 ) ( AVAILABLE ?AUTO_2803 ) ( CHANNEL_FREE ?AUTO_2806 ) ( CAN_TRAVERSE ?AUTO_2803 ?AUTO_2807 ?AUTO_2805 ) ( VISIBLE ?AUTO_2807 ?AUTO_2805 ) ( CAN_TRAVERSE ?AUTO_2803 ?AUTO_2810 ?AUTO_2807 ) ( AT ?AUTO_2803 ?AUTO_2810 ) ( VISIBLE ?AUTO_2810 ?AUTO_2807 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2803 ?AUTO_2810 ?AUTO_2807 )
+      ( GET_ROCK_DATA ?AUTO_2801 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2801 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2811 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2815 - LANDER
+      ?AUTO_2817 - WAYPOINT
+      ?AUTO_2818 - WAYPOINT
+      ?AUTO_2813 - ROVER
+      ?AUTO_2816 - WAYPOINT
+      ?AUTO_2814 - WAYPOINT
+      ?AUTO_2820 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2815 ?AUTO_2817 ) ( VISIBLE ?AUTO_2818 ?AUTO_2817 ) ( AVAILABLE ?AUTO_2813 ) ( CHANNEL_FREE ?AUTO_2815 ) ( CAN_TRAVERSE ?AUTO_2813 ?AUTO_2816 ?AUTO_2818 ) ( VISIBLE ?AUTO_2816 ?AUTO_2818 ) ( CAN_TRAVERSE ?AUTO_2813 ?AUTO_2814 ?AUTO_2816 ) ( AT ?AUTO_2813 ?AUTO_2814 ) ( VISIBLE ?AUTO_2814 ?AUTO_2816 ) ( AT ?AUTO_2813 ?AUTO_2811 ) ( AT_ROCK_SAMPLE ?AUTO_2811 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2813 ) ( STORE_OF ?AUTO_2820 ?AUTO_2813 ) ( EMPTY ?AUTO_2820 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_2813 ?AUTO_2820 ?AUTO_2811 )
+      ( GET_ROCK_DATA ?AUTO_2811 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2811 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2822 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2826 - LANDER
+      ?AUTO_2828 - WAYPOINT
+      ?AUTO_2825 - WAYPOINT
+      ?AUTO_2824 - ROVER
+      ?AUTO_2829 - WAYPOINT
+      ?AUTO_2827 - STORE
+      ?AUTO_2833 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2826 ?AUTO_2828 ) ( VISIBLE ?AUTO_2825 ?AUTO_2828 ) ( AVAILABLE ?AUTO_2824 ) ( CHANNEL_FREE ?AUTO_2826 ) ( CAN_TRAVERSE ?AUTO_2824 ?AUTO_2829 ?AUTO_2825 ) ( VISIBLE ?AUTO_2829 ?AUTO_2825 ) ( CAN_TRAVERSE ?AUTO_2824 ?AUTO_2822 ?AUTO_2829 ) ( VISIBLE ?AUTO_2822 ?AUTO_2829 ) ( AT_ROCK_SAMPLE ?AUTO_2822 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2824 ) ( STORE_OF ?AUTO_2827 ?AUTO_2824 ) ( EMPTY ?AUTO_2827 ) ( CAN_TRAVERSE ?AUTO_2824 ?AUTO_2833 ?AUTO_2822 ) ( AT ?AUTO_2824 ?AUTO_2833 ) ( VISIBLE ?AUTO_2833 ?AUTO_2822 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2824 ?AUTO_2833 ?AUTO_2822 )
+      ( GET_ROCK_DATA ?AUTO_2822 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2822 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2834 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2841 - LANDER
+      ?AUTO_2840 - WAYPOINT
+      ?AUTO_2835 - WAYPOINT
+      ?AUTO_2838 - ROVER
+      ?AUTO_2839 - WAYPOINT
+      ?AUTO_2837 - STORE
+      ?AUTO_2842 - WAYPOINT
+      ?AUTO_2845 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2841 ?AUTO_2840 ) ( VISIBLE ?AUTO_2835 ?AUTO_2840 ) ( AVAILABLE ?AUTO_2838 ) ( CHANNEL_FREE ?AUTO_2841 ) ( CAN_TRAVERSE ?AUTO_2838 ?AUTO_2839 ?AUTO_2835 ) ( VISIBLE ?AUTO_2839 ?AUTO_2835 ) ( CAN_TRAVERSE ?AUTO_2838 ?AUTO_2834 ?AUTO_2839 ) ( VISIBLE ?AUTO_2834 ?AUTO_2839 ) ( AT_ROCK_SAMPLE ?AUTO_2834 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2838 ) ( STORE_OF ?AUTO_2837 ?AUTO_2838 ) ( EMPTY ?AUTO_2837 ) ( CAN_TRAVERSE ?AUTO_2838 ?AUTO_2842 ?AUTO_2834 ) ( VISIBLE ?AUTO_2842 ?AUTO_2834 ) ( CAN_TRAVERSE ?AUTO_2838 ?AUTO_2845 ?AUTO_2842 ) ( AT ?AUTO_2838 ?AUTO_2845 ) ( VISIBLE ?AUTO_2845 ?AUTO_2842 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2838 ?AUTO_2845 ?AUTO_2842 )
+      ( GET_ROCK_DATA ?AUTO_2834 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2834 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2846 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2851 - LANDER
+      ?AUTO_2854 - WAYPOINT
+      ?AUTO_2847 - WAYPOINT
+      ?AUTO_2848 - ROVER
+      ?AUTO_2850 - WAYPOINT
+      ?AUTO_2853 - STORE
+      ?AUTO_2849 - WAYPOINT
+      ?AUTO_2855 - WAYPOINT
+      ?AUTO_2856 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2851 ?AUTO_2854 ) ( VISIBLE ?AUTO_2847 ?AUTO_2854 ) ( AVAILABLE ?AUTO_2848 ) ( CHANNEL_FREE ?AUTO_2851 ) ( CAN_TRAVERSE ?AUTO_2848 ?AUTO_2850 ?AUTO_2847 ) ( VISIBLE ?AUTO_2850 ?AUTO_2847 ) ( CAN_TRAVERSE ?AUTO_2848 ?AUTO_2846 ?AUTO_2850 ) ( VISIBLE ?AUTO_2846 ?AUTO_2850 ) ( AT_ROCK_SAMPLE ?AUTO_2846 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2848 ) ( STORE_OF ?AUTO_2853 ?AUTO_2848 ) ( CAN_TRAVERSE ?AUTO_2848 ?AUTO_2849 ?AUTO_2846 ) ( VISIBLE ?AUTO_2849 ?AUTO_2846 ) ( CAN_TRAVERSE ?AUTO_2848 ?AUTO_2855 ?AUTO_2849 ) ( AT ?AUTO_2848 ?AUTO_2855 ) ( VISIBLE ?AUTO_2855 ?AUTO_2849 ) ( STORE_OF ?AUTO_2853 ?AUTO_2856 ) ( FULL ?AUTO_2853 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_2856 ?AUTO_2853 )
+      ( GET_ROCK_DATA ?AUTO_2846 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2846 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_2872 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2877 - LANDER
+      ?AUTO_2879 - WAYPOINT
+      ?AUTO_2874 - WAYPOINT
+      ?AUTO_2880 - ROVER
+      ?AUTO_2875 - WAYPOINT
+      ?AUTO_2881 - STORE
+      ?AUTO_2876 - WAYPOINT
+      ?AUTO_2878 - WAYPOINT
+      ?AUTO_2884 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2877 ?AUTO_2879 ) ( VISIBLE ?AUTO_2874 ?AUTO_2879 ) ( AVAILABLE ?AUTO_2880 ) ( CHANNEL_FREE ?AUTO_2877 ) ( CAN_TRAVERSE ?AUTO_2880 ?AUTO_2875 ?AUTO_2874 ) ( VISIBLE ?AUTO_2875 ?AUTO_2874 ) ( CAN_TRAVERSE ?AUTO_2880 ?AUTO_2872 ?AUTO_2875 ) ( VISIBLE ?AUTO_2872 ?AUTO_2875 ) ( AT_ROCK_SAMPLE ?AUTO_2872 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_2880 ) ( STORE_OF ?AUTO_2881 ?AUTO_2880 ) ( EMPTY ?AUTO_2881 ) ( CAN_TRAVERSE ?AUTO_2880 ?AUTO_2876 ?AUTO_2872 ) ( VISIBLE ?AUTO_2876 ?AUTO_2872 ) ( CAN_TRAVERSE ?AUTO_2880 ?AUTO_2878 ?AUTO_2876 ) ( VISIBLE ?AUTO_2878 ?AUTO_2876 ) ( CAN_TRAVERSE ?AUTO_2880 ?AUTO_2884 ?AUTO_2878 ) ( AT ?AUTO_2880 ?AUTO_2884 ) ( VISIBLE ?AUTO_2884 ?AUTO_2878 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2880 ?AUTO_2884 ?AUTO_2878 )
+      ( GET_ROCK_DATA ?AUTO_2872 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_2872 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2886 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2887 - ROVER
+      ?AUTO_2890 - WAYPOINT
+      ?AUTO_2889 - LANDER
+      ?AUTO_2888 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2887 ?AUTO_2890 ) ( AT_LANDER ?AUTO_2889 ?AUTO_2888 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2887 ?AUTO_2886 ) ( VISIBLE ?AUTO_2890 ?AUTO_2888 ) ( AVAILABLE ?AUTO_2887 ) ( CHANNEL_FREE ?AUTO_2889 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2887 ?AUTO_2889 ?AUTO_2886 ?AUTO_2890 ?AUTO_2888 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2886 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2892 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2894 - ROVER
+      ?AUTO_2897 - WAYPOINT
+      ?AUTO_2896 - LANDER
+      ?AUTO_2895 - WAYPOINT
+      ?AUTO_2899 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2894 ?AUTO_2897 ) ( AT_LANDER ?AUTO_2896 ?AUTO_2895 ) ( VISIBLE ?AUTO_2897 ?AUTO_2895 ) ( AVAILABLE ?AUTO_2894 ) ( CHANNEL_FREE ?AUTO_2896 ) ( AT ?AUTO_2894 ?AUTO_2892 ) ( AT_SOIL_SAMPLE ?AUTO_2892 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2894 ) ( STORE_OF ?AUTO_2899 ?AUTO_2894 ) ( EMPTY ?AUTO_2899 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2894 ?AUTO_2899 ?AUTO_2892 )
+      ( GET_SOIL_DATA ?AUTO_2892 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2892 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2901 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2905 - LANDER
+      ?AUTO_2906 - WAYPOINT
+      ?AUTO_2903 - ROVER
+      ?AUTO_2907 - STORE
+      ?AUTO_2910 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2905 ?AUTO_2906 ) ( VISIBLE ?AUTO_2901 ?AUTO_2906 ) ( AVAILABLE ?AUTO_2903 ) ( CHANNEL_FREE ?AUTO_2905 ) ( AT_SOIL_SAMPLE ?AUTO_2901 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2903 ) ( STORE_OF ?AUTO_2907 ?AUTO_2903 ) ( EMPTY ?AUTO_2907 ) ( CAN_TRAVERSE ?AUTO_2903 ?AUTO_2910 ?AUTO_2901 ) ( AT ?AUTO_2903 ?AUTO_2910 ) ( VISIBLE ?AUTO_2910 ?AUTO_2901 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2903 ?AUTO_2910 ?AUTO_2901 )
+      ( GET_SOIL_DATA ?AUTO_2901 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2901 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2913 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2914 - ROVER
+      ?AUTO_2917 - WAYPOINT
+      ?AUTO_2916 - LANDER
+      ?AUTO_2915 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2914 ?AUTO_2917 ) ( AT_LANDER ?AUTO_2916 ?AUTO_2915 ) ( HAVE_SOIL_ANALYSIS ?AUTO_2914 ?AUTO_2913 ) ( VISIBLE ?AUTO_2917 ?AUTO_2915 ) ( AVAILABLE ?AUTO_2914 ) ( CHANNEL_FREE ?AUTO_2916 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_2914 ?AUTO_2916 ?AUTO_2913 ?AUTO_2917 ?AUTO_2915 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2913 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2919 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2921 - ROVER
+      ?AUTO_2924 - WAYPOINT
+      ?AUTO_2923 - LANDER
+      ?AUTO_2922 - WAYPOINT
+      ?AUTO_2926 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_2921 ?AUTO_2924 ) ( AT_LANDER ?AUTO_2923 ?AUTO_2922 ) ( VISIBLE ?AUTO_2924 ?AUTO_2922 ) ( AVAILABLE ?AUTO_2921 ) ( CHANNEL_FREE ?AUTO_2923 ) ( AT ?AUTO_2921 ?AUTO_2919 ) ( AT_SOIL_SAMPLE ?AUTO_2919 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2921 ) ( STORE_OF ?AUTO_2926 ?AUTO_2921 ) ( EMPTY ?AUTO_2926 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_2921 ?AUTO_2926 ?AUTO_2919 )
+      ( GET_SOIL_DATA ?AUTO_2919 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2919 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_2928 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_2932 - LANDER
+      ?AUTO_2933 - WAYPOINT
+      ?AUTO_2930 - ROVER
+      ?AUTO_2934 - STORE
+      ?AUTO_2937 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2932 ?AUTO_2933 ) ( VISIBLE ?AUTO_2928 ?AUTO_2933 ) ( AVAILABLE ?AUTO_2930 ) ( CHANNEL_FREE ?AUTO_2932 ) ( AT_SOIL_SAMPLE ?AUTO_2928 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_2930 ) ( STORE_OF ?AUTO_2934 ?AUTO_2930 ) ( EMPTY ?AUTO_2934 ) ( CAN_TRAVERSE ?AUTO_2930 ?AUTO_2937 ?AUTO_2928 ) ( AT ?AUTO_2930 ?AUTO_2937 ) ( VISIBLE ?AUTO_2937 ?AUTO_2928 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2930 ?AUTO_2937 ?AUTO_2928 )
+      ( GET_SOIL_DATA ?AUTO_2928 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_2928 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2946 - OBJECTIVE
+      ?AUTO_2947 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2948 - ROVER
+      ?AUTO_2951 - WAYPOINT
+      ?AUTO_2950 - LANDER
+      ?AUTO_2949 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2948 ?AUTO_2951 ) ( AT_LANDER ?AUTO_2950 ?AUTO_2949 ) ( HAVE_IMAGE ?AUTO_2948 ?AUTO_2946 ?AUTO_2947 ) ( VISIBLE ?AUTO_2951 ?AUTO_2949 ) ( AVAILABLE ?AUTO_2948 ) ( CHANNEL_FREE ?AUTO_2950 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_2948 ?AUTO_2950 ?AUTO_2946 ?AUTO_2947 ?AUTO_2951 ?AUTO_2949 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2946 ?AUTO_2947 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2954 - OBJECTIVE
+      ?AUTO_2955 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2958 - ROVER
+      ?AUTO_2961 - WAYPOINT
+      ?AUTO_2960 - LANDER
+      ?AUTO_2959 - WAYPOINT
+      ?AUTO_2966 - CAMERA
+      ?AUTO_2964 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_2958 ?AUTO_2961 ) ( AT_LANDER ?AUTO_2960 ?AUTO_2959 ) ( VISIBLE ?AUTO_2961 ?AUTO_2959 ) ( AVAILABLE ?AUTO_2958 ) ( CHANNEL_FREE ?AUTO_2960 ) ( CALIBRATED ?AUTO_2966 ?AUTO_2958 ) ( ON_BOARD ?AUTO_2966 ?AUTO_2958 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2958 ) ( SUPPORTS ?AUTO_2966 ?AUTO_2955 ) ( VISIBLE_FROM ?AUTO_2954 ?AUTO_2964 ) ( AT ?AUTO_2958 ?AUTO_2964 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_2958 ?AUTO_2964 ?AUTO_2954 ?AUTO_2966 ?AUTO_2955 )
+      ( GET_IMAGE_DATA ?AUTO_2954 ?AUTO_2955 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2954 ?AUTO_2955 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2967 - OBJECTIVE
+      ?AUTO_2968 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2974 - LANDER
+      ?AUTO_2973 - WAYPOINT
+      ?AUTO_2975 - WAYPOINT
+      ?AUTO_2972 - ROVER
+      ?AUTO_2976 - CAMERA
+      ?AUTO_2979 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2974 ?AUTO_2973 ) ( VISIBLE ?AUTO_2975 ?AUTO_2973 ) ( AVAILABLE ?AUTO_2972 ) ( CHANNEL_FREE ?AUTO_2974 ) ( CALIBRATED ?AUTO_2976 ?AUTO_2972 ) ( ON_BOARD ?AUTO_2976 ?AUTO_2972 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2972 ) ( SUPPORTS ?AUTO_2976 ?AUTO_2968 ) ( VISIBLE_FROM ?AUTO_2967 ?AUTO_2975 ) ( CAN_TRAVERSE ?AUTO_2972 ?AUTO_2979 ?AUTO_2975 ) ( AT ?AUTO_2972 ?AUTO_2979 ) ( VISIBLE ?AUTO_2979 ?AUTO_2975 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2972 ?AUTO_2979 ?AUTO_2975 )
+      ( GET_IMAGE_DATA ?AUTO_2967 ?AUTO_2968 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2967 ?AUTO_2968 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2980 - OBJECTIVE
+      ?AUTO_2981 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2985 - LANDER
+      ?AUTO_2988 - WAYPOINT
+      ?AUTO_2984 - WAYPOINT
+      ?AUTO_2987 - ROVER
+      ?AUTO_2982 - CAMERA
+      ?AUTO_2986 - WAYPOINT
+      ?AUTO_2992 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2985 ?AUTO_2988 ) ( VISIBLE ?AUTO_2984 ?AUTO_2988 ) ( AVAILABLE ?AUTO_2987 ) ( CHANNEL_FREE ?AUTO_2985 ) ( CALIBRATED ?AUTO_2982 ?AUTO_2987 ) ( ON_BOARD ?AUTO_2982 ?AUTO_2987 ) ( EQUIPPED_FOR_IMAGING ?AUTO_2987 ) ( SUPPORTS ?AUTO_2982 ?AUTO_2981 ) ( VISIBLE_FROM ?AUTO_2980 ?AUTO_2984 ) ( CAN_TRAVERSE ?AUTO_2987 ?AUTO_2986 ?AUTO_2984 ) ( VISIBLE ?AUTO_2986 ?AUTO_2984 ) ( CAN_TRAVERSE ?AUTO_2987 ?AUTO_2992 ?AUTO_2986 ) ( AT ?AUTO_2987 ?AUTO_2992 ) ( VISIBLE ?AUTO_2992 ?AUTO_2986 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_2987 ?AUTO_2992 ?AUTO_2986 )
+      ( GET_IMAGE_DATA ?AUTO_2980 ?AUTO_2981 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2980 ?AUTO_2981 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_2997 - OBJECTIVE
+      ?AUTO_2998 - MODE
+    )
+    :vars
+    (
+      ?AUTO_2999 - LANDER
+      ?AUTO_3003 - WAYPOINT
+      ?AUTO_3001 - WAYPOINT
+      ?AUTO_3004 - ROVER
+      ?AUTO_3005 - CAMERA
+      ?AUTO_3007 - WAYPOINT
+      ?AUTO_3000 - WAYPOINT
+      ?AUTO_3010 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_2999 ?AUTO_3003 ) ( VISIBLE ?AUTO_3001 ?AUTO_3003 ) ( AVAILABLE ?AUTO_3004 ) ( CHANNEL_FREE ?AUTO_2999 ) ( CALIBRATED ?AUTO_3005 ?AUTO_3004 ) ( ON_BOARD ?AUTO_3005 ?AUTO_3004 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3004 ) ( SUPPORTS ?AUTO_3005 ?AUTO_2998 ) ( VISIBLE_FROM ?AUTO_2997 ?AUTO_3001 ) ( CAN_TRAVERSE ?AUTO_3004 ?AUTO_3007 ?AUTO_3001 ) ( VISIBLE ?AUTO_3007 ?AUTO_3001 ) ( CAN_TRAVERSE ?AUTO_3004 ?AUTO_3000 ?AUTO_3007 ) ( VISIBLE ?AUTO_3000 ?AUTO_3007 ) ( CAN_TRAVERSE ?AUTO_3004 ?AUTO_3010 ?AUTO_3000 ) ( AT ?AUTO_3004 ?AUTO_3010 ) ( VISIBLE ?AUTO_3010 ?AUTO_3000 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3004 ?AUTO_3010 ?AUTO_3000 )
+      ( GET_IMAGE_DATA ?AUTO_2997 ?AUTO_2998 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_2997 ?AUTO_2998 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3011 - OBJECTIVE
+      ?AUTO_3012 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3014 - LANDER
+      ?AUTO_3017 - WAYPOINT
+      ?AUTO_3016 - WAYPOINT
+      ?AUTO_3018 - ROVER
+      ?AUTO_3021 - CAMERA
+      ?AUTO_3013 - WAYPOINT
+      ?AUTO_3015 - WAYPOINT
+      ?AUTO_3022 - WAYPOINT
+      ?AUTO_3026 - OBJECTIVE
+      ?AUTO_3024 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3014 ?AUTO_3017 ) ( VISIBLE ?AUTO_3016 ?AUTO_3017 ) ( AVAILABLE ?AUTO_3018 ) ( CHANNEL_FREE ?AUTO_3014 ) ( ON_BOARD ?AUTO_3021 ?AUTO_3018 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3018 ) ( SUPPORTS ?AUTO_3021 ?AUTO_3012 ) ( VISIBLE_FROM ?AUTO_3011 ?AUTO_3016 ) ( CAN_TRAVERSE ?AUTO_3018 ?AUTO_3013 ?AUTO_3016 ) ( VISIBLE ?AUTO_3013 ?AUTO_3016 ) ( CAN_TRAVERSE ?AUTO_3018 ?AUTO_3015 ?AUTO_3013 ) ( VISIBLE ?AUTO_3015 ?AUTO_3013 ) ( CAN_TRAVERSE ?AUTO_3018 ?AUTO_3022 ?AUTO_3015 ) ( AT ?AUTO_3018 ?AUTO_3022 ) ( VISIBLE ?AUTO_3022 ?AUTO_3015 ) ( CALIBRATION_TARGET ?AUTO_3021 ?AUTO_3026 ) ( AT ?AUTO_3018 ?AUTO_3024 ) ( VISIBLE_FROM ?AUTO_3026 ?AUTO_3024 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_3018 ?AUTO_3021 ?AUTO_3026 ?AUTO_3024 )
+      ( GET_IMAGE_DATA ?AUTO_3011 ?AUTO_3012 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3011 ?AUTO_3012 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3027 - OBJECTIVE
+      ?AUTO_3028 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3034 - LANDER
+      ?AUTO_3037 - WAYPOINT
+      ?AUTO_3039 - WAYPOINT
+      ?AUTO_3029 - ROVER
+      ?AUTO_3030 - CAMERA
+      ?AUTO_3035 - WAYPOINT
+      ?AUTO_3036 - WAYPOINT
+      ?AUTO_3038 - WAYPOINT
+      ?AUTO_3040 - OBJECTIVE
+      ?AUTO_3043 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3034 ?AUTO_3037 ) ( VISIBLE ?AUTO_3039 ?AUTO_3037 ) ( AVAILABLE ?AUTO_3029 ) ( CHANNEL_FREE ?AUTO_3034 ) ( ON_BOARD ?AUTO_3030 ?AUTO_3029 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3029 ) ( SUPPORTS ?AUTO_3030 ?AUTO_3028 ) ( VISIBLE_FROM ?AUTO_3027 ?AUTO_3039 ) ( CAN_TRAVERSE ?AUTO_3029 ?AUTO_3035 ?AUTO_3039 ) ( VISIBLE ?AUTO_3035 ?AUTO_3039 ) ( CAN_TRAVERSE ?AUTO_3029 ?AUTO_3036 ?AUTO_3035 ) ( VISIBLE ?AUTO_3036 ?AUTO_3035 ) ( CAN_TRAVERSE ?AUTO_3029 ?AUTO_3038 ?AUTO_3036 ) ( VISIBLE ?AUTO_3038 ?AUTO_3036 ) ( CALIBRATION_TARGET ?AUTO_3030 ?AUTO_3040 ) ( VISIBLE_FROM ?AUTO_3040 ?AUTO_3038 ) ( CAN_TRAVERSE ?AUTO_3029 ?AUTO_3043 ?AUTO_3038 ) ( AT ?AUTO_3029 ?AUTO_3043 ) ( VISIBLE ?AUTO_3043 ?AUTO_3038 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3029 ?AUTO_3043 ?AUTO_3038 )
+      ( GET_IMAGE_DATA ?AUTO_3027 ?AUTO_3028 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3027 ?AUTO_3028 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3046 - OBJECTIVE
+      ?AUTO_3047 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3048 - ROVER
+      ?AUTO_3051 - WAYPOINT
+      ?AUTO_3050 - LANDER
+      ?AUTO_3049 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3048 ?AUTO_3051 ) ( AT_LANDER ?AUTO_3050 ?AUTO_3049 ) ( HAVE_IMAGE ?AUTO_3048 ?AUTO_3046 ?AUTO_3047 ) ( VISIBLE ?AUTO_3051 ?AUTO_3049 ) ( AVAILABLE ?AUTO_3048 ) ( CHANNEL_FREE ?AUTO_3050 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_3048 ?AUTO_3050 ?AUTO_3046 ?AUTO_3047 ?AUTO_3051 ?AUTO_3049 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3046 ?AUTO_3047 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3054 - OBJECTIVE
+      ?AUTO_3055 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3060 - LANDER
+      ?AUTO_3059 - WAYPOINT
+      ?AUTO_3058 - ROVER
+      ?AUTO_3061 - WAYPOINT
+      ?AUTO_3064 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3060 ?AUTO_3059 ) ( HAVE_IMAGE ?AUTO_3058 ?AUTO_3054 ?AUTO_3055 ) ( VISIBLE ?AUTO_3061 ?AUTO_3059 ) ( AVAILABLE ?AUTO_3058 ) ( CHANNEL_FREE ?AUTO_3060 ) ( CAN_TRAVERSE ?AUTO_3058 ?AUTO_3064 ?AUTO_3061 ) ( AT ?AUTO_3058 ?AUTO_3064 ) ( VISIBLE ?AUTO_3064 ?AUTO_3061 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3058 ?AUTO_3064 ?AUTO_3061 )
+      ( GET_IMAGE_DATA ?AUTO_3054 ?AUTO_3055 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3054 ?AUTO_3055 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3065 - OBJECTIVE
+      ?AUTO_3066 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3071 - LANDER
+      ?AUTO_3070 - WAYPOINT
+      ?AUTO_3072 - ROVER
+      ?AUTO_3067 - WAYPOINT
+      ?AUTO_3073 - WAYPOINT
+      ?AUTO_3076 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3071 ?AUTO_3070 ) ( HAVE_IMAGE ?AUTO_3072 ?AUTO_3065 ?AUTO_3066 ) ( VISIBLE ?AUTO_3067 ?AUTO_3070 ) ( AVAILABLE ?AUTO_3072 ) ( CHANNEL_FREE ?AUTO_3071 ) ( CAN_TRAVERSE ?AUTO_3072 ?AUTO_3073 ?AUTO_3067 ) ( VISIBLE ?AUTO_3073 ?AUTO_3067 ) ( CAN_TRAVERSE ?AUTO_3072 ?AUTO_3076 ?AUTO_3073 ) ( AT ?AUTO_3072 ?AUTO_3076 ) ( VISIBLE ?AUTO_3076 ?AUTO_3073 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3072 ?AUTO_3076 ?AUTO_3073 )
+      ( GET_IMAGE_DATA ?AUTO_3065 ?AUTO_3066 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3065 ?AUTO_3066 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3077 - OBJECTIVE
+      ?AUTO_3078 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3079 - LANDER
+      ?AUTO_3085 - WAYPOINT
+      ?AUTO_3084 - WAYPOINT
+      ?AUTO_3083 - ROVER
+      ?AUTO_3086 - WAYPOINT
+      ?AUTO_3081 - WAYPOINT
+      ?AUTO_3091 - CAMERA
+      ?AUTO_3089 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3079 ?AUTO_3085 ) ( VISIBLE ?AUTO_3084 ?AUTO_3085 ) ( AVAILABLE ?AUTO_3083 ) ( CHANNEL_FREE ?AUTO_3079 ) ( CAN_TRAVERSE ?AUTO_3083 ?AUTO_3086 ?AUTO_3084 ) ( VISIBLE ?AUTO_3086 ?AUTO_3084 ) ( CAN_TRAVERSE ?AUTO_3083 ?AUTO_3081 ?AUTO_3086 ) ( AT ?AUTO_3083 ?AUTO_3081 ) ( VISIBLE ?AUTO_3081 ?AUTO_3086 ) ( CALIBRATED ?AUTO_3091 ?AUTO_3083 ) ( ON_BOARD ?AUTO_3091 ?AUTO_3083 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3083 ) ( SUPPORTS ?AUTO_3091 ?AUTO_3078 ) ( VISIBLE_FROM ?AUTO_3077 ?AUTO_3089 ) ( AT ?AUTO_3083 ?AUTO_3089 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_3083 ?AUTO_3089 ?AUTO_3077 ?AUTO_3091 ?AUTO_3078 )
+      ( GET_IMAGE_DATA ?AUTO_3077 ?AUTO_3078 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3077 ?AUTO_3078 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3092 - OBJECTIVE
+      ?AUTO_3093 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3096 - LANDER
+      ?AUTO_3101 - WAYPOINT
+      ?AUTO_3095 - WAYPOINT
+      ?AUTO_3097 - ROVER
+      ?AUTO_3098 - WAYPOINT
+      ?AUTO_3100 - WAYPOINT
+      ?AUTO_3103 - CAMERA
+      ?AUTO_3102 - WAYPOINT
+      ?AUTO_3107 - OBJECTIVE
+      ?AUTO_3105 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3096 ?AUTO_3101 ) ( VISIBLE ?AUTO_3095 ?AUTO_3101 ) ( AVAILABLE ?AUTO_3097 ) ( CHANNEL_FREE ?AUTO_3096 ) ( CAN_TRAVERSE ?AUTO_3097 ?AUTO_3098 ?AUTO_3095 ) ( VISIBLE ?AUTO_3098 ?AUTO_3095 ) ( CAN_TRAVERSE ?AUTO_3097 ?AUTO_3100 ?AUTO_3098 ) ( AT ?AUTO_3097 ?AUTO_3100 ) ( VISIBLE ?AUTO_3100 ?AUTO_3098 ) ( ON_BOARD ?AUTO_3103 ?AUTO_3097 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3097 ) ( SUPPORTS ?AUTO_3103 ?AUTO_3093 ) ( VISIBLE_FROM ?AUTO_3092 ?AUTO_3102 ) ( AT ?AUTO_3097 ?AUTO_3102 ) ( CALIBRATION_TARGET ?AUTO_3103 ?AUTO_3107 ) ( AT ?AUTO_3097 ?AUTO_3105 ) ( VISIBLE_FROM ?AUTO_3107 ?AUTO_3105 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_3097 ?AUTO_3103 ?AUTO_3107 ?AUTO_3105 )
+      ( GET_IMAGE_DATA ?AUTO_3092 ?AUTO_3093 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3092 ?AUTO_3093 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3109 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3110 - ROVER
+      ?AUTO_3113 - WAYPOINT
+      ?AUTO_3112 - LANDER
+      ?AUTO_3111 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3110 ?AUTO_3113 ) ( AT_LANDER ?AUTO_3112 ?AUTO_3111 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3110 ?AUTO_3109 ) ( VISIBLE ?AUTO_3113 ?AUTO_3111 ) ( AVAILABLE ?AUTO_3110 ) ( CHANNEL_FREE ?AUTO_3112 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_3110 ?AUTO_3112 ?AUTO_3109 ?AUTO_3113 ?AUTO_3111 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3109 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3115 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3116 - ROVER
+      ?AUTO_3120 - WAYPOINT
+      ?AUTO_3119 - LANDER
+      ?AUTO_3118 - WAYPOINT
+      ?AUTO_3122 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3116 ?AUTO_3120 ) ( AT_LANDER ?AUTO_3119 ?AUTO_3118 ) ( VISIBLE ?AUTO_3120 ?AUTO_3118 ) ( AVAILABLE ?AUTO_3116 ) ( CHANNEL_FREE ?AUTO_3119 ) ( AT ?AUTO_3116 ?AUTO_3115 ) ( AT_SOIL_SAMPLE ?AUTO_3115 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3116 ) ( STORE_OF ?AUTO_3122 ?AUTO_3116 ) ( EMPTY ?AUTO_3122 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3116 ?AUTO_3122 ?AUTO_3115 )
+      ( GET_SOIL_DATA ?AUTO_3115 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3115 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3130 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3131 - ROVER
+      ?AUTO_3134 - WAYPOINT
+      ?AUTO_3133 - LANDER
+      ?AUTO_3132 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3131 ?AUTO_3134 ) ( AT_LANDER ?AUTO_3133 ?AUTO_3132 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3131 ?AUTO_3130 ) ( VISIBLE ?AUTO_3134 ?AUTO_3132 ) ( AVAILABLE ?AUTO_3131 ) ( CHANNEL_FREE ?AUTO_3133 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_3131 ?AUTO_3133 ?AUTO_3130 ?AUTO_3134 ?AUTO_3132 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3130 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3136 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3138 - ROVER
+      ?AUTO_3141 - WAYPOINT
+      ?AUTO_3140 - LANDER
+      ?AUTO_3139 - WAYPOINT
+      ?AUTO_3143 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3138 ?AUTO_3141 ) ( AT_LANDER ?AUTO_3140 ?AUTO_3139 ) ( VISIBLE ?AUTO_3141 ?AUTO_3139 ) ( AVAILABLE ?AUTO_3138 ) ( CHANNEL_FREE ?AUTO_3140 ) ( AT ?AUTO_3138 ?AUTO_3136 ) ( AT_ROCK_SAMPLE ?AUTO_3136 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3138 ) ( STORE_OF ?AUTO_3143 ?AUTO_3138 ) ( EMPTY ?AUTO_3143 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3138 ?AUTO_3143 ?AUTO_3136 )
+      ( GET_ROCK_DATA ?AUTO_3136 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3136 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3153 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3154 - ROVER
+      ?AUTO_3157 - WAYPOINT
+      ?AUTO_3156 - LANDER
+      ?AUTO_3155 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3154 ?AUTO_3157 ) ( AT_LANDER ?AUTO_3156 ?AUTO_3155 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3154 ?AUTO_3153 ) ( VISIBLE ?AUTO_3157 ?AUTO_3155 ) ( AVAILABLE ?AUTO_3154 ) ( CHANNEL_FREE ?AUTO_3156 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_3154 ?AUTO_3156 ?AUTO_3153 ?AUTO_3157 ?AUTO_3155 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3153 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3159 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3163 - LANDER
+      ?AUTO_3162 - WAYPOINT
+      ?AUTO_3161 - ROVER
+      ?AUTO_3164 - WAYPOINT
+      ?AUTO_3167 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3163 ?AUTO_3162 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3161 ?AUTO_3159 ) ( VISIBLE ?AUTO_3164 ?AUTO_3162 ) ( AVAILABLE ?AUTO_3161 ) ( CHANNEL_FREE ?AUTO_3163 ) ( CAN_TRAVERSE ?AUTO_3161 ?AUTO_3167 ?AUTO_3164 ) ( AT ?AUTO_3161 ?AUTO_3167 ) ( VISIBLE ?AUTO_3167 ?AUTO_3164 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3161 ?AUTO_3167 ?AUTO_3164 )
+      ( GET_ROCK_DATA ?AUTO_3159 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3159 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3168 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3173 - LANDER
+      ?AUTO_3169 - WAYPOINT
+      ?AUTO_3172 - WAYPOINT
+      ?AUTO_3170 - ROVER
+      ?AUTO_3174 - WAYPOINT
+      ?AUTO_3176 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3173 ?AUTO_3169 ) ( VISIBLE ?AUTO_3172 ?AUTO_3169 ) ( AVAILABLE ?AUTO_3170 ) ( CHANNEL_FREE ?AUTO_3173 ) ( CAN_TRAVERSE ?AUTO_3170 ?AUTO_3174 ?AUTO_3172 ) ( AT ?AUTO_3170 ?AUTO_3174 ) ( VISIBLE ?AUTO_3174 ?AUTO_3172 ) ( AT ?AUTO_3170 ?AUTO_3168 ) ( AT_ROCK_SAMPLE ?AUTO_3168 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3170 ) ( STORE_OF ?AUTO_3176 ?AUTO_3170 ) ( EMPTY ?AUTO_3176 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3170 ?AUTO_3176 ?AUTO_3168 )
+      ( GET_ROCK_DATA ?AUTO_3168 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3168 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3178 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3183 - LANDER
+      ?AUTO_3185 - WAYPOINT
+      ?AUTO_3180 - WAYPOINT
+      ?AUTO_3181 - ROVER
+      ?AUTO_3182 - STORE
+      ?AUTO_3188 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3183 ?AUTO_3185 ) ( VISIBLE ?AUTO_3180 ?AUTO_3185 ) ( AVAILABLE ?AUTO_3181 ) ( CHANNEL_FREE ?AUTO_3183 ) ( CAN_TRAVERSE ?AUTO_3181 ?AUTO_3178 ?AUTO_3180 ) ( VISIBLE ?AUTO_3178 ?AUTO_3180 ) ( AT_ROCK_SAMPLE ?AUTO_3178 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3181 ) ( STORE_OF ?AUTO_3182 ?AUTO_3181 ) ( EMPTY ?AUTO_3182 ) ( CAN_TRAVERSE ?AUTO_3181 ?AUTO_3188 ?AUTO_3178 ) ( AT ?AUTO_3181 ?AUTO_3188 ) ( VISIBLE ?AUTO_3188 ?AUTO_3178 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3181 ?AUTO_3188 ?AUTO_3178 )
+      ( GET_ROCK_DATA ?AUTO_3178 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3178 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3189 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3192 - LANDER
+      ?AUTO_3196 - WAYPOINT
+      ?AUTO_3195 - WAYPOINT
+      ?AUTO_3191 - ROVER
+      ?AUTO_3193 - STORE
+      ?AUTO_3194 - WAYPOINT
+      ?AUTO_3197 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3192 ?AUTO_3196 ) ( VISIBLE ?AUTO_3195 ?AUTO_3196 ) ( AVAILABLE ?AUTO_3191 ) ( CHANNEL_FREE ?AUTO_3192 ) ( CAN_TRAVERSE ?AUTO_3191 ?AUTO_3189 ?AUTO_3195 ) ( VISIBLE ?AUTO_3189 ?AUTO_3195 ) ( AT_ROCK_SAMPLE ?AUTO_3189 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3191 ) ( STORE_OF ?AUTO_3193 ?AUTO_3191 ) ( CAN_TRAVERSE ?AUTO_3191 ?AUTO_3194 ?AUTO_3189 ) ( AT ?AUTO_3191 ?AUTO_3194 ) ( VISIBLE ?AUTO_3194 ?AUTO_3189 ) ( STORE_OF ?AUTO_3193 ?AUTO_3197 ) ( FULL ?AUTO_3193 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3197 ?AUTO_3193 )
+      ( GET_ROCK_DATA ?AUTO_3189 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3189 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3200 - OBJECTIVE
+      ?AUTO_3201 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3202 - ROVER
+      ?AUTO_3205 - WAYPOINT
+      ?AUTO_3204 - LANDER
+      ?AUTO_3203 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3202 ?AUTO_3205 ) ( AT_LANDER ?AUTO_3204 ?AUTO_3203 ) ( HAVE_IMAGE ?AUTO_3202 ?AUTO_3200 ?AUTO_3201 ) ( VISIBLE ?AUTO_3205 ?AUTO_3203 ) ( AVAILABLE ?AUTO_3202 ) ( CHANNEL_FREE ?AUTO_3204 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_3202 ?AUTO_3204 ?AUTO_3200 ?AUTO_3201 ?AUTO_3205 ?AUTO_3203 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3200 ?AUTO_3201 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3208 - OBJECTIVE
+      ?AUTO_3209 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3212 - ROVER
+      ?AUTO_3215 - WAYPOINT
+      ?AUTO_3214 - LANDER
+      ?AUTO_3213 - WAYPOINT
+      ?AUTO_3220 - CAMERA
+      ?AUTO_3218 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3212 ?AUTO_3215 ) ( AT_LANDER ?AUTO_3214 ?AUTO_3213 ) ( VISIBLE ?AUTO_3215 ?AUTO_3213 ) ( AVAILABLE ?AUTO_3212 ) ( CHANNEL_FREE ?AUTO_3214 ) ( CALIBRATED ?AUTO_3220 ?AUTO_3212 ) ( ON_BOARD ?AUTO_3220 ?AUTO_3212 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3212 ) ( SUPPORTS ?AUTO_3220 ?AUTO_3209 ) ( VISIBLE_FROM ?AUTO_3208 ?AUTO_3218 ) ( AT ?AUTO_3212 ?AUTO_3218 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_3212 ?AUTO_3218 ?AUTO_3208 ?AUTO_3220 ?AUTO_3209 )
+      ( GET_IMAGE_DATA ?AUTO_3208 ?AUTO_3209 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3208 ?AUTO_3209 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3221 - OBJECTIVE
+      ?AUTO_3222 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3226 - ROVER
+      ?AUTO_3223 - WAYPOINT
+      ?AUTO_3228 - LANDER
+      ?AUTO_3227 - WAYPOINT
+      ?AUTO_3230 - CAMERA
+      ?AUTO_3229 - WAYPOINT
+      ?AUTO_3234 - OBJECTIVE
+      ?AUTO_3232 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3226 ?AUTO_3223 ) ( AT_LANDER ?AUTO_3228 ?AUTO_3227 ) ( VISIBLE ?AUTO_3223 ?AUTO_3227 ) ( AVAILABLE ?AUTO_3226 ) ( CHANNEL_FREE ?AUTO_3228 ) ( ON_BOARD ?AUTO_3230 ?AUTO_3226 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3226 ) ( SUPPORTS ?AUTO_3230 ?AUTO_3222 ) ( VISIBLE_FROM ?AUTO_3221 ?AUTO_3229 ) ( AT ?AUTO_3226 ?AUTO_3229 ) ( CALIBRATION_TARGET ?AUTO_3230 ?AUTO_3234 ) ( AT ?AUTO_3226 ?AUTO_3232 ) ( VISIBLE_FROM ?AUTO_3234 ?AUTO_3232 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_3226 ?AUTO_3230 ?AUTO_3234 ?AUTO_3232 )
+      ( GET_IMAGE_DATA ?AUTO_3221 ?AUTO_3222 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3221 ?AUTO_3222 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3235 - OBJECTIVE
+      ?AUTO_3236 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3237 - LANDER
+      ?AUTO_3242 - WAYPOINT
+      ?AUTO_3238 - WAYPOINT
+      ?AUTO_3239 - ROVER
+      ?AUTO_3240 - CAMERA
+      ?AUTO_3246 - OBJECTIVE
+      ?AUTO_3249 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3237 ?AUTO_3242 ) ( VISIBLE ?AUTO_3238 ?AUTO_3242 ) ( AVAILABLE ?AUTO_3239 ) ( CHANNEL_FREE ?AUTO_3237 ) ( ON_BOARD ?AUTO_3240 ?AUTO_3239 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3239 ) ( SUPPORTS ?AUTO_3240 ?AUTO_3236 ) ( VISIBLE_FROM ?AUTO_3235 ?AUTO_3238 ) ( CALIBRATION_TARGET ?AUTO_3240 ?AUTO_3246 ) ( VISIBLE_FROM ?AUTO_3246 ?AUTO_3238 ) ( CAN_TRAVERSE ?AUTO_3239 ?AUTO_3249 ?AUTO_3238 ) ( AT ?AUTO_3239 ?AUTO_3249 ) ( VISIBLE ?AUTO_3249 ?AUTO_3238 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3239 ?AUTO_3249 ?AUTO_3238 )
+      ( GET_IMAGE_DATA ?AUTO_3235 ?AUTO_3236 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3235 ?AUTO_3236 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3251 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3252 - ROVER
+      ?AUTO_3255 - WAYPOINT
+      ?AUTO_3254 - LANDER
+      ?AUTO_3253 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3252 ?AUTO_3255 ) ( AT_LANDER ?AUTO_3254 ?AUTO_3253 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3252 ?AUTO_3251 ) ( VISIBLE ?AUTO_3255 ?AUTO_3253 ) ( AVAILABLE ?AUTO_3252 ) ( CHANNEL_FREE ?AUTO_3254 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_3252 ?AUTO_3254 ?AUTO_3251 ?AUTO_3255 ?AUTO_3253 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3251 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3257 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3259 - ROVER
+      ?AUTO_3262 - WAYPOINT
+      ?AUTO_3261 - LANDER
+      ?AUTO_3260 - WAYPOINT
+      ?AUTO_3264 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3259 ?AUTO_3262 ) ( AT_LANDER ?AUTO_3261 ?AUTO_3260 ) ( VISIBLE ?AUTO_3262 ?AUTO_3260 ) ( AVAILABLE ?AUTO_3259 ) ( CHANNEL_FREE ?AUTO_3261 ) ( AT ?AUTO_3259 ?AUTO_3257 ) ( AT_ROCK_SAMPLE ?AUTO_3257 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3259 ) ( STORE_OF ?AUTO_3264 ?AUTO_3259 ) ( EMPTY ?AUTO_3264 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3259 ?AUTO_3264 ?AUTO_3257 )
+      ( GET_ROCK_DATA ?AUTO_3257 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3257 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3266 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3270 - LANDER
+      ?AUTO_3271 - WAYPOINT
+      ?AUTO_3268 - ROVER
+      ?AUTO_3272 - STORE
+      ?AUTO_3275 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3270 ?AUTO_3271 ) ( VISIBLE ?AUTO_3266 ?AUTO_3271 ) ( AVAILABLE ?AUTO_3268 ) ( CHANNEL_FREE ?AUTO_3270 ) ( AT_ROCK_SAMPLE ?AUTO_3266 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3268 ) ( STORE_OF ?AUTO_3272 ?AUTO_3268 ) ( EMPTY ?AUTO_3272 ) ( CAN_TRAVERSE ?AUTO_3268 ?AUTO_3275 ?AUTO_3266 ) ( AT ?AUTO_3268 ?AUTO_3275 ) ( VISIBLE ?AUTO_3275 ?AUTO_3266 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3268 ?AUTO_3275 ?AUTO_3266 )
+      ( GET_ROCK_DATA ?AUTO_3266 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3266 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3281 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3282 - ROVER
+      ?AUTO_3285 - WAYPOINT
+      ?AUTO_3284 - LANDER
+      ?AUTO_3283 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3282 ?AUTO_3285 ) ( AT_LANDER ?AUTO_3284 ?AUTO_3283 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3282 ?AUTO_3281 ) ( VISIBLE ?AUTO_3285 ?AUTO_3283 ) ( AVAILABLE ?AUTO_3282 ) ( CHANNEL_FREE ?AUTO_3284 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_3282 ?AUTO_3284 ?AUTO_3281 ?AUTO_3285 ?AUTO_3283 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3281 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3287 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3289 - ROVER
+      ?AUTO_3292 - WAYPOINT
+      ?AUTO_3291 - LANDER
+      ?AUTO_3290 - WAYPOINT
+      ?AUTO_3294 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3289 ?AUTO_3292 ) ( AT_LANDER ?AUTO_3291 ?AUTO_3290 ) ( VISIBLE ?AUTO_3292 ?AUTO_3290 ) ( AVAILABLE ?AUTO_3289 ) ( CHANNEL_FREE ?AUTO_3291 ) ( AT ?AUTO_3289 ?AUTO_3287 ) ( AT_SOIL_SAMPLE ?AUTO_3287 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3289 ) ( STORE_OF ?AUTO_3294 ?AUTO_3289 ) ( EMPTY ?AUTO_3294 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3289 ?AUTO_3294 ?AUTO_3287 )
+      ( GET_SOIL_DATA ?AUTO_3287 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3287 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3304 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3305 - ROVER
+      ?AUTO_3308 - WAYPOINT
+      ?AUTO_3307 - LANDER
+      ?AUTO_3306 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3305 ?AUTO_3308 ) ( AT_LANDER ?AUTO_3307 ?AUTO_3306 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3305 ?AUTO_3304 ) ( VISIBLE ?AUTO_3308 ?AUTO_3306 ) ( AVAILABLE ?AUTO_3305 ) ( CHANNEL_FREE ?AUTO_3307 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_3305 ?AUTO_3307 ?AUTO_3304 ?AUTO_3308 ?AUTO_3306 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3304 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3310 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3312 - ROVER
+      ?AUTO_3315 - WAYPOINT
+      ?AUTO_3314 - LANDER
+      ?AUTO_3313 - WAYPOINT
+      ?AUTO_3317 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3312 ?AUTO_3315 ) ( AT_LANDER ?AUTO_3314 ?AUTO_3313 ) ( VISIBLE ?AUTO_3315 ?AUTO_3313 ) ( AVAILABLE ?AUTO_3312 ) ( CHANNEL_FREE ?AUTO_3314 ) ( AT ?AUTO_3312 ?AUTO_3310 ) ( AT_ROCK_SAMPLE ?AUTO_3310 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3312 ) ( STORE_OF ?AUTO_3317 ?AUTO_3312 ) ( EMPTY ?AUTO_3317 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3312 ?AUTO_3317 ?AUTO_3310 )
+      ( GET_ROCK_DATA ?AUTO_3310 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3310 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3319 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3321 - ROVER
+      ?AUTO_3320 - WAYPOINT
+      ?AUTO_3323 - LANDER
+      ?AUTO_3324 - WAYPOINT
+      ?AUTO_3325 - STORE
+      ?AUTO_3326 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_3321 ?AUTO_3320 ) ( AT_LANDER ?AUTO_3323 ?AUTO_3324 ) ( VISIBLE ?AUTO_3320 ?AUTO_3324 ) ( AVAILABLE ?AUTO_3321 ) ( CHANNEL_FREE ?AUTO_3323 ) ( AT ?AUTO_3321 ?AUTO_3319 ) ( AT_ROCK_SAMPLE ?AUTO_3319 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3321 ) ( STORE_OF ?AUTO_3325 ?AUTO_3321 ) ( STORE_OF ?AUTO_3325 ?AUTO_3326 ) ( FULL ?AUTO_3325 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3326 ?AUTO_3325 )
+      ( GET_ROCK_DATA ?AUTO_3319 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3319 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3338 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3339 - ROVER
+      ?AUTO_3342 - WAYPOINT
+      ?AUTO_3341 - LANDER
+      ?AUTO_3340 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3339 ?AUTO_3342 ) ( AT_LANDER ?AUTO_3341 ?AUTO_3340 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3339 ?AUTO_3338 ) ( VISIBLE ?AUTO_3342 ?AUTO_3340 ) ( AVAILABLE ?AUTO_3339 ) ( CHANNEL_FREE ?AUTO_3341 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_3339 ?AUTO_3341 ?AUTO_3338 ?AUTO_3342 ?AUTO_3340 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3338 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3344 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3348 - LANDER
+      ?AUTO_3347 - WAYPOINT
+      ?AUTO_3346 - ROVER
+      ?AUTO_3349 - WAYPOINT
+      ?AUTO_3352 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3348 ?AUTO_3347 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3346 ?AUTO_3344 ) ( VISIBLE ?AUTO_3349 ?AUTO_3347 ) ( AVAILABLE ?AUTO_3346 ) ( CHANNEL_FREE ?AUTO_3348 ) ( CAN_TRAVERSE ?AUTO_3346 ?AUTO_3352 ?AUTO_3349 ) ( AT ?AUTO_3346 ?AUTO_3352 ) ( VISIBLE ?AUTO_3352 ?AUTO_3349 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3346 ?AUTO_3352 ?AUTO_3349 )
+      ( GET_SOIL_DATA ?AUTO_3344 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3344 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3354 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3357 - LANDER
+      ?AUTO_3358 - WAYPOINT
+      ?AUTO_3360 - WAYPOINT
+      ?AUTO_3356 - ROVER
+      ?AUTO_3359 - WAYPOINT
+      ?AUTO_3362 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3357 ?AUTO_3358 ) ( VISIBLE ?AUTO_3360 ?AUTO_3358 ) ( AVAILABLE ?AUTO_3356 ) ( CHANNEL_FREE ?AUTO_3357 ) ( CAN_TRAVERSE ?AUTO_3356 ?AUTO_3359 ?AUTO_3360 ) ( AT ?AUTO_3356 ?AUTO_3359 ) ( VISIBLE ?AUTO_3359 ?AUTO_3360 ) ( AT ?AUTO_3356 ?AUTO_3354 ) ( AT_SOIL_SAMPLE ?AUTO_3354 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3356 ) ( STORE_OF ?AUTO_3362 ?AUTO_3356 ) ( EMPTY ?AUTO_3362 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3356 ?AUTO_3362 ?AUTO_3354 )
+      ( GET_SOIL_DATA ?AUTO_3354 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3354 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3364 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3370 - LANDER
+      ?AUTO_3369 - WAYPOINT
+      ?AUTO_3367 - WAYPOINT
+      ?AUTO_3368 - ROVER
+      ?AUTO_3371 - STORE
+      ?AUTO_3374 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3370 ?AUTO_3369 ) ( VISIBLE ?AUTO_3367 ?AUTO_3369 ) ( AVAILABLE ?AUTO_3368 ) ( CHANNEL_FREE ?AUTO_3370 ) ( CAN_TRAVERSE ?AUTO_3368 ?AUTO_3364 ?AUTO_3367 ) ( VISIBLE ?AUTO_3364 ?AUTO_3367 ) ( AT_SOIL_SAMPLE ?AUTO_3364 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3368 ) ( STORE_OF ?AUTO_3371 ?AUTO_3368 ) ( EMPTY ?AUTO_3371 ) ( CAN_TRAVERSE ?AUTO_3368 ?AUTO_3374 ?AUTO_3364 ) ( AT ?AUTO_3368 ?AUTO_3374 ) ( VISIBLE ?AUTO_3374 ?AUTO_3364 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3368 ?AUTO_3374 ?AUTO_3364 )
+      ( GET_SOIL_DATA ?AUTO_3364 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3364 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3375 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3378 - LANDER
+      ?AUTO_3379 - WAYPOINT
+      ?AUTO_3382 - WAYPOINT
+      ?AUTO_3381 - ROVER
+      ?AUTO_3380 - STORE
+      ?AUTO_3377 - WAYPOINT
+      ?AUTO_3385 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3378 ?AUTO_3379 ) ( VISIBLE ?AUTO_3382 ?AUTO_3379 ) ( AVAILABLE ?AUTO_3381 ) ( CHANNEL_FREE ?AUTO_3378 ) ( CAN_TRAVERSE ?AUTO_3381 ?AUTO_3375 ?AUTO_3382 ) ( VISIBLE ?AUTO_3375 ?AUTO_3382 ) ( AT_SOIL_SAMPLE ?AUTO_3375 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3381 ) ( STORE_OF ?AUTO_3380 ?AUTO_3381 ) ( EMPTY ?AUTO_3380 ) ( CAN_TRAVERSE ?AUTO_3381 ?AUTO_3377 ?AUTO_3375 ) ( VISIBLE ?AUTO_3377 ?AUTO_3375 ) ( CAN_TRAVERSE ?AUTO_3381 ?AUTO_3385 ?AUTO_3377 ) ( AT ?AUTO_3381 ?AUTO_3385 ) ( VISIBLE ?AUTO_3385 ?AUTO_3377 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3381 ?AUTO_3385 ?AUTO_3377 )
+      ( GET_SOIL_DATA ?AUTO_3375 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3375 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3386 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3394 - LANDER
+      ?AUTO_3393 - WAYPOINT
+      ?AUTO_3387 - WAYPOINT
+      ?AUTO_3388 - ROVER
+      ?AUTO_3392 - STORE
+      ?AUTO_3389 - WAYPOINT
+      ?AUTO_3390 - WAYPOINT
+      ?AUTO_3397 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3394 ?AUTO_3393 ) ( VISIBLE ?AUTO_3387 ?AUTO_3393 ) ( AVAILABLE ?AUTO_3388 ) ( CHANNEL_FREE ?AUTO_3394 ) ( CAN_TRAVERSE ?AUTO_3388 ?AUTO_3386 ?AUTO_3387 ) ( VISIBLE ?AUTO_3386 ?AUTO_3387 ) ( AT_SOIL_SAMPLE ?AUTO_3386 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3388 ) ( STORE_OF ?AUTO_3392 ?AUTO_3388 ) ( EMPTY ?AUTO_3392 ) ( CAN_TRAVERSE ?AUTO_3388 ?AUTO_3389 ?AUTO_3386 ) ( VISIBLE ?AUTO_3389 ?AUTO_3386 ) ( CAN_TRAVERSE ?AUTO_3388 ?AUTO_3390 ?AUTO_3389 ) ( VISIBLE ?AUTO_3390 ?AUTO_3389 ) ( CAN_TRAVERSE ?AUTO_3388 ?AUTO_3397 ?AUTO_3390 ) ( AT ?AUTO_3388 ?AUTO_3397 ) ( VISIBLE ?AUTO_3397 ?AUTO_3390 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3388 ?AUTO_3397 ?AUTO_3390 )
+      ( GET_SOIL_DATA ?AUTO_3386 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3386 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3398 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3407 - LANDER
+      ?AUTO_3401 - WAYPOINT
+      ?AUTO_3402 - WAYPOINT
+      ?AUTO_3399 - ROVER
+      ?AUTO_3404 - STORE
+      ?AUTO_3403 - WAYPOINT
+      ?AUTO_3405 - WAYPOINT
+      ?AUTO_3400 - WAYPOINT
+      ?AUTO_3408 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3407 ?AUTO_3401 ) ( VISIBLE ?AUTO_3402 ?AUTO_3401 ) ( AVAILABLE ?AUTO_3399 ) ( CHANNEL_FREE ?AUTO_3407 ) ( CAN_TRAVERSE ?AUTO_3399 ?AUTO_3398 ?AUTO_3402 ) ( VISIBLE ?AUTO_3398 ?AUTO_3402 ) ( AT_SOIL_SAMPLE ?AUTO_3398 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3399 ) ( STORE_OF ?AUTO_3404 ?AUTO_3399 ) ( CAN_TRAVERSE ?AUTO_3399 ?AUTO_3403 ?AUTO_3398 ) ( VISIBLE ?AUTO_3403 ?AUTO_3398 ) ( CAN_TRAVERSE ?AUTO_3399 ?AUTO_3405 ?AUTO_3403 ) ( VISIBLE ?AUTO_3405 ?AUTO_3403 ) ( CAN_TRAVERSE ?AUTO_3399 ?AUTO_3400 ?AUTO_3405 ) ( AT ?AUTO_3399 ?AUTO_3400 ) ( VISIBLE ?AUTO_3400 ?AUTO_3405 ) ( STORE_OF ?AUTO_3404 ?AUTO_3408 ) ( FULL ?AUTO_3404 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3408 ?AUTO_3404 )
+      ( GET_SOIL_DATA ?AUTO_3398 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3398 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3410 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3414 - LANDER
+      ?AUTO_3415 - WAYPOINT
+      ?AUTO_3416 - WAYPOINT
+      ?AUTO_3418 - ROVER
+      ?AUTO_3417 - STORE
+      ?AUTO_3419 - WAYPOINT
+      ?AUTO_3413 - WAYPOINT
+      ?AUTO_3412 - WAYPOINT
+      ?AUTO_3420 - ROVER
+      ?AUTO_3423 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3414 ?AUTO_3415 ) ( VISIBLE ?AUTO_3416 ?AUTO_3415 ) ( AVAILABLE ?AUTO_3418 ) ( CHANNEL_FREE ?AUTO_3414 ) ( CAN_TRAVERSE ?AUTO_3418 ?AUTO_3410 ?AUTO_3416 ) ( VISIBLE ?AUTO_3410 ?AUTO_3416 ) ( AT_SOIL_SAMPLE ?AUTO_3410 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3418 ) ( STORE_OF ?AUTO_3417 ?AUTO_3418 ) ( CAN_TRAVERSE ?AUTO_3418 ?AUTO_3419 ?AUTO_3410 ) ( VISIBLE ?AUTO_3419 ?AUTO_3410 ) ( CAN_TRAVERSE ?AUTO_3418 ?AUTO_3413 ?AUTO_3419 ) ( VISIBLE ?AUTO_3413 ?AUTO_3419 ) ( CAN_TRAVERSE ?AUTO_3418 ?AUTO_3412 ?AUTO_3413 ) ( VISIBLE ?AUTO_3412 ?AUTO_3413 ) ( STORE_OF ?AUTO_3417 ?AUTO_3420 ) ( FULL ?AUTO_3417 ) ( CAN_TRAVERSE ?AUTO_3418 ?AUTO_3423 ?AUTO_3412 ) ( AT ?AUTO_3418 ?AUTO_3423 ) ( VISIBLE ?AUTO_3423 ?AUTO_3412 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3418 ?AUTO_3423 ?AUTO_3412 )
+      ( GET_SOIL_DATA ?AUTO_3410 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3410 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3425 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3431 - LANDER
+      ?AUTO_3432 - WAYPOINT
+      ?AUTO_3429 - WAYPOINT
+      ?AUTO_3426 - ROVER
+      ?AUTO_3434 - STORE
+      ?AUTO_3435 - WAYPOINT
+      ?AUTO_3433 - WAYPOINT
+      ?AUTO_3436 - WAYPOINT
+      ?AUTO_3430 - ROVER
+      ?AUTO_3427 - WAYPOINT
+      ?AUTO_3437 - ROVER
+      ?AUTO_3439 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3431 ?AUTO_3432 ) ( VISIBLE ?AUTO_3429 ?AUTO_3432 ) ( AVAILABLE ?AUTO_3426 ) ( CHANNEL_FREE ?AUTO_3431 ) ( CAN_TRAVERSE ?AUTO_3426 ?AUTO_3425 ?AUTO_3429 ) ( VISIBLE ?AUTO_3425 ?AUTO_3429 ) ( AT_SOIL_SAMPLE ?AUTO_3425 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3426 ) ( STORE_OF ?AUTO_3434 ?AUTO_3426 ) ( CAN_TRAVERSE ?AUTO_3426 ?AUTO_3435 ?AUTO_3425 ) ( VISIBLE ?AUTO_3435 ?AUTO_3425 ) ( CAN_TRAVERSE ?AUTO_3426 ?AUTO_3433 ?AUTO_3435 ) ( VISIBLE ?AUTO_3433 ?AUTO_3435 ) ( CAN_TRAVERSE ?AUTO_3426 ?AUTO_3436 ?AUTO_3433 ) ( VISIBLE ?AUTO_3436 ?AUTO_3433 ) ( STORE_OF ?AUTO_3434 ?AUTO_3430 ) ( CAN_TRAVERSE ?AUTO_3426 ?AUTO_3427 ?AUTO_3436 ) ( AT ?AUTO_3426 ?AUTO_3427 ) ( VISIBLE ?AUTO_3427 ?AUTO_3436 ) ( AT ?AUTO_3437 ?AUTO_3439 ) ( AT_ROCK_SAMPLE ?AUTO_3439 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3437 ) ( STORE_OF ?AUTO_3434 ?AUTO_3437 ) ( EMPTY ?AUTO_3434 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3437 ?AUTO_3434 ?AUTO_3439 )
+      ( GET_SOIL_DATA ?AUTO_3425 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3425 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3451 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3452 - ROVER
+      ?AUTO_3455 - WAYPOINT
+      ?AUTO_3454 - LANDER
+      ?AUTO_3453 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3452 ?AUTO_3455 ) ( AT_LANDER ?AUTO_3454 ?AUTO_3453 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3452 ?AUTO_3451 ) ( VISIBLE ?AUTO_3455 ?AUTO_3453 ) ( AVAILABLE ?AUTO_3452 ) ( CHANNEL_FREE ?AUTO_3454 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_3452 ?AUTO_3454 ?AUTO_3451 ?AUTO_3455 ?AUTO_3453 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3451 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3457 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3459 - ROVER
+      ?AUTO_3462 - WAYPOINT
+      ?AUTO_3461 - LANDER
+      ?AUTO_3460 - WAYPOINT
+      ?AUTO_3464 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3459 ?AUTO_3462 ) ( AT_LANDER ?AUTO_3461 ?AUTO_3460 ) ( VISIBLE ?AUTO_3462 ?AUTO_3460 ) ( AVAILABLE ?AUTO_3459 ) ( CHANNEL_FREE ?AUTO_3461 ) ( AT ?AUTO_3459 ?AUTO_3457 ) ( AT_SOIL_SAMPLE ?AUTO_3457 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3459 ) ( STORE_OF ?AUTO_3464 ?AUTO_3459 ) ( EMPTY ?AUTO_3464 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3459 ?AUTO_3464 ?AUTO_3457 )
+      ( GET_SOIL_DATA ?AUTO_3457 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3457 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3467 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3468 - LANDER
+      ?AUTO_3469 - WAYPOINT
+      ?AUTO_3470 - ROVER
+      ?AUTO_3473 - STORE
+      ?AUTO_3476 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3468 ?AUTO_3469 ) ( VISIBLE ?AUTO_3467 ?AUTO_3469 ) ( AVAILABLE ?AUTO_3470 ) ( CHANNEL_FREE ?AUTO_3468 ) ( AT_SOIL_SAMPLE ?AUTO_3467 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3470 ) ( STORE_OF ?AUTO_3473 ?AUTO_3470 ) ( EMPTY ?AUTO_3473 ) ( CAN_TRAVERSE ?AUTO_3470 ?AUTO_3476 ?AUTO_3467 ) ( AT ?AUTO_3470 ?AUTO_3476 ) ( VISIBLE ?AUTO_3476 ?AUTO_3467 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3470 ?AUTO_3476 ?AUTO_3467 )
+      ( GET_SOIL_DATA ?AUTO_3467 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3467 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3477 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3479 - LANDER
+      ?AUTO_3480 - WAYPOINT
+      ?AUTO_3481 - ROVER
+      ?AUTO_3482 - STORE
+      ?AUTO_3483 - WAYPOINT
+      ?AUTO_3484 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3479 ?AUTO_3480 ) ( VISIBLE ?AUTO_3477 ?AUTO_3480 ) ( AVAILABLE ?AUTO_3481 ) ( CHANNEL_FREE ?AUTO_3479 ) ( AT_SOIL_SAMPLE ?AUTO_3477 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3481 ) ( STORE_OF ?AUTO_3482 ?AUTO_3481 ) ( CAN_TRAVERSE ?AUTO_3481 ?AUTO_3483 ?AUTO_3477 ) ( AT ?AUTO_3481 ?AUTO_3483 ) ( VISIBLE ?AUTO_3483 ?AUTO_3477 ) ( STORE_OF ?AUTO_3482 ?AUTO_3484 ) ( FULL ?AUTO_3482 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3484 ?AUTO_3482 )
+      ( GET_SOIL_DATA ?AUTO_3477 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3477 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3488 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3494 - LANDER
+      ?AUTO_3491 - WAYPOINT
+      ?AUTO_3492 - ROVER
+      ?AUTO_3493 - STORE
+      ?AUTO_3489 - WAYPOINT
+      ?AUTO_3497 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3494 ?AUTO_3491 ) ( VISIBLE ?AUTO_3488 ?AUTO_3491 ) ( AVAILABLE ?AUTO_3492 ) ( CHANNEL_FREE ?AUTO_3494 ) ( AT_SOIL_SAMPLE ?AUTO_3488 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3492 ) ( STORE_OF ?AUTO_3493 ?AUTO_3492 ) ( EMPTY ?AUTO_3493 ) ( CAN_TRAVERSE ?AUTO_3492 ?AUTO_3489 ?AUTO_3488 ) ( VISIBLE ?AUTO_3489 ?AUTO_3488 ) ( CAN_TRAVERSE ?AUTO_3492 ?AUTO_3497 ?AUTO_3489 ) ( AT ?AUTO_3492 ?AUTO_3497 ) ( VISIBLE ?AUTO_3497 ?AUTO_3489 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3492 ?AUTO_3497 ?AUTO_3489 )
+      ( GET_SOIL_DATA ?AUTO_3488 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3488 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3499 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3501 - ROVER
+      ?AUTO_3500 - WAYPOINT
+      ?AUTO_3503 - LANDER
+      ?AUTO_3502 - WAYPOINT
+      ?AUTO_3505 - STORE
+      ?AUTO_3506 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_3501 ?AUTO_3500 ) ( AT_LANDER ?AUTO_3503 ?AUTO_3502 ) ( VISIBLE ?AUTO_3500 ?AUTO_3502 ) ( AVAILABLE ?AUTO_3501 ) ( CHANNEL_FREE ?AUTO_3503 ) ( AT ?AUTO_3501 ?AUTO_3499 ) ( AT_SOIL_SAMPLE ?AUTO_3499 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3501 ) ( STORE_OF ?AUTO_3505 ?AUTO_3501 ) ( STORE_OF ?AUTO_3505 ?AUTO_3506 ) ( FULL ?AUTO_3505 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3506 ?AUTO_3505 )
+      ( GET_SOIL_DATA ?AUTO_3499 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3499 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3509 - OBJECTIVE
+      ?AUTO_3510 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3511 - ROVER
+      ?AUTO_3514 - WAYPOINT
+      ?AUTO_3513 - LANDER
+      ?AUTO_3512 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3511 ?AUTO_3514 ) ( AT_LANDER ?AUTO_3513 ?AUTO_3512 ) ( HAVE_IMAGE ?AUTO_3511 ?AUTO_3509 ?AUTO_3510 ) ( VISIBLE ?AUTO_3514 ?AUTO_3512 ) ( AVAILABLE ?AUTO_3511 ) ( CHANNEL_FREE ?AUTO_3513 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_3511 ?AUTO_3513 ?AUTO_3509 ?AUTO_3510 ?AUTO_3514 ?AUTO_3512 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3509 ?AUTO_3510 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3517 - OBJECTIVE
+      ?AUTO_3518 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3521 - ROVER
+      ?AUTO_3524 - WAYPOINT
+      ?AUTO_3523 - LANDER
+      ?AUTO_3522 - WAYPOINT
+      ?AUTO_3529 - CAMERA
+      ?AUTO_3527 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3521 ?AUTO_3524 ) ( AT_LANDER ?AUTO_3523 ?AUTO_3522 ) ( VISIBLE ?AUTO_3524 ?AUTO_3522 ) ( AVAILABLE ?AUTO_3521 ) ( CHANNEL_FREE ?AUTO_3523 ) ( CALIBRATED ?AUTO_3529 ?AUTO_3521 ) ( ON_BOARD ?AUTO_3529 ?AUTO_3521 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3521 ) ( SUPPORTS ?AUTO_3529 ?AUTO_3518 ) ( VISIBLE_FROM ?AUTO_3517 ?AUTO_3527 ) ( AT ?AUTO_3521 ?AUTO_3527 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_3521 ?AUTO_3527 ?AUTO_3517 ?AUTO_3529 ?AUTO_3518 )
+      ( GET_IMAGE_DATA ?AUTO_3517 ?AUTO_3518 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3517 ?AUTO_3518 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3530 - OBJECTIVE
+      ?AUTO_3531 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3537 - LANDER
+      ?AUTO_3536 - WAYPOINT
+      ?AUTO_3538 - WAYPOINT
+      ?AUTO_3535 - ROVER
+      ?AUTO_3539 - CAMERA
+      ?AUTO_3542 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3537 ?AUTO_3536 ) ( VISIBLE ?AUTO_3538 ?AUTO_3536 ) ( AVAILABLE ?AUTO_3535 ) ( CHANNEL_FREE ?AUTO_3537 ) ( CALIBRATED ?AUTO_3539 ?AUTO_3535 ) ( ON_BOARD ?AUTO_3539 ?AUTO_3535 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3535 ) ( SUPPORTS ?AUTO_3539 ?AUTO_3531 ) ( VISIBLE_FROM ?AUTO_3530 ?AUTO_3538 ) ( CAN_TRAVERSE ?AUTO_3535 ?AUTO_3542 ?AUTO_3538 ) ( AT ?AUTO_3535 ?AUTO_3542 ) ( VISIBLE ?AUTO_3542 ?AUTO_3538 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3535 ?AUTO_3542 ?AUTO_3538 )
+      ( GET_IMAGE_DATA ?AUTO_3530 ?AUTO_3531 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3530 ?AUTO_3531 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3543 - OBJECTIVE
+      ?AUTO_3544 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3548 - LANDER
+      ?AUTO_3551 - WAYPOINT
+      ?AUTO_3547 - WAYPOINT
+      ?AUTO_3549 - ROVER
+      ?AUTO_3550 - CAMERA
+      ?AUTO_3552 - WAYPOINT
+      ?AUTO_3556 - OBJECTIVE
+      ?AUTO_3554 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3548 ?AUTO_3551 ) ( VISIBLE ?AUTO_3547 ?AUTO_3551 ) ( AVAILABLE ?AUTO_3549 ) ( CHANNEL_FREE ?AUTO_3548 ) ( ON_BOARD ?AUTO_3550 ?AUTO_3549 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3549 ) ( SUPPORTS ?AUTO_3550 ?AUTO_3544 ) ( VISIBLE_FROM ?AUTO_3543 ?AUTO_3547 ) ( CAN_TRAVERSE ?AUTO_3549 ?AUTO_3552 ?AUTO_3547 ) ( AT ?AUTO_3549 ?AUTO_3552 ) ( VISIBLE ?AUTO_3552 ?AUTO_3547 ) ( CALIBRATION_TARGET ?AUTO_3550 ?AUTO_3556 ) ( AT ?AUTO_3549 ?AUTO_3554 ) ( VISIBLE_FROM ?AUTO_3556 ?AUTO_3554 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_3549 ?AUTO_3550 ?AUTO_3556 ?AUTO_3554 )
+      ( GET_IMAGE_DATA ?AUTO_3543 ?AUTO_3544 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3543 ?AUTO_3544 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3557 - OBJECTIVE
+      ?AUTO_3558 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3559 - LANDER
+      ?AUTO_3566 - WAYPOINT
+      ?AUTO_3564 - WAYPOINT
+      ?AUTO_3567 - ROVER
+      ?AUTO_3560 - CAMERA
+      ?AUTO_3565 - WAYPOINT
+      ?AUTO_3568 - OBJECTIVE
+      ?AUTO_3571 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3559 ?AUTO_3566 ) ( VISIBLE ?AUTO_3564 ?AUTO_3566 ) ( AVAILABLE ?AUTO_3567 ) ( CHANNEL_FREE ?AUTO_3559 ) ( ON_BOARD ?AUTO_3560 ?AUTO_3567 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3567 ) ( SUPPORTS ?AUTO_3560 ?AUTO_3558 ) ( VISIBLE_FROM ?AUTO_3557 ?AUTO_3564 ) ( CAN_TRAVERSE ?AUTO_3567 ?AUTO_3565 ?AUTO_3564 ) ( VISIBLE ?AUTO_3565 ?AUTO_3564 ) ( CALIBRATION_TARGET ?AUTO_3560 ?AUTO_3568 ) ( VISIBLE_FROM ?AUTO_3568 ?AUTO_3565 ) ( CAN_TRAVERSE ?AUTO_3567 ?AUTO_3571 ?AUTO_3565 ) ( AT ?AUTO_3567 ?AUTO_3571 ) ( VISIBLE ?AUTO_3571 ?AUTO_3565 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3567 ?AUTO_3571 ?AUTO_3565 )
+      ( GET_IMAGE_DATA ?AUTO_3557 ?AUTO_3558 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3557 ?AUTO_3558 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3572 - OBJECTIVE
+      ?AUTO_3573 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3579 - LANDER
+      ?AUTO_3575 - WAYPOINT
+      ?AUTO_3578 - WAYPOINT
+      ?AUTO_3582 - ROVER
+      ?AUTO_3577 - CAMERA
+      ?AUTO_3580 - WAYPOINT
+      ?AUTO_3581 - OBJECTIVE
+      ?AUTO_3583 - WAYPOINT
+      ?AUTO_3586 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3579 ?AUTO_3575 ) ( VISIBLE ?AUTO_3578 ?AUTO_3575 ) ( AVAILABLE ?AUTO_3582 ) ( CHANNEL_FREE ?AUTO_3579 ) ( ON_BOARD ?AUTO_3577 ?AUTO_3582 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3582 ) ( SUPPORTS ?AUTO_3577 ?AUTO_3573 ) ( VISIBLE_FROM ?AUTO_3572 ?AUTO_3578 ) ( CAN_TRAVERSE ?AUTO_3582 ?AUTO_3580 ?AUTO_3578 ) ( VISIBLE ?AUTO_3580 ?AUTO_3578 ) ( CALIBRATION_TARGET ?AUTO_3577 ?AUTO_3581 ) ( VISIBLE_FROM ?AUTO_3581 ?AUTO_3580 ) ( CAN_TRAVERSE ?AUTO_3582 ?AUTO_3583 ?AUTO_3580 ) ( VISIBLE ?AUTO_3583 ?AUTO_3580 ) ( CAN_TRAVERSE ?AUTO_3582 ?AUTO_3586 ?AUTO_3583 ) ( AT ?AUTO_3582 ?AUTO_3586 ) ( VISIBLE ?AUTO_3586 ?AUTO_3583 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3582 ?AUTO_3586 ?AUTO_3583 )
+      ( GET_IMAGE_DATA ?AUTO_3572 ?AUTO_3573 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3572 ?AUTO_3573 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3587 - OBJECTIVE
+      ?AUTO_3588 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3592 - LANDER
+      ?AUTO_3595 - WAYPOINT
+      ?AUTO_3589 - WAYPOINT
+      ?AUTO_3591 - ROVER
+      ?AUTO_3598 - CAMERA
+      ?AUTO_3596 - WAYPOINT
+      ?AUTO_3590 - OBJECTIVE
+      ?AUTO_3593 - WAYPOINT
+      ?AUTO_3599 - WAYPOINT
+      ?AUTO_3602 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3592 ?AUTO_3595 ) ( VISIBLE ?AUTO_3589 ?AUTO_3595 ) ( AVAILABLE ?AUTO_3591 ) ( CHANNEL_FREE ?AUTO_3592 ) ( ON_BOARD ?AUTO_3598 ?AUTO_3591 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3591 ) ( SUPPORTS ?AUTO_3598 ?AUTO_3588 ) ( VISIBLE_FROM ?AUTO_3587 ?AUTO_3589 ) ( CAN_TRAVERSE ?AUTO_3591 ?AUTO_3596 ?AUTO_3589 ) ( VISIBLE ?AUTO_3596 ?AUTO_3589 ) ( CALIBRATION_TARGET ?AUTO_3598 ?AUTO_3590 ) ( VISIBLE_FROM ?AUTO_3590 ?AUTO_3596 ) ( CAN_TRAVERSE ?AUTO_3591 ?AUTO_3593 ?AUTO_3596 ) ( VISIBLE ?AUTO_3593 ?AUTO_3596 ) ( CAN_TRAVERSE ?AUTO_3591 ?AUTO_3599 ?AUTO_3593 ) ( VISIBLE ?AUTO_3599 ?AUTO_3593 ) ( CAN_TRAVERSE ?AUTO_3591 ?AUTO_3602 ?AUTO_3599 ) ( AT ?AUTO_3591 ?AUTO_3602 ) ( VISIBLE ?AUTO_3602 ?AUTO_3599 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3591 ?AUTO_3602 ?AUTO_3599 )
+      ( GET_IMAGE_DATA ?AUTO_3587 ?AUTO_3588 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3587 ?AUTO_3588 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3604 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3605 - ROVER
+      ?AUTO_3608 - WAYPOINT
+      ?AUTO_3607 - LANDER
+      ?AUTO_3606 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3605 ?AUTO_3608 ) ( AT_LANDER ?AUTO_3607 ?AUTO_3606 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3605 ?AUTO_3604 ) ( VISIBLE ?AUTO_3608 ?AUTO_3606 ) ( AVAILABLE ?AUTO_3605 ) ( CHANNEL_FREE ?AUTO_3607 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_3605 ?AUTO_3607 ?AUTO_3604 ?AUTO_3608 ?AUTO_3606 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3604 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3610 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3614 - LANDER
+      ?AUTO_3613 - WAYPOINT
+      ?AUTO_3612 - ROVER
+      ?AUTO_3615 - WAYPOINT
+      ?AUTO_3618 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3614 ?AUTO_3613 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3612 ?AUTO_3610 ) ( VISIBLE ?AUTO_3615 ?AUTO_3613 ) ( AVAILABLE ?AUTO_3612 ) ( CHANNEL_FREE ?AUTO_3614 ) ( CAN_TRAVERSE ?AUTO_3612 ?AUTO_3618 ?AUTO_3615 ) ( AT ?AUTO_3612 ?AUTO_3618 ) ( VISIBLE ?AUTO_3618 ?AUTO_3615 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3612 ?AUTO_3618 ?AUTO_3615 )
+      ( GET_ROCK_DATA ?AUTO_3610 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3610 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3619 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3624 - LANDER
+      ?AUTO_3620 - WAYPOINT
+      ?AUTO_3623 - WAYPOINT
+      ?AUTO_3621 - ROVER
+      ?AUTO_3625 - WAYPOINT
+      ?AUTO_3627 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3624 ?AUTO_3620 ) ( VISIBLE ?AUTO_3623 ?AUTO_3620 ) ( AVAILABLE ?AUTO_3621 ) ( CHANNEL_FREE ?AUTO_3624 ) ( CAN_TRAVERSE ?AUTO_3621 ?AUTO_3625 ?AUTO_3623 ) ( AT ?AUTO_3621 ?AUTO_3625 ) ( VISIBLE ?AUTO_3625 ?AUTO_3623 ) ( AT ?AUTO_3621 ?AUTO_3619 ) ( AT_ROCK_SAMPLE ?AUTO_3619 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3621 ) ( STORE_OF ?AUTO_3627 ?AUTO_3621 ) ( EMPTY ?AUTO_3627 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3621 ?AUTO_3627 ?AUTO_3619 )
+      ( GET_ROCK_DATA ?AUTO_3619 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3619 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3638 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3639 - ROVER
+      ?AUTO_3642 - WAYPOINT
+      ?AUTO_3641 - LANDER
+      ?AUTO_3640 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3639 ?AUTO_3642 ) ( AT_LANDER ?AUTO_3641 ?AUTO_3640 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3639 ?AUTO_3638 ) ( VISIBLE ?AUTO_3642 ?AUTO_3640 ) ( AVAILABLE ?AUTO_3639 ) ( CHANNEL_FREE ?AUTO_3641 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_3639 ?AUTO_3641 ?AUTO_3638 ?AUTO_3642 ?AUTO_3640 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3638 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3644 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3647 - ROVER
+      ?AUTO_3645 - WAYPOINT
+      ?AUTO_3649 - LANDER
+      ?AUTO_3648 - WAYPOINT
+      ?AUTO_3651 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3647 ?AUTO_3645 ) ( AT_LANDER ?AUTO_3649 ?AUTO_3648 ) ( VISIBLE ?AUTO_3645 ?AUTO_3648 ) ( AVAILABLE ?AUTO_3647 ) ( CHANNEL_FREE ?AUTO_3649 ) ( AT ?AUTO_3647 ?AUTO_3644 ) ( AT_SOIL_SAMPLE ?AUTO_3644 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3647 ) ( STORE_OF ?AUTO_3651 ?AUTO_3647 ) ( EMPTY ?AUTO_3651 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3647 ?AUTO_3651 ?AUTO_3644 )
+      ( GET_SOIL_DATA ?AUTO_3644 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3644 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3656 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3659 - LANDER
+      ?AUTO_3662 - WAYPOINT
+      ?AUTO_3658 - ROVER
+      ?AUTO_3657 - STORE
+      ?AUTO_3665 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3659 ?AUTO_3662 ) ( VISIBLE ?AUTO_3656 ?AUTO_3662 ) ( AVAILABLE ?AUTO_3658 ) ( CHANNEL_FREE ?AUTO_3659 ) ( AT_SOIL_SAMPLE ?AUTO_3656 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3658 ) ( STORE_OF ?AUTO_3657 ?AUTO_3658 ) ( EMPTY ?AUTO_3657 ) ( CAN_TRAVERSE ?AUTO_3658 ?AUTO_3665 ?AUTO_3656 ) ( AT ?AUTO_3658 ?AUTO_3665 ) ( VISIBLE ?AUTO_3665 ?AUTO_3656 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3658 ?AUTO_3665 ?AUTO_3656 )
+      ( GET_SOIL_DATA ?AUTO_3656 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3656 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3674 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3675 - ROVER
+      ?AUTO_3678 - WAYPOINT
+      ?AUTO_3677 - LANDER
+      ?AUTO_3676 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3675 ?AUTO_3678 ) ( AT_LANDER ?AUTO_3677 ?AUTO_3676 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3675 ?AUTO_3674 ) ( VISIBLE ?AUTO_3678 ?AUTO_3676 ) ( AVAILABLE ?AUTO_3675 ) ( CHANNEL_FREE ?AUTO_3677 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_3675 ?AUTO_3677 ?AUTO_3674 ?AUTO_3678 ?AUTO_3676 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3674 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3680 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3682 - ROVER
+      ?AUTO_3685 - WAYPOINT
+      ?AUTO_3684 - LANDER
+      ?AUTO_3683 - WAYPOINT
+      ?AUTO_3687 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3682 ?AUTO_3685 ) ( AT_LANDER ?AUTO_3684 ?AUTO_3683 ) ( VISIBLE ?AUTO_3685 ?AUTO_3683 ) ( AVAILABLE ?AUTO_3682 ) ( CHANNEL_FREE ?AUTO_3684 ) ( AT ?AUTO_3682 ?AUTO_3680 ) ( AT_SOIL_SAMPLE ?AUTO_3680 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3682 ) ( STORE_OF ?AUTO_3687 ?AUTO_3682 ) ( EMPTY ?AUTO_3687 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3682 ?AUTO_3687 ?AUTO_3680 )
+      ( GET_SOIL_DATA ?AUTO_3680 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3680 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3689 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3691 - ROVER
+      ?AUTO_3690 - WAYPOINT
+      ?AUTO_3693 - LANDER
+      ?AUTO_3694 - WAYPOINT
+      ?AUTO_3695 - STORE
+      ?AUTO_3696 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_3691 ?AUTO_3690 ) ( AT_LANDER ?AUTO_3693 ?AUTO_3694 ) ( VISIBLE ?AUTO_3690 ?AUTO_3694 ) ( AVAILABLE ?AUTO_3691 ) ( CHANNEL_FREE ?AUTO_3693 ) ( AT ?AUTO_3691 ?AUTO_3689 ) ( AT_SOIL_SAMPLE ?AUTO_3689 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3691 ) ( STORE_OF ?AUTO_3695 ?AUTO_3691 ) ( STORE_OF ?AUTO_3695 ?AUTO_3696 ) ( FULL ?AUTO_3695 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3696 ?AUTO_3695 )
+      ( GET_SOIL_DATA ?AUTO_3689 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3689 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3698 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3702 - LANDER
+      ?AUTO_3705 - WAYPOINT
+      ?AUTO_3704 - ROVER
+      ?AUTO_3701 - STORE
+      ?AUTO_3703 - ROVER
+      ?AUTO_3708 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3702 ?AUTO_3705 ) ( VISIBLE ?AUTO_3698 ?AUTO_3705 ) ( AVAILABLE ?AUTO_3704 ) ( CHANNEL_FREE ?AUTO_3702 ) ( AT_SOIL_SAMPLE ?AUTO_3698 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3704 ) ( STORE_OF ?AUTO_3701 ?AUTO_3704 ) ( STORE_OF ?AUTO_3701 ?AUTO_3703 ) ( FULL ?AUTO_3701 ) ( CAN_TRAVERSE ?AUTO_3704 ?AUTO_3708 ?AUTO_3698 ) ( AT ?AUTO_3704 ?AUTO_3708 ) ( VISIBLE ?AUTO_3708 ?AUTO_3698 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3704 ?AUTO_3708 ?AUTO_3698 )
+      ( GET_SOIL_DATA ?AUTO_3698 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3698 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3710 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3717 - LANDER
+      ?AUTO_3714 - WAYPOINT
+      ?AUTO_3713 - ROVER
+      ?AUTO_3711 - STORE
+      ?AUTO_3715 - ROVER
+      ?AUTO_3716 - WAYPOINT
+      ?AUTO_3718 - ROVER
+      ?AUTO_3720 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3717 ?AUTO_3714 ) ( VISIBLE ?AUTO_3710 ?AUTO_3714 ) ( AVAILABLE ?AUTO_3713 ) ( CHANNEL_FREE ?AUTO_3717 ) ( AT_SOIL_SAMPLE ?AUTO_3710 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3713 ) ( STORE_OF ?AUTO_3711 ?AUTO_3713 ) ( STORE_OF ?AUTO_3711 ?AUTO_3715 ) ( CAN_TRAVERSE ?AUTO_3713 ?AUTO_3716 ?AUTO_3710 ) ( AT ?AUTO_3713 ?AUTO_3716 ) ( VISIBLE ?AUTO_3716 ?AUTO_3710 ) ( AT ?AUTO_3718 ?AUTO_3720 ) ( AT_SOIL_SAMPLE ?AUTO_3720 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3718 ) ( STORE_OF ?AUTO_3711 ?AUTO_3718 ) ( EMPTY ?AUTO_3711 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3718 ?AUTO_3711 ?AUTO_3720 )
+      ( GET_SOIL_DATA ?AUTO_3710 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3710 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3724 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3731 - LANDER
+      ?AUTO_3730 - WAYPOINT
+      ?AUTO_3729 - ROVER
+      ?AUTO_3732 - STORE
+      ?AUTO_3728 - ROVER
+      ?AUTO_3726 - WAYPOINT
+      ?AUTO_3736 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3731 ?AUTO_3730 ) ( VISIBLE ?AUTO_3724 ?AUTO_3730 ) ( AVAILABLE ?AUTO_3729 ) ( CHANNEL_FREE ?AUTO_3731 ) ( AT_SOIL_SAMPLE ?AUTO_3724 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3729 ) ( STORE_OF ?AUTO_3732 ?AUTO_3729 ) ( STORE_OF ?AUTO_3732 ?AUTO_3728 ) ( CAN_TRAVERSE ?AUTO_3729 ?AUTO_3726 ?AUTO_3724 ) ( VISIBLE ?AUTO_3726 ?AUTO_3724 ) ( AT_SOIL_SAMPLE ?AUTO_3726 ) ( EMPTY ?AUTO_3732 ) ( CAN_TRAVERSE ?AUTO_3729 ?AUTO_3736 ?AUTO_3726 ) ( AT ?AUTO_3729 ?AUTO_3736 ) ( VISIBLE ?AUTO_3736 ?AUTO_3726 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3729 ?AUTO_3736 ?AUTO_3726 )
+      ( GET_SOIL_DATA ?AUTO_3724 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3724 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3738 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3739 - ROVER
+      ?AUTO_3742 - WAYPOINT
+      ?AUTO_3741 - LANDER
+      ?AUTO_3740 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3739 ?AUTO_3742 ) ( AT_LANDER ?AUTO_3741 ?AUTO_3740 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3739 ?AUTO_3738 ) ( VISIBLE ?AUTO_3742 ?AUTO_3740 ) ( AVAILABLE ?AUTO_3739 ) ( CHANNEL_FREE ?AUTO_3741 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_3739 ?AUTO_3741 ?AUTO_3738 ?AUTO_3742 ?AUTO_3740 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3738 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3744 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3746 - ROVER
+      ?AUTO_3749 - WAYPOINT
+      ?AUTO_3748 - LANDER
+      ?AUTO_3747 - WAYPOINT
+      ?AUTO_3751 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3746 ?AUTO_3749 ) ( AT_LANDER ?AUTO_3748 ?AUTO_3747 ) ( VISIBLE ?AUTO_3749 ?AUTO_3747 ) ( AVAILABLE ?AUTO_3746 ) ( CHANNEL_FREE ?AUTO_3748 ) ( AT ?AUTO_3746 ?AUTO_3744 ) ( AT_ROCK_SAMPLE ?AUTO_3744 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3746 ) ( STORE_OF ?AUTO_3751 ?AUTO_3746 ) ( EMPTY ?AUTO_3751 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3746 ?AUTO_3751 ?AUTO_3744 )
+      ( GET_ROCK_DATA ?AUTO_3744 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3744 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3755 - OBJECTIVE
+      ?AUTO_3756 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3757 - ROVER
+      ?AUTO_3760 - WAYPOINT
+      ?AUTO_3759 - LANDER
+      ?AUTO_3758 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3757 ?AUTO_3760 ) ( AT_LANDER ?AUTO_3759 ?AUTO_3758 ) ( HAVE_IMAGE ?AUTO_3757 ?AUTO_3755 ?AUTO_3756 ) ( VISIBLE ?AUTO_3760 ?AUTO_3758 ) ( AVAILABLE ?AUTO_3757 ) ( CHANNEL_FREE ?AUTO_3759 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_3757 ?AUTO_3759 ?AUTO_3755 ?AUTO_3756 ?AUTO_3760 ?AUTO_3758 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3755 ?AUTO_3756 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3763 - OBJECTIVE
+      ?AUTO_3764 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3769 - LANDER
+      ?AUTO_3768 - WAYPOINT
+      ?AUTO_3767 - ROVER
+      ?AUTO_3770 - WAYPOINT
+      ?AUTO_3773 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3769 ?AUTO_3768 ) ( HAVE_IMAGE ?AUTO_3767 ?AUTO_3763 ?AUTO_3764 ) ( VISIBLE ?AUTO_3770 ?AUTO_3768 ) ( AVAILABLE ?AUTO_3767 ) ( CHANNEL_FREE ?AUTO_3769 ) ( CAN_TRAVERSE ?AUTO_3767 ?AUTO_3773 ?AUTO_3770 ) ( AT ?AUTO_3767 ?AUTO_3773 ) ( VISIBLE ?AUTO_3773 ?AUTO_3770 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3767 ?AUTO_3773 ?AUTO_3770 )
+      ( GET_IMAGE_DATA ?AUTO_3763 ?AUTO_3764 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3763 ?AUTO_3764 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3774 - OBJECTIVE
+      ?AUTO_3775 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3780 - LANDER
+      ?AUTO_3779 - WAYPOINT
+      ?AUTO_3776 - WAYPOINT
+      ?AUTO_3781 - ROVER
+      ?AUTO_3782 - WAYPOINT
+      ?AUTO_3787 - CAMERA
+      ?AUTO_3785 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3780 ?AUTO_3779 ) ( VISIBLE ?AUTO_3776 ?AUTO_3779 ) ( AVAILABLE ?AUTO_3781 ) ( CHANNEL_FREE ?AUTO_3780 ) ( CAN_TRAVERSE ?AUTO_3781 ?AUTO_3782 ?AUTO_3776 ) ( AT ?AUTO_3781 ?AUTO_3782 ) ( VISIBLE ?AUTO_3782 ?AUTO_3776 ) ( CALIBRATED ?AUTO_3787 ?AUTO_3781 ) ( ON_BOARD ?AUTO_3787 ?AUTO_3781 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3781 ) ( SUPPORTS ?AUTO_3787 ?AUTO_3775 ) ( VISIBLE_FROM ?AUTO_3774 ?AUTO_3785 ) ( AT ?AUTO_3781 ?AUTO_3785 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_3781 ?AUTO_3785 ?AUTO_3774 ?AUTO_3787 ?AUTO_3775 )
+      ( GET_IMAGE_DATA ?AUTO_3774 ?AUTO_3775 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3774 ?AUTO_3775 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3788 - OBJECTIVE
+      ?AUTO_3789 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3790 - LANDER
+      ?AUTO_3792 - WAYPOINT
+      ?AUTO_3795 - WAYPOINT
+      ?AUTO_3794 - ROVER
+      ?AUTO_3796 - WAYPOINT
+      ?AUTO_3798 - CAMERA
+      ?AUTO_3797 - WAYPOINT
+      ?AUTO_3802 - OBJECTIVE
+      ?AUTO_3800 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3790 ?AUTO_3792 ) ( VISIBLE ?AUTO_3795 ?AUTO_3792 ) ( AVAILABLE ?AUTO_3794 ) ( CHANNEL_FREE ?AUTO_3790 ) ( CAN_TRAVERSE ?AUTO_3794 ?AUTO_3796 ?AUTO_3795 ) ( AT ?AUTO_3794 ?AUTO_3796 ) ( VISIBLE ?AUTO_3796 ?AUTO_3795 ) ( ON_BOARD ?AUTO_3798 ?AUTO_3794 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3794 ) ( SUPPORTS ?AUTO_3798 ?AUTO_3789 ) ( VISIBLE_FROM ?AUTO_3788 ?AUTO_3797 ) ( AT ?AUTO_3794 ?AUTO_3797 ) ( CALIBRATION_TARGET ?AUTO_3798 ?AUTO_3802 ) ( AT ?AUTO_3794 ?AUTO_3800 ) ( VISIBLE_FROM ?AUTO_3802 ?AUTO_3800 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_3794 ?AUTO_3798 ?AUTO_3802 ?AUTO_3800 )
+      ( GET_IMAGE_DATA ?AUTO_3788 ?AUTO_3789 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3788 ?AUTO_3789 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3803 - OBJECTIVE
+      ?AUTO_3804 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3806 - LANDER
+      ?AUTO_3811 - WAYPOINT
+      ?AUTO_3805 - WAYPOINT
+      ?AUTO_3807 - ROVER
+      ?AUTO_3810 - WAYPOINT
+      ?AUTO_3809 - CAMERA
+      ?AUTO_3815 - OBJECTIVE
+      ?AUTO_3818 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3806 ?AUTO_3811 ) ( VISIBLE ?AUTO_3805 ?AUTO_3811 ) ( AVAILABLE ?AUTO_3807 ) ( CHANNEL_FREE ?AUTO_3806 ) ( CAN_TRAVERSE ?AUTO_3807 ?AUTO_3810 ?AUTO_3805 ) ( VISIBLE ?AUTO_3810 ?AUTO_3805 ) ( ON_BOARD ?AUTO_3809 ?AUTO_3807 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3807 ) ( SUPPORTS ?AUTO_3809 ?AUTO_3804 ) ( VISIBLE_FROM ?AUTO_3803 ?AUTO_3810 ) ( CALIBRATION_TARGET ?AUTO_3809 ?AUTO_3815 ) ( VISIBLE_FROM ?AUTO_3815 ?AUTO_3810 ) ( CAN_TRAVERSE ?AUTO_3807 ?AUTO_3818 ?AUTO_3810 ) ( AT ?AUTO_3807 ?AUTO_3818 ) ( VISIBLE ?AUTO_3818 ?AUTO_3810 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3807 ?AUTO_3818 ?AUTO_3810 )
+      ( GET_IMAGE_DATA ?AUTO_3803 ?AUTO_3804 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3803 ?AUTO_3804 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3819 - OBJECTIVE
+      ?AUTO_3820 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3828 - LANDER
+      ?AUTO_3826 - WAYPOINT
+      ?AUTO_3829 - WAYPOINT
+      ?AUTO_3825 - ROVER
+      ?AUTO_3821 - WAYPOINT
+      ?AUTO_3822 - CAMERA
+      ?AUTO_3827 - OBJECTIVE
+      ?AUTO_3830 - WAYPOINT
+      ?AUTO_3833 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3828 ?AUTO_3826 ) ( VISIBLE ?AUTO_3829 ?AUTO_3826 ) ( AVAILABLE ?AUTO_3825 ) ( CHANNEL_FREE ?AUTO_3828 ) ( CAN_TRAVERSE ?AUTO_3825 ?AUTO_3821 ?AUTO_3829 ) ( VISIBLE ?AUTO_3821 ?AUTO_3829 ) ( ON_BOARD ?AUTO_3822 ?AUTO_3825 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3825 ) ( SUPPORTS ?AUTO_3822 ?AUTO_3820 ) ( VISIBLE_FROM ?AUTO_3819 ?AUTO_3821 ) ( CALIBRATION_TARGET ?AUTO_3822 ?AUTO_3827 ) ( VISIBLE_FROM ?AUTO_3827 ?AUTO_3821 ) ( CAN_TRAVERSE ?AUTO_3825 ?AUTO_3830 ?AUTO_3821 ) ( VISIBLE ?AUTO_3830 ?AUTO_3821 ) ( CAN_TRAVERSE ?AUTO_3825 ?AUTO_3833 ?AUTO_3830 ) ( AT ?AUTO_3825 ?AUTO_3833 ) ( VISIBLE ?AUTO_3833 ?AUTO_3830 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3825 ?AUTO_3833 ?AUTO_3830 )
+      ( GET_IMAGE_DATA ?AUTO_3819 ?AUTO_3820 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3819 ?AUTO_3820 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_3836 - OBJECTIVE
+      ?AUTO_3837 - MODE
+    )
+    :vars
+    (
+      ?AUTO_3841 - LANDER
+      ?AUTO_3844 - WAYPOINT
+      ?AUTO_3845 - WAYPOINT
+      ?AUTO_3847 - ROVER
+      ?AUTO_3846 - WAYPOINT
+      ?AUTO_3848 - CAMERA
+      ?AUTO_3839 - OBJECTIVE
+      ?AUTO_3843 - WAYPOINT
+      ?AUTO_3838 - WAYPOINT
+      ?AUTO_3851 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3841 ?AUTO_3844 ) ( VISIBLE ?AUTO_3845 ?AUTO_3844 ) ( AVAILABLE ?AUTO_3847 ) ( CHANNEL_FREE ?AUTO_3841 ) ( CAN_TRAVERSE ?AUTO_3847 ?AUTO_3846 ?AUTO_3845 ) ( VISIBLE ?AUTO_3846 ?AUTO_3845 ) ( ON_BOARD ?AUTO_3848 ?AUTO_3847 ) ( EQUIPPED_FOR_IMAGING ?AUTO_3847 ) ( SUPPORTS ?AUTO_3848 ?AUTO_3837 ) ( VISIBLE_FROM ?AUTO_3836 ?AUTO_3846 ) ( CALIBRATION_TARGET ?AUTO_3848 ?AUTO_3839 ) ( VISIBLE_FROM ?AUTO_3839 ?AUTO_3846 ) ( CAN_TRAVERSE ?AUTO_3847 ?AUTO_3843 ?AUTO_3846 ) ( VISIBLE ?AUTO_3843 ?AUTO_3846 ) ( CAN_TRAVERSE ?AUTO_3847 ?AUTO_3838 ?AUTO_3843 ) ( VISIBLE ?AUTO_3838 ?AUTO_3843 ) ( CAN_TRAVERSE ?AUTO_3847 ?AUTO_3851 ?AUTO_3838 ) ( AT ?AUTO_3847 ?AUTO_3851 ) ( VISIBLE ?AUTO_3851 ?AUTO_3838 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3847 ?AUTO_3851 ?AUTO_3838 )
+      ( GET_IMAGE_DATA ?AUTO_3836 ?AUTO_3837 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_3836 ?AUTO_3837 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3857 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3858 - ROVER
+      ?AUTO_3861 - WAYPOINT
+      ?AUTO_3860 - LANDER
+      ?AUTO_3859 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3858 ?AUTO_3861 ) ( AT_LANDER ?AUTO_3860 ?AUTO_3859 ) ( HAVE_ROCK_ANALYSIS ?AUTO_3858 ?AUTO_3857 ) ( VISIBLE ?AUTO_3861 ?AUTO_3859 ) ( AVAILABLE ?AUTO_3858 ) ( CHANNEL_FREE ?AUTO_3860 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_3858 ?AUTO_3860 ?AUTO_3857 ?AUTO_3861 ?AUTO_3859 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3857 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3863 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3864 - ROVER
+      ?AUTO_3867 - WAYPOINT
+      ?AUTO_3866 - LANDER
+      ?AUTO_3865 - WAYPOINT
+      ?AUTO_3870 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_3864 ?AUTO_3867 ) ( AT_LANDER ?AUTO_3866 ?AUTO_3865 ) ( VISIBLE ?AUTO_3867 ?AUTO_3865 ) ( AVAILABLE ?AUTO_3864 ) ( CHANNEL_FREE ?AUTO_3866 ) ( AT ?AUTO_3864 ?AUTO_3863 ) ( AT_ROCK_SAMPLE ?AUTO_3863 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3864 ) ( STORE_OF ?AUTO_3870 ?AUTO_3864 ) ( EMPTY ?AUTO_3870 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3864 ?AUTO_3870 ?AUTO_3863 )
+      ( GET_ROCK_DATA ?AUTO_3863 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3863 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3873 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3874 - LANDER
+      ?AUTO_3878 - WAYPOINT
+      ?AUTO_3877 - ROVER
+      ?AUTO_3879 - STORE
+      ?AUTO_3882 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3874 ?AUTO_3878 ) ( VISIBLE ?AUTO_3873 ?AUTO_3878 ) ( AVAILABLE ?AUTO_3877 ) ( CHANNEL_FREE ?AUTO_3874 ) ( AT_ROCK_SAMPLE ?AUTO_3873 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3877 ) ( STORE_OF ?AUTO_3879 ?AUTO_3877 ) ( EMPTY ?AUTO_3879 ) ( CAN_TRAVERSE ?AUTO_3877 ?AUTO_3882 ?AUTO_3873 ) ( AT ?AUTO_3877 ?AUTO_3882 ) ( VISIBLE ?AUTO_3882 ?AUTO_3873 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3877 ?AUTO_3882 ?AUTO_3873 )
+      ( GET_ROCK_DATA ?AUTO_3873 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3873 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3885 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3889 - LANDER
+      ?AUTO_3886 - WAYPOINT
+      ?AUTO_3888 - ROVER
+      ?AUTO_3890 - STORE
+      ?AUTO_3891 - WAYPOINT
+      ?AUTO_3894 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3889 ?AUTO_3886 ) ( VISIBLE ?AUTO_3885 ?AUTO_3886 ) ( AVAILABLE ?AUTO_3888 ) ( CHANNEL_FREE ?AUTO_3889 ) ( AT_ROCK_SAMPLE ?AUTO_3885 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3888 ) ( STORE_OF ?AUTO_3890 ?AUTO_3888 ) ( EMPTY ?AUTO_3890 ) ( CAN_TRAVERSE ?AUTO_3888 ?AUTO_3891 ?AUTO_3885 ) ( VISIBLE ?AUTO_3891 ?AUTO_3885 ) ( CAN_TRAVERSE ?AUTO_3888 ?AUTO_3894 ?AUTO_3891 ) ( AT ?AUTO_3888 ?AUTO_3894 ) ( VISIBLE ?AUTO_3894 ?AUTO_3891 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3888 ?AUTO_3894 ?AUTO_3891 )
+      ( GET_ROCK_DATA ?AUTO_3885 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3885 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3895 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3900 - LANDER
+      ?AUTO_3897 - WAYPOINT
+      ?AUTO_3899 - ROVER
+      ?AUTO_3898 - STORE
+      ?AUTO_3901 - WAYPOINT
+      ?AUTO_3902 - WAYPOINT
+      ?AUTO_3905 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3900 ?AUTO_3897 ) ( VISIBLE ?AUTO_3895 ?AUTO_3897 ) ( AVAILABLE ?AUTO_3899 ) ( CHANNEL_FREE ?AUTO_3900 ) ( AT_ROCK_SAMPLE ?AUTO_3895 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3899 ) ( STORE_OF ?AUTO_3898 ?AUTO_3899 ) ( EMPTY ?AUTO_3898 ) ( CAN_TRAVERSE ?AUTO_3899 ?AUTO_3901 ?AUTO_3895 ) ( VISIBLE ?AUTO_3901 ?AUTO_3895 ) ( CAN_TRAVERSE ?AUTO_3899 ?AUTO_3902 ?AUTO_3901 ) ( VISIBLE ?AUTO_3902 ?AUTO_3901 ) ( CAN_TRAVERSE ?AUTO_3899 ?AUTO_3905 ?AUTO_3902 ) ( AT ?AUTO_3899 ?AUTO_3905 ) ( VISIBLE ?AUTO_3905 ?AUTO_3902 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3899 ?AUTO_3905 ?AUTO_3902 )
+      ( GET_ROCK_DATA ?AUTO_3895 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3895 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3906 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3914 - LANDER
+      ?AUTO_3910 - WAYPOINT
+      ?AUTO_3908 - ROVER
+      ?AUTO_3912 - STORE
+      ?AUTO_3907 - WAYPOINT
+      ?AUTO_3909 - WAYPOINT
+      ?AUTO_3911 - WAYPOINT
+      ?AUTO_3915 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3914 ?AUTO_3910 ) ( VISIBLE ?AUTO_3906 ?AUTO_3910 ) ( AVAILABLE ?AUTO_3908 ) ( CHANNEL_FREE ?AUTO_3914 ) ( AT_ROCK_SAMPLE ?AUTO_3906 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3908 ) ( STORE_OF ?AUTO_3912 ?AUTO_3908 ) ( CAN_TRAVERSE ?AUTO_3908 ?AUTO_3907 ?AUTO_3906 ) ( VISIBLE ?AUTO_3907 ?AUTO_3906 ) ( CAN_TRAVERSE ?AUTO_3908 ?AUTO_3909 ?AUTO_3907 ) ( VISIBLE ?AUTO_3909 ?AUTO_3907 ) ( CAN_TRAVERSE ?AUTO_3908 ?AUTO_3911 ?AUTO_3909 ) ( AT ?AUTO_3908 ?AUTO_3911 ) ( VISIBLE ?AUTO_3911 ?AUTO_3909 ) ( STORE_OF ?AUTO_3912 ?AUTO_3915 ) ( FULL ?AUTO_3912 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3915 ?AUTO_3912 )
+      ( GET_ROCK_DATA ?AUTO_3906 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3906 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3917 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3922 - LANDER
+      ?AUTO_3923 - WAYPOINT
+      ?AUTO_3918 - ROVER
+      ?AUTO_3925 - STORE
+      ?AUTO_3919 - WAYPOINT
+      ?AUTO_3924 - WAYPOINT
+      ?AUTO_3921 - WAYPOINT
+      ?AUTO_3926 - ROVER
+      ?AUTO_3929 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3922 ?AUTO_3923 ) ( VISIBLE ?AUTO_3917 ?AUTO_3923 ) ( AVAILABLE ?AUTO_3918 ) ( CHANNEL_FREE ?AUTO_3922 ) ( AT_ROCK_SAMPLE ?AUTO_3917 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3918 ) ( STORE_OF ?AUTO_3925 ?AUTO_3918 ) ( CAN_TRAVERSE ?AUTO_3918 ?AUTO_3919 ?AUTO_3917 ) ( VISIBLE ?AUTO_3919 ?AUTO_3917 ) ( CAN_TRAVERSE ?AUTO_3918 ?AUTO_3924 ?AUTO_3919 ) ( VISIBLE ?AUTO_3924 ?AUTO_3919 ) ( CAN_TRAVERSE ?AUTO_3918 ?AUTO_3921 ?AUTO_3924 ) ( VISIBLE ?AUTO_3921 ?AUTO_3924 ) ( STORE_OF ?AUTO_3925 ?AUTO_3926 ) ( FULL ?AUTO_3925 ) ( CAN_TRAVERSE ?AUTO_3918 ?AUTO_3929 ?AUTO_3921 ) ( AT ?AUTO_3918 ?AUTO_3929 ) ( VISIBLE ?AUTO_3929 ?AUTO_3921 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3918 ?AUTO_3929 ?AUTO_3921 )
+      ( GET_ROCK_DATA ?AUTO_3917 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3917 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_3931 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3934 - LANDER
+      ?AUTO_3938 - WAYPOINT
+      ?AUTO_3941 - ROVER
+      ?AUTO_3936 - STORE
+      ?AUTO_3937 - WAYPOINT
+      ?AUTO_3940 - WAYPOINT
+      ?AUTO_3933 - WAYPOINT
+      ?AUTO_3939 - ROVER
+      ?AUTO_3932 - WAYPOINT
+      ?AUTO_3942 - ROVER
+      ?AUTO_3944 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3934 ?AUTO_3938 ) ( VISIBLE ?AUTO_3931 ?AUTO_3938 ) ( AVAILABLE ?AUTO_3941 ) ( CHANNEL_FREE ?AUTO_3934 ) ( AT_ROCK_SAMPLE ?AUTO_3931 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3941 ) ( STORE_OF ?AUTO_3936 ?AUTO_3941 ) ( CAN_TRAVERSE ?AUTO_3941 ?AUTO_3937 ?AUTO_3931 ) ( VISIBLE ?AUTO_3937 ?AUTO_3931 ) ( CAN_TRAVERSE ?AUTO_3941 ?AUTO_3940 ?AUTO_3937 ) ( VISIBLE ?AUTO_3940 ?AUTO_3937 ) ( CAN_TRAVERSE ?AUTO_3941 ?AUTO_3933 ?AUTO_3940 ) ( VISIBLE ?AUTO_3933 ?AUTO_3940 ) ( STORE_OF ?AUTO_3936 ?AUTO_3939 ) ( CAN_TRAVERSE ?AUTO_3941 ?AUTO_3932 ?AUTO_3933 ) ( AT ?AUTO_3941 ?AUTO_3932 ) ( VISIBLE ?AUTO_3932 ?AUTO_3933 ) ( AT ?AUTO_3942 ?AUTO_3944 ) ( AT_ROCK_SAMPLE ?AUTO_3944 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_3942 ) ( STORE_OF ?AUTO_3936 ?AUTO_3942 ) ( EMPTY ?AUTO_3936 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_3942 ?AUTO_3936 ?AUTO_3944 )
+      ( GET_ROCK_DATA ?AUTO_3931 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_3931 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3946 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3947 - ROVER
+      ?AUTO_3950 - WAYPOINT
+      ?AUTO_3949 - LANDER
+      ?AUTO_3948 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_3947 ?AUTO_3950 ) ( AT_LANDER ?AUTO_3949 ?AUTO_3948 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3947 ?AUTO_3946 ) ( VISIBLE ?AUTO_3950 ?AUTO_3948 ) ( AVAILABLE ?AUTO_3947 ) ( CHANNEL_FREE ?AUTO_3949 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_3947 ?AUTO_3949 ?AUTO_3946 ?AUTO_3950 ?AUTO_3948 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3946 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3952 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3956 - LANDER
+      ?AUTO_3955 - WAYPOINT
+      ?AUTO_3954 - ROVER
+      ?AUTO_3957 - WAYPOINT
+      ?AUTO_3960 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3956 ?AUTO_3955 ) ( HAVE_SOIL_ANALYSIS ?AUTO_3954 ?AUTO_3952 ) ( VISIBLE ?AUTO_3957 ?AUTO_3955 ) ( AVAILABLE ?AUTO_3954 ) ( CHANNEL_FREE ?AUTO_3956 ) ( CAN_TRAVERSE ?AUTO_3954 ?AUTO_3960 ?AUTO_3957 ) ( AT ?AUTO_3954 ?AUTO_3960 ) ( VISIBLE ?AUTO_3960 ?AUTO_3957 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3954 ?AUTO_3960 ?AUTO_3957 )
+      ( GET_SOIL_DATA ?AUTO_3952 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3952 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3962 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3965 - LANDER
+      ?AUTO_3966 - WAYPOINT
+      ?AUTO_3968 - WAYPOINT
+      ?AUTO_3964 - ROVER
+      ?AUTO_3967 - WAYPOINT
+      ?AUTO_3970 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3965 ?AUTO_3966 ) ( VISIBLE ?AUTO_3968 ?AUTO_3966 ) ( AVAILABLE ?AUTO_3964 ) ( CHANNEL_FREE ?AUTO_3965 ) ( CAN_TRAVERSE ?AUTO_3964 ?AUTO_3967 ?AUTO_3968 ) ( AT ?AUTO_3964 ?AUTO_3967 ) ( VISIBLE ?AUTO_3967 ?AUTO_3968 ) ( AT ?AUTO_3964 ?AUTO_3962 ) ( AT_SOIL_SAMPLE ?AUTO_3962 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3964 ) ( STORE_OF ?AUTO_3970 ?AUTO_3964 ) ( EMPTY ?AUTO_3970 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_3964 ?AUTO_3970 ?AUTO_3962 )
+      ( GET_SOIL_DATA ?AUTO_3962 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3962 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3972 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3978 - LANDER
+      ?AUTO_3977 - WAYPOINT
+      ?AUTO_3975 - WAYPOINT
+      ?AUTO_3976 - ROVER
+      ?AUTO_3979 - STORE
+      ?AUTO_3982 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3978 ?AUTO_3977 ) ( VISIBLE ?AUTO_3975 ?AUTO_3977 ) ( AVAILABLE ?AUTO_3976 ) ( CHANNEL_FREE ?AUTO_3978 ) ( CAN_TRAVERSE ?AUTO_3976 ?AUTO_3972 ?AUTO_3975 ) ( VISIBLE ?AUTO_3972 ?AUTO_3975 ) ( AT_SOIL_SAMPLE ?AUTO_3972 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3976 ) ( STORE_OF ?AUTO_3979 ?AUTO_3976 ) ( EMPTY ?AUTO_3979 ) ( CAN_TRAVERSE ?AUTO_3976 ?AUTO_3982 ?AUTO_3972 ) ( AT ?AUTO_3976 ?AUTO_3982 ) ( VISIBLE ?AUTO_3982 ?AUTO_3972 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3976 ?AUTO_3982 ?AUTO_3972 )
+      ( GET_SOIL_DATA ?AUTO_3972 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3972 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3983 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3988 - LANDER
+      ?AUTO_3986 - WAYPOINT
+      ?AUTO_3990 - WAYPOINT
+      ?AUTO_3987 - ROVER
+      ?AUTO_3989 - STORE
+      ?AUTO_3985 - WAYPOINT
+      ?AUTO_3991 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3988 ?AUTO_3986 ) ( VISIBLE ?AUTO_3990 ?AUTO_3986 ) ( AVAILABLE ?AUTO_3987 ) ( CHANNEL_FREE ?AUTO_3988 ) ( CAN_TRAVERSE ?AUTO_3987 ?AUTO_3983 ?AUTO_3990 ) ( VISIBLE ?AUTO_3983 ?AUTO_3990 ) ( AT_SOIL_SAMPLE ?AUTO_3983 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3987 ) ( STORE_OF ?AUTO_3989 ?AUTO_3987 ) ( CAN_TRAVERSE ?AUTO_3987 ?AUTO_3985 ?AUTO_3983 ) ( AT ?AUTO_3987 ?AUTO_3985 ) ( VISIBLE ?AUTO_3985 ?AUTO_3983 ) ( STORE_OF ?AUTO_3989 ?AUTO_3991 ) ( FULL ?AUTO_3989 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_3991 ?AUTO_3989 )
+      ( GET_SOIL_DATA ?AUTO_3983 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3983 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_3993 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_3995 - LANDER
+      ?AUTO_4001 - WAYPOINT
+      ?AUTO_3997 - WAYPOINT
+      ?AUTO_3996 - ROVER
+      ?AUTO_3994 - STORE
+      ?AUTO_3998 - WAYPOINT
+      ?AUTO_4000 - ROVER
+      ?AUTO_4004 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_3995 ?AUTO_4001 ) ( VISIBLE ?AUTO_3997 ?AUTO_4001 ) ( AVAILABLE ?AUTO_3996 ) ( CHANNEL_FREE ?AUTO_3995 ) ( CAN_TRAVERSE ?AUTO_3996 ?AUTO_3993 ?AUTO_3997 ) ( VISIBLE ?AUTO_3993 ?AUTO_3997 ) ( AT_SOIL_SAMPLE ?AUTO_3993 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_3996 ) ( STORE_OF ?AUTO_3994 ?AUTO_3996 ) ( CAN_TRAVERSE ?AUTO_3996 ?AUTO_3998 ?AUTO_3993 ) ( VISIBLE ?AUTO_3998 ?AUTO_3993 ) ( STORE_OF ?AUTO_3994 ?AUTO_4000 ) ( FULL ?AUTO_3994 ) ( CAN_TRAVERSE ?AUTO_3996 ?AUTO_4004 ?AUTO_3998 ) ( AT ?AUTO_3996 ?AUTO_4004 ) ( VISIBLE ?AUTO_4004 ?AUTO_3998 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_3996 ?AUTO_4004 ?AUTO_3998 )
+      ( GET_SOIL_DATA ?AUTO_3993 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_3993 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4006 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4007 - LANDER
+      ?AUTO_4011 - WAYPOINT
+      ?AUTO_4009 - WAYPOINT
+      ?AUTO_4015 - ROVER
+      ?AUTO_4010 - STORE
+      ?AUTO_4013 - WAYPOINT
+      ?AUTO_4008 - ROVER
+      ?AUTO_4014 - WAYPOINT
+      ?AUTO_4016 - ROVER
+      ?AUTO_4018 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4007 ?AUTO_4011 ) ( VISIBLE ?AUTO_4009 ?AUTO_4011 ) ( AVAILABLE ?AUTO_4015 ) ( CHANNEL_FREE ?AUTO_4007 ) ( CAN_TRAVERSE ?AUTO_4015 ?AUTO_4006 ?AUTO_4009 ) ( VISIBLE ?AUTO_4006 ?AUTO_4009 ) ( AT_SOIL_SAMPLE ?AUTO_4006 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4015 ) ( STORE_OF ?AUTO_4010 ?AUTO_4015 ) ( CAN_TRAVERSE ?AUTO_4015 ?AUTO_4013 ?AUTO_4006 ) ( VISIBLE ?AUTO_4013 ?AUTO_4006 ) ( STORE_OF ?AUTO_4010 ?AUTO_4008 ) ( CAN_TRAVERSE ?AUTO_4015 ?AUTO_4014 ?AUTO_4013 ) ( AT ?AUTO_4015 ?AUTO_4014 ) ( VISIBLE ?AUTO_4014 ?AUTO_4013 ) ( AT ?AUTO_4016 ?AUTO_4018 ) ( AT_ROCK_SAMPLE ?AUTO_4018 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4016 ) ( STORE_OF ?AUTO_4010 ?AUTO_4016 ) ( EMPTY ?AUTO_4010 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4016 ?AUTO_4010 ?AUTO_4018 )
+      ( GET_SOIL_DATA ?AUTO_4006 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4006 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4030 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4031 - ROVER
+      ?AUTO_4034 - WAYPOINT
+      ?AUTO_4033 - LANDER
+      ?AUTO_4032 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4031 ?AUTO_4034 ) ( AT_LANDER ?AUTO_4033 ?AUTO_4032 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4031 ?AUTO_4030 ) ( VISIBLE ?AUTO_4034 ?AUTO_4032 ) ( AVAILABLE ?AUTO_4031 ) ( CHANNEL_FREE ?AUTO_4033 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_4031 ?AUTO_4033 ?AUTO_4030 ?AUTO_4034 ?AUTO_4032 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4030 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4036 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4040 - LANDER
+      ?AUTO_4039 - WAYPOINT
+      ?AUTO_4038 - ROVER
+      ?AUTO_4041 - WAYPOINT
+      ?AUTO_4044 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4040 ?AUTO_4039 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4038 ?AUTO_4036 ) ( VISIBLE ?AUTO_4041 ?AUTO_4039 ) ( AVAILABLE ?AUTO_4038 ) ( CHANNEL_FREE ?AUTO_4040 ) ( CAN_TRAVERSE ?AUTO_4038 ?AUTO_4044 ?AUTO_4041 ) ( AT ?AUTO_4038 ?AUTO_4044 ) ( VISIBLE ?AUTO_4044 ?AUTO_4041 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4038 ?AUTO_4044 ?AUTO_4041 )
+      ( GET_ROCK_DATA ?AUTO_4036 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4036 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4045 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4050 - LANDER
+      ?AUTO_4046 - WAYPOINT
+      ?AUTO_4049 - WAYPOINT
+      ?AUTO_4047 - ROVER
+      ?AUTO_4051 - WAYPOINT
+      ?AUTO_4053 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4050 ?AUTO_4046 ) ( VISIBLE ?AUTO_4049 ?AUTO_4046 ) ( AVAILABLE ?AUTO_4047 ) ( CHANNEL_FREE ?AUTO_4050 ) ( CAN_TRAVERSE ?AUTO_4047 ?AUTO_4051 ?AUTO_4049 ) ( AT ?AUTO_4047 ?AUTO_4051 ) ( VISIBLE ?AUTO_4051 ?AUTO_4049 ) ( AT ?AUTO_4047 ?AUTO_4045 ) ( AT_ROCK_SAMPLE ?AUTO_4045 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4047 ) ( STORE_OF ?AUTO_4053 ?AUTO_4047 ) ( EMPTY ?AUTO_4053 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4047 ?AUTO_4053 ?AUTO_4045 )
+      ( GET_ROCK_DATA ?AUTO_4045 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4045 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4055 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4060 - LANDER
+      ?AUTO_4062 - WAYPOINT
+      ?AUTO_4057 - WAYPOINT
+      ?AUTO_4058 - ROVER
+      ?AUTO_4059 - STORE
+      ?AUTO_4065 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4060 ?AUTO_4062 ) ( VISIBLE ?AUTO_4057 ?AUTO_4062 ) ( AVAILABLE ?AUTO_4058 ) ( CHANNEL_FREE ?AUTO_4060 ) ( CAN_TRAVERSE ?AUTO_4058 ?AUTO_4055 ?AUTO_4057 ) ( VISIBLE ?AUTO_4055 ?AUTO_4057 ) ( AT_ROCK_SAMPLE ?AUTO_4055 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4058 ) ( STORE_OF ?AUTO_4059 ?AUTO_4058 ) ( EMPTY ?AUTO_4059 ) ( CAN_TRAVERSE ?AUTO_4058 ?AUTO_4065 ?AUTO_4055 ) ( AT ?AUTO_4058 ?AUTO_4065 ) ( VISIBLE ?AUTO_4065 ?AUTO_4055 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4058 ?AUTO_4065 ?AUTO_4055 )
+      ( GET_ROCK_DATA ?AUTO_4055 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4055 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4066 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4071 - LANDER
+      ?AUTO_4068 - WAYPOINT
+      ?AUTO_4067 - WAYPOINT
+      ?AUTO_4070 - ROVER
+      ?AUTO_4072 - STORE
+      ?AUTO_4073 - WAYPOINT
+      ?AUTO_4076 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4071 ?AUTO_4068 ) ( VISIBLE ?AUTO_4067 ?AUTO_4068 ) ( AVAILABLE ?AUTO_4070 ) ( CHANNEL_FREE ?AUTO_4071 ) ( CAN_TRAVERSE ?AUTO_4070 ?AUTO_4066 ?AUTO_4067 ) ( VISIBLE ?AUTO_4066 ?AUTO_4067 ) ( AT_ROCK_SAMPLE ?AUTO_4066 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4070 ) ( STORE_OF ?AUTO_4072 ?AUTO_4070 ) ( EMPTY ?AUTO_4072 ) ( CAN_TRAVERSE ?AUTO_4070 ?AUTO_4073 ?AUTO_4066 ) ( VISIBLE ?AUTO_4073 ?AUTO_4066 ) ( CAN_TRAVERSE ?AUTO_4070 ?AUTO_4076 ?AUTO_4073 ) ( AT ?AUTO_4070 ?AUTO_4076 ) ( VISIBLE ?AUTO_4076 ?AUTO_4073 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4070 ?AUTO_4076 ?AUTO_4073 )
+      ( GET_ROCK_DATA ?AUTO_4066 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4066 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4078 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4085 - LANDER
+      ?AUTO_4086 - WAYPOINT
+      ?AUTO_4080 - WAYPOINT
+      ?AUTO_4082 - ROVER
+      ?AUTO_4079 - STORE
+      ?AUTO_4081 - WAYPOINT
+      ?AUTO_4084 - WAYPOINT
+      ?AUTO_4089 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4085 ?AUTO_4086 ) ( VISIBLE ?AUTO_4080 ?AUTO_4086 ) ( AVAILABLE ?AUTO_4082 ) ( CHANNEL_FREE ?AUTO_4085 ) ( CAN_TRAVERSE ?AUTO_4082 ?AUTO_4078 ?AUTO_4080 ) ( VISIBLE ?AUTO_4078 ?AUTO_4080 ) ( AT_ROCK_SAMPLE ?AUTO_4078 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4082 ) ( STORE_OF ?AUTO_4079 ?AUTO_4082 ) ( EMPTY ?AUTO_4079 ) ( CAN_TRAVERSE ?AUTO_4082 ?AUTO_4081 ?AUTO_4078 ) ( VISIBLE ?AUTO_4081 ?AUTO_4078 ) ( CAN_TRAVERSE ?AUTO_4082 ?AUTO_4084 ?AUTO_4081 ) ( VISIBLE ?AUTO_4084 ?AUTO_4081 ) ( CAN_TRAVERSE ?AUTO_4082 ?AUTO_4089 ?AUTO_4084 ) ( AT ?AUTO_4082 ?AUTO_4089 ) ( VISIBLE ?AUTO_4089 ?AUTO_4084 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4082 ?AUTO_4089 ?AUTO_4084 )
+      ( GET_ROCK_DATA ?AUTO_4078 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4078 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4090 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4098 - LANDER
+      ?AUTO_4094 - WAYPOINT
+      ?AUTO_4099 - WAYPOINT
+      ?AUTO_4091 - ROVER
+      ?AUTO_4093 - STORE
+      ?AUTO_4096 - WAYPOINT
+      ?AUTO_4092 - WAYPOINT
+      ?AUTO_4097 - WAYPOINT
+      ?AUTO_4100 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4098 ?AUTO_4094 ) ( VISIBLE ?AUTO_4099 ?AUTO_4094 ) ( AVAILABLE ?AUTO_4091 ) ( CHANNEL_FREE ?AUTO_4098 ) ( CAN_TRAVERSE ?AUTO_4091 ?AUTO_4090 ?AUTO_4099 ) ( VISIBLE ?AUTO_4090 ?AUTO_4099 ) ( AT_ROCK_SAMPLE ?AUTO_4090 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4091 ) ( STORE_OF ?AUTO_4093 ?AUTO_4091 ) ( CAN_TRAVERSE ?AUTO_4091 ?AUTO_4096 ?AUTO_4090 ) ( VISIBLE ?AUTO_4096 ?AUTO_4090 ) ( CAN_TRAVERSE ?AUTO_4091 ?AUTO_4092 ?AUTO_4096 ) ( VISIBLE ?AUTO_4092 ?AUTO_4096 ) ( CAN_TRAVERSE ?AUTO_4091 ?AUTO_4097 ?AUTO_4092 ) ( AT ?AUTO_4091 ?AUTO_4097 ) ( VISIBLE ?AUTO_4097 ?AUTO_4092 ) ( STORE_OF ?AUTO_4093 ?AUTO_4100 ) ( FULL ?AUTO_4093 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_4100 ?AUTO_4093 )
+      ( GET_ROCK_DATA ?AUTO_4090 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4090 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4104 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4106 - LANDER
+      ?AUTO_4110 - WAYPOINT
+      ?AUTO_4111 - WAYPOINT
+      ?AUTO_4105 - ROVER
+      ?AUTO_4109 - STORE
+      ?AUTO_4108 - WAYPOINT
+      ?AUTO_4112 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4106 ?AUTO_4110 ) ( VISIBLE ?AUTO_4111 ?AUTO_4110 ) ( AVAILABLE ?AUTO_4105 ) ( CHANNEL_FREE ?AUTO_4106 ) ( CAN_TRAVERSE ?AUTO_4105 ?AUTO_4104 ?AUTO_4111 ) ( VISIBLE ?AUTO_4104 ?AUTO_4111 ) ( AT_ROCK_SAMPLE ?AUTO_4104 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4105 ) ( STORE_OF ?AUTO_4109 ?AUTO_4105 ) ( CAN_TRAVERSE ?AUTO_4105 ?AUTO_4108 ?AUTO_4104 ) ( AT ?AUTO_4105 ?AUTO_4108 ) ( VISIBLE ?AUTO_4108 ?AUTO_4104 ) ( STORE_OF ?AUTO_4109 ?AUTO_4112 ) ( FULL ?AUTO_4109 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_4112 ?AUTO_4109 )
+      ( GET_ROCK_DATA ?AUTO_4104 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4104 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4114 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4119 - LANDER
+      ?AUTO_4120 - WAYPOINT
+      ?AUTO_4121 - WAYPOINT
+      ?AUTO_4118 - ROVER
+      ?AUTO_4117 - STORE
+      ?AUTO_4116 - WAYPOINT
+      ?AUTO_4122 - ROVER
+      ?AUTO_4125 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4119 ?AUTO_4120 ) ( VISIBLE ?AUTO_4121 ?AUTO_4120 ) ( AVAILABLE ?AUTO_4118 ) ( CHANNEL_FREE ?AUTO_4119 ) ( CAN_TRAVERSE ?AUTO_4118 ?AUTO_4114 ?AUTO_4121 ) ( VISIBLE ?AUTO_4114 ?AUTO_4121 ) ( AT_ROCK_SAMPLE ?AUTO_4114 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4118 ) ( STORE_OF ?AUTO_4117 ?AUTO_4118 ) ( CAN_TRAVERSE ?AUTO_4118 ?AUTO_4116 ?AUTO_4114 ) ( VISIBLE ?AUTO_4116 ?AUTO_4114 ) ( STORE_OF ?AUTO_4117 ?AUTO_4122 ) ( FULL ?AUTO_4117 ) ( CAN_TRAVERSE ?AUTO_4118 ?AUTO_4125 ?AUTO_4116 ) ( AT ?AUTO_4118 ?AUTO_4125 ) ( VISIBLE ?AUTO_4125 ?AUTO_4116 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4118 ?AUTO_4125 ?AUTO_4116 )
+      ( GET_ROCK_DATA ?AUTO_4114 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4114 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4127 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4128 - ROVER
+      ?AUTO_4131 - WAYPOINT
+      ?AUTO_4130 - LANDER
+      ?AUTO_4129 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4128 ?AUTO_4131 ) ( AT_LANDER ?AUTO_4130 ?AUTO_4129 ) ( HAVE_SOIL_ANALYSIS ?AUTO_4128 ?AUTO_4127 ) ( VISIBLE ?AUTO_4131 ?AUTO_4129 ) ( AVAILABLE ?AUTO_4128 ) ( CHANNEL_FREE ?AUTO_4130 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_4128 ?AUTO_4130 ?AUTO_4127 ?AUTO_4131 ?AUTO_4129 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4127 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4133 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4135 - ROVER
+      ?AUTO_4138 - WAYPOINT
+      ?AUTO_4137 - LANDER
+      ?AUTO_4136 - WAYPOINT
+      ?AUTO_4140 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_4135 ?AUTO_4138 ) ( AT_LANDER ?AUTO_4137 ?AUTO_4136 ) ( VISIBLE ?AUTO_4138 ?AUTO_4136 ) ( AVAILABLE ?AUTO_4135 ) ( CHANNEL_FREE ?AUTO_4137 ) ( AT ?AUTO_4135 ?AUTO_4133 ) ( AT_SOIL_SAMPLE ?AUTO_4133 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4135 ) ( STORE_OF ?AUTO_4140 ?AUTO_4135 ) ( EMPTY ?AUTO_4140 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_4135 ?AUTO_4140 ?AUTO_4133 )
+      ( GET_SOIL_DATA ?AUTO_4133 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4133 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4144 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4145 - ROVER
+      ?AUTO_4148 - WAYPOINT
+      ?AUTO_4147 - LANDER
+      ?AUTO_4146 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4145 ?AUTO_4148 ) ( AT_LANDER ?AUTO_4147 ?AUTO_4146 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4145 ?AUTO_4144 ) ( VISIBLE ?AUTO_4148 ?AUTO_4146 ) ( AVAILABLE ?AUTO_4145 ) ( CHANNEL_FREE ?AUTO_4147 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_4145 ?AUTO_4147 ?AUTO_4144 ?AUTO_4148 ?AUTO_4146 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4144 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4150 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4152 - ROVER
+      ?AUTO_4155 - WAYPOINT
+      ?AUTO_4154 - LANDER
+      ?AUTO_4153 - WAYPOINT
+      ?AUTO_4157 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_4152 ?AUTO_4155 ) ( AT_LANDER ?AUTO_4154 ?AUTO_4153 ) ( VISIBLE ?AUTO_4155 ?AUTO_4153 ) ( AVAILABLE ?AUTO_4152 ) ( CHANNEL_FREE ?AUTO_4154 ) ( AT ?AUTO_4152 ?AUTO_4150 ) ( AT_ROCK_SAMPLE ?AUTO_4150 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4152 ) ( STORE_OF ?AUTO_4157 ?AUTO_4152 ) ( EMPTY ?AUTO_4157 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4152 ?AUTO_4157 ?AUTO_4150 )
+      ( GET_ROCK_DATA ?AUTO_4150 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4150 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4165 - OBJECTIVE
+      ?AUTO_4164 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4166 - ROVER
+      ?AUTO_4169 - WAYPOINT
+      ?AUTO_4168 - LANDER
+      ?AUTO_4167 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4166 ?AUTO_4169 ) ( AT_LANDER ?AUTO_4168 ?AUTO_4167 ) ( HAVE_IMAGE ?AUTO_4166 ?AUTO_4165 ?AUTO_4164 ) ( VISIBLE ?AUTO_4169 ?AUTO_4167 ) ( AVAILABLE ?AUTO_4166 ) ( CHANNEL_FREE ?AUTO_4168 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_4166 ?AUTO_4168 ?AUTO_4165 ?AUTO_4164 ?AUTO_4169 ?AUTO_4167 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4165 ?AUTO_4164 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4173 - OBJECTIVE
+      ?AUTO_4172 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4176 - ROVER
+      ?AUTO_4179 - WAYPOINT
+      ?AUTO_4178 - LANDER
+      ?AUTO_4177 - WAYPOINT
+      ?AUTO_4184 - CAMERA
+      ?AUTO_4182 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4176 ?AUTO_4179 ) ( AT_LANDER ?AUTO_4178 ?AUTO_4177 ) ( VISIBLE ?AUTO_4179 ?AUTO_4177 ) ( AVAILABLE ?AUTO_4176 ) ( CHANNEL_FREE ?AUTO_4178 ) ( CALIBRATED ?AUTO_4184 ?AUTO_4176 ) ( ON_BOARD ?AUTO_4184 ?AUTO_4176 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4176 ) ( SUPPORTS ?AUTO_4184 ?AUTO_4172 ) ( VISIBLE_FROM ?AUTO_4173 ?AUTO_4182 ) ( AT ?AUTO_4176 ?AUTO_4182 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_4176 ?AUTO_4182 ?AUTO_4173 ?AUTO_4184 ?AUTO_4172 )
+      ( GET_IMAGE_DATA ?AUTO_4173 ?AUTO_4172 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4173 ?AUTO_4172 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4190 - OBJECTIVE
+      ?AUTO_4189 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4198 - LANDER
+      ?AUTO_4193 - WAYPOINT
+      ?AUTO_4192 - WAYPOINT
+      ?AUTO_4195 - ROVER
+      ?AUTO_4194 - CAMERA
+      ?AUTO_4201 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4198 ?AUTO_4193 ) ( VISIBLE ?AUTO_4192 ?AUTO_4193 ) ( AVAILABLE ?AUTO_4195 ) ( CHANNEL_FREE ?AUTO_4198 ) ( CALIBRATED ?AUTO_4194 ?AUTO_4195 ) ( ON_BOARD ?AUTO_4194 ?AUTO_4195 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4195 ) ( SUPPORTS ?AUTO_4194 ?AUTO_4189 ) ( VISIBLE_FROM ?AUTO_4190 ?AUTO_4192 ) ( CAN_TRAVERSE ?AUTO_4195 ?AUTO_4201 ?AUTO_4192 ) ( AT ?AUTO_4195 ?AUTO_4201 ) ( VISIBLE ?AUTO_4201 ?AUTO_4192 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4195 ?AUTO_4201 ?AUTO_4192 )
+      ( GET_IMAGE_DATA ?AUTO_4190 ?AUTO_4189 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4190 ?AUTO_4189 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4203 - OBJECTIVE
+      ?AUTO_4202 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4204 - LANDER
+      ?AUTO_4206 - WAYPOINT
+      ?AUTO_4205 - WAYPOINT
+      ?AUTO_4208 - ROVER
+      ?AUTO_4207 - CAMERA
+      ?AUTO_4211 - WAYPOINT
+      ?AUTO_4214 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4204 ?AUTO_4206 ) ( VISIBLE ?AUTO_4205 ?AUTO_4206 ) ( AVAILABLE ?AUTO_4208 ) ( CHANNEL_FREE ?AUTO_4204 ) ( CALIBRATED ?AUTO_4207 ?AUTO_4208 ) ( ON_BOARD ?AUTO_4207 ?AUTO_4208 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4208 ) ( SUPPORTS ?AUTO_4207 ?AUTO_4202 ) ( VISIBLE_FROM ?AUTO_4203 ?AUTO_4205 ) ( CAN_TRAVERSE ?AUTO_4208 ?AUTO_4211 ?AUTO_4205 ) ( VISIBLE ?AUTO_4211 ?AUTO_4205 ) ( CAN_TRAVERSE ?AUTO_4208 ?AUTO_4214 ?AUTO_4211 ) ( AT ?AUTO_4208 ?AUTO_4214 ) ( VISIBLE ?AUTO_4214 ?AUTO_4211 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4208 ?AUTO_4214 ?AUTO_4211 )
+      ( GET_IMAGE_DATA ?AUTO_4203 ?AUTO_4202 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4203 ?AUTO_4202 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4216 - OBJECTIVE
+      ?AUTO_4215 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4218 - LANDER
+      ?AUTO_4221 - WAYPOINT
+      ?AUTO_4224 - WAYPOINT
+      ?AUTO_4223 - ROVER
+      ?AUTO_4222 - CAMERA
+      ?AUTO_4217 - WAYPOINT
+      ?AUTO_4225 - WAYPOINT
+      ?AUTO_4228 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4218 ?AUTO_4221 ) ( VISIBLE ?AUTO_4224 ?AUTO_4221 ) ( AVAILABLE ?AUTO_4223 ) ( CHANNEL_FREE ?AUTO_4218 ) ( CALIBRATED ?AUTO_4222 ?AUTO_4223 ) ( ON_BOARD ?AUTO_4222 ?AUTO_4223 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4223 ) ( SUPPORTS ?AUTO_4222 ?AUTO_4215 ) ( VISIBLE_FROM ?AUTO_4216 ?AUTO_4224 ) ( CAN_TRAVERSE ?AUTO_4223 ?AUTO_4217 ?AUTO_4224 ) ( VISIBLE ?AUTO_4217 ?AUTO_4224 ) ( CAN_TRAVERSE ?AUTO_4223 ?AUTO_4225 ?AUTO_4217 ) ( VISIBLE ?AUTO_4225 ?AUTO_4217 ) ( CAN_TRAVERSE ?AUTO_4223 ?AUTO_4228 ?AUTO_4225 ) ( AT ?AUTO_4223 ?AUTO_4228 ) ( VISIBLE ?AUTO_4228 ?AUTO_4225 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4223 ?AUTO_4228 ?AUTO_4225 )
+      ( GET_IMAGE_DATA ?AUTO_4216 ?AUTO_4215 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4216 ?AUTO_4215 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4230 - OBJECTIVE
+      ?AUTO_4229 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4238 - LANDER
+      ?AUTO_4239 - WAYPOINT
+      ?AUTO_4233 - WAYPOINT
+      ?AUTO_4234 - ROVER
+      ?AUTO_4235 - CAMERA
+      ?AUTO_4232 - WAYPOINT
+      ?AUTO_4236 - WAYPOINT
+      ?AUTO_4240 - WAYPOINT
+      ?AUTO_4244 - OBJECTIVE
+      ?AUTO_4242 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4238 ?AUTO_4239 ) ( VISIBLE ?AUTO_4233 ?AUTO_4239 ) ( AVAILABLE ?AUTO_4234 ) ( CHANNEL_FREE ?AUTO_4238 ) ( ON_BOARD ?AUTO_4235 ?AUTO_4234 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4234 ) ( SUPPORTS ?AUTO_4235 ?AUTO_4229 ) ( VISIBLE_FROM ?AUTO_4230 ?AUTO_4233 ) ( CAN_TRAVERSE ?AUTO_4234 ?AUTO_4232 ?AUTO_4233 ) ( VISIBLE ?AUTO_4232 ?AUTO_4233 ) ( CAN_TRAVERSE ?AUTO_4234 ?AUTO_4236 ?AUTO_4232 ) ( VISIBLE ?AUTO_4236 ?AUTO_4232 ) ( CAN_TRAVERSE ?AUTO_4234 ?AUTO_4240 ?AUTO_4236 ) ( AT ?AUTO_4234 ?AUTO_4240 ) ( VISIBLE ?AUTO_4240 ?AUTO_4236 ) ( CALIBRATION_TARGET ?AUTO_4235 ?AUTO_4244 ) ( AT ?AUTO_4234 ?AUTO_4242 ) ( VISIBLE_FROM ?AUTO_4244 ?AUTO_4242 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_4234 ?AUTO_4235 ?AUTO_4244 ?AUTO_4242 )
+      ( GET_IMAGE_DATA ?AUTO_4230 ?AUTO_4229 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4230 ?AUTO_4229 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4246 - OBJECTIVE
+      ?AUTO_4245 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4253 - LANDER
+      ?AUTO_4248 - WAYPOINT
+      ?AUTO_4254 - WAYPOINT
+      ?AUTO_4258 - ROVER
+      ?AUTO_4256 - CAMERA
+      ?AUTO_4252 - WAYPOINT
+      ?AUTO_4255 - WAYPOINT
+      ?AUTO_4257 - WAYPOINT
+      ?AUTO_4251 - OBJECTIVE
+      ?AUTO_4261 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4253 ?AUTO_4248 ) ( VISIBLE ?AUTO_4254 ?AUTO_4248 ) ( AVAILABLE ?AUTO_4258 ) ( CHANNEL_FREE ?AUTO_4253 ) ( ON_BOARD ?AUTO_4256 ?AUTO_4258 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4258 ) ( SUPPORTS ?AUTO_4256 ?AUTO_4245 ) ( VISIBLE_FROM ?AUTO_4246 ?AUTO_4254 ) ( CAN_TRAVERSE ?AUTO_4258 ?AUTO_4252 ?AUTO_4254 ) ( VISIBLE ?AUTO_4252 ?AUTO_4254 ) ( CAN_TRAVERSE ?AUTO_4258 ?AUTO_4255 ?AUTO_4252 ) ( VISIBLE ?AUTO_4255 ?AUTO_4252 ) ( CAN_TRAVERSE ?AUTO_4258 ?AUTO_4257 ?AUTO_4255 ) ( VISIBLE ?AUTO_4257 ?AUTO_4255 ) ( CALIBRATION_TARGET ?AUTO_4256 ?AUTO_4251 ) ( VISIBLE_FROM ?AUTO_4251 ?AUTO_4257 ) ( CAN_TRAVERSE ?AUTO_4258 ?AUTO_4261 ?AUTO_4257 ) ( AT ?AUTO_4258 ?AUTO_4261 ) ( VISIBLE ?AUTO_4261 ?AUTO_4257 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4258 ?AUTO_4261 ?AUTO_4257 )
+      ( GET_IMAGE_DATA ?AUTO_4246 ?AUTO_4245 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4246 ?AUTO_4245 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4273 - OBJECTIVE
+      ?AUTO_4272 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4276 - LANDER
+      ?AUTO_4283 - WAYPOINT
+      ?AUTO_4285 - WAYPOINT
+      ?AUTO_4274 - ROVER
+      ?AUTO_4284 - CAMERA
+      ?AUTO_4281 - WAYPOINT
+      ?AUTO_4275 - WAYPOINT
+      ?AUTO_4280 - WAYPOINT
+      ?AUTO_4277 - OBJECTIVE
+      ?AUTO_4278 - WAYPOINT
+      ?AUTO_4288 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4276 ?AUTO_4283 ) ( VISIBLE ?AUTO_4285 ?AUTO_4283 ) ( AVAILABLE ?AUTO_4274 ) ( CHANNEL_FREE ?AUTO_4276 ) ( ON_BOARD ?AUTO_4284 ?AUTO_4274 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4274 ) ( SUPPORTS ?AUTO_4284 ?AUTO_4272 ) ( VISIBLE_FROM ?AUTO_4273 ?AUTO_4285 ) ( CAN_TRAVERSE ?AUTO_4274 ?AUTO_4281 ?AUTO_4285 ) ( VISIBLE ?AUTO_4281 ?AUTO_4285 ) ( CAN_TRAVERSE ?AUTO_4274 ?AUTO_4275 ?AUTO_4281 ) ( VISIBLE ?AUTO_4275 ?AUTO_4281 ) ( CAN_TRAVERSE ?AUTO_4274 ?AUTO_4280 ?AUTO_4275 ) ( VISIBLE ?AUTO_4280 ?AUTO_4275 ) ( CALIBRATION_TARGET ?AUTO_4284 ?AUTO_4277 ) ( VISIBLE_FROM ?AUTO_4277 ?AUTO_4280 ) ( CAN_TRAVERSE ?AUTO_4274 ?AUTO_4278 ?AUTO_4280 ) ( VISIBLE ?AUTO_4278 ?AUTO_4280 ) ( CAN_TRAVERSE ?AUTO_4274 ?AUTO_4288 ?AUTO_4278 ) ( AT ?AUTO_4274 ?AUTO_4288 ) ( VISIBLE ?AUTO_4288 ?AUTO_4278 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4274 ?AUTO_4288 ?AUTO_4278 )
+      ( GET_IMAGE_DATA ?AUTO_4273 ?AUTO_4272 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4273 ?AUTO_4272 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4290 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4291 - ROVER
+      ?AUTO_4294 - WAYPOINT
+      ?AUTO_4293 - LANDER
+      ?AUTO_4292 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4291 ?AUTO_4294 ) ( AT_LANDER ?AUTO_4293 ?AUTO_4292 ) ( HAVE_SOIL_ANALYSIS ?AUTO_4291 ?AUTO_4290 ) ( VISIBLE ?AUTO_4294 ?AUTO_4292 ) ( AVAILABLE ?AUTO_4291 ) ( CHANNEL_FREE ?AUTO_4293 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_4291 ?AUTO_4293 ?AUTO_4290 ?AUTO_4294 ?AUTO_4292 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4290 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4296 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4298 - ROVER
+      ?AUTO_4301 - WAYPOINT
+      ?AUTO_4300 - LANDER
+      ?AUTO_4299 - WAYPOINT
+      ?AUTO_4303 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_4298 ?AUTO_4301 ) ( AT_LANDER ?AUTO_4300 ?AUTO_4299 ) ( VISIBLE ?AUTO_4301 ?AUTO_4299 ) ( AVAILABLE ?AUTO_4298 ) ( CHANNEL_FREE ?AUTO_4300 ) ( AT ?AUTO_4298 ?AUTO_4296 ) ( AT_SOIL_SAMPLE ?AUTO_4296 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4298 ) ( STORE_OF ?AUTO_4303 ?AUTO_4298 ) ( EMPTY ?AUTO_4303 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_4298 ?AUTO_4303 ?AUTO_4296 )
+      ( GET_SOIL_DATA ?AUTO_4296 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4296 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4309 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4315 - LANDER
+      ?AUTO_4312 - WAYPOINT
+      ?AUTO_4311 - ROVER
+      ?AUTO_4313 - STORE
+      ?AUTO_4318 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4315 ?AUTO_4312 ) ( VISIBLE ?AUTO_4309 ?AUTO_4312 ) ( AVAILABLE ?AUTO_4311 ) ( CHANNEL_FREE ?AUTO_4315 ) ( AT_SOIL_SAMPLE ?AUTO_4309 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4311 ) ( STORE_OF ?AUTO_4313 ?AUTO_4311 ) ( EMPTY ?AUTO_4313 ) ( CAN_TRAVERSE ?AUTO_4311 ?AUTO_4318 ?AUTO_4309 ) ( AT ?AUTO_4311 ?AUTO_4318 ) ( VISIBLE ?AUTO_4318 ?AUTO_4309 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4311 ?AUTO_4318 ?AUTO_4309 )
+      ( GET_SOIL_DATA ?AUTO_4309 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4309 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4319 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4321 - LANDER
+      ?AUTO_4323 - WAYPOINT
+      ?AUTO_4320 - ROVER
+      ?AUTO_4322 - STORE
+      ?AUTO_4324 - WAYPOINT
+      ?AUTO_4328 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4321 ?AUTO_4323 ) ( VISIBLE ?AUTO_4319 ?AUTO_4323 ) ( AVAILABLE ?AUTO_4320 ) ( CHANNEL_FREE ?AUTO_4321 ) ( AT_SOIL_SAMPLE ?AUTO_4319 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4320 ) ( STORE_OF ?AUTO_4322 ?AUTO_4320 ) ( EMPTY ?AUTO_4322 ) ( CAN_TRAVERSE ?AUTO_4320 ?AUTO_4324 ?AUTO_4319 ) ( VISIBLE ?AUTO_4324 ?AUTO_4319 ) ( CAN_TRAVERSE ?AUTO_4320 ?AUTO_4328 ?AUTO_4324 ) ( AT ?AUTO_4320 ?AUTO_4328 ) ( VISIBLE ?AUTO_4328 ?AUTO_4324 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4320 ?AUTO_4328 ?AUTO_4324 )
+      ( GET_SOIL_DATA ?AUTO_4319 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4319 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4329 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4331 - LANDER
+      ?AUTO_4330 - WAYPOINT
+      ?AUTO_4333 - ROVER
+      ?AUTO_4336 - STORE
+      ?AUTO_4334 - WAYPOINT
+      ?AUTO_4332 - WAYPOINT
+      ?AUTO_4339 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4331 ?AUTO_4330 ) ( VISIBLE ?AUTO_4329 ?AUTO_4330 ) ( AVAILABLE ?AUTO_4333 ) ( CHANNEL_FREE ?AUTO_4331 ) ( AT_SOIL_SAMPLE ?AUTO_4329 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4333 ) ( STORE_OF ?AUTO_4336 ?AUTO_4333 ) ( EMPTY ?AUTO_4336 ) ( CAN_TRAVERSE ?AUTO_4333 ?AUTO_4334 ?AUTO_4329 ) ( VISIBLE ?AUTO_4334 ?AUTO_4329 ) ( CAN_TRAVERSE ?AUTO_4333 ?AUTO_4332 ?AUTO_4334 ) ( VISIBLE ?AUTO_4332 ?AUTO_4334 ) ( CAN_TRAVERSE ?AUTO_4333 ?AUTO_4339 ?AUTO_4332 ) ( AT ?AUTO_4333 ?AUTO_4339 ) ( VISIBLE ?AUTO_4339 ?AUTO_4332 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4333 ?AUTO_4339 ?AUTO_4332 )
+      ( GET_SOIL_DATA ?AUTO_4329 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4329 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4342 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4345 - LANDER
+      ?AUTO_4350 - WAYPOINT
+      ?AUTO_4348 - ROVER
+      ?AUTO_4346 - STORE
+      ?AUTO_4349 - WAYPOINT
+      ?AUTO_4347 - WAYPOINT
+      ?AUTO_4343 - WAYPOINT
+      ?AUTO_4351 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4345 ?AUTO_4350 ) ( VISIBLE ?AUTO_4342 ?AUTO_4350 ) ( AVAILABLE ?AUTO_4348 ) ( CHANNEL_FREE ?AUTO_4345 ) ( AT_SOIL_SAMPLE ?AUTO_4342 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4348 ) ( STORE_OF ?AUTO_4346 ?AUTO_4348 ) ( CAN_TRAVERSE ?AUTO_4348 ?AUTO_4349 ?AUTO_4342 ) ( VISIBLE ?AUTO_4349 ?AUTO_4342 ) ( CAN_TRAVERSE ?AUTO_4348 ?AUTO_4347 ?AUTO_4349 ) ( VISIBLE ?AUTO_4347 ?AUTO_4349 ) ( CAN_TRAVERSE ?AUTO_4348 ?AUTO_4343 ?AUTO_4347 ) ( AT ?AUTO_4348 ?AUTO_4343 ) ( VISIBLE ?AUTO_4343 ?AUTO_4347 ) ( STORE_OF ?AUTO_4346 ?AUTO_4351 ) ( FULL ?AUTO_4346 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_4351 ?AUTO_4346 )
+      ( GET_SOIL_DATA ?AUTO_4342 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4342 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4359 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4360 - ROVER
+      ?AUTO_4363 - WAYPOINT
+      ?AUTO_4362 - LANDER
+      ?AUTO_4361 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4360 ?AUTO_4363 ) ( AT_LANDER ?AUTO_4362 ?AUTO_4361 ) ( HAVE_SOIL_ANALYSIS ?AUTO_4360 ?AUTO_4359 ) ( VISIBLE ?AUTO_4363 ?AUTO_4361 ) ( AVAILABLE ?AUTO_4360 ) ( CHANNEL_FREE ?AUTO_4362 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_4360 ?AUTO_4362 ?AUTO_4359 ?AUTO_4363 ?AUTO_4361 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4359 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4365 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4369 - LANDER
+      ?AUTO_4368 - WAYPOINT
+      ?AUTO_4367 - ROVER
+      ?AUTO_4370 - WAYPOINT
+      ?AUTO_4373 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4369 ?AUTO_4368 ) ( HAVE_SOIL_ANALYSIS ?AUTO_4367 ?AUTO_4365 ) ( VISIBLE ?AUTO_4370 ?AUTO_4368 ) ( AVAILABLE ?AUTO_4367 ) ( CHANNEL_FREE ?AUTO_4369 ) ( CAN_TRAVERSE ?AUTO_4367 ?AUTO_4373 ?AUTO_4370 ) ( AT ?AUTO_4367 ?AUTO_4373 ) ( VISIBLE ?AUTO_4373 ?AUTO_4370 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4367 ?AUTO_4373 ?AUTO_4370 )
+      ( GET_SOIL_DATA ?AUTO_4365 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4365 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4376 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4381 - LANDER
+      ?AUTO_4378 - WAYPOINT
+      ?AUTO_4379 - WAYPOINT
+      ?AUTO_4382 - ROVER
+      ?AUTO_4377 - WAYPOINT
+      ?AUTO_4384 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4381 ?AUTO_4378 ) ( VISIBLE ?AUTO_4379 ?AUTO_4378 ) ( AVAILABLE ?AUTO_4382 ) ( CHANNEL_FREE ?AUTO_4381 ) ( CAN_TRAVERSE ?AUTO_4382 ?AUTO_4377 ?AUTO_4379 ) ( AT ?AUTO_4382 ?AUTO_4377 ) ( VISIBLE ?AUTO_4377 ?AUTO_4379 ) ( AT ?AUTO_4382 ?AUTO_4376 ) ( AT_SOIL_SAMPLE ?AUTO_4376 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4382 ) ( STORE_OF ?AUTO_4384 ?AUTO_4382 ) ( EMPTY ?AUTO_4384 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_4382 ?AUTO_4384 ?AUTO_4376 )
+      ( GET_SOIL_DATA ?AUTO_4376 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4376 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4386 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4388 - LANDER
+      ?AUTO_4391 - WAYPOINT
+      ?AUTO_4392 - WAYPOINT
+      ?AUTO_4390 - ROVER
+      ?AUTO_4393 - STORE
+      ?AUTO_4396 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4388 ?AUTO_4391 ) ( VISIBLE ?AUTO_4392 ?AUTO_4391 ) ( AVAILABLE ?AUTO_4390 ) ( CHANNEL_FREE ?AUTO_4388 ) ( CAN_TRAVERSE ?AUTO_4390 ?AUTO_4386 ?AUTO_4392 ) ( VISIBLE ?AUTO_4386 ?AUTO_4392 ) ( AT_SOIL_SAMPLE ?AUTO_4386 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4390 ) ( STORE_OF ?AUTO_4393 ?AUTO_4390 ) ( EMPTY ?AUTO_4393 ) ( CAN_TRAVERSE ?AUTO_4390 ?AUTO_4396 ?AUTO_4386 ) ( AT ?AUTO_4390 ?AUTO_4396 ) ( VISIBLE ?AUTO_4396 ?AUTO_4386 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4390 ?AUTO_4396 ?AUTO_4386 )
+      ( GET_SOIL_DATA ?AUTO_4386 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4386 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4401 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4406 - LANDER
+      ?AUTO_4408 - WAYPOINT
+      ?AUTO_4403 - WAYPOINT
+      ?AUTO_4402 - ROVER
+      ?AUTO_4407 - STORE
+      ?AUTO_4405 - WAYPOINT
+      ?AUTO_4409 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4406 ?AUTO_4408 ) ( VISIBLE ?AUTO_4403 ?AUTO_4408 ) ( AVAILABLE ?AUTO_4402 ) ( CHANNEL_FREE ?AUTO_4406 ) ( CAN_TRAVERSE ?AUTO_4402 ?AUTO_4401 ?AUTO_4403 ) ( VISIBLE ?AUTO_4401 ?AUTO_4403 ) ( AT_SOIL_SAMPLE ?AUTO_4401 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4402 ) ( STORE_OF ?AUTO_4407 ?AUTO_4402 ) ( CAN_TRAVERSE ?AUTO_4402 ?AUTO_4405 ?AUTO_4401 ) ( AT ?AUTO_4402 ?AUTO_4405 ) ( VISIBLE ?AUTO_4405 ?AUTO_4401 ) ( STORE_OF ?AUTO_4407 ?AUTO_4409 ) ( FULL ?AUTO_4407 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_4409 ?AUTO_4407 )
+      ( GET_SOIL_DATA ?AUTO_4401 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4401 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4411 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4413 - LANDER
+      ?AUTO_4418 - WAYPOINT
+      ?AUTO_4414 - WAYPOINT
+      ?AUTO_4415 - ROVER
+      ?AUTO_4416 - STORE
+      ?AUTO_4417 - WAYPOINT
+      ?AUTO_4419 - ROVER
+      ?AUTO_4422 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4413 ?AUTO_4418 ) ( VISIBLE ?AUTO_4414 ?AUTO_4418 ) ( AVAILABLE ?AUTO_4415 ) ( CHANNEL_FREE ?AUTO_4413 ) ( CAN_TRAVERSE ?AUTO_4415 ?AUTO_4411 ?AUTO_4414 ) ( VISIBLE ?AUTO_4411 ?AUTO_4414 ) ( AT_SOIL_SAMPLE ?AUTO_4411 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4415 ) ( STORE_OF ?AUTO_4416 ?AUTO_4415 ) ( CAN_TRAVERSE ?AUTO_4415 ?AUTO_4417 ?AUTO_4411 ) ( VISIBLE ?AUTO_4417 ?AUTO_4411 ) ( STORE_OF ?AUTO_4416 ?AUTO_4419 ) ( FULL ?AUTO_4416 ) ( CAN_TRAVERSE ?AUTO_4415 ?AUTO_4422 ?AUTO_4417 ) ( AT ?AUTO_4415 ?AUTO_4422 ) ( VISIBLE ?AUTO_4422 ?AUTO_4417 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4415 ?AUTO_4422 ?AUTO_4417 )
+      ( GET_SOIL_DATA ?AUTO_4411 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4411 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_4433 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4437 - LANDER
+      ?AUTO_4434 - WAYPOINT
+      ?AUTO_4435 - WAYPOINT
+      ?AUTO_4440 - ROVER
+      ?AUTO_4439 - STORE
+      ?AUTO_4436 - WAYPOINT
+      ?AUTO_4443 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4437 ?AUTO_4434 ) ( VISIBLE ?AUTO_4435 ?AUTO_4434 ) ( AVAILABLE ?AUTO_4440 ) ( CHANNEL_FREE ?AUTO_4437 ) ( CAN_TRAVERSE ?AUTO_4440 ?AUTO_4433 ?AUTO_4435 ) ( VISIBLE ?AUTO_4433 ?AUTO_4435 ) ( AT_SOIL_SAMPLE ?AUTO_4433 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_4440 ) ( STORE_OF ?AUTO_4439 ?AUTO_4440 ) ( EMPTY ?AUTO_4439 ) ( CAN_TRAVERSE ?AUTO_4440 ?AUTO_4436 ?AUTO_4433 ) ( VISIBLE ?AUTO_4436 ?AUTO_4433 ) ( CAN_TRAVERSE ?AUTO_4440 ?AUTO_4443 ?AUTO_4436 ) ( AT ?AUTO_4440 ?AUTO_4443 ) ( VISIBLE ?AUTO_4443 ?AUTO_4436 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4440 ?AUTO_4443 ?AUTO_4436 )
+      ( GET_SOIL_DATA ?AUTO_4433 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_4433 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4445 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4446 - ROVER
+      ?AUTO_4449 - WAYPOINT
+      ?AUTO_4448 - LANDER
+      ?AUTO_4447 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4446 ?AUTO_4449 ) ( AT_LANDER ?AUTO_4448 ?AUTO_4447 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4446 ?AUTO_4445 ) ( VISIBLE ?AUTO_4449 ?AUTO_4447 ) ( AVAILABLE ?AUTO_4446 ) ( CHANNEL_FREE ?AUTO_4448 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_4446 ?AUTO_4448 ?AUTO_4445 ?AUTO_4449 ?AUTO_4447 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4445 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4452 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4454 - LANDER
+      ?AUTO_4457 - WAYPOINT
+      ?AUTO_4453 - ROVER
+      ?AUTO_4455 - WAYPOINT
+      ?AUTO_4460 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4454 ?AUTO_4457 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4453 ?AUTO_4452 ) ( VISIBLE ?AUTO_4455 ?AUTO_4457 ) ( AVAILABLE ?AUTO_4453 ) ( CHANNEL_FREE ?AUTO_4454 ) ( CAN_TRAVERSE ?AUTO_4453 ?AUTO_4460 ?AUTO_4455 ) ( AT ?AUTO_4453 ?AUTO_4460 ) ( VISIBLE ?AUTO_4460 ?AUTO_4455 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4453 ?AUTO_4460 ?AUTO_4455 )
+      ( GET_ROCK_DATA ?AUTO_4452 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4452 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4461 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4464 - LANDER
+      ?AUTO_4462 - WAYPOINT
+      ?AUTO_4465 - WAYPOINT
+      ?AUTO_4463 - ROVER
+      ?AUTO_4467 - WAYPOINT
+      ?AUTO_4469 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4464 ?AUTO_4462 ) ( VISIBLE ?AUTO_4465 ?AUTO_4462 ) ( AVAILABLE ?AUTO_4463 ) ( CHANNEL_FREE ?AUTO_4464 ) ( CAN_TRAVERSE ?AUTO_4463 ?AUTO_4467 ?AUTO_4465 ) ( AT ?AUTO_4463 ?AUTO_4467 ) ( VISIBLE ?AUTO_4467 ?AUTO_4465 ) ( AT ?AUTO_4463 ?AUTO_4461 ) ( AT_ROCK_SAMPLE ?AUTO_4461 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4463 ) ( STORE_OF ?AUTO_4469 ?AUTO_4463 ) ( EMPTY ?AUTO_4469 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4463 ?AUTO_4469 ?AUTO_4461 )
+      ( GET_ROCK_DATA ?AUTO_4461 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4461 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4471 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4477 - LANDER
+      ?AUTO_4473 - WAYPOINT
+      ?AUTO_4476 - WAYPOINT
+      ?AUTO_4474 - ROVER
+      ?AUTO_4475 - WAYPOINT
+      ?AUTO_4478 - STORE
+      ?AUTO_4479 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4477 ?AUTO_4473 ) ( VISIBLE ?AUTO_4476 ?AUTO_4473 ) ( AVAILABLE ?AUTO_4474 ) ( CHANNEL_FREE ?AUTO_4477 ) ( CAN_TRAVERSE ?AUTO_4474 ?AUTO_4475 ?AUTO_4476 ) ( AT ?AUTO_4474 ?AUTO_4475 ) ( VISIBLE ?AUTO_4475 ?AUTO_4476 ) ( AT ?AUTO_4474 ?AUTO_4471 ) ( AT_ROCK_SAMPLE ?AUTO_4471 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4474 ) ( STORE_OF ?AUTO_4478 ?AUTO_4474 ) ( STORE_OF ?AUTO_4478 ?AUTO_4479 ) ( FULL ?AUTO_4478 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_4479 ?AUTO_4478 )
+      ( GET_ROCK_DATA ?AUTO_4471 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4471 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4482 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4485 - LANDER
+      ?AUTO_4486 - WAYPOINT
+      ?AUTO_4483 - WAYPOINT
+      ?AUTO_4489 - ROVER
+      ?AUTO_4487 - STORE
+      ?AUTO_4492 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4485 ?AUTO_4486 ) ( VISIBLE ?AUTO_4483 ?AUTO_4486 ) ( AVAILABLE ?AUTO_4489 ) ( CHANNEL_FREE ?AUTO_4485 ) ( CAN_TRAVERSE ?AUTO_4489 ?AUTO_4482 ?AUTO_4483 ) ( VISIBLE ?AUTO_4482 ?AUTO_4483 ) ( AT_ROCK_SAMPLE ?AUTO_4482 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4489 ) ( STORE_OF ?AUTO_4487 ?AUTO_4489 ) ( EMPTY ?AUTO_4487 ) ( CAN_TRAVERSE ?AUTO_4489 ?AUTO_4492 ?AUTO_4482 ) ( AT ?AUTO_4489 ?AUTO_4492 ) ( VISIBLE ?AUTO_4492 ?AUTO_4482 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4489 ?AUTO_4492 ?AUTO_4482 )
+      ( GET_ROCK_DATA ?AUTO_4482 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4482 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4497 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4504 - LANDER
+      ?AUTO_4499 - WAYPOINT
+      ?AUTO_4503 - WAYPOINT
+      ?AUTO_4498 - ROVER
+      ?AUTO_4501 - STORE
+      ?AUTO_4502 - WAYPOINT
+      ?AUTO_4505 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4504 ?AUTO_4499 ) ( VISIBLE ?AUTO_4503 ?AUTO_4499 ) ( AVAILABLE ?AUTO_4498 ) ( CHANNEL_FREE ?AUTO_4504 ) ( CAN_TRAVERSE ?AUTO_4498 ?AUTO_4497 ?AUTO_4503 ) ( VISIBLE ?AUTO_4497 ?AUTO_4503 ) ( AT_ROCK_SAMPLE ?AUTO_4497 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4498 ) ( STORE_OF ?AUTO_4501 ?AUTO_4498 ) ( CAN_TRAVERSE ?AUTO_4498 ?AUTO_4502 ?AUTO_4497 ) ( AT ?AUTO_4498 ?AUTO_4502 ) ( VISIBLE ?AUTO_4502 ?AUTO_4497 ) ( STORE_OF ?AUTO_4501 ?AUTO_4505 ) ( FULL ?AUTO_4501 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_4505 ?AUTO_4501 )
+      ( GET_ROCK_DATA ?AUTO_4497 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4497 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4507 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4510 - LANDER
+      ?AUTO_4513 - WAYPOINT
+      ?AUTO_4511 - WAYPOINT
+      ?AUTO_4512 - ROVER
+      ?AUTO_4514 - STORE
+      ?AUTO_4509 - WAYPOINT
+      ?AUTO_4515 - ROVER
+      ?AUTO_4518 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4510 ?AUTO_4513 ) ( VISIBLE ?AUTO_4511 ?AUTO_4513 ) ( AVAILABLE ?AUTO_4512 ) ( CHANNEL_FREE ?AUTO_4510 ) ( CAN_TRAVERSE ?AUTO_4512 ?AUTO_4507 ?AUTO_4511 ) ( VISIBLE ?AUTO_4507 ?AUTO_4511 ) ( AT_ROCK_SAMPLE ?AUTO_4507 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4512 ) ( STORE_OF ?AUTO_4514 ?AUTO_4512 ) ( CAN_TRAVERSE ?AUTO_4512 ?AUTO_4509 ?AUTO_4507 ) ( VISIBLE ?AUTO_4509 ?AUTO_4507 ) ( STORE_OF ?AUTO_4514 ?AUTO_4515 ) ( FULL ?AUTO_4514 ) ( CAN_TRAVERSE ?AUTO_4512 ?AUTO_4518 ?AUTO_4509 ) ( AT ?AUTO_4512 ?AUTO_4518 ) ( VISIBLE ?AUTO_4518 ?AUTO_4509 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4512 ?AUTO_4518 ?AUTO_4509 )
+      ( GET_ROCK_DATA ?AUTO_4507 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4507 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4529 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4530 - LANDER
+      ?AUTO_4531 - WAYPOINT
+      ?AUTO_4535 - WAYPOINT
+      ?AUTO_4536 - ROVER
+      ?AUTO_4532 - STORE
+      ?AUTO_4533 - WAYPOINT
+      ?AUTO_4539 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4530 ?AUTO_4531 ) ( VISIBLE ?AUTO_4535 ?AUTO_4531 ) ( AVAILABLE ?AUTO_4536 ) ( CHANNEL_FREE ?AUTO_4530 ) ( CAN_TRAVERSE ?AUTO_4536 ?AUTO_4529 ?AUTO_4535 ) ( VISIBLE ?AUTO_4529 ?AUTO_4535 ) ( AT_ROCK_SAMPLE ?AUTO_4529 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4536 ) ( STORE_OF ?AUTO_4532 ?AUTO_4536 ) ( EMPTY ?AUTO_4532 ) ( CAN_TRAVERSE ?AUTO_4536 ?AUTO_4533 ?AUTO_4529 ) ( VISIBLE ?AUTO_4533 ?AUTO_4529 ) ( CAN_TRAVERSE ?AUTO_4536 ?AUTO_4539 ?AUTO_4533 ) ( AT ?AUTO_4536 ?AUTO_4539 ) ( VISIBLE ?AUTO_4539 ?AUTO_4533 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4536 ?AUTO_4539 ?AUTO_4533 )
+      ( GET_ROCK_DATA ?AUTO_4529 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4529 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4541 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4542 - ROVER
+      ?AUTO_4545 - WAYPOINT
+      ?AUTO_4544 - LANDER
+      ?AUTO_4543 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4542 ?AUTO_4545 ) ( AT_LANDER ?AUTO_4544 ?AUTO_4543 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4542 ?AUTO_4541 ) ( VISIBLE ?AUTO_4545 ?AUTO_4543 ) ( AVAILABLE ?AUTO_4542 ) ( CHANNEL_FREE ?AUTO_4544 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_4542 ?AUTO_4544 ?AUTO_4541 ?AUTO_4545 ?AUTO_4543 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4541 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4548 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4550 - LANDER
+      ?AUTO_4553 - WAYPOINT
+      ?AUTO_4549 - ROVER
+      ?AUTO_4551 - WAYPOINT
+      ?AUTO_4556 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4550 ?AUTO_4553 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4549 ?AUTO_4548 ) ( VISIBLE ?AUTO_4551 ?AUTO_4553 ) ( AVAILABLE ?AUTO_4549 ) ( CHANNEL_FREE ?AUTO_4550 ) ( CAN_TRAVERSE ?AUTO_4549 ?AUTO_4556 ?AUTO_4551 ) ( AT ?AUTO_4549 ?AUTO_4556 ) ( VISIBLE ?AUTO_4556 ?AUTO_4551 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4549 ?AUTO_4556 ?AUTO_4551 )
+      ( GET_ROCK_DATA ?AUTO_4548 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4548 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4558 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4560 - LANDER
+      ?AUTO_4564 - WAYPOINT
+      ?AUTO_4559 - WAYPOINT
+      ?AUTO_4561 - ROVER
+      ?AUTO_4563 - WAYPOINT
+      ?AUTO_4566 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4560 ?AUTO_4564 ) ( VISIBLE ?AUTO_4559 ?AUTO_4564 ) ( AVAILABLE ?AUTO_4561 ) ( CHANNEL_FREE ?AUTO_4560 ) ( CAN_TRAVERSE ?AUTO_4561 ?AUTO_4563 ?AUTO_4559 ) ( AT ?AUTO_4561 ?AUTO_4563 ) ( VISIBLE ?AUTO_4563 ?AUTO_4559 ) ( AT ?AUTO_4561 ?AUTO_4558 ) ( AT_ROCK_SAMPLE ?AUTO_4558 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4561 ) ( STORE_OF ?AUTO_4566 ?AUTO_4561 ) ( EMPTY ?AUTO_4566 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4561 ?AUTO_4566 ?AUTO_4558 )
+      ( GET_ROCK_DATA ?AUTO_4558 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4558 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4568 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4571 - LANDER
+      ?AUTO_4572 - WAYPOINT
+      ?AUTO_4570 - WAYPOINT
+      ?AUTO_4574 - ROVER
+      ?AUTO_4575 - STORE
+      ?AUTO_4578 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4571 ?AUTO_4572 ) ( VISIBLE ?AUTO_4570 ?AUTO_4572 ) ( AVAILABLE ?AUTO_4574 ) ( CHANNEL_FREE ?AUTO_4571 ) ( CAN_TRAVERSE ?AUTO_4574 ?AUTO_4568 ?AUTO_4570 ) ( VISIBLE ?AUTO_4568 ?AUTO_4570 ) ( AT_ROCK_SAMPLE ?AUTO_4568 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4574 ) ( STORE_OF ?AUTO_4575 ?AUTO_4574 ) ( EMPTY ?AUTO_4575 ) ( CAN_TRAVERSE ?AUTO_4574 ?AUTO_4578 ?AUTO_4568 ) ( AT ?AUTO_4574 ?AUTO_4578 ) ( VISIBLE ?AUTO_4578 ?AUTO_4568 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4574 ?AUTO_4578 ?AUTO_4568 )
+      ( GET_ROCK_DATA ?AUTO_4568 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4568 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4579 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4586 - LANDER
+      ?AUTO_4582 - WAYPOINT
+      ?AUTO_4585 - WAYPOINT
+      ?AUTO_4583 - ROVER
+      ?AUTO_4584 - STORE
+      ?AUTO_4581 - WAYPOINT
+      ?AUTO_4589 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4586 ?AUTO_4582 ) ( VISIBLE ?AUTO_4585 ?AUTO_4582 ) ( AVAILABLE ?AUTO_4583 ) ( CHANNEL_FREE ?AUTO_4586 ) ( CAN_TRAVERSE ?AUTO_4583 ?AUTO_4579 ?AUTO_4585 ) ( VISIBLE ?AUTO_4579 ?AUTO_4585 ) ( AT_ROCK_SAMPLE ?AUTO_4579 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4583 ) ( STORE_OF ?AUTO_4584 ?AUTO_4583 ) ( EMPTY ?AUTO_4584 ) ( CAN_TRAVERSE ?AUTO_4583 ?AUTO_4581 ?AUTO_4579 ) ( VISIBLE ?AUTO_4581 ?AUTO_4579 ) ( CAN_TRAVERSE ?AUTO_4583 ?AUTO_4589 ?AUTO_4581 ) ( AT ?AUTO_4583 ?AUTO_4589 ) ( VISIBLE ?AUTO_4589 ?AUTO_4581 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4583 ?AUTO_4589 ?AUTO_4581 )
+      ( GET_ROCK_DATA ?AUTO_4579 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4579 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4591 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4595 - LANDER
+      ?AUTO_4599 - WAYPOINT
+      ?AUTO_4594 - WAYPOINT
+      ?AUTO_4598 - ROVER
+      ?AUTO_4592 - STORE
+      ?AUTO_4596 - WAYPOINT
+      ?AUTO_4593 - WAYPOINT
+      ?AUTO_4602 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4595 ?AUTO_4599 ) ( VISIBLE ?AUTO_4594 ?AUTO_4599 ) ( AVAILABLE ?AUTO_4598 ) ( CHANNEL_FREE ?AUTO_4595 ) ( CAN_TRAVERSE ?AUTO_4598 ?AUTO_4591 ?AUTO_4594 ) ( VISIBLE ?AUTO_4591 ?AUTO_4594 ) ( AT_ROCK_SAMPLE ?AUTO_4591 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4598 ) ( STORE_OF ?AUTO_4592 ?AUTO_4598 ) ( EMPTY ?AUTO_4592 ) ( CAN_TRAVERSE ?AUTO_4598 ?AUTO_4596 ?AUTO_4591 ) ( VISIBLE ?AUTO_4596 ?AUTO_4591 ) ( CAN_TRAVERSE ?AUTO_4598 ?AUTO_4593 ?AUTO_4596 ) ( VISIBLE ?AUTO_4593 ?AUTO_4596 ) ( CAN_TRAVERSE ?AUTO_4598 ?AUTO_4602 ?AUTO_4593 ) ( AT ?AUTO_4598 ?AUTO_4602 ) ( VISIBLE ?AUTO_4602 ?AUTO_4593 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4598 ?AUTO_4602 ?AUTO_4593 )
+      ( GET_ROCK_DATA ?AUTO_4591 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4591 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4603 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4607 - LANDER
+      ?AUTO_4604 - WAYPOINT
+      ?AUTO_4609 - WAYPOINT
+      ?AUTO_4612 - ROVER
+      ?AUTO_4605 - STORE
+      ?AUTO_4608 - WAYPOINT
+      ?AUTO_4606 - WAYPOINT
+      ?AUTO_4610 - WAYPOINT
+      ?AUTO_4615 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4607 ?AUTO_4604 ) ( VISIBLE ?AUTO_4609 ?AUTO_4604 ) ( AVAILABLE ?AUTO_4612 ) ( CHANNEL_FREE ?AUTO_4607 ) ( CAN_TRAVERSE ?AUTO_4612 ?AUTO_4603 ?AUTO_4609 ) ( VISIBLE ?AUTO_4603 ?AUTO_4609 ) ( AT_ROCK_SAMPLE ?AUTO_4603 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4612 ) ( STORE_OF ?AUTO_4605 ?AUTO_4612 ) ( EMPTY ?AUTO_4605 ) ( CAN_TRAVERSE ?AUTO_4612 ?AUTO_4608 ?AUTO_4603 ) ( VISIBLE ?AUTO_4608 ?AUTO_4603 ) ( CAN_TRAVERSE ?AUTO_4612 ?AUTO_4606 ?AUTO_4608 ) ( VISIBLE ?AUTO_4606 ?AUTO_4608 ) ( CAN_TRAVERSE ?AUTO_4612 ?AUTO_4610 ?AUTO_4606 ) ( VISIBLE ?AUTO_4610 ?AUTO_4606 ) ( CAN_TRAVERSE ?AUTO_4612 ?AUTO_4615 ?AUTO_4610 ) ( AT ?AUTO_4612 ?AUTO_4615 ) ( VISIBLE ?AUTO_4615 ?AUTO_4610 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4612 ?AUTO_4615 ?AUTO_4610 )
+      ( GET_ROCK_DATA ?AUTO_4603 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4603 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4618 - OBJECTIVE
+      ?AUTO_4619 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4620 - ROVER
+      ?AUTO_4623 - WAYPOINT
+      ?AUTO_4622 - LANDER
+      ?AUTO_4621 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4620 ?AUTO_4623 ) ( AT_LANDER ?AUTO_4622 ?AUTO_4621 ) ( HAVE_IMAGE ?AUTO_4620 ?AUTO_4618 ?AUTO_4619 ) ( VISIBLE ?AUTO_4623 ?AUTO_4621 ) ( AVAILABLE ?AUTO_4620 ) ( CHANNEL_FREE ?AUTO_4622 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_4620 ?AUTO_4622 ?AUTO_4618 ?AUTO_4619 ?AUTO_4623 ?AUTO_4621 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4618 ?AUTO_4619 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4630 - OBJECTIVE
+      ?AUTO_4631 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4634 - LANDER
+      ?AUTO_4633 - WAYPOINT
+      ?AUTO_4635 - ROVER
+      ?AUTO_4636 - WAYPOINT
+      ?AUTO_4640 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4634 ?AUTO_4633 ) ( HAVE_IMAGE ?AUTO_4635 ?AUTO_4630 ?AUTO_4631 ) ( VISIBLE ?AUTO_4636 ?AUTO_4633 ) ( AVAILABLE ?AUTO_4635 ) ( CHANNEL_FREE ?AUTO_4634 ) ( CAN_TRAVERSE ?AUTO_4635 ?AUTO_4640 ?AUTO_4636 ) ( AT ?AUTO_4635 ?AUTO_4640 ) ( VISIBLE ?AUTO_4640 ?AUTO_4636 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4635 ?AUTO_4640 ?AUTO_4636 )
+      ( GET_IMAGE_DATA ?AUTO_4630 ?AUTO_4631 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4630 ?AUTO_4631 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4641 - OBJECTIVE
+      ?AUTO_4642 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4646 - LANDER
+      ?AUTO_4645 - WAYPOINT
+      ?AUTO_4647 - WAYPOINT
+      ?AUTO_4648 - ROVER
+      ?AUTO_4649 - WAYPOINT
+      ?AUTO_4654 - CAMERA
+      ?AUTO_4652 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4646 ?AUTO_4645 ) ( VISIBLE ?AUTO_4647 ?AUTO_4645 ) ( AVAILABLE ?AUTO_4648 ) ( CHANNEL_FREE ?AUTO_4646 ) ( CAN_TRAVERSE ?AUTO_4648 ?AUTO_4649 ?AUTO_4647 ) ( AT ?AUTO_4648 ?AUTO_4649 ) ( VISIBLE ?AUTO_4649 ?AUTO_4647 ) ( CALIBRATED ?AUTO_4654 ?AUTO_4648 ) ( ON_BOARD ?AUTO_4654 ?AUTO_4648 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4648 ) ( SUPPORTS ?AUTO_4654 ?AUTO_4642 ) ( VISIBLE_FROM ?AUTO_4641 ?AUTO_4652 ) ( AT ?AUTO_4648 ?AUTO_4652 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_4648 ?AUTO_4652 ?AUTO_4641 ?AUTO_4654 ?AUTO_4642 )
+      ( GET_IMAGE_DATA ?AUTO_4641 ?AUTO_4642 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4641 ?AUTO_4642 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4657 - OBJECTIVE
+      ?AUTO_4658 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4659 - LANDER
+      ?AUTO_4662 - WAYPOINT
+      ?AUTO_4666 - WAYPOINT
+      ?AUTO_4663 - ROVER
+      ?AUTO_4661 - WAYPOINT
+      ?AUTO_4660 - CAMERA
+      ?AUTO_4670 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4659 ?AUTO_4662 ) ( VISIBLE ?AUTO_4666 ?AUTO_4662 ) ( AVAILABLE ?AUTO_4663 ) ( CHANNEL_FREE ?AUTO_4659 ) ( CAN_TRAVERSE ?AUTO_4663 ?AUTO_4661 ?AUTO_4666 ) ( VISIBLE ?AUTO_4661 ?AUTO_4666 ) ( CALIBRATED ?AUTO_4660 ?AUTO_4663 ) ( ON_BOARD ?AUTO_4660 ?AUTO_4663 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4663 ) ( SUPPORTS ?AUTO_4660 ?AUTO_4658 ) ( VISIBLE_FROM ?AUTO_4657 ?AUTO_4661 ) ( CAN_TRAVERSE ?AUTO_4663 ?AUTO_4670 ?AUTO_4661 ) ( AT ?AUTO_4663 ?AUTO_4670 ) ( VISIBLE ?AUTO_4670 ?AUTO_4661 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4663 ?AUTO_4670 ?AUTO_4661 )
+      ( GET_IMAGE_DATA ?AUTO_4657 ?AUTO_4658 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4657 ?AUTO_4658 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4671 - OBJECTIVE
+      ?AUTO_4672 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4680 - LANDER
+      ?AUTO_4677 - WAYPOINT
+      ?AUTO_4679 - WAYPOINT
+      ?AUTO_4675 - ROVER
+      ?AUTO_4678 - WAYPOINT
+      ?AUTO_4676 - CAMERA
+      ?AUTO_4681 - WAYPOINT
+      ?AUTO_4684 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4680 ?AUTO_4677 ) ( VISIBLE ?AUTO_4679 ?AUTO_4677 ) ( AVAILABLE ?AUTO_4675 ) ( CHANNEL_FREE ?AUTO_4680 ) ( CAN_TRAVERSE ?AUTO_4675 ?AUTO_4678 ?AUTO_4679 ) ( VISIBLE ?AUTO_4678 ?AUTO_4679 ) ( CALIBRATED ?AUTO_4676 ?AUTO_4675 ) ( ON_BOARD ?AUTO_4676 ?AUTO_4675 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4675 ) ( SUPPORTS ?AUTO_4676 ?AUTO_4672 ) ( VISIBLE_FROM ?AUTO_4671 ?AUTO_4678 ) ( CAN_TRAVERSE ?AUTO_4675 ?AUTO_4681 ?AUTO_4678 ) ( VISIBLE ?AUTO_4681 ?AUTO_4678 ) ( CAN_TRAVERSE ?AUTO_4675 ?AUTO_4684 ?AUTO_4681 ) ( AT ?AUTO_4675 ?AUTO_4684 ) ( VISIBLE ?AUTO_4684 ?AUTO_4681 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4675 ?AUTO_4684 ?AUTO_4681 )
+      ( GET_IMAGE_DATA ?AUTO_4671 ?AUTO_4672 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4671 ?AUTO_4672 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4685 - OBJECTIVE
+      ?AUTO_4686 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4693 - LANDER
+      ?AUTO_4695 - WAYPOINT
+      ?AUTO_4689 - WAYPOINT
+      ?AUTO_4696 - ROVER
+      ?AUTO_4694 - WAYPOINT
+      ?AUTO_4690 - CAMERA
+      ?AUTO_4687 - WAYPOINT
+      ?AUTO_4691 - WAYPOINT
+      ?AUTO_4700 - OBJECTIVE
+      ?AUTO_4698 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4693 ?AUTO_4695 ) ( VISIBLE ?AUTO_4689 ?AUTO_4695 ) ( AVAILABLE ?AUTO_4696 ) ( CHANNEL_FREE ?AUTO_4693 ) ( CAN_TRAVERSE ?AUTO_4696 ?AUTO_4694 ?AUTO_4689 ) ( VISIBLE ?AUTO_4694 ?AUTO_4689 ) ( ON_BOARD ?AUTO_4690 ?AUTO_4696 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4696 ) ( SUPPORTS ?AUTO_4690 ?AUTO_4686 ) ( VISIBLE_FROM ?AUTO_4685 ?AUTO_4694 ) ( CAN_TRAVERSE ?AUTO_4696 ?AUTO_4687 ?AUTO_4694 ) ( VISIBLE ?AUTO_4687 ?AUTO_4694 ) ( CAN_TRAVERSE ?AUTO_4696 ?AUTO_4691 ?AUTO_4687 ) ( AT ?AUTO_4696 ?AUTO_4691 ) ( VISIBLE ?AUTO_4691 ?AUTO_4687 ) ( CALIBRATION_TARGET ?AUTO_4690 ?AUTO_4700 ) ( AT ?AUTO_4696 ?AUTO_4698 ) ( VISIBLE_FROM ?AUTO_4700 ?AUTO_4698 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_4696 ?AUTO_4690 ?AUTO_4700 ?AUTO_4698 )
+      ( GET_IMAGE_DATA ?AUTO_4685 ?AUTO_4686 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4685 ?AUTO_4686 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4701 - OBJECTIVE
+      ?AUTO_4702 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4703 - LANDER
+      ?AUTO_4705 - WAYPOINT
+      ?AUTO_4712 - WAYPOINT
+      ?AUTO_4709 - ROVER
+      ?AUTO_4708 - WAYPOINT
+      ?AUTO_4711 - CAMERA
+      ?AUTO_4710 - WAYPOINT
+      ?AUTO_4714 - WAYPOINT
+      ?AUTO_4713 - OBJECTIVE
+      ?AUTO_4717 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4703 ?AUTO_4705 ) ( VISIBLE ?AUTO_4712 ?AUTO_4705 ) ( AVAILABLE ?AUTO_4709 ) ( CHANNEL_FREE ?AUTO_4703 ) ( CAN_TRAVERSE ?AUTO_4709 ?AUTO_4708 ?AUTO_4712 ) ( VISIBLE ?AUTO_4708 ?AUTO_4712 ) ( ON_BOARD ?AUTO_4711 ?AUTO_4709 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4709 ) ( SUPPORTS ?AUTO_4711 ?AUTO_4702 ) ( VISIBLE_FROM ?AUTO_4701 ?AUTO_4708 ) ( CAN_TRAVERSE ?AUTO_4709 ?AUTO_4710 ?AUTO_4708 ) ( VISIBLE ?AUTO_4710 ?AUTO_4708 ) ( CAN_TRAVERSE ?AUTO_4709 ?AUTO_4714 ?AUTO_4710 ) ( VISIBLE ?AUTO_4714 ?AUTO_4710 ) ( CALIBRATION_TARGET ?AUTO_4711 ?AUTO_4713 ) ( VISIBLE_FROM ?AUTO_4713 ?AUTO_4714 ) ( CAN_TRAVERSE ?AUTO_4709 ?AUTO_4717 ?AUTO_4714 ) ( AT ?AUTO_4709 ?AUTO_4717 ) ( VISIBLE ?AUTO_4717 ?AUTO_4714 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4709 ?AUTO_4717 ?AUTO_4714 )
+      ( GET_IMAGE_DATA ?AUTO_4701 ?AUTO_4702 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4701 ?AUTO_4702 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4718 - OBJECTIVE
+      ?AUTO_4719 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4724 - LANDER
+      ?AUTO_4729 - WAYPOINT
+      ?AUTO_4726 - WAYPOINT
+      ?AUTO_4728 - ROVER
+      ?AUTO_4730 - WAYPOINT
+      ?AUTO_4723 - CAMERA
+      ?AUTO_4720 - WAYPOINT
+      ?AUTO_4725 - WAYPOINT
+      ?AUTO_4727 - OBJECTIVE
+      ?AUTO_4731 - WAYPOINT
+      ?AUTO_4734 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4724 ?AUTO_4729 ) ( VISIBLE ?AUTO_4726 ?AUTO_4729 ) ( AVAILABLE ?AUTO_4728 ) ( CHANNEL_FREE ?AUTO_4724 ) ( CAN_TRAVERSE ?AUTO_4728 ?AUTO_4730 ?AUTO_4726 ) ( VISIBLE ?AUTO_4730 ?AUTO_4726 ) ( ON_BOARD ?AUTO_4723 ?AUTO_4728 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4728 ) ( SUPPORTS ?AUTO_4723 ?AUTO_4719 ) ( VISIBLE_FROM ?AUTO_4718 ?AUTO_4730 ) ( CAN_TRAVERSE ?AUTO_4728 ?AUTO_4720 ?AUTO_4730 ) ( VISIBLE ?AUTO_4720 ?AUTO_4730 ) ( CAN_TRAVERSE ?AUTO_4728 ?AUTO_4725 ?AUTO_4720 ) ( VISIBLE ?AUTO_4725 ?AUTO_4720 ) ( CALIBRATION_TARGET ?AUTO_4723 ?AUTO_4727 ) ( VISIBLE_FROM ?AUTO_4727 ?AUTO_4725 ) ( CAN_TRAVERSE ?AUTO_4728 ?AUTO_4731 ?AUTO_4725 ) ( VISIBLE ?AUTO_4731 ?AUTO_4725 ) ( CAN_TRAVERSE ?AUTO_4728 ?AUTO_4734 ?AUTO_4731 ) ( AT ?AUTO_4728 ?AUTO_4734 ) ( VISIBLE ?AUTO_4734 ?AUTO_4731 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4728 ?AUTO_4734 ?AUTO_4731 )
+      ( GET_IMAGE_DATA ?AUTO_4718 ?AUTO_4719 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4718 ?AUTO_4719 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4737 - OBJECTIVE
+      ?AUTO_4738 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4739 - ROVER
+      ?AUTO_4742 - WAYPOINT
+      ?AUTO_4741 - LANDER
+      ?AUTO_4740 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4739 ?AUTO_4742 ) ( AT_LANDER ?AUTO_4741 ?AUTO_4740 ) ( HAVE_IMAGE ?AUTO_4739 ?AUTO_4737 ?AUTO_4738 ) ( VISIBLE ?AUTO_4742 ?AUTO_4740 ) ( AVAILABLE ?AUTO_4739 ) ( CHANNEL_FREE ?AUTO_4741 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_4739 ?AUTO_4741 ?AUTO_4737 ?AUTO_4738 ?AUTO_4742 ?AUTO_4740 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4737 ?AUTO_4738 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4745 - OBJECTIVE
+      ?AUTO_4746 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4749 - ROVER
+      ?AUTO_4752 - WAYPOINT
+      ?AUTO_4751 - LANDER
+      ?AUTO_4750 - WAYPOINT
+      ?AUTO_4757 - CAMERA
+      ?AUTO_4755 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4749 ?AUTO_4752 ) ( AT_LANDER ?AUTO_4751 ?AUTO_4750 ) ( VISIBLE ?AUTO_4752 ?AUTO_4750 ) ( AVAILABLE ?AUTO_4749 ) ( CHANNEL_FREE ?AUTO_4751 ) ( CALIBRATED ?AUTO_4757 ?AUTO_4749 ) ( ON_BOARD ?AUTO_4757 ?AUTO_4749 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4749 ) ( SUPPORTS ?AUTO_4757 ?AUTO_4746 ) ( VISIBLE_FROM ?AUTO_4745 ?AUTO_4755 ) ( AT ?AUTO_4749 ?AUTO_4755 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_4749 ?AUTO_4755 ?AUTO_4745 ?AUTO_4757 ?AUTO_4746 )
+      ( GET_IMAGE_DATA ?AUTO_4745 ?AUTO_4746 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4745 ?AUTO_4746 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4762 - OBJECTIVE
+      ?AUTO_4763 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4768 - ROVER
+      ?AUTO_4769 - WAYPOINT
+      ?AUTO_4771 - LANDER
+      ?AUTO_4766 - WAYPOINT
+      ?AUTO_4767 - CAMERA
+      ?AUTO_4765 - WAYPOINT
+      ?AUTO_4775 - OBJECTIVE
+      ?AUTO_4773 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4768 ?AUTO_4769 ) ( AT_LANDER ?AUTO_4771 ?AUTO_4766 ) ( VISIBLE ?AUTO_4769 ?AUTO_4766 ) ( AVAILABLE ?AUTO_4768 ) ( CHANNEL_FREE ?AUTO_4771 ) ( ON_BOARD ?AUTO_4767 ?AUTO_4768 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4768 ) ( SUPPORTS ?AUTO_4767 ?AUTO_4763 ) ( VISIBLE_FROM ?AUTO_4762 ?AUTO_4765 ) ( AT ?AUTO_4768 ?AUTO_4765 ) ( CALIBRATION_TARGET ?AUTO_4767 ?AUTO_4775 ) ( AT ?AUTO_4768 ?AUTO_4773 ) ( VISIBLE_FROM ?AUTO_4775 ?AUTO_4773 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_4768 ?AUTO_4767 ?AUTO_4775 ?AUTO_4773 )
+      ( GET_IMAGE_DATA ?AUTO_4762 ?AUTO_4763 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4762 ?AUTO_4763 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4776 - OBJECTIVE
+      ?AUTO_4777 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4782 - LANDER
+      ?AUTO_4783 - WAYPOINT
+      ?AUTO_4786 - WAYPOINT
+      ?AUTO_4785 - ROVER
+      ?AUTO_4784 - CAMERA
+      ?AUTO_4787 - OBJECTIVE
+      ?AUTO_4790 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4782 ?AUTO_4783 ) ( VISIBLE ?AUTO_4786 ?AUTO_4783 ) ( AVAILABLE ?AUTO_4785 ) ( CHANNEL_FREE ?AUTO_4782 ) ( ON_BOARD ?AUTO_4784 ?AUTO_4785 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4785 ) ( SUPPORTS ?AUTO_4784 ?AUTO_4777 ) ( VISIBLE_FROM ?AUTO_4776 ?AUTO_4786 ) ( CALIBRATION_TARGET ?AUTO_4784 ?AUTO_4787 ) ( VISIBLE_FROM ?AUTO_4787 ?AUTO_4786 ) ( CAN_TRAVERSE ?AUTO_4785 ?AUTO_4790 ?AUTO_4786 ) ( AT ?AUTO_4785 ?AUTO_4790 ) ( VISIBLE ?AUTO_4790 ?AUTO_4786 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4785 ?AUTO_4790 ?AUTO_4786 )
+      ( GET_IMAGE_DATA ?AUTO_4776 ?AUTO_4777 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4776 ?AUTO_4777 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4793 - OBJECTIVE
+      ?AUTO_4794 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4795 - ROVER
+      ?AUTO_4798 - WAYPOINT
+      ?AUTO_4797 - LANDER
+      ?AUTO_4796 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4795 ?AUTO_4798 ) ( AT_LANDER ?AUTO_4797 ?AUTO_4796 ) ( HAVE_IMAGE ?AUTO_4795 ?AUTO_4793 ?AUTO_4794 ) ( VISIBLE ?AUTO_4798 ?AUTO_4796 ) ( AVAILABLE ?AUTO_4795 ) ( CHANNEL_FREE ?AUTO_4797 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_4795 ?AUTO_4797 ?AUTO_4793 ?AUTO_4794 ?AUTO_4798 ?AUTO_4796 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4793 ?AUTO_4794 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4801 - OBJECTIVE
+      ?AUTO_4802 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4803 - ROVER
+      ?AUTO_4806 - WAYPOINT
+      ?AUTO_4805 - LANDER
+      ?AUTO_4804 - WAYPOINT
+      ?AUTO_4813 - CAMERA
+      ?AUTO_4811 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4803 ?AUTO_4806 ) ( AT_LANDER ?AUTO_4805 ?AUTO_4804 ) ( VISIBLE ?AUTO_4806 ?AUTO_4804 ) ( AVAILABLE ?AUTO_4803 ) ( CHANNEL_FREE ?AUTO_4805 ) ( CALIBRATED ?AUTO_4813 ?AUTO_4803 ) ( ON_BOARD ?AUTO_4813 ?AUTO_4803 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4803 ) ( SUPPORTS ?AUTO_4813 ?AUTO_4802 ) ( VISIBLE_FROM ?AUTO_4801 ?AUTO_4811 ) ( AT ?AUTO_4803 ?AUTO_4811 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_4803 ?AUTO_4811 ?AUTO_4801 ?AUTO_4813 ?AUTO_4802 )
+      ( GET_IMAGE_DATA ?AUTO_4801 ?AUTO_4802 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4801 ?AUTO_4802 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4814 - OBJECTIVE
+      ?AUTO_4815 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4816 - ROVER
+      ?AUTO_4820 - WAYPOINT
+      ?AUTO_4819 - LANDER
+      ?AUTO_4823 - WAYPOINT
+      ?AUTO_4822 - CAMERA
+      ?AUTO_4821 - WAYPOINT
+      ?AUTO_4827 - OBJECTIVE
+      ?AUTO_4825 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4816 ?AUTO_4820 ) ( AT_LANDER ?AUTO_4819 ?AUTO_4823 ) ( VISIBLE ?AUTO_4820 ?AUTO_4823 ) ( AVAILABLE ?AUTO_4816 ) ( CHANNEL_FREE ?AUTO_4819 ) ( ON_BOARD ?AUTO_4822 ?AUTO_4816 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4816 ) ( SUPPORTS ?AUTO_4822 ?AUTO_4815 ) ( VISIBLE_FROM ?AUTO_4814 ?AUTO_4821 ) ( AT ?AUTO_4816 ?AUTO_4821 ) ( CALIBRATION_TARGET ?AUTO_4822 ?AUTO_4827 ) ( AT ?AUTO_4816 ?AUTO_4825 ) ( VISIBLE_FROM ?AUTO_4827 ?AUTO_4825 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_4816 ?AUTO_4822 ?AUTO_4827 ?AUTO_4825 )
+      ( GET_IMAGE_DATA ?AUTO_4814 ?AUTO_4815 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4814 ?AUTO_4815 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4828 - OBJECTIVE
+      ?AUTO_4829 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4833 - LANDER
+      ?AUTO_4838 - WAYPOINT
+      ?AUTO_4832 - WAYPOINT
+      ?AUTO_4831 - ROVER
+      ?AUTO_4839 - CAMERA
+      ?AUTO_4835 - OBJECTIVE
+      ?AUTO_4842 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4833 ?AUTO_4838 ) ( VISIBLE ?AUTO_4832 ?AUTO_4838 ) ( AVAILABLE ?AUTO_4831 ) ( CHANNEL_FREE ?AUTO_4833 ) ( ON_BOARD ?AUTO_4839 ?AUTO_4831 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4831 ) ( SUPPORTS ?AUTO_4839 ?AUTO_4829 ) ( VISIBLE_FROM ?AUTO_4828 ?AUTO_4832 ) ( CALIBRATION_TARGET ?AUTO_4839 ?AUTO_4835 ) ( VISIBLE_FROM ?AUTO_4835 ?AUTO_4832 ) ( CAN_TRAVERSE ?AUTO_4831 ?AUTO_4842 ?AUTO_4832 ) ( AT ?AUTO_4831 ?AUTO_4842 ) ( VISIBLE ?AUTO_4842 ?AUTO_4832 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4831 ?AUTO_4842 ?AUTO_4832 )
+      ( GET_IMAGE_DATA ?AUTO_4828 ?AUTO_4829 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4828 ?AUTO_4829 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4845 - OBJECTIVE
+      ?AUTO_4846 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4852 - LANDER
+      ?AUTO_4854 - WAYPOINT
+      ?AUTO_4851 - WAYPOINT
+      ?AUTO_4853 - ROVER
+      ?AUTO_4849 - CAMERA
+      ?AUTO_4850 - OBJECTIVE
+      ?AUTO_4848 - WAYPOINT
+      ?AUTO_4858 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4852 ?AUTO_4854 ) ( VISIBLE ?AUTO_4851 ?AUTO_4854 ) ( AVAILABLE ?AUTO_4853 ) ( CHANNEL_FREE ?AUTO_4852 ) ( ON_BOARD ?AUTO_4849 ?AUTO_4853 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4853 ) ( SUPPORTS ?AUTO_4849 ?AUTO_4846 ) ( VISIBLE_FROM ?AUTO_4845 ?AUTO_4851 ) ( CALIBRATION_TARGET ?AUTO_4849 ?AUTO_4850 ) ( VISIBLE_FROM ?AUTO_4850 ?AUTO_4851 ) ( CAN_TRAVERSE ?AUTO_4853 ?AUTO_4848 ?AUTO_4851 ) ( VISIBLE ?AUTO_4848 ?AUTO_4851 ) ( CAN_TRAVERSE ?AUTO_4853 ?AUTO_4858 ?AUTO_4848 ) ( AT ?AUTO_4853 ?AUTO_4858 ) ( VISIBLE ?AUTO_4858 ?AUTO_4848 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4853 ?AUTO_4858 ?AUTO_4848 )
+      ( GET_IMAGE_DATA ?AUTO_4845 ?AUTO_4846 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4845 ?AUTO_4846 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4859 - OBJECTIVE
+      ?AUTO_4860 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4868 - LANDER
+      ?AUTO_4861 - WAYPOINT
+      ?AUTO_4863 - WAYPOINT
+      ?AUTO_4862 - ROVER
+      ?AUTO_4865 - CAMERA
+      ?AUTO_4869 - OBJECTIVE
+      ?AUTO_4864 - WAYPOINT
+      ?AUTO_4870 - WAYPOINT
+      ?AUTO_4873 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4868 ?AUTO_4861 ) ( VISIBLE ?AUTO_4863 ?AUTO_4861 ) ( AVAILABLE ?AUTO_4862 ) ( CHANNEL_FREE ?AUTO_4868 ) ( ON_BOARD ?AUTO_4865 ?AUTO_4862 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4862 ) ( SUPPORTS ?AUTO_4865 ?AUTO_4860 ) ( VISIBLE_FROM ?AUTO_4859 ?AUTO_4863 ) ( CALIBRATION_TARGET ?AUTO_4865 ?AUTO_4869 ) ( VISIBLE_FROM ?AUTO_4869 ?AUTO_4863 ) ( CAN_TRAVERSE ?AUTO_4862 ?AUTO_4864 ?AUTO_4863 ) ( VISIBLE ?AUTO_4864 ?AUTO_4863 ) ( CAN_TRAVERSE ?AUTO_4862 ?AUTO_4870 ?AUTO_4864 ) ( VISIBLE ?AUTO_4870 ?AUTO_4864 ) ( CAN_TRAVERSE ?AUTO_4862 ?AUTO_4873 ?AUTO_4870 ) ( AT ?AUTO_4862 ?AUTO_4873 ) ( VISIBLE ?AUTO_4873 ?AUTO_4870 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4862 ?AUTO_4873 ?AUTO_4870 )
+      ( GET_IMAGE_DATA ?AUTO_4859 ?AUTO_4860 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4859 ?AUTO_4860 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4874 - OBJECTIVE
+      ?AUTO_4875 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4882 - LANDER
+      ?AUTO_4881 - WAYPOINT
+      ?AUTO_4880 - WAYPOINT
+      ?AUTO_4884 - ROVER
+      ?AUTO_4885 - CAMERA
+      ?AUTO_4883 - OBJECTIVE
+      ?AUTO_4878 - WAYPOINT
+      ?AUTO_4877 - WAYPOINT
+      ?AUTO_4886 - WAYPOINT
+      ?AUTO_4889 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4882 ?AUTO_4881 ) ( VISIBLE ?AUTO_4880 ?AUTO_4881 ) ( AVAILABLE ?AUTO_4884 ) ( CHANNEL_FREE ?AUTO_4882 ) ( ON_BOARD ?AUTO_4885 ?AUTO_4884 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4884 ) ( SUPPORTS ?AUTO_4885 ?AUTO_4875 ) ( VISIBLE_FROM ?AUTO_4874 ?AUTO_4880 ) ( CALIBRATION_TARGET ?AUTO_4885 ?AUTO_4883 ) ( VISIBLE_FROM ?AUTO_4883 ?AUTO_4880 ) ( CAN_TRAVERSE ?AUTO_4884 ?AUTO_4878 ?AUTO_4880 ) ( VISIBLE ?AUTO_4878 ?AUTO_4880 ) ( CAN_TRAVERSE ?AUTO_4884 ?AUTO_4877 ?AUTO_4878 ) ( VISIBLE ?AUTO_4877 ?AUTO_4878 ) ( CAN_TRAVERSE ?AUTO_4884 ?AUTO_4886 ?AUTO_4877 ) ( VISIBLE ?AUTO_4886 ?AUTO_4877 ) ( CAN_TRAVERSE ?AUTO_4884 ?AUTO_4889 ?AUTO_4886 ) ( AT ?AUTO_4884 ?AUTO_4889 ) ( VISIBLE ?AUTO_4889 ?AUTO_4886 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4884 ?AUTO_4889 ?AUTO_4886 )
+      ( GET_IMAGE_DATA ?AUTO_4874 ?AUTO_4875 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4874 ?AUTO_4875 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_4892 - OBJECTIVE
+      ?AUTO_4893 - MODE
+    )
+    :vars
+    (
+      ?AUTO_4903 - LANDER
+      ?AUTO_4898 - WAYPOINT
+      ?AUTO_4899 - WAYPOINT
+      ?AUTO_4900 - ROVER
+      ?AUTO_4905 - CAMERA
+      ?AUTO_4894 - OBJECTIVE
+      ?AUTO_4895 - WAYPOINT
+      ?AUTO_4904 - WAYPOINT
+      ?AUTO_4901 - WAYPOINT
+      ?AUTO_4902 - WAYPOINT
+      ?AUTO_4908 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4903 ?AUTO_4898 ) ( VISIBLE ?AUTO_4899 ?AUTO_4898 ) ( AVAILABLE ?AUTO_4900 ) ( CHANNEL_FREE ?AUTO_4903 ) ( ON_BOARD ?AUTO_4905 ?AUTO_4900 ) ( EQUIPPED_FOR_IMAGING ?AUTO_4900 ) ( SUPPORTS ?AUTO_4905 ?AUTO_4893 ) ( VISIBLE_FROM ?AUTO_4892 ?AUTO_4899 ) ( CALIBRATION_TARGET ?AUTO_4905 ?AUTO_4894 ) ( VISIBLE_FROM ?AUTO_4894 ?AUTO_4899 ) ( CAN_TRAVERSE ?AUTO_4900 ?AUTO_4895 ?AUTO_4899 ) ( VISIBLE ?AUTO_4895 ?AUTO_4899 ) ( CAN_TRAVERSE ?AUTO_4900 ?AUTO_4904 ?AUTO_4895 ) ( VISIBLE ?AUTO_4904 ?AUTO_4895 ) ( CAN_TRAVERSE ?AUTO_4900 ?AUTO_4901 ?AUTO_4904 ) ( VISIBLE ?AUTO_4901 ?AUTO_4904 ) ( CAN_TRAVERSE ?AUTO_4900 ?AUTO_4902 ?AUTO_4901 ) ( VISIBLE ?AUTO_4902 ?AUTO_4901 ) ( CAN_TRAVERSE ?AUTO_4900 ?AUTO_4908 ?AUTO_4902 ) ( AT ?AUTO_4900 ?AUTO_4908 ) ( VISIBLE ?AUTO_4908 ?AUTO_4902 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4900 ?AUTO_4908 ?AUTO_4902 )
+      ( GET_IMAGE_DATA ?AUTO_4892 ?AUTO_4893 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_4892 ?AUTO_4893 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4910 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4911 - ROVER
+      ?AUTO_4914 - WAYPOINT
+      ?AUTO_4913 - LANDER
+      ?AUTO_4912 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4911 ?AUTO_4914 ) ( AT_LANDER ?AUTO_4913 ?AUTO_4912 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4911 ?AUTO_4910 ) ( VISIBLE ?AUTO_4914 ?AUTO_4912 ) ( AVAILABLE ?AUTO_4911 ) ( CHANNEL_FREE ?AUTO_4913 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_4911 ?AUTO_4913 ?AUTO_4910 ?AUTO_4914 ?AUTO_4912 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4910 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4916 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4918 - ROVER
+      ?AUTO_4921 - WAYPOINT
+      ?AUTO_4920 - LANDER
+      ?AUTO_4919 - WAYPOINT
+      ?AUTO_4923 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_4918 ?AUTO_4921 ) ( AT_LANDER ?AUTO_4920 ?AUTO_4919 ) ( VISIBLE ?AUTO_4921 ?AUTO_4919 ) ( AVAILABLE ?AUTO_4918 ) ( CHANNEL_FREE ?AUTO_4920 ) ( AT ?AUTO_4918 ?AUTO_4916 ) ( AT_ROCK_SAMPLE ?AUTO_4916 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4918 ) ( STORE_OF ?AUTO_4923 ?AUTO_4918 ) ( EMPTY ?AUTO_4923 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4918 ?AUTO_4923 ?AUTO_4916 )
+      ( GET_ROCK_DATA ?AUTO_4916 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4916 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4928 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4934 - LANDER
+      ?AUTO_4930 - WAYPOINT
+      ?AUTO_4931 - ROVER
+      ?AUTO_4929 - STORE
+      ?AUTO_4937 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4934 ?AUTO_4930 ) ( VISIBLE ?AUTO_4928 ?AUTO_4930 ) ( AVAILABLE ?AUTO_4931 ) ( CHANNEL_FREE ?AUTO_4934 ) ( AT_ROCK_SAMPLE ?AUTO_4928 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4931 ) ( STORE_OF ?AUTO_4929 ?AUTO_4931 ) ( EMPTY ?AUTO_4929 ) ( CAN_TRAVERSE ?AUTO_4931 ?AUTO_4937 ?AUTO_4928 ) ( AT ?AUTO_4931 ?AUTO_4937 ) ( VISIBLE ?AUTO_4937 ?AUTO_4928 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4931 ?AUTO_4937 ?AUTO_4928 )
+      ( GET_ROCK_DATA ?AUTO_4928 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4928 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4942 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4947 - LANDER
+      ?AUTO_4948 - WAYPOINT
+      ?AUTO_4944 - ROVER
+      ?AUTO_4946 - STORE
+      ?AUTO_4945 - WAYPOINT
+      ?AUTO_4951 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4947 ?AUTO_4948 ) ( VISIBLE ?AUTO_4942 ?AUTO_4948 ) ( AVAILABLE ?AUTO_4944 ) ( CHANNEL_FREE ?AUTO_4947 ) ( AT_ROCK_SAMPLE ?AUTO_4942 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4944 ) ( STORE_OF ?AUTO_4946 ?AUTO_4944 ) ( EMPTY ?AUTO_4946 ) ( CAN_TRAVERSE ?AUTO_4944 ?AUTO_4945 ?AUTO_4942 ) ( VISIBLE ?AUTO_4945 ?AUTO_4942 ) ( CAN_TRAVERSE ?AUTO_4944 ?AUTO_4951 ?AUTO_4945 ) ( AT ?AUTO_4944 ?AUTO_4951 ) ( VISIBLE ?AUTO_4951 ?AUTO_4945 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4944 ?AUTO_4951 ?AUTO_4945 )
+      ( GET_ROCK_DATA ?AUTO_4942 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4942 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4954 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4955 - ROVER
+      ?AUTO_4958 - WAYPOINT
+      ?AUTO_4957 - LANDER
+      ?AUTO_4956 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_4955 ?AUTO_4958 ) ( AT_LANDER ?AUTO_4957 ?AUTO_4956 ) ( HAVE_ROCK_ANALYSIS ?AUTO_4955 ?AUTO_4954 ) ( VISIBLE ?AUTO_4958 ?AUTO_4956 ) ( AVAILABLE ?AUTO_4955 ) ( CHANNEL_FREE ?AUTO_4957 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_4955 ?AUTO_4957 ?AUTO_4954 ?AUTO_4958 ?AUTO_4956 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4954 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4960 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4962 - ROVER
+      ?AUTO_4965 - WAYPOINT
+      ?AUTO_4964 - LANDER
+      ?AUTO_4963 - WAYPOINT
+      ?AUTO_4967 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_4962 ?AUTO_4965 ) ( AT_LANDER ?AUTO_4964 ?AUTO_4963 ) ( VISIBLE ?AUTO_4965 ?AUTO_4963 ) ( AVAILABLE ?AUTO_4962 ) ( CHANNEL_FREE ?AUTO_4964 ) ( AT ?AUTO_4962 ?AUTO_4960 ) ( AT_ROCK_SAMPLE ?AUTO_4960 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4962 ) ( STORE_OF ?AUTO_4967 ?AUTO_4962 ) ( EMPTY ?AUTO_4967 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4962 ?AUTO_4967 ?AUTO_4960 )
+      ( GET_ROCK_DATA ?AUTO_4960 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4960 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4969 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4971 - ROVER
+      ?AUTO_4970 - WAYPOINT
+      ?AUTO_4973 - LANDER
+      ?AUTO_4974 - WAYPOINT
+      ?AUTO_4975 - STORE
+      ?AUTO_4976 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_4971 ?AUTO_4970 ) ( AT_LANDER ?AUTO_4973 ?AUTO_4974 ) ( VISIBLE ?AUTO_4970 ?AUTO_4974 ) ( AVAILABLE ?AUTO_4971 ) ( CHANNEL_FREE ?AUTO_4973 ) ( AT ?AUTO_4971 ?AUTO_4969 ) ( AT_ROCK_SAMPLE ?AUTO_4969 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4971 ) ( STORE_OF ?AUTO_4975 ?AUTO_4971 ) ( STORE_OF ?AUTO_4975 ?AUTO_4976 ) ( FULL ?AUTO_4975 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_4976 ?AUTO_4975 )
+      ( GET_ROCK_DATA ?AUTO_4969 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4969 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4978 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4982 - LANDER
+      ?AUTO_4985 - WAYPOINT
+      ?AUTO_4983 - ROVER
+      ?AUTO_4981 - STORE
+      ?AUTO_4984 - ROVER
+      ?AUTO_4988 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4982 ?AUTO_4985 ) ( VISIBLE ?AUTO_4978 ?AUTO_4985 ) ( AVAILABLE ?AUTO_4983 ) ( CHANNEL_FREE ?AUTO_4982 ) ( AT_ROCK_SAMPLE ?AUTO_4978 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4983 ) ( STORE_OF ?AUTO_4981 ?AUTO_4983 ) ( STORE_OF ?AUTO_4981 ?AUTO_4984 ) ( FULL ?AUTO_4981 ) ( CAN_TRAVERSE ?AUTO_4983 ?AUTO_4988 ?AUTO_4978 ) ( AT ?AUTO_4983 ?AUTO_4988 ) ( VISIBLE ?AUTO_4988 ?AUTO_4978 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_4983 ?AUTO_4988 ?AUTO_4978 )
+      ( GET_ROCK_DATA ?AUTO_4978 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4978 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_4990 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_4997 - LANDER
+      ?AUTO_4995 - WAYPOINT
+      ?AUTO_4993 - ROVER
+      ?AUTO_4992 - STORE
+      ?AUTO_4994 - ROVER
+      ?AUTO_4996 - WAYPOINT
+      ?AUTO_4998 - ROVER
+      ?AUTO_5000 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_4997 ?AUTO_4995 ) ( VISIBLE ?AUTO_4990 ?AUTO_4995 ) ( AVAILABLE ?AUTO_4993 ) ( CHANNEL_FREE ?AUTO_4997 ) ( AT_ROCK_SAMPLE ?AUTO_4990 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4993 ) ( STORE_OF ?AUTO_4992 ?AUTO_4993 ) ( STORE_OF ?AUTO_4992 ?AUTO_4994 ) ( CAN_TRAVERSE ?AUTO_4993 ?AUTO_4996 ?AUTO_4990 ) ( AT ?AUTO_4993 ?AUTO_4996 ) ( VISIBLE ?AUTO_4996 ?AUTO_4990 ) ( AT ?AUTO_4998 ?AUTO_5000 ) ( AT_ROCK_SAMPLE ?AUTO_5000 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_4998 ) ( STORE_OF ?AUTO_4992 ?AUTO_4998 ) ( EMPTY ?AUTO_4992 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_4998 ?AUTO_4992 ?AUTO_5000 )
+      ( GET_ROCK_DATA ?AUTO_4990 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_4990 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5012 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5013 - ROVER
+      ?AUTO_5016 - WAYPOINT
+      ?AUTO_5015 - LANDER
+      ?AUTO_5014 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5013 ?AUTO_5016 ) ( AT_LANDER ?AUTO_5015 ?AUTO_5014 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5013 ?AUTO_5012 ) ( VISIBLE ?AUTO_5016 ?AUTO_5014 ) ( AVAILABLE ?AUTO_5013 ) ( CHANNEL_FREE ?AUTO_5015 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5013 ?AUTO_5015 ?AUTO_5012 ?AUTO_5016 ?AUTO_5014 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5012 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5018 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5022 - LANDER
+      ?AUTO_5021 - WAYPOINT
+      ?AUTO_5020 - ROVER
+      ?AUTO_5023 - WAYPOINT
+      ?AUTO_5026 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5022 ?AUTO_5021 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5020 ?AUTO_5018 ) ( VISIBLE ?AUTO_5023 ?AUTO_5021 ) ( AVAILABLE ?AUTO_5020 ) ( CHANNEL_FREE ?AUTO_5022 ) ( CAN_TRAVERSE ?AUTO_5020 ?AUTO_5026 ?AUTO_5023 ) ( AT ?AUTO_5020 ?AUTO_5026 ) ( VISIBLE ?AUTO_5026 ?AUTO_5023 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5020 ?AUTO_5026 ?AUTO_5023 )
+      ( GET_ROCK_DATA ?AUTO_5018 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5018 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5028 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5031 - LANDER
+      ?AUTO_5032 - WAYPOINT
+      ?AUTO_5034 - WAYPOINT
+      ?AUTO_5030 - ROVER
+      ?AUTO_5033 - WAYPOINT
+      ?AUTO_5036 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5031 ?AUTO_5032 ) ( VISIBLE ?AUTO_5034 ?AUTO_5032 ) ( AVAILABLE ?AUTO_5030 ) ( CHANNEL_FREE ?AUTO_5031 ) ( CAN_TRAVERSE ?AUTO_5030 ?AUTO_5033 ?AUTO_5034 ) ( AT ?AUTO_5030 ?AUTO_5033 ) ( VISIBLE ?AUTO_5033 ?AUTO_5034 ) ( AT ?AUTO_5030 ?AUTO_5028 ) ( AT_ROCK_SAMPLE ?AUTO_5028 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5030 ) ( STORE_OF ?AUTO_5036 ?AUTO_5030 ) ( EMPTY ?AUTO_5036 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5030 ?AUTO_5036 ?AUTO_5028 )
+      ( GET_ROCK_DATA ?AUTO_5028 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5028 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5048 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5053 - LANDER
+      ?AUTO_5052 - WAYPOINT
+      ?AUTO_5051 - WAYPOINT
+      ?AUTO_5050 - ROVER
+      ?AUTO_5049 - STORE
+      ?AUTO_5058 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5053 ?AUTO_5052 ) ( VISIBLE ?AUTO_5051 ?AUTO_5052 ) ( AVAILABLE ?AUTO_5050 ) ( CHANNEL_FREE ?AUTO_5053 ) ( CAN_TRAVERSE ?AUTO_5050 ?AUTO_5048 ?AUTO_5051 ) ( VISIBLE ?AUTO_5048 ?AUTO_5051 ) ( AT_ROCK_SAMPLE ?AUTO_5048 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5050 ) ( STORE_OF ?AUTO_5049 ?AUTO_5050 ) ( EMPTY ?AUTO_5049 ) ( CAN_TRAVERSE ?AUTO_5050 ?AUTO_5058 ?AUTO_5048 ) ( AT ?AUTO_5050 ?AUTO_5058 ) ( VISIBLE ?AUTO_5058 ?AUTO_5048 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5050 ?AUTO_5058 ?AUTO_5048 )
+      ( GET_ROCK_DATA ?AUTO_5048 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5048 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5062 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5069 - LANDER
+      ?AUTO_5066 - WAYPOINT
+      ?AUTO_5067 - WAYPOINT
+      ?AUTO_5064 - ROVER
+      ?AUTO_5065 - STORE
+      ?AUTO_5063 - WAYPOINT
+      ?AUTO_5072 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5069 ?AUTO_5066 ) ( VISIBLE ?AUTO_5067 ?AUTO_5066 ) ( AVAILABLE ?AUTO_5064 ) ( CHANNEL_FREE ?AUTO_5069 ) ( CAN_TRAVERSE ?AUTO_5064 ?AUTO_5062 ?AUTO_5067 ) ( VISIBLE ?AUTO_5062 ?AUTO_5067 ) ( AT_ROCK_SAMPLE ?AUTO_5062 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5064 ) ( STORE_OF ?AUTO_5065 ?AUTO_5064 ) ( EMPTY ?AUTO_5065 ) ( CAN_TRAVERSE ?AUTO_5064 ?AUTO_5063 ?AUTO_5062 ) ( VISIBLE ?AUTO_5063 ?AUTO_5062 ) ( CAN_TRAVERSE ?AUTO_5064 ?AUTO_5072 ?AUTO_5063 ) ( AT ?AUTO_5064 ?AUTO_5072 ) ( VISIBLE ?AUTO_5072 ?AUTO_5063 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5064 ?AUTO_5072 ?AUTO_5063 )
+      ( GET_ROCK_DATA ?AUTO_5062 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5062 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5075 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5076 - ROVER
+      ?AUTO_5079 - WAYPOINT
+      ?AUTO_5078 - LANDER
+      ?AUTO_5077 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5076 ?AUTO_5079 ) ( AT_LANDER ?AUTO_5078 ?AUTO_5077 ) ( HAVE_SOIL_ANALYSIS ?AUTO_5076 ?AUTO_5075 ) ( VISIBLE ?AUTO_5079 ?AUTO_5077 ) ( AVAILABLE ?AUTO_5076 ) ( CHANNEL_FREE ?AUTO_5078 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_5076 ?AUTO_5078 ?AUTO_5075 ?AUTO_5079 ?AUTO_5077 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5075 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5081 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5083 - ROVER
+      ?AUTO_5086 - WAYPOINT
+      ?AUTO_5085 - LANDER
+      ?AUTO_5084 - WAYPOINT
+      ?AUTO_5088 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_5083 ?AUTO_5086 ) ( AT_LANDER ?AUTO_5085 ?AUTO_5084 ) ( VISIBLE ?AUTO_5086 ?AUTO_5084 ) ( AVAILABLE ?AUTO_5083 ) ( CHANNEL_FREE ?AUTO_5085 ) ( AT ?AUTO_5083 ?AUTO_5081 ) ( AT_SOIL_SAMPLE ?AUTO_5081 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5083 ) ( STORE_OF ?AUTO_5088 ?AUTO_5083 ) ( EMPTY ?AUTO_5088 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_5083 ?AUTO_5088 ?AUTO_5081 )
+      ( GET_SOIL_DATA ?AUTO_5081 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5081 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5091 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5092 - LANDER
+      ?AUTO_5093 - WAYPOINT
+      ?AUTO_5094 - ROVER
+      ?AUTO_5097 - STORE
+      ?AUTO_5100 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5092 ?AUTO_5093 ) ( VISIBLE ?AUTO_5091 ?AUTO_5093 ) ( AVAILABLE ?AUTO_5094 ) ( CHANNEL_FREE ?AUTO_5092 ) ( AT_SOIL_SAMPLE ?AUTO_5091 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5094 ) ( STORE_OF ?AUTO_5097 ?AUTO_5094 ) ( EMPTY ?AUTO_5097 ) ( CAN_TRAVERSE ?AUTO_5094 ?AUTO_5100 ?AUTO_5091 ) ( AT ?AUTO_5094 ?AUTO_5100 ) ( VISIBLE ?AUTO_5100 ?AUTO_5091 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5094 ?AUTO_5100 ?AUTO_5091 )
+      ( GET_SOIL_DATA ?AUTO_5091 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5091 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5101 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5103 - LANDER
+      ?AUTO_5106 - WAYPOINT
+      ?AUTO_5105 - ROVER
+      ?AUTO_5104 - STORE
+      ?AUTO_5107 - WAYPOINT
+      ?AUTO_5108 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5103 ?AUTO_5106 ) ( VISIBLE ?AUTO_5101 ?AUTO_5106 ) ( AVAILABLE ?AUTO_5105 ) ( CHANNEL_FREE ?AUTO_5103 ) ( AT_SOIL_SAMPLE ?AUTO_5101 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5105 ) ( STORE_OF ?AUTO_5104 ?AUTO_5105 ) ( CAN_TRAVERSE ?AUTO_5105 ?AUTO_5107 ?AUTO_5101 ) ( AT ?AUTO_5105 ?AUTO_5107 ) ( VISIBLE ?AUTO_5107 ?AUTO_5101 ) ( STORE_OF ?AUTO_5104 ?AUTO_5108 ) ( FULL ?AUTO_5104 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_5108 ?AUTO_5104 )
+      ( GET_SOIL_DATA ?AUTO_5101 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5101 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5125 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5130 - LANDER
+      ?AUTO_5131 - WAYPOINT
+      ?AUTO_5127 - ROVER
+      ?AUTO_5128 - STORE
+      ?AUTO_5129 - WAYPOINT
+      ?AUTO_5134 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5130 ?AUTO_5131 ) ( VISIBLE ?AUTO_5125 ?AUTO_5131 ) ( AVAILABLE ?AUTO_5127 ) ( CHANNEL_FREE ?AUTO_5130 ) ( AT_SOIL_SAMPLE ?AUTO_5125 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5127 ) ( STORE_OF ?AUTO_5128 ?AUTO_5127 ) ( EMPTY ?AUTO_5128 ) ( CAN_TRAVERSE ?AUTO_5127 ?AUTO_5129 ?AUTO_5125 ) ( VISIBLE ?AUTO_5129 ?AUTO_5125 ) ( CAN_TRAVERSE ?AUTO_5127 ?AUTO_5134 ?AUTO_5129 ) ( AT ?AUTO_5127 ?AUTO_5134 ) ( VISIBLE ?AUTO_5134 ?AUTO_5129 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5127 ?AUTO_5134 ?AUTO_5129 )
+      ( GET_SOIL_DATA ?AUTO_5125 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5125 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5136 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5137 - ROVER
+      ?AUTO_5140 - WAYPOINT
+      ?AUTO_5139 - LANDER
+      ?AUTO_5138 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5137 ?AUTO_5140 ) ( AT_LANDER ?AUTO_5139 ?AUTO_5138 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5137 ?AUTO_5136 ) ( VISIBLE ?AUTO_5140 ?AUTO_5138 ) ( AVAILABLE ?AUTO_5137 ) ( CHANNEL_FREE ?AUTO_5139 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5137 ?AUTO_5139 ?AUTO_5136 ?AUTO_5140 ?AUTO_5138 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5136 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5142 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5146 - LANDER
+      ?AUTO_5145 - WAYPOINT
+      ?AUTO_5144 - ROVER
+      ?AUTO_5147 - WAYPOINT
+      ?AUTO_5150 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5146 ?AUTO_5145 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5144 ?AUTO_5142 ) ( VISIBLE ?AUTO_5147 ?AUTO_5145 ) ( AVAILABLE ?AUTO_5144 ) ( CHANNEL_FREE ?AUTO_5146 ) ( CAN_TRAVERSE ?AUTO_5144 ?AUTO_5150 ?AUTO_5147 ) ( AT ?AUTO_5144 ?AUTO_5150 ) ( VISIBLE ?AUTO_5150 ?AUTO_5147 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5144 ?AUTO_5150 ?AUTO_5147 )
+      ( GET_ROCK_DATA ?AUTO_5142 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5142 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5151 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5156 - LANDER
+      ?AUTO_5152 - WAYPOINT
+      ?AUTO_5153 - ROVER
+      ?AUTO_5155 - WAYPOINT
+      ?AUTO_5157 - WAYPOINT
+      ?AUTO_5160 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5156 ?AUTO_5152 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5153 ?AUTO_5151 ) ( VISIBLE ?AUTO_5155 ?AUTO_5152 ) ( AVAILABLE ?AUTO_5153 ) ( CHANNEL_FREE ?AUTO_5156 ) ( CAN_TRAVERSE ?AUTO_5153 ?AUTO_5157 ?AUTO_5155 ) ( VISIBLE ?AUTO_5157 ?AUTO_5155 ) ( CAN_TRAVERSE ?AUTO_5153 ?AUTO_5160 ?AUTO_5157 ) ( AT ?AUTO_5153 ?AUTO_5160 ) ( VISIBLE ?AUTO_5160 ?AUTO_5157 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5153 ?AUTO_5160 ?AUTO_5157 )
+      ( GET_ROCK_DATA ?AUTO_5151 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5151 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5161 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5165 - LANDER
+      ?AUTO_5167 - WAYPOINT
+      ?AUTO_5168 - WAYPOINT
+      ?AUTO_5163 - ROVER
+      ?AUTO_5166 - WAYPOINT
+      ?AUTO_5164 - WAYPOINT
+      ?AUTO_5170 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5165 ?AUTO_5167 ) ( VISIBLE ?AUTO_5168 ?AUTO_5167 ) ( AVAILABLE ?AUTO_5163 ) ( CHANNEL_FREE ?AUTO_5165 ) ( CAN_TRAVERSE ?AUTO_5163 ?AUTO_5166 ?AUTO_5168 ) ( VISIBLE ?AUTO_5166 ?AUTO_5168 ) ( CAN_TRAVERSE ?AUTO_5163 ?AUTO_5164 ?AUTO_5166 ) ( AT ?AUTO_5163 ?AUTO_5164 ) ( VISIBLE ?AUTO_5164 ?AUTO_5166 ) ( AT ?AUTO_5163 ?AUTO_5161 ) ( AT_ROCK_SAMPLE ?AUTO_5161 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5163 ) ( STORE_OF ?AUTO_5170 ?AUTO_5163 ) ( EMPTY ?AUTO_5170 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5163 ?AUTO_5170 ?AUTO_5161 )
+      ( GET_ROCK_DATA ?AUTO_5161 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5161 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5172 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5176 - LANDER
+      ?AUTO_5178 - WAYPOINT
+      ?AUTO_5174 - WAYPOINT
+      ?AUTO_5175 - ROVER
+      ?AUTO_5179 - WAYPOINT
+      ?AUTO_5177 - STORE
+      ?AUTO_5183 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5176 ?AUTO_5178 ) ( VISIBLE ?AUTO_5174 ?AUTO_5178 ) ( AVAILABLE ?AUTO_5175 ) ( CHANNEL_FREE ?AUTO_5176 ) ( CAN_TRAVERSE ?AUTO_5175 ?AUTO_5179 ?AUTO_5174 ) ( VISIBLE ?AUTO_5179 ?AUTO_5174 ) ( CAN_TRAVERSE ?AUTO_5175 ?AUTO_5172 ?AUTO_5179 ) ( VISIBLE ?AUTO_5172 ?AUTO_5179 ) ( AT_ROCK_SAMPLE ?AUTO_5172 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5175 ) ( STORE_OF ?AUTO_5177 ?AUTO_5175 ) ( EMPTY ?AUTO_5177 ) ( CAN_TRAVERSE ?AUTO_5175 ?AUTO_5183 ?AUTO_5172 ) ( AT ?AUTO_5175 ?AUTO_5183 ) ( VISIBLE ?AUTO_5183 ?AUTO_5172 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5175 ?AUTO_5183 ?AUTO_5172 )
+      ( GET_ROCK_DATA ?AUTO_5172 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5172 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5188 - OBJECTIVE
+      ?AUTO_5189 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5190 - ROVER
+      ?AUTO_5193 - WAYPOINT
+      ?AUTO_5192 - LANDER
+      ?AUTO_5191 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5190 ?AUTO_5193 ) ( AT_LANDER ?AUTO_5192 ?AUTO_5191 ) ( HAVE_IMAGE ?AUTO_5190 ?AUTO_5188 ?AUTO_5189 ) ( VISIBLE ?AUTO_5193 ?AUTO_5191 ) ( AVAILABLE ?AUTO_5190 ) ( CHANNEL_FREE ?AUTO_5192 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_5190 ?AUTO_5192 ?AUTO_5188 ?AUTO_5189 ?AUTO_5193 ?AUTO_5191 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5188 ?AUTO_5189 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5196 - OBJECTIVE
+      ?AUTO_5197 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5202 - LANDER
+      ?AUTO_5201 - WAYPOINT
+      ?AUTO_5200 - ROVER
+      ?AUTO_5203 - WAYPOINT
+      ?AUTO_5206 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5202 ?AUTO_5201 ) ( HAVE_IMAGE ?AUTO_5200 ?AUTO_5196 ?AUTO_5197 ) ( VISIBLE ?AUTO_5203 ?AUTO_5201 ) ( AVAILABLE ?AUTO_5200 ) ( CHANNEL_FREE ?AUTO_5202 ) ( CAN_TRAVERSE ?AUTO_5200 ?AUTO_5206 ?AUTO_5203 ) ( AT ?AUTO_5200 ?AUTO_5206 ) ( VISIBLE ?AUTO_5206 ?AUTO_5203 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5200 ?AUTO_5206 ?AUTO_5203 )
+      ( GET_IMAGE_DATA ?AUTO_5196 ?AUTO_5197 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5196 ?AUTO_5197 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5207 - OBJECTIVE
+      ?AUTO_5208 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5213 - LANDER
+      ?AUTO_5212 - WAYPOINT
+      ?AUTO_5214 - ROVER
+      ?AUTO_5209 - WAYPOINT
+      ?AUTO_5215 - WAYPOINT
+      ?AUTO_5218 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5213 ?AUTO_5212 ) ( HAVE_IMAGE ?AUTO_5214 ?AUTO_5207 ?AUTO_5208 ) ( VISIBLE ?AUTO_5209 ?AUTO_5212 ) ( AVAILABLE ?AUTO_5214 ) ( CHANNEL_FREE ?AUTO_5213 ) ( CAN_TRAVERSE ?AUTO_5214 ?AUTO_5215 ?AUTO_5209 ) ( VISIBLE ?AUTO_5215 ?AUTO_5209 ) ( CAN_TRAVERSE ?AUTO_5214 ?AUTO_5218 ?AUTO_5215 ) ( AT ?AUTO_5214 ?AUTO_5218 ) ( VISIBLE ?AUTO_5218 ?AUTO_5215 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5214 ?AUTO_5218 ?AUTO_5215 )
+      ( GET_IMAGE_DATA ?AUTO_5207 ?AUTO_5208 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5207 ?AUTO_5208 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5219 - OBJECTIVE
+      ?AUTO_5220 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5221 - LANDER
+      ?AUTO_5227 - WAYPOINT
+      ?AUTO_5226 - WAYPOINT
+      ?AUTO_5225 - ROVER
+      ?AUTO_5228 - WAYPOINT
+      ?AUTO_5223 - WAYPOINT
+      ?AUTO_5233 - CAMERA
+      ?AUTO_5231 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5221 ?AUTO_5227 ) ( VISIBLE ?AUTO_5226 ?AUTO_5227 ) ( AVAILABLE ?AUTO_5225 ) ( CHANNEL_FREE ?AUTO_5221 ) ( CAN_TRAVERSE ?AUTO_5225 ?AUTO_5228 ?AUTO_5226 ) ( VISIBLE ?AUTO_5228 ?AUTO_5226 ) ( CAN_TRAVERSE ?AUTO_5225 ?AUTO_5223 ?AUTO_5228 ) ( AT ?AUTO_5225 ?AUTO_5223 ) ( VISIBLE ?AUTO_5223 ?AUTO_5228 ) ( CALIBRATED ?AUTO_5233 ?AUTO_5225 ) ( ON_BOARD ?AUTO_5233 ?AUTO_5225 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5225 ) ( SUPPORTS ?AUTO_5233 ?AUTO_5220 ) ( VISIBLE_FROM ?AUTO_5219 ?AUTO_5231 ) ( AT ?AUTO_5225 ?AUTO_5231 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5225 ?AUTO_5231 ?AUTO_5219 ?AUTO_5233 ?AUTO_5220 )
+      ( GET_IMAGE_DATA ?AUTO_5219 ?AUTO_5220 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5219 ?AUTO_5220 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5234 - OBJECTIVE
+      ?AUTO_5235 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5238 - LANDER
+      ?AUTO_5241 - WAYPOINT
+      ?AUTO_5237 - WAYPOINT
+      ?AUTO_5239 - ROVER
+      ?AUTO_5240 - WAYPOINT
+      ?AUTO_5244 - WAYPOINT
+      ?AUTO_5245 - CAMERA
+      ?AUTO_5248 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5238 ?AUTO_5241 ) ( VISIBLE ?AUTO_5237 ?AUTO_5241 ) ( AVAILABLE ?AUTO_5239 ) ( CHANNEL_FREE ?AUTO_5238 ) ( CAN_TRAVERSE ?AUTO_5239 ?AUTO_5240 ?AUTO_5237 ) ( VISIBLE ?AUTO_5240 ?AUTO_5237 ) ( CAN_TRAVERSE ?AUTO_5239 ?AUTO_5244 ?AUTO_5240 ) ( VISIBLE ?AUTO_5244 ?AUTO_5240 ) ( CALIBRATED ?AUTO_5245 ?AUTO_5239 ) ( ON_BOARD ?AUTO_5245 ?AUTO_5239 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5239 ) ( SUPPORTS ?AUTO_5245 ?AUTO_5235 ) ( VISIBLE_FROM ?AUTO_5234 ?AUTO_5244 ) ( CAN_TRAVERSE ?AUTO_5239 ?AUTO_5248 ?AUTO_5244 ) ( AT ?AUTO_5239 ?AUTO_5248 ) ( VISIBLE ?AUTO_5248 ?AUTO_5244 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5239 ?AUTO_5248 ?AUTO_5244 )
+      ( GET_IMAGE_DATA ?AUTO_5234 ?AUTO_5235 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5234 ?AUTO_5235 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5261 - OBJECTIVE
+      ?AUTO_5262 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5266 - LANDER
+      ?AUTO_5265 - WAYPOINT
+      ?AUTO_5269 - WAYPOINT
+      ?AUTO_5270 - ROVER
+      ?AUTO_5263 - WAYPOINT
+      ?AUTO_5268 - WAYPOINT
+      ?AUTO_5267 - CAMERA
+      ?AUTO_5272 - WAYPOINT
+      ?AUTO_5276 - OBJECTIVE
+      ?AUTO_5274 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5266 ?AUTO_5265 ) ( VISIBLE ?AUTO_5269 ?AUTO_5265 ) ( AVAILABLE ?AUTO_5270 ) ( CHANNEL_FREE ?AUTO_5266 ) ( CAN_TRAVERSE ?AUTO_5270 ?AUTO_5263 ?AUTO_5269 ) ( VISIBLE ?AUTO_5263 ?AUTO_5269 ) ( CAN_TRAVERSE ?AUTO_5270 ?AUTO_5268 ?AUTO_5263 ) ( VISIBLE ?AUTO_5268 ?AUTO_5263 ) ( ON_BOARD ?AUTO_5267 ?AUTO_5270 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5270 ) ( SUPPORTS ?AUTO_5267 ?AUTO_5262 ) ( VISIBLE_FROM ?AUTO_5261 ?AUTO_5268 ) ( CAN_TRAVERSE ?AUTO_5270 ?AUTO_5272 ?AUTO_5268 ) ( AT ?AUTO_5270 ?AUTO_5272 ) ( VISIBLE ?AUTO_5272 ?AUTO_5268 ) ( CALIBRATION_TARGET ?AUTO_5267 ?AUTO_5276 ) ( AT ?AUTO_5270 ?AUTO_5274 ) ( VISIBLE_FROM ?AUTO_5276 ?AUTO_5274 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_5270 ?AUTO_5267 ?AUTO_5276 ?AUTO_5274 )
+      ( GET_IMAGE_DATA ?AUTO_5261 ?AUTO_5262 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5261 ?AUTO_5262 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5278 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5279 - ROVER
+      ?AUTO_5282 - WAYPOINT
+      ?AUTO_5281 - LANDER
+      ?AUTO_5280 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5279 ?AUTO_5282 ) ( AT_LANDER ?AUTO_5281 ?AUTO_5280 ) ( HAVE_SOIL_ANALYSIS ?AUTO_5279 ?AUTO_5278 ) ( VISIBLE ?AUTO_5282 ?AUTO_5280 ) ( AVAILABLE ?AUTO_5279 ) ( CHANNEL_FREE ?AUTO_5281 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_5279 ?AUTO_5281 ?AUTO_5278 ?AUTO_5282 ?AUTO_5280 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5278 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5284 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5288 - LANDER
+      ?AUTO_5287 - WAYPOINT
+      ?AUTO_5286 - ROVER
+      ?AUTO_5289 - WAYPOINT
+      ?AUTO_5292 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5288 ?AUTO_5287 ) ( HAVE_SOIL_ANALYSIS ?AUTO_5286 ?AUTO_5284 ) ( VISIBLE ?AUTO_5289 ?AUTO_5287 ) ( AVAILABLE ?AUTO_5286 ) ( CHANNEL_FREE ?AUTO_5288 ) ( CAN_TRAVERSE ?AUTO_5286 ?AUTO_5292 ?AUTO_5289 ) ( AT ?AUTO_5286 ?AUTO_5292 ) ( VISIBLE ?AUTO_5292 ?AUTO_5289 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5286 ?AUTO_5292 ?AUTO_5289 )
+      ( GET_SOIL_DATA ?AUTO_5284 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5284 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5293 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5298 - LANDER
+      ?AUTO_5294 - WAYPOINT
+      ?AUTO_5297 - WAYPOINT
+      ?AUTO_5295 - ROVER
+      ?AUTO_5299 - WAYPOINT
+      ?AUTO_5301 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5298 ?AUTO_5294 ) ( VISIBLE ?AUTO_5297 ?AUTO_5294 ) ( AVAILABLE ?AUTO_5295 ) ( CHANNEL_FREE ?AUTO_5298 ) ( CAN_TRAVERSE ?AUTO_5295 ?AUTO_5299 ?AUTO_5297 ) ( AT ?AUTO_5295 ?AUTO_5299 ) ( VISIBLE ?AUTO_5299 ?AUTO_5297 ) ( AT ?AUTO_5295 ?AUTO_5293 ) ( AT_SOIL_SAMPLE ?AUTO_5293 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5295 ) ( STORE_OF ?AUTO_5301 ?AUTO_5295 ) ( EMPTY ?AUTO_5301 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_5295 ?AUTO_5301 ?AUTO_5293 )
+      ( GET_SOIL_DATA ?AUTO_5293 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5293 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5303 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5308 - LANDER
+      ?AUTO_5310 - WAYPOINT
+      ?AUTO_5305 - WAYPOINT
+      ?AUTO_5306 - ROVER
+      ?AUTO_5307 - STORE
+      ?AUTO_5313 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5308 ?AUTO_5310 ) ( VISIBLE ?AUTO_5305 ?AUTO_5310 ) ( AVAILABLE ?AUTO_5306 ) ( CHANNEL_FREE ?AUTO_5308 ) ( CAN_TRAVERSE ?AUTO_5306 ?AUTO_5303 ?AUTO_5305 ) ( VISIBLE ?AUTO_5303 ?AUTO_5305 ) ( AT_SOIL_SAMPLE ?AUTO_5303 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5306 ) ( STORE_OF ?AUTO_5307 ?AUTO_5306 ) ( EMPTY ?AUTO_5307 ) ( CAN_TRAVERSE ?AUTO_5306 ?AUTO_5313 ?AUTO_5303 ) ( AT ?AUTO_5306 ?AUTO_5313 ) ( VISIBLE ?AUTO_5313 ?AUTO_5303 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5306 ?AUTO_5313 ?AUTO_5303 )
+      ( GET_SOIL_DATA ?AUTO_5303 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5303 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5315 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5318 - LANDER
+      ?AUTO_5321 - WAYPOINT
+      ?AUTO_5316 - WAYPOINT
+      ?AUTO_5320 - ROVER
+      ?AUTO_5319 - STORE
+      ?AUTO_5317 - WAYPOINT
+      ?AUTO_5325 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5318 ?AUTO_5321 ) ( VISIBLE ?AUTO_5316 ?AUTO_5321 ) ( AVAILABLE ?AUTO_5320 ) ( CHANNEL_FREE ?AUTO_5318 ) ( CAN_TRAVERSE ?AUTO_5320 ?AUTO_5315 ?AUTO_5316 ) ( VISIBLE ?AUTO_5315 ?AUTO_5316 ) ( AT_SOIL_SAMPLE ?AUTO_5315 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5320 ) ( STORE_OF ?AUTO_5319 ?AUTO_5320 ) ( EMPTY ?AUTO_5319 ) ( CAN_TRAVERSE ?AUTO_5320 ?AUTO_5317 ?AUTO_5315 ) ( VISIBLE ?AUTO_5317 ?AUTO_5315 ) ( CAN_TRAVERSE ?AUTO_5320 ?AUTO_5325 ?AUTO_5317 ) ( AT ?AUTO_5320 ?AUTO_5325 ) ( VISIBLE ?AUTO_5325 ?AUTO_5317 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5320 ?AUTO_5325 ?AUTO_5317 )
+      ( GET_SOIL_DATA ?AUTO_5315 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5315 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_5326 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5329 - LANDER
+      ?AUTO_5328 - WAYPOINT
+      ?AUTO_5333 - WAYPOINT
+      ?AUTO_5331 - ROVER
+      ?AUTO_5330 - STORE
+      ?AUTO_5327 - WAYPOINT
+      ?AUTO_5334 - WAYPOINT
+      ?AUTO_5337 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5329 ?AUTO_5328 ) ( VISIBLE ?AUTO_5333 ?AUTO_5328 ) ( AVAILABLE ?AUTO_5331 ) ( CHANNEL_FREE ?AUTO_5329 ) ( CAN_TRAVERSE ?AUTO_5331 ?AUTO_5326 ?AUTO_5333 ) ( VISIBLE ?AUTO_5326 ?AUTO_5333 ) ( AT_SOIL_SAMPLE ?AUTO_5326 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_5331 ) ( STORE_OF ?AUTO_5330 ?AUTO_5331 ) ( EMPTY ?AUTO_5330 ) ( CAN_TRAVERSE ?AUTO_5331 ?AUTO_5327 ?AUTO_5326 ) ( VISIBLE ?AUTO_5327 ?AUTO_5326 ) ( CAN_TRAVERSE ?AUTO_5331 ?AUTO_5334 ?AUTO_5327 ) ( VISIBLE ?AUTO_5334 ?AUTO_5327 ) ( CAN_TRAVERSE ?AUTO_5331 ?AUTO_5337 ?AUTO_5334 ) ( AT ?AUTO_5331 ?AUTO_5337 ) ( VISIBLE ?AUTO_5337 ?AUTO_5334 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5331 ?AUTO_5337 ?AUTO_5334 )
+      ( GET_SOIL_DATA ?AUTO_5326 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_5326 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5340 - OBJECTIVE
+      ?AUTO_5341 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5342 - ROVER
+      ?AUTO_5345 - WAYPOINT
+      ?AUTO_5344 - LANDER
+      ?AUTO_5343 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5342 ?AUTO_5345 ) ( AT_LANDER ?AUTO_5344 ?AUTO_5343 ) ( HAVE_IMAGE ?AUTO_5342 ?AUTO_5340 ?AUTO_5341 ) ( VISIBLE ?AUTO_5345 ?AUTO_5343 ) ( AVAILABLE ?AUTO_5342 ) ( CHANNEL_FREE ?AUTO_5344 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_5342 ?AUTO_5344 ?AUTO_5340 ?AUTO_5341 ?AUTO_5345 ?AUTO_5343 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5340 ?AUTO_5341 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5348 - OBJECTIVE
+      ?AUTO_5349 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5352 - ROVER
+      ?AUTO_5355 - WAYPOINT
+      ?AUTO_5354 - LANDER
+      ?AUTO_5353 - WAYPOINT
+      ?AUTO_5360 - CAMERA
+      ?AUTO_5358 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5352 ?AUTO_5355 ) ( AT_LANDER ?AUTO_5354 ?AUTO_5353 ) ( VISIBLE ?AUTO_5355 ?AUTO_5353 ) ( AVAILABLE ?AUTO_5352 ) ( CHANNEL_FREE ?AUTO_5354 ) ( CALIBRATED ?AUTO_5360 ?AUTO_5352 ) ( ON_BOARD ?AUTO_5360 ?AUTO_5352 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5352 ) ( SUPPORTS ?AUTO_5360 ?AUTO_5349 ) ( VISIBLE_FROM ?AUTO_5348 ?AUTO_5358 ) ( AT ?AUTO_5352 ?AUTO_5358 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5352 ?AUTO_5358 ?AUTO_5348 ?AUTO_5360 ?AUTO_5349 )
+      ( GET_IMAGE_DATA ?AUTO_5348 ?AUTO_5349 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5348 ?AUTO_5349 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5361 - OBJECTIVE
+      ?AUTO_5362 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5368 - LANDER
+      ?AUTO_5367 - WAYPOINT
+      ?AUTO_5369 - WAYPOINT
+      ?AUTO_5366 - ROVER
+      ?AUTO_5370 - CAMERA
+      ?AUTO_5373 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5368 ?AUTO_5367 ) ( VISIBLE ?AUTO_5369 ?AUTO_5367 ) ( AVAILABLE ?AUTO_5366 ) ( CHANNEL_FREE ?AUTO_5368 ) ( CALIBRATED ?AUTO_5370 ?AUTO_5366 ) ( ON_BOARD ?AUTO_5370 ?AUTO_5366 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5366 ) ( SUPPORTS ?AUTO_5370 ?AUTO_5362 ) ( VISIBLE_FROM ?AUTO_5361 ?AUTO_5369 ) ( CAN_TRAVERSE ?AUTO_5366 ?AUTO_5373 ?AUTO_5369 ) ( AT ?AUTO_5366 ?AUTO_5373 ) ( VISIBLE ?AUTO_5373 ?AUTO_5369 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5366 ?AUTO_5373 ?AUTO_5369 )
+      ( GET_IMAGE_DATA ?AUTO_5361 ?AUTO_5362 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5361 ?AUTO_5362 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5374 - OBJECTIVE
+      ?AUTO_5375 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5379 - LANDER
+      ?AUTO_5382 - WAYPOINT
+      ?AUTO_5378 - WAYPOINT
+      ?AUTO_5380 - ROVER
+      ?AUTO_5381 - CAMERA
+      ?AUTO_5383 - WAYPOINT
+      ?AUTO_5386 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5379 ?AUTO_5382 ) ( VISIBLE ?AUTO_5378 ?AUTO_5382 ) ( AVAILABLE ?AUTO_5380 ) ( CHANNEL_FREE ?AUTO_5379 ) ( CALIBRATED ?AUTO_5381 ?AUTO_5380 ) ( ON_BOARD ?AUTO_5381 ?AUTO_5380 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5380 ) ( SUPPORTS ?AUTO_5381 ?AUTO_5375 ) ( VISIBLE_FROM ?AUTO_5374 ?AUTO_5378 ) ( CAN_TRAVERSE ?AUTO_5380 ?AUTO_5383 ?AUTO_5378 ) ( VISIBLE ?AUTO_5383 ?AUTO_5378 ) ( CAN_TRAVERSE ?AUTO_5380 ?AUTO_5386 ?AUTO_5383 ) ( AT ?AUTO_5380 ?AUTO_5386 ) ( VISIBLE ?AUTO_5386 ?AUTO_5383 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5380 ?AUTO_5386 ?AUTO_5383 )
+      ( GET_IMAGE_DATA ?AUTO_5374 ?AUTO_5375 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5374 ?AUTO_5375 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5389 - OBJECTIVE
+      ?AUTO_5390 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5397 - LANDER
+      ?AUTO_5395 - WAYPOINT
+      ?AUTO_5398 - WAYPOINT
+      ?AUTO_5396 - ROVER
+      ?AUTO_5392 - CAMERA
+      ?AUTO_5399 - WAYPOINT
+      ?AUTO_5394 - WAYPOINT
+      ?AUTO_5403 - OBJECTIVE
+      ?AUTO_5401 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5397 ?AUTO_5395 ) ( VISIBLE ?AUTO_5398 ?AUTO_5395 ) ( AVAILABLE ?AUTO_5396 ) ( CHANNEL_FREE ?AUTO_5397 ) ( ON_BOARD ?AUTO_5392 ?AUTO_5396 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5396 ) ( SUPPORTS ?AUTO_5392 ?AUTO_5390 ) ( VISIBLE_FROM ?AUTO_5389 ?AUTO_5398 ) ( CAN_TRAVERSE ?AUTO_5396 ?AUTO_5399 ?AUTO_5398 ) ( VISIBLE ?AUTO_5399 ?AUTO_5398 ) ( CAN_TRAVERSE ?AUTO_5396 ?AUTO_5394 ?AUTO_5399 ) ( AT ?AUTO_5396 ?AUTO_5394 ) ( VISIBLE ?AUTO_5394 ?AUTO_5399 ) ( CALIBRATION_TARGET ?AUTO_5392 ?AUTO_5403 ) ( AT ?AUTO_5396 ?AUTO_5401 ) ( VISIBLE_FROM ?AUTO_5403 ?AUTO_5401 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_5396 ?AUTO_5392 ?AUTO_5403 ?AUTO_5401 )
+      ( GET_IMAGE_DATA ?AUTO_5389 ?AUTO_5390 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5389 ?AUTO_5390 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5405 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5406 - ROVER
+      ?AUTO_5409 - WAYPOINT
+      ?AUTO_5408 - LANDER
+      ?AUTO_5407 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5406 ?AUTO_5409 ) ( AT_LANDER ?AUTO_5408 ?AUTO_5407 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5406 ?AUTO_5405 ) ( VISIBLE ?AUTO_5409 ?AUTO_5407 ) ( AVAILABLE ?AUTO_5406 ) ( CHANNEL_FREE ?AUTO_5408 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5406 ?AUTO_5408 ?AUTO_5405 ?AUTO_5409 ?AUTO_5407 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5405 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5411 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5412 - ROVER
+      ?AUTO_5416 - WAYPOINT
+      ?AUTO_5415 - LANDER
+      ?AUTO_5414 - WAYPOINT
+      ?AUTO_5418 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_5412 ?AUTO_5416 ) ( AT_LANDER ?AUTO_5415 ?AUTO_5414 ) ( VISIBLE ?AUTO_5416 ?AUTO_5414 ) ( AVAILABLE ?AUTO_5412 ) ( CHANNEL_FREE ?AUTO_5415 ) ( AT ?AUTO_5412 ?AUTO_5411 ) ( AT_ROCK_SAMPLE ?AUTO_5411 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5412 ) ( STORE_OF ?AUTO_5418 ?AUTO_5412 ) ( EMPTY ?AUTO_5418 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5412 ?AUTO_5418 ?AUTO_5411 )
+      ( GET_ROCK_DATA ?AUTO_5411 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5411 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5427 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5428 - ROVER
+      ?AUTO_5431 - WAYPOINT
+      ?AUTO_5430 - LANDER
+      ?AUTO_5429 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5428 ?AUTO_5431 ) ( AT_LANDER ?AUTO_5430 ?AUTO_5429 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5428 ?AUTO_5427 ) ( VISIBLE ?AUTO_5431 ?AUTO_5429 ) ( AVAILABLE ?AUTO_5428 ) ( CHANNEL_FREE ?AUTO_5430 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5428 ?AUTO_5430 ?AUTO_5427 ?AUTO_5431 ?AUTO_5429 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5427 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5433 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5435 - ROVER
+      ?AUTO_5438 - WAYPOINT
+      ?AUTO_5437 - LANDER
+      ?AUTO_5436 - WAYPOINT
+      ?AUTO_5440 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_5435 ?AUTO_5438 ) ( AT_LANDER ?AUTO_5437 ?AUTO_5436 ) ( VISIBLE ?AUTO_5438 ?AUTO_5436 ) ( AVAILABLE ?AUTO_5435 ) ( CHANNEL_FREE ?AUTO_5437 ) ( AT ?AUTO_5435 ?AUTO_5433 ) ( AT_ROCK_SAMPLE ?AUTO_5433 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5435 ) ( STORE_OF ?AUTO_5440 ?AUTO_5435 ) ( EMPTY ?AUTO_5440 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5435 ?AUTO_5440 ?AUTO_5433 )
+      ( GET_ROCK_DATA ?AUTO_5433 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5433 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5446 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5450 - LANDER
+      ?AUTO_5449 - WAYPOINT
+      ?AUTO_5452 - ROVER
+      ?AUTO_5448 - STORE
+      ?AUTO_5455 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5450 ?AUTO_5449 ) ( VISIBLE ?AUTO_5446 ?AUTO_5449 ) ( AVAILABLE ?AUTO_5452 ) ( CHANNEL_FREE ?AUTO_5450 ) ( AT_ROCK_SAMPLE ?AUTO_5446 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5452 ) ( STORE_OF ?AUTO_5448 ?AUTO_5452 ) ( EMPTY ?AUTO_5448 ) ( CAN_TRAVERSE ?AUTO_5452 ?AUTO_5455 ?AUTO_5446 ) ( AT ?AUTO_5452 ?AUTO_5455 ) ( VISIBLE ?AUTO_5455 ?AUTO_5446 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5452 ?AUTO_5455 ?AUTO_5446 )
+      ( GET_ROCK_DATA ?AUTO_5446 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5446 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5456 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5460 - LANDER
+      ?AUTO_5461 - WAYPOINT
+      ?AUTO_5459 - ROVER
+      ?AUTO_5458 - STORE
+      ?AUTO_5462 - WAYPOINT
+      ?AUTO_5465 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5460 ?AUTO_5461 ) ( VISIBLE ?AUTO_5456 ?AUTO_5461 ) ( AVAILABLE ?AUTO_5459 ) ( CHANNEL_FREE ?AUTO_5460 ) ( AT_ROCK_SAMPLE ?AUTO_5456 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5459 ) ( STORE_OF ?AUTO_5458 ?AUTO_5459 ) ( EMPTY ?AUTO_5458 ) ( CAN_TRAVERSE ?AUTO_5459 ?AUTO_5462 ?AUTO_5456 ) ( VISIBLE ?AUTO_5462 ?AUTO_5456 ) ( CAN_TRAVERSE ?AUTO_5459 ?AUTO_5465 ?AUTO_5462 ) ( AT ?AUTO_5459 ?AUTO_5465 ) ( VISIBLE ?AUTO_5465 ?AUTO_5462 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5459 ?AUTO_5465 ?AUTO_5462 )
+      ( GET_ROCK_DATA ?AUTO_5456 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5456 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5470 - OBJECTIVE
+      ?AUTO_5471 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5472 - ROVER
+      ?AUTO_5475 - WAYPOINT
+      ?AUTO_5474 - LANDER
+      ?AUTO_5473 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5472 ?AUTO_5475 ) ( AT_LANDER ?AUTO_5474 ?AUTO_5473 ) ( HAVE_IMAGE ?AUTO_5472 ?AUTO_5470 ?AUTO_5471 ) ( VISIBLE ?AUTO_5475 ?AUTO_5473 ) ( AVAILABLE ?AUTO_5472 ) ( CHANNEL_FREE ?AUTO_5474 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_5472 ?AUTO_5474 ?AUTO_5470 ?AUTO_5471 ?AUTO_5475 ?AUTO_5473 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5470 ?AUTO_5471 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5480 - OBJECTIVE
+      ?AUTO_5481 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5482 - ROVER
+      ?AUTO_5485 - WAYPOINT
+      ?AUTO_5487 - LANDER
+      ?AUTO_5483 - WAYPOINT
+      ?AUTO_5492 - CAMERA
+      ?AUTO_5490 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5482 ?AUTO_5485 ) ( AT_LANDER ?AUTO_5487 ?AUTO_5483 ) ( VISIBLE ?AUTO_5485 ?AUTO_5483 ) ( AVAILABLE ?AUTO_5482 ) ( CHANNEL_FREE ?AUTO_5487 ) ( CALIBRATED ?AUTO_5492 ?AUTO_5482 ) ( ON_BOARD ?AUTO_5492 ?AUTO_5482 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5482 ) ( SUPPORTS ?AUTO_5492 ?AUTO_5481 ) ( VISIBLE_FROM ?AUTO_5480 ?AUTO_5490 ) ( AT ?AUTO_5482 ?AUTO_5490 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5482 ?AUTO_5490 ?AUTO_5480 ?AUTO_5492 ?AUTO_5481 )
+      ( GET_IMAGE_DATA ?AUTO_5480 ?AUTO_5481 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5480 ?AUTO_5481 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5515 - OBJECTIVE
+      ?AUTO_5516 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5517 - ROVER
+      ?AUTO_5520 - WAYPOINT
+      ?AUTO_5519 - LANDER
+      ?AUTO_5518 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5517 ?AUTO_5520 ) ( AT_LANDER ?AUTO_5519 ?AUTO_5518 ) ( HAVE_IMAGE ?AUTO_5517 ?AUTO_5515 ?AUTO_5516 ) ( VISIBLE ?AUTO_5520 ?AUTO_5518 ) ( AVAILABLE ?AUTO_5517 ) ( CHANNEL_FREE ?AUTO_5519 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_5517 ?AUTO_5519 ?AUTO_5515 ?AUTO_5516 ?AUTO_5520 ?AUTO_5518 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5515 ?AUTO_5516 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5525 - OBJECTIVE
+      ?AUTO_5526 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5527 - LANDER
+      ?AUTO_5531 - WAYPOINT
+      ?AUTO_5529 - ROVER
+      ?AUTO_5528 - WAYPOINT
+      ?AUTO_5535 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5527 ?AUTO_5531 ) ( HAVE_IMAGE ?AUTO_5529 ?AUTO_5525 ?AUTO_5526 ) ( VISIBLE ?AUTO_5528 ?AUTO_5531 ) ( AVAILABLE ?AUTO_5529 ) ( CHANNEL_FREE ?AUTO_5527 ) ( CAN_TRAVERSE ?AUTO_5529 ?AUTO_5535 ?AUTO_5528 ) ( AT ?AUTO_5529 ?AUTO_5535 ) ( VISIBLE ?AUTO_5535 ?AUTO_5528 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5529 ?AUTO_5535 ?AUTO_5528 )
+      ( GET_IMAGE_DATA ?AUTO_5525 ?AUTO_5526 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5525 ?AUTO_5526 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5536 - OBJECTIVE
+      ?AUTO_5537 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5543 - LANDER
+      ?AUTO_5542 - WAYPOINT
+      ?AUTO_5540 - WAYPOINT
+      ?AUTO_5541 - ROVER
+      ?AUTO_5544 - WAYPOINT
+      ?AUTO_5549 - CAMERA
+      ?AUTO_5547 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5543 ?AUTO_5542 ) ( VISIBLE ?AUTO_5540 ?AUTO_5542 ) ( AVAILABLE ?AUTO_5541 ) ( CHANNEL_FREE ?AUTO_5543 ) ( CAN_TRAVERSE ?AUTO_5541 ?AUTO_5544 ?AUTO_5540 ) ( AT ?AUTO_5541 ?AUTO_5544 ) ( VISIBLE ?AUTO_5544 ?AUTO_5540 ) ( CALIBRATED ?AUTO_5549 ?AUTO_5541 ) ( ON_BOARD ?AUTO_5549 ?AUTO_5541 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5541 ) ( SUPPORTS ?AUTO_5549 ?AUTO_5537 ) ( VISIBLE_FROM ?AUTO_5536 ?AUTO_5547 ) ( AT ?AUTO_5541 ?AUTO_5547 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5541 ?AUTO_5547 ?AUTO_5536 ?AUTO_5549 ?AUTO_5537 )
+      ( GET_IMAGE_DATA ?AUTO_5536 ?AUTO_5537 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5536 ?AUTO_5537 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5550 - OBJECTIVE
+      ?AUTO_5551 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5555 - LANDER
+      ?AUTO_5558 - WAYPOINT
+      ?AUTO_5557 - WAYPOINT
+      ?AUTO_5556 - ROVER
+      ?AUTO_5559 - WAYPOINT
+      ?AUTO_5560 - CAMERA
+      ?AUTO_5563 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5555 ?AUTO_5558 ) ( VISIBLE ?AUTO_5557 ?AUTO_5558 ) ( AVAILABLE ?AUTO_5556 ) ( CHANNEL_FREE ?AUTO_5555 ) ( CAN_TRAVERSE ?AUTO_5556 ?AUTO_5559 ?AUTO_5557 ) ( VISIBLE ?AUTO_5559 ?AUTO_5557 ) ( CALIBRATED ?AUTO_5560 ?AUTO_5556 ) ( ON_BOARD ?AUTO_5560 ?AUTO_5556 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5556 ) ( SUPPORTS ?AUTO_5560 ?AUTO_5551 ) ( VISIBLE_FROM ?AUTO_5550 ?AUTO_5559 ) ( CAN_TRAVERSE ?AUTO_5556 ?AUTO_5563 ?AUTO_5559 ) ( AT ?AUTO_5556 ?AUTO_5563 ) ( VISIBLE ?AUTO_5563 ?AUTO_5559 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5556 ?AUTO_5563 ?AUTO_5559 )
+      ( GET_IMAGE_DATA ?AUTO_5550 ?AUTO_5551 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5550 ?AUTO_5551 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5566 - OBJECTIVE
+      ?AUTO_5567 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5576 - LANDER
+      ?AUTO_5572 - WAYPOINT
+      ?AUTO_5568 - WAYPOINT
+      ?AUTO_5571 - ROVER
+      ?AUTO_5573 - WAYPOINT
+      ?AUTO_5574 - CAMERA
+      ?AUTO_5569 - WAYPOINT
+      ?AUTO_5580 - OBJECTIVE
+      ?AUTO_5578 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5576 ?AUTO_5572 ) ( VISIBLE ?AUTO_5568 ?AUTO_5572 ) ( AVAILABLE ?AUTO_5571 ) ( CHANNEL_FREE ?AUTO_5576 ) ( CAN_TRAVERSE ?AUTO_5571 ?AUTO_5573 ?AUTO_5568 ) ( VISIBLE ?AUTO_5573 ?AUTO_5568 ) ( ON_BOARD ?AUTO_5574 ?AUTO_5571 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5571 ) ( SUPPORTS ?AUTO_5574 ?AUTO_5567 ) ( VISIBLE_FROM ?AUTO_5566 ?AUTO_5573 ) ( CAN_TRAVERSE ?AUTO_5571 ?AUTO_5569 ?AUTO_5573 ) ( AT ?AUTO_5571 ?AUTO_5569 ) ( VISIBLE ?AUTO_5569 ?AUTO_5573 ) ( CALIBRATION_TARGET ?AUTO_5574 ?AUTO_5580 ) ( AT ?AUTO_5571 ?AUTO_5578 ) ( VISIBLE_FROM ?AUTO_5580 ?AUTO_5578 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_5571 ?AUTO_5574 ?AUTO_5580 ?AUTO_5578 )
+      ( GET_IMAGE_DATA ?AUTO_5566 ?AUTO_5567 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5566 ?AUTO_5567 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5605 - OBJECTIVE
+      ?AUTO_5606 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5607 - ROVER
+      ?AUTO_5610 - WAYPOINT
+      ?AUTO_5609 - LANDER
+      ?AUTO_5608 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5607 ?AUTO_5610 ) ( AT_LANDER ?AUTO_5609 ?AUTO_5608 ) ( HAVE_IMAGE ?AUTO_5607 ?AUTO_5605 ?AUTO_5606 ) ( VISIBLE ?AUTO_5610 ?AUTO_5608 ) ( AVAILABLE ?AUTO_5607 ) ( CHANNEL_FREE ?AUTO_5609 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_5607 ?AUTO_5609 ?AUTO_5605 ?AUTO_5606 ?AUTO_5610 ?AUTO_5608 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5605 ?AUTO_5606 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5615 - OBJECTIVE
+      ?AUTO_5616 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5619 - ROVER
+      ?AUTO_5618 - WAYPOINT
+      ?AUTO_5617 - LANDER
+      ?AUTO_5621 - WAYPOINT
+      ?AUTO_5627 - CAMERA
+      ?AUTO_5625 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5619 ?AUTO_5618 ) ( AT_LANDER ?AUTO_5617 ?AUTO_5621 ) ( VISIBLE ?AUTO_5618 ?AUTO_5621 ) ( AVAILABLE ?AUTO_5619 ) ( CHANNEL_FREE ?AUTO_5617 ) ( CALIBRATED ?AUTO_5627 ?AUTO_5619 ) ( ON_BOARD ?AUTO_5627 ?AUTO_5619 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5619 ) ( SUPPORTS ?AUTO_5627 ?AUTO_5616 ) ( VISIBLE_FROM ?AUTO_5615 ?AUTO_5625 ) ( AT ?AUTO_5619 ?AUTO_5625 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5619 ?AUTO_5625 ?AUTO_5615 ?AUTO_5627 ?AUTO_5616 )
+      ( GET_IMAGE_DATA ?AUTO_5615 ?AUTO_5616 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5615 ?AUTO_5616 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5628 - OBJECTIVE
+      ?AUTO_5629 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5635 - LANDER
+      ?AUTO_5634 - WAYPOINT
+      ?AUTO_5636 - WAYPOINT
+      ?AUTO_5633 - ROVER
+      ?AUTO_5637 - CAMERA
+      ?AUTO_5640 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5635 ?AUTO_5634 ) ( VISIBLE ?AUTO_5636 ?AUTO_5634 ) ( AVAILABLE ?AUTO_5633 ) ( CHANNEL_FREE ?AUTO_5635 ) ( CALIBRATED ?AUTO_5637 ?AUTO_5633 ) ( ON_BOARD ?AUTO_5637 ?AUTO_5633 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5633 ) ( SUPPORTS ?AUTO_5637 ?AUTO_5629 ) ( VISIBLE_FROM ?AUTO_5628 ?AUTO_5636 ) ( CAN_TRAVERSE ?AUTO_5633 ?AUTO_5640 ?AUTO_5636 ) ( AT ?AUTO_5633 ?AUTO_5640 ) ( VISIBLE ?AUTO_5640 ?AUTO_5636 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5633 ?AUTO_5640 ?AUTO_5636 )
+      ( GET_IMAGE_DATA ?AUTO_5628 ?AUTO_5629 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5628 ?AUTO_5629 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5641 - OBJECTIVE
+      ?AUTO_5642 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5645 - LANDER
+      ?AUTO_5648 - WAYPOINT
+      ?AUTO_5646 - WAYPOINT
+      ?AUTO_5649 - ROVER
+      ?AUTO_5647 - CAMERA
+      ?AUTO_5650 - WAYPOINT
+      ?AUTO_5653 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5645 ?AUTO_5648 ) ( VISIBLE ?AUTO_5646 ?AUTO_5648 ) ( AVAILABLE ?AUTO_5649 ) ( CHANNEL_FREE ?AUTO_5645 ) ( CALIBRATED ?AUTO_5647 ?AUTO_5649 ) ( ON_BOARD ?AUTO_5647 ?AUTO_5649 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5649 ) ( SUPPORTS ?AUTO_5647 ?AUTO_5642 ) ( VISIBLE_FROM ?AUTO_5641 ?AUTO_5646 ) ( CAN_TRAVERSE ?AUTO_5649 ?AUTO_5650 ?AUTO_5646 ) ( VISIBLE ?AUTO_5650 ?AUTO_5646 ) ( CAN_TRAVERSE ?AUTO_5649 ?AUTO_5653 ?AUTO_5650 ) ( AT ?AUTO_5649 ?AUTO_5653 ) ( VISIBLE ?AUTO_5653 ?AUTO_5650 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5649 ?AUTO_5653 ?AUTO_5650 )
+      ( GET_IMAGE_DATA ?AUTO_5641 ?AUTO_5642 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5641 ?AUTO_5642 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5656 - OBJECTIVE
+      ?AUTO_5657 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5662 - LANDER
+      ?AUTO_5666 - WAYPOINT
+      ?AUTO_5659 - WAYPOINT
+      ?AUTO_5658 - ROVER
+      ?AUTO_5663 - CAMERA
+      ?AUTO_5664 - WAYPOINT
+      ?AUTO_5665 - WAYPOINT
+      ?AUTO_5670 - OBJECTIVE
+      ?AUTO_5668 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5662 ?AUTO_5666 ) ( VISIBLE ?AUTO_5659 ?AUTO_5666 ) ( AVAILABLE ?AUTO_5658 ) ( CHANNEL_FREE ?AUTO_5662 ) ( ON_BOARD ?AUTO_5663 ?AUTO_5658 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5658 ) ( SUPPORTS ?AUTO_5663 ?AUTO_5657 ) ( VISIBLE_FROM ?AUTO_5656 ?AUTO_5659 ) ( CAN_TRAVERSE ?AUTO_5658 ?AUTO_5664 ?AUTO_5659 ) ( VISIBLE ?AUTO_5664 ?AUTO_5659 ) ( CAN_TRAVERSE ?AUTO_5658 ?AUTO_5665 ?AUTO_5664 ) ( AT ?AUTO_5658 ?AUTO_5665 ) ( VISIBLE ?AUTO_5665 ?AUTO_5664 ) ( CALIBRATION_TARGET ?AUTO_5663 ?AUTO_5670 ) ( AT ?AUTO_5658 ?AUTO_5668 ) ( VISIBLE_FROM ?AUTO_5670 ?AUTO_5668 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_5658 ?AUTO_5663 ?AUTO_5670 ?AUTO_5668 )
+      ( GET_IMAGE_DATA ?AUTO_5656 ?AUTO_5657 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5656 ?AUTO_5657 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5671 - OBJECTIVE
+      ?AUTO_5672 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5676 - LANDER
+      ?AUTO_5681 - WAYPOINT
+      ?AUTO_5680 - WAYPOINT
+      ?AUTO_5675 - ROVER
+      ?AUTO_5677 - CAMERA
+      ?AUTO_5673 - WAYPOINT
+      ?AUTO_5683 - WAYPOINT
+      ?AUTO_5682 - OBJECTIVE
+      ?AUTO_5686 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5676 ?AUTO_5681 ) ( VISIBLE ?AUTO_5680 ?AUTO_5681 ) ( AVAILABLE ?AUTO_5675 ) ( CHANNEL_FREE ?AUTO_5676 ) ( ON_BOARD ?AUTO_5677 ?AUTO_5675 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5675 ) ( SUPPORTS ?AUTO_5677 ?AUTO_5672 ) ( VISIBLE_FROM ?AUTO_5671 ?AUTO_5680 ) ( CAN_TRAVERSE ?AUTO_5675 ?AUTO_5673 ?AUTO_5680 ) ( VISIBLE ?AUTO_5673 ?AUTO_5680 ) ( CAN_TRAVERSE ?AUTO_5675 ?AUTO_5683 ?AUTO_5673 ) ( VISIBLE ?AUTO_5683 ?AUTO_5673 ) ( CALIBRATION_TARGET ?AUTO_5677 ?AUTO_5682 ) ( VISIBLE_FROM ?AUTO_5682 ?AUTO_5683 ) ( CAN_TRAVERSE ?AUTO_5675 ?AUTO_5686 ?AUTO_5683 ) ( AT ?AUTO_5675 ?AUTO_5686 ) ( VISIBLE ?AUTO_5686 ?AUTO_5683 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5675 ?AUTO_5686 ?AUTO_5683 )
+      ( GET_IMAGE_DATA ?AUTO_5671 ?AUTO_5672 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5671 ?AUTO_5672 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5719 - OBJECTIVE
+      ?AUTO_5720 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5721 - ROVER
+      ?AUTO_5724 - WAYPOINT
+      ?AUTO_5723 - LANDER
+      ?AUTO_5722 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5721 ?AUTO_5724 ) ( AT_LANDER ?AUTO_5723 ?AUTO_5722 ) ( HAVE_IMAGE ?AUTO_5721 ?AUTO_5719 ?AUTO_5720 ) ( VISIBLE ?AUTO_5724 ?AUTO_5722 ) ( AVAILABLE ?AUTO_5721 ) ( CHANNEL_FREE ?AUTO_5723 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_5721 ?AUTO_5723 ?AUTO_5719 ?AUTO_5720 ?AUTO_5724 ?AUTO_5722 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5719 ?AUTO_5720 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5727 - OBJECTIVE
+      ?AUTO_5728 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5731 - ROVER
+      ?AUTO_5734 - WAYPOINT
+      ?AUTO_5733 - LANDER
+      ?AUTO_5732 - WAYPOINT
+      ?AUTO_5739 - CAMERA
+      ?AUTO_5737 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5731 ?AUTO_5734 ) ( AT_LANDER ?AUTO_5733 ?AUTO_5732 ) ( VISIBLE ?AUTO_5734 ?AUTO_5732 ) ( AVAILABLE ?AUTO_5731 ) ( CHANNEL_FREE ?AUTO_5733 ) ( CALIBRATED ?AUTO_5739 ?AUTO_5731 ) ( ON_BOARD ?AUTO_5739 ?AUTO_5731 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5731 ) ( SUPPORTS ?AUTO_5739 ?AUTO_5728 ) ( VISIBLE_FROM ?AUTO_5727 ?AUTO_5737 ) ( AT ?AUTO_5731 ?AUTO_5737 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5731 ?AUTO_5737 ?AUTO_5727 ?AUTO_5739 ?AUTO_5728 )
+      ( GET_IMAGE_DATA ?AUTO_5727 ?AUTO_5728 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5727 ?AUTO_5728 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5742 - OBJECTIVE
+      ?AUTO_5743 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5746 - ROVER
+      ?AUTO_5745 - WAYPOINT
+      ?AUTO_5744 - LANDER
+      ?AUTO_5747 - WAYPOINT
+      ?AUTO_5751 - CAMERA
+      ?AUTO_5748 - WAYPOINT
+      ?AUTO_5755 - OBJECTIVE
+      ?AUTO_5753 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5746 ?AUTO_5745 ) ( AT_LANDER ?AUTO_5744 ?AUTO_5747 ) ( VISIBLE ?AUTO_5745 ?AUTO_5747 ) ( AVAILABLE ?AUTO_5746 ) ( CHANNEL_FREE ?AUTO_5744 ) ( ON_BOARD ?AUTO_5751 ?AUTO_5746 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5746 ) ( SUPPORTS ?AUTO_5751 ?AUTO_5743 ) ( VISIBLE_FROM ?AUTO_5742 ?AUTO_5748 ) ( AT ?AUTO_5746 ?AUTO_5748 ) ( CALIBRATION_TARGET ?AUTO_5751 ?AUTO_5755 ) ( AT ?AUTO_5746 ?AUTO_5753 ) ( VISIBLE_FROM ?AUTO_5755 ?AUTO_5753 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_5746 ?AUTO_5751 ?AUTO_5755 ?AUTO_5753 )
+      ( GET_IMAGE_DATA ?AUTO_5742 ?AUTO_5743 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5742 ?AUTO_5743 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5757 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5758 - ROVER
+      ?AUTO_5761 - WAYPOINT
+      ?AUTO_5760 - LANDER
+      ?AUTO_5759 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5758 ?AUTO_5761 ) ( AT_LANDER ?AUTO_5760 ?AUTO_5759 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5758 ?AUTO_5757 ) ( VISIBLE ?AUTO_5761 ?AUTO_5759 ) ( AVAILABLE ?AUTO_5758 ) ( CHANNEL_FREE ?AUTO_5760 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5758 ?AUTO_5760 ?AUTO_5757 ?AUTO_5761 ?AUTO_5759 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5757 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5763 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5765 - ROVER
+      ?AUTO_5768 - WAYPOINT
+      ?AUTO_5767 - LANDER
+      ?AUTO_5766 - WAYPOINT
+      ?AUTO_5770 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_5765 ?AUTO_5768 ) ( AT_LANDER ?AUTO_5767 ?AUTO_5766 ) ( VISIBLE ?AUTO_5768 ?AUTO_5766 ) ( AVAILABLE ?AUTO_5765 ) ( CHANNEL_FREE ?AUTO_5767 ) ( AT ?AUTO_5765 ?AUTO_5763 ) ( AT_ROCK_SAMPLE ?AUTO_5763 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5765 ) ( STORE_OF ?AUTO_5770 ?AUTO_5765 ) ( EMPTY ?AUTO_5770 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5765 ?AUTO_5770 ?AUTO_5763 )
+      ( GET_ROCK_DATA ?AUTO_5763 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5763 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5775 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5776 - ROVER
+      ?AUTO_5779 - WAYPOINT
+      ?AUTO_5778 - LANDER
+      ?AUTO_5777 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5776 ?AUTO_5779 ) ( AT_LANDER ?AUTO_5778 ?AUTO_5777 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5776 ?AUTO_5775 ) ( VISIBLE ?AUTO_5779 ?AUTO_5777 ) ( AVAILABLE ?AUTO_5776 ) ( CHANNEL_FREE ?AUTO_5778 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5776 ?AUTO_5778 ?AUTO_5775 ?AUTO_5779 ?AUTO_5777 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5775 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5781 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5785 - LANDER
+      ?AUTO_5784 - WAYPOINT
+      ?AUTO_5783 - ROVER
+      ?AUTO_5786 - WAYPOINT
+      ?AUTO_5789 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5785 ?AUTO_5784 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5783 ?AUTO_5781 ) ( VISIBLE ?AUTO_5786 ?AUTO_5784 ) ( AVAILABLE ?AUTO_5783 ) ( CHANNEL_FREE ?AUTO_5785 ) ( CAN_TRAVERSE ?AUTO_5783 ?AUTO_5789 ?AUTO_5786 ) ( AT ?AUTO_5783 ?AUTO_5789 ) ( VISIBLE ?AUTO_5789 ?AUTO_5786 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5783 ?AUTO_5789 ?AUTO_5786 )
+      ( GET_ROCK_DATA ?AUTO_5781 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5781 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5790 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5795 - LANDER
+      ?AUTO_5791 - WAYPOINT
+      ?AUTO_5794 - WAYPOINT
+      ?AUTO_5792 - ROVER
+      ?AUTO_5796 - WAYPOINT
+      ?AUTO_5798 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5795 ?AUTO_5791 ) ( VISIBLE ?AUTO_5794 ?AUTO_5791 ) ( AVAILABLE ?AUTO_5792 ) ( CHANNEL_FREE ?AUTO_5795 ) ( CAN_TRAVERSE ?AUTO_5792 ?AUTO_5796 ?AUTO_5794 ) ( AT ?AUTO_5792 ?AUTO_5796 ) ( VISIBLE ?AUTO_5796 ?AUTO_5794 ) ( AT ?AUTO_5792 ?AUTO_5790 ) ( AT_ROCK_SAMPLE ?AUTO_5790 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5792 ) ( STORE_OF ?AUTO_5798 ?AUTO_5792 ) ( EMPTY ?AUTO_5798 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5792 ?AUTO_5798 ?AUTO_5790 )
+      ( GET_ROCK_DATA ?AUTO_5790 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5790 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5800 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5805 - LANDER
+      ?AUTO_5807 - WAYPOINT
+      ?AUTO_5803 - WAYPOINT
+      ?AUTO_5802 - ROVER
+      ?AUTO_5804 - STORE
+      ?AUTO_5810 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5805 ?AUTO_5807 ) ( VISIBLE ?AUTO_5803 ?AUTO_5807 ) ( AVAILABLE ?AUTO_5802 ) ( CHANNEL_FREE ?AUTO_5805 ) ( CAN_TRAVERSE ?AUTO_5802 ?AUTO_5800 ?AUTO_5803 ) ( VISIBLE ?AUTO_5800 ?AUTO_5803 ) ( AT_ROCK_SAMPLE ?AUTO_5800 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5802 ) ( STORE_OF ?AUTO_5804 ?AUTO_5802 ) ( EMPTY ?AUTO_5804 ) ( CAN_TRAVERSE ?AUTO_5802 ?AUTO_5810 ?AUTO_5800 ) ( AT ?AUTO_5802 ?AUTO_5810 ) ( VISIBLE ?AUTO_5810 ?AUTO_5800 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5802 ?AUTO_5810 ?AUTO_5800 )
+      ( GET_ROCK_DATA ?AUTO_5800 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5800 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5811 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5814 - LANDER
+      ?AUTO_5818 - WAYPOINT
+      ?AUTO_5813 - WAYPOINT
+      ?AUTO_5817 - ROVER
+      ?AUTO_5815 - STORE
+      ?AUTO_5816 - WAYPOINT
+      ?AUTO_5819 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5814 ?AUTO_5818 ) ( VISIBLE ?AUTO_5813 ?AUTO_5818 ) ( AVAILABLE ?AUTO_5817 ) ( CHANNEL_FREE ?AUTO_5814 ) ( CAN_TRAVERSE ?AUTO_5817 ?AUTO_5811 ?AUTO_5813 ) ( VISIBLE ?AUTO_5811 ?AUTO_5813 ) ( AT_ROCK_SAMPLE ?AUTO_5811 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5817 ) ( STORE_OF ?AUTO_5815 ?AUTO_5817 ) ( CAN_TRAVERSE ?AUTO_5817 ?AUTO_5816 ?AUTO_5811 ) ( AT ?AUTO_5817 ?AUTO_5816 ) ( VISIBLE ?AUTO_5816 ?AUTO_5811 ) ( STORE_OF ?AUTO_5815 ?AUTO_5819 ) ( FULL ?AUTO_5815 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_5819 ?AUTO_5815 )
+      ( GET_ROCK_DATA ?AUTO_5811 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5811 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5826 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5827 - ROVER
+      ?AUTO_5830 - WAYPOINT
+      ?AUTO_5829 - LANDER
+      ?AUTO_5828 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5827 ?AUTO_5830 ) ( AT_LANDER ?AUTO_5829 ?AUTO_5828 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5827 ?AUTO_5826 ) ( VISIBLE ?AUTO_5830 ?AUTO_5828 ) ( AVAILABLE ?AUTO_5827 ) ( CHANNEL_FREE ?AUTO_5829 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5827 ?AUTO_5829 ?AUTO_5826 ?AUTO_5830 ?AUTO_5828 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5826 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5832 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5834 - ROVER
+      ?AUTO_5837 - WAYPOINT
+      ?AUTO_5836 - LANDER
+      ?AUTO_5835 - WAYPOINT
+      ?AUTO_5839 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_5834 ?AUTO_5837 ) ( AT_LANDER ?AUTO_5836 ?AUTO_5835 ) ( VISIBLE ?AUTO_5837 ?AUTO_5835 ) ( AVAILABLE ?AUTO_5834 ) ( CHANNEL_FREE ?AUTO_5836 ) ( AT ?AUTO_5834 ?AUTO_5832 ) ( AT_ROCK_SAMPLE ?AUTO_5832 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5834 ) ( STORE_OF ?AUTO_5839 ?AUTO_5834 ) ( EMPTY ?AUTO_5839 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5834 ?AUTO_5839 ?AUTO_5832 )
+      ( GET_ROCK_DATA ?AUTO_5832 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5832 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5848 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5851 - LANDER
+      ?AUTO_5850 - WAYPOINT
+      ?AUTO_5853 - ROVER
+      ?AUTO_5849 - STORE
+      ?AUTO_5857 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5851 ?AUTO_5850 ) ( VISIBLE ?AUTO_5848 ?AUTO_5850 ) ( AVAILABLE ?AUTO_5853 ) ( CHANNEL_FREE ?AUTO_5851 ) ( AT_ROCK_SAMPLE ?AUTO_5848 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5853 ) ( STORE_OF ?AUTO_5849 ?AUTO_5853 ) ( EMPTY ?AUTO_5849 ) ( CAN_TRAVERSE ?AUTO_5853 ?AUTO_5857 ?AUTO_5848 ) ( AT ?AUTO_5853 ?AUTO_5857 ) ( VISIBLE ?AUTO_5857 ?AUTO_5848 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5853 ?AUTO_5857 ?AUTO_5848 )
+      ( GET_ROCK_DATA ?AUTO_5848 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5848 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5858 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5862 - LANDER
+      ?AUTO_5863 - WAYPOINT
+      ?AUTO_5861 - ROVER
+      ?AUTO_5860 - STORE
+      ?AUTO_5864 - WAYPOINT
+      ?AUTO_5867 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5862 ?AUTO_5863 ) ( VISIBLE ?AUTO_5858 ?AUTO_5863 ) ( AVAILABLE ?AUTO_5861 ) ( CHANNEL_FREE ?AUTO_5862 ) ( AT_ROCK_SAMPLE ?AUTO_5858 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5861 ) ( STORE_OF ?AUTO_5860 ?AUTO_5861 ) ( EMPTY ?AUTO_5860 ) ( CAN_TRAVERSE ?AUTO_5861 ?AUTO_5864 ?AUTO_5858 ) ( VISIBLE ?AUTO_5864 ?AUTO_5858 ) ( CAN_TRAVERSE ?AUTO_5861 ?AUTO_5867 ?AUTO_5864 ) ( AT ?AUTO_5861 ?AUTO_5867 ) ( VISIBLE ?AUTO_5867 ?AUTO_5864 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5861 ?AUTO_5867 ?AUTO_5864 )
+      ( GET_ROCK_DATA ?AUTO_5858 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5858 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5869 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5870 - ROVER
+      ?AUTO_5873 - WAYPOINT
+      ?AUTO_5872 - LANDER
+      ?AUTO_5871 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5870 ?AUTO_5873 ) ( AT_LANDER ?AUTO_5872 ?AUTO_5871 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5870 ?AUTO_5869 ) ( VISIBLE ?AUTO_5873 ?AUTO_5871 ) ( AVAILABLE ?AUTO_5870 ) ( CHANNEL_FREE ?AUTO_5872 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_5870 ?AUTO_5872 ?AUTO_5869 ?AUTO_5873 ?AUTO_5871 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5869 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5875 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5879 - LANDER
+      ?AUTO_5878 - WAYPOINT
+      ?AUTO_5877 - ROVER
+      ?AUTO_5880 - WAYPOINT
+      ?AUTO_5883 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5879 ?AUTO_5878 ) ( HAVE_ROCK_ANALYSIS ?AUTO_5877 ?AUTO_5875 ) ( VISIBLE ?AUTO_5880 ?AUTO_5878 ) ( AVAILABLE ?AUTO_5877 ) ( CHANNEL_FREE ?AUTO_5879 ) ( CAN_TRAVERSE ?AUTO_5877 ?AUTO_5883 ?AUTO_5880 ) ( AT ?AUTO_5877 ?AUTO_5883 ) ( VISIBLE ?AUTO_5883 ?AUTO_5880 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5877 ?AUTO_5883 ?AUTO_5880 )
+      ( GET_ROCK_DATA ?AUTO_5875 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5875 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5886 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5891 - LANDER
+      ?AUTO_5888 - WAYPOINT
+      ?AUTO_5889 - WAYPOINT
+      ?AUTO_5892 - ROVER
+      ?AUTO_5887 - WAYPOINT
+      ?AUTO_5894 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5891 ?AUTO_5888 ) ( VISIBLE ?AUTO_5889 ?AUTO_5888 ) ( AVAILABLE ?AUTO_5892 ) ( CHANNEL_FREE ?AUTO_5891 ) ( CAN_TRAVERSE ?AUTO_5892 ?AUTO_5887 ?AUTO_5889 ) ( AT ?AUTO_5892 ?AUTO_5887 ) ( VISIBLE ?AUTO_5887 ?AUTO_5889 ) ( AT ?AUTO_5892 ?AUTO_5886 ) ( AT_ROCK_SAMPLE ?AUTO_5886 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5892 ) ( STORE_OF ?AUTO_5894 ?AUTO_5892 ) ( EMPTY ?AUTO_5894 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_5892 ?AUTO_5894 ?AUTO_5886 )
+      ( GET_ROCK_DATA ?AUTO_5886 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5886 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5896 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5898 - LANDER
+      ?AUTO_5901 - WAYPOINT
+      ?AUTO_5902 - WAYPOINT
+      ?AUTO_5900 - ROVER
+      ?AUTO_5903 - STORE
+      ?AUTO_5906 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5898 ?AUTO_5901 ) ( VISIBLE ?AUTO_5902 ?AUTO_5901 ) ( AVAILABLE ?AUTO_5900 ) ( CHANNEL_FREE ?AUTO_5898 ) ( CAN_TRAVERSE ?AUTO_5900 ?AUTO_5896 ?AUTO_5902 ) ( VISIBLE ?AUTO_5896 ?AUTO_5902 ) ( AT_ROCK_SAMPLE ?AUTO_5896 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5900 ) ( STORE_OF ?AUTO_5903 ?AUTO_5900 ) ( EMPTY ?AUTO_5903 ) ( CAN_TRAVERSE ?AUTO_5900 ?AUTO_5906 ?AUTO_5896 ) ( AT ?AUTO_5900 ?AUTO_5906 ) ( VISIBLE ?AUTO_5906 ?AUTO_5896 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5900 ?AUTO_5906 ?AUTO_5896 )
+      ( GET_ROCK_DATA ?AUTO_5896 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5896 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5907 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5912 - LANDER
+      ?AUTO_5911 - WAYPOINT
+      ?AUTO_5910 - WAYPOINT
+      ?AUTO_5914 - ROVER
+      ?AUTO_5913 - STORE
+      ?AUTO_5909 - WAYPOINT
+      ?AUTO_5915 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5912 ?AUTO_5911 ) ( VISIBLE ?AUTO_5910 ?AUTO_5911 ) ( AVAILABLE ?AUTO_5914 ) ( CHANNEL_FREE ?AUTO_5912 ) ( CAN_TRAVERSE ?AUTO_5914 ?AUTO_5907 ?AUTO_5910 ) ( VISIBLE ?AUTO_5907 ?AUTO_5910 ) ( AT_ROCK_SAMPLE ?AUTO_5907 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5914 ) ( STORE_OF ?AUTO_5913 ?AUTO_5914 ) ( CAN_TRAVERSE ?AUTO_5914 ?AUTO_5909 ?AUTO_5907 ) ( AT ?AUTO_5914 ?AUTO_5909 ) ( VISIBLE ?AUTO_5909 ?AUTO_5907 ) ( STORE_OF ?AUTO_5913 ?AUTO_5915 ) ( FULL ?AUTO_5913 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_5915 ?AUTO_5913 )
+      ( GET_ROCK_DATA ?AUTO_5907 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5907 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_5926 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_5927 - LANDER
+      ?AUTO_5931 - WAYPOINT
+      ?AUTO_5930 - WAYPOINT
+      ?AUTO_5933 - ROVER
+      ?AUTO_5929 - STORE
+      ?AUTO_5932 - WAYPOINT
+      ?AUTO_5936 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5927 ?AUTO_5931 ) ( VISIBLE ?AUTO_5930 ?AUTO_5931 ) ( AVAILABLE ?AUTO_5933 ) ( CHANNEL_FREE ?AUTO_5927 ) ( CAN_TRAVERSE ?AUTO_5933 ?AUTO_5926 ?AUTO_5930 ) ( VISIBLE ?AUTO_5926 ?AUTO_5930 ) ( AT_ROCK_SAMPLE ?AUTO_5926 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_5933 ) ( STORE_OF ?AUTO_5929 ?AUTO_5933 ) ( EMPTY ?AUTO_5929 ) ( CAN_TRAVERSE ?AUTO_5933 ?AUTO_5932 ?AUTO_5926 ) ( VISIBLE ?AUTO_5932 ?AUTO_5926 ) ( CAN_TRAVERSE ?AUTO_5933 ?AUTO_5936 ?AUTO_5932 ) ( AT ?AUTO_5933 ?AUTO_5936 ) ( VISIBLE ?AUTO_5936 ?AUTO_5932 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5933 ?AUTO_5936 ?AUTO_5932 )
+      ( GET_ROCK_DATA ?AUTO_5926 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_5926 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5941 - OBJECTIVE
+      ?AUTO_5940 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5942 - ROVER
+      ?AUTO_5945 - WAYPOINT
+      ?AUTO_5944 - LANDER
+      ?AUTO_5943 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5942 ?AUTO_5945 ) ( AT_LANDER ?AUTO_5944 ?AUTO_5943 ) ( HAVE_IMAGE ?AUTO_5942 ?AUTO_5941 ?AUTO_5940 ) ( VISIBLE ?AUTO_5945 ?AUTO_5943 ) ( AVAILABLE ?AUTO_5942 ) ( CHANNEL_FREE ?AUTO_5944 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_5942 ?AUTO_5944 ?AUTO_5941 ?AUTO_5940 ?AUTO_5945 ?AUTO_5943 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5941 ?AUTO_5940 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5949 - OBJECTIVE
+      ?AUTO_5948 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5952 - ROVER
+      ?AUTO_5955 - WAYPOINT
+      ?AUTO_5954 - LANDER
+      ?AUTO_5953 - WAYPOINT
+      ?AUTO_5960 - CAMERA
+      ?AUTO_5958 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_5952 ?AUTO_5955 ) ( AT_LANDER ?AUTO_5954 ?AUTO_5953 ) ( VISIBLE ?AUTO_5955 ?AUTO_5953 ) ( AVAILABLE ?AUTO_5952 ) ( CHANNEL_FREE ?AUTO_5954 ) ( CALIBRATED ?AUTO_5960 ?AUTO_5952 ) ( ON_BOARD ?AUTO_5960 ?AUTO_5952 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5952 ) ( SUPPORTS ?AUTO_5960 ?AUTO_5948 ) ( VISIBLE_FROM ?AUTO_5949 ?AUTO_5958 ) ( AT ?AUTO_5952 ?AUTO_5958 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_5952 ?AUTO_5958 ?AUTO_5949 ?AUTO_5960 ?AUTO_5948 )
+      ( GET_IMAGE_DATA ?AUTO_5949 ?AUTO_5948 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5949 ?AUTO_5948 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5962 - OBJECTIVE
+      ?AUTO_5961 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5966 - LANDER
+      ?AUTO_5970 - WAYPOINT
+      ?AUTO_5963 - WAYPOINT
+      ?AUTO_5969 - ROVER
+      ?AUTO_5964 - CAMERA
+      ?AUTO_5973 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5966 ?AUTO_5970 ) ( VISIBLE ?AUTO_5963 ?AUTO_5970 ) ( AVAILABLE ?AUTO_5969 ) ( CHANNEL_FREE ?AUTO_5966 ) ( CALIBRATED ?AUTO_5964 ?AUTO_5969 ) ( ON_BOARD ?AUTO_5964 ?AUTO_5969 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5969 ) ( SUPPORTS ?AUTO_5964 ?AUTO_5961 ) ( VISIBLE_FROM ?AUTO_5962 ?AUTO_5963 ) ( CAN_TRAVERSE ?AUTO_5969 ?AUTO_5973 ?AUTO_5963 ) ( AT ?AUTO_5969 ?AUTO_5973 ) ( VISIBLE ?AUTO_5973 ?AUTO_5963 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5969 ?AUTO_5973 ?AUTO_5963 )
+      ( GET_IMAGE_DATA ?AUTO_5962 ?AUTO_5961 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5962 ?AUTO_5961 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5975 - OBJECTIVE
+      ?AUTO_5974 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5980 - LANDER
+      ?AUTO_5979 - WAYPOINT
+      ?AUTO_5977 - WAYPOINT
+      ?AUTO_5976 - ROVER
+      ?AUTO_5978 - CAMERA
+      ?AUTO_5981 - WAYPOINT
+      ?AUTO_5986 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5980 ?AUTO_5979 ) ( VISIBLE ?AUTO_5977 ?AUTO_5979 ) ( AVAILABLE ?AUTO_5976 ) ( CHANNEL_FREE ?AUTO_5980 ) ( CALIBRATED ?AUTO_5978 ?AUTO_5976 ) ( ON_BOARD ?AUTO_5978 ?AUTO_5976 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5976 ) ( SUPPORTS ?AUTO_5978 ?AUTO_5974 ) ( VISIBLE_FROM ?AUTO_5975 ?AUTO_5977 ) ( CAN_TRAVERSE ?AUTO_5976 ?AUTO_5981 ?AUTO_5977 ) ( VISIBLE ?AUTO_5981 ?AUTO_5977 ) ( CAN_TRAVERSE ?AUTO_5976 ?AUTO_5986 ?AUTO_5981 ) ( AT ?AUTO_5976 ?AUTO_5986 ) ( VISIBLE ?AUTO_5986 ?AUTO_5981 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5976 ?AUTO_5986 ?AUTO_5981 )
+      ( GET_IMAGE_DATA ?AUTO_5975 ?AUTO_5974 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5975 ?AUTO_5974 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_5988 - OBJECTIVE
+      ?AUTO_5987 - MODE
+    )
+    :vars
+    (
+      ?AUTO_5990 - LANDER
+      ?AUTO_5989 - WAYPOINT
+      ?AUTO_5992 - WAYPOINT
+      ?AUTO_5995 - ROVER
+      ?AUTO_5994 - CAMERA
+      ?AUTO_5996 - WAYPOINT
+      ?AUTO_5997 - WAYPOINT
+      ?AUTO_6000 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_5990 ?AUTO_5989 ) ( VISIBLE ?AUTO_5992 ?AUTO_5989 ) ( AVAILABLE ?AUTO_5995 ) ( CHANNEL_FREE ?AUTO_5990 ) ( CALIBRATED ?AUTO_5994 ?AUTO_5995 ) ( ON_BOARD ?AUTO_5994 ?AUTO_5995 ) ( EQUIPPED_FOR_IMAGING ?AUTO_5995 ) ( SUPPORTS ?AUTO_5994 ?AUTO_5987 ) ( VISIBLE_FROM ?AUTO_5988 ?AUTO_5992 ) ( CAN_TRAVERSE ?AUTO_5995 ?AUTO_5996 ?AUTO_5992 ) ( VISIBLE ?AUTO_5996 ?AUTO_5992 ) ( CAN_TRAVERSE ?AUTO_5995 ?AUTO_5997 ?AUTO_5996 ) ( VISIBLE ?AUTO_5997 ?AUTO_5996 ) ( CAN_TRAVERSE ?AUTO_5995 ?AUTO_6000 ?AUTO_5997 ) ( AT ?AUTO_5995 ?AUTO_6000 ) ( VISIBLE ?AUTO_6000 ?AUTO_5997 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_5995 ?AUTO_6000 ?AUTO_5997 )
+      ( GET_IMAGE_DATA ?AUTO_5988 ?AUTO_5987 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_5988 ?AUTO_5987 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6004 - OBJECTIVE
+      ?AUTO_6003 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6009 - LANDER
+      ?AUTO_6010 - WAYPOINT
+      ?AUTO_6012 - WAYPOINT
+      ?AUTO_6014 - ROVER
+      ?AUTO_6008 - CAMERA
+      ?AUTO_6007 - WAYPOINT
+      ?AUTO_6006 - WAYPOINT
+      ?AUTO_6013 - WAYPOINT
+      ?AUTO_6017 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6009 ?AUTO_6010 ) ( VISIBLE ?AUTO_6012 ?AUTO_6010 ) ( AVAILABLE ?AUTO_6014 ) ( CHANNEL_FREE ?AUTO_6009 ) ( CALIBRATED ?AUTO_6008 ?AUTO_6014 ) ( ON_BOARD ?AUTO_6008 ?AUTO_6014 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6014 ) ( SUPPORTS ?AUTO_6008 ?AUTO_6003 ) ( VISIBLE_FROM ?AUTO_6004 ?AUTO_6012 ) ( CAN_TRAVERSE ?AUTO_6014 ?AUTO_6007 ?AUTO_6012 ) ( VISIBLE ?AUTO_6007 ?AUTO_6012 ) ( CAN_TRAVERSE ?AUTO_6014 ?AUTO_6006 ?AUTO_6007 ) ( VISIBLE ?AUTO_6006 ?AUTO_6007 ) ( CAN_TRAVERSE ?AUTO_6014 ?AUTO_6013 ?AUTO_6006 ) ( VISIBLE ?AUTO_6013 ?AUTO_6006 ) ( CAN_TRAVERSE ?AUTO_6014 ?AUTO_6017 ?AUTO_6013 ) ( AT ?AUTO_6014 ?AUTO_6017 ) ( VISIBLE ?AUTO_6017 ?AUTO_6013 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6014 ?AUTO_6017 ?AUTO_6013 )
+      ( GET_IMAGE_DATA ?AUTO_6004 ?AUTO_6003 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6004 ?AUTO_6003 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6019 - OBJECTIVE
+      ?AUTO_6018 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6028 - LANDER
+      ?AUTO_6029 - WAYPOINT
+      ?AUTO_6025 - WAYPOINT
+      ?AUTO_6022 - ROVER
+      ?AUTO_6027 - CAMERA
+      ?AUTO_6026 - WAYPOINT
+      ?AUTO_6024 - WAYPOINT
+      ?AUTO_6023 - WAYPOINT
+      ?AUTO_6030 - WAYPOINT
+      ?AUTO_6034 - OBJECTIVE
+      ?AUTO_6032 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6028 ?AUTO_6029 ) ( VISIBLE ?AUTO_6025 ?AUTO_6029 ) ( AVAILABLE ?AUTO_6022 ) ( CHANNEL_FREE ?AUTO_6028 ) ( ON_BOARD ?AUTO_6027 ?AUTO_6022 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6022 ) ( SUPPORTS ?AUTO_6027 ?AUTO_6018 ) ( VISIBLE_FROM ?AUTO_6019 ?AUTO_6025 ) ( CAN_TRAVERSE ?AUTO_6022 ?AUTO_6026 ?AUTO_6025 ) ( VISIBLE ?AUTO_6026 ?AUTO_6025 ) ( CAN_TRAVERSE ?AUTO_6022 ?AUTO_6024 ?AUTO_6026 ) ( VISIBLE ?AUTO_6024 ?AUTO_6026 ) ( CAN_TRAVERSE ?AUTO_6022 ?AUTO_6023 ?AUTO_6024 ) ( VISIBLE ?AUTO_6023 ?AUTO_6024 ) ( CAN_TRAVERSE ?AUTO_6022 ?AUTO_6030 ?AUTO_6023 ) ( AT ?AUTO_6022 ?AUTO_6030 ) ( VISIBLE ?AUTO_6030 ?AUTO_6023 ) ( CALIBRATION_TARGET ?AUTO_6027 ?AUTO_6034 ) ( AT ?AUTO_6022 ?AUTO_6032 ) ( VISIBLE_FROM ?AUTO_6034 ?AUTO_6032 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_6022 ?AUTO_6027 ?AUTO_6034 ?AUTO_6032 )
+      ( GET_IMAGE_DATA ?AUTO_6019 ?AUTO_6018 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6019 ?AUTO_6018 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6036 - OBJECTIVE
+      ?AUTO_6035 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6044 - LANDER
+      ?AUTO_6041 - WAYPOINT
+      ?AUTO_6043 - WAYPOINT
+      ?AUTO_6045 - ROVER
+      ?AUTO_6042 - CAMERA
+      ?AUTO_6047 - WAYPOINT
+      ?AUTO_6037 - WAYPOINT
+      ?AUTO_6048 - WAYPOINT
+      ?AUTO_6049 - WAYPOINT
+      ?AUTO_6046 - OBJECTIVE
+      ?AUTO_6052 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6044 ?AUTO_6041 ) ( VISIBLE ?AUTO_6043 ?AUTO_6041 ) ( AVAILABLE ?AUTO_6045 ) ( CHANNEL_FREE ?AUTO_6044 ) ( ON_BOARD ?AUTO_6042 ?AUTO_6045 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6045 ) ( SUPPORTS ?AUTO_6042 ?AUTO_6035 ) ( VISIBLE_FROM ?AUTO_6036 ?AUTO_6043 ) ( CAN_TRAVERSE ?AUTO_6045 ?AUTO_6047 ?AUTO_6043 ) ( VISIBLE ?AUTO_6047 ?AUTO_6043 ) ( CAN_TRAVERSE ?AUTO_6045 ?AUTO_6037 ?AUTO_6047 ) ( VISIBLE ?AUTO_6037 ?AUTO_6047 ) ( CAN_TRAVERSE ?AUTO_6045 ?AUTO_6048 ?AUTO_6037 ) ( VISIBLE ?AUTO_6048 ?AUTO_6037 ) ( CAN_TRAVERSE ?AUTO_6045 ?AUTO_6049 ?AUTO_6048 ) ( VISIBLE ?AUTO_6049 ?AUTO_6048 ) ( CALIBRATION_TARGET ?AUTO_6042 ?AUTO_6046 ) ( VISIBLE_FROM ?AUTO_6046 ?AUTO_6049 ) ( CAN_TRAVERSE ?AUTO_6045 ?AUTO_6052 ?AUTO_6049 ) ( AT ?AUTO_6045 ?AUTO_6052 ) ( VISIBLE ?AUTO_6052 ?AUTO_6049 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6045 ?AUTO_6052 ?AUTO_6049 )
+      ( GET_IMAGE_DATA ?AUTO_6036 ?AUTO_6035 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6036 ?AUTO_6035 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6056 - OBJECTIVE
+      ?AUTO_6055 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6068 - LANDER
+      ?AUTO_6059 - WAYPOINT
+      ?AUTO_6069 - WAYPOINT
+      ?AUTO_6065 - ROVER
+      ?AUTO_6058 - CAMERA
+      ?AUTO_6067 - WAYPOINT
+      ?AUTO_6063 - WAYPOINT
+      ?AUTO_6062 - WAYPOINT
+      ?AUTO_6060 - WAYPOINT
+      ?AUTO_6061 - OBJECTIVE
+      ?AUTO_6064 - WAYPOINT
+      ?AUTO_6072 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6068 ?AUTO_6059 ) ( VISIBLE ?AUTO_6069 ?AUTO_6059 ) ( AVAILABLE ?AUTO_6065 ) ( CHANNEL_FREE ?AUTO_6068 ) ( ON_BOARD ?AUTO_6058 ?AUTO_6065 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6065 ) ( SUPPORTS ?AUTO_6058 ?AUTO_6055 ) ( VISIBLE_FROM ?AUTO_6056 ?AUTO_6069 ) ( CAN_TRAVERSE ?AUTO_6065 ?AUTO_6067 ?AUTO_6069 ) ( VISIBLE ?AUTO_6067 ?AUTO_6069 ) ( CAN_TRAVERSE ?AUTO_6065 ?AUTO_6063 ?AUTO_6067 ) ( VISIBLE ?AUTO_6063 ?AUTO_6067 ) ( CAN_TRAVERSE ?AUTO_6065 ?AUTO_6062 ?AUTO_6063 ) ( VISIBLE ?AUTO_6062 ?AUTO_6063 ) ( CAN_TRAVERSE ?AUTO_6065 ?AUTO_6060 ?AUTO_6062 ) ( VISIBLE ?AUTO_6060 ?AUTO_6062 ) ( CALIBRATION_TARGET ?AUTO_6058 ?AUTO_6061 ) ( VISIBLE_FROM ?AUTO_6061 ?AUTO_6060 ) ( CAN_TRAVERSE ?AUTO_6065 ?AUTO_6064 ?AUTO_6060 ) ( VISIBLE ?AUTO_6064 ?AUTO_6060 ) ( CAN_TRAVERSE ?AUTO_6065 ?AUTO_6072 ?AUTO_6064 ) ( AT ?AUTO_6065 ?AUTO_6072 ) ( VISIBLE ?AUTO_6072 ?AUTO_6064 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6065 ?AUTO_6072 ?AUTO_6064 )
+      ( GET_IMAGE_DATA ?AUTO_6056 ?AUTO_6055 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6056 ?AUTO_6055 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6094 - OBJECTIVE
+      ?AUTO_6093 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6107 - LANDER
+      ?AUTO_6100 - WAYPOINT
+      ?AUTO_6101 - WAYPOINT
+      ?AUTO_6106 - ROVER
+      ?AUTO_6097 - CAMERA
+      ?AUTO_6095 - WAYPOINT
+      ?AUTO_6098 - WAYPOINT
+      ?AUTO_6102 - WAYPOINT
+      ?AUTO_6108 - WAYPOINT
+      ?AUTO_6104 - OBJECTIVE
+      ?AUTO_6105 - WAYPOINT
+      ?AUTO_6096 - WAYPOINT
+      ?AUTO_6111 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6107 ?AUTO_6100 ) ( VISIBLE ?AUTO_6101 ?AUTO_6100 ) ( AVAILABLE ?AUTO_6106 ) ( CHANNEL_FREE ?AUTO_6107 ) ( ON_BOARD ?AUTO_6097 ?AUTO_6106 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6106 ) ( SUPPORTS ?AUTO_6097 ?AUTO_6093 ) ( VISIBLE_FROM ?AUTO_6094 ?AUTO_6101 ) ( CAN_TRAVERSE ?AUTO_6106 ?AUTO_6095 ?AUTO_6101 ) ( VISIBLE ?AUTO_6095 ?AUTO_6101 ) ( CAN_TRAVERSE ?AUTO_6106 ?AUTO_6098 ?AUTO_6095 ) ( VISIBLE ?AUTO_6098 ?AUTO_6095 ) ( CAN_TRAVERSE ?AUTO_6106 ?AUTO_6102 ?AUTO_6098 ) ( VISIBLE ?AUTO_6102 ?AUTO_6098 ) ( CAN_TRAVERSE ?AUTO_6106 ?AUTO_6108 ?AUTO_6102 ) ( VISIBLE ?AUTO_6108 ?AUTO_6102 ) ( CALIBRATION_TARGET ?AUTO_6097 ?AUTO_6104 ) ( VISIBLE_FROM ?AUTO_6104 ?AUTO_6108 ) ( CAN_TRAVERSE ?AUTO_6106 ?AUTO_6105 ?AUTO_6108 ) ( VISIBLE ?AUTO_6105 ?AUTO_6108 ) ( CAN_TRAVERSE ?AUTO_6106 ?AUTO_6096 ?AUTO_6105 ) ( VISIBLE ?AUTO_6096 ?AUTO_6105 ) ( CAN_TRAVERSE ?AUTO_6106 ?AUTO_6111 ?AUTO_6096 ) ( AT ?AUTO_6106 ?AUTO_6111 ) ( VISIBLE ?AUTO_6111 ?AUTO_6096 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6106 ?AUTO_6111 ?AUTO_6096 )
+      ( GET_IMAGE_DATA ?AUTO_6094 ?AUTO_6093 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6094 ?AUTO_6093 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6113 - OBJECTIVE
+      ?AUTO_6112 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6123 - LANDER
+      ?AUTO_6115 - WAYPOINT
+      ?AUTO_6125 - WAYPOINT
+      ?AUTO_6119 - ROVER
+      ?AUTO_6128 - CAMERA
+      ?AUTO_6116 - WAYPOINT
+      ?AUTO_6121 - WAYPOINT
+      ?AUTO_6120 - WAYPOINT
+      ?AUTO_6118 - WAYPOINT
+      ?AUTO_6127 - OBJECTIVE
+      ?AUTO_6122 - WAYPOINT
+      ?AUTO_6117 - WAYPOINT
+      ?AUTO_6126 - WAYPOINT
+      ?AUTO_6131 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6123 ?AUTO_6115 ) ( VISIBLE ?AUTO_6125 ?AUTO_6115 ) ( AVAILABLE ?AUTO_6119 ) ( CHANNEL_FREE ?AUTO_6123 ) ( ON_BOARD ?AUTO_6128 ?AUTO_6119 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6119 ) ( SUPPORTS ?AUTO_6128 ?AUTO_6112 ) ( VISIBLE_FROM ?AUTO_6113 ?AUTO_6125 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6116 ?AUTO_6125 ) ( VISIBLE ?AUTO_6116 ?AUTO_6125 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6121 ?AUTO_6116 ) ( VISIBLE ?AUTO_6121 ?AUTO_6116 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6120 ?AUTO_6121 ) ( VISIBLE ?AUTO_6120 ?AUTO_6121 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6118 ?AUTO_6120 ) ( VISIBLE ?AUTO_6118 ?AUTO_6120 ) ( CALIBRATION_TARGET ?AUTO_6128 ?AUTO_6127 ) ( VISIBLE_FROM ?AUTO_6127 ?AUTO_6118 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6122 ?AUTO_6118 ) ( VISIBLE ?AUTO_6122 ?AUTO_6118 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6117 ?AUTO_6122 ) ( VISIBLE ?AUTO_6117 ?AUTO_6122 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6126 ?AUTO_6117 ) ( VISIBLE ?AUTO_6126 ?AUTO_6117 ) ( CAN_TRAVERSE ?AUTO_6119 ?AUTO_6131 ?AUTO_6126 ) ( AT ?AUTO_6119 ?AUTO_6131 ) ( VISIBLE ?AUTO_6131 ?AUTO_6126 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6119 ?AUTO_6131 ?AUTO_6126 )
+      ( GET_IMAGE_DATA ?AUTO_6113 ?AUTO_6112 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6113 ?AUTO_6112 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6135 - OBJECTIVE
+      ?AUTO_6134 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6136 - ROVER
+      ?AUTO_6139 - WAYPOINT
+      ?AUTO_6138 - LANDER
+      ?AUTO_6137 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6136 ?AUTO_6139 ) ( AT_LANDER ?AUTO_6138 ?AUTO_6137 ) ( HAVE_IMAGE ?AUTO_6136 ?AUTO_6135 ?AUTO_6134 ) ( VISIBLE ?AUTO_6139 ?AUTO_6137 ) ( AVAILABLE ?AUTO_6136 ) ( CHANNEL_FREE ?AUTO_6138 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_6136 ?AUTO_6138 ?AUTO_6135 ?AUTO_6134 ?AUTO_6139 ?AUTO_6137 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6135 ?AUTO_6134 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6143 - OBJECTIVE
+      ?AUTO_6142 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6146 - ROVER
+      ?AUTO_6149 - WAYPOINT
+      ?AUTO_6148 - LANDER
+      ?AUTO_6147 - WAYPOINT
+      ?AUTO_6154 - CAMERA
+      ?AUTO_6152 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6146 ?AUTO_6149 ) ( AT_LANDER ?AUTO_6148 ?AUTO_6147 ) ( VISIBLE ?AUTO_6149 ?AUTO_6147 ) ( AVAILABLE ?AUTO_6146 ) ( CHANNEL_FREE ?AUTO_6148 ) ( CALIBRATED ?AUTO_6154 ?AUTO_6146 ) ( ON_BOARD ?AUTO_6154 ?AUTO_6146 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6146 ) ( SUPPORTS ?AUTO_6154 ?AUTO_6142 ) ( VISIBLE_FROM ?AUTO_6143 ?AUTO_6152 ) ( AT ?AUTO_6146 ?AUTO_6152 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_6146 ?AUTO_6152 ?AUTO_6143 ?AUTO_6154 ?AUTO_6142 )
+      ( GET_IMAGE_DATA ?AUTO_6143 ?AUTO_6142 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6143 ?AUTO_6142 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6156 - OBJECTIVE
+      ?AUTO_6155 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6162 - LANDER
+      ?AUTO_6161 - WAYPOINT
+      ?AUTO_6163 - WAYPOINT
+      ?AUTO_6160 - ROVER
+      ?AUTO_6164 - CAMERA
+      ?AUTO_6167 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6162 ?AUTO_6161 ) ( VISIBLE ?AUTO_6163 ?AUTO_6161 ) ( AVAILABLE ?AUTO_6160 ) ( CHANNEL_FREE ?AUTO_6162 ) ( CALIBRATED ?AUTO_6164 ?AUTO_6160 ) ( ON_BOARD ?AUTO_6164 ?AUTO_6160 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6160 ) ( SUPPORTS ?AUTO_6164 ?AUTO_6155 ) ( VISIBLE_FROM ?AUTO_6156 ?AUTO_6163 ) ( CAN_TRAVERSE ?AUTO_6160 ?AUTO_6167 ?AUTO_6163 ) ( AT ?AUTO_6160 ?AUTO_6167 ) ( VISIBLE ?AUTO_6167 ?AUTO_6163 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6160 ?AUTO_6167 ?AUTO_6163 )
+      ( GET_IMAGE_DATA ?AUTO_6156 ?AUTO_6155 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6156 ?AUTO_6155 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6169 - OBJECTIVE
+      ?AUTO_6168 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6173 - LANDER
+      ?AUTO_6176 - WAYPOINT
+      ?AUTO_6172 - WAYPOINT
+      ?AUTO_6175 - ROVER
+      ?AUTO_6174 - CAMERA
+      ?AUTO_6177 - WAYPOINT
+      ?AUTO_6180 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6173 ?AUTO_6176 ) ( VISIBLE ?AUTO_6172 ?AUTO_6176 ) ( AVAILABLE ?AUTO_6175 ) ( CHANNEL_FREE ?AUTO_6173 ) ( CALIBRATED ?AUTO_6174 ?AUTO_6175 ) ( ON_BOARD ?AUTO_6174 ?AUTO_6175 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6175 ) ( SUPPORTS ?AUTO_6174 ?AUTO_6168 ) ( VISIBLE_FROM ?AUTO_6169 ?AUTO_6172 ) ( CAN_TRAVERSE ?AUTO_6175 ?AUTO_6177 ?AUTO_6172 ) ( VISIBLE ?AUTO_6177 ?AUTO_6172 ) ( CAN_TRAVERSE ?AUTO_6175 ?AUTO_6180 ?AUTO_6177 ) ( AT ?AUTO_6175 ?AUTO_6180 ) ( VISIBLE ?AUTO_6180 ?AUTO_6177 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6175 ?AUTO_6180 ?AUTO_6177 )
+      ( GET_IMAGE_DATA ?AUTO_6169 ?AUTO_6168 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6169 ?AUTO_6168 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6182 - OBJECTIVE
+      ?AUTO_6181 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6190 - LANDER
+      ?AUTO_6189 - WAYPOINT
+      ?AUTO_6188 - WAYPOINT
+      ?AUTO_6184 - ROVER
+      ?AUTO_6183 - CAMERA
+      ?AUTO_6186 - WAYPOINT
+      ?AUTO_6191 - WAYPOINT
+      ?AUTO_6194 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6190 ?AUTO_6189 ) ( VISIBLE ?AUTO_6188 ?AUTO_6189 ) ( AVAILABLE ?AUTO_6184 ) ( CHANNEL_FREE ?AUTO_6190 ) ( CALIBRATED ?AUTO_6183 ?AUTO_6184 ) ( ON_BOARD ?AUTO_6183 ?AUTO_6184 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6184 ) ( SUPPORTS ?AUTO_6183 ?AUTO_6181 ) ( VISIBLE_FROM ?AUTO_6182 ?AUTO_6188 ) ( CAN_TRAVERSE ?AUTO_6184 ?AUTO_6186 ?AUTO_6188 ) ( VISIBLE ?AUTO_6186 ?AUTO_6188 ) ( CAN_TRAVERSE ?AUTO_6184 ?AUTO_6191 ?AUTO_6186 ) ( VISIBLE ?AUTO_6191 ?AUTO_6186 ) ( CAN_TRAVERSE ?AUTO_6184 ?AUTO_6194 ?AUTO_6191 ) ( AT ?AUTO_6184 ?AUTO_6194 ) ( VISIBLE ?AUTO_6194 ?AUTO_6191 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6184 ?AUTO_6194 ?AUTO_6191 )
+      ( GET_IMAGE_DATA ?AUTO_6182 ?AUTO_6181 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6182 ?AUTO_6181 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6196 - OBJECTIVE
+      ?AUTO_6195 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6199 - LANDER
+      ?AUTO_6206 - WAYPOINT
+      ?AUTO_6202 - WAYPOINT
+      ?AUTO_6204 - ROVER
+      ?AUTO_6201 - CAMERA
+      ?AUTO_6205 - WAYPOINT
+      ?AUTO_6200 - WAYPOINT
+      ?AUTO_6203 - WAYPOINT
+      ?AUTO_6209 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6199 ?AUTO_6206 ) ( VISIBLE ?AUTO_6202 ?AUTO_6206 ) ( AVAILABLE ?AUTO_6204 ) ( CHANNEL_FREE ?AUTO_6199 ) ( CALIBRATED ?AUTO_6201 ?AUTO_6204 ) ( ON_BOARD ?AUTO_6201 ?AUTO_6204 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6204 ) ( SUPPORTS ?AUTO_6201 ?AUTO_6195 ) ( VISIBLE_FROM ?AUTO_6196 ?AUTO_6202 ) ( CAN_TRAVERSE ?AUTO_6204 ?AUTO_6205 ?AUTO_6202 ) ( VISIBLE ?AUTO_6205 ?AUTO_6202 ) ( CAN_TRAVERSE ?AUTO_6204 ?AUTO_6200 ?AUTO_6205 ) ( VISIBLE ?AUTO_6200 ?AUTO_6205 ) ( CAN_TRAVERSE ?AUTO_6204 ?AUTO_6203 ?AUTO_6200 ) ( VISIBLE ?AUTO_6203 ?AUTO_6200 ) ( CAN_TRAVERSE ?AUTO_6204 ?AUTO_6209 ?AUTO_6203 ) ( AT ?AUTO_6204 ?AUTO_6209 ) ( VISIBLE ?AUTO_6209 ?AUTO_6203 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6204 ?AUTO_6209 ?AUTO_6203 )
+      ( GET_IMAGE_DATA ?AUTO_6196 ?AUTO_6195 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6196 ?AUTO_6195 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6211 - OBJECTIVE
+      ?AUTO_6210 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6218 - LANDER
+      ?AUTO_6214 - WAYPOINT
+      ?AUTO_6216 - WAYPOINT
+      ?AUTO_6215 - ROVER
+      ?AUTO_6221 - CAMERA
+      ?AUTO_6219 - WAYPOINT
+      ?AUTO_6222 - WAYPOINT
+      ?AUTO_6220 - WAYPOINT
+      ?AUTO_6213 - WAYPOINT
+      ?AUTO_6226 - OBJECTIVE
+      ?AUTO_6224 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6218 ?AUTO_6214 ) ( VISIBLE ?AUTO_6216 ?AUTO_6214 ) ( AVAILABLE ?AUTO_6215 ) ( CHANNEL_FREE ?AUTO_6218 ) ( ON_BOARD ?AUTO_6221 ?AUTO_6215 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6215 ) ( SUPPORTS ?AUTO_6221 ?AUTO_6210 ) ( VISIBLE_FROM ?AUTO_6211 ?AUTO_6216 ) ( CAN_TRAVERSE ?AUTO_6215 ?AUTO_6219 ?AUTO_6216 ) ( VISIBLE ?AUTO_6219 ?AUTO_6216 ) ( CAN_TRAVERSE ?AUTO_6215 ?AUTO_6222 ?AUTO_6219 ) ( VISIBLE ?AUTO_6222 ?AUTO_6219 ) ( CAN_TRAVERSE ?AUTO_6215 ?AUTO_6220 ?AUTO_6222 ) ( VISIBLE ?AUTO_6220 ?AUTO_6222 ) ( CAN_TRAVERSE ?AUTO_6215 ?AUTO_6213 ?AUTO_6220 ) ( AT ?AUTO_6215 ?AUTO_6213 ) ( VISIBLE ?AUTO_6213 ?AUTO_6220 ) ( CALIBRATION_TARGET ?AUTO_6221 ?AUTO_6226 ) ( AT ?AUTO_6215 ?AUTO_6224 ) ( VISIBLE_FROM ?AUTO_6226 ?AUTO_6224 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_6215 ?AUTO_6221 ?AUTO_6226 ?AUTO_6224 )
+      ( GET_IMAGE_DATA ?AUTO_6211 ?AUTO_6210 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6211 ?AUTO_6210 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6228 - OBJECTIVE
+      ?AUTO_6227 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6239 - LANDER
+      ?AUTO_6231 - WAYPOINT
+      ?AUTO_6236 - WAYPOINT
+      ?AUTO_6241 - ROVER
+      ?AUTO_6232 - CAMERA
+      ?AUTO_6240 - WAYPOINT
+      ?AUTO_6230 - WAYPOINT
+      ?AUTO_6235 - WAYPOINT
+      ?AUTO_6238 - WAYPOINT
+      ?AUTO_6237 - OBJECTIVE
+      ?AUTO_6244 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6239 ?AUTO_6231 ) ( VISIBLE ?AUTO_6236 ?AUTO_6231 ) ( AVAILABLE ?AUTO_6241 ) ( CHANNEL_FREE ?AUTO_6239 ) ( ON_BOARD ?AUTO_6232 ?AUTO_6241 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6241 ) ( SUPPORTS ?AUTO_6232 ?AUTO_6227 ) ( VISIBLE_FROM ?AUTO_6228 ?AUTO_6236 ) ( CAN_TRAVERSE ?AUTO_6241 ?AUTO_6240 ?AUTO_6236 ) ( VISIBLE ?AUTO_6240 ?AUTO_6236 ) ( CAN_TRAVERSE ?AUTO_6241 ?AUTO_6230 ?AUTO_6240 ) ( VISIBLE ?AUTO_6230 ?AUTO_6240 ) ( CAN_TRAVERSE ?AUTO_6241 ?AUTO_6235 ?AUTO_6230 ) ( VISIBLE ?AUTO_6235 ?AUTO_6230 ) ( CAN_TRAVERSE ?AUTO_6241 ?AUTO_6238 ?AUTO_6235 ) ( VISIBLE ?AUTO_6238 ?AUTO_6235 ) ( CALIBRATION_TARGET ?AUTO_6232 ?AUTO_6237 ) ( VISIBLE_FROM ?AUTO_6237 ?AUTO_6238 ) ( CAN_TRAVERSE ?AUTO_6241 ?AUTO_6244 ?AUTO_6238 ) ( AT ?AUTO_6241 ?AUTO_6244 ) ( VISIBLE ?AUTO_6244 ?AUTO_6238 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6241 ?AUTO_6244 ?AUTO_6238 )
+      ( GET_IMAGE_DATA ?AUTO_6228 ?AUTO_6227 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6228 ?AUTO_6227 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6246 - OBJECTIVE
+      ?AUTO_6245 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6249 - LANDER
+      ?AUTO_6247 - WAYPOINT
+      ?AUTO_6256 - WAYPOINT
+      ?AUTO_6251 - ROVER
+      ?AUTO_6257 - CAMERA
+      ?AUTO_6248 - WAYPOINT
+      ?AUTO_6250 - WAYPOINT
+      ?AUTO_6259 - WAYPOINT
+      ?AUTO_6254 - WAYPOINT
+      ?AUTO_6255 - OBJECTIVE
+      ?AUTO_6258 - WAYPOINT
+      ?AUTO_6262 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6249 ?AUTO_6247 ) ( VISIBLE ?AUTO_6256 ?AUTO_6247 ) ( AVAILABLE ?AUTO_6251 ) ( CHANNEL_FREE ?AUTO_6249 ) ( ON_BOARD ?AUTO_6257 ?AUTO_6251 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6251 ) ( SUPPORTS ?AUTO_6257 ?AUTO_6245 ) ( VISIBLE_FROM ?AUTO_6246 ?AUTO_6256 ) ( CAN_TRAVERSE ?AUTO_6251 ?AUTO_6248 ?AUTO_6256 ) ( VISIBLE ?AUTO_6248 ?AUTO_6256 ) ( CAN_TRAVERSE ?AUTO_6251 ?AUTO_6250 ?AUTO_6248 ) ( VISIBLE ?AUTO_6250 ?AUTO_6248 ) ( CAN_TRAVERSE ?AUTO_6251 ?AUTO_6259 ?AUTO_6250 ) ( VISIBLE ?AUTO_6259 ?AUTO_6250 ) ( CAN_TRAVERSE ?AUTO_6251 ?AUTO_6254 ?AUTO_6259 ) ( VISIBLE ?AUTO_6254 ?AUTO_6259 ) ( CALIBRATION_TARGET ?AUTO_6257 ?AUTO_6255 ) ( VISIBLE_FROM ?AUTO_6255 ?AUTO_6254 ) ( CAN_TRAVERSE ?AUTO_6251 ?AUTO_6258 ?AUTO_6254 ) ( VISIBLE ?AUTO_6258 ?AUTO_6254 ) ( CAN_TRAVERSE ?AUTO_6251 ?AUTO_6262 ?AUTO_6258 ) ( AT ?AUTO_6251 ?AUTO_6262 ) ( VISIBLE ?AUTO_6262 ?AUTO_6258 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6251 ?AUTO_6262 ?AUTO_6258 )
+      ( GET_IMAGE_DATA ?AUTO_6246 ?AUTO_6245 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6246 ?AUTO_6245 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6264 - OBJECTIVE
+      ?AUTO_6263 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6278 - LANDER
+      ?AUTO_6266 - WAYPOINT
+      ?AUTO_6274 - WAYPOINT
+      ?AUTO_6276 - ROVER
+      ?AUTO_6271 - CAMERA
+      ?AUTO_6268 - WAYPOINT
+      ?AUTO_6270 - WAYPOINT
+      ?AUTO_6269 - WAYPOINT
+      ?AUTO_6275 - WAYPOINT
+      ?AUTO_6273 - OBJECTIVE
+      ?AUTO_6267 - WAYPOINT
+      ?AUTO_6277 - WAYPOINT
+      ?AUTO_6281 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6278 ?AUTO_6266 ) ( VISIBLE ?AUTO_6274 ?AUTO_6266 ) ( AVAILABLE ?AUTO_6276 ) ( CHANNEL_FREE ?AUTO_6278 ) ( ON_BOARD ?AUTO_6271 ?AUTO_6276 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6276 ) ( SUPPORTS ?AUTO_6271 ?AUTO_6263 ) ( VISIBLE_FROM ?AUTO_6264 ?AUTO_6274 ) ( CAN_TRAVERSE ?AUTO_6276 ?AUTO_6268 ?AUTO_6274 ) ( VISIBLE ?AUTO_6268 ?AUTO_6274 ) ( CAN_TRAVERSE ?AUTO_6276 ?AUTO_6270 ?AUTO_6268 ) ( VISIBLE ?AUTO_6270 ?AUTO_6268 ) ( CAN_TRAVERSE ?AUTO_6276 ?AUTO_6269 ?AUTO_6270 ) ( VISIBLE ?AUTO_6269 ?AUTO_6270 ) ( CAN_TRAVERSE ?AUTO_6276 ?AUTO_6275 ?AUTO_6269 ) ( VISIBLE ?AUTO_6275 ?AUTO_6269 ) ( CALIBRATION_TARGET ?AUTO_6271 ?AUTO_6273 ) ( VISIBLE_FROM ?AUTO_6273 ?AUTO_6275 ) ( CAN_TRAVERSE ?AUTO_6276 ?AUTO_6267 ?AUTO_6275 ) ( VISIBLE ?AUTO_6267 ?AUTO_6275 ) ( CAN_TRAVERSE ?AUTO_6276 ?AUTO_6277 ?AUTO_6267 ) ( VISIBLE ?AUTO_6277 ?AUTO_6267 ) ( CAN_TRAVERSE ?AUTO_6276 ?AUTO_6281 ?AUTO_6277 ) ( AT ?AUTO_6276 ?AUTO_6281 ) ( VISIBLE ?AUTO_6281 ?AUTO_6277 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6276 ?AUTO_6281 ?AUTO_6277 )
+      ( GET_IMAGE_DATA ?AUTO_6264 ?AUTO_6263 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6264 ?AUTO_6263 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6283 - OBJECTIVE
+      ?AUTO_6282 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6288 - LANDER
+      ?AUTO_6293 - WAYPOINT
+      ?AUTO_6285 - WAYPOINT
+      ?AUTO_6289 - ROVER
+      ?AUTO_6291 - CAMERA
+      ?AUTO_6295 - WAYPOINT
+      ?AUTO_6296 - WAYPOINT
+      ?AUTO_6292 - WAYPOINT
+      ?AUTO_6286 - WAYPOINT
+      ?AUTO_6294 - OBJECTIVE
+      ?AUTO_6298 - WAYPOINT
+      ?AUTO_6290 - WAYPOINT
+      ?AUTO_6297 - WAYPOINT
+      ?AUTO_6301 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6288 ?AUTO_6293 ) ( VISIBLE ?AUTO_6285 ?AUTO_6293 ) ( AVAILABLE ?AUTO_6289 ) ( CHANNEL_FREE ?AUTO_6288 ) ( ON_BOARD ?AUTO_6291 ?AUTO_6289 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6289 ) ( SUPPORTS ?AUTO_6291 ?AUTO_6282 ) ( VISIBLE_FROM ?AUTO_6283 ?AUTO_6285 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6295 ?AUTO_6285 ) ( VISIBLE ?AUTO_6295 ?AUTO_6285 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6296 ?AUTO_6295 ) ( VISIBLE ?AUTO_6296 ?AUTO_6295 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6292 ?AUTO_6296 ) ( VISIBLE ?AUTO_6292 ?AUTO_6296 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6286 ?AUTO_6292 ) ( VISIBLE ?AUTO_6286 ?AUTO_6292 ) ( CALIBRATION_TARGET ?AUTO_6291 ?AUTO_6294 ) ( VISIBLE_FROM ?AUTO_6294 ?AUTO_6286 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6298 ?AUTO_6286 ) ( VISIBLE ?AUTO_6298 ?AUTO_6286 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6290 ?AUTO_6298 ) ( VISIBLE ?AUTO_6290 ?AUTO_6298 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6297 ?AUTO_6290 ) ( VISIBLE ?AUTO_6297 ?AUTO_6290 ) ( CAN_TRAVERSE ?AUTO_6289 ?AUTO_6301 ?AUTO_6297 ) ( AT ?AUTO_6289 ?AUTO_6301 ) ( VISIBLE ?AUTO_6301 ?AUTO_6297 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6289 ?AUTO_6301 ?AUTO_6297 )
+      ( GET_IMAGE_DATA ?AUTO_6283 ?AUTO_6282 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6283 ?AUTO_6282 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6303 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6304 - ROVER
+      ?AUTO_6307 - WAYPOINT
+      ?AUTO_6306 - LANDER
+      ?AUTO_6305 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6304 ?AUTO_6307 ) ( AT_LANDER ?AUTO_6306 ?AUTO_6305 ) ( HAVE_ROCK_ANALYSIS ?AUTO_6304 ?AUTO_6303 ) ( VISIBLE ?AUTO_6307 ?AUTO_6305 ) ( AVAILABLE ?AUTO_6304 ) ( CHANNEL_FREE ?AUTO_6306 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_6304 ?AUTO_6306 ?AUTO_6303 ?AUTO_6307 ?AUTO_6305 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6303 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6309 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6311 - ROVER
+      ?AUTO_6314 - WAYPOINT
+      ?AUTO_6313 - LANDER
+      ?AUTO_6312 - WAYPOINT
+      ?AUTO_6316 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_6311 ?AUTO_6314 ) ( AT_LANDER ?AUTO_6313 ?AUTO_6312 ) ( VISIBLE ?AUTO_6314 ?AUTO_6312 ) ( AVAILABLE ?AUTO_6311 ) ( CHANNEL_FREE ?AUTO_6313 ) ( AT ?AUTO_6311 ?AUTO_6309 ) ( AT_ROCK_SAMPLE ?AUTO_6309 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6311 ) ( STORE_OF ?AUTO_6316 ?AUTO_6311 ) ( EMPTY ?AUTO_6316 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_6311 ?AUTO_6316 ?AUTO_6309 )
+      ( GET_ROCK_DATA ?AUTO_6309 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6309 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6318 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6322 - LANDER
+      ?AUTO_6323 - WAYPOINT
+      ?AUTO_6320 - ROVER
+      ?AUTO_6324 - STORE
+      ?AUTO_6327 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6322 ?AUTO_6323 ) ( VISIBLE ?AUTO_6318 ?AUTO_6323 ) ( AVAILABLE ?AUTO_6320 ) ( CHANNEL_FREE ?AUTO_6322 ) ( AT_ROCK_SAMPLE ?AUTO_6318 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6320 ) ( STORE_OF ?AUTO_6324 ?AUTO_6320 ) ( EMPTY ?AUTO_6324 ) ( CAN_TRAVERSE ?AUTO_6320 ?AUTO_6327 ?AUTO_6318 ) ( AT ?AUTO_6320 ?AUTO_6327 ) ( VISIBLE ?AUTO_6327 ?AUTO_6318 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6320 ?AUTO_6327 ?AUTO_6318 )
+      ( GET_ROCK_DATA ?AUTO_6318 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6318 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6331 - OBJECTIVE
+      ?AUTO_6332 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6333 - ROVER
+      ?AUTO_6336 - WAYPOINT
+      ?AUTO_6335 - LANDER
+      ?AUTO_6334 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6333 ?AUTO_6336 ) ( AT_LANDER ?AUTO_6335 ?AUTO_6334 ) ( HAVE_IMAGE ?AUTO_6333 ?AUTO_6331 ?AUTO_6332 ) ( VISIBLE ?AUTO_6336 ?AUTO_6334 ) ( AVAILABLE ?AUTO_6333 ) ( CHANNEL_FREE ?AUTO_6335 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_6333 ?AUTO_6335 ?AUTO_6331 ?AUTO_6332 ?AUTO_6336 ?AUTO_6334 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6331 ?AUTO_6332 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6341 - OBJECTIVE
+      ?AUTO_6342 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6348 - LANDER
+      ?AUTO_6344 - WAYPOINT
+      ?AUTO_6343 - ROVER
+      ?AUTO_6346 - WAYPOINT
+      ?AUTO_6351 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6348 ?AUTO_6344 ) ( HAVE_IMAGE ?AUTO_6343 ?AUTO_6341 ?AUTO_6342 ) ( VISIBLE ?AUTO_6346 ?AUTO_6344 ) ( AVAILABLE ?AUTO_6343 ) ( CHANNEL_FREE ?AUTO_6348 ) ( CAN_TRAVERSE ?AUTO_6343 ?AUTO_6351 ?AUTO_6346 ) ( AT ?AUTO_6343 ?AUTO_6351 ) ( VISIBLE ?AUTO_6351 ?AUTO_6346 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6343 ?AUTO_6351 ?AUTO_6346 )
+      ( GET_IMAGE_DATA ?AUTO_6341 ?AUTO_6342 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6341 ?AUTO_6342 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6352 - OBJECTIVE
+      ?AUTO_6353 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6356 - LANDER
+      ?AUTO_6357 - WAYPOINT
+      ?AUTO_6358 - WAYPOINT
+      ?AUTO_6359 - ROVER
+      ?AUTO_6360 - WAYPOINT
+      ?AUTO_6365 - CAMERA
+      ?AUTO_6363 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6356 ?AUTO_6357 ) ( VISIBLE ?AUTO_6358 ?AUTO_6357 ) ( AVAILABLE ?AUTO_6359 ) ( CHANNEL_FREE ?AUTO_6356 ) ( CAN_TRAVERSE ?AUTO_6359 ?AUTO_6360 ?AUTO_6358 ) ( AT ?AUTO_6359 ?AUTO_6360 ) ( VISIBLE ?AUTO_6360 ?AUTO_6358 ) ( CALIBRATED ?AUTO_6365 ?AUTO_6359 ) ( ON_BOARD ?AUTO_6365 ?AUTO_6359 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6359 ) ( SUPPORTS ?AUTO_6365 ?AUTO_6353 ) ( VISIBLE_FROM ?AUTO_6352 ?AUTO_6363 ) ( AT ?AUTO_6359 ?AUTO_6363 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_6359 ?AUTO_6363 ?AUTO_6352 ?AUTO_6365 ?AUTO_6353 )
+      ( GET_IMAGE_DATA ?AUTO_6352 ?AUTO_6353 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6352 ?AUTO_6353 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6366 - OBJECTIVE
+      ?AUTO_6367 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6373 - LANDER
+      ?AUTO_6372 - WAYPOINT
+      ?AUTO_6374 - WAYPOINT
+      ?AUTO_6371 - ROVER
+      ?AUTO_6375 - WAYPOINT
+      ?AUTO_6376 - CAMERA
+      ?AUTO_6379 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6373 ?AUTO_6372 ) ( VISIBLE ?AUTO_6374 ?AUTO_6372 ) ( AVAILABLE ?AUTO_6371 ) ( CHANNEL_FREE ?AUTO_6373 ) ( CAN_TRAVERSE ?AUTO_6371 ?AUTO_6375 ?AUTO_6374 ) ( VISIBLE ?AUTO_6375 ?AUTO_6374 ) ( CALIBRATED ?AUTO_6376 ?AUTO_6371 ) ( ON_BOARD ?AUTO_6376 ?AUTO_6371 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6371 ) ( SUPPORTS ?AUTO_6376 ?AUTO_6367 ) ( VISIBLE_FROM ?AUTO_6366 ?AUTO_6375 ) ( CAN_TRAVERSE ?AUTO_6371 ?AUTO_6379 ?AUTO_6375 ) ( AT ?AUTO_6371 ?AUTO_6379 ) ( VISIBLE ?AUTO_6379 ?AUTO_6375 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6371 ?AUTO_6379 ?AUTO_6375 )
+      ( GET_IMAGE_DATA ?AUTO_6366 ?AUTO_6367 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6366 ?AUTO_6367 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6380 - OBJECTIVE
+      ?AUTO_6381 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6385 - LANDER
+      ?AUTO_6386 - WAYPOINT
+      ?AUTO_6384 - WAYPOINT
+      ?AUTO_6387 - ROVER
+      ?AUTO_6388 - WAYPOINT
+      ?AUTO_6382 - CAMERA
+      ?AUTO_6390 - WAYPOINT
+      ?AUTO_6393 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6385 ?AUTO_6386 ) ( VISIBLE ?AUTO_6384 ?AUTO_6386 ) ( AVAILABLE ?AUTO_6387 ) ( CHANNEL_FREE ?AUTO_6385 ) ( CAN_TRAVERSE ?AUTO_6387 ?AUTO_6388 ?AUTO_6384 ) ( VISIBLE ?AUTO_6388 ?AUTO_6384 ) ( CALIBRATED ?AUTO_6382 ?AUTO_6387 ) ( ON_BOARD ?AUTO_6382 ?AUTO_6387 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6387 ) ( SUPPORTS ?AUTO_6382 ?AUTO_6381 ) ( VISIBLE_FROM ?AUTO_6380 ?AUTO_6388 ) ( CAN_TRAVERSE ?AUTO_6387 ?AUTO_6390 ?AUTO_6388 ) ( VISIBLE ?AUTO_6390 ?AUTO_6388 ) ( CAN_TRAVERSE ?AUTO_6387 ?AUTO_6393 ?AUTO_6390 ) ( AT ?AUTO_6387 ?AUTO_6393 ) ( VISIBLE ?AUTO_6393 ?AUTO_6390 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6387 ?AUTO_6393 ?AUTO_6390 )
+      ( GET_IMAGE_DATA ?AUTO_6380 ?AUTO_6381 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6380 ?AUTO_6381 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6394 - OBJECTIVE
+      ?AUTO_6395 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6399 - LANDER
+      ?AUTO_6397 - WAYPOINT
+      ?AUTO_6403 - WAYPOINT
+      ?AUTO_6398 - ROVER
+      ?AUTO_6402 - WAYPOINT
+      ?AUTO_6400 - CAMERA
+      ?AUTO_6404 - WAYPOINT
+      ?AUTO_6396 - WAYPOINT
+      ?AUTO_6408 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6399 ?AUTO_6397 ) ( VISIBLE ?AUTO_6403 ?AUTO_6397 ) ( AVAILABLE ?AUTO_6398 ) ( CHANNEL_FREE ?AUTO_6399 ) ( CAN_TRAVERSE ?AUTO_6398 ?AUTO_6402 ?AUTO_6403 ) ( VISIBLE ?AUTO_6402 ?AUTO_6403 ) ( CALIBRATED ?AUTO_6400 ?AUTO_6398 ) ( ON_BOARD ?AUTO_6400 ?AUTO_6398 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6398 ) ( SUPPORTS ?AUTO_6400 ?AUTO_6395 ) ( VISIBLE_FROM ?AUTO_6394 ?AUTO_6402 ) ( CAN_TRAVERSE ?AUTO_6398 ?AUTO_6404 ?AUTO_6402 ) ( VISIBLE ?AUTO_6404 ?AUTO_6402 ) ( CAN_TRAVERSE ?AUTO_6398 ?AUTO_6396 ?AUTO_6404 ) ( VISIBLE ?AUTO_6396 ?AUTO_6404 ) ( CAN_TRAVERSE ?AUTO_6398 ?AUTO_6408 ?AUTO_6396 ) ( AT ?AUTO_6398 ?AUTO_6408 ) ( VISIBLE ?AUTO_6408 ?AUTO_6396 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6398 ?AUTO_6408 ?AUTO_6396 )
+      ( GET_IMAGE_DATA ?AUTO_6394 ?AUTO_6395 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6394 ?AUTO_6395 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6415 - OBJECTIVE
+      ?AUTO_6416 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6420 - LANDER
+      ?AUTO_6424 - WAYPOINT
+      ?AUTO_6418 - WAYPOINT
+      ?AUTO_6426 - ROVER
+      ?AUTO_6417 - WAYPOINT
+      ?AUTO_6422 - CAMERA
+      ?AUTO_6425 - WAYPOINT
+      ?AUTO_6423 - WAYPOINT
+      ?AUTO_6421 - WAYPOINT
+      ?AUTO_6431 - OBJECTIVE
+      ?AUTO_6429 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6420 ?AUTO_6424 ) ( VISIBLE ?AUTO_6418 ?AUTO_6424 ) ( AVAILABLE ?AUTO_6426 ) ( CHANNEL_FREE ?AUTO_6420 ) ( CAN_TRAVERSE ?AUTO_6426 ?AUTO_6417 ?AUTO_6418 ) ( VISIBLE ?AUTO_6417 ?AUTO_6418 ) ( ON_BOARD ?AUTO_6422 ?AUTO_6426 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6426 ) ( SUPPORTS ?AUTO_6422 ?AUTO_6416 ) ( VISIBLE_FROM ?AUTO_6415 ?AUTO_6417 ) ( CAN_TRAVERSE ?AUTO_6426 ?AUTO_6425 ?AUTO_6417 ) ( VISIBLE ?AUTO_6425 ?AUTO_6417 ) ( CAN_TRAVERSE ?AUTO_6426 ?AUTO_6423 ?AUTO_6425 ) ( VISIBLE ?AUTO_6423 ?AUTO_6425 ) ( CAN_TRAVERSE ?AUTO_6426 ?AUTO_6421 ?AUTO_6423 ) ( AT ?AUTO_6426 ?AUTO_6421 ) ( VISIBLE ?AUTO_6421 ?AUTO_6423 ) ( CALIBRATION_TARGET ?AUTO_6422 ?AUTO_6431 ) ( AT ?AUTO_6426 ?AUTO_6429 ) ( VISIBLE_FROM ?AUTO_6431 ?AUTO_6429 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_6426 ?AUTO_6422 ?AUTO_6431 ?AUTO_6429 )
+      ( GET_IMAGE_DATA ?AUTO_6415 ?AUTO_6416 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6415 ?AUTO_6416 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6434 - OBJECTIVE
+      ?AUTO_6435 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6436 - ROVER
+      ?AUTO_6439 - WAYPOINT
+      ?AUTO_6438 - LANDER
+      ?AUTO_6437 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6436 ?AUTO_6439 ) ( AT_LANDER ?AUTO_6438 ?AUTO_6437 ) ( HAVE_IMAGE ?AUTO_6436 ?AUTO_6434 ?AUTO_6435 ) ( VISIBLE ?AUTO_6439 ?AUTO_6437 ) ( AVAILABLE ?AUTO_6436 ) ( CHANNEL_FREE ?AUTO_6438 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_6436 ?AUTO_6438 ?AUTO_6434 ?AUTO_6435 ?AUTO_6439 ?AUTO_6437 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6434 ?AUTO_6435 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6442 - OBJECTIVE
+      ?AUTO_6443 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6446 - ROVER
+      ?AUTO_6449 - WAYPOINT
+      ?AUTO_6448 - LANDER
+      ?AUTO_6447 - WAYPOINT
+      ?AUTO_6454 - CAMERA
+      ?AUTO_6452 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6446 ?AUTO_6449 ) ( AT_LANDER ?AUTO_6448 ?AUTO_6447 ) ( VISIBLE ?AUTO_6449 ?AUTO_6447 ) ( AVAILABLE ?AUTO_6446 ) ( CHANNEL_FREE ?AUTO_6448 ) ( CALIBRATED ?AUTO_6454 ?AUTO_6446 ) ( ON_BOARD ?AUTO_6454 ?AUTO_6446 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6446 ) ( SUPPORTS ?AUTO_6454 ?AUTO_6443 ) ( VISIBLE_FROM ?AUTO_6442 ?AUTO_6452 ) ( AT ?AUTO_6446 ?AUTO_6452 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_6446 ?AUTO_6452 ?AUTO_6442 ?AUTO_6454 ?AUTO_6443 )
+      ( GET_IMAGE_DATA ?AUTO_6442 ?AUTO_6443 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6442 ?AUTO_6443 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6457 - OBJECTIVE
+      ?AUTO_6458 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6461 - ROVER
+      ?AUTO_6460 - WAYPOINT
+      ?AUTO_6459 - LANDER
+      ?AUTO_6462 - WAYPOINT
+      ?AUTO_6466 - CAMERA
+      ?AUTO_6463 - WAYPOINT
+      ?AUTO_6470 - OBJECTIVE
+      ?AUTO_6468 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6461 ?AUTO_6460 ) ( AT_LANDER ?AUTO_6459 ?AUTO_6462 ) ( VISIBLE ?AUTO_6460 ?AUTO_6462 ) ( AVAILABLE ?AUTO_6461 ) ( CHANNEL_FREE ?AUTO_6459 ) ( ON_BOARD ?AUTO_6466 ?AUTO_6461 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6461 ) ( SUPPORTS ?AUTO_6466 ?AUTO_6458 ) ( VISIBLE_FROM ?AUTO_6457 ?AUTO_6463 ) ( AT ?AUTO_6461 ?AUTO_6463 ) ( CALIBRATION_TARGET ?AUTO_6466 ?AUTO_6470 ) ( AT ?AUTO_6461 ?AUTO_6468 ) ( VISIBLE_FROM ?AUTO_6470 ?AUTO_6468 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_6461 ?AUTO_6466 ?AUTO_6470 ?AUTO_6468 )
+      ( GET_IMAGE_DATA ?AUTO_6457 ?AUTO_6458 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6457 ?AUTO_6458 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6471 - OBJECTIVE
+      ?AUTO_6472 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6476 - LANDER
+      ?AUTO_6473 - WAYPOINT
+      ?AUTO_6481 - WAYPOINT
+      ?AUTO_6474 - ROVER
+      ?AUTO_6478 - CAMERA
+      ?AUTO_6482 - OBJECTIVE
+      ?AUTO_6485 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6476 ?AUTO_6473 ) ( VISIBLE ?AUTO_6481 ?AUTO_6473 ) ( AVAILABLE ?AUTO_6474 ) ( CHANNEL_FREE ?AUTO_6476 ) ( ON_BOARD ?AUTO_6478 ?AUTO_6474 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6474 ) ( SUPPORTS ?AUTO_6478 ?AUTO_6472 ) ( VISIBLE_FROM ?AUTO_6471 ?AUTO_6481 ) ( CALIBRATION_TARGET ?AUTO_6478 ?AUTO_6482 ) ( VISIBLE_FROM ?AUTO_6482 ?AUTO_6481 ) ( CAN_TRAVERSE ?AUTO_6474 ?AUTO_6485 ?AUTO_6481 ) ( AT ?AUTO_6474 ?AUTO_6485 ) ( VISIBLE ?AUTO_6485 ?AUTO_6481 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6474 ?AUTO_6485 ?AUTO_6481 )
+      ( GET_IMAGE_DATA ?AUTO_6471 ?AUTO_6472 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6471 ?AUTO_6472 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6488 - OBJECTIVE
+      ?AUTO_6489 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6494 - LANDER
+      ?AUTO_6495 - WAYPOINT
+      ?AUTO_6496 - WAYPOINT
+      ?AUTO_6493 - ROVER
+      ?AUTO_6491 - CAMERA
+      ?AUTO_6498 - OBJECTIVE
+      ?AUTO_6497 - WAYPOINT
+      ?AUTO_6501 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6494 ?AUTO_6495 ) ( VISIBLE ?AUTO_6496 ?AUTO_6495 ) ( AVAILABLE ?AUTO_6493 ) ( CHANNEL_FREE ?AUTO_6494 ) ( ON_BOARD ?AUTO_6491 ?AUTO_6493 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6493 ) ( SUPPORTS ?AUTO_6491 ?AUTO_6489 ) ( VISIBLE_FROM ?AUTO_6488 ?AUTO_6496 ) ( CALIBRATION_TARGET ?AUTO_6491 ?AUTO_6498 ) ( VISIBLE_FROM ?AUTO_6498 ?AUTO_6496 ) ( CAN_TRAVERSE ?AUTO_6493 ?AUTO_6497 ?AUTO_6496 ) ( VISIBLE ?AUTO_6497 ?AUTO_6496 ) ( CAN_TRAVERSE ?AUTO_6493 ?AUTO_6501 ?AUTO_6497 ) ( AT ?AUTO_6493 ?AUTO_6501 ) ( VISIBLE ?AUTO_6501 ?AUTO_6497 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6493 ?AUTO_6501 ?AUTO_6497 )
+      ( GET_IMAGE_DATA ?AUTO_6488 ?AUTO_6489 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6488 ?AUTO_6489 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6504 - OBJECTIVE
+      ?AUTO_6505 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6506 - ROVER
+      ?AUTO_6509 - WAYPOINT
+      ?AUTO_6508 - LANDER
+      ?AUTO_6507 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6506 ?AUTO_6509 ) ( AT_LANDER ?AUTO_6508 ?AUTO_6507 ) ( HAVE_IMAGE ?AUTO_6506 ?AUTO_6504 ?AUTO_6505 ) ( VISIBLE ?AUTO_6509 ?AUTO_6507 ) ( AVAILABLE ?AUTO_6506 ) ( CHANNEL_FREE ?AUTO_6508 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_6506 ?AUTO_6508 ?AUTO_6504 ?AUTO_6505 ?AUTO_6509 ?AUTO_6507 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6504 ?AUTO_6505 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6512 - OBJECTIVE
+      ?AUTO_6513 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6516 - LANDER
+      ?AUTO_6515 - WAYPOINT
+      ?AUTO_6514 - ROVER
+      ?AUTO_6517 - WAYPOINT
+      ?AUTO_6522 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6516 ?AUTO_6515 ) ( HAVE_IMAGE ?AUTO_6514 ?AUTO_6512 ?AUTO_6513 ) ( VISIBLE ?AUTO_6517 ?AUTO_6515 ) ( AVAILABLE ?AUTO_6514 ) ( CHANNEL_FREE ?AUTO_6516 ) ( CAN_TRAVERSE ?AUTO_6514 ?AUTO_6522 ?AUTO_6517 ) ( AT ?AUTO_6514 ?AUTO_6522 ) ( VISIBLE ?AUTO_6522 ?AUTO_6517 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6514 ?AUTO_6522 ?AUTO_6517 )
+      ( GET_IMAGE_DATA ?AUTO_6512 ?AUTO_6513 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6512 ?AUTO_6513 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6523 - OBJECTIVE
+      ?AUTO_6524 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6529 - LANDER
+      ?AUTO_6531 - WAYPOINT
+      ?AUTO_6528 - WAYPOINT
+      ?AUTO_6525 - ROVER
+      ?AUTO_6530 - WAYPOINT
+      ?AUTO_6536 - CAMERA
+      ?AUTO_6534 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6529 ?AUTO_6531 ) ( VISIBLE ?AUTO_6528 ?AUTO_6531 ) ( AVAILABLE ?AUTO_6525 ) ( CHANNEL_FREE ?AUTO_6529 ) ( CAN_TRAVERSE ?AUTO_6525 ?AUTO_6530 ?AUTO_6528 ) ( AT ?AUTO_6525 ?AUTO_6530 ) ( VISIBLE ?AUTO_6530 ?AUTO_6528 ) ( CALIBRATED ?AUTO_6536 ?AUTO_6525 ) ( ON_BOARD ?AUTO_6536 ?AUTO_6525 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6525 ) ( SUPPORTS ?AUTO_6536 ?AUTO_6524 ) ( VISIBLE_FROM ?AUTO_6523 ?AUTO_6534 ) ( AT ?AUTO_6525 ?AUTO_6534 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_6525 ?AUTO_6534 ?AUTO_6523 ?AUTO_6536 ?AUTO_6524 )
+      ( GET_IMAGE_DATA ?AUTO_6523 ?AUTO_6524 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6523 ?AUTO_6524 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6537 - OBJECTIVE
+      ?AUTO_6538 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6539 - LANDER
+      ?AUTO_6545 - WAYPOINT
+      ?AUTO_6541 - WAYPOINT
+      ?AUTO_6544 - ROVER
+      ?AUTO_6543 - WAYPOINT
+      ?AUTO_6547 - CAMERA
+      ?AUTO_6546 - WAYPOINT
+      ?AUTO_6551 - OBJECTIVE
+      ?AUTO_6549 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6539 ?AUTO_6545 ) ( VISIBLE ?AUTO_6541 ?AUTO_6545 ) ( AVAILABLE ?AUTO_6544 ) ( CHANNEL_FREE ?AUTO_6539 ) ( CAN_TRAVERSE ?AUTO_6544 ?AUTO_6543 ?AUTO_6541 ) ( AT ?AUTO_6544 ?AUTO_6543 ) ( VISIBLE ?AUTO_6543 ?AUTO_6541 ) ( ON_BOARD ?AUTO_6547 ?AUTO_6544 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6544 ) ( SUPPORTS ?AUTO_6547 ?AUTO_6538 ) ( VISIBLE_FROM ?AUTO_6537 ?AUTO_6546 ) ( AT ?AUTO_6544 ?AUTO_6546 ) ( CALIBRATION_TARGET ?AUTO_6547 ?AUTO_6551 ) ( AT ?AUTO_6544 ?AUTO_6549 ) ( VISIBLE_FROM ?AUTO_6551 ?AUTO_6549 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_6544 ?AUTO_6547 ?AUTO_6551 ?AUTO_6549 )
+      ( GET_IMAGE_DATA ?AUTO_6537 ?AUTO_6538 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6537 ?AUTO_6538 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6552 - OBJECTIVE
+      ?AUTO_6553 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6563 - LANDER
+      ?AUTO_6554 - WAYPOINT
+      ?AUTO_6558 - WAYPOINT
+      ?AUTO_6555 - ROVER
+      ?AUTO_6557 - WAYPOINT
+      ?AUTO_6556 - CAMERA
+      ?AUTO_6564 - OBJECTIVE
+      ?AUTO_6567 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6563 ?AUTO_6554 ) ( VISIBLE ?AUTO_6558 ?AUTO_6554 ) ( AVAILABLE ?AUTO_6555 ) ( CHANNEL_FREE ?AUTO_6563 ) ( CAN_TRAVERSE ?AUTO_6555 ?AUTO_6557 ?AUTO_6558 ) ( VISIBLE ?AUTO_6557 ?AUTO_6558 ) ( ON_BOARD ?AUTO_6556 ?AUTO_6555 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6555 ) ( SUPPORTS ?AUTO_6556 ?AUTO_6553 ) ( VISIBLE_FROM ?AUTO_6552 ?AUTO_6557 ) ( CALIBRATION_TARGET ?AUTO_6556 ?AUTO_6564 ) ( VISIBLE_FROM ?AUTO_6564 ?AUTO_6557 ) ( CAN_TRAVERSE ?AUTO_6555 ?AUTO_6567 ?AUTO_6557 ) ( AT ?AUTO_6555 ?AUTO_6567 ) ( VISIBLE ?AUTO_6567 ?AUTO_6557 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6555 ?AUTO_6567 ?AUTO_6557 )
+      ( GET_IMAGE_DATA ?AUTO_6552 ?AUTO_6553 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6552 ?AUTO_6553 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6568 - OBJECTIVE
+      ?AUTO_6569 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6577 - LANDER
+      ?AUTO_6575 - WAYPOINT
+      ?AUTO_6578 - WAYPOINT
+      ?AUTO_6574 - ROVER
+      ?AUTO_6579 - WAYPOINT
+      ?AUTO_6572 - CAMERA
+      ?AUTO_6573 - OBJECTIVE
+      ?AUTO_6571 - WAYPOINT
+      ?AUTO_6582 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6577 ?AUTO_6575 ) ( VISIBLE ?AUTO_6578 ?AUTO_6575 ) ( AVAILABLE ?AUTO_6574 ) ( CHANNEL_FREE ?AUTO_6577 ) ( CAN_TRAVERSE ?AUTO_6574 ?AUTO_6579 ?AUTO_6578 ) ( VISIBLE ?AUTO_6579 ?AUTO_6578 ) ( ON_BOARD ?AUTO_6572 ?AUTO_6574 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6574 ) ( SUPPORTS ?AUTO_6572 ?AUTO_6569 ) ( VISIBLE_FROM ?AUTO_6568 ?AUTO_6579 ) ( CALIBRATION_TARGET ?AUTO_6572 ?AUTO_6573 ) ( VISIBLE_FROM ?AUTO_6573 ?AUTO_6579 ) ( CAN_TRAVERSE ?AUTO_6574 ?AUTO_6571 ?AUTO_6579 ) ( VISIBLE ?AUTO_6571 ?AUTO_6579 ) ( CAN_TRAVERSE ?AUTO_6574 ?AUTO_6582 ?AUTO_6571 ) ( AT ?AUTO_6574 ?AUTO_6582 ) ( VISIBLE ?AUTO_6582 ?AUTO_6571 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6574 ?AUTO_6582 ?AUTO_6571 )
+      ( GET_IMAGE_DATA ?AUTO_6568 ?AUTO_6569 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6568 ?AUTO_6569 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6583 - OBJECTIVE
+      ?AUTO_6584 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6590 - LANDER
+      ?AUTO_6587 - WAYPOINT
+      ?AUTO_6588 - WAYPOINT
+      ?AUTO_6592 - ROVER
+      ?AUTO_6593 - WAYPOINT
+      ?AUTO_6594 - CAMERA
+      ?AUTO_6591 - OBJECTIVE
+      ?AUTO_6589 - WAYPOINT
+      ?AUTO_6595 - WAYPOINT
+      ?AUTO_6598 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6590 ?AUTO_6587 ) ( VISIBLE ?AUTO_6588 ?AUTO_6587 ) ( AVAILABLE ?AUTO_6592 ) ( CHANNEL_FREE ?AUTO_6590 ) ( CAN_TRAVERSE ?AUTO_6592 ?AUTO_6593 ?AUTO_6588 ) ( VISIBLE ?AUTO_6593 ?AUTO_6588 ) ( ON_BOARD ?AUTO_6594 ?AUTO_6592 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6592 ) ( SUPPORTS ?AUTO_6594 ?AUTO_6584 ) ( VISIBLE_FROM ?AUTO_6583 ?AUTO_6593 ) ( CALIBRATION_TARGET ?AUTO_6594 ?AUTO_6591 ) ( VISIBLE_FROM ?AUTO_6591 ?AUTO_6593 ) ( CAN_TRAVERSE ?AUTO_6592 ?AUTO_6589 ?AUTO_6593 ) ( VISIBLE ?AUTO_6589 ?AUTO_6593 ) ( CAN_TRAVERSE ?AUTO_6592 ?AUTO_6595 ?AUTO_6589 ) ( VISIBLE ?AUTO_6595 ?AUTO_6589 ) ( CAN_TRAVERSE ?AUTO_6592 ?AUTO_6598 ?AUTO_6595 ) ( AT ?AUTO_6592 ?AUTO_6598 ) ( VISIBLE ?AUTO_6598 ?AUTO_6595 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6592 ?AUTO_6598 ?AUTO_6595 )
+      ( GET_IMAGE_DATA ?AUTO_6583 ?AUTO_6584 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6583 ?AUTO_6584 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6599 - OBJECTIVE
+      ?AUTO_6600 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6610 - LANDER
+      ?AUTO_6607 - WAYPOINT
+      ?AUTO_6609 - WAYPOINT
+      ?AUTO_6604 - ROVER
+      ?AUTO_6606 - WAYPOINT
+      ?AUTO_6605 - CAMERA
+      ?AUTO_6601 - OBJECTIVE
+      ?AUTO_6611 - WAYPOINT
+      ?AUTO_6608 - WAYPOINT
+      ?AUTO_6612 - WAYPOINT
+      ?AUTO_6615 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6610 ?AUTO_6607 ) ( VISIBLE ?AUTO_6609 ?AUTO_6607 ) ( AVAILABLE ?AUTO_6604 ) ( CHANNEL_FREE ?AUTO_6610 ) ( CAN_TRAVERSE ?AUTO_6604 ?AUTO_6606 ?AUTO_6609 ) ( VISIBLE ?AUTO_6606 ?AUTO_6609 ) ( ON_BOARD ?AUTO_6605 ?AUTO_6604 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6604 ) ( SUPPORTS ?AUTO_6605 ?AUTO_6600 ) ( VISIBLE_FROM ?AUTO_6599 ?AUTO_6606 ) ( CALIBRATION_TARGET ?AUTO_6605 ?AUTO_6601 ) ( VISIBLE_FROM ?AUTO_6601 ?AUTO_6606 ) ( CAN_TRAVERSE ?AUTO_6604 ?AUTO_6611 ?AUTO_6606 ) ( VISIBLE ?AUTO_6611 ?AUTO_6606 ) ( CAN_TRAVERSE ?AUTO_6604 ?AUTO_6608 ?AUTO_6611 ) ( VISIBLE ?AUTO_6608 ?AUTO_6611 ) ( CAN_TRAVERSE ?AUTO_6604 ?AUTO_6612 ?AUTO_6608 ) ( VISIBLE ?AUTO_6612 ?AUTO_6608 ) ( CAN_TRAVERSE ?AUTO_6604 ?AUTO_6615 ?AUTO_6612 ) ( AT ?AUTO_6604 ?AUTO_6615 ) ( VISIBLE ?AUTO_6615 ?AUTO_6612 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6604 ?AUTO_6615 ?AUTO_6612 )
+      ( GET_IMAGE_DATA ?AUTO_6599 ?AUTO_6600 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6599 ?AUTO_6600 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6617 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6618 - ROVER
+      ?AUTO_6621 - WAYPOINT
+      ?AUTO_6620 - LANDER
+      ?AUTO_6619 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6618 ?AUTO_6621 ) ( AT_LANDER ?AUTO_6620 ?AUTO_6619 ) ( HAVE_ROCK_ANALYSIS ?AUTO_6618 ?AUTO_6617 ) ( VISIBLE ?AUTO_6621 ?AUTO_6619 ) ( AVAILABLE ?AUTO_6618 ) ( CHANNEL_FREE ?AUTO_6620 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_6618 ?AUTO_6620 ?AUTO_6617 ?AUTO_6621 ?AUTO_6619 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6617 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6623 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6625 - ROVER
+      ?AUTO_6628 - WAYPOINT
+      ?AUTO_6627 - LANDER
+      ?AUTO_6626 - WAYPOINT
+      ?AUTO_6630 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_6625 ?AUTO_6628 ) ( AT_LANDER ?AUTO_6627 ?AUTO_6626 ) ( VISIBLE ?AUTO_6628 ?AUTO_6626 ) ( AVAILABLE ?AUTO_6625 ) ( CHANNEL_FREE ?AUTO_6627 ) ( AT ?AUTO_6625 ?AUTO_6623 ) ( AT_ROCK_SAMPLE ?AUTO_6623 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6625 ) ( STORE_OF ?AUTO_6630 ?AUTO_6625 ) ( EMPTY ?AUTO_6630 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_6625 ?AUTO_6630 ?AUTO_6623 )
+      ( GET_ROCK_DATA ?AUTO_6623 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6623 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6633 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6634 - LANDER
+      ?AUTO_6635 - WAYPOINT
+      ?AUTO_6636 - ROVER
+      ?AUTO_6639 - STORE
+      ?AUTO_6642 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6634 ?AUTO_6635 ) ( VISIBLE ?AUTO_6633 ?AUTO_6635 ) ( AVAILABLE ?AUTO_6636 ) ( CHANNEL_FREE ?AUTO_6634 ) ( AT_ROCK_SAMPLE ?AUTO_6633 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6636 ) ( STORE_OF ?AUTO_6639 ?AUTO_6636 ) ( EMPTY ?AUTO_6639 ) ( CAN_TRAVERSE ?AUTO_6636 ?AUTO_6642 ?AUTO_6633 ) ( AT ?AUTO_6636 ?AUTO_6642 ) ( VISIBLE ?AUTO_6642 ?AUTO_6633 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6636 ?AUTO_6642 ?AUTO_6633 )
+      ( GET_ROCK_DATA ?AUTO_6633 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6633 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6647 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6652 - LANDER
+      ?AUTO_6650 - WAYPOINT
+      ?AUTO_6649 - ROVER
+      ?AUTO_6648 - STORE
+      ?AUTO_6653 - WAYPOINT
+      ?AUTO_6656 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6652 ?AUTO_6650 ) ( VISIBLE ?AUTO_6647 ?AUTO_6650 ) ( AVAILABLE ?AUTO_6649 ) ( CHANNEL_FREE ?AUTO_6652 ) ( AT_ROCK_SAMPLE ?AUTO_6647 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6649 ) ( STORE_OF ?AUTO_6648 ?AUTO_6649 ) ( EMPTY ?AUTO_6648 ) ( CAN_TRAVERSE ?AUTO_6649 ?AUTO_6653 ?AUTO_6647 ) ( VISIBLE ?AUTO_6653 ?AUTO_6647 ) ( CAN_TRAVERSE ?AUTO_6649 ?AUTO_6656 ?AUTO_6653 ) ( AT ?AUTO_6649 ?AUTO_6656 ) ( VISIBLE ?AUTO_6656 ?AUTO_6653 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6649 ?AUTO_6656 ?AUTO_6653 )
+      ( GET_ROCK_DATA ?AUTO_6647 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6647 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6657 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6663 - LANDER
+      ?AUTO_6660 - WAYPOINT
+      ?AUTO_6661 - ROVER
+      ?AUTO_6659 - STORE
+      ?AUTO_6662 - WAYPOINT
+      ?AUTO_6664 - WAYPOINT
+      ?AUTO_6667 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6663 ?AUTO_6660 ) ( VISIBLE ?AUTO_6657 ?AUTO_6660 ) ( AVAILABLE ?AUTO_6661 ) ( CHANNEL_FREE ?AUTO_6663 ) ( AT_ROCK_SAMPLE ?AUTO_6657 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6661 ) ( STORE_OF ?AUTO_6659 ?AUTO_6661 ) ( EMPTY ?AUTO_6659 ) ( CAN_TRAVERSE ?AUTO_6661 ?AUTO_6662 ?AUTO_6657 ) ( VISIBLE ?AUTO_6662 ?AUTO_6657 ) ( CAN_TRAVERSE ?AUTO_6661 ?AUTO_6664 ?AUTO_6662 ) ( VISIBLE ?AUTO_6664 ?AUTO_6662 ) ( CAN_TRAVERSE ?AUTO_6661 ?AUTO_6667 ?AUTO_6664 ) ( AT ?AUTO_6661 ?AUTO_6667 ) ( VISIBLE ?AUTO_6667 ?AUTO_6664 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6661 ?AUTO_6667 ?AUTO_6664 )
+      ( GET_ROCK_DATA ?AUTO_6657 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6657 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6669 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6670 - ROVER
+      ?AUTO_6673 - WAYPOINT
+      ?AUTO_6672 - LANDER
+      ?AUTO_6671 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6670 ?AUTO_6673 ) ( AT_LANDER ?AUTO_6672 ?AUTO_6671 ) ( HAVE_SOIL_ANALYSIS ?AUTO_6670 ?AUTO_6669 ) ( VISIBLE ?AUTO_6673 ?AUTO_6671 ) ( AVAILABLE ?AUTO_6670 ) ( CHANNEL_FREE ?AUTO_6672 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_6670 ?AUTO_6672 ?AUTO_6669 ?AUTO_6673 ?AUTO_6671 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6669 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6675 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6679 - LANDER
+      ?AUTO_6678 - WAYPOINT
+      ?AUTO_6677 - ROVER
+      ?AUTO_6680 - WAYPOINT
+      ?AUTO_6683 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6679 ?AUTO_6678 ) ( HAVE_SOIL_ANALYSIS ?AUTO_6677 ?AUTO_6675 ) ( VISIBLE ?AUTO_6680 ?AUTO_6678 ) ( AVAILABLE ?AUTO_6677 ) ( CHANNEL_FREE ?AUTO_6679 ) ( CAN_TRAVERSE ?AUTO_6677 ?AUTO_6683 ?AUTO_6680 ) ( AT ?AUTO_6677 ?AUTO_6683 ) ( VISIBLE ?AUTO_6683 ?AUTO_6680 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6677 ?AUTO_6683 ?AUTO_6680 )
+      ( GET_SOIL_DATA ?AUTO_6675 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6675 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6684 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6689 - LANDER
+      ?AUTO_6685 - WAYPOINT
+      ?AUTO_6686 - ROVER
+      ?AUTO_6688 - WAYPOINT
+      ?AUTO_6690 - WAYPOINT
+      ?AUTO_6693 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6689 ?AUTO_6685 ) ( HAVE_SOIL_ANALYSIS ?AUTO_6686 ?AUTO_6684 ) ( VISIBLE ?AUTO_6688 ?AUTO_6685 ) ( AVAILABLE ?AUTO_6686 ) ( CHANNEL_FREE ?AUTO_6689 ) ( CAN_TRAVERSE ?AUTO_6686 ?AUTO_6690 ?AUTO_6688 ) ( VISIBLE ?AUTO_6690 ?AUTO_6688 ) ( CAN_TRAVERSE ?AUTO_6686 ?AUTO_6693 ?AUTO_6690 ) ( AT ?AUTO_6686 ?AUTO_6693 ) ( VISIBLE ?AUTO_6693 ?AUTO_6690 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6686 ?AUTO_6693 ?AUTO_6690 )
+      ( GET_SOIL_DATA ?AUTO_6684 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6684 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6694 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6698 - LANDER
+      ?AUTO_6700 - WAYPOINT
+      ?AUTO_6696 - ROVER
+      ?AUTO_6701 - WAYPOINT
+      ?AUTO_6699 - WAYPOINT
+      ?AUTO_6697 - WAYPOINT
+      ?AUTO_6704 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6698 ?AUTO_6700 ) ( HAVE_SOIL_ANALYSIS ?AUTO_6696 ?AUTO_6694 ) ( VISIBLE ?AUTO_6701 ?AUTO_6700 ) ( AVAILABLE ?AUTO_6696 ) ( CHANNEL_FREE ?AUTO_6698 ) ( CAN_TRAVERSE ?AUTO_6696 ?AUTO_6699 ?AUTO_6701 ) ( VISIBLE ?AUTO_6699 ?AUTO_6701 ) ( CAN_TRAVERSE ?AUTO_6696 ?AUTO_6697 ?AUTO_6699 ) ( VISIBLE ?AUTO_6697 ?AUTO_6699 ) ( CAN_TRAVERSE ?AUTO_6696 ?AUTO_6704 ?AUTO_6697 ) ( AT ?AUTO_6696 ?AUTO_6704 ) ( VISIBLE ?AUTO_6704 ?AUTO_6697 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6696 ?AUTO_6704 ?AUTO_6697 )
+      ( GET_SOIL_DATA ?AUTO_6694 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6694 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6705 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6711 - LANDER
+      ?AUTO_6713 - WAYPOINT
+      ?AUTO_6712 - WAYPOINT
+      ?AUTO_6708 - ROVER
+      ?AUTO_6707 - WAYPOINT
+      ?AUTO_6710 - WAYPOINT
+      ?AUTO_6709 - WAYPOINT
+      ?AUTO_6715 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6711 ?AUTO_6713 ) ( VISIBLE ?AUTO_6712 ?AUTO_6713 ) ( AVAILABLE ?AUTO_6708 ) ( CHANNEL_FREE ?AUTO_6711 ) ( CAN_TRAVERSE ?AUTO_6708 ?AUTO_6707 ?AUTO_6712 ) ( VISIBLE ?AUTO_6707 ?AUTO_6712 ) ( CAN_TRAVERSE ?AUTO_6708 ?AUTO_6710 ?AUTO_6707 ) ( VISIBLE ?AUTO_6710 ?AUTO_6707 ) ( CAN_TRAVERSE ?AUTO_6708 ?AUTO_6709 ?AUTO_6710 ) ( AT ?AUTO_6708 ?AUTO_6709 ) ( VISIBLE ?AUTO_6709 ?AUTO_6710 ) ( AT ?AUTO_6708 ?AUTO_6705 ) ( AT_SOIL_SAMPLE ?AUTO_6705 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_6708 ) ( STORE_OF ?AUTO_6715 ?AUTO_6708 ) ( EMPTY ?AUTO_6715 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_6708 ?AUTO_6715 ?AUTO_6705 )
+      ( GET_SOIL_DATA ?AUTO_6705 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6705 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6717 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6719 - LANDER
+      ?AUTO_6720 - WAYPOINT
+      ?AUTO_6721 - WAYPOINT
+      ?AUTO_6725 - ROVER
+      ?AUTO_6718 - WAYPOINT
+      ?AUTO_6722 - WAYPOINT
+      ?AUTO_6726 - STORE
+      ?AUTO_6729 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6719 ?AUTO_6720 ) ( VISIBLE ?AUTO_6721 ?AUTO_6720 ) ( AVAILABLE ?AUTO_6725 ) ( CHANNEL_FREE ?AUTO_6719 ) ( CAN_TRAVERSE ?AUTO_6725 ?AUTO_6718 ?AUTO_6721 ) ( VISIBLE ?AUTO_6718 ?AUTO_6721 ) ( CAN_TRAVERSE ?AUTO_6725 ?AUTO_6722 ?AUTO_6718 ) ( VISIBLE ?AUTO_6722 ?AUTO_6718 ) ( CAN_TRAVERSE ?AUTO_6725 ?AUTO_6717 ?AUTO_6722 ) ( VISIBLE ?AUTO_6717 ?AUTO_6722 ) ( AT_SOIL_SAMPLE ?AUTO_6717 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_6725 ) ( STORE_OF ?AUTO_6726 ?AUTO_6725 ) ( EMPTY ?AUTO_6726 ) ( CAN_TRAVERSE ?AUTO_6725 ?AUTO_6729 ?AUTO_6717 ) ( AT ?AUTO_6725 ?AUTO_6729 ) ( VISIBLE ?AUTO_6729 ?AUTO_6717 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6725 ?AUTO_6729 ?AUTO_6717 )
+      ( GET_SOIL_DATA ?AUTO_6717 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6717 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6730 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6733 - LANDER
+      ?AUTO_6736 - WAYPOINT
+      ?AUTO_6735 - WAYPOINT
+      ?AUTO_6734 - ROVER
+      ?AUTO_6739 - WAYPOINT
+      ?AUTO_6738 - WAYPOINT
+      ?AUTO_6732 - STORE
+      ?AUTO_6737 - WAYPOINT
+      ?AUTO_6742 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6733 ?AUTO_6736 ) ( VISIBLE ?AUTO_6735 ?AUTO_6736 ) ( AVAILABLE ?AUTO_6734 ) ( CHANNEL_FREE ?AUTO_6733 ) ( CAN_TRAVERSE ?AUTO_6734 ?AUTO_6739 ?AUTO_6735 ) ( VISIBLE ?AUTO_6739 ?AUTO_6735 ) ( CAN_TRAVERSE ?AUTO_6734 ?AUTO_6738 ?AUTO_6739 ) ( VISIBLE ?AUTO_6738 ?AUTO_6739 ) ( CAN_TRAVERSE ?AUTO_6734 ?AUTO_6730 ?AUTO_6738 ) ( VISIBLE ?AUTO_6730 ?AUTO_6738 ) ( AT_SOIL_SAMPLE ?AUTO_6730 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_6734 ) ( STORE_OF ?AUTO_6732 ?AUTO_6734 ) ( EMPTY ?AUTO_6732 ) ( CAN_TRAVERSE ?AUTO_6734 ?AUTO_6737 ?AUTO_6730 ) ( VISIBLE ?AUTO_6737 ?AUTO_6730 ) ( CAN_TRAVERSE ?AUTO_6734 ?AUTO_6742 ?AUTO_6737 ) ( AT ?AUTO_6734 ?AUTO_6742 ) ( VISIBLE ?AUTO_6742 ?AUTO_6737 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6734 ?AUTO_6742 ?AUTO_6737 )
+      ( GET_SOIL_DATA ?AUTO_6730 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6730 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6743 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6753 - LANDER
+      ?AUTO_6744 - WAYPOINT
+      ?AUTO_6751 - WAYPOINT
+      ?AUTO_6747 - ROVER
+      ?AUTO_6750 - WAYPOINT
+      ?AUTO_6745 - WAYPOINT
+      ?AUTO_6748 - STORE
+      ?AUTO_6746 - WAYPOINT
+      ?AUTO_6749 - WAYPOINT
+      ?AUTO_6754 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6753 ?AUTO_6744 ) ( VISIBLE ?AUTO_6751 ?AUTO_6744 ) ( AVAILABLE ?AUTO_6747 ) ( CHANNEL_FREE ?AUTO_6753 ) ( CAN_TRAVERSE ?AUTO_6747 ?AUTO_6750 ?AUTO_6751 ) ( VISIBLE ?AUTO_6750 ?AUTO_6751 ) ( CAN_TRAVERSE ?AUTO_6747 ?AUTO_6745 ?AUTO_6750 ) ( VISIBLE ?AUTO_6745 ?AUTO_6750 ) ( CAN_TRAVERSE ?AUTO_6747 ?AUTO_6743 ?AUTO_6745 ) ( VISIBLE ?AUTO_6743 ?AUTO_6745 ) ( AT_SOIL_SAMPLE ?AUTO_6743 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_6747 ) ( STORE_OF ?AUTO_6748 ?AUTO_6747 ) ( CAN_TRAVERSE ?AUTO_6747 ?AUTO_6746 ?AUTO_6743 ) ( VISIBLE ?AUTO_6746 ?AUTO_6743 ) ( CAN_TRAVERSE ?AUTO_6747 ?AUTO_6749 ?AUTO_6746 ) ( AT ?AUTO_6747 ?AUTO_6749 ) ( VISIBLE ?AUTO_6749 ?AUTO_6746 ) ( STORE_OF ?AUTO_6748 ?AUTO_6754 ) ( FULL ?AUTO_6748 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_6754 ?AUTO_6748 )
+      ( GET_SOIL_DATA ?AUTO_6743 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6743 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6759 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6760 - LANDER
+      ?AUTO_6762 - WAYPOINT
+      ?AUTO_6761 - WAYPOINT
+      ?AUTO_6768 - ROVER
+      ?AUTO_6764 - WAYPOINT
+      ?AUTO_6763 - WAYPOINT
+      ?AUTO_6769 - STORE
+      ?AUTO_6765 - WAYPOINT
+      ?AUTO_6766 - WAYPOINT
+      ?AUTO_6772 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6760 ?AUTO_6762 ) ( VISIBLE ?AUTO_6761 ?AUTO_6762 ) ( AVAILABLE ?AUTO_6768 ) ( CHANNEL_FREE ?AUTO_6760 ) ( CAN_TRAVERSE ?AUTO_6768 ?AUTO_6764 ?AUTO_6761 ) ( VISIBLE ?AUTO_6764 ?AUTO_6761 ) ( CAN_TRAVERSE ?AUTO_6768 ?AUTO_6763 ?AUTO_6764 ) ( VISIBLE ?AUTO_6763 ?AUTO_6764 ) ( CAN_TRAVERSE ?AUTO_6768 ?AUTO_6759 ?AUTO_6763 ) ( VISIBLE ?AUTO_6759 ?AUTO_6763 ) ( AT_SOIL_SAMPLE ?AUTO_6759 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_6768 ) ( STORE_OF ?AUTO_6769 ?AUTO_6768 ) ( EMPTY ?AUTO_6769 ) ( CAN_TRAVERSE ?AUTO_6768 ?AUTO_6765 ?AUTO_6759 ) ( VISIBLE ?AUTO_6765 ?AUTO_6759 ) ( CAN_TRAVERSE ?AUTO_6768 ?AUTO_6766 ?AUTO_6765 ) ( VISIBLE ?AUTO_6766 ?AUTO_6765 ) ( CAN_TRAVERSE ?AUTO_6768 ?AUTO_6772 ?AUTO_6766 ) ( AT ?AUTO_6768 ?AUTO_6772 ) ( VISIBLE ?AUTO_6772 ?AUTO_6766 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6768 ?AUTO_6772 ?AUTO_6766 )
+      ( GET_SOIL_DATA ?AUTO_6759 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6759 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6774 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6775 - ROVER
+      ?AUTO_6778 - WAYPOINT
+      ?AUTO_6777 - LANDER
+      ?AUTO_6776 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6775 ?AUTO_6778 ) ( AT_LANDER ?AUTO_6777 ?AUTO_6776 ) ( HAVE_SOIL_ANALYSIS ?AUTO_6775 ?AUTO_6774 ) ( VISIBLE ?AUTO_6778 ?AUTO_6776 ) ( AVAILABLE ?AUTO_6775 ) ( CHANNEL_FREE ?AUTO_6777 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_6775 ?AUTO_6777 ?AUTO_6774 ?AUTO_6778 ?AUTO_6776 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6774 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6780 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6782 - ROVER
+      ?AUTO_6785 - WAYPOINT
+      ?AUTO_6784 - LANDER
+      ?AUTO_6783 - WAYPOINT
+      ?AUTO_6787 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_6782 ?AUTO_6785 ) ( AT_LANDER ?AUTO_6784 ?AUTO_6783 ) ( VISIBLE ?AUTO_6785 ?AUTO_6783 ) ( AVAILABLE ?AUTO_6782 ) ( CHANNEL_FREE ?AUTO_6784 ) ( AT ?AUTO_6782 ?AUTO_6780 ) ( AT_SOIL_SAMPLE ?AUTO_6780 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_6782 ) ( STORE_OF ?AUTO_6787 ?AUTO_6782 ) ( EMPTY ?AUTO_6787 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_6782 ?AUTO_6787 ?AUTO_6780 )
+      ( GET_SOIL_DATA ?AUTO_6780 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6780 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6792 - OBJECTIVE
+      ?AUTO_6793 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6794 - ROVER
+      ?AUTO_6797 - WAYPOINT
+      ?AUTO_6796 - LANDER
+      ?AUTO_6795 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6794 ?AUTO_6797 ) ( AT_LANDER ?AUTO_6796 ?AUTO_6795 ) ( HAVE_IMAGE ?AUTO_6794 ?AUTO_6792 ?AUTO_6793 ) ( VISIBLE ?AUTO_6797 ?AUTO_6795 ) ( AVAILABLE ?AUTO_6794 ) ( CHANNEL_FREE ?AUTO_6796 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_6794 ?AUTO_6796 ?AUTO_6792 ?AUTO_6793 ?AUTO_6797 ?AUTO_6795 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6792 ?AUTO_6793 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6800 - OBJECTIVE
+      ?AUTO_6801 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6806 - LANDER
+      ?AUTO_6805 - WAYPOINT
+      ?AUTO_6804 - ROVER
+      ?AUTO_6807 - WAYPOINT
+      ?AUTO_6810 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6806 ?AUTO_6805 ) ( HAVE_IMAGE ?AUTO_6804 ?AUTO_6800 ?AUTO_6801 ) ( VISIBLE ?AUTO_6807 ?AUTO_6805 ) ( AVAILABLE ?AUTO_6804 ) ( CHANNEL_FREE ?AUTO_6806 ) ( CAN_TRAVERSE ?AUTO_6804 ?AUTO_6810 ?AUTO_6807 ) ( AT ?AUTO_6804 ?AUTO_6810 ) ( VISIBLE ?AUTO_6810 ?AUTO_6807 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6804 ?AUTO_6810 ?AUTO_6807 )
+      ( GET_IMAGE_DATA ?AUTO_6800 ?AUTO_6801 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6800 ?AUTO_6801 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6811 - OBJECTIVE
+      ?AUTO_6812 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6817 - LANDER
+      ?AUTO_6816 - WAYPOINT
+      ?AUTO_6818 - ROVER
+      ?AUTO_6813 - WAYPOINT
+      ?AUTO_6819 - WAYPOINT
+      ?AUTO_6822 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6817 ?AUTO_6816 ) ( HAVE_IMAGE ?AUTO_6818 ?AUTO_6811 ?AUTO_6812 ) ( VISIBLE ?AUTO_6813 ?AUTO_6816 ) ( AVAILABLE ?AUTO_6818 ) ( CHANNEL_FREE ?AUTO_6817 ) ( CAN_TRAVERSE ?AUTO_6818 ?AUTO_6819 ?AUTO_6813 ) ( VISIBLE ?AUTO_6819 ?AUTO_6813 ) ( CAN_TRAVERSE ?AUTO_6818 ?AUTO_6822 ?AUTO_6819 ) ( AT ?AUTO_6818 ?AUTO_6822 ) ( VISIBLE ?AUTO_6822 ?AUTO_6819 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6818 ?AUTO_6822 ?AUTO_6819 )
+      ( GET_IMAGE_DATA ?AUTO_6811 ?AUTO_6812 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6811 ?AUTO_6812 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6823 - OBJECTIVE
+      ?AUTO_6824 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6825 - LANDER
+      ?AUTO_6831 - WAYPOINT
+      ?AUTO_6830 - WAYPOINT
+      ?AUTO_6829 - ROVER
+      ?AUTO_6832 - WAYPOINT
+      ?AUTO_6827 - WAYPOINT
+      ?AUTO_6837 - CAMERA
+      ?AUTO_6835 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6825 ?AUTO_6831 ) ( VISIBLE ?AUTO_6830 ?AUTO_6831 ) ( AVAILABLE ?AUTO_6829 ) ( CHANNEL_FREE ?AUTO_6825 ) ( CAN_TRAVERSE ?AUTO_6829 ?AUTO_6832 ?AUTO_6830 ) ( VISIBLE ?AUTO_6832 ?AUTO_6830 ) ( CAN_TRAVERSE ?AUTO_6829 ?AUTO_6827 ?AUTO_6832 ) ( AT ?AUTO_6829 ?AUTO_6827 ) ( VISIBLE ?AUTO_6827 ?AUTO_6832 ) ( CALIBRATED ?AUTO_6837 ?AUTO_6829 ) ( ON_BOARD ?AUTO_6837 ?AUTO_6829 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6829 ) ( SUPPORTS ?AUTO_6837 ?AUTO_6824 ) ( VISIBLE_FROM ?AUTO_6823 ?AUTO_6835 ) ( AT ?AUTO_6829 ?AUTO_6835 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_6829 ?AUTO_6835 ?AUTO_6823 ?AUTO_6837 ?AUTO_6824 )
+      ( GET_IMAGE_DATA ?AUTO_6823 ?AUTO_6824 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6823 ?AUTO_6824 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6838 - OBJECTIVE
+      ?AUTO_6839 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6842 - LANDER
+      ?AUTO_6847 - WAYPOINT
+      ?AUTO_6841 - WAYPOINT
+      ?AUTO_6843 - ROVER
+      ?AUTO_6844 - WAYPOINT
+      ?AUTO_6845 - WAYPOINT
+      ?AUTO_6849 - CAMERA
+      ?AUTO_6848 - WAYPOINT
+      ?AUTO_6853 - OBJECTIVE
+      ?AUTO_6851 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6842 ?AUTO_6847 ) ( VISIBLE ?AUTO_6841 ?AUTO_6847 ) ( AVAILABLE ?AUTO_6843 ) ( CHANNEL_FREE ?AUTO_6842 ) ( CAN_TRAVERSE ?AUTO_6843 ?AUTO_6844 ?AUTO_6841 ) ( VISIBLE ?AUTO_6844 ?AUTO_6841 ) ( CAN_TRAVERSE ?AUTO_6843 ?AUTO_6845 ?AUTO_6844 ) ( AT ?AUTO_6843 ?AUTO_6845 ) ( VISIBLE ?AUTO_6845 ?AUTO_6844 ) ( ON_BOARD ?AUTO_6849 ?AUTO_6843 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6843 ) ( SUPPORTS ?AUTO_6849 ?AUTO_6839 ) ( VISIBLE_FROM ?AUTO_6838 ?AUTO_6848 ) ( AT ?AUTO_6843 ?AUTO_6848 ) ( CALIBRATION_TARGET ?AUTO_6849 ?AUTO_6853 ) ( AT ?AUTO_6843 ?AUTO_6851 ) ( VISIBLE_FROM ?AUTO_6853 ?AUTO_6851 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_6843 ?AUTO_6849 ?AUTO_6853 ?AUTO_6851 )
+      ( GET_IMAGE_DATA ?AUTO_6838 ?AUTO_6839 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6838 ?AUTO_6839 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6854 - OBJECTIVE
+      ?AUTO_6855 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6864 - LANDER
+      ?AUTO_6856 - WAYPOINT
+      ?AUTO_6861 - WAYPOINT
+      ?AUTO_6863 - ROVER
+      ?AUTO_6865 - WAYPOINT
+      ?AUTO_6867 - WAYPOINT
+      ?AUTO_6860 - CAMERA
+      ?AUTO_6866 - OBJECTIVE
+      ?AUTO_6870 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6864 ?AUTO_6856 ) ( VISIBLE ?AUTO_6861 ?AUTO_6856 ) ( AVAILABLE ?AUTO_6863 ) ( CHANNEL_FREE ?AUTO_6864 ) ( CAN_TRAVERSE ?AUTO_6863 ?AUTO_6865 ?AUTO_6861 ) ( VISIBLE ?AUTO_6865 ?AUTO_6861 ) ( CAN_TRAVERSE ?AUTO_6863 ?AUTO_6867 ?AUTO_6865 ) ( VISIBLE ?AUTO_6867 ?AUTO_6865 ) ( ON_BOARD ?AUTO_6860 ?AUTO_6863 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6863 ) ( SUPPORTS ?AUTO_6860 ?AUTO_6855 ) ( VISIBLE_FROM ?AUTO_6854 ?AUTO_6867 ) ( CALIBRATION_TARGET ?AUTO_6860 ?AUTO_6866 ) ( VISIBLE_FROM ?AUTO_6866 ?AUTO_6867 ) ( CAN_TRAVERSE ?AUTO_6863 ?AUTO_6870 ?AUTO_6867 ) ( AT ?AUTO_6863 ?AUTO_6870 ) ( VISIBLE ?AUTO_6870 ?AUTO_6867 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6863 ?AUTO_6870 ?AUTO_6867 )
+      ( GET_IMAGE_DATA ?AUTO_6854 ?AUTO_6855 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6854 ?AUTO_6855 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6875 - OBJECTIVE
+      ?AUTO_6876 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6887 - LANDER
+      ?AUTO_6877 - WAYPOINT
+      ?AUTO_6886 - WAYPOINT
+      ?AUTO_6883 - ROVER
+      ?AUTO_6884 - WAYPOINT
+      ?AUTO_6882 - WAYPOINT
+      ?AUTO_6878 - CAMERA
+      ?AUTO_6885 - OBJECTIVE
+      ?AUTO_6879 - WAYPOINT
+      ?AUTO_6890 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6887 ?AUTO_6877 ) ( VISIBLE ?AUTO_6886 ?AUTO_6877 ) ( AVAILABLE ?AUTO_6883 ) ( CHANNEL_FREE ?AUTO_6887 ) ( CAN_TRAVERSE ?AUTO_6883 ?AUTO_6884 ?AUTO_6886 ) ( VISIBLE ?AUTO_6884 ?AUTO_6886 ) ( CAN_TRAVERSE ?AUTO_6883 ?AUTO_6882 ?AUTO_6884 ) ( VISIBLE ?AUTO_6882 ?AUTO_6884 ) ( ON_BOARD ?AUTO_6878 ?AUTO_6883 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6883 ) ( SUPPORTS ?AUTO_6878 ?AUTO_6876 ) ( VISIBLE_FROM ?AUTO_6875 ?AUTO_6882 ) ( CALIBRATION_TARGET ?AUTO_6878 ?AUTO_6885 ) ( VISIBLE_FROM ?AUTO_6885 ?AUTO_6882 ) ( CAN_TRAVERSE ?AUTO_6883 ?AUTO_6879 ?AUTO_6882 ) ( VISIBLE ?AUTO_6879 ?AUTO_6882 ) ( CAN_TRAVERSE ?AUTO_6883 ?AUTO_6890 ?AUTO_6879 ) ( AT ?AUTO_6883 ?AUTO_6890 ) ( VISIBLE ?AUTO_6890 ?AUTO_6879 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6883 ?AUTO_6890 ?AUTO_6879 )
+      ( GET_IMAGE_DATA ?AUTO_6875 ?AUTO_6876 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6875 ?AUTO_6876 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6893 - OBJECTIVE
+      ?AUTO_6894 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6895 - ROVER
+      ?AUTO_6898 - WAYPOINT
+      ?AUTO_6897 - LANDER
+      ?AUTO_6896 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6895 ?AUTO_6898 ) ( AT_LANDER ?AUTO_6897 ?AUTO_6896 ) ( HAVE_IMAGE ?AUTO_6895 ?AUTO_6893 ?AUTO_6894 ) ( VISIBLE ?AUTO_6898 ?AUTO_6896 ) ( AVAILABLE ?AUTO_6895 ) ( CHANNEL_FREE ?AUTO_6897 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_6895 ?AUTO_6897 ?AUTO_6893 ?AUTO_6894 ?AUTO_6898 ?AUTO_6896 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6893 ?AUTO_6894 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6901 - OBJECTIVE
+      ?AUTO_6902 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6907 - LANDER
+      ?AUTO_6906 - WAYPOINT
+      ?AUTO_6905 - ROVER
+      ?AUTO_6908 - WAYPOINT
+      ?AUTO_6911 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6907 ?AUTO_6906 ) ( HAVE_IMAGE ?AUTO_6905 ?AUTO_6901 ?AUTO_6902 ) ( VISIBLE ?AUTO_6908 ?AUTO_6906 ) ( AVAILABLE ?AUTO_6905 ) ( CHANNEL_FREE ?AUTO_6907 ) ( CAN_TRAVERSE ?AUTO_6905 ?AUTO_6911 ?AUTO_6908 ) ( AT ?AUTO_6905 ?AUTO_6911 ) ( VISIBLE ?AUTO_6911 ?AUTO_6908 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6905 ?AUTO_6911 ?AUTO_6908 )
+      ( GET_IMAGE_DATA ?AUTO_6901 ?AUTO_6902 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6901 ?AUTO_6902 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6912 - OBJECTIVE
+      ?AUTO_6913 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6918 - LANDER
+      ?AUTO_6917 - WAYPOINT
+      ?AUTO_6914 - WAYPOINT
+      ?AUTO_6919 - ROVER
+      ?AUTO_6920 - WAYPOINT
+      ?AUTO_6925 - CAMERA
+      ?AUTO_6923 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6918 ?AUTO_6917 ) ( VISIBLE ?AUTO_6914 ?AUTO_6917 ) ( AVAILABLE ?AUTO_6919 ) ( CHANNEL_FREE ?AUTO_6918 ) ( CAN_TRAVERSE ?AUTO_6919 ?AUTO_6920 ?AUTO_6914 ) ( AT ?AUTO_6919 ?AUTO_6920 ) ( VISIBLE ?AUTO_6920 ?AUTO_6914 ) ( CALIBRATED ?AUTO_6925 ?AUTO_6919 ) ( ON_BOARD ?AUTO_6925 ?AUTO_6919 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6919 ) ( SUPPORTS ?AUTO_6925 ?AUTO_6913 ) ( VISIBLE_FROM ?AUTO_6912 ?AUTO_6923 ) ( AT ?AUTO_6919 ?AUTO_6923 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_6919 ?AUTO_6923 ?AUTO_6912 ?AUTO_6925 ?AUTO_6913 )
+      ( GET_IMAGE_DATA ?AUTO_6912 ?AUTO_6913 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6912 ?AUTO_6913 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6926 - OBJECTIVE
+      ?AUTO_6927 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6928 - LANDER
+      ?AUTO_6930 - WAYPOINT
+      ?AUTO_6933 - WAYPOINT
+      ?AUTO_6932 - ROVER
+      ?AUTO_6934 - WAYPOINT
+      ?AUTO_6936 - CAMERA
+      ?AUTO_6935 - WAYPOINT
+      ?AUTO_6940 - OBJECTIVE
+      ?AUTO_6938 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6928 ?AUTO_6930 ) ( VISIBLE ?AUTO_6933 ?AUTO_6930 ) ( AVAILABLE ?AUTO_6932 ) ( CHANNEL_FREE ?AUTO_6928 ) ( CAN_TRAVERSE ?AUTO_6932 ?AUTO_6934 ?AUTO_6933 ) ( AT ?AUTO_6932 ?AUTO_6934 ) ( VISIBLE ?AUTO_6934 ?AUTO_6933 ) ( ON_BOARD ?AUTO_6936 ?AUTO_6932 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6932 ) ( SUPPORTS ?AUTO_6936 ?AUTO_6927 ) ( VISIBLE_FROM ?AUTO_6926 ?AUTO_6935 ) ( AT ?AUTO_6932 ?AUTO_6935 ) ( CALIBRATION_TARGET ?AUTO_6936 ?AUTO_6940 ) ( AT ?AUTO_6932 ?AUTO_6938 ) ( VISIBLE_FROM ?AUTO_6940 ?AUTO_6938 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_6932 ?AUTO_6936 ?AUTO_6940 ?AUTO_6938 )
+      ( GET_IMAGE_DATA ?AUTO_6926 ?AUTO_6927 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6926 ?AUTO_6927 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_6941 - OBJECTIVE
+      ?AUTO_6942 - MODE
+    )
+    :vars
+    (
+      ?AUTO_6943 - LANDER
+      ?AUTO_6947 - WAYPOINT
+      ?AUTO_6949 - WAYPOINT
+      ?AUTO_6948 - ROVER
+      ?AUTO_6946 - WAYPOINT
+      ?AUTO_6945 - CAMERA
+      ?AUTO_6953 - OBJECTIVE
+      ?AUTO_6956 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6943 ?AUTO_6947 ) ( VISIBLE ?AUTO_6949 ?AUTO_6947 ) ( AVAILABLE ?AUTO_6948 ) ( CHANNEL_FREE ?AUTO_6943 ) ( CAN_TRAVERSE ?AUTO_6948 ?AUTO_6946 ?AUTO_6949 ) ( VISIBLE ?AUTO_6946 ?AUTO_6949 ) ( ON_BOARD ?AUTO_6945 ?AUTO_6948 ) ( EQUIPPED_FOR_IMAGING ?AUTO_6948 ) ( SUPPORTS ?AUTO_6945 ?AUTO_6942 ) ( VISIBLE_FROM ?AUTO_6941 ?AUTO_6946 ) ( CALIBRATION_TARGET ?AUTO_6945 ?AUTO_6953 ) ( VISIBLE_FROM ?AUTO_6953 ?AUTO_6946 ) ( CAN_TRAVERSE ?AUTO_6948 ?AUTO_6956 ?AUTO_6946 ) ( AT ?AUTO_6948 ?AUTO_6956 ) ( VISIBLE ?AUTO_6956 ?AUTO_6946 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6948 ?AUTO_6956 ?AUTO_6946 )
+      ( GET_IMAGE_DATA ?AUTO_6941 ?AUTO_6942 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_6941 ?AUTO_6942 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6958 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6959 - ROVER
+      ?AUTO_6962 - WAYPOINT
+      ?AUTO_6961 - LANDER
+      ?AUTO_6960 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6959 ?AUTO_6962 ) ( AT_LANDER ?AUTO_6961 ?AUTO_6960 ) ( HAVE_ROCK_ANALYSIS ?AUTO_6959 ?AUTO_6958 ) ( VISIBLE ?AUTO_6962 ?AUTO_6960 ) ( AVAILABLE ?AUTO_6959 ) ( CHANNEL_FREE ?AUTO_6961 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_6959 ?AUTO_6961 ?AUTO_6958 ?AUTO_6962 ?AUTO_6960 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6958 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6964 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6966 - ROVER
+      ?AUTO_6969 - WAYPOINT
+      ?AUTO_6968 - LANDER
+      ?AUTO_6967 - WAYPOINT
+      ?AUTO_6971 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_6966 ?AUTO_6969 ) ( AT_LANDER ?AUTO_6968 ?AUTO_6967 ) ( VISIBLE ?AUTO_6969 ?AUTO_6967 ) ( AVAILABLE ?AUTO_6966 ) ( CHANNEL_FREE ?AUTO_6968 ) ( AT ?AUTO_6966 ?AUTO_6964 ) ( AT_ROCK_SAMPLE ?AUTO_6964 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6966 ) ( STORE_OF ?AUTO_6971 ?AUTO_6966 ) ( EMPTY ?AUTO_6971 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_6966 ?AUTO_6971 ?AUTO_6964 )
+      ( GET_ROCK_DATA ?AUTO_6964 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6964 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6974 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6975 - LANDER
+      ?AUTO_6976 - WAYPOINT
+      ?AUTO_6977 - ROVER
+      ?AUTO_6980 - STORE
+      ?AUTO_6983 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6975 ?AUTO_6976 ) ( VISIBLE ?AUTO_6974 ?AUTO_6976 ) ( AVAILABLE ?AUTO_6977 ) ( CHANNEL_FREE ?AUTO_6975 ) ( AT_ROCK_SAMPLE ?AUTO_6974 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6977 ) ( STORE_OF ?AUTO_6980 ?AUTO_6977 ) ( EMPTY ?AUTO_6980 ) ( CAN_TRAVERSE ?AUTO_6977 ?AUTO_6983 ?AUTO_6974 ) ( AT ?AUTO_6977 ?AUTO_6983 ) ( VISIBLE ?AUTO_6983 ?AUTO_6974 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6977 ?AUTO_6983 ?AUTO_6974 )
+      ( GET_ROCK_DATA ?AUTO_6974 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6974 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_6986 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6989 - LANDER
+      ?AUTO_6987 - WAYPOINT
+      ?AUTO_6991 - ROVER
+      ?AUTO_6990 - STORE
+      ?AUTO_6992 - WAYPOINT
+      ?AUTO_6995 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_6989 ?AUTO_6987 ) ( VISIBLE ?AUTO_6986 ?AUTO_6987 ) ( AVAILABLE ?AUTO_6991 ) ( CHANNEL_FREE ?AUTO_6989 ) ( AT_ROCK_SAMPLE ?AUTO_6986 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_6991 ) ( STORE_OF ?AUTO_6990 ?AUTO_6991 ) ( EMPTY ?AUTO_6990 ) ( CAN_TRAVERSE ?AUTO_6991 ?AUTO_6992 ?AUTO_6986 ) ( VISIBLE ?AUTO_6992 ?AUTO_6986 ) ( CAN_TRAVERSE ?AUTO_6991 ?AUTO_6995 ?AUTO_6992 ) ( AT ?AUTO_6991 ?AUTO_6995 ) ( VISIBLE ?AUTO_6995 ?AUTO_6992 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_6991 ?AUTO_6995 ?AUTO_6992 )
+      ( GET_ROCK_DATA ?AUTO_6986 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_6986 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_6997 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_6998 - ROVER
+      ?AUTO_7001 - WAYPOINT
+      ?AUTO_7000 - LANDER
+      ?AUTO_6999 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_6998 ?AUTO_7001 ) ( AT_LANDER ?AUTO_7000 ?AUTO_6999 ) ( HAVE_SOIL_ANALYSIS ?AUTO_6998 ?AUTO_6997 ) ( VISIBLE ?AUTO_7001 ?AUTO_6999 ) ( AVAILABLE ?AUTO_6998 ) ( CHANNEL_FREE ?AUTO_7000 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_6998 ?AUTO_7000 ?AUTO_6997 ?AUTO_7001 ?AUTO_6999 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_6997 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7003 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7007 - LANDER
+      ?AUTO_7006 - WAYPOINT
+      ?AUTO_7005 - ROVER
+      ?AUTO_7008 - WAYPOINT
+      ?AUTO_7011 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7007 ?AUTO_7006 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7005 ?AUTO_7003 ) ( VISIBLE ?AUTO_7008 ?AUTO_7006 ) ( AVAILABLE ?AUTO_7005 ) ( CHANNEL_FREE ?AUTO_7007 ) ( CAN_TRAVERSE ?AUTO_7005 ?AUTO_7011 ?AUTO_7008 ) ( AT ?AUTO_7005 ?AUTO_7011 ) ( VISIBLE ?AUTO_7011 ?AUTO_7008 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7005 ?AUTO_7011 ?AUTO_7008 )
+      ( GET_SOIL_DATA ?AUTO_7003 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7003 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7013 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7016 - LANDER
+      ?AUTO_7017 - WAYPOINT
+      ?AUTO_7019 - WAYPOINT
+      ?AUTO_7015 - ROVER
+      ?AUTO_7018 - WAYPOINT
+      ?AUTO_7021 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7016 ?AUTO_7017 ) ( VISIBLE ?AUTO_7019 ?AUTO_7017 ) ( AVAILABLE ?AUTO_7015 ) ( CHANNEL_FREE ?AUTO_7016 ) ( CAN_TRAVERSE ?AUTO_7015 ?AUTO_7018 ?AUTO_7019 ) ( AT ?AUTO_7015 ?AUTO_7018 ) ( VISIBLE ?AUTO_7018 ?AUTO_7019 ) ( AT ?AUTO_7015 ?AUTO_7013 ) ( AT_SOIL_SAMPLE ?AUTO_7013 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7015 ) ( STORE_OF ?AUTO_7021 ?AUTO_7015 ) ( EMPTY ?AUTO_7021 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_7015 ?AUTO_7021 ?AUTO_7013 )
+      ( GET_SOIL_DATA ?AUTO_7013 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7013 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7023 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7029 - LANDER
+      ?AUTO_7028 - WAYPOINT
+      ?AUTO_7026 - WAYPOINT
+      ?AUTO_7027 - ROVER
+      ?AUTO_7030 - STORE
+      ?AUTO_7033 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7029 ?AUTO_7028 ) ( VISIBLE ?AUTO_7026 ?AUTO_7028 ) ( AVAILABLE ?AUTO_7027 ) ( CHANNEL_FREE ?AUTO_7029 ) ( CAN_TRAVERSE ?AUTO_7027 ?AUTO_7023 ?AUTO_7026 ) ( VISIBLE ?AUTO_7023 ?AUTO_7026 ) ( AT_SOIL_SAMPLE ?AUTO_7023 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7027 ) ( STORE_OF ?AUTO_7030 ?AUTO_7027 ) ( EMPTY ?AUTO_7030 ) ( CAN_TRAVERSE ?AUTO_7027 ?AUTO_7033 ?AUTO_7023 ) ( AT ?AUTO_7027 ?AUTO_7033 ) ( VISIBLE ?AUTO_7033 ?AUTO_7023 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7027 ?AUTO_7033 ?AUTO_7023 )
+      ( GET_SOIL_DATA ?AUTO_7023 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7023 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7034 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7039 - LANDER
+      ?AUTO_7037 - WAYPOINT
+      ?AUTO_7041 - WAYPOINT
+      ?AUTO_7038 - ROVER
+      ?AUTO_7040 - STORE
+      ?AUTO_7036 - WAYPOINT
+      ?AUTO_7042 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7039 ?AUTO_7037 ) ( VISIBLE ?AUTO_7041 ?AUTO_7037 ) ( AVAILABLE ?AUTO_7038 ) ( CHANNEL_FREE ?AUTO_7039 ) ( CAN_TRAVERSE ?AUTO_7038 ?AUTO_7034 ?AUTO_7041 ) ( VISIBLE ?AUTO_7034 ?AUTO_7041 ) ( AT_SOIL_SAMPLE ?AUTO_7034 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7038 ) ( STORE_OF ?AUTO_7040 ?AUTO_7038 ) ( CAN_TRAVERSE ?AUTO_7038 ?AUTO_7036 ?AUTO_7034 ) ( AT ?AUTO_7038 ?AUTO_7036 ) ( VISIBLE ?AUTO_7036 ?AUTO_7034 ) ( STORE_OF ?AUTO_7040 ?AUTO_7042 ) ( FULL ?AUTO_7040 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7042 ?AUTO_7040 )
+      ( GET_SOIL_DATA ?AUTO_7034 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7034 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7052 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7053 - ROVER
+      ?AUTO_7056 - WAYPOINT
+      ?AUTO_7055 - LANDER
+      ?AUTO_7054 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7053 ?AUTO_7056 ) ( AT_LANDER ?AUTO_7055 ?AUTO_7054 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7053 ?AUTO_7052 ) ( VISIBLE ?AUTO_7056 ?AUTO_7054 ) ( AVAILABLE ?AUTO_7053 ) ( CHANNEL_FREE ?AUTO_7055 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_7053 ?AUTO_7055 ?AUTO_7052 ?AUTO_7056 ?AUTO_7054 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7052 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7058 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7062 - LANDER
+      ?AUTO_7061 - WAYPOINT
+      ?AUTO_7060 - ROVER
+      ?AUTO_7063 - WAYPOINT
+      ?AUTO_7066 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7062 ?AUTO_7061 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7060 ?AUTO_7058 ) ( VISIBLE ?AUTO_7063 ?AUTO_7061 ) ( AVAILABLE ?AUTO_7060 ) ( CHANNEL_FREE ?AUTO_7062 ) ( CAN_TRAVERSE ?AUTO_7060 ?AUTO_7066 ?AUTO_7063 ) ( AT ?AUTO_7060 ?AUTO_7066 ) ( VISIBLE ?AUTO_7066 ?AUTO_7063 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7060 ?AUTO_7066 ?AUTO_7063 )
+      ( GET_ROCK_DATA ?AUTO_7058 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7058 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7068 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7071 - LANDER
+      ?AUTO_7072 - WAYPOINT
+      ?AUTO_7074 - WAYPOINT
+      ?AUTO_7070 - ROVER
+      ?AUTO_7073 - WAYPOINT
+      ?AUTO_7076 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7071 ?AUTO_7072 ) ( VISIBLE ?AUTO_7074 ?AUTO_7072 ) ( AVAILABLE ?AUTO_7070 ) ( CHANNEL_FREE ?AUTO_7071 ) ( CAN_TRAVERSE ?AUTO_7070 ?AUTO_7073 ?AUTO_7074 ) ( AT ?AUTO_7070 ?AUTO_7073 ) ( VISIBLE ?AUTO_7073 ?AUTO_7074 ) ( AT ?AUTO_7070 ?AUTO_7068 ) ( AT_ROCK_SAMPLE ?AUTO_7068 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7070 ) ( STORE_OF ?AUTO_7076 ?AUTO_7070 ) ( EMPTY ?AUTO_7076 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_7070 ?AUTO_7076 ?AUTO_7068 )
+      ( GET_ROCK_DATA ?AUTO_7068 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7068 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7078 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7084 - LANDER
+      ?AUTO_7083 - WAYPOINT
+      ?AUTO_7081 - WAYPOINT
+      ?AUTO_7082 - ROVER
+      ?AUTO_7085 - STORE
+      ?AUTO_7088 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7084 ?AUTO_7083 ) ( VISIBLE ?AUTO_7081 ?AUTO_7083 ) ( AVAILABLE ?AUTO_7082 ) ( CHANNEL_FREE ?AUTO_7084 ) ( CAN_TRAVERSE ?AUTO_7082 ?AUTO_7078 ?AUTO_7081 ) ( VISIBLE ?AUTO_7078 ?AUTO_7081 ) ( AT_ROCK_SAMPLE ?AUTO_7078 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7082 ) ( STORE_OF ?AUTO_7085 ?AUTO_7082 ) ( EMPTY ?AUTO_7085 ) ( CAN_TRAVERSE ?AUTO_7082 ?AUTO_7088 ?AUTO_7078 ) ( AT ?AUTO_7082 ?AUTO_7088 ) ( VISIBLE ?AUTO_7088 ?AUTO_7078 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7082 ?AUTO_7088 ?AUTO_7078 )
+      ( GET_ROCK_DATA ?AUTO_7078 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7078 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7091 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7098 - LANDER
+      ?AUTO_7096 - WAYPOINT
+      ?AUTO_7094 - WAYPOINT
+      ?AUTO_7097 - ROVER
+      ?AUTO_7092 - WAYPOINT
+      ?AUTO_7095 - STORE
+      ?AUTO_7099 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7098 ?AUTO_7096 ) ( VISIBLE ?AUTO_7094 ?AUTO_7096 ) ( AVAILABLE ?AUTO_7097 ) ( CHANNEL_FREE ?AUTO_7098 ) ( CAN_TRAVERSE ?AUTO_7097 ?AUTO_7092 ?AUTO_7094 ) ( AT ?AUTO_7097 ?AUTO_7092 ) ( VISIBLE ?AUTO_7092 ?AUTO_7094 ) ( AT ?AUTO_7097 ?AUTO_7091 ) ( AT_ROCK_SAMPLE ?AUTO_7091 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7097 ) ( STORE_OF ?AUTO_7095 ?AUTO_7097 ) ( STORE_OF ?AUTO_7095 ?AUTO_7099 ) ( FULL ?AUTO_7095 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7099 ?AUTO_7095 )
+      ( GET_ROCK_DATA ?AUTO_7091 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7091 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7103 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7105 - LANDER
+      ?AUTO_7106 - WAYPOINT
+      ?AUTO_7110 - WAYPOINT
+      ?AUTO_7107 - ROVER
+      ?AUTO_7104 - STORE
+      ?AUTO_7108 - WAYPOINT
+      ?AUTO_7111 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7105 ?AUTO_7106 ) ( VISIBLE ?AUTO_7110 ?AUTO_7106 ) ( AVAILABLE ?AUTO_7107 ) ( CHANNEL_FREE ?AUTO_7105 ) ( CAN_TRAVERSE ?AUTO_7107 ?AUTO_7103 ?AUTO_7110 ) ( VISIBLE ?AUTO_7103 ?AUTO_7110 ) ( AT_ROCK_SAMPLE ?AUTO_7103 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7107 ) ( STORE_OF ?AUTO_7104 ?AUTO_7107 ) ( CAN_TRAVERSE ?AUTO_7107 ?AUTO_7108 ?AUTO_7103 ) ( AT ?AUTO_7107 ?AUTO_7108 ) ( VISIBLE ?AUTO_7108 ?AUTO_7103 ) ( STORE_OF ?AUTO_7104 ?AUTO_7111 ) ( FULL ?AUTO_7104 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7111 ?AUTO_7104 )
+      ( GET_ROCK_DATA ?AUTO_7103 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7103 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7121 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7122 - ROVER
+      ?AUTO_7125 - WAYPOINT
+      ?AUTO_7124 - LANDER
+      ?AUTO_7123 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7122 ?AUTO_7125 ) ( AT_LANDER ?AUTO_7124 ?AUTO_7123 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7122 ?AUTO_7121 ) ( VISIBLE ?AUTO_7125 ?AUTO_7123 ) ( AVAILABLE ?AUTO_7122 ) ( CHANNEL_FREE ?AUTO_7124 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_7122 ?AUTO_7124 ?AUTO_7121 ?AUTO_7125 ?AUTO_7123 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7121 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7127 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7131 - LANDER
+      ?AUTO_7130 - WAYPOINT
+      ?AUTO_7129 - ROVER
+      ?AUTO_7132 - WAYPOINT
+      ?AUTO_7135 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7131 ?AUTO_7130 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7129 ?AUTO_7127 ) ( VISIBLE ?AUTO_7132 ?AUTO_7130 ) ( AVAILABLE ?AUTO_7129 ) ( CHANNEL_FREE ?AUTO_7131 ) ( CAN_TRAVERSE ?AUTO_7129 ?AUTO_7135 ?AUTO_7132 ) ( AT ?AUTO_7129 ?AUTO_7135 ) ( VISIBLE ?AUTO_7135 ?AUTO_7132 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7129 ?AUTO_7135 ?AUTO_7132 )
+      ( GET_SOIL_DATA ?AUTO_7127 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7127 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7136 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7141 - LANDER
+      ?AUTO_7137 - WAYPOINT
+      ?AUTO_7138 - ROVER
+      ?AUTO_7140 - WAYPOINT
+      ?AUTO_7142 - WAYPOINT
+      ?AUTO_7145 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7141 ?AUTO_7137 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7138 ?AUTO_7136 ) ( VISIBLE ?AUTO_7140 ?AUTO_7137 ) ( AVAILABLE ?AUTO_7138 ) ( CHANNEL_FREE ?AUTO_7141 ) ( CAN_TRAVERSE ?AUTO_7138 ?AUTO_7142 ?AUTO_7140 ) ( VISIBLE ?AUTO_7142 ?AUTO_7140 ) ( CAN_TRAVERSE ?AUTO_7138 ?AUTO_7145 ?AUTO_7142 ) ( AT ?AUTO_7138 ?AUTO_7145 ) ( VISIBLE ?AUTO_7145 ?AUTO_7142 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7138 ?AUTO_7145 ?AUTO_7142 )
+      ( GET_SOIL_DATA ?AUTO_7136 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7136 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7151 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7158 - LANDER
+      ?AUTO_7157 - WAYPOINT
+      ?AUTO_7156 - WAYPOINT
+      ?AUTO_7152 - ROVER
+      ?AUTO_7154 - WAYPOINT
+      ?AUTO_7155 - WAYPOINT
+      ?AUTO_7160 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7158 ?AUTO_7157 ) ( VISIBLE ?AUTO_7156 ?AUTO_7157 ) ( AVAILABLE ?AUTO_7152 ) ( CHANNEL_FREE ?AUTO_7158 ) ( CAN_TRAVERSE ?AUTO_7152 ?AUTO_7154 ?AUTO_7156 ) ( VISIBLE ?AUTO_7154 ?AUTO_7156 ) ( CAN_TRAVERSE ?AUTO_7152 ?AUTO_7155 ?AUTO_7154 ) ( AT ?AUTO_7152 ?AUTO_7155 ) ( VISIBLE ?AUTO_7155 ?AUTO_7154 ) ( AT ?AUTO_7152 ?AUTO_7151 ) ( AT_SOIL_SAMPLE ?AUTO_7151 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7152 ) ( STORE_OF ?AUTO_7160 ?AUTO_7152 ) ( EMPTY ?AUTO_7160 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_7152 ?AUTO_7160 ?AUTO_7151 )
+      ( GET_SOIL_DATA ?AUTO_7151 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7151 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7162 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7167 - LANDER
+      ?AUTO_7165 - WAYPOINT
+      ?AUTO_7169 - WAYPOINT
+      ?AUTO_7166 - ROVER
+      ?AUTO_7164 - WAYPOINT
+      ?AUTO_7170 - STORE
+      ?AUTO_7173 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7167 ?AUTO_7165 ) ( VISIBLE ?AUTO_7169 ?AUTO_7165 ) ( AVAILABLE ?AUTO_7166 ) ( CHANNEL_FREE ?AUTO_7167 ) ( CAN_TRAVERSE ?AUTO_7166 ?AUTO_7164 ?AUTO_7169 ) ( VISIBLE ?AUTO_7164 ?AUTO_7169 ) ( CAN_TRAVERSE ?AUTO_7166 ?AUTO_7162 ?AUTO_7164 ) ( VISIBLE ?AUTO_7162 ?AUTO_7164 ) ( AT_SOIL_SAMPLE ?AUTO_7162 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7166 ) ( STORE_OF ?AUTO_7170 ?AUTO_7166 ) ( EMPTY ?AUTO_7170 ) ( CAN_TRAVERSE ?AUTO_7166 ?AUTO_7173 ?AUTO_7162 ) ( AT ?AUTO_7166 ?AUTO_7173 ) ( VISIBLE ?AUTO_7173 ?AUTO_7162 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7166 ?AUTO_7173 ?AUTO_7162 )
+      ( GET_SOIL_DATA ?AUTO_7162 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7162 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7174 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7175 - LANDER
+      ?AUTO_7182 - WAYPOINT
+      ?AUTO_7178 - WAYPOINT
+      ?AUTO_7176 - ROVER
+      ?AUTO_7179 - WAYPOINT
+      ?AUTO_7177 - STORE
+      ?AUTO_7181 - WAYPOINT
+      ?AUTO_7185 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7175 ?AUTO_7182 ) ( VISIBLE ?AUTO_7178 ?AUTO_7182 ) ( AVAILABLE ?AUTO_7176 ) ( CHANNEL_FREE ?AUTO_7175 ) ( CAN_TRAVERSE ?AUTO_7176 ?AUTO_7179 ?AUTO_7178 ) ( VISIBLE ?AUTO_7179 ?AUTO_7178 ) ( CAN_TRAVERSE ?AUTO_7176 ?AUTO_7174 ?AUTO_7179 ) ( VISIBLE ?AUTO_7174 ?AUTO_7179 ) ( AT_SOIL_SAMPLE ?AUTO_7174 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7176 ) ( STORE_OF ?AUTO_7177 ?AUTO_7176 ) ( EMPTY ?AUTO_7177 ) ( CAN_TRAVERSE ?AUTO_7176 ?AUTO_7181 ?AUTO_7174 ) ( VISIBLE ?AUTO_7181 ?AUTO_7174 ) ( CAN_TRAVERSE ?AUTO_7176 ?AUTO_7185 ?AUTO_7181 ) ( AT ?AUTO_7176 ?AUTO_7185 ) ( VISIBLE ?AUTO_7185 ?AUTO_7181 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7176 ?AUTO_7185 ?AUTO_7181 )
+      ( GET_SOIL_DATA ?AUTO_7174 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7174 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7188 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7193 - LANDER
+      ?AUTO_7191 - WAYPOINT
+      ?AUTO_7192 - WAYPOINT
+      ?AUTO_7196 - ROVER
+      ?AUTO_7194 - WAYPOINT
+      ?AUTO_7189 - STORE
+      ?AUTO_7195 - WAYPOINT
+      ?AUTO_7197 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7193 ?AUTO_7191 ) ( VISIBLE ?AUTO_7192 ?AUTO_7191 ) ( AVAILABLE ?AUTO_7196 ) ( CHANNEL_FREE ?AUTO_7193 ) ( CAN_TRAVERSE ?AUTO_7196 ?AUTO_7194 ?AUTO_7192 ) ( VISIBLE ?AUTO_7194 ?AUTO_7192 ) ( CAN_TRAVERSE ?AUTO_7196 ?AUTO_7188 ?AUTO_7194 ) ( VISIBLE ?AUTO_7188 ?AUTO_7194 ) ( AT_SOIL_SAMPLE ?AUTO_7188 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7196 ) ( STORE_OF ?AUTO_7189 ?AUTO_7196 ) ( CAN_TRAVERSE ?AUTO_7196 ?AUTO_7195 ?AUTO_7188 ) ( AT ?AUTO_7196 ?AUTO_7195 ) ( VISIBLE ?AUTO_7195 ?AUTO_7188 ) ( STORE_OF ?AUTO_7189 ?AUTO_7197 ) ( FULL ?AUTO_7189 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7197 ?AUTO_7189 )
+      ( GET_SOIL_DATA ?AUTO_7188 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7188 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7206 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7211 - LANDER
+      ?AUTO_7214 - WAYPOINT
+      ?AUTO_7210 - WAYPOINT
+      ?AUTO_7215 - ROVER
+      ?AUTO_7207 - WAYPOINT
+      ?AUTO_7209 - STORE
+      ?AUTO_7213 - WAYPOINT
+      ?AUTO_7208 - WAYPOINT
+      ?AUTO_7216 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7211 ?AUTO_7214 ) ( VISIBLE ?AUTO_7210 ?AUTO_7214 ) ( AVAILABLE ?AUTO_7215 ) ( CHANNEL_FREE ?AUTO_7211 ) ( CAN_TRAVERSE ?AUTO_7215 ?AUTO_7207 ?AUTO_7210 ) ( VISIBLE ?AUTO_7207 ?AUTO_7210 ) ( CAN_TRAVERSE ?AUTO_7215 ?AUTO_7206 ?AUTO_7207 ) ( VISIBLE ?AUTO_7206 ?AUTO_7207 ) ( AT_SOIL_SAMPLE ?AUTO_7206 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7215 ) ( STORE_OF ?AUTO_7209 ?AUTO_7215 ) ( CAN_TRAVERSE ?AUTO_7215 ?AUTO_7213 ?AUTO_7206 ) ( VISIBLE ?AUTO_7213 ?AUTO_7206 ) ( CAN_TRAVERSE ?AUTO_7215 ?AUTO_7208 ?AUTO_7213 ) ( AT ?AUTO_7215 ?AUTO_7208 ) ( VISIBLE ?AUTO_7208 ?AUTO_7213 ) ( STORE_OF ?AUTO_7209 ?AUTO_7216 ) ( FULL ?AUTO_7209 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7216 ?AUTO_7209 )
+      ( GET_SOIL_DATA ?AUTO_7206 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7206 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7226 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7227 - ROVER
+      ?AUTO_7230 - WAYPOINT
+      ?AUTO_7229 - LANDER
+      ?AUTO_7228 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7227 ?AUTO_7230 ) ( AT_LANDER ?AUTO_7229 ?AUTO_7228 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7227 ?AUTO_7226 ) ( VISIBLE ?AUTO_7230 ?AUTO_7228 ) ( AVAILABLE ?AUTO_7227 ) ( CHANNEL_FREE ?AUTO_7229 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_7227 ?AUTO_7229 ?AUTO_7226 ?AUTO_7230 ?AUTO_7228 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7226 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7233 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7235 - LANDER
+      ?AUTO_7238 - WAYPOINT
+      ?AUTO_7234 - ROVER
+      ?AUTO_7236 - WAYPOINT
+      ?AUTO_7241 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7235 ?AUTO_7238 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7234 ?AUTO_7233 ) ( VISIBLE ?AUTO_7236 ?AUTO_7238 ) ( AVAILABLE ?AUTO_7234 ) ( CHANNEL_FREE ?AUTO_7235 ) ( CAN_TRAVERSE ?AUTO_7234 ?AUTO_7241 ?AUTO_7236 ) ( AT ?AUTO_7234 ?AUTO_7241 ) ( VISIBLE ?AUTO_7241 ?AUTO_7236 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7234 ?AUTO_7241 ?AUTO_7236 )
+      ( GET_ROCK_DATA ?AUTO_7233 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7233 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7242 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7244 - LANDER
+      ?AUTO_7246 - WAYPOINT
+      ?AUTO_7247 - ROVER
+      ?AUTO_7245 - WAYPOINT
+      ?AUTO_7248 - WAYPOINT
+      ?AUTO_7251 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7244 ?AUTO_7246 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7247 ?AUTO_7242 ) ( VISIBLE ?AUTO_7245 ?AUTO_7246 ) ( AVAILABLE ?AUTO_7247 ) ( CHANNEL_FREE ?AUTO_7244 ) ( CAN_TRAVERSE ?AUTO_7247 ?AUTO_7248 ?AUTO_7245 ) ( VISIBLE ?AUTO_7248 ?AUTO_7245 ) ( CAN_TRAVERSE ?AUTO_7247 ?AUTO_7251 ?AUTO_7248 ) ( AT ?AUTO_7247 ?AUTO_7251 ) ( VISIBLE ?AUTO_7251 ?AUTO_7248 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7247 ?AUTO_7251 ?AUTO_7248 )
+      ( GET_ROCK_DATA ?AUTO_7242 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7242 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7252 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7255 - LANDER
+      ?AUTO_7257 - WAYPOINT
+      ?AUTO_7258 - WAYPOINT
+      ?AUTO_7259 - ROVER
+      ?AUTO_7256 - WAYPOINT
+      ?AUTO_7254 - WAYPOINT
+      ?AUTO_7261 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7255 ?AUTO_7257 ) ( VISIBLE ?AUTO_7258 ?AUTO_7257 ) ( AVAILABLE ?AUTO_7259 ) ( CHANNEL_FREE ?AUTO_7255 ) ( CAN_TRAVERSE ?AUTO_7259 ?AUTO_7256 ?AUTO_7258 ) ( VISIBLE ?AUTO_7256 ?AUTO_7258 ) ( CAN_TRAVERSE ?AUTO_7259 ?AUTO_7254 ?AUTO_7256 ) ( AT ?AUTO_7259 ?AUTO_7254 ) ( VISIBLE ?AUTO_7254 ?AUTO_7256 ) ( AT ?AUTO_7259 ?AUTO_7252 ) ( AT_ROCK_SAMPLE ?AUTO_7252 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7259 ) ( STORE_OF ?AUTO_7261 ?AUTO_7259 ) ( EMPTY ?AUTO_7261 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_7259 ?AUTO_7261 ?AUTO_7252 )
+      ( GET_ROCK_DATA ?AUTO_7252 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7252 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7263 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7271 - LANDER
+      ?AUTO_7266 - WAYPOINT
+      ?AUTO_7269 - WAYPOINT
+      ?AUTO_7265 - ROVER
+      ?AUTO_7267 - WAYPOINT
+      ?AUTO_7270 - WAYPOINT
+      ?AUTO_7268 - STORE
+      ?AUTO_7272 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7271 ?AUTO_7266 ) ( VISIBLE ?AUTO_7269 ?AUTO_7266 ) ( AVAILABLE ?AUTO_7265 ) ( CHANNEL_FREE ?AUTO_7271 ) ( CAN_TRAVERSE ?AUTO_7265 ?AUTO_7267 ?AUTO_7269 ) ( VISIBLE ?AUTO_7267 ?AUTO_7269 ) ( CAN_TRAVERSE ?AUTO_7265 ?AUTO_7270 ?AUTO_7267 ) ( AT ?AUTO_7265 ?AUTO_7270 ) ( VISIBLE ?AUTO_7270 ?AUTO_7267 ) ( AT ?AUTO_7265 ?AUTO_7263 ) ( AT_ROCK_SAMPLE ?AUTO_7263 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7265 ) ( STORE_OF ?AUTO_7268 ?AUTO_7265 ) ( STORE_OF ?AUTO_7268 ?AUTO_7272 ) ( FULL ?AUTO_7268 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7272 ?AUTO_7268 )
+      ( GET_ROCK_DATA ?AUTO_7263 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7263 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7274 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7280 - LANDER
+      ?AUTO_7277 - WAYPOINT
+      ?AUTO_7276 - WAYPOINT
+      ?AUTO_7279 - ROVER
+      ?AUTO_7275 - WAYPOINT
+      ?AUTO_7282 - STORE
+      ?AUTO_7283 - ROVER
+      ?AUTO_7286 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7280 ?AUTO_7277 ) ( VISIBLE ?AUTO_7276 ?AUTO_7277 ) ( AVAILABLE ?AUTO_7279 ) ( CHANNEL_FREE ?AUTO_7280 ) ( CAN_TRAVERSE ?AUTO_7279 ?AUTO_7275 ?AUTO_7276 ) ( VISIBLE ?AUTO_7275 ?AUTO_7276 ) ( CAN_TRAVERSE ?AUTO_7279 ?AUTO_7274 ?AUTO_7275 ) ( VISIBLE ?AUTO_7274 ?AUTO_7275 ) ( AT_ROCK_SAMPLE ?AUTO_7274 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7279 ) ( STORE_OF ?AUTO_7282 ?AUTO_7279 ) ( STORE_OF ?AUTO_7282 ?AUTO_7283 ) ( FULL ?AUTO_7282 ) ( CAN_TRAVERSE ?AUTO_7279 ?AUTO_7286 ?AUTO_7274 ) ( AT ?AUTO_7279 ?AUTO_7286 ) ( VISIBLE ?AUTO_7286 ?AUTO_7274 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7279 ?AUTO_7286 ?AUTO_7274 )
+      ( GET_ROCK_DATA ?AUTO_7274 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7274 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7287 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7290 - LANDER
+      ?AUTO_7295 - WAYPOINT
+      ?AUTO_7294 - WAYPOINT
+      ?AUTO_7288 - ROVER
+      ?AUTO_7292 - WAYPOINT
+      ?AUTO_7291 - STORE
+      ?AUTO_7293 - ROVER
+      ?AUTO_7296 - WAYPOINT
+      ?AUTO_7297 - ROVER
+      ?AUTO_7299 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7290 ?AUTO_7295 ) ( VISIBLE ?AUTO_7294 ?AUTO_7295 ) ( AVAILABLE ?AUTO_7288 ) ( CHANNEL_FREE ?AUTO_7290 ) ( CAN_TRAVERSE ?AUTO_7288 ?AUTO_7292 ?AUTO_7294 ) ( VISIBLE ?AUTO_7292 ?AUTO_7294 ) ( CAN_TRAVERSE ?AUTO_7288 ?AUTO_7287 ?AUTO_7292 ) ( VISIBLE ?AUTO_7287 ?AUTO_7292 ) ( AT_ROCK_SAMPLE ?AUTO_7287 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7288 ) ( STORE_OF ?AUTO_7291 ?AUTO_7288 ) ( STORE_OF ?AUTO_7291 ?AUTO_7293 ) ( CAN_TRAVERSE ?AUTO_7288 ?AUTO_7296 ?AUTO_7287 ) ( AT ?AUTO_7288 ?AUTO_7296 ) ( VISIBLE ?AUTO_7296 ?AUTO_7287 ) ( AT ?AUTO_7297 ?AUTO_7299 ) ( AT_ROCK_SAMPLE ?AUTO_7299 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7297 ) ( STORE_OF ?AUTO_7291 ?AUTO_7297 ) ( EMPTY ?AUTO_7291 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_7297 ?AUTO_7291 ?AUTO_7299 )
+      ( GET_ROCK_DATA ?AUTO_7287 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7287 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7302 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7305 - LANDER
+      ?AUTO_7306 - WAYPOINT
+      ?AUTO_7303 - WAYPOINT
+      ?AUTO_7309 - ROVER
+      ?AUTO_7310 - WAYPOINT
+      ?AUTO_7312 - STORE
+      ?AUTO_7311 - ROVER
+      ?AUTO_7313 - WAYPOINT
+      ?AUTO_7316 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7305 ?AUTO_7306 ) ( VISIBLE ?AUTO_7303 ?AUTO_7306 ) ( AVAILABLE ?AUTO_7309 ) ( CHANNEL_FREE ?AUTO_7305 ) ( CAN_TRAVERSE ?AUTO_7309 ?AUTO_7310 ?AUTO_7303 ) ( VISIBLE ?AUTO_7310 ?AUTO_7303 ) ( CAN_TRAVERSE ?AUTO_7309 ?AUTO_7302 ?AUTO_7310 ) ( VISIBLE ?AUTO_7302 ?AUTO_7310 ) ( AT_ROCK_SAMPLE ?AUTO_7302 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7309 ) ( STORE_OF ?AUTO_7312 ?AUTO_7309 ) ( STORE_OF ?AUTO_7312 ?AUTO_7311 ) ( CAN_TRAVERSE ?AUTO_7309 ?AUTO_7313 ?AUTO_7302 ) ( VISIBLE ?AUTO_7313 ?AUTO_7302 ) ( AT_ROCK_SAMPLE ?AUTO_7313 ) ( EMPTY ?AUTO_7312 ) ( CAN_TRAVERSE ?AUTO_7309 ?AUTO_7316 ?AUTO_7313 ) ( AT ?AUTO_7309 ?AUTO_7316 ) ( VISIBLE ?AUTO_7316 ?AUTO_7313 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7309 ?AUTO_7316 ?AUTO_7313 )
+      ( GET_ROCK_DATA ?AUTO_7302 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7302 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7317 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7320 - LANDER
+      ?AUTO_7323 - WAYPOINT
+      ?AUTO_7319 - WAYPOINT
+      ?AUTO_7322 - ROVER
+      ?AUTO_7324 - WAYPOINT
+      ?AUTO_7326 - STORE
+      ?AUTO_7325 - ROVER
+      ?AUTO_7321 - WAYPOINT
+      ?AUTO_7327 - WAYPOINT
+      ?AUTO_7330 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7320 ?AUTO_7323 ) ( VISIBLE ?AUTO_7319 ?AUTO_7323 ) ( AVAILABLE ?AUTO_7322 ) ( CHANNEL_FREE ?AUTO_7320 ) ( CAN_TRAVERSE ?AUTO_7322 ?AUTO_7324 ?AUTO_7319 ) ( VISIBLE ?AUTO_7324 ?AUTO_7319 ) ( CAN_TRAVERSE ?AUTO_7322 ?AUTO_7317 ?AUTO_7324 ) ( VISIBLE ?AUTO_7317 ?AUTO_7324 ) ( AT_ROCK_SAMPLE ?AUTO_7317 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7322 ) ( STORE_OF ?AUTO_7326 ?AUTO_7322 ) ( STORE_OF ?AUTO_7326 ?AUTO_7325 ) ( CAN_TRAVERSE ?AUTO_7322 ?AUTO_7321 ?AUTO_7317 ) ( VISIBLE ?AUTO_7321 ?AUTO_7317 ) ( AT_ROCK_SAMPLE ?AUTO_7321 ) ( EMPTY ?AUTO_7326 ) ( CAN_TRAVERSE ?AUTO_7322 ?AUTO_7327 ?AUTO_7321 ) ( VISIBLE ?AUTO_7327 ?AUTO_7321 ) ( CAN_TRAVERSE ?AUTO_7322 ?AUTO_7330 ?AUTO_7327 ) ( AT ?AUTO_7322 ?AUTO_7330 ) ( VISIBLE ?AUTO_7330 ?AUTO_7327 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7322 ?AUTO_7330 ?AUTO_7327 )
+      ( GET_ROCK_DATA ?AUTO_7317 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7317 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7333 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7340 - LANDER
+      ?AUTO_7336 - WAYPOINT
+      ?AUTO_7341 - WAYPOINT
+      ?AUTO_7342 - ROVER
+      ?AUTO_7343 - WAYPOINT
+      ?AUTO_7337 - STORE
+      ?AUTO_7338 - ROVER
+      ?AUTO_7339 - WAYPOINT
+      ?AUTO_7335 - WAYPOINT
+      ?AUTO_7344 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7340 ?AUTO_7336 ) ( VISIBLE ?AUTO_7341 ?AUTO_7336 ) ( AVAILABLE ?AUTO_7342 ) ( CHANNEL_FREE ?AUTO_7340 ) ( CAN_TRAVERSE ?AUTO_7342 ?AUTO_7343 ?AUTO_7341 ) ( VISIBLE ?AUTO_7343 ?AUTO_7341 ) ( CAN_TRAVERSE ?AUTO_7342 ?AUTO_7333 ?AUTO_7343 ) ( VISIBLE ?AUTO_7333 ?AUTO_7343 ) ( AT_ROCK_SAMPLE ?AUTO_7333 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7342 ) ( STORE_OF ?AUTO_7337 ?AUTO_7342 ) ( STORE_OF ?AUTO_7337 ?AUTO_7338 ) ( CAN_TRAVERSE ?AUTO_7342 ?AUTO_7339 ?AUTO_7333 ) ( VISIBLE ?AUTO_7339 ?AUTO_7333 ) ( AT_ROCK_SAMPLE ?AUTO_7339 ) ( CAN_TRAVERSE ?AUTO_7342 ?AUTO_7335 ?AUTO_7339 ) ( AT ?AUTO_7342 ?AUTO_7335 ) ( VISIBLE ?AUTO_7335 ?AUTO_7339 ) ( STORE_OF ?AUTO_7337 ?AUTO_7344 ) ( FULL ?AUTO_7337 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7344 ?AUTO_7337 )
+      ( GET_ROCK_DATA ?AUTO_7333 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7333 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7353 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7363 - LANDER
+      ?AUTO_7355 - WAYPOINT
+      ?AUTO_7359 - WAYPOINT
+      ?AUTO_7362 - ROVER
+      ?AUTO_7358 - WAYPOINT
+      ?AUTO_7361 - STORE
+      ?AUTO_7364 - ROVER
+      ?AUTO_7354 - WAYPOINT
+      ?AUTO_7356 - WAYPOINT
+      ?AUTO_7357 - WAYPOINT
+      ?AUTO_7365 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7363 ?AUTO_7355 ) ( VISIBLE ?AUTO_7359 ?AUTO_7355 ) ( AVAILABLE ?AUTO_7362 ) ( CHANNEL_FREE ?AUTO_7363 ) ( CAN_TRAVERSE ?AUTO_7362 ?AUTO_7358 ?AUTO_7359 ) ( VISIBLE ?AUTO_7358 ?AUTO_7359 ) ( CAN_TRAVERSE ?AUTO_7362 ?AUTO_7353 ?AUTO_7358 ) ( VISIBLE ?AUTO_7353 ?AUTO_7358 ) ( AT_ROCK_SAMPLE ?AUTO_7353 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7362 ) ( STORE_OF ?AUTO_7361 ?AUTO_7362 ) ( STORE_OF ?AUTO_7361 ?AUTO_7364 ) ( CAN_TRAVERSE ?AUTO_7362 ?AUTO_7354 ?AUTO_7353 ) ( VISIBLE ?AUTO_7354 ?AUTO_7353 ) ( AT_ROCK_SAMPLE ?AUTO_7354 ) ( CAN_TRAVERSE ?AUTO_7362 ?AUTO_7356 ?AUTO_7354 ) ( VISIBLE ?AUTO_7356 ?AUTO_7354 ) ( CAN_TRAVERSE ?AUTO_7362 ?AUTO_7357 ?AUTO_7356 ) ( AT ?AUTO_7362 ?AUTO_7357 ) ( VISIBLE ?AUTO_7357 ?AUTO_7356 ) ( STORE_OF ?AUTO_7361 ?AUTO_7365 ) ( FULL ?AUTO_7361 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7365 ?AUTO_7361 )
+      ( GET_ROCK_DATA ?AUTO_7353 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7353 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7375 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7376 - ROVER
+      ?AUTO_7379 - WAYPOINT
+      ?AUTO_7378 - LANDER
+      ?AUTO_7377 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7376 ?AUTO_7379 ) ( AT_LANDER ?AUTO_7378 ?AUTO_7377 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7376 ?AUTO_7375 ) ( VISIBLE ?AUTO_7379 ?AUTO_7377 ) ( AVAILABLE ?AUTO_7376 ) ( CHANNEL_FREE ?AUTO_7378 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_7376 ?AUTO_7378 ?AUTO_7375 ?AUTO_7379 ?AUTO_7377 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7375 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7391 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7396 - LANDER
+      ?AUTO_7393 - WAYPOINT
+      ?AUTO_7395 - WAYPOINT
+      ?AUTO_7398 - ROVER
+      ?AUTO_7392 - WAYPOINT
+      ?AUTO_7397 - STORE
+      ?AUTO_7402 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7396 ?AUTO_7393 ) ( VISIBLE ?AUTO_7395 ?AUTO_7393 ) ( AVAILABLE ?AUTO_7398 ) ( CHANNEL_FREE ?AUTO_7396 ) ( CAN_TRAVERSE ?AUTO_7398 ?AUTO_7392 ?AUTO_7395 ) ( VISIBLE ?AUTO_7392 ?AUTO_7395 ) ( CAN_TRAVERSE ?AUTO_7398 ?AUTO_7391 ?AUTO_7392 ) ( VISIBLE ?AUTO_7391 ?AUTO_7392 ) ( AT_ROCK_SAMPLE ?AUTO_7391 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7398 ) ( STORE_OF ?AUTO_7397 ?AUTO_7398 ) ( EMPTY ?AUTO_7397 ) ( CAN_TRAVERSE ?AUTO_7398 ?AUTO_7402 ?AUTO_7391 ) ( AT ?AUTO_7398 ?AUTO_7402 ) ( VISIBLE ?AUTO_7402 ?AUTO_7391 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7398 ?AUTO_7402 ?AUTO_7391 )
+      ( GET_ROCK_DATA ?AUTO_7391 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7391 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7403 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7404 - LANDER
+      ?AUTO_7406 - WAYPOINT
+      ?AUTO_7411 - WAYPOINT
+      ?AUTO_7407 - ROVER
+      ?AUTO_7409 - WAYPOINT
+      ?AUTO_7405 - STORE
+      ?AUTO_7408 - WAYPOINT
+      ?AUTO_7414 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7404 ?AUTO_7406 ) ( VISIBLE ?AUTO_7411 ?AUTO_7406 ) ( AVAILABLE ?AUTO_7407 ) ( CHANNEL_FREE ?AUTO_7404 ) ( CAN_TRAVERSE ?AUTO_7407 ?AUTO_7409 ?AUTO_7411 ) ( VISIBLE ?AUTO_7409 ?AUTO_7411 ) ( CAN_TRAVERSE ?AUTO_7407 ?AUTO_7403 ?AUTO_7409 ) ( VISIBLE ?AUTO_7403 ?AUTO_7409 ) ( AT_ROCK_SAMPLE ?AUTO_7403 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7407 ) ( STORE_OF ?AUTO_7405 ?AUTO_7407 ) ( EMPTY ?AUTO_7405 ) ( CAN_TRAVERSE ?AUTO_7407 ?AUTO_7408 ?AUTO_7403 ) ( VISIBLE ?AUTO_7408 ?AUTO_7403 ) ( CAN_TRAVERSE ?AUTO_7407 ?AUTO_7414 ?AUTO_7408 ) ( AT ?AUTO_7407 ?AUTO_7414 ) ( VISIBLE ?AUTO_7414 ?AUTO_7408 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7407 ?AUTO_7414 ?AUTO_7408 )
+      ( GET_ROCK_DATA ?AUTO_7403 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7403 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7416 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7417 - ROVER
+      ?AUTO_7420 - WAYPOINT
+      ?AUTO_7419 - LANDER
+      ?AUTO_7418 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7417 ?AUTO_7420 ) ( AT_LANDER ?AUTO_7419 ?AUTO_7418 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7417 ?AUTO_7416 ) ( VISIBLE ?AUTO_7420 ?AUTO_7418 ) ( AVAILABLE ?AUTO_7417 ) ( CHANNEL_FREE ?AUTO_7419 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_7417 ?AUTO_7419 ?AUTO_7416 ?AUTO_7420 ?AUTO_7418 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7416 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7422 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7424 - ROVER
+      ?AUTO_7427 - WAYPOINT
+      ?AUTO_7426 - LANDER
+      ?AUTO_7425 - WAYPOINT
+      ?AUTO_7429 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_7424 ?AUTO_7427 ) ( AT_LANDER ?AUTO_7426 ?AUTO_7425 ) ( VISIBLE ?AUTO_7427 ?AUTO_7425 ) ( AVAILABLE ?AUTO_7424 ) ( CHANNEL_FREE ?AUTO_7426 ) ( AT ?AUTO_7424 ?AUTO_7422 ) ( AT_ROCK_SAMPLE ?AUTO_7422 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7424 ) ( STORE_OF ?AUTO_7429 ?AUTO_7424 ) ( EMPTY ?AUTO_7429 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_7424 ?AUTO_7429 ?AUTO_7422 )
+      ( GET_ROCK_DATA ?AUTO_7422 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7422 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7432 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7433 - ROVER
+      ?AUTO_7436 - WAYPOINT
+      ?AUTO_7435 - LANDER
+      ?AUTO_7434 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7433 ?AUTO_7436 ) ( AT_LANDER ?AUTO_7435 ?AUTO_7434 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7433 ?AUTO_7432 ) ( VISIBLE ?AUTO_7436 ?AUTO_7434 ) ( AVAILABLE ?AUTO_7433 ) ( CHANNEL_FREE ?AUTO_7435 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_7433 ?AUTO_7435 ?AUTO_7432 ?AUTO_7436 ?AUTO_7434 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7432 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7438 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7441 - LANDER
+      ?AUTO_7440 - WAYPOINT
+      ?AUTO_7439 - ROVER
+      ?AUTO_7443 - WAYPOINT
+      ?AUTO_7446 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7441 ?AUTO_7440 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7439 ?AUTO_7438 ) ( VISIBLE ?AUTO_7443 ?AUTO_7440 ) ( AVAILABLE ?AUTO_7439 ) ( CHANNEL_FREE ?AUTO_7441 ) ( CAN_TRAVERSE ?AUTO_7439 ?AUTO_7446 ?AUTO_7443 ) ( AT ?AUTO_7439 ?AUTO_7446 ) ( VISIBLE ?AUTO_7446 ?AUTO_7443 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7439 ?AUTO_7446 ?AUTO_7443 )
+      ( GET_ROCK_DATA ?AUTO_7438 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7438 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7447 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7448 - LANDER
+      ?AUTO_7450 - WAYPOINT
+      ?AUTO_7449 - ROVER
+      ?AUTO_7452 - WAYPOINT
+      ?AUTO_7453 - WAYPOINT
+      ?AUTO_7456 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7448 ?AUTO_7450 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7449 ?AUTO_7447 ) ( VISIBLE ?AUTO_7452 ?AUTO_7450 ) ( AVAILABLE ?AUTO_7449 ) ( CHANNEL_FREE ?AUTO_7448 ) ( CAN_TRAVERSE ?AUTO_7449 ?AUTO_7453 ?AUTO_7452 ) ( VISIBLE ?AUTO_7453 ?AUTO_7452 ) ( CAN_TRAVERSE ?AUTO_7449 ?AUTO_7456 ?AUTO_7453 ) ( AT ?AUTO_7449 ?AUTO_7456 ) ( VISIBLE ?AUTO_7456 ?AUTO_7453 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7449 ?AUTO_7456 ?AUTO_7453 )
+      ( GET_ROCK_DATA ?AUTO_7447 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7447 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7458 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7465 - LANDER
+      ?AUTO_7460 - WAYPOINT
+      ?AUTO_7461 - WAYPOINT
+      ?AUTO_7464 - ROVER
+      ?AUTO_7463 - WAYPOINT
+      ?AUTO_7462 - WAYPOINT
+      ?AUTO_7467 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7465 ?AUTO_7460 ) ( VISIBLE ?AUTO_7461 ?AUTO_7460 ) ( AVAILABLE ?AUTO_7464 ) ( CHANNEL_FREE ?AUTO_7465 ) ( CAN_TRAVERSE ?AUTO_7464 ?AUTO_7463 ?AUTO_7461 ) ( VISIBLE ?AUTO_7463 ?AUTO_7461 ) ( CAN_TRAVERSE ?AUTO_7464 ?AUTO_7462 ?AUTO_7463 ) ( AT ?AUTO_7464 ?AUTO_7462 ) ( VISIBLE ?AUTO_7462 ?AUTO_7463 ) ( AT ?AUTO_7464 ?AUTO_7458 ) ( AT_ROCK_SAMPLE ?AUTO_7458 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7464 ) ( STORE_OF ?AUTO_7467 ?AUTO_7464 ) ( EMPTY ?AUTO_7467 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_7464 ?AUTO_7467 ?AUTO_7458 )
+      ( GET_ROCK_DATA ?AUTO_7458 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7458 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7469 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7473 - LANDER
+      ?AUTO_7475 - WAYPOINT
+      ?AUTO_7471 - WAYPOINT
+      ?AUTO_7472 - ROVER
+      ?AUTO_7476 - WAYPOINT
+      ?AUTO_7477 - STORE
+      ?AUTO_7480 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7473 ?AUTO_7475 ) ( VISIBLE ?AUTO_7471 ?AUTO_7475 ) ( AVAILABLE ?AUTO_7472 ) ( CHANNEL_FREE ?AUTO_7473 ) ( CAN_TRAVERSE ?AUTO_7472 ?AUTO_7476 ?AUTO_7471 ) ( VISIBLE ?AUTO_7476 ?AUTO_7471 ) ( CAN_TRAVERSE ?AUTO_7472 ?AUTO_7469 ?AUTO_7476 ) ( VISIBLE ?AUTO_7469 ?AUTO_7476 ) ( AT_ROCK_SAMPLE ?AUTO_7469 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7472 ) ( STORE_OF ?AUTO_7477 ?AUTO_7472 ) ( EMPTY ?AUTO_7477 ) ( CAN_TRAVERSE ?AUTO_7472 ?AUTO_7480 ?AUTO_7469 ) ( AT ?AUTO_7472 ?AUTO_7480 ) ( VISIBLE ?AUTO_7480 ?AUTO_7469 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7472 ?AUTO_7480 ?AUTO_7469 )
+      ( GET_ROCK_DATA ?AUTO_7469 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7469 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7481 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7489 - LANDER
+      ?AUTO_7483 - WAYPOINT
+      ?AUTO_7486 - WAYPOINT
+      ?AUTO_7482 - ROVER
+      ?AUTO_7485 - WAYPOINT
+      ?AUTO_7484 - STORE
+      ?AUTO_7488 - WAYPOINT
+      ?AUTO_7490 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7489 ?AUTO_7483 ) ( VISIBLE ?AUTO_7486 ?AUTO_7483 ) ( AVAILABLE ?AUTO_7482 ) ( CHANNEL_FREE ?AUTO_7489 ) ( CAN_TRAVERSE ?AUTO_7482 ?AUTO_7485 ?AUTO_7486 ) ( VISIBLE ?AUTO_7485 ?AUTO_7486 ) ( CAN_TRAVERSE ?AUTO_7482 ?AUTO_7481 ?AUTO_7485 ) ( VISIBLE ?AUTO_7481 ?AUTO_7485 ) ( AT_ROCK_SAMPLE ?AUTO_7481 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7482 ) ( STORE_OF ?AUTO_7484 ?AUTO_7482 ) ( CAN_TRAVERSE ?AUTO_7482 ?AUTO_7488 ?AUTO_7481 ) ( AT ?AUTO_7482 ?AUTO_7488 ) ( VISIBLE ?AUTO_7488 ?AUTO_7481 ) ( STORE_OF ?AUTO_7484 ?AUTO_7490 ) ( FULL ?AUTO_7484 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7490 ?AUTO_7484 )
+      ( GET_ROCK_DATA ?AUTO_7481 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7481 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7495 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7496 - ROVER
+      ?AUTO_7499 - WAYPOINT
+      ?AUTO_7498 - LANDER
+      ?AUTO_7497 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7496 ?AUTO_7499 ) ( AT_LANDER ?AUTO_7498 ?AUTO_7497 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7496 ?AUTO_7495 ) ( VISIBLE ?AUTO_7499 ?AUTO_7497 ) ( AVAILABLE ?AUTO_7496 ) ( CHANNEL_FREE ?AUTO_7498 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_7496 ?AUTO_7498 ?AUTO_7495 ?AUTO_7499 ?AUTO_7497 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7495 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7501 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7505 - LANDER
+      ?AUTO_7504 - WAYPOINT
+      ?AUTO_7503 - ROVER
+      ?AUTO_7506 - WAYPOINT
+      ?AUTO_7509 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7505 ?AUTO_7504 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7503 ?AUTO_7501 ) ( VISIBLE ?AUTO_7506 ?AUTO_7504 ) ( AVAILABLE ?AUTO_7503 ) ( CHANNEL_FREE ?AUTO_7505 ) ( CAN_TRAVERSE ?AUTO_7503 ?AUTO_7509 ?AUTO_7506 ) ( AT ?AUTO_7503 ?AUTO_7509 ) ( VISIBLE ?AUTO_7509 ?AUTO_7506 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7503 ?AUTO_7509 ?AUTO_7506 )
+      ( GET_SOIL_DATA ?AUTO_7501 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7501 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7510 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7515 - LANDER
+      ?AUTO_7511 - WAYPOINT
+      ?AUTO_7514 - WAYPOINT
+      ?AUTO_7512 - ROVER
+      ?AUTO_7516 - WAYPOINT
+      ?AUTO_7518 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7515 ?AUTO_7511 ) ( VISIBLE ?AUTO_7514 ?AUTO_7511 ) ( AVAILABLE ?AUTO_7512 ) ( CHANNEL_FREE ?AUTO_7515 ) ( CAN_TRAVERSE ?AUTO_7512 ?AUTO_7516 ?AUTO_7514 ) ( AT ?AUTO_7512 ?AUTO_7516 ) ( VISIBLE ?AUTO_7516 ?AUTO_7514 ) ( AT ?AUTO_7512 ?AUTO_7510 ) ( AT_SOIL_SAMPLE ?AUTO_7510 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7512 ) ( STORE_OF ?AUTO_7518 ?AUTO_7512 ) ( EMPTY ?AUTO_7518 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_7512 ?AUTO_7518 ?AUTO_7510 )
+      ( GET_SOIL_DATA ?AUTO_7510 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7510 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7521 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7525 - LANDER
+      ?AUTO_7524 - WAYPOINT
+      ?AUTO_7522 - WAYPOINT
+      ?AUTO_7526 - ROVER
+      ?AUTO_7527 - STORE
+      ?AUTO_7531 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7525 ?AUTO_7524 ) ( VISIBLE ?AUTO_7522 ?AUTO_7524 ) ( AVAILABLE ?AUTO_7526 ) ( CHANNEL_FREE ?AUTO_7525 ) ( CAN_TRAVERSE ?AUTO_7526 ?AUTO_7521 ?AUTO_7522 ) ( VISIBLE ?AUTO_7521 ?AUTO_7522 ) ( AT_SOIL_SAMPLE ?AUTO_7521 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7526 ) ( STORE_OF ?AUTO_7527 ?AUTO_7526 ) ( EMPTY ?AUTO_7527 ) ( CAN_TRAVERSE ?AUTO_7526 ?AUTO_7531 ?AUTO_7521 ) ( AT ?AUTO_7526 ?AUTO_7531 ) ( VISIBLE ?AUTO_7531 ?AUTO_7521 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7526 ?AUTO_7531 ?AUTO_7521 )
+      ( GET_SOIL_DATA ?AUTO_7521 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7521 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7533 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7534 - LANDER
+      ?AUTO_7539 - WAYPOINT
+      ?AUTO_7535 - WAYPOINT
+      ?AUTO_7536 - ROVER
+      ?AUTO_7538 - STORE
+      ?AUTO_7537 - WAYPOINT
+      ?AUTO_7543 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7534 ?AUTO_7539 ) ( VISIBLE ?AUTO_7535 ?AUTO_7539 ) ( AVAILABLE ?AUTO_7536 ) ( CHANNEL_FREE ?AUTO_7534 ) ( CAN_TRAVERSE ?AUTO_7536 ?AUTO_7533 ?AUTO_7535 ) ( VISIBLE ?AUTO_7533 ?AUTO_7535 ) ( AT_SOIL_SAMPLE ?AUTO_7533 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7536 ) ( STORE_OF ?AUTO_7538 ?AUTO_7536 ) ( EMPTY ?AUTO_7538 ) ( CAN_TRAVERSE ?AUTO_7536 ?AUTO_7537 ?AUTO_7533 ) ( VISIBLE ?AUTO_7537 ?AUTO_7533 ) ( CAN_TRAVERSE ?AUTO_7536 ?AUTO_7543 ?AUTO_7537 ) ( AT ?AUTO_7536 ?AUTO_7543 ) ( VISIBLE ?AUTO_7543 ?AUTO_7537 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7536 ?AUTO_7543 ?AUTO_7537 )
+      ( GET_SOIL_DATA ?AUTO_7533 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7533 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7544 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7548 - LANDER
+      ?AUTO_7545 - WAYPOINT
+      ?AUTO_7549 - WAYPOINT
+      ?AUTO_7551 - ROVER
+      ?AUTO_7546 - STORE
+      ?AUTO_7547 - WAYPOINT
+      ?AUTO_7552 - WAYPOINT
+      ?AUTO_7555 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7548 ?AUTO_7545 ) ( VISIBLE ?AUTO_7549 ?AUTO_7545 ) ( AVAILABLE ?AUTO_7551 ) ( CHANNEL_FREE ?AUTO_7548 ) ( CAN_TRAVERSE ?AUTO_7551 ?AUTO_7544 ?AUTO_7549 ) ( VISIBLE ?AUTO_7544 ?AUTO_7549 ) ( AT_SOIL_SAMPLE ?AUTO_7544 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7551 ) ( STORE_OF ?AUTO_7546 ?AUTO_7551 ) ( EMPTY ?AUTO_7546 ) ( CAN_TRAVERSE ?AUTO_7551 ?AUTO_7547 ?AUTO_7544 ) ( VISIBLE ?AUTO_7547 ?AUTO_7544 ) ( CAN_TRAVERSE ?AUTO_7551 ?AUTO_7552 ?AUTO_7547 ) ( VISIBLE ?AUTO_7552 ?AUTO_7547 ) ( CAN_TRAVERSE ?AUTO_7551 ?AUTO_7555 ?AUTO_7552 ) ( AT ?AUTO_7551 ?AUTO_7555 ) ( VISIBLE ?AUTO_7555 ?AUTO_7552 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7551 ?AUTO_7555 ?AUTO_7552 )
+      ( GET_SOIL_DATA ?AUTO_7544 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7544 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7556 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7562 - LANDER
+      ?AUTO_7560 - WAYPOINT
+      ?AUTO_7559 - WAYPOINT
+      ?AUTO_7565 - ROVER
+      ?AUTO_7558 - STORE
+      ?AUTO_7561 - WAYPOINT
+      ?AUTO_7564 - WAYPOINT
+      ?AUTO_7563 - WAYPOINT
+      ?AUTO_7566 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7562 ?AUTO_7560 ) ( VISIBLE ?AUTO_7559 ?AUTO_7560 ) ( AVAILABLE ?AUTO_7565 ) ( CHANNEL_FREE ?AUTO_7562 ) ( CAN_TRAVERSE ?AUTO_7565 ?AUTO_7556 ?AUTO_7559 ) ( VISIBLE ?AUTO_7556 ?AUTO_7559 ) ( AT_SOIL_SAMPLE ?AUTO_7556 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7565 ) ( STORE_OF ?AUTO_7558 ?AUTO_7565 ) ( CAN_TRAVERSE ?AUTO_7565 ?AUTO_7561 ?AUTO_7556 ) ( VISIBLE ?AUTO_7561 ?AUTO_7556 ) ( CAN_TRAVERSE ?AUTO_7565 ?AUTO_7564 ?AUTO_7561 ) ( VISIBLE ?AUTO_7564 ?AUTO_7561 ) ( CAN_TRAVERSE ?AUTO_7565 ?AUTO_7563 ?AUTO_7564 ) ( AT ?AUTO_7565 ?AUTO_7563 ) ( VISIBLE ?AUTO_7563 ?AUTO_7564 ) ( STORE_OF ?AUTO_7558 ?AUTO_7566 ) ( FULL ?AUTO_7558 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7566 ?AUTO_7558 )
+      ( GET_SOIL_DATA ?AUTO_7556 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7556 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7569 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7578 - LANDER
+      ?AUTO_7570 - WAYPOINT
+      ?AUTO_7574 - WAYPOINT
+      ?AUTO_7575 - ROVER
+      ?AUTO_7573 - STORE
+      ?AUTO_7576 - WAYPOINT
+      ?AUTO_7571 - WAYPOINT
+      ?AUTO_7572 - WAYPOINT
+      ?AUTO_7581 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7578 ?AUTO_7570 ) ( VISIBLE ?AUTO_7574 ?AUTO_7570 ) ( AVAILABLE ?AUTO_7575 ) ( CHANNEL_FREE ?AUTO_7578 ) ( CAN_TRAVERSE ?AUTO_7575 ?AUTO_7569 ?AUTO_7574 ) ( VISIBLE ?AUTO_7569 ?AUTO_7574 ) ( AT_SOIL_SAMPLE ?AUTO_7569 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7575 ) ( STORE_OF ?AUTO_7573 ?AUTO_7575 ) ( EMPTY ?AUTO_7573 ) ( CAN_TRAVERSE ?AUTO_7575 ?AUTO_7576 ?AUTO_7569 ) ( VISIBLE ?AUTO_7576 ?AUTO_7569 ) ( CAN_TRAVERSE ?AUTO_7575 ?AUTO_7571 ?AUTO_7576 ) ( VISIBLE ?AUTO_7571 ?AUTO_7576 ) ( CAN_TRAVERSE ?AUTO_7575 ?AUTO_7572 ?AUTO_7571 ) ( VISIBLE ?AUTO_7572 ?AUTO_7571 ) ( CAN_TRAVERSE ?AUTO_7575 ?AUTO_7581 ?AUTO_7572 ) ( AT ?AUTO_7575 ?AUTO_7581 ) ( VISIBLE ?AUTO_7581 ?AUTO_7572 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7575 ?AUTO_7581 ?AUTO_7572 )
+      ( GET_SOIL_DATA ?AUTO_7569 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7569 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7582 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7586 - LANDER
+      ?AUTO_7588 - WAYPOINT
+      ?AUTO_7584 - WAYPOINT
+      ?AUTO_7592 - ROVER
+      ?AUTO_7585 - STORE
+      ?AUTO_7587 - WAYPOINT
+      ?AUTO_7589 - WAYPOINT
+      ?AUTO_7590 - WAYPOINT
+      ?AUTO_7591 - WAYPOINT
+      ?AUTO_7593 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7586 ?AUTO_7588 ) ( VISIBLE ?AUTO_7584 ?AUTO_7588 ) ( AVAILABLE ?AUTO_7592 ) ( CHANNEL_FREE ?AUTO_7586 ) ( CAN_TRAVERSE ?AUTO_7592 ?AUTO_7582 ?AUTO_7584 ) ( VISIBLE ?AUTO_7582 ?AUTO_7584 ) ( AT_SOIL_SAMPLE ?AUTO_7582 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7592 ) ( STORE_OF ?AUTO_7585 ?AUTO_7592 ) ( CAN_TRAVERSE ?AUTO_7592 ?AUTO_7587 ?AUTO_7582 ) ( VISIBLE ?AUTO_7587 ?AUTO_7582 ) ( CAN_TRAVERSE ?AUTO_7592 ?AUTO_7589 ?AUTO_7587 ) ( VISIBLE ?AUTO_7589 ?AUTO_7587 ) ( CAN_TRAVERSE ?AUTO_7592 ?AUTO_7590 ?AUTO_7589 ) ( VISIBLE ?AUTO_7590 ?AUTO_7589 ) ( CAN_TRAVERSE ?AUTO_7592 ?AUTO_7591 ?AUTO_7590 ) ( AT ?AUTO_7592 ?AUTO_7591 ) ( VISIBLE ?AUTO_7591 ?AUTO_7590 ) ( STORE_OF ?AUTO_7585 ?AUTO_7593 ) ( FULL ?AUTO_7585 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7593 ?AUTO_7585 )
+      ( GET_SOIL_DATA ?AUTO_7582 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7582 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7598 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7599 - ROVER
+      ?AUTO_7602 - WAYPOINT
+      ?AUTO_7601 - LANDER
+      ?AUTO_7600 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7599 ?AUTO_7602 ) ( AT_LANDER ?AUTO_7601 ?AUTO_7600 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7599 ?AUTO_7598 ) ( VISIBLE ?AUTO_7602 ?AUTO_7600 ) ( AVAILABLE ?AUTO_7599 ) ( CHANNEL_FREE ?AUTO_7601 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_7599 ?AUTO_7601 ?AUTO_7598 ?AUTO_7602 ?AUTO_7600 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7598 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7604 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7608 - LANDER
+      ?AUTO_7607 - WAYPOINT
+      ?AUTO_7606 - ROVER
+      ?AUTO_7609 - WAYPOINT
+      ?AUTO_7612 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7608 ?AUTO_7607 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7606 ?AUTO_7604 ) ( VISIBLE ?AUTO_7609 ?AUTO_7607 ) ( AVAILABLE ?AUTO_7606 ) ( CHANNEL_FREE ?AUTO_7608 ) ( CAN_TRAVERSE ?AUTO_7606 ?AUTO_7612 ?AUTO_7609 ) ( AT ?AUTO_7606 ?AUTO_7612 ) ( VISIBLE ?AUTO_7612 ?AUTO_7609 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7606 ?AUTO_7612 ?AUTO_7609 )
+      ( GET_ROCK_DATA ?AUTO_7604 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7604 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7613 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7618 - LANDER
+      ?AUTO_7614 - WAYPOINT
+      ?AUTO_7615 - ROVER
+      ?AUTO_7617 - WAYPOINT
+      ?AUTO_7619 - WAYPOINT
+      ?AUTO_7622 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7618 ?AUTO_7614 ) ( HAVE_ROCK_ANALYSIS ?AUTO_7615 ?AUTO_7613 ) ( VISIBLE ?AUTO_7617 ?AUTO_7614 ) ( AVAILABLE ?AUTO_7615 ) ( CHANNEL_FREE ?AUTO_7618 ) ( CAN_TRAVERSE ?AUTO_7615 ?AUTO_7619 ?AUTO_7617 ) ( VISIBLE ?AUTO_7619 ?AUTO_7617 ) ( CAN_TRAVERSE ?AUTO_7615 ?AUTO_7622 ?AUTO_7619 ) ( AT ?AUTO_7615 ?AUTO_7622 ) ( VISIBLE ?AUTO_7622 ?AUTO_7619 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7615 ?AUTO_7622 ?AUTO_7619 )
+      ( GET_ROCK_DATA ?AUTO_7613 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7613 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7625 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7628 - LANDER
+      ?AUTO_7631 - WAYPOINT
+      ?AUTO_7627 - WAYPOINT
+      ?AUTO_7629 - ROVER
+      ?AUTO_7626 - WAYPOINT
+      ?AUTO_7633 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7628 ?AUTO_7631 ) ( VISIBLE ?AUTO_7627 ?AUTO_7631 ) ( AVAILABLE ?AUTO_7629 ) ( CHANNEL_FREE ?AUTO_7628 ) ( CAN_TRAVERSE ?AUTO_7629 ?AUTO_7626 ?AUTO_7627 ) ( AT ?AUTO_7629 ?AUTO_7626 ) ( VISIBLE ?AUTO_7626 ?AUTO_7627 ) ( AT ?AUTO_7629 ?AUTO_7625 ) ( AT_ROCK_SAMPLE ?AUTO_7625 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7629 ) ( STORE_OF ?AUTO_7633 ?AUTO_7629 ) ( EMPTY ?AUTO_7633 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_7629 ?AUTO_7633 ?AUTO_7625 )
+      ( GET_ROCK_DATA ?AUTO_7625 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7625 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7635 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7641 - LANDER
+      ?AUTO_7637 - WAYPOINT
+      ?AUTO_7640 - WAYPOINT
+      ?AUTO_7639 - ROVER
+      ?AUTO_7642 - STORE
+      ?AUTO_7645 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7641 ?AUTO_7637 ) ( VISIBLE ?AUTO_7640 ?AUTO_7637 ) ( AVAILABLE ?AUTO_7639 ) ( CHANNEL_FREE ?AUTO_7641 ) ( CAN_TRAVERSE ?AUTO_7639 ?AUTO_7635 ?AUTO_7640 ) ( VISIBLE ?AUTO_7635 ?AUTO_7640 ) ( AT_ROCK_SAMPLE ?AUTO_7635 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7639 ) ( STORE_OF ?AUTO_7642 ?AUTO_7639 ) ( EMPTY ?AUTO_7642 ) ( CAN_TRAVERSE ?AUTO_7639 ?AUTO_7645 ?AUTO_7635 ) ( AT ?AUTO_7639 ?AUTO_7645 ) ( VISIBLE ?AUTO_7645 ?AUTO_7635 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7639 ?AUTO_7645 ?AUTO_7635 )
+      ( GET_ROCK_DATA ?AUTO_7635 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7635 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7646 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7651 - LANDER
+      ?AUTO_7653 - WAYPOINT
+      ?AUTO_7649 - WAYPOINT
+      ?AUTO_7650 - ROVER
+      ?AUTO_7652 - STORE
+      ?AUTO_7648 - WAYPOINT
+      ?AUTO_7654 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7651 ?AUTO_7653 ) ( VISIBLE ?AUTO_7649 ?AUTO_7653 ) ( AVAILABLE ?AUTO_7650 ) ( CHANNEL_FREE ?AUTO_7651 ) ( CAN_TRAVERSE ?AUTO_7650 ?AUTO_7646 ?AUTO_7649 ) ( VISIBLE ?AUTO_7646 ?AUTO_7649 ) ( AT_ROCK_SAMPLE ?AUTO_7646 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7650 ) ( STORE_OF ?AUTO_7652 ?AUTO_7650 ) ( CAN_TRAVERSE ?AUTO_7650 ?AUTO_7648 ?AUTO_7646 ) ( AT ?AUTO_7650 ?AUTO_7648 ) ( VISIBLE ?AUTO_7648 ?AUTO_7646 ) ( STORE_OF ?AUTO_7652 ?AUTO_7654 ) ( FULL ?AUTO_7652 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_7654 ?AUTO_7652 )
+      ( GET_ROCK_DATA ?AUTO_7646 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7646 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7657 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7665 - LANDER
+      ?AUTO_7660 - WAYPOINT
+      ?AUTO_7663 - WAYPOINT
+      ?AUTO_7662 - ROVER
+      ?AUTO_7658 - STORE
+      ?AUTO_7664 - WAYPOINT
+      ?AUTO_7659 - ROVER
+      ?AUTO_7668 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7665 ?AUTO_7660 ) ( VISIBLE ?AUTO_7663 ?AUTO_7660 ) ( AVAILABLE ?AUTO_7662 ) ( CHANNEL_FREE ?AUTO_7665 ) ( CAN_TRAVERSE ?AUTO_7662 ?AUTO_7657 ?AUTO_7663 ) ( VISIBLE ?AUTO_7657 ?AUTO_7663 ) ( AT_ROCK_SAMPLE ?AUTO_7657 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7662 ) ( STORE_OF ?AUTO_7658 ?AUTO_7662 ) ( CAN_TRAVERSE ?AUTO_7662 ?AUTO_7664 ?AUTO_7657 ) ( VISIBLE ?AUTO_7664 ?AUTO_7657 ) ( STORE_OF ?AUTO_7658 ?AUTO_7659 ) ( FULL ?AUTO_7658 ) ( CAN_TRAVERSE ?AUTO_7662 ?AUTO_7668 ?AUTO_7664 ) ( AT ?AUTO_7662 ?AUTO_7668 ) ( VISIBLE ?AUTO_7668 ?AUTO_7664 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7662 ?AUTO_7668 ?AUTO_7664 )
+      ( GET_ROCK_DATA ?AUTO_7657 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7657 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7669 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7677 - LANDER
+      ?AUTO_7675 - WAYPOINT
+      ?AUTO_7671 - WAYPOINT
+      ?AUTO_7670 - ROVER
+      ?AUTO_7673 - STORE
+      ?AUTO_7674 - WAYPOINT
+      ?AUTO_7672 - ROVER
+      ?AUTO_7678 - WAYPOINT
+      ?AUTO_7679 - ROVER
+      ?AUTO_7681 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7677 ?AUTO_7675 ) ( VISIBLE ?AUTO_7671 ?AUTO_7675 ) ( AVAILABLE ?AUTO_7670 ) ( CHANNEL_FREE ?AUTO_7677 ) ( CAN_TRAVERSE ?AUTO_7670 ?AUTO_7669 ?AUTO_7671 ) ( VISIBLE ?AUTO_7669 ?AUTO_7671 ) ( AT_ROCK_SAMPLE ?AUTO_7669 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7670 ) ( STORE_OF ?AUTO_7673 ?AUTO_7670 ) ( CAN_TRAVERSE ?AUTO_7670 ?AUTO_7674 ?AUTO_7669 ) ( VISIBLE ?AUTO_7674 ?AUTO_7669 ) ( STORE_OF ?AUTO_7673 ?AUTO_7672 ) ( CAN_TRAVERSE ?AUTO_7670 ?AUTO_7678 ?AUTO_7674 ) ( AT ?AUTO_7670 ?AUTO_7678 ) ( VISIBLE ?AUTO_7678 ?AUTO_7674 ) ( AT ?AUTO_7679 ?AUTO_7681 ) ( AT_SOIL_SAMPLE ?AUTO_7681 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7679 ) ( STORE_OF ?AUTO_7673 ?AUTO_7679 ) ( EMPTY ?AUTO_7673 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_7679 ?AUTO_7673 ?AUTO_7681 )
+      ( GET_ROCK_DATA ?AUTO_7669 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7669 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_7689 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7696 - LANDER
+      ?AUTO_7690 - WAYPOINT
+      ?AUTO_7693 - WAYPOINT
+      ?AUTO_7695 - ROVER
+      ?AUTO_7694 - STORE
+      ?AUTO_7691 - WAYPOINT
+      ?AUTO_7699 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7696 ?AUTO_7690 ) ( VISIBLE ?AUTO_7693 ?AUTO_7690 ) ( AVAILABLE ?AUTO_7695 ) ( CHANNEL_FREE ?AUTO_7696 ) ( CAN_TRAVERSE ?AUTO_7695 ?AUTO_7689 ?AUTO_7693 ) ( VISIBLE ?AUTO_7689 ?AUTO_7693 ) ( AT_ROCK_SAMPLE ?AUTO_7689 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_7695 ) ( STORE_OF ?AUTO_7694 ?AUTO_7695 ) ( EMPTY ?AUTO_7694 ) ( CAN_TRAVERSE ?AUTO_7695 ?AUTO_7691 ?AUTO_7689 ) ( VISIBLE ?AUTO_7691 ?AUTO_7689 ) ( CAN_TRAVERSE ?AUTO_7695 ?AUTO_7699 ?AUTO_7691 ) ( AT ?AUTO_7695 ?AUTO_7699 ) ( VISIBLE ?AUTO_7699 ?AUTO_7691 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7695 ?AUTO_7699 ?AUTO_7691 )
+      ( GET_ROCK_DATA ?AUTO_7689 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_7689 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7705 - OBJECTIVE
+      ?AUTO_7706 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7707 - ROVER
+      ?AUTO_7710 - WAYPOINT
+      ?AUTO_7709 - LANDER
+      ?AUTO_7708 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7707 ?AUTO_7710 ) ( AT_LANDER ?AUTO_7709 ?AUTO_7708 ) ( HAVE_IMAGE ?AUTO_7707 ?AUTO_7705 ?AUTO_7706 ) ( VISIBLE ?AUTO_7710 ?AUTO_7708 ) ( AVAILABLE ?AUTO_7707 ) ( CHANNEL_FREE ?AUTO_7709 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_7707 ?AUTO_7709 ?AUTO_7705 ?AUTO_7706 ?AUTO_7710 ?AUTO_7708 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7705 ?AUTO_7706 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7715 - OBJECTIVE
+      ?AUTO_7716 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7722 - LANDER
+      ?AUTO_7718 - WAYPOINT
+      ?AUTO_7717 - ROVER
+      ?AUTO_7720 - WAYPOINT
+      ?AUTO_7725 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7722 ?AUTO_7718 ) ( HAVE_IMAGE ?AUTO_7717 ?AUTO_7715 ?AUTO_7716 ) ( VISIBLE ?AUTO_7720 ?AUTO_7718 ) ( AVAILABLE ?AUTO_7717 ) ( CHANNEL_FREE ?AUTO_7722 ) ( CAN_TRAVERSE ?AUTO_7717 ?AUTO_7725 ?AUTO_7720 ) ( AT ?AUTO_7717 ?AUTO_7725 ) ( VISIBLE ?AUTO_7725 ?AUTO_7720 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7717 ?AUTO_7725 ?AUTO_7720 )
+      ( GET_IMAGE_DATA ?AUTO_7715 ?AUTO_7716 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7715 ?AUTO_7716 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7726 - OBJECTIVE
+      ?AUTO_7727 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7730 - LANDER
+      ?AUTO_7731 - WAYPOINT
+      ?AUTO_7733 - ROVER
+      ?AUTO_7732 - WAYPOINT
+      ?AUTO_7734 - WAYPOINT
+      ?AUTO_7737 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7730 ?AUTO_7731 ) ( HAVE_IMAGE ?AUTO_7733 ?AUTO_7726 ?AUTO_7727 ) ( VISIBLE ?AUTO_7732 ?AUTO_7731 ) ( AVAILABLE ?AUTO_7733 ) ( CHANNEL_FREE ?AUTO_7730 ) ( CAN_TRAVERSE ?AUTO_7733 ?AUTO_7734 ?AUTO_7732 ) ( VISIBLE ?AUTO_7734 ?AUTO_7732 ) ( CAN_TRAVERSE ?AUTO_7733 ?AUTO_7737 ?AUTO_7734 ) ( AT ?AUTO_7733 ?AUTO_7737 ) ( VISIBLE ?AUTO_7737 ?AUTO_7734 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7733 ?AUTO_7737 ?AUTO_7734 )
+      ( GET_IMAGE_DATA ?AUTO_7726 ?AUTO_7727 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7726 ?AUTO_7727 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7738 - OBJECTIVE
+      ?AUTO_7739 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7746 - LANDER
+      ?AUTO_7747 - WAYPOINT
+      ?AUTO_7741 - WAYPOINT
+      ?AUTO_7744 - ROVER
+      ?AUTO_7745 - WAYPOINT
+      ?AUTO_7742 - WAYPOINT
+      ?AUTO_7752 - CAMERA
+      ?AUTO_7750 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7746 ?AUTO_7747 ) ( VISIBLE ?AUTO_7741 ?AUTO_7747 ) ( AVAILABLE ?AUTO_7744 ) ( CHANNEL_FREE ?AUTO_7746 ) ( CAN_TRAVERSE ?AUTO_7744 ?AUTO_7745 ?AUTO_7741 ) ( VISIBLE ?AUTO_7745 ?AUTO_7741 ) ( CAN_TRAVERSE ?AUTO_7744 ?AUTO_7742 ?AUTO_7745 ) ( AT ?AUTO_7744 ?AUTO_7742 ) ( VISIBLE ?AUTO_7742 ?AUTO_7745 ) ( CALIBRATED ?AUTO_7752 ?AUTO_7744 ) ( ON_BOARD ?AUTO_7752 ?AUTO_7744 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7744 ) ( SUPPORTS ?AUTO_7752 ?AUTO_7739 ) ( VISIBLE_FROM ?AUTO_7738 ?AUTO_7750 ) ( AT ?AUTO_7744 ?AUTO_7750 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_7744 ?AUTO_7750 ?AUTO_7738 ?AUTO_7752 ?AUTO_7739 )
+      ( GET_IMAGE_DATA ?AUTO_7738 ?AUTO_7739 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7738 ?AUTO_7739 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7753 - OBJECTIVE
+      ?AUTO_7754 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7761 - LANDER
+      ?AUTO_7757 - WAYPOINT
+      ?AUTO_7756 - WAYPOINT
+      ?AUTO_7762 - ROVER
+      ?AUTO_7758 - WAYPOINT
+      ?AUTO_7763 - WAYPOINT
+      ?AUTO_7764 - CAMERA
+      ?AUTO_7767 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7761 ?AUTO_7757 ) ( VISIBLE ?AUTO_7756 ?AUTO_7757 ) ( AVAILABLE ?AUTO_7762 ) ( CHANNEL_FREE ?AUTO_7761 ) ( CAN_TRAVERSE ?AUTO_7762 ?AUTO_7758 ?AUTO_7756 ) ( VISIBLE ?AUTO_7758 ?AUTO_7756 ) ( CAN_TRAVERSE ?AUTO_7762 ?AUTO_7763 ?AUTO_7758 ) ( VISIBLE ?AUTO_7763 ?AUTO_7758 ) ( CALIBRATED ?AUTO_7764 ?AUTO_7762 ) ( ON_BOARD ?AUTO_7764 ?AUTO_7762 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7762 ) ( SUPPORTS ?AUTO_7764 ?AUTO_7754 ) ( VISIBLE_FROM ?AUTO_7753 ?AUTO_7763 ) ( CAN_TRAVERSE ?AUTO_7762 ?AUTO_7767 ?AUTO_7763 ) ( AT ?AUTO_7762 ?AUTO_7767 ) ( VISIBLE ?AUTO_7767 ?AUTO_7763 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7762 ?AUTO_7767 ?AUTO_7763 )
+      ( GET_IMAGE_DATA ?AUTO_7753 ?AUTO_7754 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7753 ?AUTO_7754 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7770 - OBJECTIVE
+      ?AUTO_7771 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7781 - LANDER
+      ?AUTO_7775 - WAYPOINT
+      ?AUTO_7776 - WAYPOINT
+      ?AUTO_7772 - ROVER
+      ?AUTO_7778 - WAYPOINT
+      ?AUTO_7779 - WAYPOINT
+      ?AUTO_7780 - CAMERA
+      ?AUTO_7774 - WAYPOINT
+      ?AUTO_7784 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7781 ?AUTO_7775 ) ( VISIBLE ?AUTO_7776 ?AUTO_7775 ) ( AVAILABLE ?AUTO_7772 ) ( CHANNEL_FREE ?AUTO_7781 ) ( CAN_TRAVERSE ?AUTO_7772 ?AUTO_7778 ?AUTO_7776 ) ( VISIBLE ?AUTO_7778 ?AUTO_7776 ) ( CAN_TRAVERSE ?AUTO_7772 ?AUTO_7779 ?AUTO_7778 ) ( VISIBLE ?AUTO_7779 ?AUTO_7778 ) ( CALIBRATED ?AUTO_7780 ?AUTO_7772 ) ( ON_BOARD ?AUTO_7780 ?AUTO_7772 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7772 ) ( SUPPORTS ?AUTO_7780 ?AUTO_7771 ) ( VISIBLE_FROM ?AUTO_7770 ?AUTO_7779 ) ( CAN_TRAVERSE ?AUTO_7772 ?AUTO_7774 ?AUTO_7779 ) ( VISIBLE ?AUTO_7774 ?AUTO_7779 ) ( CAN_TRAVERSE ?AUTO_7772 ?AUTO_7784 ?AUTO_7774 ) ( AT ?AUTO_7772 ?AUTO_7784 ) ( VISIBLE ?AUTO_7784 ?AUTO_7774 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7772 ?AUTO_7784 ?AUTO_7774 )
+      ( GET_IMAGE_DATA ?AUTO_7770 ?AUTO_7771 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7770 ?AUTO_7771 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7793 - OBJECTIVE
+      ?AUTO_7794 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7801 - LANDER
+      ?AUTO_7799 - WAYPOINT
+      ?AUTO_7795 - WAYPOINT
+      ?AUTO_7798 - ROVER
+      ?AUTO_7802 - WAYPOINT
+      ?AUTO_7797 - WAYPOINT
+      ?AUTO_7803 - CAMERA
+      ?AUTO_7796 - WAYPOINT
+      ?AUTO_7800 - WAYPOINT
+      ?AUTO_7809 - OBJECTIVE
+      ?AUTO_7807 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7801 ?AUTO_7799 ) ( VISIBLE ?AUTO_7795 ?AUTO_7799 ) ( AVAILABLE ?AUTO_7798 ) ( CHANNEL_FREE ?AUTO_7801 ) ( CAN_TRAVERSE ?AUTO_7798 ?AUTO_7802 ?AUTO_7795 ) ( VISIBLE ?AUTO_7802 ?AUTO_7795 ) ( CAN_TRAVERSE ?AUTO_7798 ?AUTO_7797 ?AUTO_7802 ) ( VISIBLE ?AUTO_7797 ?AUTO_7802 ) ( ON_BOARD ?AUTO_7803 ?AUTO_7798 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7798 ) ( SUPPORTS ?AUTO_7803 ?AUTO_7794 ) ( VISIBLE_FROM ?AUTO_7793 ?AUTO_7797 ) ( CAN_TRAVERSE ?AUTO_7798 ?AUTO_7796 ?AUTO_7797 ) ( VISIBLE ?AUTO_7796 ?AUTO_7797 ) ( CAN_TRAVERSE ?AUTO_7798 ?AUTO_7800 ?AUTO_7796 ) ( AT ?AUTO_7798 ?AUTO_7800 ) ( VISIBLE ?AUTO_7800 ?AUTO_7796 ) ( CALIBRATION_TARGET ?AUTO_7803 ?AUTO_7809 ) ( AT ?AUTO_7798 ?AUTO_7807 ) ( VISIBLE_FROM ?AUTO_7809 ?AUTO_7807 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_7798 ?AUTO_7803 ?AUTO_7809 ?AUTO_7807 )
+      ( GET_IMAGE_DATA ?AUTO_7793 ?AUTO_7794 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7793 ?AUTO_7794 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7810 - OBJECTIVE
+      ?AUTO_7811 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7819 - LANDER
+      ?AUTO_7821 - WAYPOINT
+      ?AUTO_7817 - WAYPOINT
+      ?AUTO_7822 - ROVER
+      ?AUTO_7816 - WAYPOINT
+      ?AUTO_7820 - WAYPOINT
+      ?AUTO_7814 - CAMERA
+      ?AUTO_7818 - WAYPOINT
+      ?AUTO_7824 - WAYPOINT
+      ?AUTO_7823 - OBJECTIVE
+      ?AUTO_7827 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7819 ?AUTO_7821 ) ( VISIBLE ?AUTO_7817 ?AUTO_7821 ) ( AVAILABLE ?AUTO_7822 ) ( CHANNEL_FREE ?AUTO_7819 ) ( CAN_TRAVERSE ?AUTO_7822 ?AUTO_7816 ?AUTO_7817 ) ( VISIBLE ?AUTO_7816 ?AUTO_7817 ) ( CAN_TRAVERSE ?AUTO_7822 ?AUTO_7820 ?AUTO_7816 ) ( VISIBLE ?AUTO_7820 ?AUTO_7816 ) ( ON_BOARD ?AUTO_7814 ?AUTO_7822 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7822 ) ( SUPPORTS ?AUTO_7814 ?AUTO_7811 ) ( VISIBLE_FROM ?AUTO_7810 ?AUTO_7820 ) ( CAN_TRAVERSE ?AUTO_7822 ?AUTO_7818 ?AUTO_7820 ) ( VISIBLE ?AUTO_7818 ?AUTO_7820 ) ( CAN_TRAVERSE ?AUTO_7822 ?AUTO_7824 ?AUTO_7818 ) ( VISIBLE ?AUTO_7824 ?AUTO_7818 ) ( CALIBRATION_TARGET ?AUTO_7814 ?AUTO_7823 ) ( VISIBLE_FROM ?AUTO_7823 ?AUTO_7824 ) ( CAN_TRAVERSE ?AUTO_7822 ?AUTO_7827 ?AUTO_7824 ) ( AT ?AUTO_7822 ?AUTO_7827 ) ( VISIBLE ?AUTO_7827 ?AUTO_7824 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7822 ?AUTO_7827 ?AUTO_7824 )
+      ( GET_IMAGE_DATA ?AUTO_7810 ?AUTO_7811 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7810 ?AUTO_7811 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7830 - OBJECTIVE
+      ?AUTO_7831 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7842 - LANDER
+      ?AUTO_7840 - WAYPOINT
+      ?AUTO_7843 - WAYPOINT
+      ?AUTO_7832 - ROVER
+      ?AUTO_7844 - WAYPOINT
+      ?AUTO_7839 - WAYPOINT
+      ?AUTO_7841 - CAMERA
+      ?AUTO_7837 - WAYPOINT
+      ?AUTO_7834 - WAYPOINT
+      ?AUTO_7835 - OBJECTIVE
+      ?AUTO_7836 - WAYPOINT
+      ?AUTO_7847 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7842 ?AUTO_7840 ) ( VISIBLE ?AUTO_7843 ?AUTO_7840 ) ( AVAILABLE ?AUTO_7832 ) ( CHANNEL_FREE ?AUTO_7842 ) ( CAN_TRAVERSE ?AUTO_7832 ?AUTO_7844 ?AUTO_7843 ) ( VISIBLE ?AUTO_7844 ?AUTO_7843 ) ( CAN_TRAVERSE ?AUTO_7832 ?AUTO_7839 ?AUTO_7844 ) ( VISIBLE ?AUTO_7839 ?AUTO_7844 ) ( ON_BOARD ?AUTO_7841 ?AUTO_7832 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7832 ) ( SUPPORTS ?AUTO_7841 ?AUTO_7831 ) ( VISIBLE_FROM ?AUTO_7830 ?AUTO_7839 ) ( CAN_TRAVERSE ?AUTO_7832 ?AUTO_7837 ?AUTO_7839 ) ( VISIBLE ?AUTO_7837 ?AUTO_7839 ) ( CAN_TRAVERSE ?AUTO_7832 ?AUTO_7834 ?AUTO_7837 ) ( VISIBLE ?AUTO_7834 ?AUTO_7837 ) ( CALIBRATION_TARGET ?AUTO_7841 ?AUTO_7835 ) ( VISIBLE_FROM ?AUTO_7835 ?AUTO_7834 ) ( CAN_TRAVERSE ?AUTO_7832 ?AUTO_7836 ?AUTO_7834 ) ( VISIBLE ?AUTO_7836 ?AUTO_7834 ) ( CAN_TRAVERSE ?AUTO_7832 ?AUTO_7847 ?AUTO_7836 ) ( AT ?AUTO_7832 ?AUTO_7847 ) ( VISIBLE ?AUTO_7847 ?AUTO_7836 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7832 ?AUTO_7847 ?AUTO_7836 )
+      ( GET_IMAGE_DATA ?AUTO_7830 ?AUTO_7831 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7830 ?AUTO_7831 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7848 - OBJECTIVE
+      ?AUTO_7849 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7852 - LANDER
+      ?AUTO_7857 - WAYPOINT
+      ?AUTO_7858 - WAYPOINT
+      ?AUTO_7855 - ROVER
+      ?AUTO_7854 - WAYPOINT
+      ?AUTO_7856 - WAYPOINT
+      ?AUTO_7859 - CAMERA
+      ?AUTO_7853 - WAYPOINT
+      ?AUTO_7860 - WAYPOINT
+      ?AUTO_7862 - OBJECTIVE
+      ?AUTO_7861 - WAYPOINT
+      ?AUTO_7863 - WAYPOINT
+      ?AUTO_7866 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7852 ?AUTO_7857 ) ( VISIBLE ?AUTO_7858 ?AUTO_7857 ) ( AVAILABLE ?AUTO_7855 ) ( CHANNEL_FREE ?AUTO_7852 ) ( CAN_TRAVERSE ?AUTO_7855 ?AUTO_7854 ?AUTO_7858 ) ( VISIBLE ?AUTO_7854 ?AUTO_7858 ) ( CAN_TRAVERSE ?AUTO_7855 ?AUTO_7856 ?AUTO_7854 ) ( VISIBLE ?AUTO_7856 ?AUTO_7854 ) ( ON_BOARD ?AUTO_7859 ?AUTO_7855 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7855 ) ( SUPPORTS ?AUTO_7859 ?AUTO_7849 ) ( VISIBLE_FROM ?AUTO_7848 ?AUTO_7856 ) ( CAN_TRAVERSE ?AUTO_7855 ?AUTO_7853 ?AUTO_7856 ) ( VISIBLE ?AUTO_7853 ?AUTO_7856 ) ( CAN_TRAVERSE ?AUTO_7855 ?AUTO_7860 ?AUTO_7853 ) ( VISIBLE ?AUTO_7860 ?AUTO_7853 ) ( CALIBRATION_TARGET ?AUTO_7859 ?AUTO_7862 ) ( VISIBLE_FROM ?AUTO_7862 ?AUTO_7860 ) ( CAN_TRAVERSE ?AUTO_7855 ?AUTO_7861 ?AUTO_7860 ) ( VISIBLE ?AUTO_7861 ?AUTO_7860 ) ( CAN_TRAVERSE ?AUTO_7855 ?AUTO_7863 ?AUTO_7861 ) ( VISIBLE ?AUTO_7863 ?AUTO_7861 ) ( CAN_TRAVERSE ?AUTO_7855 ?AUTO_7866 ?AUTO_7863 ) ( AT ?AUTO_7855 ?AUTO_7866 ) ( VISIBLE ?AUTO_7866 ?AUTO_7863 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7855 ?AUTO_7866 ?AUTO_7863 )
+      ( GET_IMAGE_DATA ?AUTO_7848 ?AUTO_7849 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7848 ?AUTO_7849 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7871 - OBJECTIVE
+      ?AUTO_7872 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7881 - LANDER
+      ?AUTO_7879 - WAYPOINT
+      ?AUTO_7885 - WAYPOINT
+      ?AUTO_7877 - ROVER
+      ?AUTO_7882 - WAYPOINT
+      ?AUTO_7875 - WAYPOINT
+      ?AUTO_7874 - CAMERA
+      ?AUTO_7884 - WAYPOINT
+      ?AUTO_7878 - WAYPOINT
+      ?AUTO_7883 - OBJECTIVE
+      ?AUTO_7886 - WAYPOINT
+      ?AUTO_7876 - WAYPOINT
+      ?AUTO_7873 - WAYPOINT
+      ?AUTO_7890 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7881 ?AUTO_7879 ) ( VISIBLE ?AUTO_7885 ?AUTO_7879 ) ( AVAILABLE ?AUTO_7877 ) ( CHANNEL_FREE ?AUTO_7881 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7882 ?AUTO_7885 ) ( VISIBLE ?AUTO_7882 ?AUTO_7885 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7875 ?AUTO_7882 ) ( VISIBLE ?AUTO_7875 ?AUTO_7882 ) ( ON_BOARD ?AUTO_7874 ?AUTO_7877 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7877 ) ( SUPPORTS ?AUTO_7874 ?AUTO_7872 ) ( VISIBLE_FROM ?AUTO_7871 ?AUTO_7875 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7884 ?AUTO_7875 ) ( VISIBLE ?AUTO_7884 ?AUTO_7875 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7878 ?AUTO_7884 ) ( VISIBLE ?AUTO_7878 ?AUTO_7884 ) ( CALIBRATION_TARGET ?AUTO_7874 ?AUTO_7883 ) ( VISIBLE_FROM ?AUTO_7883 ?AUTO_7878 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7886 ?AUTO_7878 ) ( VISIBLE ?AUTO_7886 ?AUTO_7878 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7876 ?AUTO_7886 ) ( VISIBLE ?AUTO_7876 ?AUTO_7886 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7873 ?AUTO_7876 ) ( VISIBLE ?AUTO_7873 ?AUTO_7876 ) ( CAN_TRAVERSE ?AUTO_7877 ?AUTO_7890 ?AUTO_7873 ) ( AT ?AUTO_7877 ?AUTO_7890 ) ( VISIBLE ?AUTO_7890 ?AUTO_7873 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7877 ?AUTO_7890 ?AUTO_7873 )
+      ( GET_IMAGE_DATA ?AUTO_7871 ?AUTO_7872 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7871 ?AUTO_7872 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7892 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7893 - ROVER
+      ?AUTO_7896 - WAYPOINT
+      ?AUTO_7895 - LANDER
+      ?AUTO_7894 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7893 ?AUTO_7896 ) ( AT_LANDER ?AUTO_7895 ?AUTO_7894 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7893 ?AUTO_7892 ) ( VISIBLE ?AUTO_7896 ?AUTO_7894 ) ( AVAILABLE ?AUTO_7893 ) ( CHANNEL_FREE ?AUTO_7895 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_7893 ?AUTO_7895 ?AUTO_7892 ?AUTO_7896 ?AUTO_7894 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7892 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7898 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7902 - LANDER
+      ?AUTO_7901 - WAYPOINT
+      ?AUTO_7900 - ROVER
+      ?AUTO_7903 - WAYPOINT
+      ?AUTO_7906 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7902 ?AUTO_7901 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7900 ?AUTO_7898 ) ( VISIBLE ?AUTO_7903 ?AUTO_7901 ) ( AVAILABLE ?AUTO_7900 ) ( CHANNEL_FREE ?AUTO_7902 ) ( CAN_TRAVERSE ?AUTO_7900 ?AUTO_7906 ?AUTO_7903 ) ( AT ?AUTO_7900 ?AUTO_7906 ) ( VISIBLE ?AUTO_7906 ?AUTO_7903 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7900 ?AUTO_7906 ?AUTO_7903 )
+      ( GET_SOIL_DATA ?AUTO_7898 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7898 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7907 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7912 - LANDER
+      ?AUTO_7908 - WAYPOINT
+      ?AUTO_7911 - WAYPOINT
+      ?AUTO_7909 - ROVER
+      ?AUTO_7913 - WAYPOINT
+      ?AUTO_7915 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7912 ?AUTO_7908 ) ( VISIBLE ?AUTO_7911 ?AUTO_7908 ) ( AVAILABLE ?AUTO_7909 ) ( CHANNEL_FREE ?AUTO_7912 ) ( CAN_TRAVERSE ?AUTO_7909 ?AUTO_7913 ?AUTO_7911 ) ( AT ?AUTO_7909 ?AUTO_7913 ) ( VISIBLE ?AUTO_7913 ?AUTO_7911 ) ( AT ?AUTO_7909 ?AUTO_7907 ) ( AT_SOIL_SAMPLE ?AUTO_7907 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7909 ) ( STORE_OF ?AUTO_7915 ?AUTO_7909 ) ( EMPTY ?AUTO_7915 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_7909 ?AUTO_7915 ?AUTO_7907 )
+      ( GET_SOIL_DATA ?AUTO_7907 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7907 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7918 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7919 - ROVER
+      ?AUTO_7922 - WAYPOINT
+      ?AUTO_7921 - LANDER
+      ?AUTO_7920 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7919 ?AUTO_7922 ) ( AT_LANDER ?AUTO_7921 ?AUTO_7920 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7919 ?AUTO_7918 ) ( VISIBLE ?AUTO_7922 ?AUTO_7920 ) ( AVAILABLE ?AUTO_7919 ) ( CHANNEL_FREE ?AUTO_7921 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_7919 ?AUTO_7921 ?AUTO_7918 ?AUTO_7922 ?AUTO_7920 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7918 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7925 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7926 - LANDER
+      ?AUTO_7930 - WAYPOINT
+      ?AUTO_7929 - ROVER
+      ?AUTO_7927 - WAYPOINT
+      ?AUTO_7933 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7926 ?AUTO_7930 ) ( HAVE_SOIL_ANALYSIS ?AUTO_7929 ?AUTO_7925 ) ( VISIBLE ?AUTO_7927 ?AUTO_7930 ) ( AVAILABLE ?AUTO_7929 ) ( CHANNEL_FREE ?AUTO_7926 ) ( CAN_TRAVERSE ?AUTO_7929 ?AUTO_7933 ?AUTO_7927 ) ( AT ?AUTO_7929 ?AUTO_7933 ) ( VISIBLE ?AUTO_7933 ?AUTO_7927 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7929 ?AUTO_7933 ?AUTO_7927 )
+      ( GET_SOIL_DATA ?AUTO_7925 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7925 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_7934 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_7939 - LANDER
+      ?AUTO_7938 - WAYPOINT
+      ?AUTO_7936 - WAYPOINT
+      ?AUTO_7937 - ROVER
+      ?AUTO_7940 - WAYPOINT
+      ?AUTO_7942 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7939 ?AUTO_7938 ) ( VISIBLE ?AUTO_7936 ?AUTO_7938 ) ( AVAILABLE ?AUTO_7937 ) ( CHANNEL_FREE ?AUTO_7939 ) ( CAN_TRAVERSE ?AUTO_7937 ?AUTO_7940 ?AUTO_7936 ) ( AT ?AUTO_7937 ?AUTO_7940 ) ( VISIBLE ?AUTO_7940 ?AUTO_7936 ) ( AT ?AUTO_7937 ?AUTO_7934 ) ( AT_SOIL_SAMPLE ?AUTO_7934 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_7937 ) ( STORE_OF ?AUTO_7942 ?AUTO_7937 ) ( EMPTY ?AUTO_7942 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_7937 ?AUTO_7942 ?AUTO_7934 )
+      ( GET_SOIL_DATA ?AUTO_7934 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_7934 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7951 - OBJECTIVE
+      ?AUTO_7952 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7953 - ROVER
+      ?AUTO_7956 - WAYPOINT
+      ?AUTO_7955 - LANDER
+      ?AUTO_7954 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_7953 ?AUTO_7956 ) ( AT_LANDER ?AUTO_7955 ?AUTO_7954 ) ( HAVE_IMAGE ?AUTO_7953 ?AUTO_7951 ?AUTO_7952 ) ( VISIBLE ?AUTO_7956 ?AUTO_7954 ) ( AVAILABLE ?AUTO_7953 ) ( CHANNEL_FREE ?AUTO_7955 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_7953 ?AUTO_7955 ?AUTO_7951 ?AUTO_7952 ?AUTO_7956 ?AUTO_7954 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7951 ?AUTO_7952 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7959 - OBJECTIVE
+      ?AUTO_7960 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7965 - LANDER
+      ?AUTO_7964 - WAYPOINT
+      ?AUTO_7963 - ROVER
+      ?AUTO_7966 - WAYPOINT
+      ?AUTO_7969 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7965 ?AUTO_7964 ) ( HAVE_IMAGE ?AUTO_7963 ?AUTO_7959 ?AUTO_7960 ) ( VISIBLE ?AUTO_7966 ?AUTO_7964 ) ( AVAILABLE ?AUTO_7963 ) ( CHANNEL_FREE ?AUTO_7965 ) ( CAN_TRAVERSE ?AUTO_7963 ?AUTO_7969 ?AUTO_7966 ) ( AT ?AUTO_7963 ?AUTO_7969 ) ( VISIBLE ?AUTO_7969 ?AUTO_7966 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7963 ?AUTO_7969 ?AUTO_7966 )
+      ( GET_IMAGE_DATA ?AUTO_7959 ?AUTO_7960 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7959 ?AUTO_7960 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7970 - OBJECTIVE
+      ?AUTO_7971 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7976 - LANDER
+      ?AUTO_7975 - WAYPOINT
+      ?AUTO_7972 - WAYPOINT
+      ?AUTO_7977 - ROVER
+      ?AUTO_7978 - WAYPOINT
+      ?AUTO_7983 - CAMERA
+      ?AUTO_7981 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7976 ?AUTO_7975 ) ( VISIBLE ?AUTO_7972 ?AUTO_7975 ) ( AVAILABLE ?AUTO_7977 ) ( CHANNEL_FREE ?AUTO_7976 ) ( CAN_TRAVERSE ?AUTO_7977 ?AUTO_7978 ?AUTO_7972 ) ( AT ?AUTO_7977 ?AUTO_7978 ) ( VISIBLE ?AUTO_7978 ?AUTO_7972 ) ( CALIBRATED ?AUTO_7983 ?AUTO_7977 ) ( ON_BOARD ?AUTO_7983 ?AUTO_7977 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7977 ) ( SUPPORTS ?AUTO_7983 ?AUTO_7971 ) ( VISIBLE_FROM ?AUTO_7970 ?AUTO_7981 ) ( AT ?AUTO_7977 ?AUTO_7981 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_7977 ?AUTO_7981 ?AUTO_7970 ?AUTO_7983 ?AUTO_7971 )
+      ( GET_IMAGE_DATA ?AUTO_7970 ?AUTO_7971 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7970 ?AUTO_7971 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_7984 - OBJECTIVE
+      ?AUTO_7985 - MODE
+    )
+    :vars
+    (
+      ?AUTO_7986 - LANDER
+      ?AUTO_7992 - WAYPOINT
+      ?AUTO_7990 - WAYPOINT
+      ?AUTO_7989 - ROVER
+      ?AUTO_7993 - WAYPOINT
+      ?AUTO_7994 - CAMERA
+      ?AUTO_7997 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_7986 ?AUTO_7992 ) ( VISIBLE ?AUTO_7990 ?AUTO_7992 ) ( AVAILABLE ?AUTO_7989 ) ( CHANNEL_FREE ?AUTO_7986 ) ( CAN_TRAVERSE ?AUTO_7989 ?AUTO_7993 ?AUTO_7990 ) ( VISIBLE ?AUTO_7993 ?AUTO_7990 ) ( CALIBRATED ?AUTO_7994 ?AUTO_7989 ) ( ON_BOARD ?AUTO_7994 ?AUTO_7989 ) ( EQUIPPED_FOR_IMAGING ?AUTO_7989 ) ( SUPPORTS ?AUTO_7994 ?AUTO_7985 ) ( VISIBLE_FROM ?AUTO_7984 ?AUTO_7993 ) ( CAN_TRAVERSE ?AUTO_7989 ?AUTO_7997 ?AUTO_7993 ) ( AT ?AUTO_7989 ?AUTO_7997 ) ( VISIBLE ?AUTO_7997 ?AUTO_7993 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_7989 ?AUTO_7997 ?AUTO_7993 )
+      ( GET_IMAGE_DATA ?AUTO_7984 ?AUTO_7985 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_7984 ?AUTO_7985 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8000 - OBJECTIVE
+      ?AUTO_8001 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8004 - LANDER
+      ?AUTO_8010 - WAYPOINT
+      ?AUTO_8008 - WAYPOINT
+      ?AUTO_8007 - ROVER
+      ?AUTO_8005 - WAYPOINT
+      ?AUTO_8009 - CAMERA
+      ?AUTO_8002 - WAYPOINT
+      ?AUTO_8014 - OBJECTIVE
+      ?AUTO_8012 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8004 ?AUTO_8010 ) ( VISIBLE ?AUTO_8008 ?AUTO_8010 ) ( AVAILABLE ?AUTO_8007 ) ( CHANNEL_FREE ?AUTO_8004 ) ( CAN_TRAVERSE ?AUTO_8007 ?AUTO_8005 ?AUTO_8008 ) ( VISIBLE ?AUTO_8005 ?AUTO_8008 ) ( ON_BOARD ?AUTO_8009 ?AUTO_8007 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8007 ) ( SUPPORTS ?AUTO_8009 ?AUTO_8001 ) ( VISIBLE_FROM ?AUTO_8000 ?AUTO_8005 ) ( CAN_TRAVERSE ?AUTO_8007 ?AUTO_8002 ?AUTO_8005 ) ( AT ?AUTO_8007 ?AUTO_8002 ) ( VISIBLE ?AUTO_8002 ?AUTO_8005 ) ( CALIBRATION_TARGET ?AUTO_8009 ?AUTO_8014 ) ( AT ?AUTO_8007 ?AUTO_8012 ) ( VISIBLE_FROM ?AUTO_8014 ?AUTO_8012 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_8007 ?AUTO_8009 ?AUTO_8014 ?AUTO_8012 )
+      ( GET_IMAGE_DATA ?AUTO_8000 ?AUTO_8001 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8000 ?AUTO_8001 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8015 - OBJECTIVE
+      ?AUTO_8016 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8023 - LANDER
+      ?AUTO_8019 - WAYPOINT
+      ?AUTO_8021 - WAYPOINT
+      ?AUTO_8020 - ROVER
+      ?AUTO_8022 - WAYPOINT
+      ?AUTO_8017 - CAMERA
+      ?AUTO_8027 - WAYPOINT
+      ?AUTO_8026 - OBJECTIVE
+      ?AUTO_8030 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8023 ?AUTO_8019 ) ( VISIBLE ?AUTO_8021 ?AUTO_8019 ) ( AVAILABLE ?AUTO_8020 ) ( CHANNEL_FREE ?AUTO_8023 ) ( CAN_TRAVERSE ?AUTO_8020 ?AUTO_8022 ?AUTO_8021 ) ( VISIBLE ?AUTO_8022 ?AUTO_8021 ) ( ON_BOARD ?AUTO_8017 ?AUTO_8020 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8020 ) ( SUPPORTS ?AUTO_8017 ?AUTO_8016 ) ( VISIBLE_FROM ?AUTO_8015 ?AUTO_8022 ) ( CAN_TRAVERSE ?AUTO_8020 ?AUTO_8027 ?AUTO_8022 ) ( VISIBLE ?AUTO_8027 ?AUTO_8022 ) ( CALIBRATION_TARGET ?AUTO_8017 ?AUTO_8026 ) ( VISIBLE_FROM ?AUTO_8026 ?AUTO_8027 ) ( CAN_TRAVERSE ?AUTO_8020 ?AUTO_8030 ?AUTO_8027 ) ( AT ?AUTO_8020 ?AUTO_8030 ) ( VISIBLE ?AUTO_8030 ?AUTO_8027 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8020 ?AUTO_8030 ?AUTO_8027 )
+      ( GET_IMAGE_DATA ?AUTO_8015 ?AUTO_8016 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8015 ?AUTO_8016 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8033 - OBJECTIVE
+      ?AUTO_8034 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8040 - LANDER
+      ?AUTO_8042 - WAYPOINT
+      ?AUTO_8045 - WAYPOINT
+      ?AUTO_8044 - ROVER
+      ?AUTO_8038 - WAYPOINT
+      ?AUTO_8035 - CAMERA
+      ?AUTO_8039 - WAYPOINT
+      ?AUTO_8041 - OBJECTIVE
+      ?AUTO_8037 - WAYPOINT
+      ?AUTO_8048 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8040 ?AUTO_8042 ) ( VISIBLE ?AUTO_8045 ?AUTO_8042 ) ( AVAILABLE ?AUTO_8044 ) ( CHANNEL_FREE ?AUTO_8040 ) ( CAN_TRAVERSE ?AUTO_8044 ?AUTO_8038 ?AUTO_8045 ) ( VISIBLE ?AUTO_8038 ?AUTO_8045 ) ( ON_BOARD ?AUTO_8035 ?AUTO_8044 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8044 ) ( SUPPORTS ?AUTO_8035 ?AUTO_8034 ) ( VISIBLE_FROM ?AUTO_8033 ?AUTO_8038 ) ( CAN_TRAVERSE ?AUTO_8044 ?AUTO_8039 ?AUTO_8038 ) ( VISIBLE ?AUTO_8039 ?AUTO_8038 ) ( CALIBRATION_TARGET ?AUTO_8035 ?AUTO_8041 ) ( VISIBLE_FROM ?AUTO_8041 ?AUTO_8039 ) ( CAN_TRAVERSE ?AUTO_8044 ?AUTO_8037 ?AUTO_8039 ) ( VISIBLE ?AUTO_8037 ?AUTO_8039 ) ( CAN_TRAVERSE ?AUTO_8044 ?AUTO_8048 ?AUTO_8037 ) ( AT ?AUTO_8044 ?AUTO_8048 ) ( VISIBLE ?AUTO_8048 ?AUTO_8037 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8044 ?AUTO_8048 ?AUTO_8037 )
+      ( GET_IMAGE_DATA ?AUTO_8033 ?AUTO_8034 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8033 ?AUTO_8034 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8053 - OBJECTIVE
+      ?AUTO_8054 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8066 - LANDER
+      ?AUTO_8061 - WAYPOINT
+      ?AUTO_8060 - WAYPOINT
+      ?AUTO_8055 - ROVER
+      ?AUTO_8057 - WAYPOINT
+      ?AUTO_8056 - CAMERA
+      ?AUTO_8064 - WAYPOINT
+      ?AUTO_8058 - OBJECTIVE
+      ?AUTO_8062 - WAYPOINT
+      ?AUTO_8059 - WAYPOINT
+      ?AUTO_8069 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8066 ?AUTO_8061 ) ( VISIBLE ?AUTO_8060 ?AUTO_8061 ) ( AVAILABLE ?AUTO_8055 ) ( CHANNEL_FREE ?AUTO_8066 ) ( CAN_TRAVERSE ?AUTO_8055 ?AUTO_8057 ?AUTO_8060 ) ( VISIBLE ?AUTO_8057 ?AUTO_8060 ) ( ON_BOARD ?AUTO_8056 ?AUTO_8055 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8055 ) ( SUPPORTS ?AUTO_8056 ?AUTO_8054 ) ( VISIBLE_FROM ?AUTO_8053 ?AUTO_8057 ) ( CAN_TRAVERSE ?AUTO_8055 ?AUTO_8064 ?AUTO_8057 ) ( VISIBLE ?AUTO_8064 ?AUTO_8057 ) ( CALIBRATION_TARGET ?AUTO_8056 ?AUTO_8058 ) ( VISIBLE_FROM ?AUTO_8058 ?AUTO_8064 ) ( CAN_TRAVERSE ?AUTO_8055 ?AUTO_8062 ?AUTO_8064 ) ( VISIBLE ?AUTO_8062 ?AUTO_8064 ) ( CAN_TRAVERSE ?AUTO_8055 ?AUTO_8059 ?AUTO_8062 ) ( VISIBLE ?AUTO_8059 ?AUTO_8062 ) ( CAN_TRAVERSE ?AUTO_8055 ?AUTO_8069 ?AUTO_8059 ) ( AT ?AUTO_8055 ?AUTO_8069 ) ( VISIBLE ?AUTO_8069 ?AUTO_8059 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8055 ?AUTO_8069 ?AUTO_8059 )
+      ( GET_IMAGE_DATA ?AUTO_8053 ?AUTO_8054 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8053 ?AUTO_8054 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8073 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8074 - ROVER
+      ?AUTO_8077 - WAYPOINT
+      ?AUTO_8076 - LANDER
+      ?AUTO_8075 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8074 ?AUTO_8077 ) ( AT_LANDER ?AUTO_8076 ?AUTO_8075 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8074 ?AUTO_8073 ) ( VISIBLE ?AUTO_8077 ?AUTO_8075 ) ( AVAILABLE ?AUTO_8074 ) ( CHANNEL_FREE ?AUTO_8076 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_8074 ?AUTO_8076 ?AUTO_8073 ?AUTO_8077 ?AUTO_8075 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8073 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8079 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8083 - LANDER
+      ?AUTO_8082 - WAYPOINT
+      ?AUTO_8081 - ROVER
+      ?AUTO_8084 - WAYPOINT
+      ?AUTO_8087 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8083 ?AUTO_8082 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8081 ?AUTO_8079 ) ( VISIBLE ?AUTO_8084 ?AUTO_8082 ) ( AVAILABLE ?AUTO_8081 ) ( CHANNEL_FREE ?AUTO_8083 ) ( CAN_TRAVERSE ?AUTO_8081 ?AUTO_8087 ?AUTO_8084 ) ( AT ?AUTO_8081 ?AUTO_8087 ) ( VISIBLE ?AUTO_8087 ?AUTO_8084 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8081 ?AUTO_8087 ?AUTO_8084 )
+      ( GET_ROCK_DATA ?AUTO_8079 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8079 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8089 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8092 - LANDER
+      ?AUTO_8093 - WAYPOINT
+      ?AUTO_8095 - WAYPOINT
+      ?AUTO_8091 - ROVER
+      ?AUTO_8094 - WAYPOINT
+      ?AUTO_8097 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8092 ?AUTO_8093 ) ( VISIBLE ?AUTO_8095 ?AUTO_8093 ) ( AVAILABLE ?AUTO_8091 ) ( CHANNEL_FREE ?AUTO_8092 ) ( CAN_TRAVERSE ?AUTO_8091 ?AUTO_8094 ?AUTO_8095 ) ( AT ?AUTO_8091 ?AUTO_8094 ) ( VISIBLE ?AUTO_8094 ?AUTO_8095 ) ( AT ?AUTO_8091 ?AUTO_8089 ) ( AT_ROCK_SAMPLE ?AUTO_8089 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8091 ) ( STORE_OF ?AUTO_8097 ?AUTO_8091 ) ( EMPTY ?AUTO_8097 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_8091 ?AUTO_8097 ?AUTO_8089 )
+      ( GET_ROCK_DATA ?AUTO_8089 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8089 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8113 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8114 - ROVER
+      ?AUTO_8117 - WAYPOINT
+      ?AUTO_8116 - LANDER
+      ?AUTO_8115 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8114 ?AUTO_8117 ) ( AT_LANDER ?AUTO_8116 ?AUTO_8115 ) ( HAVE_SOIL_ANALYSIS ?AUTO_8114 ?AUTO_8113 ) ( VISIBLE ?AUTO_8117 ?AUTO_8115 ) ( AVAILABLE ?AUTO_8114 ) ( CHANNEL_FREE ?AUTO_8116 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_8114 ?AUTO_8116 ?AUTO_8113 ?AUTO_8117 ?AUTO_8115 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8113 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8119 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8121 - ROVER
+      ?AUTO_8124 - WAYPOINT
+      ?AUTO_8123 - LANDER
+      ?AUTO_8122 - WAYPOINT
+      ?AUTO_8126 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_8121 ?AUTO_8124 ) ( AT_LANDER ?AUTO_8123 ?AUTO_8122 ) ( VISIBLE ?AUTO_8124 ?AUTO_8122 ) ( AVAILABLE ?AUTO_8121 ) ( CHANNEL_FREE ?AUTO_8123 ) ( AT ?AUTO_8121 ?AUTO_8119 ) ( AT_SOIL_SAMPLE ?AUTO_8119 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8121 ) ( STORE_OF ?AUTO_8126 ?AUTO_8121 ) ( EMPTY ?AUTO_8126 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_8121 ?AUTO_8126 ?AUTO_8119 )
+      ( GET_SOIL_DATA ?AUTO_8119 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8119 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8129 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8130 - LANDER
+      ?AUTO_8131 - WAYPOINT
+      ?AUTO_8132 - ROVER
+      ?AUTO_8135 - STORE
+      ?AUTO_8138 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8130 ?AUTO_8131 ) ( VISIBLE ?AUTO_8129 ?AUTO_8131 ) ( AVAILABLE ?AUTO_8132 ) ( CHANNEL_FREE ?AUTO_8130 ) ( AT_SOIL_SAMPLE ?AUTO_8129 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8132 ) ( STORE_OF ?AUTO_8135 ?AUTO_8132 ) ( EMPTY ?AUTO_8135 ) ( CAN_TRAVERSE ?AUTO_8132 ?AUTO_8138 ?AUTO_8129 ) ( AT ?AUTO_8132 ?AUTO_8138 ) ( VISIBLE ?AUTO_8138 ?AUTO_8129 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8132 ?AUTO_8138 ?AUTO_8129 )
+      ( GET_SOIL_DATA ?AUTO_8129 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8129 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8139 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8141 - LANDER
+      ?AUTO_8144 - WAYPOINT
+      ?AUTO_8143 - ROVER
+      ?AUTO_8142 - STORE
+      ?AUTO_8145 - WAYPOINT
+      ?AUTO_8146 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8141 ?AUTO_8144 ) ( VISIBLE ?AUTO_8139 ?AUTO_8144 ) ( AVAILABLE ?AUTO_8143 ) ( CHANNEL_FREE ?AUTO_8141 ) ( AT_SOIL_SAMPLE ?AUTO_8139 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8143 ) ( STORE_OF ?AUTO_8142 ?AUTO_8143 ) ( CAN_TRAVERSE ?AUTO_8143 ?AUTO_8145 ?AUTO_8139 ) ( AT ?AUTO_8143 ?AUTO_8145 ) ( VISIBLE ?AUTO_8145 ?AUTO_8139 ) ( STORE_OF ?AUTO_8142 ?AUTO_8146 ) ( FULL ?AUTO_8142 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8146 ?AUTO_8142 )
+      ( GET_SOIL_DATA ?AUTO_8139 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8139 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8163 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8164 - ROVER
+      ?AUTO_8167 - WAYPOINT
+      ?AUTO_8166 - LANDER
+      ?AUTO_8165 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8164 ?AUTO_8167 ) ( AT_LANDER ?AUTO_8166 ?AUTO_8165 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8164 ?AUTO_8163 ) ( VISIBLE ?AUTO_8167 ?AUTO_8165 ) ( AVAILABLE ?AUTO_8164 ) ( CHANNEL_FREE ?AUTO_8166 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_8164 ?AUTO_8166 ?AUTO_8163 ?AUTO_8167 ?AUTO_8165 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8163 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8169 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8171 - ROVER
+      ?AUTO_8174 - WAYPOINT
+      ?AUTO_8173 - LANDER
+      ?AUTO_8172 - WAYPOINT
+      ?AUTO_8176 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_8171 ?AUTO_8174 ) ( AT_LANDER ?AUTO_8173 ?AUTO_8172 ) ( VISIBLE ?AUTO_8174 ?AUTO_8172 ) ( AVAILABLE ?AUTO_8171 ) ( CHANNEL_FREE ?AUTO_8173 ) ( AT ?AUTO_8171 ?AUTO_8169 ) ( AT_ROCK_SAMPLE ?AUTO_8169 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8171 ) ( STORE_OF ?AUTO_8176 ?AUTO_8171 ) ( EMPTY ?AUTO_8176 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_8171 ?AUTO_8176 ?AUTO_8169 )
+      ( GET_ROCK_DATA ?AUTO_8169 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8169 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8178 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8180 - ROVER
+      ?AUTO_8179 - WAYPOINT
+      ?AUTO_8182 - LANDER
+      ?AUTO_8183 - WAYPOINT
+      ?AUTO_8184 - STORE
+      ?AUTO_8185 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_8180 ?AUTO_8179 ) ( AT_LANDER ?AUTO_8182 ?AUTO_8183 ) ( VISIBLE ?AUTO_8179 ?AUTO_8183 ) ( AVAILABLE ?AUTO_8180 ) ( CHANNEL_FREE ?AUTO_8182 ) ( AT ?AUTO_8180 ?AUTO_8178 ) ( AT_ROCK_SAMPLE ?AUTO_8178 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8180 ) ( STORE_OF ?AUTO_8184 ?AUTO_8180 ) ( STORE_OF ?AUTO_8184 ?AUTO_8185 ) ( FULL ?AUTO_8184 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8185 ?AUTO_8184 )
+      ( GET_ROCK_DATA ?AUTO_8178 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8178 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8190 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8191 - LANDER
+      ?AUTO_8193 - WAYPOINT
+      ?AUTO_8192 - ROVER
+      ?AUTO_8194 - STORE
+      ?AUTO_8199 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8191 ?AUTO_8193 ) ( VISIBLE ?AUTO_8190 ?AUTO_8193 ) ( AVAILABLE ?AUTO_8192 ) ( CHANNEL_FREE ?AUTO_8191 ) ( AT_ROCK_SAMPLE ?AUTO_8190 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8192 ) ( STORE_OF ?AUTO_8194 ?AUTO_8192 ) ( EMPTY ?AUTO_8194 ) ( CAN_TRAVERSE ?AUTO_8192 ?AUTO_8199 ?AUTO_8190 ) ( AT ?AUTO_8192 ?AUTO_8199 ) ( VISIBLE ?AUTO_8199 ?AUTO_8190 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8192 ?AUTO_8199 ?AUTO_8190 )
+      ( GET_ROCK_DATA ?AUTO_8190 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8190 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8200 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8203 - LANDER
+      ?AUTO_8205 - WAYPOINT
+      ?AUTO_8202 - ROVER
+      ?AUTO_8204 - STORE
+      ?AUTO_8206 - WAYPOINT
+      ?AUTO_8207 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8203 ?AUTO_8205 ) ( VISIBLE ?AUTO_8200 ?AUTO_8205 ) ( AVAILABLE ?AUTO_8202 ) ( CHANNEL_FREE ?AUTO_8203 ) ( AT_ROCK_SAMPLE ?AUTO_8200 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8202 ) ( STORE_OF ?AUTO_8204 ?AUTO_8202 ) ( CAN_TRAVERSE ?AUTO_8202 ?AUTO_8206 ?AUTO_8200 ) ( AT ?AUTO_8202 ?AUTO_8206 ) ( VISIBLE ?AUTO_8206 ?AUTO_8200 ) ( STORE_OF ?AUTO_8204 ?AUTO_8207 ) ( FULL ?AUTO_8204 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8207 ?AUTO_8204 )
+      ( GET_ROCK_DATA ?AUTO_8200 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8200 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8224 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8225 - ROVER
+      ?AUTO_8228 - WAYPOINT
+      ?AUTO_8227 - LANDER
+      ?AUTO_8226 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8225 ?AUTO_8228 ) ( AT_LANDER ?AUTO_8227 ?AUTO_8226 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8225 ?AUTO_8224 ) ( VISIBLE ?AUTO_8228 ?AUTO_8226 ) ( AVAILABLE ?AUTO_8225 ) ( CHANNEL_FREE ?AUTO_8227 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_8225 ?AUTO_8227 ?AUTO_8224 ?AUTO_8228 ?AUTO_8226 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8224 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8230 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8232 - ROVER
+      ?AUTO_8235 - WAYPOINT
+      ?AUTO_8234 - LANDER
+      ?AUTO_8233 - WAYPOINT
+      ?AUTO_8237 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_8232 ?AUTO_8235 ) ( AT_LANDER ?AUTO_8234 ?AUTO_8233 ) ( VISIBLE ?AUTO_8235 ?AUTO_8233 ) ( AVAILABLE ?AUTO_8232 ) ( CHANNEL_FREE ?AUTO_8234 ) ( AT ?AUTO_8232 ?AUTO_8230 ) ( AT_ROCK_SAMPLE ?AUTO_8230 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8232 ) ( STORE_OF ?AUTO_8237 ?AUTO_8232 ) ( EMPTY ?AUTO_8237 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_8232 ?AUTO_8237 ?AUTO_8230 )
+      ( GET_ROCK_DATA ?AUTO_8230 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8230 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8239 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8243 - LANDER
+      ?AUTO_8244 - WAYPOINT
+      ?AUTO_8241 - ROVER
+      ?AUTO_8245 - STORE
+      ?AUTO_8248 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8243 ?AUTO_8244 ) ( VISIBLE ?AUTO_8239 ?AUTO_8244 ) ( AVAILABLE ?AUTO_8241 ) ( CHANNEL_FREE ?AUTO_8243 ) ( AT_ROCK_SAMPLE ?AUTO_8239 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8241 ) ( STORE_OF ?AUTO_8245 ?AUTO_8241 ) ( EMPTY ?AUTO_8245 ) ( CAN_TRAVERSE ?AUTO_8241 ?AUTO_8248 ?AUTO_8239 ) ( AT ?AUTO_8241 ?AUTO_8248 ) ( VISIBLE ?AUTO_8248 ?AUTO_8239 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8241 ?AUTO_8248 ?AUTO_8239 )
+      ( GET_ROCK_DATA ?AUTO_8239 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8239 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8249 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8255 - LANDER
+      ?AUTO_8252 - WAYPOINT
+      ?AUTO_8254 - ROVER
+      ?AUTO_8251 - STORE
+      ?AUTO_8253 - WAYPOINT
+      ?AUTO_8258 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8255 ?AUTO_8252 ) ( VISIBLE ?AUTO_8249 ?AUTO_8252 ) ( AVAILABLE ?AUTO_8254 ) ( CHANNEL_FREE ?AUTO_8255 ) ( AT_ROCK_SAMPLE ?AUTO_8249 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8254 ) ( STORE_OF ?AUTO_8251 ?AUTO_8254 ) ( EMPTY ?AUTO_8251 ) ( CAN_TRAVERSE ?AUTO_8254 ?AUTO_8253 ?AUTO_8249 ) ( VISIBLE ?AUTO_8253 ?AUTO_8249 ) ( CAN_TRAVERSE ?AUTO_8254 ?AUTO_8258 ?AUTO_8253 ) ( AT ?AUTO_8254 ?AUTO_8258 ) ( VISIBLE ?AUTO_8258 ?AUTO_8253 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8254 ?AUTO_8258 ?AUTO_8253 )
+      ( GET_ROCK_DATA ?AUTO_8249 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8249 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8259 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8260 - LANDER
+      ?AUTO_8266 - WAYPOINT
+      ?AUTO_8262 - ROVER
+      ?AUTO_8264 - STORE
+      ?AUTO_8261 - WAYPOINT
+      ?AUTO_8263 - WAYPOINT
+      ?AUTO_8267 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8260 ?AUTO_8266 ) ( VISIBLE ?AUTO_8259 ?AUTO_8266 ) ( AVAILABLE ?AUTO_8262 ) ( CHANNEL_FREE ?AUTO_8260 ) ( AT_ROCK_SAMPLE ?AUTO_8259 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8262 ) ( STORE_OF ?AUTO_8264 ?AUTO_8262 ) ( CAN_TRAVERSE ?AUTO_8262 ?AUTO_8261 ?AUTO_8259 ) ( VISIBLE ?AUTO_8261 ?AUTO_8259 ) ( CAN_TRAVERSE ?AUTO_8262 ?AUTO_8263 ?AUTO_8261 ) ( AT ?AUTO_8262 ?AUTO_8263 ) ( VISIBLE ?AUTO_8263 ?AUTO_8261 ) ( STORE_OF ?AUTO_8264 ?AUTO_8267 ) ( FULL ?AUTO_8264 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8267 ?AUTO_8264 )
+      ( GET_ROCK_DATA ?AUTO_8259 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8259 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8269 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8270 - ROVER
+      ?AUTO_8273 - WAYPOINT
+      ?AUTO_8272 - LANDER
+      ?AUTO_8271 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8270 ?AUTO_8273 ) ( AT_LANDER ?AUTO_8272 ?AUTO_8271 ) ( HAVE_SOIL_ANALYSIS ?AUTO_8270 ?AUTO_8269 ) ( VISIBLE ?AUTO_8273 ?AUTO_8271 ) ( AVAILABLE ?AUTO_8270 ) ( CHANNEL_FREE ?AUTO_8272 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_8270 ?AUTO_8272 ?AUTO_8269 ?AUTO_8273 ?AUTO_8271 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8269 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8275 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8279 - LANDER
+      ?AUTO_8278 - WAYPOINT
+      ?AUTO_8277 - ROVER
+      ?AUTO_8280 - WAYPOINT
+      ?AUTO_8283 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8279 ?AUTO_8278 ) ( HAVE_SOIL_ANALYSIS ?AUTO_8277 ?AUTO_8275 ) ( VISIBLE ?AUTO_8280 ?AUTO_8278 ) ( AVAILABLE ?AUTO_8277 ) ( CHANNEL_FREE ?AUTO_8279 ) ( CAN_TRAVERSE ?AUTO_8277 ?AUTO_8283 ?AUTO_8280 ) ( AT ?AUTO_8277 ?AUTO_8283 ) ( VISIBLE ?AUTO_8283 ?AUTO_8280 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8277 ?AUTO_8283 ?AUTO_8280 )
+      ( GET_SOIL_DATA ?AUTO_8275 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8275 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8284 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8289 - LANDER
+      ?AUTO_8285 - WAYPOINT
+      ?AUTO_8288 - WAYPOINT
+      ?AUTO_8286 - ROVER
+      ?AUTO_8290 - WAYPOINT
+      ?AUTO_8292 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8289 ?AUTO_8285 ) ( VISIBLE ?AUTO_8288 ?AUTO_8285 ) ( AVAILABLE ?AUTO_8286 ) ( CHANNEL_FREE ?AUTO_8289 ) ( CAN_TRAVERSE ?AUTO_8286 ?AUTO_8290 ?AUTO_8288 ) ( AT ?AUTO_8286 ?AUTO_8290 ) ( VISIBLE ?AUTO_8290 ?AUTO_8288 ) ( AT ?AUTO_8286 ?AUTO_8284 ) ( AT_SOIL_SAMPLE ?AUTO_8284 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8286 ) ( STORE_OF ?AUTO_8292 ?AUTO_8286 ) ( EMPTY ?AUTO_8292 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_8286 ?AUTO_8292 ?AUTO_8284 )
+      ( GET_SOIL_DATA ?AUTO_8284 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8284 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8296 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8297 - ROVER
+      ?AUTO_8300 - WAYPOINT
+      ?AUTO_8299 - LANDER
+      ?AUTO_8298 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8297 ?AUTO_8300 ) ( AT_LANDER ?AUTO_8299 ?AUTO_8298 ) ( HAVE_SOIL_ANALYSIS ?AUTO_8297 ?AUTO_8296 ) ( VISIBLE ?AUTO_8300 ?AUTO_8298 ) ( AVAILABLE ?AUTO_8297 ) ( CHANNEL_FREE ?AUTO_8299 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_8297 ?AUTO_8299 ?AUTO_8296 ?AUTO_8300 ?AUTO_8298 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8296 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8302 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8304 - ROVER
+      ?AUTO_8307 - WAYPOINT
+      ?AUTO_8306 - LANDER
+      ?AUTO_8305 - WAYPOINT
+      ?AUTO_8309 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_8304 ?AUTO_8307 ) ( AT_LANDER ?AUTO_8306 ?AUTO_8305 ) ( VISIBLE ?AUTO_8307 ?AUTO_8305 ) ( AVAILABLE ?AUTO_8304 ) ( CHANNEL_FREE ?AUTO_8306 ) ( AT ?AUTO_8304 ?AUTO_8302 ) ( AT_SOIL_SAMPLE ?AUTO_8302 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8304 ) ( STORE_OF ?AUTO_8309 ?AUTO_8304 ) ( EMPTY ?AUTO_8309 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_8304 ?AUTO_8309 ?AUTO_8302 )
+      ( GET_SOIL_DATA ?AUTO_8302 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8302 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8314 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8320 - LANDER
+      ?AUTO_8316 - WAYPOINT
+      ?AUTO_8317 - ROVER
+      ?AUTO_8315 - STORE
+      ?AUTO_8323 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8320 ?AUTO_8316 ) ( VISIBLE ?AUTO_8314 ?AUTO_8316 ) ( AVAILABLE ?AUTO_8317 ) ( CHANNEL_FREE ?AUTO_8320 ) ( AT_SOIL_SAMPLE ?AUTO_8314 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8317 ) ( STORE_OF ?AUTO_8315 ?AUTO_8317 ) ( EMPTY ?AUTO_8315 ) ( CAN_TRAVERSE ?AUTO_8317 ?AUTO_8323 ?AUTO_8314 ) ( AT ?AUTO_8317 ?AUTO_8323 ) ( VISIBLE ?AUTO_8323 ?AUTO_8314 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8317 ?AUTO_8323 ?AUTO_8314 )
+      ( GET_SOIL_DATA ?AUTO_8314 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8314 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8325 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8326 - ROVER
+      ?AUTO_8329 - WAYPOINT
+      ?AUTO_8328 - LANDER
+      ?AUTO_8327 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8326 ?AUTO_8329 ) ( AT_LANDER ?AUTO_8328 ?AUTO_8327 ) ( HAVE_SOIL_ANALYSIS ?AUTO_8326 ?AUTO_8325 ) ( VISIBLE ?AUTO_8329 ?AUTO_8327 ) ( AVAILABLE ?AUTO_8326 ) ( CHANNEL_FREE ?AUTO_8328 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_8326 ?AUTO_8328 ?AUTO_8325 ?AUTO_8329 ?AUTO_8327 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8325 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8331 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8332 - ROVER
+      ?AUTO_8336 - WAYPOINT
+      ?AUTO_8335 - LANDER
+      ?AUTO_8334 - WAYPOINT
+      ?AUTO_8338 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_8332 ?AUTO_8336 ) ( AT_LANDER ?AUTO_8335 ?AUTO_8334 ) ( VISIBLE ?AUTO_8336 ?AUTO_8334 ) ( AVAILABLE ?AUTO_8332 ) ( CHANNEL_FREE ?AUTO_8335 ) ( AT ?AUTO_8332 ?AUTO_8331 ) ( AT_SOIL_SAMPLE ?AUTO_8331 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8332 ) ( STORE_OF ?AUTO_8338 ?AUTO_8332 ) ( EMPTY ?AUTO_8338 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_8332 ?AUTO_8338 ?AUTO_8331 )
+      ( GET_SOIL_DATA ?AUTO_8331 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8331 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8340 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8342 - ROVER
+      ?AUTO_8341 - WAYPOINT
+      ?AUTO_8344 - LANDER
+      ?AUTO_8345 - WAYPOINT
+      ?AUTO_8346 - STORE
+      ?AUTO_8347 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_8342 ?AUTO_8341 ) ( AT_LANDER ?AUTO_8344 ?AUTO_8345 ) ( VISIBLE ?AUTO_8341 ?AUTO_8345 ) ( AVAILABLE ?AUTO_8342 ) ( CHANNEL_FREE ?AUTO_8344 ) ( AT ?AUTO_8342 ?AUTO_8340 ) ( AT_SOIL_SAMPLE ?AUTO_8340 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8342 ) ( STORE_OF ?AUTO_8346 ?AUTO_8342 ) ( STORE_OF ?AUTO_8346 ?AUTO_8347 ) ( FULL ?AUTO_8346 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8347 ?AUTO_8346 )
+      ( GET_SOIL_DATA ?AUTO_8340 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8340 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8349 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8353 - LANDER
+      ?AUTO_8356 - WAYPOINT
+      ?AUTO_8354 - ROVER
+      ?AUTO_8352 - STORE
+      ?AUTO_8355 - ROVER
+      ?AUTO_8359 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8353 ?AUTO_8356 ) ( VISIBLE ?AUTO_8349 ?AUTO_8356 ) ( AVAILABLE ?AUTO_8354 ) ( CHANNEL_FREE ?AUTO_8353 ) ( AT_SOIL_SAMPLE ?AUTO_8349 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8354 ) ( STORE_OF ?AUTO_8352 ?AUTO_8354 ) ( STORE_OF ?AUTO_8352 ?AUTO_8355 ) ( FULL ?AUTO_8352 ) ( CAN_TRAVERSE ?AUTO_8354 ?AUTO_8359 ?AUTO_8349 ) ( AT ?AUTO_8354 ?AUTO_8359 ) ( VISIBLE ?AUTO_8359 ?AUTO_8349 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8354 ?AUTO_8359 ?AUTO_8349 )
+      ( GET_SOIL_DATA ?AUTO_8349 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8349 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8361 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8368 - LANDER
+      ?AUTO_8366 - WAYPOINT
+      ?AUTO_8364 - ROVER
+      ?AUTO_8363 - STORE
+      ?AUTO_8365 - ROVER
+      ?AUTO_8367 - WAYPOINT
+      ?AUTO_8369 - ROVER
+      ?AUTO_8371 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8368 ?AUTO_8366 ) ( VISIBLE ?AUTO_8361 ?AUTO_8366 ) ( AVAILABLE ?AUTO_8364 ) ( CHANNEL_FREE ?AUTO_8368 ) ( AT_SOIL_SAMPLE ?AUTO_8361 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8364 ) ( STORE_OF ?AUTO_8363 ?AUTO_8364 ) ( STORE_OF ?AUTO_8363 ?AUTO_8365 ) ( CAN_TRAVERSE ?AUTO_8364 ?AUTO_8367 ?AUTO_8361 ) ( AT ?AUTO_8364 ?AUTO_8367 ) ( VISIBLE ?AUTO_8367 ?AUTO_8361 ) ( AT ?AUTO_8369 ?AUTO_8371 ) ( AT_SOIL_SAMPLE ?AUTO_8371 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8369 ) ( STORE_OF ?AUTO_8363 ?AUTO_8369 ) ( EMPTY ?AUTO_8363 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_8369 ?AUTO_8363 ?AUTO_8371 )
+      ( GET_SOIL_DATA ?AUTO_8361 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8361 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8378 - OBJECTIVE
+      ?AUTO_8379 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8380 - ROVER
+      ?AUTO_8383 - WAYPOINT
+      ?AUTO_8382 - LANDER
+      ?AUTO_8381 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8380 ?AUTO_8383 ) ( AT_LANDER ?AUTO_8382 ?AUTO_8381 ) ( HAVE_IMAGE ?AUTO_8380 ?AUTO_8378 ?AUTO_8379 ) ( VISIBLE ?AUTO_8383 ?AUTO_8381 ) ( AVAILABLE ?AUTO_8380 ) ( CHANNEL_FREE ?AUTO_8382 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_8380 ?AUTO_8382 ?AUTO_8378 ?AUTO_8379 ?AUTO_8383 ?AUTO_8381 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8378 ?AUTO_8379 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8386 - OBJECTIVE
+      ?AUTO_8387 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8392 - LANDER
+      ?AUTO_8391 - WAYPOINT
+      ?AUTO_8390 - ROVER
+      ?AUTO_8393 - WAYPOINT
+      ?AUTO_8396 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8392 ?AUTO_8391 ) ( HAVE_IMAGE ?AUTO_8390 ?AUTO_8386 ?AUTO_8387 ) ( VISIBLE ?AUTO_8393 ?AUTO_8391 ) ( AVAILABLE ?AUTO_8390 ) ( CHANNEL_FREE ?AUTO_8392 ) ( CAN_TRAVERSE ?AUTO_8390 ?AUTO_8396 ?AUTO_8393 ) ( AT ?AUTO_8390 ?AUTO_8396 ) ( VISIBLE ?AUTO_8396 ?AUTO_8393 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8390 ?AUTO_8396 ?AUTO_8393 )
+      ( GET_IMAGE_DATA ?AUTO_8386 ?AUTO_8387 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8386 ?AUTO_8387 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8397 - OBJECTIVE
+      ?AUTO_8398 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8403 - LANDER
+      ?AUTO_8402 - WAYPOINT
+      ?AUTO_8399 - WAYPOINT
+      ?AUTO_8404 - ROVER
+      ?AUTO_8405 - WAYPOINT
+      ?AUTO_8410 - CAMERA
+      ?AUTO_8408 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8403 ?AUTO_8402 ) ( VISIBLE ?AUTO_8399 ?AUTO_8402 ) ( AVAILABLE ?AUTO_8404 ) ( CHANNEL_FREE ?AUTO_8403 ) ( CAN_TRAVERSE ?AUTO_8404 ?AUTO_8405 ?AUTO_8399 ) ( AT ?AUTO_8404 ?AUTO_8405 ) ( VISIBLE ?AUTO_8405 ?AUTO_8399 ) ( CALIBRATED ?AUTO_8410 ?AUTO_8404 ) ( ON_BOARD ?AUTO_8410 ?AUTO_8404 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8404 ) ( SUPPORTS ?AUTO_8410 ?AUTO_8398 ) ( VISIBLE_FROM ?AUTO_8397 ?AUTO_8408 ) ( AT ?AUTO_8404 ?AUTO_8408 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_8404 ?AUTO_8408 ?AUTO_8397 ?AUTO_8410 ?AUTO_8398 )
+      ( GET_IMAGE_DATA ?AUTO_8397 ?AUTO_8398 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8397 ?AUTO_8398 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8411 - OBJECTIVE
+      ?AUTO_8412 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8413 - LANDER
+      ?AUTO_8415 - WAYPOINT
+      ?AUTO_8418 - WAYPOINT
+      ?AUTO_8417 - ROVER
+      ?AUTO_8420 - WAYPOINT
+      ?AUTO_8421 - CAMERA
+      ?AUTO_8424 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8413 ?AUTO_8415 ) ( VISIBLE ?AUTO_8418 ?AUTO_8415 ) ( AVAILABLE ?AUTO_8417 ) ( CHANNEL_FREE ?AUTO_8413 ) ( CAN_TRAVERSE ?AUTO_8417 ?AUTO_8420 ?AUTO_8418 ) ( VISIBLE ?AUTO_8420 ?AUTO_8418 ) ( CALIBRATED ?AUTO_8421 ?AUTO_8417 ) ( ON_BOARD ?AUTO_8421 ?AUTO_8417 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8417 ) ( SUPPORTS ?AUTO_8421 ?AUTO_8412 ) ( VISIBLE_FROM ?AUTO_8411 ?AUTO_8420 ) ( CAN_TRAVERSE ?AUTO_8417 ?AUTO_8424 ?AUTO_8420 ) ( AT ?AUTO_8417 ?AUTO_8424 ) ( VISIBLE ?AUTO_8424 ?AUTO_8420 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8417 ?AUTO_8424 ?AUTO_8420 )
+      ( GET_IMAGE_DATA ?AUTO_8411 ?AUTO_8412 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8411 ?AUTO_8412 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8425 - OBJECTIVE
+      ?AUTO_8426 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8429 - LANDER
+      ?AUTO_8432 - WAYPOINT
+      ?AUTO_8433 - WAYPOINT
+      ?AUTO_8430 - ROVER
+      ?AUTO_8428 - WAYPOINT
+      ?AUTO_8431 - CAMERA
+      ?AUTO_8435 - WAYPOINT
+      ?AUTO_8438 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8429 ?AUTO_8432 ) ( VISIBLE ?AUTO_8433 ?AUTO_8432 ) ( AVAILABLE ?AUTO_8430 ) ( CHANNEL_FREE ?AUTO_8429 ) ( CAN_TRAVERSE ?AUTO_8430 ?AUTO_8428 ?AUTO_8433 ) ( VISIBLE ?AUTO_8428 ?AUTO_8433 ) ( CALIBRATED ?AUTO_8431 ?AUTO_8430 ) ( ON_BOARD ?AUTO_8431 ?AUTO_8430 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8430 ) ( SUPPORTS ?AUTO_8431 ?AUTO_8426 ) ( VISIBLE_FROM ?AUTO_8425 ?AUTO_8428 ) ( CAN_TRAVERSE ?AUTO_8430 ?AUTO_8435 ?AUTO_8428 ) ( VISIBLE ?AUTO_8435 ?AUTO_8428 ) ( CAN_TRAVERSE ?AUTO_8430 ?AUTO_8438 ?AUTO_8435 ) ( AT ?AUTO_8430 ?AUTO_8438 ) ( VISIBLE ?AUTO_8438 ?AUTO_8435 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8430 ?AUTO_8438 ?AUTO_8435 )
+      ( GET_IMAGE_DATA ?AUTO_8425 ?AUTO_8426 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8425 ?AUTO_8426 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8439 - OBJECTIVE
+      ?AUTO_8440 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8449 - LANDER
+      ?AUTO_8442 - WAYPOINT
+      ?AUTO_8447 - WAYPOINT
+      ?AUTO_8444 - ROVER
+      ?AUTO_8443 - WAYPOINT
+      ?AUTO_8448 - CAMERA
+      ?AUTO_8441 - WAYPOINT
+      ?AUTO_8450 - WAYPOINT
+      ?AUTO_8453 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8449 ?AUTO_8442 ) ( VISIBLE ?AUTO_8447 ?AUTO_8442 ) ( AVAILABLE ?AUTO_8444 ) ( CHANNEL_FREE ?AUTO_8449 ) ( CAN_TRAVERSE ?AUTO_8444 ?AUTO_8443 ?AUTO_8447 ) ( VISIBLE ?AUTO_8443 ?AUTO_8447 ) ( CALIBRATED ?AUTO_8448 ?AUTO_8444 ) ( ON_BOARD ?AUTO_8448 ?AUTO_8444 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8444 ) ( SUPPORTS ?AUTO_8448 ?AUTO_8440 ) ( VISIBLE_FROM ?AUTO_8439 ?AUTO_8443 ) ( CAN_TRAVERSE ?AUTO_8444 ?AUTO_8441 ?AUTO_8443 ) ( VISIBLE ?AUTO_8441 ?AUTO_8443 ) ( CAN_TRAVERSE ?AUTO_8444 ?AUTO_8450 ?AUTO_8441 ) ( VISIBLE ?AUTO_8450 ?AUTO_8441 ) ( CAN_TRAVERSE ?AUTO_8444 ?AUTO_8453 ?AUTO_8450 ) ( AT ?AUTO_8444 ?AUTO_8453 ) ( VISIBLE ?AUTO_8453 ?AUTO_8450 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8444 ?AUTO_8453 ?AUTO_8450 )
+      ( GET_IMAGE_DATA ?AUTO_8439 ?AUTO_8440 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8439 ?AUTO_8440 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8454 - OBJECTIVE
+      ?AUTO_8455 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8463 - LANDER
+      ?AUTO_8456 - WAYPOINT
+      ?AUTO_8464 - WAYPOINT
+      ?AUTO_8460 - ROVER
+      ?AUTO_8465 - WAYPOINT
+      ?AUTO_8457 - CAMERA
+      ?AUTO_8461 - WAYPOINT
+      ?AUTO_8462 - WAYPOINT
+      ?AUTO_8466 - WAYPOINT
+      ?AUTO_8470 - OBJECTIVE
+      ?AUTO_8468 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8463 ?AUTO_8456 ) ( VISIBLE ?AUTO_8464 ?AUTO_8456 ) ( AVAILABLE ?AUTO_8460 ) ( CHANNEL_FREE ?AUTO_8463 ) ( CAN_TRAVERSE ?AUTO_8460 ?AUTO_8465 ?AUTO_8464 ) ( VISIBLE ?AUTO_8465 ?AUTO_8464 ) ( ON_BOARD ?AUTO_8457 ?AUTO_8460 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8460 ) ( SUPPORTS ?AUTO_8457 ?AUTO_8455 ) ( VISIBLE_FROM ?AUTO_8454 ?AUTO_8465 ) ( CAN_TRAVERSE ?AUTO_8460 ?AUTO_8461 ?AUTO_8465 ) ( VISIBLE ?AUTO_8461 ?AUTO_8465 ) ( CAN_TRAVERSE ?AUTO_8460 ?AUTO_8462 ?AUTO_8461 ) ( VISIBLE ?AUTO_8462 ?AUTO_8461 ) ( CAN_TRAVERSE ?AUTO_8460 ?AUTO_8466 ?AUTO_8462 ) ( AT ?AUTO_8460 ?AUTO_8466 ) ( VISIBLE ?AUTO_8466 ?AUTO_8462 ) ( CALIBRATION_TARGET ?AUTO_8457 ?AUTO_8470 ) ( AT ?AUTO_8460 ?AUTO_8468 ) ( VISIBLE_FROM ?AUTO_8470 ?AUTO_8468 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_8460 ?AUTO_8457 ?AUTO_8470 ?AUTO_8468 )
+      ( GET_IMAGE_DATA ?AUTO_8454 ?AUTO_8455 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8454 ?AUTO_8455 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8471 - OBJECTIVE
+      ?AUTO_8472 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8482 - LANDER
+      ?AUTO_8476 - WAYPOINT
+      ?AUTO_8473 - WAYPOINT
+      ?AUTO_8485 - ROVER
+      ?AUTO_8483 - WAYPOINT
+      ?AUTO_8481 - CAMERA
+      ?AUTO_8478 - WAYPOINT
+      ?AUTO_8475 - WAYPOINT
+      ?AUTO_8480 - WAYPOINT
+      ?AUTO_8479 - OBJECTIVE
+      ?AUTO_8488 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8482 ?AUTO_8476 ) ( VISIBLE ?AUTO_8473 ?AUTO_8476 ) ( AVAILABLE ?AUTO_8485 ) ( CHANNEL_FREE ?AUTO_8482 ) ( CAN_TRAVERSE ?AUTO_8485 ?AUTO_8483 ?AUTO_8473 ) ( VISIBLE ?AUTO_8483 ?AUTO_8473 ) ( ON_BOARD ?AUTO_8481 ?AUTO_8485 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8485 ) ( SUPPORTS ?AUTO_8481 ?AUTO_8472 ) ( VISIBLE_FROM ?AUTO_8471 ?AUTO_8483 ) ( CAN_TRAVERSE ?AUTO_8485 ?AUTO_8478 ?AUTO_8483 ) ( VISIBLE ?AUTO_8478 ?AUTO_8483 ) ( CAN_TRAVERSE ?AUTO_8485 ?AUTO_8475 ?AUTO_8478 ) ( VISIBLE ?AUTO_8475 ?AUTO_8478 ) ( CAN_TRAVERSE ?AUTO_8485 ?AUTO_8480 ?AUTO_8475 ) ( VISIBLE ?AUTO_8480 ?AUTO_8475 ) ( CALIBRATION_TARGET ?AUTO_8481 ?AUTO_8479 ) ( VISIBLE_FROM ?AUTO_8479 ?AUTO_8480 ) ( CAN_TRAVERSE ?AUTO_8485 ?AUTO_8488 ?AUTO_8480 ) ( AT ?AUTO_8485 ?AUTO_8488 ) ( VISIBLE ?AUTO_8488 ?AUTO_8480 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8485 ?AUTO_8488 ?AUTO_8480 )
+      ( GET_IMAGE_DATA ?AUTO_8471 ?AUTO_8472 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8471 ?AUTO_8472 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8497 - OBJECTIVE
+      ?AUTO_8498 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8504 - LANDER
+      ?AUTO_8501 - WAYPOINT
+      ?AUTO_8511 - WAYPOINT
+      ?AUTO_8506 - ROVER
+      ?AUTO_8508 - WAYPOINT
+      ?AUTO_8502 - CAMERA
+      ?AUTO_8499 - WAYPOINT
+      ?AUTO_8507 - WAYPOINT
+      ?AUTO_8505 - WAYPOINT
+      ?AUTO_8510 - OBJECTIVE
+      ?AUTO_8503 - WAYPOINT
+      ?AUTO_8514 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8504 ?AUTO_8501 ) ( VISIBLE ?AUTO_8511 ?AUTO_8501 ) ( AVAILABLE ?AUTO_8506 ) ( CHANNEL_FREE ?AUTO_8504 ) ( CAN_TRAVERSE ?AUTO_8506 ?AUTO_8508 ?AUTO_8511 ) ( VISIBLE ?AUTO_8508 ?AUTO_8511 ) ( ON_BOARD ?AUTO_8502 ?AUTO_8506 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8506 ) ( SUPPORTS ?AUTO_8502 ?AUTO_8498 ) ( VISIBLE_FROM ?AUTO_8497 ?AUTO_8508 ) ( CAN_TRAVERSE ?AUTO_8506 ?AUTO_8499 ?AUTO_8508 ) ( VISIBLE ?AUTO_8499 ?AUTO_8508 ) ( CAN_TRAVERSE ?AUTO_8506 ?AUTO_8507 ?AUTO_8499 ) ( VISIBLE ?AUTO_8507 ?AUTO_8499 ) ( CAN_TRAVERSE ?AUTO_8506 ?AUTO_8505 ?AUTO_8507 ) ( VISIBLE ?AUTO_8505 ?AUTO_8507 ) ( CALIBRATION_TARGET ?AUTO_8502 ?AUTO_8510 ) ( VISIBLE_FROM ?AUTO_8510 ?AUTO_8505 ) ( CAN_TRAVERSE ?AUTO_8506 ?AUTO_8503 ?AUTO_8505 ) ( VISIBLE ?AUTO_8503 ?AUTO_8505 ) ( CAN_TRAVERSE ?AUTO_8506 ?AUTO_8514 ?AUTO_8503 ) ( AT ?AUTO_8506 ?AUTO_8514 ) ( VISIBLE ?AUTO_8514 ?AUTO_8503 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8506 ?AUTO_8514 ?AUTO_8503 )
+      ( GET_IMAGE_DATA ?AUTO_8497 ?AUTO_8498 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8497 ?AUTO_8498 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8528 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8529 - ROVER
+      ?AUTO_8532 - WAYPOINT
+      ?AUTO_8531 - LANDER
+      ?AUTO_8530 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8529 ?AUTO_8532 ) ( AT_LANDER ?AUTO_8531 ?AUTO_8530 ) ( HAVE_SOIL_ANALYSIS ?AUTO_8529 ?AUTO_8528 ) ( VISIBLE ?AUTO_8532 ?AUTO_8530 ) ( AVAILABLE ?AUTO_8529 ) ( CHANNEL_FREE ?AUTO_8531 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_8529 ?AUTO_8531 ?AUTO_8528 ?AUTO_8532 ?AUTO_8530 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8528 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8534 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8537 - LANDER
+      ?AUTO_8536 - WAYPOINT
+      ?AUTO_8535 - ROVER
+      ?AUTO_8538 - WAYPOINT
+      ?AUTO_8542 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8537 ?AUTO_8536 ) ( HAVE_SOIL_ANALYSIS ?AUTO_8535 ?AUTO_8534 ) ( VISIBLE ?AUTO_8538 ?AUTO_8536 ) ( AVAILABLE ?AUTO_8535 ) ( CHANNEL_FREE ?AUTO_8537 ) ( CAN_TRAVERSE ?AUTO_8535 ?AUTO_8542 ?AUTO_8538 ) ( AT ?AUTO_8535 ?AUTO_8542 ) ( VISIBLE ?AUTO_8542 ?AUTO_8538 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8535 ?AUTO_8542 ?AUTO_8538 )
+      ( GET_SOIL_DATA ?AUTO_8534 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8534 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8545 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8547 - LANDER
+      ?AUTO_8551 - WAYPOINT
+      ?AUTO_8550 - WAYPOINT
+      ?AUTO_8548 - ROVER
+      ?AUTO_8546 - WAYPOINT
+      ?AUTO_8553 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8547 ?AUTO_8551 ) ( VISIBLE ?AUTO_8550 ?AUTO_8551 ) ( AVAILABLE ?AUTO_8548 ) ( CHANNEL_FREE ?AUTO_8547 ) ( CAN_TRAVERSE ?AUTO_8548 ?AUTO_8546 ?AUTO_8550 ) ( AT ?AUTO_8548 ?AUTO_8546 ) ( VISIBLE ?AUTO_8546 ?AUTO_8550 ) ( AT ?AUTO_8548 ?AUTO_8545 ) ( AT_SOIL_SAMPLE ?AUTO_8545 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8548 ) ( STORE_OF ?AUTO_8553 ?AUTO_8548 ) ( EMPTY ?AUTO_8553 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_8548 ?AUTO_8553 ?AUTO_8545 )
+      ( GET_SOIL_DATA ?AUTO_8545 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8545 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8555 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8560 - LANDER
+      ?AUTO_8559 - WAYPOINT
+      ?AUTO_8557 - WAYPOINT
+      ?AUTO_8561 - ROVER
+      ?AUTO_8562 - STORE
+      ?AUTO_8565 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8560 ?AUTO_8559 ) ( VISIBLE ?AUTO_8557 ?AUTO_8559 ) ( AVAILABLE ?AUTO_8561 ) ( CHANNEL_FREE ?AUTO_8560 ) ( CAN_TRAVERSE ?AUTO_8561 ?AUTO_8555 ?AUTO_8557 ) ( VISIBLE ?AUTO_8555 ?AUTO_8557 ) ( AT_SOIL_SAMPLE ?AUTO_8555 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8561 ) ( STORE_OF ?AUTO_8562 ?AUTO_8561 ) ( EMPTY ?AUTO_8562 ) ( CAN_TRAVERSE ?AUTO_8561 ?AUTO_8565 ?AUTO_8555 ) ( AT ?AUTO_8561 ?AUTO_8565 ) ( VISIBLE ?AUTO_8565 ?AUTO_8555 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8561 ?AUTO_8565 ?AUTO_8555 )
+      ( GET_SOIL_DATA ?AUTO_8555 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8555 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8567 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8569 - LANDER
+      ?AUTO_8570 - WAYPOINT
+      ?AUTO_8571 - WAYPOINT
+      ?AUTO_8572 - ROVER
+      ?AUTO_8568 - STORE
+      ?AUTO_8573 - WAYPOINT
+      ?AUTO_8577 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8569 ?AUTO_8570 ) ( VISIBLE ?AUTO_8571 ?AUTO_8570 ) ( AVAILABLE ?AUTO_8572 ) ( CHANNEL_FREE ?AUTO_8569 ) ( CAN_TRAVERSE ?AUTO_8572 ?AUTO_8567 ?AUTO_8571 ) ( VISIBLE ?AUTO_8567 ?AUTO_8571 ) ( AT_SOIL_SAMPLE ?AUTO_8567 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8572 ) ( STORE_OF ?AUTO_8568 ?AUTO_8572 ) ( EMPTY ?AUTO_8568 ) ( CAN_TRAVERSE ?AUTO_8572 ?AUTO_8573 ?AUTO_8567 ) ( VISIBLE ?AUTO_8573 ?AUTO_8567 ) ( CAN_TRAVERSE ?AUTO_8572 ?AUTO_8577 ?AUTO_8573 ) ( AT ?AUTO_8572 ?AUTO_8577 ) ( VISIBLE ?AUTO_8577 ?AUTO_8573 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8572 ?AUTO_8577 ?AUTO_8573 )
+      ( GET_SOIL_DATA ?AUTO_8567 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8567 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8584 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8585 - LANDER
+      ?AUTO_8591 - WAYPOINT
+      ?AUTO_8589 - WAYPOINT
+      ?AUTO_8586 - ROVER
+      ?AUTO_8590 - STORE
+      ?AUTO_8587 - WAYPOINT
+      ?AUTO_8592 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8585 ?AUTO_8591 ) ( VISIBLE ?AUTO_8589 ?AUTO_8591 ) ( AVAILABLE ?AUTO_8586 ) ( CHANNEL_FREE ?AUTO_8585 ) ( CAN_TRAVERSE ?AUTO_8586 ?AUTO_8584 ?AUTO_8589 ) ( VISIBLE ?AUTO_8584 ?AUTO_8589 ) ( AT_SOIL_SAMPLE ?AUTO_8584 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8586 ) ( STORE_OF ?AUTO_8590 ?AUTO_8586 ) ( CAN_TRAVERSE ?AUTO_8586 ?AUTO_8587 ?AUTO_8584 ) ( AT ?AUTO_8586 ?AUTO_8587 ) ( VISIBLE ?AUTO_8587 ?AUTO_8584 ) ( STORE_OF ?AUTO_8590 ?AUTO_8592 ) ( FULL ?AUTO_8590 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8592 ?AUTO_8590 )
+      ( GET_SOIL_DATA ?AUTO_8584 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8584 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_8597 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8602 - LANDER
+      ?AUTO_8601 - WAYPOINT
+      ?AUTO_8603 - WAYPOINT
+      ?AUTO_8604 - ROVER
+      ?AUTO_8599 - STORE
+      ?AUTO_8605 - WAYPOINT
+      ?AUTO_8600 - ROVER
+      ?AUTO_8608 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8602 ?AUTO_8601 ) ( VISIBLE ?AUTO_8603 ?AUTO_8601 ) ( AVAILABLE ?AUTO_8604 ) ( CHANNEL_FREE ?AUTO_8602 ) ( CAN_TRAVERSE ?AUTO_8604 ?AUTO_8597 ?AUTO_8603 ) ( VISIBLE ?AUTO_8597 ?AUTO_8603 ) ( AT_SOIL_SAMPLE ?AUTO_8597 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_8604 ) ( STORE_OF ?AUTO_8599 ?AUTO_8604 ) ( CAN_TRAVERSE ?AUTO_8604 ?AUTO_8605 ?AUTO_8597 ) ( VISIBLE ?AUTO_8605 ?AUTO_8597 ) ( STORE_OF ?AUTO_8599 ?AUTO_8600 ) ( FULL ?AUTO_8599 ) ( CAN_TRAVERSE ?AUTO_8604 ?AUTO_8608 ?AUTO_8605 ) ( AT ?AUTO_8604 ?AUTO_8608 ) ( VISIBLE ?AUTO_8608 ?AUTO_8605 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8604 ?AUTO_8608 ?AUTO_8605 )
+      ( GET_SOIL_DATA ?AUTO_8597 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_8597 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8616 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8617 - ROVER
+      ?AUTO_8620 - WAYPOINT
+      ?AUTO_8619 - LANDER
+      ?AUTO_8618 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8617 ?AUTO_8620 ) ( AT_LANDER ?AUTO_8619 ?AUTO_8618 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8617 ?AUTO_8616 ) ( VISIBLE ?AUTO_8620 ?AUTO_8618 ) ( AVAILABLE ?AUTO_8617 ) ( CHANNEL_FREE ?AUTO_8619 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_8617 ?AUTO_8619 ?AUTO_8616 ?AUTO_8620 ?AUTO_8618 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8616 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8623 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8625 - LANDER
+      ?AUTO_8628 - WAYPOINT
+      ?AUTO_8624 - ROVER
+      ?AUTO_8626 - WAYPOINT
+      ?AUTO_8631 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8625 ?AUTO_8628 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8624 ?AUTO_8623 ) ( VISIBLE ?AUTO_8626 ?AUTO_8628 ) ( AVAILABLE ?AUTO_8624 ) ( CHANNEL_FREE ?AUTO_8625 ) ( CAN_TRAVERSE ?AUTO_8624 ?AUTO_8631 ?AUTO_8626 ) ( AT ?AUTO_8624 ?AUTO_8631 ) ( VISIBLE ?AUTO_8631 ?AUTO_8626 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8624 ?AUTO_8631 ?AUTO_8626 )
+      ( GET_ROCK_DATA ?AUTO_8623 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8623 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8632 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8634 - LANDER
+      ?AUTO_8636 - WAYPOINT
+      ?AUTO_8635 - WAYPOINT
+      ?AUTO_8637 - ROVER
+      ?AUTO_8638 - WAYPOINT
+      ?AUTO_8640 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8634 ?AUTO_8636 ) ( VISIBLE ?AUTO_8635 ?AUTO_8636 ) ( AVAILABLE ?AUTO_8637 ) ( CHANNEL_FREE ?AUTO_8634 ) ( CAN_TRAVERSE ?AUTO_8637 ?AUTO_8638 ?AUTO_8635 ) ( AT ?AUTO_8637 ?AUTO_8638 ) ( VISIBLE ?AUTO_8638 ?AUTO_8635 ) ( AT ?AUTO_8637 ?AUTO_8632 ) ( AT_ROCK_SAMPLE ?AUTO_8632 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8637 ) ( STORE_OF ?AUTO_8640 ?AUTO_8637 ) ( EMPTY ?AUTO_8640 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_8637 ?AUTO_8640 ?AUTO_8632 )
+      ( GET_ROCK_DATA ?AUTO_8632 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8632 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8642 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8648 - LANDER
+      ?AUTO_8646 - WAYPOINT
+      ?AUTO_8649 - WAYPOINT
+      ?AUTO_8645 - ROVER
+      ?AUTO_8644 - WAYPOINT
+      ?AUTO_8647 - STORE
+      ?AUTO_8650 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8648 ?AUTO_8646 ) ( VISIBLE ?AUTO_8649 ?AUTO_8646 ) ( AVAILABLE ?AUTO_8645 ) ( CHANNEL_FREE ?AUTO_8648 ) ( CAN_TRAVERSE ?AUTO_8645 ?AUTO_8644 ?AUTO_8649 ) ( AT ?AUTO_8645 ?AUTO_8644 ) ( VISIBLE ?AUTO_8644 ?AUTO_8649 ) ( AT ?AUTO_8645 ?AUTO_8642 ) ( AT_ROCK_SAMPLE ?AUTO_8642 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8645 ) ( STORE_OF ?AUTO_8647 ?AUTO_8645 ) ( STORE_OF ?AUTO_8647 ?AUTO_8650 ) ( FULL ?AUTO_8647 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8650 ?AUTO_8647 )
+      ( GET_ROCK_DATA ?AUTO_8642 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8642 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8653 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8656 - LANDER
+      ?AUTO_8659 - WAYPOINT
+      ?AUTO_8658 - WAYPOINT
+      ?AUTO_8660 - ROVER
+      ?AUTO_8654 - STORE
+      ?AUTO_8663 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8656 ?AUTO_8659 ) ( VISIBLE ?AUTO_8658 ?AUTO_8659 ) ( AVAILABLE ?AUTO_8660 ) ( CHANNEL_FREE ?AUTO_8656 ) ( CAN_TRAVERSE ?AUTO_8660 ?AUTO_8653 ?AUTO_8658 ) ( VISIBLE ?AUTO_8653 ?AUTO_8658 ) ( AT_ROCK_SAMPLE ?AUTO_8653 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8660 ) ( STORE_OF ?AUTO_8654 ?AUTO_8660 ) ( EMPTY ?AUTO_8654 ) ( CAN_TRAVERSE ?AUTO_8660 ?AUTO_8663 ?AUTO_8653 ) ( AT ?AUTO_8660 ?AUTO_8663 ) ( VISIBLE ?AUTO_8663 ?AUTO_8653 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8660 ?AUTO_8663 ?AUTO_8653 )
+      ( GET_ROCK_DATA ?AUTO_8653 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8653 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8665 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8671 - LANDER
+      ?AUTO_8670 - WAYPOINT
+      ?AUTO_8672 - WAYPOINT
+      ?AUTO_8666 - ROVER
+      ?AUTO_8668 - STORE
+      ?AUTO_8667 - WAYPOINT
+      ?AUTO_8675 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8671 ?AUTO_8670 ) ( VISIBLE ?AUTO_8672 ?AUTO_8670 ) ( AVAILABLE ?AUTO_8666 ) ( CHANNEL_FREE ?AUTO_8671 ) ( CAN_TRAVERSE ?AUTO_8666 ?AUTO_8665 ?AUTO_8672 ) ( VISIBLE ?AUTO_8665 ?AUTO_8672 ) ( AT_ROCK_SAMPLE ?AUTO_8665 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8666 ) ( STORE_OF ?AUTO_8668 ?AUTO_8666 ) ( EMPTY ?AUTO_8668 ) ( CAN_TRAVERSE ?AUTO_8666 ?AUTO_8667 ?AUTO_8665 ) ( VISIBLE ?AUTO_8667 ?AUTO_8665 ) ( CAN_TRAVERSE ?AUTO_8666 ?AUTO_8675 ?AUTO_8667 ) ( AT ?AUTO_8666 ?AUTO_8675 ) ( VISIBLE ?AUTO_8675 ?AUTO_8667 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8666 ?AUTO_8675 ?AUTO_8667 )
+      ( GET_ROCK_DATA ?AUTO_8665 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8665 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8682 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8685 - LANDER
+      ?AUTO_8684 - WAYPOINT
+      ?AUTO_8686 - WAYPOINT
+      ?AUTO_8688 - ROVER
+      ?AUTO_8689 - STORE
+      ?AUTO_8683 - WAYPOINT
+      ?AUTO_8690 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8685 ?AUTO_8684 ) ( VISIBLE ?AUTO_8686 ?AUTO_8684 ) ( AVAILABLE ?AUTO_8688 ) ( CHANNEL_FREE ?AUTO_8685 ) ( CAN_TRAVERSE ?AUTO_8688 ?AUTO_8682 ?AUTO_8686 ) ( VISIBLE ?AUTO_8682 ?AUTO_8686 ) ( AT_ROCK_SAMPLE ?AUTO_8682 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8688 ) ( STORE_OF ?AUTO_8689 ?AUTO_8688 ) ( CAN_TRAVERSE ?AUTO_8688 ?AUTO_8683 ?AUTO_8682 ) ( AT ?AUTO_8688 ?AUTO_8683 ) ( VISIBLE ?AUTO_8683 ?AUTO_8682 ) ( STORE_OF ?AUTO_8689 ?AUTO_8690 ) ( FULL ?AUTO_8689 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_8690 ?AUTO_8689 )
+      ( GET_ROCK_DATA ?AUTO_8682 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8682 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8695 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8698 - LANDER
+      ?AUTO_8701 - WAYPOINT
+      ?AUTO_8703 - WAYPOINT
+      ?AUTO_8697 - ROVER
+      ?AUTO_8699 - STORE
+      ?AUTO_8702 - WAYPOINT
+      ?AUTO_8700 - ROVER
+      ?AUTO_8706 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8698 ?AUTO_8701 ) ( VISIBLE ?AUTO_8703 ?AUTO_8701 ) ( AVAILABLE ?AUTO_8697 ) ( CHANNEL_FREE ?AUTO_8698 ) ( CAN_TRAVERSE ?AUTO_8697 ?AUTO_8695 ?AUTO_8703 ) ( VISIBLE ?AUTO_8695 ?AUTO_8703 ) ( AT_ROCK_SAMPLE ?AUTO_8695 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8697 ) ( STORE_OF ?AUTO_8699 ?AUTO_8697 ) ( CAN_TRAVERSE ?AUTO_8697 ?AUTO_8702 ?AUTO_8695 ) ( VISIBLE ?AUTO_8702 ?AUTO_8695 ) ( STORE_OF ?AUTO_8699 ?AUTO_8700 ) ( FULL ?AUTO_8699 ) ( CAN_TRAVERSE ?AUTO_8697 ?AUTO_8706 ?AUTO_8702 ) ( AT ?AUTO_8697 ?AUTO_8706 ) ( VISIBLE ?AUTO_8706 ?AUTO_8702 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8697 ?AUTO_8706 ?AUTO_8702 )
+      ( GET_ROCK_DATA ?AUTO_8695 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8695 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8708 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8709 - ROVER
+      ?AUTO_8712 - WAYPOINT
+      ?AUTO_8711 - LANDER
+      ?AUTO_8710 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8709 ?AUTO_8712 ) ( AT_LANDER ?AUTO_8711 ?AUTO_8710 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8709 ?AUTO_8708 ) ( VISIBLE ?AUTO_8712 ?AUTO_8710 ) ( AVAILABLE ?AUTO_8709 ) ( CHANNEL_FREE ?AUTO_8711 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_8709 ?AUTO_8711 ?AUTO_8708 ?AUTO_8712 ?AUTO_8710 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8708 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8714 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8718 - LANDER
+      ?AUTO_8717 - WAYPOINT
+      ?AUTO_8716 - ROVER
+      ?AUTO_8719 - WAYPOINT
+      ?AUTO_8722 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8718 ?AUTO_8717 ) ( HAVE_ROCK_ANALYSIS ?AUTO_8716 ?AUTO_8714 ) ( VISIBLE ?AUTO_8719 ?AUTO_8717 ) ( AVAILABLE ?AUTO_8716 ) ( CHANNEL_FREE ?AUTO_8718 ) ( CAN_TRAVERSE ?AUTO_8716 ?AUTO_8722 ?AUTO_8719 ) ( AT ?AUTO_8716 ?AUTO_8722 ) ( VISIBLE ?AUTO_8722 ?AUTO_8719 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8716 ?AUTO_8722 ?AUTO_8719 )
+      ( GET_ROCK_DATA ?AUTO_8714 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8714 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8724 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8727 - LANDER
+      ?AUTO_8728 - WAYPOINT
+      ?AUTO_8730 - WAYPOINT
+      ?AUTO_8726 - ROVER
+      ?AUTO_8729 - WAYPOINT
+      ?AUTO_8732 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8727 ?AUTO_8728 ) ( VISIBLE ?AUTO_8730 ?AUTO_8728 ) ( AVAILABLE ?AUTO_8726 ) ( CHANNEL_FREE ?AUTO_8727 ) ( CAN_TRAVERSE ?AUTO_8726 ?AUTO_8729 ?AUTO_8730 ) ( AT ?AUTO_8726 ?AUTO_8729 ) ( VISIBLE ?AUTO_8729 ?AUTO_8730 ) ( AT ?AUTO_8726 ?AUTO_8724 ) ( AT_ROCK_SAMPLE ?AUTO_8724 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8726 ) ( STORE_OF ?AUTO_8732 ?AUTO_8726 ) ( EMPTY ?AUTO_8732 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_8726 ?AUTO_8732 ?AUTO_8724 )
+      ( GET_ROCK_DATA ?AUTO_8724 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8724 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8734 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8740 - LANDER
+      ?AUTO_8739 - WAYPOINT
+      ?AUTO_8737 - WAYPOINT
+      ?AUTO_8738 - ROVER
+      ?AUTO_8741 - STORE
+      ?AUTO_8744 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8740 ?AUTO_8739 ) ( VISIBLE ?AUTO_8737 ?AUTO_8739 ) ( AVAILABLE ?AUTO_8738 ) ( CHANNEL_FREE ?AUTO_8740 ) ( CAN_TRAVERSE ?AUTO_8738 ?AUTO_8734 ?AUTO_8737 ) ( VISIBLE ?AUTO_8734 ?AUTO_8737 ) ( AT_ROCK_SAMPLE ?AUTO_8734 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8738 ) ( STORE_OF ?AUTO_8741 ?AUTO_8738 ) ( EMPTY ?AUTO_8741 ) ( CAN_TRAVERSE ?AUTO_8738 ?AUTO_8744 ?AUTO_8734 ) ( AT ?AUTO_8738 ?AUTO_8744 ) ( VISIBLE ?AUTO_8744 ?AUTO_8734 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8738 ?AUTO_8744 ?AUTO_8734 )
+      ( GET_ROCK_DATA ?AUTO_8734 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8734 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8751 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8757 - LANDER
+      ?AUTO_8752 - WAYPOINT
+      ?AUTO_8755 - WAYPOINT
+      ?AUTO_8758 - ROVER
+      ?AUTO_8753 - STORE
+      ?AUTO_8756 - WAYPOINT
+      ?AUTO_8761 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8757 ?AUTO_8752 ) ( VISIBLE ?AUTO_8755 ?AUTO_8752 ) ( AVAILABLE ?AUTO_8758 ) ( CHANNEL_FREE ?AUTO_8757 ) ( CAN_TRAVERSE ?AUTO_8758 ?AUTO_8751 ?AUTO_8755 ) ( VISIBLE ?AUTO_8751 ?AUTO_8755 ) ( AT_ROCK_SAMPLE ?AUTO_8751 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8758 ) ( STORE_OF ?AUTO_8753 ?AUTO_8758 ) ( EMPTY ?AUTO_8753 ) ( CAN_TRAVERSE ?AUTO_8758 ?AUTO_8756 ?AUTO_8751 ) ( VISIBLE ?AUTO_8756 ?AUTO_8751 ) ( CAN_TRAVERSE ?AUTO_8758 ?AUTO_8761 ?AUTO_8756 ) ( AT ?AUTO_8758 ?AUTO_8761 ) ( VISIBLE ?AUTO_8761 ?AUTO_8756 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8758 ?AUTO_8761 ?AUTO_8756 )
+      ( GET_ROCK_DATA ?AUTO_8751 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8751 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_8762 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_8765 - LANDER
+      ?AUTO_8766 - WAYPOINT
+      ?AUTO_8763 - WAYPOINT
+      ?AUTO_8764 - ROVER
+      ?AUTO_8770 - STORE
+      ?AUTO_8769 - WAYPOINT
+      ?AUTO_8767 - WAYPOINT
+      ?AUTO_8773 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8765 ?AUTO_8766 ) ( VISIBLE ?AUTO_8763 ?AUTO_8766 ) ( AVAILABLE ?AUTO_8764 ) ( CHANNEL_FREE ?AUTO_8765 ) ( CAN_TRAVERSE ?AUTO_8764 ?AUTO_8762 ?AUTO_8763 ) ( VISIBLE ?AUTO_8762 ?AUTO_8763 ) ( AT_ROCK_SAMPLE ?AUTO_8762 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_8764 ) ( STORE_OF ?AUTO_8770 ?AUTO_8764 ) ( EMPTY ?AUTO_8770 ) ( CAN_TRAVERSE ?AUTO_8764 ?AUTO_8769 ?AUTO_8762 ) ( VISIBLE ?AUTO_8769 ?AUTO_8762 ) ( CAN_TRAVERSE ?AUTO_8764 ?AUTO_8767 ?AUTO_8769 ) ( VISIBLE ?AUTO_8767 ?AUTO_8769 ) ( CAN_TRAVERSE ?AUTO_8764 ?AUTO_8773 ?AUTO_8767 ) ( AT ?AUTO_8764 ?AUTO_8773 ) ( VISIBLE ?AUTO_8773 ?AUTO_8767 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8764 ?AUTO_8773 ?AUTO_8767 )
+      ( GET_ROCK_DATA ?AUTO_8762 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_8762 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8776 - OBJECTIVE
+      ?AUTO_8777 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8778 - ROVER
+      ?AUTO_8781 - WAYPOINT
+      ?AUTO_8780 - LANDER
+      ?AUTO_8779 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8778 ?AUTO_8781 ) ( AT_LANDER ?AUTO_8780 ?AUTO_8779 ) ( HAVE_IMAGE ?AUTO_8778 ?AUTO_8776 ?AUTO_8777 ) ( VISIBLE ?AUTO_8781 ?AUTO_8779 ) ( AVAILABLE ?AUTO_8778 ) ( CHANNEL_FREE ?AUTO_8780 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_8778 ?AUTO_8780 ?AUTO_8776 ?AUTO_8777 ?AUTO_8781 ?AUTO_8779 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8776 ?AUTO_8777 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8786 - OBJECTIVE
+      ?AUTO_8787 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8793 - LANDER
+      ?AUTO_8789 - WAYPOINT
+      ?AUTO_8788 - ROVER
+      ?AUTO_8791 - WAYPOINT
+      ?AUTO_8796 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8793 ?AUTO_8789 ) ( HAVE_IMAGE ?AUTO_8788 ?AUTO_8786 ?AUTO_8787 ) ( VISIBLE ?AUTO_8791 ?AUTO_8789 ) ( AVAILABLE ?AUTO_8788 ) ( CHANNEL_FREE ?AUTO_8793 ) ( CAN_TRAVERSE ?AUTO_8788 ?AUTO_8796 ?AUTO_8791 ) ( AT ?AUTO_8788 ?AUTO_8796 ) ( VISIBLE ?AUTO_8796 ?AUTO_8791 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8788 ?AUTO_8796 ?AUTO_8791 )
+      ( GET_IMAGE_DATA ?AUTO_8786 ?AUTO_8787 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8786 ?AUTO_8787 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8801 - OBJECTIVE
+      ?AUTO_8802 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8805 - LANDER
+      ?AUTO_8803 - WAYPOINT
+      ?AUTO_8808 - ROVER
+      ?AUTO_8806 - WAYPOINT
+      ?AUTO_8804 - WAYPOINT
+      ?AUTO_8812 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8805 ?AUTO_8803 ) ( HAVE_IMAGE ?AUTO_8808 ?AUTO_8801 ?AUTO_8802 ) ( VISIBLE ?AUTO_8806 ?AUTO_8803 ) ( AVAILABLE ?AUTO_8808 ) ( CHANNEL_FREE ?AUTO_8805 ) ( CAN_TRAVERSE ?AUTO_8808 ?AUTO_8804 ?AUTO_8806 ) ( VISIBLE ?AUTO_8804 ?AUTO_8806 ) ( CAN_TRAVERSE ?AUTO_8808 ?AUTO_8812 ?AUTO_8804 ) ( AT ?AUTO_8808 ?AUTO_8812 ) ( VISIBLE ?AUTO_8812 ?AUTO_8804 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8808 ?AUTO_8812 ?AUTO_8804 )
+      ( GET_IMAGE_DATA ?AUTO_8801 ?AUTO_8802 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8801 ?AUTO_8802 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8813 - OBJECTIVE
+      ?AUTO_8814 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8820 - LANDER
+      ?AUTO_8819 - WAYPOINT
+      ?AUTO_8821 - WAYPOINT
+      ?AUTO_8818 - ROVER
+      ?AUTO_8817 - WAYPOINT
+      ?AUTO_8822 - WAYPOINT
+      ?AUTO_8827 - CAMERA
+      ?AUTO_8825 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8820 ?AUTO_8819 ) ( VISIBLE ?AUTO_8821 ?AUTO_8819 ) ( AVAILABLE ?AUTO_8818 ) ( CHANNEL_FREE ?AUTO_8820 ) ( CAN_TRAVERSE ?AUTO_8818 ?AUTO_8817 ?AUTO_8821 ) ( VISIBLE ?AUTO_8817 ?AUTO_8821 ) ( CAN_TRAVERSE ?AUTO_8818 ?AUTO_8822 ?AUTO_8817 ) ( AT ?AUTO_8818 ?AUTO_8822 ) ( VISIBLE ?AUTO_8822 ?AUTO_8817 ) ( CALIBRATED ?AUTO_8827 ?AUTO_8818 ) ( ON_BOARD ?AUTO_8827 ?AUTO_8818 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8818 ) ( SUPPORTS ?AUTO_8827 ?AUTO_8814 ) ( VISIBLE_FROM ?AUTO_8813 ?AUTO_8825 ) ( AT ?AUTO_8818 ?AUTO_8825 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_8818 ?AUTO_8825 ?AUTO_8813 ?AUTO_8827 ?AUTO_8814 )
+      ( GET_IMAGE_DATA ?AUTO_8813 ?AUTO_8814 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8813 ?AUTO_8814 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8828 - OBJECTIVE
+      ?AUTO_8829 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8837 - LANDER
+      ?AUTO_8834 - WAYPOINT
+      ?AUTO_8835 - WAYPOINT
+      ?AUTO_8833 - ROVER
+      ?AUTO_8832 - WAYPOINT
+      ?AUTO_8838 - WAYPOINT
+      ?AUTO_8839 - CAMERA
+      ?AUTO_8842 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8837 ?AUTO_8834 ) ( VISIBLE ?AUTO_8835 ?AUTO_8834 ) ( AVAILABLE ?AUTO_8833 ) ( CHANNEL_FREE ?AUTO_8837 ) ( CAN_TRAVERSE ?AUTO_8833 ?AUTO_8832 ?AUTO_8835 ) ( VISIBLE ?AUTO_8832 ?AUTO_8835 ) ( CAN_TRAVERSE ?AUTO_8833 ?AUTO_8838 ?AUTO_8832 ) ( VISIBLE ?AUTO_8838 ?AUTO_8832 ) ( CALIBRATED ?AUTO_8839 ?AUTO_8833 ) ( ON_BOARD ?AUTO_8839 ?AUTO_8833 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8833 ) ( SUPPORTS ?AUTO_8839 ?AUTO_8829 ) ( VISIBLE_FROM ?AUTO_8828 ?AUTO_8838 ) ( CAN_TRAVERSE ?AUTO_8833 ?AUTO_8842 ?AUTO_8838 ) ( AT ?AUTO_8833 ?AUTO_8842 ) ( VISIBLE ?AUTO_8842 ?AUTO_8838 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8833 ?AUTO_8842 ?AUTO_8838 )
+      ( GET_IMAGE_DATA ?AUTO_8828 ?AUTO_8829 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8828 ?AUTO_8829 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8843 - OBJECTIVE
+      ?AUTO_8844 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8846 - LANDER
+      ?AUTO_8853 - WAYPOINT
+      ?AUTO_8849 - WAYPOINT
+      ?AUTO_8845 - ROVER
+      ?AUTO_8850 - WAYPOINT
+      ?AUTO_8852 - WAYPOINT
+      ?AUTO_8851 - CAMERA
+      ?AUTO_8854 - WAYPOINT
+      ?AUTO_8858 - OBJECTIVE
+      ?AUTO_8856 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8846 ?AUTO_8853 ) ( VISIBLE ?AUTO_8849 ?AUTO_8853 ) ( AVAILABLE ?AUTO_8845 ) ( CHANNEL_FREE ?AUTO_8846 ) ( CAN_TRAVERSE ?AUTO_8845 ?AUTO_8850 ?AUTO_8849 ) ( VISIBLE ?AUTO_8850 ?AUTO_8849 ) ( CAN_TRAVERSE ?AUTO_8845 ?AUTO_8852 ?AUTO_8850 ) ( VISIBLE ?AUTO_8852 ?AUTO_8850 ) ( ON_BOARD ?AUTO_8851 ?AUTO_8845 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8845 ) ( SUPPORTS ?AUTO_8851 ?AUTO_8844 ) ( VISIBLE_FROM ?AUTO_8843 ?AUTO_8852 ) ( CAN_TRAVERSE ?AUTO_8845 ?AUTO_8854 ?AUTO_8852 ) ( AT ?AUTO_8845 ?AUTO_8854 ) ( VISIBLE ?AUTO_8854 ?AUTO_8852 ) ( CALIBRATION_TARGET ?AUTO_8851 ?AUTO_8858 ) ( AT ?AUTO_8845 ?AUTO_8856 ) ( VISIBLE_FROM ?AUTO_8858 ?AUTO_8856 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_8845 ?AUTO_8851 ?AUTO_8858 ?AUTO_8856 )
+      ( GET_IMAGE_DATA ?AUTO_8843 ?AUTO_8844 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8843 ?AUTO_8844 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8863 - OBJECTIVE
+      ?AUTO_8864 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8874 - LANDER
+      ?AUTO_8871 - WAYPOINT
+      ?AUTO_8866 - WAYPOINT
+      ?AUTO_8869 - ROVER
+      ?AUTO_8876 - WAYPOINT
+      ?AUTO_8875 - WAYPOINT
+      ?AUTO_8867 - CAMERA
+      ?AUTO_8868 - WAYPOINT
+      ?AUTO_8872 - OBJECTIVE
+      ?AUTO_8879 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8874 ?AUTO_8871 ) ( VISIBLE ?AUTO_8866 ?AUTO_8871 ) ( AVAILABLE ?AUTO_8869 ) ( CHANNEL_FREE ?AUTO_8874 ) ( CAN_TRAVERSE ?AUTO_8869 ?AUTO_8876 ?AUTO_8866 ) ( VISIBLE ?AUTO_8876 ?AUTO_8866 ) ( CAN_TRAVERSE ?AUTO_8869 ?AUTO_8875 ?AUTO_8876 ) ( VISIBLE ?AUTO_8875 ?AUTO_8876 ) ( ON_BOARD ?AUTO_8867 ?AUTO_8869 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8869 ) ( SUPPORTS ?AUTO_8867 ?AUTO_8864 ) ( VISIBLE_FROM ?AUTO_8863 ?AUTO_8875 ) ( CAN_TRAVERSE ?AUTO_8869 ?AUTO_8868 ?AUTO_8875 ) ( VISIBLE ?AUTO_8868 ?AUTO_8875 ) ( CALIBRATION_TARGET ?AUTO_8867 ?AUTO_8872 ) ( VISIBLE_FROM ?AUTO_8872 ?AUTO_8868 ) ( CAN_TRAVERSE ?AUTO_8869 ?AUTO_8879 ?AUTO_8868 ) ( AT ?AUTO_8869 ?AUTO_8879 ) ( VISIBLE ?AUTO_8879 ?AUTO_8868 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8869 ?AUTO_8879 ?AUTO_8868 )
+      ( GET_IMAGE_DATA ?AUTO_8863 ?AUTO_8864 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8863 ?AUTO_8864 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8880 - OBJECTIVE
+      ?AUTO_8881 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8887 - LANDER
+      ?AUTO_8890 - WAYPOINT
+      ?AUTO_8886 - WAYPOINT
+      ?AUTO_8889 - ROVER
+      ?AUTO_8885 - WAYPOINT
+      ?AUTO_8884 - WAYPOINT
+      ?AUTO_8891 - CAMERA
+      ?AUTO_8892 - WAYPOINT
+      ?AUTO_8883 - OBJECTIVE
+      ?AUTO_8893 - WAYPOINT
+      ?AUTO_8896 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8887 ?AUTO_8890 ) ( VISIBLE ?AUTO_8886 ?AUTO_8890 ) ( AVAILABLE ?AUTO_8889 ) ( CHANNEL_FREE ?AUTO_8887 ) ( CAN_TRAVERSE ?AUTO_8889 ?AUTO_8885 ?AUTO_8886 ) ( VISIBLE ?AUTO_8885 ?AUTO_8886 ) ( CAN_TRAVERSE ?AUTO_8889 ?AUTO_8884 ?AUTO_8885 ) ( VISIBLE ?AUTO_8884 ?AUTO_8885 ) ( ON_BOARD ?AUTO_8891 ?AUTO_8889 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8889 ) ( SUPPORTS ?AUTO_8891 ?AUTO_8881 ) ( VISIBLE_FROM ?AUTO_8880 ?AUTO_8884 ) ( CAN_TRAVERSE ?AUTO_8889 ?AUTO_8892 ?AUTO_8884 ) ( VISIBLE ?AUTO_8892 ?AUTO_8884 ) ( CALIBRATION_TARGET ?AUTO_8891 ?AUTO_8883 ) ( VISIBLE_FROM ?AUTO_8883 ?AUTO_8892 ) ( CAN_TRAVERSE ?AUTO_8889 ?AUTO_8893 ?AUTO_8892 ) ( VISIBLE ?AUTO_8893 ?AUTO_8892 ) ( CAN_TRAVERSE ?AUTO_8889 ?AUTO_8896 ?AUTO_8893 ) ( AT ?AUTO_8889 ?AUTO_8896 ) ( VISIBLE ?AUTO_8896 ?AUTO_8893 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8889 ?AUTO_8896 ?AUTO_8893 )
+      ( GET_IMAGE_DATA ?AUTO_8880 ?AUTO_8881 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8880 ?AUTO_8881 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8897 - OBJECTIVE
+      ?AUTO_8898 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8904 - LANDER
+      ?AUTO_8906 - WAYPOINT
+      ?AUTO_8900 - WAYPOINT
+      ?AUTO_8905 - ROVER
+      ?AUTO_8909 - WAYPOINT
+      ?AUTO_8910 - WAYPOINT
+      ?AUTO_8903 - CAMERA
+      ?AUTO_8901 - WAYPOINT
+      ?AUTO_8902 - OBJECTIVE
+      ?AUTO_8899 - WAYPOINT
+      ?AUTO_8911 - WAYPOINT
+      ?AUTO_8914 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8904 ?AUTO_8906 ) ( VISIBLE ?AUTO_8900 ?AUTO_8906 ) ( AVAILABLE ?AUTO_8905 ) ( CHANNEL_FREE ?AUTO_8904 ) ( CAN_TRAVERSE ?AUTO_8905 ?AUTO_8909 ?AUTO_8900 ) ( VISIBLE ?AUTO_8909 ?AUTO_8900 ) ( CAN_TRAVERSE ?AUTO_8905 ?AUTO_8910 ?AUTO_8909 ) ( VISIBLE ?AUTO_8910 ?AUTO_8909 ) ( ON_BOARD ?AUTO_8903 ?AUTO_8905 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8905 ) ( SUPPORTS ?AUTO_8903 ?AUTO_8898 ) ( VISIBLE_FROM ?AUTO_8897 ?AUTO_8910 ) ( CAN_TRAVERSE ?AUTO_8905 ?AUTO_8901 ?AUTO_8910 ) ( VISIBLE ?AUTO_8901 ?AUTO_8910 ) ( CALIBRATION_TARGET ?AUTO_8903 ?AUTO_8902 ) ( VISIBLE_FROM ?AUTO_8902 ?AUTO_8901 ) ( CAN_TRAVERSE ?AUTO_8905 ?AUTO_8899 ?AUTO_8901 ) ( VISIBLE ?AUTO_8899 ?AUTO_8901 ) ( CAN_TRAVERSE ?AUTO_8905 ?AUTO_8911 ?AUTO_8899 ) ( VISIBLE ?AUTO_8911 ?AUTO_8899 ) ( CAN_TRAVERSE ?AUTO_8905 ?AUTO_8914 ?AUTO_8911 ) ( AT ?AUTO_8905 ?AUTO_8914 ) ( VISIBLE ?AUTO_8914 ?AUTO_8911 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8905 ?AUTO_8914 ?AUTO_8911 )
+      ( GET_IMAGE_DATA ?AUTO_8897 ?AUTO_8898 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8897 ?AUTO_8898 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8917 - OBJECTIVE
+      ?AUTO_8918 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8919 - ROVER
+      ?AUTO_8922 - WAYPOINT
+      ?AUTO_8921 - LANDER
+      ?AUTO_8920 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_8919 ?AUTO_8922 ) ( AT_LANDER ?AUTO_8921 ?AUTO_8920 ) ( HAVE_IMAGE ?AUTO_8919 ?AUTO_8917 ?AUTO_8918 ) ( VISIBLE ?AUTO_8922 ?AUTO_8920 ) ( AVAILABLE ?AUTO_8919 ) ( CHANNEL_FREE ?AUTO_8921 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_8919 ?AUTO_8921 ?AUTO_8917 ?AUTO_8918 ?AUTO_8922 ?AUTO_8920 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8917 ?AUTO_8918 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8943 - OBJECTIVE
+      ?AUTO_8944 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8948 - LANDER
+      ?AUTO_8946 - WAYPOINT
+      ?AUTO_8947 - WAYPOINT
+      ?AUTO_8950 - ROVER
+      ?AUTO_8945 - WAYPOINT
+      ?AUTO_8956 - CAMERA
+      ?AUTO_8954 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8948 ?AUTO_8946 ) ( VISIBLE ?AUTO_8947 ?AUTO_8946 ) ( AVAILABLE ?AUTO_8950 ) ( CHANNEL_FREE ?AUTO_8948 ) ( CAN_TRAVERSE ?AUTO_8950 ?AUTO_8945 ?AUTO_8947 ) ( AT ?AUTO_8950 ?AUTO_8945 ) ( VISIBLE ?AUTO_8945 ?AUTO_8947 ) ( CALIBRATED ?AUTO_8956 ?AUTO_8950 ) ( ON_BOARD ?AUTO_8956 ?AUTO_8950 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8950 ) ( SUPPORTS ?AUTO_8956 ?AUTO_8944 ) ( VISIBLE_FROM ?AUTO_8943 ?AUTO_8954 ) ( AT ?AUTO_8950 ?AUTO_8954 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_8950 ?AUTO_8954 ?AUTO_8943 ?AUTO_8956 ?AUTO_8944 )
+      ( GET_IMAGE_DATA ?AUTO_8943 ?AUTO_8944 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8943 ?AUTO_8944 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8957 - OBJECTIVE
+      ?AUTO_8958 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8961 - LANDER
+      ?AUTO_8962 - WAYPOINT
+      ?AUTO_8963 - WAYPOINT
+      ?AUTO_8965 - ROVER
+      ?AUTO_8964 - WAYPOINT
+      ?AUTO_8967 - CAMERA
+      ?AUTO_8966 - WAYPOINT
+      ?AUTO_8971 - OBJECTIVE
+      ?AUTO_8969 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8961 ?AUTO_8962 ) ( VISIBLE ?AUTO_8963 ?AUTO_8962 ) ( AVAILABLE ?AUTO_8965 ) ( CHANNEL_FREE ?AUTO_8961 ) ( CAN_TRAVERSE ?AUTO_8965 ?AUTO_8964 ?AUTO_8963 ) ( AT ?AUTO_8965 ?AUTO_8964 ) ( VISIBLE ?AUTO_8964 ?AUTO_8963 ) ( ON_BOARD ?AUTO_8967 ?AUTO_8965 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8965 ) ( SUPPORTS ?AUTO_8967 ?AUTO_8958 ) ( VISIBLE_FROM ?AUTO_8957 ?AUTO_8966 ) ( AT ?AUTO_8965 ?AUTO_8966 ) ( CALIBRATION_TARGET ?AUTO_8967 ?AUTO_8971 ) ( AT ?AUTO_8965 ?AUTO_8969 ) ( VISIBLE_FROM ?AUTO_8971 ?AUTO_8969 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_8965 ?AUTO_8967 ?AUTO_8971 ?AUTO_8969 )
+      ( GET_IMAGE_DATA ?AUTO_8957 ?AUTO_8958 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8957 ?AUTO_8958 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8972 - OBJECTIVE
+      ?AUTO_8973 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8984 - LANDER
+      ?AUTO_8974 - WAYPOINT
+      ?AUTO_8980 - WAYPOINT
+      ?AUTO_8977 - ROVER
+      ?AUTO_8983 - WAYPOINT
+      ?AUTO_8975 - CAMERA
+      ?AUTO_8978 - OBJECTIVE
+      ?AUTO_8987 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8984 ?AUTO_8974 ) ( VISIBLE ?AUTO_8980 ?AUTO_8974 ) ( AVAILABLE ?AUTO_8977 ) ( CHANNEL_FREE ?AUTO_8984 ) ( CAN_TRAVERSE ?AUTO_8977 ?AUTO_8983 ?AUTO_8980 ) ( VISIBLE ?AUTO_8983 ?AUTO_8980 ) ( ON_BOARD ?AUTO_8975 ?AUTO_8977 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8977 ) ( SUPPORTS ?AUTO_8975 ?AUTO_8973 ) ( VISIBLE_FROM ?AUTO_8972 ?AUTO_8983 ) ( CALIBRATION_TARGET ?AUTO_8975 ?AUTO_8978 ) ( VISIBLE_FROM ?AUTO_8978 ?AUTO_8983 ) ( CAN_TRAVERSE ?AUTO_8977 ?AUTO_8987 ?AUTO_8983 ) ( AT ?AUTO_8977 ?AUTO_8987 ) ( VISIBLE ?AUTO_8987 ?AUTO_8983 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8977 ?AUTO_8987 ?AUTO_8983 )
+      ( GET_IMAGE_DATA ?AUTO_8972 ?AUTO_8973 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8972 ?AUTO_8973 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_8988 - OBJECTIVE
+      ?AUTO_8989 - MODE
+    )
+    :vars
+    (
+      ?AUTO_8996 - LANDER
+      ?AUTO_8990 - WAYPOINT
+      ?AUTO_8993 - WAYPOINT
+      ?AUTO_8995 - ROVER
+      ?AUTO_8998 - WAYPOINT
+      ?AUTO_8994 - CAMERA
+      ?AUTO_8992 - OBJECTIVE
+      ?AUTO_8999 - WAYPOINT
+      ?AUTO_9002 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_8996 ?AUTO_8990 ) ( VISIBLE ?AUTO_8993 ?AUTO_8990 ) ( AVAILABLE ?AUTO_8995 ) ( CHANNEL_FREE ?AUTO_8996 ) ( CAN_TRAVERSE ?AUTO_8995 ?AUTO_8998 ?AUTO_8993 ) ( VISIBLE ?AUTO_8998 ?AUTO_8993 ) ( ON_BOARD ?AUTO_8994 ?AUTO_8995 ) ( EQUIPPED_FOR_IMAGING ?AUTO_8995 ) ( SUPPORTS ?AUTO_8994 ?AUTO_8989 ) ( VISIBLE_FROM ?AUTO_8988 ?AUTO_8998 ) ( CALIBRATION_TARGET ?AUTO_8994 ?AUTO_8992 ) ( VISIBLE_FROM ?AUTO_8992 ?AUTO_8998 ) ( CAN_TRAVERSE ?AUTO_8995 ?AUTO_8999 ?AUTO_8998 ) ( VISIBLE ?AUTO_8999 ?AUTO_8998 ) ( CAN_TRAVERSE ?AUTO_8995 ?AUTO_9002 ?AUTO_8999 ) ( AT ?AUTO_8995 ?AUTO_9002 ) ( VISIBLE ?AUTO_9002 ?AUTO_8999 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_8995 ?AUTO_9002 ?AUTO_8999 )
+      ( GET_IMAGE_DATA ?AUTO_8988 ?AUTO_8989 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_8988 ?AUTO_8989 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9003 - OBJECTIVE
+      ?AUTO_9004 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9008 - LANDER
+      ?AUTO_9007 - WAYPOINT
+      ?AUTO_9006 - WAYPOINT
+      ?AUTO_9005 - ROVER
+      ?AUTO_9014 - WAYPOINT
+      ?AUTO_9010 - CAMERA
+      ?AUTO_9011 - OBJECTIVE
+      ?AUTO_9013 - WAYPOINT
+      ?AUTO_9009 - WAYPOINT
+      ?AUTO_9018 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9008 ?AUTO_9007 ) ( VISIBLE ?AUTO_9006 ?AUTO_9007 ) ( AVAILABLE ?AUTO_9005 ) ( CHANNEL_FREE ?AUTO_9008 ) ( CAN_TRAVERSE ?AUTO_9005 ?AUTO_9014 ?AUTO_9006 ) ( VISIBLE ?AUTO_9014 ?AUTO_9006 ) ( ON_BOARD ?AUTO_9010 ?AUTO_9005 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9005 ) ( SUPPORTS ?AUTO_9010 ?AUTO_9004 ) ( VISIBLE_FROM ?AUTO_9003 ?AUTO_9014 ) ( CALIBRATION_TARGET ?AUTO_9010 ?AUTO_9011 ) ( VISIBLE_FROM ?AUTO_9011 ?AUTO_9014 ) ( CAN_TRAVERSE ?AUTO_9005 ?AUTO_9013 ?AUTO_9014 ) ( VISIBLE ?AUTO_9013 ?AUTO_9014 ) ( CAN_TRAVERSE ?AUTO_9005 ?AUTO_9009 ?AUTO_9013 ) ( VISIBLE ?AUTO_9009 ?AUTO_9013 ) ( CAN_TRAVERSE ?AUTO_9005 ?AUTO_9018 ?AUTO_9009 ) ( AT ?AUTO_9005 ?AUTO_9018 ) ( VISIBLE ?AUTO_9018 ?AUTO_9009 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9005 ?AUTO_9018 ?AUTO_9009 )
+      ( GET_IMAGE_DATA ?AUTO_9003 ?AUTO_9004 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9003 ?AUTO_9004 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9020 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9021 - ROVER
+      ?AUTO_9024 - WAYPOINT
+      ?AUTO_9023 - LANDER
+      ?AUTO_9022 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9021 ?AUTO_9024 ) ( AT_LANDER ?AUTO_9023 ?AUTO_9022 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9021 ?AUTO_9020 ) ( VISIBLE ?AUTO_9024 ?AUTO_9022 ) ( AVAILABLE ?AUTO_9021 ) ( CHANNEL_FREE ?AUTO_9023 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_9021 ?AUTO_9023 ?AUTO_9020 ?AUTO_9024 ?AUTO_9022 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9020 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9026 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9029 - ROVER
+      ?AUTO_9027 - WAYPOINT
+      ?AUTO_9031 - LANDER
+      ?AUTO_9030 - WAYPOINT
+      ?AUTO_9033 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_9029 ?AUTO_9027 ) ( AT_LANDER ?AUTO_9031 ?AUTO_9030 ) ( VISIBLE ?AUTO_9027 ?AUTO_9030 ) ( AVAILABLE ?AUTO_9029 ) ( CHANNEL_FREE ?AUTO_9031 ) ( AT ?AUTO_9029 ?AUTO_9026 ) ( AT_SOIL_SAMPLE ?AUTO_9026 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9029 ) ( STORE_OF ?AUTO_9033 ?AUTO_9029 ) ( EMPTY ?AUTO_9033 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9029 ?AUTO_9033 ?AUTO_9026 )
+      ( GET_SOIL_DATA ?AUTO_9026 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9026 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9038 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9040 - LANDER
+      ?AUTO_9041 - WAYPOINT
+      ?AUTO_9043 - ROVER
+      ?AUTO_9044 - STORE
+      ?AUTO_9047 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9040 ?AUTO_9041 ) ( VISIBLE ?AUTO_9038 ?AUTO_9041 ) ( AVAILABLE ?AUTO_9043 ) ( CHANNEL_FREE ?AUTO_9040 ) ( AT_SOIL_SAMPLE ?AUTO_9038 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9043 ) ( STORE_OF ?AUTO_9044 ?AUTO_9043 ) ( EMPTY ?AUTO_9044 ) ( CAN_TRAVERSE ?AUTO_9043 ?AUTO_9047 ?AUTO_9038 ) ( AT ?AUTO_9043 ?AUTO_9047 ) ( VISIBLE ?AUTO_9047 ?AUTO_9038 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9043 ?AUTO_9047 ?AUTO_9038 )
+      ( GET_SOIL_DATA ?AUTO_9038 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9038 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9048 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9052 - LANDER
+      ?AUTO_9054 - WAYPOINT
+      ?AUTO_9053 - ROVER
+      ?AUTO_9049 - STORE
+      ?AUTO_9050 - WAYPOINT
+      ?AUTO_9055 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9052 ?AUTO_9054 ) ( VISIBLE ?AUTO_9048 ?AUTO_9054 ) ( AVAILABLE ?AUTO_9053 ) ( CHANNEL_FREE ?AUTO_9052 ) ( AT_SOIL_SAMPLE ?AUTO_9048 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9053 ) ( STORE_OF ?AUTO_9049 ?AUTO_9053 ) ( CAN_TRAVERSE ?AUTO_9053 ?AUTO_9050 ?AUTO_9048 ) ( AT ?AUTO_9053 ?AUTO_9050 ) ( VISIBLE ?AUTO_9050 ?AUTO_9048 ) ( STORE_OF ?AUTO_9049 ?AUTO_9055 ) ( FULL ?AUTO_9049 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9055 ?AUTO_9049 )
+      ( GET_SOIL_DATA ?AUTO_9048 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9048 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9058 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9063 - LANDER
+      ?AUTO_9061 - WAYPOINT
+      ?AUTO_9062 - ROVER
+      ?AUTO_9064 - STORE
+      ?AUTO_9059 - WAYPOINT
+      ?AUTO_9067 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9063 ?AUTO_9061 ) ( VISIBLE ?AUTO_9058 ?AUTO_9061 ) ( AVAILABLE ?AUTO_9062 ) ( CHANNEL_FREE ?AUTO_9063 ) ( AT_SOIL_SAMPLE ?AUTO_9058 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9062 ) ( STORE_OF ?AUTO_9064 ?AUTO_9062 ) ( EMPTY ?AUTO_9064 ) ( CAN_TRAVERSE ?AUTO_9062 ?AUTO_9059 ?AUTO_9058 ) ( VISIBLE ?AUTO_9059 ?AUTO_9058 ) ( CAN_TRAVERSE ?AUTO_9062 ?AUTO_9067 ?AUTO_9059 ) ( AT ?AUTO_9062 ?AUTO_9067 ) ( VISIBLE ?AUTO_9067 ?AUTO_9059 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9062 ?AUTO_9067 ?AUTO_9059 )
+      ( GET_SOIL_DATA ?AUTO_9058 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9058 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9074 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9075 - LANDER
+      ?AUTO_9080 - WAYPOINT
+      ?AUTO_9076 - ROVER
+      ?AUTO_9081 - STORE
+      ?AUTO_9077 - WAYPOINT
+      ?AUTO_9079 - WAYPOINT
+      ?AUTO_9084 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9075 ?AUTO_9080 ) ( VISIBLE ?AUTO_9074 ?AUTO_9080 ) ( AVAILABLE ?AUTO_9076 ) ( CHANNEL_FREE ?AUTO_9075 ) ( AT_SOIL_SAMPLE ?AUTO_9074 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9076 ) ( STORE_OF ?AUTO_9081 ?AUTO_9076 ) ( EMPTY ?AUTO_9081 ) ( CAN_TRAVERSE ?AUTO_9076 ?AUTO_9077 ?AUTO_9074 ) ( VISIBLE ?AUTO_9077 ?AUTO_9074 ) ( CAN_TRAVERSE ?AUTO_9076 ?AUTO_9079 ?AUTO_9077 ) ( VISIBLE ?AUTO_9079 ?AUTO_9077 ) ( CAN_TRAVERSE ?AUTO_9076 ?AUTO_9084 ?AUTO_9079 ) ( AT ?AUTO_9076 ?AUTO_9084 ) ( VISIBLE ?AUTO_9084 ?AUTO_9079 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9076 ?AUTO_9084 ?AUTO_9079 )
+      ( GET_SOIL_DATA ?AUTO_9074 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9074 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9087 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9088 - ROVER
+      ?AUTO_9091 - WAYPOINT
+      ?AUTO_9090 - LANDER
+      ?AUTO_9089 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9088 ?AUTO_9091 ) ( AT_LANDER ?AUTO_9090 ?AUTO_9089 ) ( HAVE_ROCK_ANALYSIS ?AUTO_9088 ?AUTO_9087 ) ( VISIBLE ?AUTO_9091 ?AUTO_9089 ) ( AVAILABLE ?AUTO_9088 ) ( CHANNEL_FREE ?AUTO_9090 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_9088 ?AUTO_9090 ?AUTO_9087 ?AUTO_9091 ?AUTO_9089 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9087 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9093 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9095 - ROVER
+      ?AUTO_9098 - WAYPOINT
+      ?AUTO_9097 - LANDER
+      ?AUTO_9096 - WAYPOINT
+      ?AUTO_9100 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_9095 ?AUTO_9098 ) ( AT_LANDER ?AUTO_9097 ?AUTO_9096 ) ( VISIBLE ?AUTO_9098 ?AUTO_9096 ) ( AVAILABLE ?AUTO_9095 ) ( CHANNEL_FREE ?AUTO_9097 ) ( AT ?AUTO_9095 ?AUTO_9093 ) ( AT_ROCK_SAMPLE ?AUTO_9093 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9095 ) ( STORE_OF ?AUTO_9100 ?AUTO_9095 ) ( EMPTY ?AUTO_9100 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_9095 ?AUTO_9100 ?AUTO_9093 )
+      ( GET_ROCK_DATA ?AUTO_9093 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9093 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9102 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9104 - ROVER
+      ?AUTO_9103 - WAYPOINT
+      ?AUTO_9106 - LANDER
+      ?AUTO_9107 - WAYPOINT
+      ?AUTO_9108 - STORE
+      ?AUTO_9109 - ROVER
+    )
+    :precondition
+    ( and ( AT ?AUTO_9104 ?AUTO_9103 ) ( AT_LANDER ?AUTO_9106 ?AUTO_9107 ) ( VISIBLE ?AUTO_9103 ?AUTO_9107 ) ( AVAILABLE ?AUTO_9104 ) ( CHANNEL_FREE ?AUTO_9106 ) ( AT ?AUTO_9104 ?AUTO_9102 ) ( AT_ROCK_SAMPLE ?AUTO_9102 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9104 ) ( STORE_OF ?AUTO_9108 ?AUTO_9104 ) ( STORE_OF ?AUTO_9108 ?AUTO_9109 ) ( FULL ?AUTO_9108 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9109 ?AUTO_9108 )
+      ( GET_ROCK_DATA ?AUTO_9102 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9102 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9116 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9122 - LANDER
+      ?AUTO_9119 - WAYPOINT
+      ?AUTO_9118 - ROVER
+      ?AUTO_9121 - STORE
+      ?AUTO_9125 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9122 ?AUTO_9119 ) ( VISIBLE ?AUTO_9116 ?AUTO_9119 ) ( AVAILABLE ?AUTO_9118 ) ( CHANNEL_FREE ?AUTO_9122 ) ( AT_ROCK_SAMPLE ?AUTO_9116 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9118 ) ( STORE_OF ?AUTO_9121 ?AUTO_9118 ) ( EMPTY ?AUTO_9121 ) ( CAN_TRAVERSE ?AUTO_9118 ?AUTO_9125 ?AUTO_9116 ) ( AT ?AUTO_9118 ?AUTO_9125 ) ( VISIBLE ?AUTO_9125 ?AUTO_9116 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9118 ?AUTO_9125 ?AUTO_9116 )
+      ( GET_ROCK_DATA ?AUTO_9116 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9116 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9126 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9130 - LANDER
+      ?AUTO_9131 - WAYPOINT
+      ?AUTO_9128 - ROVER
+      ?AUTO_9129 - STORE
+      ?AUTO_9132 - WAYPOINT
+      ?AUTO_9133 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9130 ?AUTO_9131 ) ( VISIBLE ?AUTO_9126 ?AUTO_9131 ) ( AVAILABLE ?AUTO_9128 ) ( CHANNEL_FREE ?AUTO_9130 ) ( AT_ROCK_SAMPLE ?AUTO_9126 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9128 ) ( STORE_OF ?AUTO_9129 ?AUTO_9128 ) ( CAN_TRAVERSE ?AUTO_9128 ?AUTO_9132 ?AUTO_9126 ) ( AT ?AUTO_9128 ?AUTO_9132 ) ( VISIBLE ?AUTO_9132 ?AUTO_9126 ) ( STORE_OF ?AUTO_9129 ?AUTO_9133 ) ( FULL ?AUTO_9129 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9133 ?AUTO_9129 )
+      ( GET_ROCK_DATA ?AUTO_9126 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9126 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9136 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9141 - LANDER
+      ?AUTO_9140 - WAYPOINT
+      ?AUTO_9137 - ROVER
+      ?AUTO_9138 - STORE
+      ?AUTO_9139 - WAYPOINT
+      ?AUTO_9145 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9141 ?AUTO_9140 ) ( VISIBLE ?AUTO_9136 ?AUTO_9140 ) ( AVAILABLE ?AUTO_9137 ) ( CHANNEL_FREE ?AUTO_9141 ) ( AT_ROCK_SAMPLE ?AUTO_9136 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9137 ) ( STORE_OF ?AUTO_9138 ?AUTO_9137 ) ( EMPTY ?AUTO_9138 ) ( CAN_TRAVERSE ?AUTO_9137 ?AUTO_9139 ?AUTO_9136 ) ( VISIBLE ?AUTO_9139 ?AUTO_9136 ) ( CAN_TRAVERSE ?AUTO_9137 ?AUTO_9145 ?AUTO_9139 ) ( AT ?AUTO_9137 ?AUTO_9145 ) ( VISIBLE ?AUTO_9145 ?AUTO_9139 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9137 ?AUTO_9145 ?AUTO_9139 )
+      ( GET_ROCK_DATA ?AUTO_9136 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9136 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9152 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9155 - LANDER
+      ?AUTO_9159 - WAYPOINT
+      ?AUTO_9153 - ROVER
+      ?AUTO_9154 - STORE
+      ?AUTO_9158 - WAYPOINT
+      ?AUTO_9157 - WAYPOINT
+      ?AUTO_9162 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9155 ?AUTO_9159 ) ( VISIBLE ?AUTO_9152 ?AUTO_9159 ) ( AVAILABLE ?AUTO_9153 ) ( CHANNEL_FREE ?AUTO_9155 ) ( AT_ROCK_SAMPLE ?AUTO_9152 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9153 ) ( STORE_OF ?AUTO_9154 ?AUTO_9153 ) ( EMPTY ?AUTO_9154 ) ( CAN_TRAVERSE ?AUTO_9153 ?AUTO_9158 ?AUTO_9152 ) ( VISIBLE ?AUTO_9158 ?AUTO_9152 ) ( CAN_TRAVERSE ?AUTO_9153 ?AUTO_9157 ?AUTO_9158 ) ( VISIBLE ?AUTO_9157 ?AUTO_9158 ) ( CAN_TRAVERSE ?AUTO_9153 ?AUTO_9162 ?AUTO_9157 ) ( AT ?AUTO_9153 ?AUTO_9162 ) ( VISIBLE ?AUTO_9162 ?AUTO_9157 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9153 ?AUTO_9162 ?AUTO_9157 )
+      ( GET_ROCK_DATA ?AUTO_9152 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9152 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9165 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9166 - ROVER
+      ?AUTO_9169 - WAYPOINT
+      ?AUTO_9168 - LANDER
+      ?AUTO_9167 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9166 ?AUTO_9169 ) ( AT_LANDER ?AUTO_9168 ?AUTO_9167 ) ( HAVE_ROCK_ANALYSIS ?AUTO_9166 ?AUTO_9165 ) ( VISIBLE ?AUTO_9169 ?AUTO_9167 ) ( AVAILABLE ?AUTO_9166 ) ( CHANNEL_FREE ?AUTO_9168 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_9166 ?AUTO_9168 ?AUTO_9165 ?AUTO_9169 ?AUTO_9167 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9165 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9171 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9175 - LANDER
+      ?AUTO_9174 - WAYPOINT
+      ?AUTO_9173 - ROVER
+      ?AUTO_9176 - WAYPOINT
+      ?AUTO_9179 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9175 ?AUTO_9174 ) ( HAVE_ROCK_ANALYSIS ?AUTO_9173 ?AUTO_9171 ) ( VISIBLE ?AUTO_9176 ?AUTO_9174 ) ( AVAILABLE ?AUTO_9173 ) ( CHANNEL_FREE ?AUTO_9175 ) ( CAN_TRAVERSE ?AUTO_9173 ?AUTO_9179 ?AUTO_9176 ) ( AT ?AUTO_9173 ?AUTO_9179 ) ( VISIBLE ?AUTO_9179 ?AUTO_9176 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9173 ?AUTO_9179 ?AUTO_9176 )
+      ( GET_ROCK_DATA ?AUTO_9171 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9171 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9180 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9185 - LANDER
+      ?AUTO_9181 - WAYPOINT
+      ?AUTO_9184 - WAYPOINT
+      ?AUTO_9182 - ROVER
+      ?AUTO_9186 - WAYPOINT
+      ?AUTO_9188 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9185 ?AUTO_9181 ) ( VISIBLE ?AUTO_9184 ?AUTO_9181 ) ( AVAILABLE ?AUTO_9182 ) ( CHANNEL_FREE ?AUTO_9185 ) ( CAN_TRAVERSE ?AUTO_9182 ?AUTO_9186 ?AUTO_9184 ) ( AT ?AUTO_9182 ?AUTO_9186 ) ( VISIBLE ?AUTO_9186 ?AUTO_9184 ) ( AT ?AUTO_9182 ?AUTO_9180 ) ( AT_ROCK_SAMPLE ?AUTO_9180 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9182 ) ( STORE_OF ?AUTO_9188 ?AUTO_9182 ) ( EMPTY ?AUTO_9188 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_9182 ?AUTO_9188 ?AUTO_9180 )
+      ( GET_ROCK_DATA ?AUTO_9180 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9180 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9190 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9195 - LANDER
+      ?AUTO_9197 - WAYPOINT
+      ?AUTO_9192 - WAYPOINT
+      ?AUTO_9193 - ROVER
+      ?AUTO_9194 - STORE
+      ?AUTO_9200 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9195 ?AUTO_9197 ) ( VISIBLE ?AUTO_9192 ?AUTO_9197 ) ( AVAILABLE ?AUTO_9193 ) ( CHANNEL_FREE ?AUTO_9195 ) ( CAN_TRAVERSE ?AUTO_9193 ?AUTO_9190 ?AUTO_9192 ) ( VISIBLE ?AUTO_9190 ?AUTO_9192 ) ( AT_ROCK_SAMPLE ?AUTO_9190 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9193 ) ( STORE_OF ?AUTO_9194 ?AUTO_9193 ) ( EMPTY ?AUTO_9194 ) ( CAN_TRAVERSE ?AUTO_9193 ?AUTO_9200 ?AUTO_9190 ) ( AT ?AUTO_9193 ?AUTO_9200 ) ( VISIBLE ?AUTO_9200 ?AUTO_9190 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9193 ?AUTO_9200 ?AUTO_9190 )
+      ( GET_ROCK_DATA ?AUTO_9190 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9190 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9201 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9204 - LANDER
+      ?AUTO_9208 - WAYPOINT
+      ?AUTO_9207 - WAYPOINT
+      ?AUTO_9203 - ROVER
+      ?AUTO_9205 - STORE
+      ?AUTO_9206 - WAYPOINT
+      ?AUTO_9209 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9204 ?AUTO_9208 ) ( VISIBLE ?AUTO_9207 ?AUTO_9208 ) ( AVAILABLE ?AUTO_9203 ) ( CHANNEL_FREE ?AUTO_9204 ) ( CAN_TRAVERSE ?AUTO_9203 ?AUTO_9201 ?AUTO_9207 ) ( VISIBLE ?AUTO_9201 ?AUTO_9207 ) ( AT_ROCK_SAMPLE ?AUTO_9201 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9203 ) ( STORE_OF ?AUTO_9205 ?AUTO_9203 ) ( CAN_TRAVERSE ?AUTO_9203 ?AUTO_9206 ?AUTO_9201 ) ( AT ?AUTO_9203 ?AUTO_9206 ) ( VISIBLE ?AUTO_9206 ?AUTO_9201 ) ( STORE_OF ?AUTO_9205 ?AUTO_9209 ) ( FULL ?AUTO_9205 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9209 ?AUTO_9205 )
+      ( GET_ROCK_DATA ?AUTO_9201 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9201 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9219 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9226 - LANDER
+      ?AUTO_9222 - WAYPOINT
+      ?AUTO_9225 - WAYPOINT
+      ?AUTO_9220 - ROVER
+      ?AUTO_9223 - STORE
+      ?AUTO_9221 - WAYPOINT
+      ?AUTO_9229 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9226 ?AUTO_9222 ) ( VISIBLE ?AUTO_9225 ?AUTO_9222 ) ( AVAILABLE ?AUTO_9220 ) ( CHANNEL_FREE ?AUTO_9226 ) ( CAN_TRAVERSE ?AUTO_9220 ?AUTO_9219 ?AUTO_9225 ) ( VISIBLE ?AUTO_9219 ?AUTO_9225 ) ( AT_ROCK_SAMPLE ?AUTO_9219 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9220 ) ( STORE_OF ?AUTO_9223 ?AUTO_9220 ) ( EMPTY ?AUTO_9223 ) ( CAN_TRAVERSE ?AUTO_9220 ?AUTO_9221 ?AUTO_9219 ) ( VISIBLE ?AUTO_9221 ?AUTO_9219 ) ( CAN_TRAVERSE ?AUTO_9220 ?AUTO_9229 ?AUTO_9221 ) ( AT ?AUTO_9220 ?AUTO_9229 ) ( VISIBLE ?AUTO_9229 ?AUTO_9221 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9220 ?AUTO_9229 ?AUTO_9221 )
+      ( GET_ROCK_DATA ?AUTO_9219 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9219 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9230 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9237 - LANDER
+      ?AUTO_9235 - WAYPOINT
+      ?AUTO_9232 - WAYPOINT
+      ?AUTO_9233 - ROVER
+      ?AUTO_9234 - STORE
+      ?AUTO_9231 - WAYPOINT
+      ?AUTO_9238 - WAYPOINT
+      ?AUTO_9239 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9237 ?AUTO_9235 ) ( VISIBLE ?AUTO_9232 ?AUTO_9235 ) ( AVAILABLE ?AUTO_9233 ) ( CHANNEL_FREE ?AUTO_9237 ) ( CAN_TRAVERSE ?AUTO_9233 ?AUTO_9230 ?AUTO_9232 ) ( VISIBLE ?AUTO_9230 ?AUTO_9232 ) ( AT_ROCK_SAMPLE ?AUTO_9230 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9233 ) ( STORE_OF ?AUTO_9234 ?AUTO_9233 ) ( CAN_TRAVERSE ?AUTO_9233 ?AUTO_9231 ?AUTO_9230 ) ( VISIBLE ?AUTO_9231 ?AUTO_9230 ) ( CAN_TRAVERSE ?AUTO_9233 ?AUTO_9238 ?AUTO_9231 ) ( AT ?AUTO_9233 ?AUTO_9238 ) ( VISIBLE ?AUTO_9238 ?AUTO_9231 ) ( STORE_OF ?AUTO_9234 ?AUTO_9239 ) ( FULL ?AUTO_9234 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9239 ?AUTO_9234 )
+      ( GET_ROCK_DATA ?AUTO_9230 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9230 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9242 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9244 - LANDER
+      ?AUTO_9243 - WAYPOINT
+      ?AUTO_9246 - WAYPOINT
+      ?AUTO_9250 - ROVER
+      ?AUTO_9247 - STORE
+      ?AUTO_9249 - WAYPOINT
+      ?AUTO_9248 - WAYPOINT
+      ?AUTO_9253 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9244 ?AUTO_9243 ) ( VISIBLE ?AUTO_9246 ?AUTO_9243 ) ( AVAILABLE ?AUTO_9250 ) ( CHANNEL_FREE ?AUTO_9244 ) ( CAN_TRAVERSE ?AUTO_9250 ?AUTO_9242 ?AUTO_9246 ) ( VISIBLE ?AUTO_9242 ?AUTO_9246 ) ( AT_ROCK_SAMPLE ?AUTO_9242 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9250 ) ( STORE_OF ?AUTO_9247 ?AUTO_9250 ) ( EMPTY ?AUTO_9247 ) ( CAN_TRAVERSE ?AUTO_9250 ?AUTO_9249 ?AUTO_9242 ) ( VISIBLE ?AUTO_9249 ?AUTO_9242 ) ( CAN_TRAVERSE ?AUTO_9250 ?AUTO_9248 ?AUTO_9249 ) ( VISIBLE ?AUTO_9248 ?AUTO_9249 ) ( CAN_TRAVERSE ?AUTO_9250 ?AUTO_9253 ?AUTO_9248 ) ( AT ?AUTO_9250 ?AUTO_9253 ) ( VISIBLE ?AUTO_9253 ?AUTO_9248 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9250 ?AUTO_9253 ?AUTO_9248 )
+      ( GET_ROCK_DATA ?AUTO_9242 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9242 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9260 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9261 - LANDER
+      ?AUTO_9268 - WAYPOINT
+      ?AUTO_9264 - WAYPOINT
+      ?AUTO_9262 - ROVER
+      ?AUTO_9263 - STORE
+      ?AUTO_9267 - WAYPOINT
+      ?AUTO_9266 - WAYPOINT
+      ?AUTO_9265 - WAYPOINT
+      ?AUTO_9272 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9261 ?AUTO_9268 ) ( VISIBLE ?AUTO_9264 ?AUTO_9268 ) ( AVAILABLE ?AUTO_9262 ) ( CHANNEL_FREE ?AUTO_9261 ) ( CAN_TRAVERSE ?AUTO_9262 ?AUTO_9260 ?AUTO_9264 ) ( VISIBLE ?AUTO_9260 ?AUTO_9264 ) ( AT_ROCK_SAMPLE ?AUTO_9260 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9262 ) ( STORE_OF ?AUTO_9263 ?AUTO_9262 ) ( EMPTY ?AUTO_9263 ) ( CAN_TRAVERSE ?AUTO_9262 ?AUTO_9267 ?AUTO_9260 ) ( VISIBLE ?AUTO_9267 ?AUTO_9260 ) ( CAN_TRAVERSE ?AUTO_9262 ?AUTO_9266 ?AUTO_9267 ) ( VISIBLE ?AUTO_9266 ?AUTO_9267 ) ( CAN_TRAVERSE ?AUTO_9262 ?AUTO_9265 ?AUTO_9266 ) ( VISIBLE ?AUTO_9265 ?AUTO_9266 ) ( CAN_TRAVERSE ?AUTO_9262 ?AUTO_9272 ?AUTO_9265 ) ( AT ?AUTO_9262 ?AUTO_9272 ) ( VISIBLE ?AUTO_9272 ?AUTO_9265 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9262 ?AUTO_9272 ?AUTO_9265 )
+      ( GET_ROCK_DATA ?AUTO_9260 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9260 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9274 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9275 - ROVER
+      ?AUTO_9278 - WAYPOINT
+      ?AUTO_9277 - LANDER
+      ?AUTO_9276 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9275 ?AUTO_9278 ) ( AT_LANDER ?AUTO_9277 ?AUTO_9276 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9275 ?AUTO_9274 ) ( VISIBLE ?AUTO_9278 ?AUTO_9276 ) ( AVAILABLE ?AUTO_9275 ) ( CHANNEL_FREE ?AUTO_9277 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_9275 ?AUTO_9277 ?AUTO_9274 ?AUTO_9278 ?AUTO_9276 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9274 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9280 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9284 - LANDER
+      ?AUTO_9283 - WAYPOINT
+      ?AUTO_9282 - ROVER
+      ?AUTO_9285 - WAYPOINT
+      ?AUTO_9288 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9284 ?AUTO_9283 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9282 ?AUTO_9280 ) ( VISIBLE ?AUTO_9285 ?AUTO_9283 ) ( AVAILABLE ?AUTO_9282 ) ( CHANNEL_FREE ?AUTO_9284 ) ( CAN_TRAVERSE ?AUTO_9282 ?AUTO_9288 ?AUTO_9285 ) ( AT ?AUTO_9282 ?AUTO_9288 ) ( VISIBLE ?AUTO_9288 ?AUTO_9285 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9282 ?AUTO_9288 ?AUTO_9285 )
+      ( GET_SOIL_DATA ?AUTO_9280 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9280 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9290 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9293 - LANDER
+      ?AUTO_9294 - WAYPOINT
+      ?AUTO_9296 - WAYPOINT
+      ?AUTO_9292 - ROVER
+      ?AUTO_9295 - WAYPOINT
+      ?AUTO_9298 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9293 ?AUTO_9294 ) ( VISIBLE ?AUTO_9296 ?AUTO_9294 ) ( AVAILABLE ?AUTO_9292 ) ( CHANNEL_FREE ?AUTO_9293 ) ( CAN_TRAVERSE ?AUTO_9292 ?AUTO_9295 ?AUTO_9296 ) ( AT ?AUTO_9292 ?AUTO_9295 ) ( VISIBLE ?AUTO_9295 ?AUTO_9296 ) ( AT ?AUTO_9292 ?AUTO_9290 ) ( AT_SOIL_SAMPLE ?AUTO_9290 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9292 ) ( STORE_OF ?AUTO_9298 ?AUTO_9292 ) ( EMPTY ?AUTO_9298 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9292 ?AUTO_9298 ?AUTO_9290 )
+      ( GET_SOIL_DATA ?AUTO_9290 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9290 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9301 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9304 - LANDER
+      ?AUTO_9305 - WAYPOINT
+      ?AUTO_9306 - WAYPOINT
+      ?AUTO_9307 - ROVER
+      ?AUTO_9303 - STORE
+      ?AUTO_9311 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9304 ?AUTO_9305 ) ( VISIBLE ?AUTO_9306 ?AUTO_9305 ) ( AVAILABLE ?AUTO_9307 ) ( CHANNEL_FREE ?AUTO_9304 ) ( CAN_TRAVERSE ?AUTO_9307 ?AUTO_9301 ?AUTO_9306 ) ( VISIBLE ?AUTO_9301 ?AUTO_9306 ) ( AT_SOIL_SAMPLE ?AUTO_9301 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9307 ) ( STORE_OF ?AUTO_9303 ?AUTO_9307 ) ( EMPTY ?AUTO_9303 ) ( CAN_TRAVERSE ?AUTO_9307 ?AUTO_9311 ?AUTO_9301 ) ( AT ?AUTO_9307 ?AUTO_9311 ) ( VISIBLE ?AUTO_9311 ?AUTO_9301 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9307 ?AUTO_9311 ?AUTO_9301 )
+      ( GET_SOIL_DATA ?AUTO_9301 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9301 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9313 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9314 - ROVER
+      ?AUTO_9317 - WAYPOINT
+      ?AUTO_9316 - LANDER
+      ?AUTO_9315 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9314 ?AUTO_9317 ) ( AT_LANDER ?AUTO_9316 ?AUTO_9315 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9314 ?AUTO_9313 ) ( VISIBLE ?AUTO_9317 ?AUTO_9315 ) ( AVAILABLE ?AUTO_9314 ) ( CHANNEL_FREE ?AUTO_9316 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_9314 ?AUTO_9316 ?AUTO_9313 ?AUTO_9317 ?AUTO_9315 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9313 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9319 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9321 - ROVER
+      ?AUTO_9324 - WAYPOINT
+      ?AUTO_9323 - LANDER
+      ?AUTO_9322 - WAYPOINT
+      ?AUTO_9326 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_9321 ?AUTO_9324 ) ( AT_LANDER ?AUTO_9323 ?AUTO_9322 ) ( VISIBLE ?AUTO_9324 ?AUTO_9322 ) ( AVAILABLE ?AUTO_9321 ) ( CHANNEL_FREE ?AUTO_9323 ) ( AT ?AUTO_9321 ?AUTO_9319 ) ( AT_SOIL_SAMPLE ?AUTO_9319 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9321 ) ( STORE_OF ?AUTO_9326 ?AUTO_9321 ) ( EMPTY ?AUTO_9326 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9321 ?AUTO_9326 ?AUTO_9319 )
+      ( GET_SOIL_DATA ?AUTO_9319 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9319 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9329 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9330 - LANDER
+      ?AUTO_9331 - WAYPOINT
+      ?AUTO_9332 - ROVER
+      ?AUTO_9335 - STORE
+      ?AUTO_9338 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9330 ?AUTO_9331 ) ( VISIBLE ?AUTO_9329 ?AUTO_9331 ) ( AVAILABLE ?AUTO_9332 ) ( CHANNEL_FREE ?AUTO_9330 ) ( AT_SOIL_SAMPLE ?AUTO_9329 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9332 ) ( STORE_OF ?AUTO_9335 ?AUTO_9332 ) ( EMPTY ?AUTO_9335 ) ( CAN_TRAVERSE ?AUTO_9332 ?AUTO_9338 ?AUTO_9329 ) ( AT ?AUTO_9332 ?AUTO_9338 ) ( VISIBLE ?AUTO_9338 ?AUTO_9329 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9332 ?AUTO_9338 ?AUTO_9329 )
+      ( GET_SOIL_DATA ?AUTO_9329 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9329 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9339 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9341 - LANDER
+      ?AUTO_9342 - WAYPOINT
+      ?AUTO_9343 - ROVER
+      ?AUTO_9344 - STORE
+      ?AUTO_9345 - WAYPOINT
+      ?AUTO_9346 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9341 ?AUTO_9342 ) ( VISIBLE ?AUTO_9339 ?AUTO_9342 ) ( AVAILABLE ?AUTO_9343 ) ( CHANNEL_FREE ?AUTO_9341 ) ( AT_SOIL_SAMPLE ?AUTO_9339 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9343 ) ( STORE_OF ?AUTO_9344 ?AUTO_9343 ) ( CAN_TRAVERSE ?AUTO_9343 ?AUTO_9345 ?AUTO_9339 ) ( AT ?AUTO_9343 ?AUTO_9345 ) ( VISIBLE ?AUTO_9345 ?AUTO_9339 ) ( STORE_OF ?AUTO_9344 ?AUTO_9346 ) ( FULL ?AUTO_9344 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9346 ?AUTO_9344 )
+      ( GET_SOIL_DATA ?AUTO_9339 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9339 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9352 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9353 - ROVER
+      ?AUTO_9356 - WAYPOINT
+      ?AUTO_9355 - LANDER
+      ?AUTO_9354 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9353 ?AUTO_9356 ) ( AT_LANDER ?AUTO_9355 ?AUTO_9354 ) ( HAVE_ROCK_ANALYSIS ?AUTO_9353 ?AUTO_9352 ) ( VISIBLE ?AUTO_9356 ?AUTO_9354 ) ( AVAILABLE ?AUTO_9353 ) ( CHANNEL_FREE ?AUTO_9355 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_9353 ?AUTO_9355 ?AUTO_9352 ?AUTO_9356 ?AUTO_9354 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9352 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9358 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9362 - LANDER
+      ?AUTO_9361 - WAYPOINT
+      ?AUTO_9360 - ROVER
+      ?AUTO_9363 - WAYPOINT
+      ?AUTO_9366 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9362 ?AUTO_9361 ) ( HAVE_ROCK_ANALYSIS ?AUTO_9360 ?AUTO_9358 ) ( VISIBLE ?AUTO_9363 ?AUTO_9361 ) ( AVAILABLE ?AUTO_9360 ) ( CHANNEL_FREE ?AUTO_9362 ) ( CAN_TRAVERSE ?AUTO_9360 ?AUTO_9366 ?AUTO_9363 ) ( AT ?AUTO_9360 ?AUTO_9366 ) ( VISIBLE ?AUTO_9366 ?AUTO_9363 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9360 ?AUTO_9366 ?AUTO_9363 )
+      ( GET_ROCK_DATA ?AUTO_9358 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9358 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9367 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9372 - LANDER
+      ?AUTO_9368 - WAYPOINT
+      ?AUTO_9369 - ROVER
+      ?AUTO_9371 - WAYPOINT
+      ?AUTO_9373 - WAYPOINT
+      ?AUTO_9376 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9372 ?AUTO_9368 ) ( HAVE_ROCK_ANALYSIS ?AUTO_9369 ?AUTO_9367 ) ( VISIBLE ?AUTO_9371 ?AUTO_9368 ) ( AVAILABLE ?AUTO_9369 ) ( CHANNEL_FREE ?AUTO_9372 ) ( CAN_TRAVERSE ?AUTO_9369 ?AUTO_9373 ?AUTO_9371 ) ( VISIBLE ?AUTO_9373 ?AUTO_9371 ) ( CAN_TRAVERSE ?AUTO_9369 ?AUTO_9376 ?AUTO_9373 ) ( AT ?AUTO_9369 ?AUTO_9376 ) ( VISIBLE ?AUTO_9376 ?AUTO_9373 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9369 ?AUTO_9376 ?AUTO_9373 )
+      ( GET_ROCK_DATA ?AUTO_9367 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9367 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9377 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9381 - LANDER
+      ?AUTO_9383 - WAYPOINT
+      ?AUTO_9384 - WAYPOINT
+      ?AUTO_9379 - ROVER
+      ?AUTO_9382 - WAYPOINT
+      ?AUTO_9380 - WAYPOINT
+      ?AUTO_9386 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9381 ?AUTO_9383 ) ( VISIBLE ?AUTO_9384 ?AUTO_9383 ) ( AVAILABLE ?AUTO_9379 ) ( CHANNEL_FREE ?AUTO_9381 ) ( CAN_TRAVERSE ?AUTO_9379 ?AUTO_9382 ?AUTO_9384 ) ( VISIBLE ?AUTO_9382 ?AUTO_9384 ) ( CAN_TRAVERSE ?AUTO_9379 ?AUTO_9380 ?AUTO_9382 ) ( AT ?AUTO_9379 ?AUTO_9380 ) ( VISIBLE ?AUTO_9380 ?AUTO_9382 ) ( AT ?AUTO_9379 ?AUTO_9377 ) ( AT_ROCK_SAMPLE ?AUTO_9377 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9379 ) ( STORE_OF ?AUTO_9386 ?AUTO_9379 ) ( EMPTY ?AUTO_9386 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_9379 ?AUTO_9386 ?AUTO_9377 )
+      ( GET_ROCK_DATA ?AUTO_9377 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9377 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9389 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9397 - LANDER
+      ?AUTO_9396 - WAYPOINT
+      ?AUTO_9390 - WAYPOINT
+      ?AUTO_9393 - ROVER
+      ?AUTO_9391 - WAYPOINT
+      ?AUTO_9394 - STORE
+      ?AUTO_9400 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9397 ?AUTO_9396 ) ( VISIBLE ?AUTO_9390 ?AUTO_9396 ) ( AVAILABLE ?AUTO_9393 ) ( CHANNEL_FREE ?AUTO_9397 ) ( CAN_TRAVERSE ?AUTO_9393 ?AUTO_9391 ?AUTO_9390 ) ( VISIBLE ?AUTO_9391 ?AUTO_9390 ) ( CAN_TRAVERSE ?AUTO_9393 ?AUTO_9389 ?AUTO_9391 ) ( VISIBLE ?AUTO_9389 ?AUTO_9391 ) ( AT_ROCK_SAMPLE ?AUTO_9389 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9393 ) ( STORE_OF ?AUTO_9394 ?AUTO_9393 ) ( EMPTY ?AUTO_9394 ) ( CAN_TRAVERSE ?AUTO_9393 ?AUTO_9400 ?AUTO_9389 ) ( AT ?AUTO_9393 ?AUTO_9400 ) ( VISIBLE ?AUTO_9400 ?AUTO_9389 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9393 ?AUTO_9400 ?AUTO_9389 )
+      ( GET_ROCK_DATA ?AUTO_9389 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9389 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9401 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9402 - LANDER
+      ?AUTO_9404 - WAYPOINT
+      ?AUTO_9408 - WAYPOINT
+      ?AUTO_9405 - ROVER
+      ?AUTO_9403 - WAYPOINT
+      ?AUTO_9406 - STORE
+      ?AUTO_9409 - WAYPOINT
+      ?AUTO_9412 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9402 ?AUTO_9404 ) ( VISIBLE ?AUTO_9408 ?AUTO_9404 ) ( AVAILABLE ?AUTO_9405 ) ( CHANNEL_FREE ?AUTO_9402 ) ( CAN_TRAVERSE ?AUTO_9405 ?AUTO_9403 ?AUTO_9408 ) ( VISIBLE ?AUTO_9403 ?AUTO_9408 ) ( CAN_TRAVERSE ?AUTO_9405 ?AUTO_9401 ?AUTO_9403 ) ( VISIBLE ?AUTO_9401 ?AUTO_9403 ) ( AT_ROCK_SAMPLE ?AUTO_9401 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9405 ) ( STORE_OF ?AUTO_9406 ?AUTO_9405 ) ( EMPTY ?AUTO_9406 ) ( CAN_TRAVERSE ?AUTO_9405 ?AUTO_9409 ?AUTO_9401 ) ( VISIBLE ?AUTO_9409 ?AUTO_9401 ) ( CAN_TRAVERSE ?AUTO_9405 ?AUTO_9412 ?AUTO_9409 ) ( AT ?AUTO_9405 ?AUTO_9412 ) ( VISIBLE ?AUTO_9412 ?AUTO_9409 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9405 ?AUTO_9412 ?AUTO_9409 )
+      ( GET_ROCK_DATA ?AUTO_9401 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9401 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9413 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9422 - LANDER
+      ?AUTO_9417 - WAYPOINT
+      ?AUTO_9414 - WAYPOINT
+      ?AUTO_9416 - ROVER
+      ?AUTO_9421 - WAYPOINT
+      ?AUTO_9419 - STORE
+      ?AUTO_9415 - WAYPOINT
+      ?AUTO_9420 - WAYPOINT
+      ?AUTO_9423 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9422 ?AUTO_9417 ) ( VISIBLE ?AUTO_9414 ?AUTO_9417 ) ( AVAILABLE ?AUTO_9416 ) ( CHANNEL_FREE ?AUTO_9422 ) ( CAN_TRAVERSE ?AUTO_9416 ?AUTO_9421 ?AUTO_9414 ) ( VISIBLE ?AUTO_9421 ?AUTO_9414 ) ( CAN_TRAVERSE ?AUTO_9416 ?AUTO_9413 ?AUTO_9421 ) ( VISIBLE ?AUTO_9413 ?AUTO_9421 ) ( AT_ROCK_SAMPLE ?AUTO_9413 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9416 ) ( STORE_OF ?AUTO_9419 ?AUTO_9416 ) ( CAN_TRAVERSE ?AUTO_9416 ?AUTO_9415 ?AUTO_9413 ) ( VISIBLE ?AUTO_9415 ?AUTO_9413 ) ( CAN_TRAVERSE ?AUTO_9416 ?AUTO_9420 ?AUTO_9415 ) ( AT ?AUTO_9416 ?AUTO_9420 ) ( VISIBLE ?AUTO_9420 ?AUTO_9415 ) ( STORE_OF ?AUTO_9419 ?AUTO_9423 ) ( FULL ?AUTO_9419 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9423 ?AUTO_9419 )
+      ( GET_ROCK_DATA ?AUTO_9413 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9413 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9428 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9434 - LANDER
+      ?AUTO_9432 - WAYPOINT
+      ?AUTO_9431 - WAYPOINT
+      ?AUTO_9433 - ROVER
+      ?AUTO_9435 - WAYPOINT
+      ?AUTO_9436 - STORE
+      ?AUTO_9429 - WAYPOINT
+      ?AUTO_9430 - WAYPOINT
+      ?AUTO_9440 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9434 ?AUTO_9432 ) ( VISIBLE ?AUTO_9431 ?AUTO_9432 ) ( AVAILABLE ?AUTO_9433 ) ( CHANNEL_FREE ?AUTO_9434 ) ( CAN_TRAVERSE ?AUTO_9433 ?AUTO_9435 ?AUTO_9431 ) ( VISIBLE ?AUTO_9435 ?AUTO_9431 ) ( CAN_TRAVERSE ?AUTO_9433 ?AUTO_9428 ?AUTO_9435 ) ( VISIBLE ?AUTO_9428 ?AUTO_9435 ) ( AT_ROCK_SAMPLE ?AUTO_9428 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9433 ) ( STORE_OF ?AUTO_9436 ?AUTO_9433 ) ( EMPTY ?AUTO_9436 ) ( CAN_TRAVERSE ?AUTO_9433 ?AUTO_9429 ?AUTO_9428 ) ( VISIBLE ?AUTO_9429 ?AUTO_9428 ) ( CAN_TRAVERSE ?AUTO_9433 ?AUTO_9430 ?AUTO_9429 ) ( VISIBLE ?AUTO_9430 ?AUTO_9429 ) ( CAN_TRAVERSE ?AUTO_9433 ?AUTO_9440 ?AUTO_9430 ) ( AT ?AUTO_9433 ?AUTO_9440 ) ( VISIBLE ?AUTO_9440 ?AUTO_9430 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9433 ?AUTO_9440 ?AUTO_9430 )
+      ( GET_ROCK_DATA ?AUTO_9428 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9428 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9441 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9442 - LANDER
+      ?AUTO_9449 - WAYPOINT
+      ?AUTO_9448 - WAYPOINT
+      ?AUTO_9446 - ROVER
+      ?AUTO_9447 - WAYPOINT
+      ?AUTO_9444 - STORE
+      ?AUTO_9443 - WAYPOINT
+      ?AUTO_9445 - WAYPOINT
+      ?AUTO_9450 - WAYPOINT
+      ?AUTO_9452 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9442 ?AUTO_9449 ) ( VISIBLE ?AUTO_9448 ?AUTO_9449 ) ( AVAILABLE ?AUTO_9446 ) ( CHANNEL_FREE ?AUTO_9442 ) ( CAN_TRAVERSE ?AUTO_9446 ?AUTO_9447 ?AUTO_9448 ) ( VISIBLE ?AUTO_9447 ?AUTO_9448 ) ( CAN_TRAVERSE ?AUTO_9446 ?AUTO_9441 ?AUTO_9447 ) ( VISIBLE ?AUTO_9441 ?AUTO_9447 ) ( AT_ROCK_SAMPLE ?AUTO_9441 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9446 ) ( STORE_OF ?AUTO_9444 ?AUTO_9446 ) ( CAN_TRAVERSE ?AUTO_9446 ?AUTO_9443 ?AUTO_9441 ) ( VISIBLE ?AUTO_9443 ?AUTO_9441 ) ( CAN_TRAVERSE ?AUTO_9446 ?AUTO_9445 ?AUTO_9443 ) ( VISIBLE ?AUTO_9445 ?AUTO_9443 ) ( CAN_TRAVERSE ?AUTO_9446 ?AUTO_9450 ?AUTO_9445 ) ( AT ?AUTO_9446 ?AUTO_9450 ) ( VISIBLE ?AUTO_9450 ?AUTO_9445 ) ( STORE_OF ?AUTO_9444 ?AUTO_9452 ) ( FULL ?AUTO_9444 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9452 ?AUTO_9444 )
+      ( GET_ROCK_DATA ?AUTO_9441 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9441 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9459 - OBJECTIVE
+      ?AUTO_9460 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9461 - ROVER
+      ?AUTO_9464 - WAYPOINT
+      ?AUTO_9463 - LANDER
+      ?AUTO_9462 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9461 ?AUTO_9464 ) ( AT_LANDER ?AUTO_9463 ?AUTO_9462 ) ( HAVE_IMAGE ?AUTO_9461 ?AUTO_9459 ?AUTO_9460 ) ( VISIBLE ?AUTO_9464 ?AUTO_9462 ) ( AVAILABLE ?AUTO_9461 ) ( CHANNEL_FREE ?AUTO_9463 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_9461 ?AUTO_9463 ?AUTO_9459 ?AUTO_9460 ?AUTO_9464 ?AUTO_9462 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9459 ?AUTO_9460 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9469 - OBJECTIVE
+      ?AUTO_9470 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9476 - LANDER
+      ?AUTO_9472 - WAYPOINT
+      ?AUTO_9471 - ROVER
+      ?AUTO_9474 - WAYPOINT
+      ?AUTO_9479 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9476 ?AUTO_9472 ) ( HAVE_IMAGE ?AUTO_9471 ?AUTO_9469 ?AUTO_9470 ) ( VISIBLE ?AUTO_9474 ?AUTO_9472 ) ( AVAILABLE ?AUTO_9471 ) ( CHANNEL_FREE ?AUTO_9476 ) ( CAN_TRAVERSE ?AUTO_9471 ?AUTO_9479 ?AUTO_9474 ) ( AT ?AUTO_9471 ?AUTO_9479 ) ( VISIBLE ?AUTO_9479 ?AUTO_9474 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9471 ?AUTO_9479 ?AUTO_9474 )
+      ( GET_IMAGE_DATA ?AUTO_9469 ?AUTO_9470 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9469 ?AUTO_9470 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9480 - OBJECTIVE
+      ?AUTO_9481 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9484 - LANDER
+      ?AUTO_9485 - WAYPOINT
+      ?AUTO_9487 - ROVER
+      ?AUTO_9486 - WAYPOINT
+      ?AUTO_9488 - WAYPOINT
+      ?AUTO_9491 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9484 ?AUTO_9485 ) ( HAVE_IMAGE ?AUTO_9487 ?AUTO_9480 ?AUTO_9481 ) ( VISIBLE ?AUTO_9486 ?AUTO_9485 ) ( AVAILABLE ?AUTO_9487 ) ( CHANNEL_FREE ?AUTO_9484 ) ( CAN_TRAVERSE ?AUTO_9487 ?AUTO_9488 ?AUTO_9486 ) ( VISIBLE ?AUTO_9488 ?AUTO_9486 ) ( CAN_TRAVERSE ?AUTO_9487 ?AUTO_9491 ?AUTO_9488 ) ( AT ?AUTO_9487 ?AUTO_9491 ) ( VISIBLE ?AUTO_9491 ?AUTO_9488 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9487 ?AUTO_9491 ?AUTO_9488 )
+      ( GET_IMAGE_DATA ?AUTO_9480 ?AUTO_9481 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9480 ?AUTO_9481 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9494 - OBJECTIVE
+      ?AUTO_9495 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9502 - LANDER
+      ?AUTO_9503 - WAYPOINT
+      ?AUTO_9500 - WAYPOINT
+      ?AUTO_9496 - ROVER
+      ?AUTO_9498 - WAYPOINT
+      ?AUTO_9501 - WAYPOINT
+      ?AUTO_9508 - CAMERA
+      ?AUTO_9506 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9502 ?AUTO_9503 ) ( VISIBLE ?AUTO_9500 ?AUTO_9503 ) ( AVAILABLE ?AUTO_9496 ) ( CHANNEL_FREE ?AUTO_9502 ) ( CAN_TRAVERSE ?AUTO_9496 ?AUTO_9498 ?AUTO_9500 ) ( VISIBLE ?AUTO_9498 ?AUTO_9500 ) ( CAN_TRAVERSE ?AUTO_9496 ?AUTO_9501 ?AUTO_9498 ) ( AT ?AUTO_9496 ?AUTO_9501 ) ( VISIBLE ?AUTO_9501 ?AUTO_9498 ) ( CALIBRATED ?AUTO_9508 ?AUTO_9496 ) ( ON_BOARD ?AUTO_9508 ?AUTO_9496 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9496 ) ( SUPPORTS ?AUTO_9508 ?AUTO_9495 ) ( VISIBLE_FROM ?AUTO_9494 ?AUTO_9506 ) ( AT ?AUTO_9496 ?AUTO_9506 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_9496 ?AUTO_9506 ?AUTO_9494 ?AUTO_9508 ?AUTO_9495 )
+      ( GET_IMAGE_DATA ?AUTO_9494 ?AUTO_9495 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9494 ?AUTO_9495 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9509 - OBJECTIVE
+      ?AUTO_9510 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9512 - LANDER
+      ?AUTO_9515 - WAYPOINT
+      ?AUTO_9514 - WAYPOINT
+      ?AUTO_9513 - ROVER
+      ?AUTO_9518 - WAYPOINT
+      ?AUTO_9519 - WAYPOINT
+      ?AUTO_9520 - CAMERA
+      ?AUTO_9523 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9512 ?AUTO_9515 ) ( VISIBLE ?AUTO_9514 ?AUTO_9515 ) ( AVAILABLE ?AUTO_9513 ) ( CHANNEL_FREE ?AUTO_9512 ) ( CAN_TRAVERSE ?AUTO_9513 ?AUTO_9518 ?AUTO_9514 ) ( VISIBLE ?AUTO_9518 ?AUTO_9514 ) ( CAN_TRAVERSE ?AUTO_9513 ?AUTO_9519 ?AUTO_9518 ) ( VISIBLE ?AUTO_9519 ?AUTO_9518 ) ( CALIBRATED ?AUTO_9520 ?AUTO_9513 ) ( ON_BOARD ?AUTO_9520 ?AUTO_9513 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9513 ) ( SUPPORTS ?AUTO_9520 ?AUTO_9510 ) ( VISIBLE_FROM ?AUTO_9509 ?AUTO_9519 ) ( CAN_TRAVERSE ?AUTO_9513 ?AUTO_9523 ?AUTO_9519 ) ( AT ?AUTO_9513 ?AUTO_9523 ) ( VISIBLE ?AUTO_9523 ?AUTO_9519 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9513 ?AUTO_9523 ?AUTO_9519 )
+      ( GET_IMAGE_DATA ?AUTO_9509 ?AUTO_9510 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9509 ?AUTO_9510 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9524 - OBJECTIVE
+      ?AUTO_9525 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9528 - LANDER
+      ?AUTO_9526 - WAYPOINT
+      ?AUTO_9534 - WAYPOINT
+      ?AUTO_9533 - ROVER
+      ?AUTO_9527 - WAYPOINT
+      ?AUTO_9530 - WAYPOINT
+      ?AUTO_9529 - CAMERA
+      ?AUTO_9535 - WAYPOINT
+      ?AUTO_9538 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9528 ?AUTO_9526 ) ( VISIBLE ?AUTO_9534 ?AUTO_9526 ) ( AVAILABLE ?AUTO_9533 ) ( CHANNEL_FREE ?AUTO_9528 ) ( CAN_TRAVERSE ?AUTO_9533 ?AUTO_9527 ?AUTO_9534 ) ( VISIBLE ?AUTO_9527 ?AUTO_9534 ) ( CAN_TRAVERSE ?AUTO_9533 ?AUTO_9530 ?AUTO_9527 ) ( VISIBLE ?AUTO_9530 ?AUTO_9527 ) ( CALIBRATED ?AUTO_9529 ?AUTO_9533 ) ( ON_BOARD ?AUTO_9529 ?AUTO_9533 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9533 ) ( SUPPORTS ?AUTO_9529 ?AUTO_9525 ) ( VISIBLE_FROM ?AUTO_9524 ?AUTO_9530 ) ( CAN_TRAVERSE ?AUTO_9533 ?AUTO_9535 ?AUTO_9530 ) ( VISIBLE ?AUTO_9535 ?AUTO_9530 ) ( CAN_TRAVERSE ?AUTO_9533 ?AUTO_9538 ?AUTO_9535 ) ( AT ?AUTO_9533 ?AUTO_9538 ) ( VISIBLE ?AUTO_9538 ?AUTO_9535 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9533 ?AUTO_9538 ?AUTO_9535 )
+      ( GET_IMAGE_DATA ?AUTO_9524 ?AUTO_9525 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9524 ?AUTO_9525 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9547 - OBJECTIVE
+      ?AUTO_9548 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9557 - LANDER
+      ?AUTO_9553 - WAYPOINT
+      ?AUTO_9552 - WAYPOINT
+      ?AUTO_9549 - ROVER
+      ?AUTO_9558 - WAYPOINT
+      ?AUTO_9550 - WAYPOINT
+      ?AUTO_9559 - CAMERA
+      ?AUTO_9555 - WAYPOINT
+      ?AUTO_9554 - WAYPOINT
+      ?AUTO_9562 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9557 ?AUTO_9553 ) ( VISIBLE ?AUTO_9552 ?AUTO_9553 ) ( AVAILABLE ?AUTO_9549 ) ( CHANNEL_FREE ?AUTO_9557 ) ( CAN_TRAVERSE ?AUTO_9549 ?AUTO_9558 ?AUTO_9552 ) ( VISIBLE ?AUTO_9558 ?AUTO_9552 ) ( CAN_TRAVERSE ?AUTO_9549 ?AUTO_9550 ?AUTO_9558 ) ( VISIBLE ?AUTO_9550 ?AUTO_9558 ) ( CALIBRATED ?AUTO_9559 ?AUTO_9549 ) ( ON_BOARD ?AUTO_9559 ?AUTO_9549 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9549 ) ( SUPPORTS ?AUTO_9559 ?AUTO_9548 ) ( VISIBLE_FROM ?AUTO_9547 ?AUTO_9550 ) ( CAN_TRAVERSE ?AUTO_9549 ?AUTO_9555 ?AUTO_9550 ) ( VISIBLE ?AUTO_9555 ?AUTO_9550 ) ( CAN_TRAVERSE ?AUTO_9549 ?AUTO_9554 ?AUTO_9555 ) ( VISIBLE ?AUTO_9554 ?AUTO_9555 ) ( CAN_TRAVERSE ?AUTO_9549 ?AUTO_9562 ?AUTO_9554 ) ( AT ?AUTO_9549 ?AUTO_9562 ) ( VISIBLE ?AUTO_9562 ?AUTO_9554 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9549 ?AUTO_9562 ?AUTO_9554 )
+      ( GET_IMAGE_DATA ?AUTO_9547 ?AUTO_9548 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9547 ?AUTO_9548 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9567 - OBJECTIVE
+      ?AUTO_9568 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9571 - LANDER
+      ?AUTO_9577 - WAYPOINT
+      ?AUTO_9573 - WAYPOINT
+      ?AUTO_9576 - ROVER
+      ?AUTO_9579 - WAYPOINT
+      ?AUTO_9572 - WAYPOINT
+      ?AUTO_9580 - CAMERA
+      ?AUTO_9570 - WAYPOINT
+      ?AUTO_9574 - WAYPOINT
+      ?AUTO_9578 - WAYPOINT
+      ?AUTO_9584 - OBJECTIVE
+      ?AUTO_9582 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9571 ?AUTO_9577 ) ( VISIBLE ?AUTO_9573 ?AUTO_9577 ) ( AVAILABLE ?AUTO_9576 ) ( CHANNEL_FREE ?AUTO_9571 ) ( CAN_TRAVERSE ?AUTO_9576 ?AUTO_9579 ?AUTO_9573 ) ( VISIBLE ?AUTO_9579 ?AUTO_9573 ) ( CAN_TRAVERSE ?AUTO_9576 ?AUTO_9572 ?AUTO_9579 ) ( VISIBLE ?AUTO_9572 ?AUTO_9579 ) ( ON_BOARD ?AUTO_9580 ?AUTO_9576 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9576 ) ( SUPPORTS ?AUTO_9580 ?AUTO_9568 ) ( VISIBLE_FROM ?AUTO_9567 ?AUTO_9572 ) ( CAN_TRAVERSE ?AUTO_9576 ?AUTO_9570 ?AUTO_9572 ) ( VISIBLE ?AUTO_9570 ?AUTO_9572 ) ( CAN_TRAVERSE ?AUTO_9576 ?AUTO_9574 ?AUTO_9570 ) ( VISIBLE ?AUTO_9574 ?AUTO_9570 ) ( CAN_TRAVERSE ?AUTO_9576 ?AUTO_9578 ?AUTO_9574 ) ( AT ?AUTO_9576 ?AUTO_9578 ) ( VISIBLE ?AUTO_9578 ?AUTO_9574 ) ( CALIBRATION_TARGET ?AUTO_9580 ?AUTO_9584 ) ( AT ?AUTO_9576 ?AUTO_9582 ) ( VISIBLE_FROM ?AUTO_9584 ?AUTO_9582 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_9576 ?AUTO_9580 ?AUTO_9584 ?AUTO_9582 )
+      ( GET_IMAGE_DATA ?AUTO_9567 ?AUTO_9568 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9567 ?AUTO_9568 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9585 - OBJECTIVE
+      ?AUTO_9586 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9598 - LANDER
+      ?AUTO_9593 - WAYPOINT
+      ?AUTO_9596 - WAYPOINT
+      ?AUTO_9592 - ROVER
+      ?AUTO_9591 - WAYPOINT
+      ?AUTO_9597 - WAYPOINT
+      ?AUTO_9594 - CAMERA
+      ?AUTO_9589 - WAYPOINT
+      ?AUTO_9590 - WAYPOINT
+      ?AUTO_9600 - WAYPOINT
+      ?AUTO_9599 - OBJECTIVE
+      ?AUTO_9603 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9598 ?AUTO_9593 ) ( VISIBLE ?AUTO_9596 ?AUTO_9593 ) ( AVAILABLE ?AUTO_9592 ) ( CHANNEL_FREE ?AUTO_9598 ) ( CAN_TRAVERSE ?AUTO_9592 ?AUTO_9591 ?AUTO_9596 ) ( VISIBLE ?AUTO_9591 ?AUTO_9596 ) ( CAN_TRAVERSE ?AUTO_9592 ?AUTO_9597 ?AUTO_9591 ) ( VISIBLE ?AUTO_9597 ?AUTO_9591 ) ( ON_BOARD ?AUTO_9594 ?AUTO_9592 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9592 ) ( SUPPORTS ?AUTO_9594 ?AUTO_9586 ) ( VISIBLE_FROM ?AUTO_9585 ?AUTO_9597 ) ( CAN_TRAVERSE ?AUTO_9592 ?AUTO_9589 ?AUTO_9597 ) ( VISIBLE ?AUTO_9589 ?AUTO_9597 ) ( CAN_TRAVERSE ?AUTO_9592 ?AUTO_9590 ?AUTO_9589 ) ( VISIBLE ?AUTO_9590 ?AUTO_9589 ) ( CAN_TRAVERSE ?AUTO_9592 ?AUTO_9600 ?AUTO_9590 ) ( VISIBLE ?AUTO_9600 ?AUTO_9590 ) ( CALIBRATION_TARGET ?AUTO_9594 ?AUTO_9599 ) ( VISIBLE_FROM ?AUTO_9599 ?AUTO_9600 ) ( CAN_TRAVERSE ?AUTO_9592 ?AUTO_9603 ?AUTO_9600 ) ( AT ?AUTO_9592 ?AUTO_9603 ) ( VISIBLE ?AUTO_9603 ?AUTO_9600 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9592 ?AUTO_9603 ?AUTO_9600 )
+      ( GET_IMAGE_DATA ?AUTO_9585 ?AUTO_9586 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9585 ?AUTO_9586 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9605 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9606 - ROVER
+      ?AUTO_9609 - WAYPOINT
+      ?AUTO_9608 - LANDER
+      ?AUTO_9607 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9606 ?AUTO_9609 ) ( AT_LANDER ?AUTO_9608 ?AUTO_9607 ) ( HAVE_ROCK_ANALYSIS ?AUTO_9606 ?AUTO_9605 ) ( VISIBLE ?AUTO_9609 ?AUTO_9607 ) ( AVAILABLE ?AUTO_9606 ) ( CHANNEL_FREE ?AUTO_9608 ) )
+    :subtasks
+    ( ( !COMMUNICATE_ROCK_DATA ?AUTO_9606 ?AUTO_9608 ?AUTO_9605 ?AUTO_9609 ?AUTO_9607 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9605 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9611 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9613 - ROVER
+      ?AUTO_9616 - WAYPOINT
+      ?AUTO_9615 - LANDER
+      ?AUTO_9614 - WAYPOINT
+      ?AUTO_9618 - STORE
+    )
+    :precondition
+    ( and ( AT ?AUTO_9613 ?AUTO_9616 ) ( AT_LANDER ?AUTO_9615 ?AUTO_9614 ) ( VISIBLE ?AUTO_9616 ?AUTO_9614 ) ( AVAILABLE ?AUTO_9613 ) ( CHANNEL_FREE ?AUTO_9615 ) ( AT ?AUTO_9613 ?AUTO_9611 ) ( AT_ROCK_SAMPLE ?AUTO_9611 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9613 ) ( STORE_OF ?AUTO_9618 ?AUTO_9613 ) ( EMPTY ?AUTO_9618 ) )
+    :subtasks
+    ( ( !SAMPLE_ROCK ?AUTO_9613 ?AUTO_9618 ?AUTO_9611 )
+      ( GET_ROCK_DATA ?AUTO_9611 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9611 ) )
+  )
+
+  ( :method GET_ROCK_DATA
+    :parameters
+    (
+      ?AUTO_9621 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9622 - LANDER
+      ?AUTO_9623 - WAYPOINT
+      ?AUTO_9624 - ROVER
+      ?AUTO_9627 - STORE
+      ?AUTO_9630 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9622 ?AUTO_9623 ) ( VISIBLE ?AUTO_9621 ?AUTO_9623 ) ( AVAILABLE ?AUTO_9624 ) ( CHANNEL_FREE ?AUTO_9622 ) ( AT_ROCK_SAMPLE ?AUTO_9621 ) ( EQUIPPED_FOR_ROCK_ANALYSIS ?AUTO_9624 ) ( STORE_OF ?AUTO_9627 ?AUTO_9624 ) ( EMPTY ?AUTO_9627 ) ( CAN_TRAVERSE ?AUTO_9624 ?AUTO_9630 ?AUTO_9621 ) ( AT ?AUTO_9624 ?AUTO_9630 ) ( VISIBLE ?AUTO_9630 ?AUTO_9621 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9624 ?AUTO_9630 ?AUTO_9621 )
+      ( GET_ROCK_DATA ?AUTO_9621 )
+      ( GET_ROCK_DATA-VERIFY ?AUTO_9621 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9633 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9634 - ROVER
+      ?AUTO_9637 - WAYPOINT
+      ?AUTO_9636 - LANDER
+      ?AUTO_9635 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9634 ?AUTO_9637 ) ( AT_LANDER ?AUTO_9636 ?AUTO_9635 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9634 ?AUTO_9633 ) ( VISIBLE ?AUTO_9637 ?AUTO_9635 ) ( AVAILABLE ?AUTO_9634 ) ( CHANNEL_FREE ?AUTO_9636 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_9634 ?AUTO_9636 ?AUTO_9633 ?AUTO_9637 ?AUTO_9635 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9633 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9639 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9643 - LANDER
+      ?AUTO_9642 - WAYPOINT
+      ?AUTO_9641 - ROVER
+      ?AUTO_9644 - WAYPOINT
+      ?AUTO_9647 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9643 ?AUTO_9642 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9641 ?AUTO_9639 ) ( VISIBLE ?AUTO_9644 ?AUTO_9642 ) ( AVAILABLE ?AUTO_9641 ) ( CHANNEL_FREE ?AUTO_9643 ) ( CAN_TRAVERSE ?AUTO_9641 ?AUTO_9647 ?AUTO_9644 ) ( AT ?AUTO_9641 ?AUTO_9647 ) ( VISIBLE ?AUTO_9647 ?AUTO_9644 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9641 ?AUTO_9647 ?AUTO_9644 )
+      ( GET_SOIL_DATA ?AUTO_9639 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9639 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9648 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9653 - LANDER
+      ?AUTO_9649 - WAYPOINT
+      ?AUTO_9652 - WAYPOINT
+      ?AUTO_9650 - ROVER
+      ?AUTO_9654 - WAYPOINT
+      ?AUTO_9656 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9653 ?AUTO_9649 ) ( VISIBLE ?AUTO_9652 ?AUTO_9649 ) ( AVAILABLE ?AUTO_9650 ) ( CHANNEL_FREE ?AUTO_9653 ) ( CAN_TRAVERSE ?AUTO_9650 ?AUTO_9654 ?AUTO_9652 ) ( AT ?AUTO_9650 ?AUTO_9654 ) ( VISIBLE ?AUTO_9654 ?AUTO_9652 ) ( AT ?AUTO_9650 ?AUTO_9648 ) ( AT_SOIL_SAMPLE ?AUTO_9648 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9650 ) ( STORE_OF ?AUTO_9656 ?AUTO_9650 ) ( EMPTY ?AUTO_9656 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9650 ?AUTO_9656 ?AUTO_9648 )
+      ( GET_SOIL_DATA ?AUTO_9648 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9648 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9658 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9662 - LANDER
+      ?AUTO_9664 - WAYPOINT
+      ?AUTO_9660 - WAYPOINT
+      ?AUTO_9661 - ROVER
+      ?AUTO_9665 - STORE
+      ?AUTO_9668 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9662 ?AUTO_9664 ) ( VISIBLE ?AUTO_9660 ?AUTO_9664 ) ( AVAILABLE ?AUTO_9661 ) ( CHANNEL_FREE ?AUTO_9662 ) ( CAN_TRAVERSE ?AUTO_9661 ?AUTO_9658 ?AUTO_9660 ) ( VISIBLE ?AUTO_9658 ?AUTO_9660 ) ( AT_SOIL_SAMPLE ?AUTO_9658 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9661 ) ( STORE_OF ?AUTO_9665 ?AUTO_9661 ) ( EMPTY ?AUTO_9665 ) ( CAN_TRAVERSE ?AUTO_9661 ?AUTO_9668 ?AUTO_9658 ) ( AT ?AUTO_9661 ?AUTO_9668 ) ( VISIBLE ?AUTO_9668 ?AUTO_9658 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9661 ?AUTO_9668 ?AUTO_9658 )
+      ( GET_SOIL_DATA ?AUTO_9658 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9658 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9669 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9671 - LANDER
+      ?AUTO_9673 - WAYPOINT
+      ?AUTO_9675 - WAYPOINT
+      ?AUTO_9672 - ROVER
+      ?AUTO_9676 - STORE
+      ?AUTO_9674 - WAYPOINT
+      ?AUTO_9677 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9671 ?AUTO_9673 ) ( VISIBLE ?AUTO_9675 ?AUTO_9673 ) ( AVAILABLE ?AUTO_9672 ) ( CHANNEL_FREE ?AUTO_9671 ) ( CAN_TRAVERSE ?AUTO_9672 ?AUTO_9669 ?AUTO_9675 ) ( VISIBLE ?AUTO_9669 ?AUTO_9675 ) ( AT_SOIL_SAMPLE ?AUTO_9669 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9672 ) ( STORE_OF ?AUTO_9676 ?AUTO_9672 ) ( CAN_TRAVERSE ?AUTO_9672 ?AUTO_9674 ?AUTO_9669 ) ( AT ?AUTO_9672 ?AUTO_9674 ) ( VISIBLE ?AUTO_9674 ?AUTO_9669 ) ( STORE_OF ?AUTO_9676 ?AUTO_9677 ) ( FULL ?AUTO_9676 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9677 ?AUTO_9676 )
+      ( GET_SOIL_DATA ?AUTO_9669 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9669 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9681 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9682 - LANDER
+      ?AUTO_9686 - WAYPOINT
+      ?AUTO_9687 - WAYPOINT
+      ?AUTO_9689 - ROVER
+      ?AUTO_9684 - STORE
+      ?AUTO_9683 - WAYPOINT
+      ?AUTO_9688 - ROVER
+      ?AUTO_9692 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9682 ?AUTO_9686 ) ( VISIBLE ?AUTO_9687 ?AUTO_9686 ) ( AVAILABLE ?AUTO_9689 ) ( CHANNEL_FREE ?AUTO_9682 ) ( CAN_TRAVERSE ?AUTO_9689 ?AUTO_9681 ?AUTO_9687 ) ( VISIBLE ?AUTO_9681 ?AUTO_9687 ) ( AT_SOIL_SAMPLE ?AUTO_9681 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9689 ) ( STORE_OF ?AUTO_9684 ?AUTO_9689 ) ( CAN_TRAVERSE ?AUTO_9689 ?AUTO_9683 ?AUTO_9681 ) ( VISIBLE ?AUTO_9683 ?AUTO_9681 ) ( STORE_OF ?AUTO_9684 ?AUTO_9688 ) ( FULL ?AUTO_9684 ) ( CAN_TRAVERSE ?AUTO_9689 ?AUTO_9692 ?AUTO_9683 ) ( AT ?AUTO_9689 ?AUTO_9692 ) ( VISIBLE ?AUTO_9692 ?AUTO_9683 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9689 ?AUTO_9692 ?AUTO_9683 )
+      ( GET_SOIL_DATA ?AUTO_9681 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9681 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9693 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9696 - LANDER
+      ?AUTO_9700 - WAYPOINT
+      ?AUTO_9699 - WAYPOINT
+      ?AUTO_9694 - ROVER
+      ?AUTO_9698 - STORE
+      ?AUTO_9695 - WAYPOINT
+      ?AUTO_9697 - ROVER
+      ?AUTO_9701 - WAYPOINT
+      ?AUTO_9703 - ROVER
+      ?AUTO_9705 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9696 ?AUTO_9700 ) ( VISIBLE ?AUTO_9699 ?AUTO_9700 ) ( AVAILABLE ?AUTO_9694 ) ( CHANNEL_FREE ?AUTO_9696 ) ( CAN_TRAVERSE ?AUTO_9694 ?AUTO_9693 ?AUTO_9699 ) ( VISIBLE ?AUTO_9693 ?AUTO_9699 ) ( AT_SOIL_SAMPLE ?AUTO_9693 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9694 ) ( STORE_OF ?AUTO_9698 ?AUTO_9694 ) ( CAN_TRAVERSE ?AUTO_9694 ?AUTO_9695 ?AUTO_9693 ) ( VISIBLE ?AUTO_9695 ?AUTO_9693 ) ( STORE_OF ?AUTO_9698 ?AUTO_9697 ) ( CAN_TRAVERSE ?AUTO_9694 ?AUTO_9701 ?AUTO_9695 ) ( AT ?AUTO_9694 ?AUTO_9701 ) ( VISIBLE ?AUTO_9701 ?AUTO_9695 ) ( AT ?AUTO_9703 ?AUTO_9705 ) ( AT_SOIL_SAMPLE ?AUTO_9705 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9703 ) ( STORE_OF ?AUTO_9698 ?AUTO_9703 ) ( EMPTY ?AUTO_9698 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9703 ?AUTO_9698 ?AUTO_9705 )
+      ( GET_SOIL_DATA ?AUTO_9693 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9693 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9711 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9717 - LANDER
+      ?AUTO_9714 - WAYPOINT
+      ?AUTO_9713 - WAYPOINT
+      ?AUTO_9715 - ROVER
+      ?AUTO_9716 - STORE
+      ?AUTO_9718 - WAYPOINT
+      ?AUTO_9721 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9717 ?AUTO_9714 ) ( VISIBLE ?AUTO_9713 ?AUTO_9714 ) ( AVAILABLE ?AUTO_9715 ) ( CHANNEL_FREE ?AUTO_9717 ) ( CAN_TRAVERSE ?AUTO_9715 ?AUTO_9711 ?AUTO_9713 ) ( VISIBLE ?AUTO_9711 ?AUTO_9713 ) ( AT_SOIL_SAMPLE ?AUTO_9711 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9715 ) ( STORE_OF ?AUTO_9716 ?AUTO_9715 ) ( EMPTY ?AUTO_9716 ) ( CAN_TRAVERSE ?AUTO_9715 ?AUTO_9718 ?AUTO_9711 ) ( VISIBLE ?AUTO_9718 ?AUTO_9711 ) ( CAN_TRAVERSE ?AUTO_9715 ?AUTO_9721 ?AUTO_9718 ) ( AT ?AUTO_9715 ?AUTO_9721 ) ( VISIBLE ?AUTO_9721 ?AUTO_9718 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9715 ?AUTO_9721 ?AUTO_9718 )
+      ( GET_SOIL_DATA ?AUTO_9711 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9711 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9723 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9724 - ROVER
+      ?AUTO_9727 - WAYPOINT
+      ?AUTO_9726 - LANDER
+      ?AUTO_9725 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9724 ?AUTO_9727 ) ( AT_LANDER ?AUTO_9726 ?AUTO_9725 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9724 ?AUTO_9723 ) ( VISIBLE ?AUTO_9727 ?AUTO_9725 ) ( AVAILABLE ?AUTO_9724 ) ( CHANNEL_FREE ?AUTO_9726 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_9724 ?AUTO_9726 ?AUTO_9723 ?AUTO_9727 ?AUTO_9725 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9723 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9732 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9734 - LANDER
+      ?AUTO_9736 - WAYPOINT
+      ?AUTO_9733 - ROVER
+      ?AUTO_9738 - WAYPOINT
+      ?AUTO_9737 - WAYPOINT
+      ?AUTO_9741 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9734 ?AUTO_9736 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9733 ?AUTO_9732 ) ( VISIBLE ?AUTO_9738 ?AUTO_9736 ) ( AVAILABLE ?AUTO_9733 ) ( CHANNEL_FREE ?AUTO_9734 ) ( CAN_TRAVERSE ?AUTO_9733 ?AUTO_9737 ?AUTO_9738 ) ( VISIBLE ?AUTO_9737 ?AUTO_9738 ) ( CAN_TRAVERSE ?AUTO_9733 ?AUTO_9741 ?AUTO_9737 ) ( AT ?AUTO_9733 ?AUTO_9741 ) ( VISIBLE ?AUTO_9741 ?AUTO_9737 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9733 ?AUTO_9741 ?AUTO_9737 )
+      ( GET_SOIL_DATA ?AUTO_9732 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9732 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9743 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9744 - LANDER
+      ?AUTO_9745 - WAYPOINT
+      ?AUTO_9746 - WAYPOINT
+      ?AUTO_9748 - ROVER
+      ?AUTO_9750 - WAYPOINT
+      ?AUTO_9747 - WAYPOINT
+      ?AUTO_9752 - STORE
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9744 ?AUTO_9745 ) ( VISIBLE ?AUTO_9746 ?AUTO_9745 ) ( AVAILABLE ?AUTO_9748 ) ( CHANNEL_FREE ?AUTO_9744 ) ( CAN_TRAVERSE ?AUTO_9748 ?AUTO_9750 ?AUTO_9746 ) ( VISIBLE ?AUTO_9750 ?AUTO_9746 ) ( CAN_TRAVERSE ?AUTO_9748 ?AUTO_9747 ?AUTO_9750 ) ( AT ?AUTO_9748 ?AUTO_9747 ) ( VISIBLE ?AUTO_9747 ?AUTO_9750 ) ( AT ?AUTO_9748 ?AUTO_9743 ) ( AT_SOIL_SAMPLE ?AUTO_9743 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9748 ) ( STORE_OF ?AUTO_9752 ?AUTO_9748 ) ( EMPTY ?AUTO_9752 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9748 ?AUTO_9752 ?AUTO_9743 )
+      ( GET_SOIL_DATA ?AUTO_9743 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9743 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9754 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9760 - LANDER
+      ?AUTO_9759 - WAYPOINT
+      ?AUTO_9757 - WAYPOINT
+      ?AUTO_9758 - ROVER
+      ?AUTO_9756 - WAYPOINT
+      ?AUTO_9761 - WAYPOINT
+      ?AUTO_9762 - STORE
+      ?AUTO_9763 - ROVER
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9760 ?AUTO_9759 ) ( VISIBLE ?AUTO_9757 ?AUTO_9759 ) ( AVAILABLE ?AUTO_9758 ) ( CHANNEL_FREE ?AUTO_9760 ) ( CAN_TRAVERSE ?AUTO_9758 ?AUTO_9756 ?AUTO_9757 ) ( VISIBLE ?AUTO_9756 ?AUTO_9757 ) ( CAN_TRAVERSE ?AUTO_9758 ?AUTO_9761 ?AUTO_9756 ) ( AT ?AUTO_9758 ?AUTO_9761 ) ( VISIBLE ?AUTO_9761 ?AUTO_9756 ) ( AT ?AUTO_9758 ?AUTO_9754 ) ( AT_SOIL_SAMPLE ?AUTO_9754 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9758 ) ( STORE_OF ?AUTO_9762 ?AUTO_9758 ) ( STORE_OF ?AUTO_9762 ?AUTO_9763 ) ( FULL ?AUTO_9762 ) )
+    :subtasks
+    ( ( !DROP ?AUTO_9763 ?AUTO_9762 )
+      ( GET_SOIL_DATA ?AUTO_9754 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9754 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9765 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9773 - LANDER
+      ?AUTO_9771 - WAYPOINT
+      ?AUTO_9766 - WAYPOINT
+      ?AUTO_9770 - ROVER
+      ?AUTO_9769 - WAYPOINT
+      ?AUTO_9767 - STORE
+      ?AUTO_9774 - ROVER
+      ?AUTO_9777 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9773 ?AUTO_9771 ) ( VISIBLE ?AUTO_9766 ?AUTO_9771 ) ( AVAILABLE ?AUTO_9770 ) ( CHANNEL_FREE ?AUTO_9773 ) ( CAN_TRAVERSE ?AUTO_9770 ?AUTO_9769 ?AUTO_9766 ) ( VISIBLE ?AUTO_9769 ?AUTO_9766 ) ( CAN_TRAVERSE ?AUTO_9770 ?AUTO_9765 ?AUTO_9769 ) ( VISIBLE ?AUTO_9765 ?AUTO_9769 ) ( AT_SOIL_SAMPLE ?AUTO_9765 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9770 ) ( STORE_OF ?AUTO_9767 ?AUTO_9770 ) ( STORE_OF ?AUTO_9767 ?AUTO_9774 ) ( FULL ?AUTO_9767 ) ( CAN_TRAVERSE ?AUTO_9770 ?AUTO_9777 ?AUTO_9765 ) ( AT ?AUTO_9770 ?AUTO_9777 ) ( VISIBLE ?AUTO_9777 ?AUTO_9765 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9770 ?AUTO_9777 ?AUTO_9765 )
+      ( GET_SOIL_DATA ?AUTO_9765 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9765 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9778 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9781 - LANDER
+      ?AUTO_9786 - WAYPOINT
+      ?AUTO_9785 - WAYPOINT
+      ?AUTO_9783 - ROVER
+      ?AUTO_9779 - WAYPOINT
+      ?AUTO_9782 - STORE
+      ?AUTO_9784 - ROVER
+      ?AUTO_9787 - WAYPOINT
+      ?AUTO_9788 - ROVER
+      ?AUTO_9790 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9781 ?AUTO_9786 ) ( VISIBLE ?AUTO_9785 ?AUTO_9786 ) ( AVAILABLE ?AUTO_9783 ) ( CHANNEL_FREE ?AUTO_9781 ) ( CAN_TRAVERSE ?AUTO_9783 ?AUTO_9779 ?AUTO_9785 ) ( VISIBLE ?AUTO_9779 ?AUTO_9785 ) ( CAN_TRAVERSE ?AUTO_9783 ?AUTO_9778 ?AUTO_9779 ) ( VISIBLE ?AUTO_9778 ?AUTO_9779 ) ( AT_SOIL_SAMPLE ?AUTO_9778 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9783 ) ( STORE_OF ?AUTO_9782 ?AUTO_9783 ) ( STORE_OF ?AUTO_9782 ?AUTO_9784 ) ( CAN_TRAVERSE ?AUTO_9783 ?AUTO_9787 ?AUTO_9778 ) ( AT ?AUTO_9783 ?AUTO_9787 ) ( VISIBLE ?AUTO_9787 ?AUTO_9778 ) ( AT ?AUTO_9788 ?AUTO_9790 ) ( AT_SOIL_SAMPLE ?AUTO_9790 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9788 ) ( STORE_OF ?AUTO_9782 ?AUTO_9788 ) ( EMPTY ?AUTO_9782 ) )
+    :subtasks
+    ( ( !SAMPLE_SOIL ?AUTO_9788 ?AUTO_9782 ?AUTO_9790 )
+      ( GET_SOIL_DATA ?AUTO_9778 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9778 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9791 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9801 - LANDER
+      ?AUTO_9793 - WAYPOINT
+      ?AUTO_9802 - WAYPOINT
+      ?AUTO_9794 - ROVER
+      ?AUTO_9798 - WAYPOINT
+      ?AUTO_9792 - STORE
+      ?AUTO_9799 - ROVER
+      ?AUTO_9797 - WAYPOINT
+      ?AUTO_9805 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9801 ?AUTO_9793 ) ( VISIBLE ?AUTO_9802 ?AUTO_9793 ) ( AVAILABLE ?AUTO_9794 ) ( CHANNEL_FREE ?AUTO_9801 ) ( CAN_TRAVERSE ?AUTO_9794 ?AUTO_9798 ?AUTO_9802 ) ( VISIBLE ?AUTO_9798 ?AUTO_9802 ) ( CAN_TRAVERSE ?AUTO_9794 ?AUTO_9791 ?AUTO_9798 ) ( VISIBLE ?AUTO_9791 ?AUTO_9798 ) ( AT_SOIL_SAMPLE ?AUTO_9791 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9794 ) ( STORE_OF ?AUTO_9792 ?AUTO_9794 ) ( STORE_OF ?AUTO_9792 ?AUTO_9799 ) ( CAN_TRAVERSE ?AUTO_9794 ?AUTO_9797 ?AUTO_9791 ) ( VISIBLE ?AUTO_9797 ?AUTO_9791 ) ( AT_SOIL_SAMPLE ?AUTO_9797 ) ( EMPTY ?AUTO_9792 ) ( CAN_TRAVERSE ?AUTO_9794 ?AUTO_9805 ?AUTO_9797 ) ( AT ?AUTO_9794 ?AUTO_9805 ) ( VISIBLE ?AUTO_9805 ?AUTO_9797 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9794 ?AUTO_9805 ?AUTO_9797 )
+      ( GET_SOIL_DATA ?AUTO_9791 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9791 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9810 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9818 - LANDER
+      ?AUTO_9816 - WAYPOINT
+      ?AUTO_9820 - WAYPOINT
+      ?AUTO_9819 - ROVER
+      ?AUTO_9812 - WAYPOINT
+      ?AUTO_9811 - STORE
+      ?AUTO_9813 - ROVER
+      ?AUTO_9814 - WAYPOINT
+      ?AUTO_9815 - WAYPOINT
+      ?AUTO_9823 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9818 ?AUTO_9816 ) ( VISIBLE ?AUTO_9820 ?AUTO_9816 ) ( AVAILABLE ?AUTO_9819 ) ( CHANNEL_FREE ?AUTO_9818 ) ( CAN_TRAVERSE ?AUTO_9819 ?AUTO_9812 ?AUTO_9820 ) ( VISIBLE ?AUTO_9812 ?AUTO_9820 ) ( CAN_TRAVERSE ?AUTO_9819 ?AUTO_9810 ?AUTO_9812 ) ( VISIBLE ?AUTO_9810 ?AUTO_9812 ) ( AT_SOIL_SAMPLE ?AUTO_9810 ) ( EQUIPPED_FOR_SOIL_ANALYSIS ?AUTO_9819 ) ( STORE_OF ?AUTO_9811 ?AUTO_9819 ) ( STORE_OF ?AUTO_9811 ?AUTO_9813 ) ( CAN_TRAVERSE ?AUTO_9819 ?AUTO_9814 ?AUTO_9810 ) ( VISIBLE ?AUTO_9814 ?AUTO_9810 ) ( AT_SOIL_SAMPLE ?AUTO_9814 ) ( EMPTY ?AUTO_9811 ) ( CAN_TRAVERSE ?AUTO_9819 ?AUTO_9815 ?AUTO_9814 ) ( VISIBLE ?AUTO_9815 ?AUTO_9814 ) ( CAN_TRAVERSE ?AUTO_9819 ?AUTO_9823 ?AUTO_9815 ) ( AT ?AUTO_9819 ?AUTO_9823 ) ( VISIBLE ?AUTO_9823 ?AUTO_9815 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9819 ?AUTO_9823 ?AUTO_9815 )
+      ( GET_SOIL_DATA ?AUTO_9810 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9810 ) )
+  )
+
+  ( :method GET_SOIL_DATA
+    :parameters
+    (
+      ?AUTO_9825 - WAYPOINT
+    )
+    :vars
+    (
+      ?AUTO_9826 - ROVER
+      ?AUTO_9829 - WAYPOINT
+      ?AUTO_9828 - LANDER
+      ?AUTO_9827 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9826 ?AUTO_9829 ) ( AT_LANDER ?AUTO_9828 ?AUTO_9827 ) ( HAVE_SOIL_ANALYSIS ?AUTO_9826 ?AUTO_9825 ) ( VISIBLE ?AUTO_9829 ?AUTO_9827 ) ( AVAILABLE ?AUTO_9826 ) ( CHANNEL_FREE ?AUTO_9828 ) )
+    :subtasks
+    ( ( !COMMUNICATE_SOIL_DATA ?AUTO_9826 ?AUTO_9828 ?AUTO_9825 ?AUTO_9829 ?AUTO_9827 )
+      ( GET_SOIL_DATA-VERIFY ?AUTO_9825 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9849 - OBJECTIVE
+      ?AUTO_9850 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9851 - ROVER
+      ?AUTO_9854 - WAYPOINT
+      ?AUTO_9853 - LANDER
+      ?AUTO_9852 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT ?AUTO_9851 ?AUTO_9854 ) ( AT_LANDER ?AUTO_9853 ?AUTO_9852 ) ( HAVE_IMAGE ?AUTO_9851 ?AUTO_9849 ?AUTO_9850 ) ( VISIBLE ?AUTO_9854 ?AUTO_9852 ) ( AVAILABLE ?AUTO_9851 ) ( CHANNEL_FREE ?AUTO_9853 ) )
+    :subtasks
+    ( ( !COMMUNICATE_IMAGE_DATA ?AUTO_9851 ?AUTO_9853 ?AUTO_9849 ?AUTO_9850 ?AUTO_9854 ?AUTO_9852 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9849 ?AUTO_9850 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9857 - OBJECTIVE
+      ?AUTO_9858 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9863 - LANDER
+      ?AUTO_9862 - WAYPOINT
+      ?AUTO_9861 - ROVER
+      ?AUTO_9864 - WAYPOINT
+      ?AUTO_9867 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9863 ?AUTO_9862 ) ( HAVE_IMAGE ?AUTO_9861 ?AUTO_9857 ?AUTO_9858 ) ( VISIBLE ?AUTO_9864 ?AUTO_9862 ) ( AVAILABLE ?AUTO_9861 ) ( CHANNEL_FREE ?AUTO_9863 ) ( CAN_TRAVERSE ?AUTO_9861 ?AUTO_9867 ?AUTO_9864 ) ( AT ?AUTO_9861 ?AUTO_9867 ) ( VISIBLE ?AUTO_9867 ?AUTO_9864 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9861 ?AUTO_9867 ?AUTO_9864 )
+      ( GET_IMAGE_DATA ?AUTO_9857 ?AUTO_9858 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9857 ?AUTO_9858 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9868 - OBJECTIVE
+      ?AUTO_9869 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9874 - LANDER
+      ?AUTO_9873 - WAYPOINT
+      ?AUTO_9875 - ROVER
+      ?AUTO_9870 - WAYPOINT
+      ?AUTO_9876 - WAYPOINT
+      ?AUTO_9879 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9874 ?AUTO_9873 ) ( HAVE_IMAGE ?AUTO_9875 ?AUTO_9868 ?AUTO_9869 ) ( VISIBLE ?AUTO_9870 ?AUTO_9873 ) ( AVAILABLE ?AUTO_9875 ) ( CHANNEL_FREE ?AUTO_9874 ) ( CAN_TRAVERSE ?AUTO_9875 ?AUTO_9876 ?AUTO_9870 ) ( VISIBLE ?AUTO_9876 ?AUTO_9870 ) ( CAN_TRAVERSE ?AUTO_9875 ?AUTO_9879 ?AUTO_9876 ) ( AT ?AUTO_9875 ?AUTO_9879 ) ( VISIBLE ?AUTO_9879 ?AUTO_9876 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9875 ?AUTO_9879 ?AUTO_9876 )
+      ( GET_IMAGE_DATA ?AUTO_9868 ?AUTO_9869 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9868 ?AUTO_9869 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9880 - OBJECTIVE
+      ?AUTO_9881 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9882 - LANDER
+      ?AUTO_9888 - WAYPOINT
+      ?AUTO_9886 - ROVER
+      ?AUTO_9887 - WAYPOINT
+      ?AUTO_9889 - WAYPOINT
+      ?AUTO_9884 - WAYPOINT
+      ?AUTO_9892 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9882 ?AUTO_9888 ) ( HAVE_IMAGE ?AUTO_9886 ?AUTO_9880 ?AUTO_9881 ) ( VISIBLE ?AUTO_9887 ?AUTO_9888 ) ( AVAILABLE ?AUTO_9886 ) ( CHANNEL_FREE ?AUTO_9882 ) ( CAN_TRAVERSE ?AUTO_9886 ?AUTO_9889 ?AUTO_9887 ) ( VISIBLE ?AUTO_9889 ?AUTO_9887 ) ( CAN_TRAVERSE ?AUTO_9886 ?AUTO_9884 ?AUTO_9889 ) ( VISIBLE ?AUTO_9884 ?AUTO_9889 ) ( CAN_TRAVERSE ?AUTO_9886 ?AUTO_9892 ?AUTO_9884 ) ( AT ?AUTO_9886 ?AUTO_9892 ) ( VISIBLE ?AUTO_9892 ?AUTO_9884 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9886 ?AUTO_9892 ?AUTO_9884 )
+      ( GET_IMAGE_DATA ?AUTO_9880 ?AUTO_9881 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9880 ?AUTO_9881 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9893 - OBJECTIVE
+      ?AUTO_9894 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9899 - LANDER
+      ?AUTO_9902 - WAYPOINT
+      ?AUTO_9896 - WAYPOINT
+      ?AUTO_9897 - ROVER
+      ?AUTO_9901 - WAYPOINT
+      ?AUTO_9900 - WAYPOINT
+      ?AUTO_9903 - WAYPOINT
+      ?AUTO_9908 - CAMERA
+      ?AUTO_9906 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9899 ?AUTO_9902 ) ( VISIBLE ?AUTO_9896 ?AUTO_9902 ) ( AVAILABLE ?AUTO_9897 ) ( CHANNEL_FREE ?AUTO_9899 ) ( CAN_TRAVERSE ?AUTO_9897 ?AUTO_9901 ?AUTO_9896 ) ( VISIBLE ?AUTO_9901 ?AUTO_9896 ) ( CAN_TRAVERSE ?AUTO_9897 ?AUTO_9900 ?AUTO_9901 ) ( VISIBLE ?AUTO_9900 ?AUTO_9901 ) ( CAN_TRAVERSE ?AUTO_9897 ?AUTO_9903 ?AUTO_9900 ) ( AT ?AUTO_9897 ?AUTO_9903 ) ( VISIBLE ?AUTO_9903 ?AUTO_9900 ) ( CALIBRATED ?AUTO_9908 ?AUTO_9897 ) ( ON_BOARD ?AUTO_9908 ?AUTO_9897 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9897 ) ( SUPPORTS ?AUTO_9908 ?AUTO_9894 ) ( VISIBLE_FROM ?AUTO_9893 ?AUTO_9906 ) ( AT ?AUTO_9897 ?AUTO_9906 ) )
+    :subtasks
+    ( ( !TAKE_IMAGE ?AUTO_9897 ?AUTO_9906 ?AUTO_9893 ?AUTO_9908 ?AUTO_9894 )
+      ( GET_IMAGE_DATA ?AUTO_9893 ?AUTO_9894 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9893 ?AUTO_9894 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9909 - OBJECTIVE
+      ?AUTO_9910 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9917 - LANDER
+      ?AUTO_9915 - WAYPOINT
+      ?AUTO_9912 - WAYPOINT
+      ?AUTO_9919 - ROVER
+      ?AUTO_9916 - WAYPOINT
+      ?AUTO_9914 - WAYPOINT
+      ?AUTO_9918 - WAYPOINT
+      ?AUTO_9921 - CAMERA
+      ?AUTO_9920 - WAYPOINT
+      ?AUTO_9925 - OBJECTIVE
+      ?AUTO_9923 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9917 ?AUTO_9915 ) ( VISIBLE ?AUTO_9912 ?AUTO_9915 ) ( AVAILABLE ?AUTO_9919 ) ( CHANNEL_FREE ?AUTO_9917 ) ( CAN_TRAVERSE ?AUTO_9919 ?AUTO_9916 ?AUTO_9912 ) ( VISIBLE ?AUTO_9916 ?AUTO_9912 ) ( CAN_TRAVERSE ?AUTO_9919 ?AUTO_9914 ?AUTO_9916 ) ( VISIBLE ?AUTO_9914 ?AUTO_9916 ) ( CAN_TRAVERSE ?AUTO_9919 ?AUTO_9918 ?AUTO_9914 ) ( AT ?AUTO_9919 ?AUTO_9918 ) ( VISIBLE ?AUTO_9918 ?AUTO_9914 ) ( ON_BOARD ?AUTO_9921 ?AUTO_9919 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9919 ) ( SUPPORTS ?AUTO_9921 ?AUTO_9910 ) ( VISIBLE_FROM ?AUTO_9909 ?AUTO_9920 ) ( AT ?AUTO_9919 ?AUTO_9920 ) ( CALIBRATION_TARGET ?AUTO_9921 ?AUTO_9925 ) ( AT ?AUTO_9919 ?AUTO_9923 ) ( VISIBLE_FROM ?AUTO_9925 ?AUTO_9923 ) )
+    :subtasks
+    ( ( !CALIBRATE ?AUTO_9919 ?AUTO_9921 ?AUTO_9925 ?AUTO_9923 )
+      ( GET_IMAGE_DATA ?AUTO_9909 ?AUTO_9910 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9909 ?AUTO_9910 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9926 - OBJECTIVE
+      ?AUTO_9927 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9931 - LANDER
+      ?AUTO_9940 - WAYPOINT
+      ?AUTO_9936 - WAYPOINT
+      ?AUTO_9938 - ROVER
+      ?AUTO_9932 - WAYPOINT
+      ?AUTO_9939 - WAYPOINT
+      ?AUTO_9934 - WAYPOINT
+      ?AUTO_9937 - CAMERA
+      ?AUTO_9935 - OBJECTIVE
+      ?AUTO_9943 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9931 ?AUTO_9940 ) ( VISIBLE ?AUTO_9936 ?AUTO_9940 ) ( AVAILABLE ?AUTO_9938 ) ( CHANNEL_FREE ?AUTO_9931 ) ( CAN_TRAVERSE ?AUTO_9938 ?AUTO_9932 ?AUTO_9936 ) ( VISIBLE ?AUTO_9932 ?AUTO_9936 ) ( CAN_TRAVERSE ?AUTO_9938 ?AUTO_9939 ?AUTO_9932 ) ( VISIBLE ?AUTO_9939 ?AUTO_9932 ) ( CAN_TRAVERSE ?AUTO_9938 ?AUTO_9934 ?AUTO_9939 ) ( VISIBLE ?AUTO_9934 ?AUTO_9939 ) ( ON_BOARD ?AUTO_9937 ?AUTO_9938 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9938 ) ( SUPPORTS ?AUTO_9937 ?AUTO_9927 ) ( VISIBLE_FROM ?AUTO_9926 ?AUTO_9934 ) ( CALIBRATION_TARGET ?AUTO_9937 ?AUTO_9935 ) ( VISIBLE_FROM ?AUTO_9935 ?AUTO_9934 ) ( CAN_TRAVERSE ?AUTO_9938 ?AUTO_9943 ?AUTO_9934 ) ( AT ?AUTO_9938 ?AUTO_9943 ) ( VISIBLE ?AUTO_9943 ?AUTO_9934 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9938 ?AUTO_9943 ?AUTO_9934 )
+      ( GET_IMAGE_DATA ?AUTO_9926 ?AUTO_9927 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9926 ?AUTO_9927 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9944 - OBJECTIVE
+      ?AUTO_9945 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9957 - LANDER
+      ?AUTO_9956 - WAYPOINT
+      ?AUTO_9954 - WAYPOINT
+      ?AUTO_9951 - ROVER
+      ?AUTO_9953 - WAYPOINT
+      ?AUTO_9946 - WAYPOINT
+      ?AUTO_9955 - WAYPOINT
+      ?AUTO_9952 - CAMERA
+      ?AUTO_9950 - OBJECTIVE
+      ?AUTO_9948 - WAYPOINT
+      ?AUTO_9960 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9957 ?AUTO_9956 ) ( VISIBLE ?AUTO_9954 ?AUTO_9956 ) ( AVAILABLE ?AUTO_9951 ) ( CHANNEL_FREE ?AUTO_9957 ) ( CAN_TRAVERSE ?AUTO_9951 ?AUTO_9953 ?AUTO_9954 ) ( VISIBLE ?AUTO_9953 ?AUTO_9954 ) ( CAN_TRAVERSE ?AUTO_9951 ?AUTO_9946 ?AUTO_9953 ) ( VISIBLE ?AUTO_9946 ?AUTO_9953 ) ( CAN_TRAVERSE ?AUTO_9951 ?AUTO_9955 ?AUTO_9946 ) ( VISIBLE ?AUTO_9955 ?AUTO_9946 ) ( ON_BOARD ?AUTO_9952 ?AUTO_9951 ) ( EQUIPPED_FOR_IMAGING ?AUTO_9951 ) ( SUPPORTS ?AUTO_9952 ?AUTO_9945 ) ( VISIBLE_FROM ?AUTO_9944 ?AUTO_9955 ) ( CALIBRATION_TARGET ?AUTO_9952 ?AUTO_9950 ) ( VISIBLE_FROM ?AUTO_9950 ?AUTO_9955 ) ( CAN_TRAVERSE ?AUTO_9951 ?AUTO_9948 ?AUTO_9955 ) ( VISIBLE ?AUTO_9948 ?AUTO_9955 ) ( CAN_TRAVERSE ?AUTO_9951 ?AUTO_9960 ?AUTO_9948 ) ( AT ?AUTO_9951 ?AUTO_9960 ) ( VISIBLE ?AUTO_9960 ?AUTO_9948 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_9951 ?AUTO_9960 ?AUTO_9948 )
+      ( GET_IMAGE_DATA ?AUTO_9944 ?AUTO_9945 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9944 ?AUTO_9945 ) )
+  )
+
+  ( :method GET_IMAGE_DATA
+    :parameters
+    (
+      ?AUTO_9989 - OBJECTIVE
+      ?AUTO_9990 - MODE
+    )
+    :vars
+    (
+      ?AUTO_9992 - LANDER
+      ?AUTO_9991 - WAYPOINT
+      ?AUTO_10002 - WAYPOINT
+      ?AUTO_10000 - ROVER
+      ?AUTO_9995 - WAYPOINT
+      ?AUTO_9997 - WAYPOINT
+      ?AUTO_9993 - WAYPOINT
+      ?AUTO_9994 - CAMERA
+      ?AUTO_9996 - OBJECTIVE
+      ?AUTO_9998 - WAYPOINT
+      ?AUTO_9999 - WAYPOINT
+      ?AUTO_10006 - WAYPOINT
+    )
+    :precondition
+    ( and ( AT_LANDER ?AUTO_9992 ?AUTO_9991 ) ( VISIBLE ?AUTO_10002 ?AUTO_9991 ) ( AVAILABLE ?AUTO_10000 ) ( CHANNEL_FREE ?AUTO_9992 ) ( CAN_TRAVERSE ?AUTO_10000 ?AUTO_9995 ?AUTO_10002 ) ( VISIBLE ?AUTO_9995 ?AUTO_10002 ) ( CAN_TRAVERSE ?AUTO_10000 ?AUTO_9997 ?AUTO_9995 ) ( VISIBLE ?AUTO_9997 ?AUTO_9995 ) ( CAN_TRAVERSE ?AUTO_10000 ?AUTO_9993 ?AUTO_9997 ) ( VISIBLE ?AUTO_9993 ?AUTO_9997 ) ( ON_BOARD ?AUTO_9994 ?AUTO_10000 ) ( EQUIPPED_FOR_IMAGING ?AUTO_10000 ) ( SUPPORTS ?AUTO_9994 ?AUTO_9990 ) ( VISIBLE_FROM ?AUTO_9989 ?AUTO_9993 ) ( CALIBRATION_TARGET ?AUTO_9994 ?AUTO_9996 ) ( VISIBLE_FROM ?AUTO_9996 ?AUTO_9993 ) ( CAN_TRAVERSE ?AUTO_10000 ?AUTO_9998 ?AUTO_9993 ) ( VISIBLE ?AUTO_9998 ?AUTO_9993 ) ( CAN_TRAVERSE ?AUTO_10000 ?AUTO_9999 ?AUTO_9998 ) ( VISIBLE ?AUTO_9999 ?AUTO_9998 ) ( CAN_TRAVERSE ?AUTO_10000 ?AUTO_10006 ?AUTO_9999 ) ( AT ?AUTO_10000 ?AUTO_10006 ) ( VISIBLE ?AUTO_10006 ?AUTO_9999 ) )
+    :subtasks
+    ( ( !NAVIGATE ?AUTO_10000 ?AUTO_10006 ?AUTO_9999 )
+      ( GET_IMAGE_DATA ?AUTO_9989 ?AUTO_9990 )
+      ( GET_IMAGE_DATA-VERIFY ?AUTO_9989 ?AUTO_9990 ) )
+  )
+
+)
+

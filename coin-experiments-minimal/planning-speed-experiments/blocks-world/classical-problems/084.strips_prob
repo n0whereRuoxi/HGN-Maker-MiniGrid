@@ -1,0 +1,103 @@
+( define ( problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    b015 - block
+    b020 - block
+    b012 - block
+    b000 - block
+    b005 - block
+    b024 - block
+    b019 - block
+    b014 - block
+    b023 - block
+    b004 - block
+    b021 - block
+    b022 - block
+    b013 - block
+    b003 - block
+    b006 - block
+    b001 - block
+    b016 - block
+    b008 - block
+    b011 - block
+    b010 - block
+    b002 - block
+    b018 - block
+    b017 - block
+    b007 - block
+    b009 - block
+  )
+
+  ( :init
+    ( on-table b015 )
+    ( on b020 b015 )
+    ( on b012 b020 )
+    ( on b000 b012 )
+    ( clear b000 )
+    ( on-table b005 )
+    ( on b024 b005 )
+    ( on b019 b024 )
+    ( on b014 b019 )
+    ( on b023 b014 )
+    ( clear b023 )
+    ( on-table b004 )
+    ( on b021 b004 )
+    ( on b022 b021 )
+    ( on b013 b022 )
+    ( on b003 b013 )
+    ( clear b003 )
+    ( on-table b006 )
+    ( clear b006 )
+    ( on-table b001 )
+    ( on b016 b001 )
+    ( on b008 b016 )
+    ( on b011 b008 )
+    ( on b010 b011 )
+    ( clear b010 )
+    ( on-table b002 )
+    ( on b018 b002 )
+    ( on b017 b018 )
+    ( on b007 b017 )
+    ( on b009 b007 )
+    ( clear b009 )
+    ( hand-empty )
+  )
+  ( :goal
+    ( and
+      ( on-table b007 )
+      ( on b016 b007 )
+      ( on b003 b016 )
+      ( on b000 b003 )
+      ( on b014 b000 )
+      ( clear b014 )
+      ( on-table b009 )
+      ( on b006 b009 )
+      ( on b002 b006 )
+      ( on b013 b002 )
+      ( on b005 b013 )
+      ( clear b005 )
+      ( on-table b017 )
+      ( on b012 b017 )
+      ( on b004 b012 )
+      ( on b015 b004 )
+      ( on b001 b015 )
+      ( clear b001 )
+      ( on-table b024 )
+      ( on b019 b024 )
+      ( on b008 b019 )
+      ( clear b008 )
+      ( on-table b020 )
+      ( on b018 b020 )
+      ( clear b018 )
+      ( on-table b021 )
+      ( on b023 b021 )
+      ( on b010 b023 )
+      ( on b022 b010 )
+      ( on b011 b022 )
+      ( clear b011 )
+    )
+  )
+)
+

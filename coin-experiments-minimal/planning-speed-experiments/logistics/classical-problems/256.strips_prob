@@ -1,0 +1,626 @@
+( define ( problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    a001 - airplane
+    a002 - airplane
+    c000 - city
+    c001 - city
+    c002 - city
+    c003 - city
+    c004 - city
+    t000-000 - truck
+    t000-001 - truck
+    t000-002 - truck
+    t000-003 - truck
+    t000-004 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t002-000 - truck
+    t002-001 - truck
+    t002-002 - truck
+    t002-003 - truck
+    t002-004 - truck
+    t003-000 - truck
+    t003-001 - truck
+    t003-002 - truck
+    t004-000 - truck
+    l000-000 - location
+    l000-001 - location
+    l001-000 - location
+    l001-001 - location
+    l002-000 - location
+    l002-001 - location
+    l002-002 - location
+    l003-000 - location
+    l003-001 - location
+    l003-002 - location
+    l003-003 - location
+    l004-000 - location
+    l004-001 - location
+    l004-002 - location
+    l004-003 - location
+    p000 - obj
+    p001 - obj
+    p002 - obj
+    p003 - obj
+    p004 - obj
+    p005 - obj
+    p006 - obj
+    p007 - obj
+    p008 - obj
+    p009 - obj
+    p010 - obj
+    p011 - obj
+    p012 - obj
+    p013 - obj
+    p014 - obj
+    p015 - obj
+    p016 - obj
+    p017 - obj
+    p018 - obj
+    p019 - obj
+    p020 - obj
+    p021 - obj
+    p022 - obj
+    p023 - obj
+    p024 - obj
+    p025 - obj
+    p026 - obj
+    p027 - obj
+    p028 - obj
+    p029 - obj
+    p030 - obj
+    p031 - obj
+    p032 - obj
+    p033 - obj
+    p034 - obj
+    p035 - obj
+    p036 - obj
+    p037 - obj
+    p038 - obj
+    p039 - obj
+    p040 - obj
+    p041 - obj
+    p042 - obj
+    p043 - obj
+    p044 - obj
+    p045 - obj
+    p046 - obj
+    p047 - obj
+    p048 - obj
+    p049 - obj
+    p050 - obj
+    p051 - obj
+    p052 - obj
+    p053 - obj
+    p054 - obj
+    p055 - obj
+    p056 - obj
+    p057 - obj
+    p058 - obj
+    p059 - obj
+    p060 - obj
+    p061 - obj
+    p062 - obj
+    p063 - obj
+    p064 - obj
+    p065 - obj
+    p066 - obj
+    p067 - obj
+    p068 - obj
+    p069 - obj
+    p070 - obj
+    p071 - obj
+    p072 - obj
+    p073 - obj
+    p074 - obj
+    p075 - obj
+    p076 - obj
+    p077 - obj
+    p078 - obj
+    p079 - obj
+    p080 - obj
+    p081 - obj
+    p082 - obj
+    p083 - obj
+    p084 - obj
+    p085 - obj
+    p086 - obj
+    p087 - obj
+    p088 - obj
+    p089 - obj
+    p090 - obj
+    p091 - obj
+    p092 - obj
+    p093 - obj
+    p094 - obj
+    p095 - obj
+    p096 - obj
+    p097 - obj
+    p098 - obj
+    p099 - obj
+    p100 - obj
+    p101 - obj
+    p102 - obj
+    p103 - obj
+    p104 - obj
+    p105 - obj
+    p106 - obj
+    p107 - obj
+    p108 - obj
+    p109 - obj
+    p110 - obj
+    p111 - obj
+    p112 - obj
+    p113 - obj
+    p114 - obj
+    p115 - obj
+    p116 - obj
+    p117 - obj
+    p118 - obj
+    p119 - obj
+    p120 - obj
+    p121 - obj
+    p122 - obj
+    p123 - obj
+    p124 - obj
+    p125 - obj
+    p126 - obj
+    p127 - obj
+    p128 - obj
+    p129 - obj
+    p130 - obj
+    p131 - obj
+    p132 - obj
+    p133 - obj
+    p134 - obj
+    p135 - obj
+    p136 - obj
+    p137 - obj
+    p138 - obj
+    p139 - obj
+    p140 - obj
+    p141 - obj
+    p142 - obj
+    p143 - obj
+    p144 - obj
+    p145 - obj
+    p146 - obj
+    p147 - obj
+    p148 - obj
+    p149 - obj
+    p150 - obj
+    p151 - obj
+    p152 - obj
+    p153 - obj
+    p154 - obj
+    p155 - obj
+    p156 - obj
+    p157 - obj
+    p158 - obj
+    p159 - obj
+    p160 - obj
+    p161 - obj
+    p162 - obj
+    p163 - obj
+    p164 - obj
+    p165 - obj
+    p166 - obj
+    p167 - obj
+    p168 - obj
+    p169 - obj
+    p170 - obj
+    p171 - obj
+    p172 - obj
+    p173 - obj
+    p174 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l002-000 c002 )
+    ( in-city l002-001 c002 )
+    ( in-city l002-002 c002 )
+    ( in-city l003-000 c003 )
+    ( in-city l003-001 c003 )
+    ( in-city l003-002 c003 )
+    ( in-city l003-003 c003 )
+    ( in-city l004-000 c004 )
+    ( in-city l004-001 c004 )
+    ( in-city l004-002 c004 )
+    ( in-city l004-003 c004 )
+    ( airport l000-001 )
+    ( airport l001-000 )
+    ( airport l001-001 )
+    ( airport l002-000 )
+    ( airport l002-001 )
+    ( airport l002-002 )
+    ( airport l003-003 )
+    ( airport l003-001 )
+    ( airport l003-002 )
+    ( airport l004-001 )
+    ( truck-at t000-000 l000-000 )
+    ( truck-at t000-001 l000-001 )
+    ( truck-at t000-002 l000-001 )
+    ( truck-at t000-003 l000-001 )
+    ( truck-at t000-004 l000-001 )
+    ( truck-at t001-000 l001-001 )
+    ( truck-at t001-001 l001-001 )
+    ( truck-at t002-000 l002-000 )
+    ( truck-at t002-001 l002-000 )
+    ( truck-at t002-002 l002-000 )
+    ( truck-at t002-003 l002-000 )
+    ( truck-at t002-004 l002-000 )
+    ( truck-at t003-000 l003-000 )
+    ( truck-at t003-001 l003-002 )
+    ( truck-at t003-002 l003-000 )
+    ( truck-at t004-000 l004-000 )
+    ( airplane-at a000 l002-002 )
+    ( airplane-at a001 l002-000 )
+    ( airplane-at a002 l000-001 )
+    ( obj-at p000 l001-000 )
+    ( obj-at p001 l003-002 )
+    ( obj-at p002 l001-001 )
+    ( obj-at p003 l002-001 )
+    ( obj-at p004 l004-002 )
+    ( obj-at p005 l003-001 )
+    ( obj-at p006 l000-000 )
+    ( obj-at p007 l004-003 )
+    ( obj-at p008 l001-000 )
+    ( obj-at p009 l003-000 )
+    ( obj-at p010 l002-002 )
+    ( obj-at p011 l000-000 )
+    ( obj-at p012 l002-002 )
+    ( obj-at p013 l002-000 )
+    ( obj-at p014 l004-001 )
+    ( obj-at p015 l002-000 )
+    ( obj-at p016 l003-000 )
+    ( obj-at p017 l004-003 )
+    ( obj-at p018 l001-000 )
+    ( obj-at p019 l004-002 )
+    ( obj-at p020 l004-000 )
+    ( obj-at p021 l001-001 )
+    ( obj-at p022 l000-001 )
+    ( obj-at p023 l003-002 )
+    ( obj-at p024 l001-001 )
+    ( obj-at p025 l001-001 )
+    ( obj-at p026 l004-000 )
+    ( obj-at p027 l003-002 )
+    ( obj-at p028 l003-003 )
+    ( obj-at p029 l003-003 )
+    ( obj-at p030 l001-001 )
+    ( obj-at p031 l004-002 )
+    ( obj-at p032 l001-001 )
+    ( obj-at p033 l003-003 )
+    ( obj-at p034 l002-002 )
+    ( obj-at p035 l004-002 )
+    ( obj-at p036 l004-002 )
+    ( obj-at p037 l002-002 )
+    ( obj-at p038 l004-003 )
+    ( obj-at p039 l002-002 )
+    ( obj-at p040 l003-003 )
+    ( obj-at p041 l001-000 )
+    ( obj-at p042 l002-001 )
+    ( obj-at p043 l003-000 )
+    ( obj-at p044 l002-001 )
+    ( obj-at p045 l002-002 )
+    ( obj-at p046 l000-001 )
+    ( obj-at p047 l001-001 )
+    ( obj-at p048 l004-002 )
+    ( obj-at p049 l000-000 )
+    ( obj-at p050 l000-000 )
+    ( obj-at p051 l002-002 )
+    ( obj-at p052 l003-000 )
+    ( obj-at p053 l003-003 )
+    ( obj-at p054 l003-001 )
+    ( obj-at p055 l004-003 )
+    ( obj-at p056 l002-002 )
+    ( obj-at p057 l001-001 )
+    ( obj-at p058 l000-001 )
+    ( obj-at p059 l003-002 )
+    ( obj-at p060 l002-000 )
+    ( obj-at p061 l004-000 )
+    ( obj-at p062 l002-001 )
+    ( obj-at p063 l002-002 )
+    ( obj-at p064 l002-000 )
+    ( obj-at p065 l002-000 )
+    ( obj-at p066 l003-003 )
+    ( obj-at p067 l004-002 )
+    ( obj-at p068 l002-000 )
+    ( obj-at p069 l002-001 )
+    ( obj-at p070 l004-002 )
+    ( obj-at p071 l002-000 )
+    ( obj-at p072 l004-002 )
+    ( obj-at p073 l003-000 )
+    ( obj-at p074 l002-002 )
+    ( obj-at p075 l002-002 )
+    ( obj-at p076 l004-000 )
+    ( obj-at p077 l003-000 )
+    ( obj-at p078 l004-000 )
+    ( obj-at p079 l003-002 )
+    ( obj-at p080 l002-001 )
+    ( obj-at p081 l003-001 )
+    ( obj-at p082 l004-000 )
+    ( obj-at p083 l004-003 )
+    ( obj-at p084 l002-002 )
+    ( obj-at p085 l003-002 )
+    ( obj-at p086 l000-001 )
+    ( obj-at p087 l002-001 )
+    ( obj-at p088 l004-003 )
+    ( obj-at p089 l004-002 )
+    ( obj-at p090 l003-001 )
+    ( obj-at p091 l001-000 )
+    ( obj-at p092 l004-003 )
+    ( obj-at p093 l001-001 )
+    ( obj-at p094 l000-001 )
+    ( obj-at p095 l003-003 )
+    ( obj-at p096 l002-000 )
+    ( obj-at p097 l003-002 )
+    ( obj-at p098 l003-001 )
+    ( obj-at p099 l002-002 )
+    ( obj-at p100 l004-003 )
+    ( obj-at p101 l001-000 )
+    ( obj-at p102 l004-001 )
+    ( obj-at p103 l003-002 )
+    ( obj-at p104 l003-003 )
+    ( obj-at p105 l004-002 )
+    ( obj-at p106 l001-000 )
+    ( obj-at p107 l001-001 )
+    ( obj-at p108 l004-003 )
+    ( obj-at p109 l001-001 )
+    ( obj-at p110 l004-003 )
+    ( obj-at p111 l003-000 )
+    ( obj-at p112 l002-002 )
+    ( obj-at p113 l004-001 )
+    ( obj-at p114 l001-001 )
+    ( obj-at p115 l002-001 )
+    ( obj-at p116 l002-002 )
+    ( obj-at p117 l003-002 )
+    ( obj-at p118 l004-003 )
+    ( obj-at p119 l002-002 )
+    ( obj-at p120 l002-001 )
+    ( obj-at p121 l002-000 )
+    ( obj-at p122 l003-001 )
+    ( obj-at p123 l002-000 )
+    ( obj-at p124 l004-000 )
+    ( obj-at p125 l004-001 )
+    ( obj-at p126 l004-000 )
+    ( obj-at p127 l003-000 )
+    ( obj-at p128 l003-003 )
+    ( obj-at p129 l003-001 )
+    ( obj-at p130 l002-001 )
+    ( obj-at p131 l000-001 )
+    ( obj-at p132 l003-001 )
+    ( obj-at p133 l001-001 )
+    ( obj-at p134 l000-000 )
+    ( obj-at p135 l001-001 )
+    ( obj-at p136 l003-000 )
+    ( obj-at p137 l002-002 )
+    ( obj-at p138 l001-001 )
+    ( obj-at p139 l001-000 )
+    ( obj-at p140 l004-002 )
+    ( obj-at p141 l004-003 )
+    ( obj-at p142 l000-000 )
+    ( obj-at p143 l004-000 )
+    ( obj-at p144 l001-001 )
+    ( obj-at p145 l001-001 )
+    ( obj-at p146 l003-001 )
+    ( obj-at p147 l003-002 )
+    ( obj-at p148 l004-001 )
+    ( obj-at p149 l002-002 )
+    ( obj-at p150 l002-001 )
+    ( obj-at p151 l004-000 )
+    ( obj-at p152 l004-001 )
+    ( obj-at p153 l004-003 )
+    ( obj-at p154 l001-000 )
+    ( obj-at p155 l004-000 )
+    ( obj-at p156 l001-001 )
+    ( obj-at p157 l000-001 )
+    ( obj-at p158 l001-000 )
+    ( obj-at p159 l003-000 )
+    ( obj-at p160 l002-002 )
+    ( obj-at p161 l004-003 )
+    ( obj-at p162 l004-003 )
+    ( obj-at p163 l002-000 )
+    ( obj-at p164 l000-001 )
+    ( obj-at p165 l004-002 )
+    ( obj-at p166 l004-000 )
+    ( obj-at p167 l004-002 )
+    ( obj-at p168 l003-001 )
+    ( obj-at p169 l001-000 )
+    ( obj-at p170 l001-000 )
+    ( obj-at p171 l002-000 )
+    ( obj-at p172 l004-002 )
+    ( obj-at p173 l002-002 )
+    ( obj-at p174 l002-000 )
+  )
+
+  ( :goal
+    ( and
+      ( obj-at p000 l002-000 )
+      ( obj-at p001 l001-001 )
+      ( obj-at p002 l002-000 )
+      ( obj-at p003 l001-000 )
+      ( obj-at p004 l003-002 )
+      ( obj-at p005 l000-000 )
+      ( obj-at p006 l000-000 )
+      ( obj-at p007 l002-000 )
+      ( obj-at p008 l001-001 )
+      ( obj-at p009 l004-000 )
+      ( obj-at p010 l002-001 )
+      ( obj-at p011 l001-001 )
+      ( obj-at p012 l000-001 )
+      ( obj-at p013 l003-003 )
+      ( obj-at p014 l003-003 )
+      ( obj-at p015 l001-000 )
+      ( obj-at p016 l000-001 )
+      ( obj-at p017 l002-000 )
+      ( obj-at p018 l004-001 )
+      ( obj-at p019 l003-002 )
+      ( obj-at p020 l000-001 )
+      ( obj-at p021 l002-001 )
+      ( obj-at p022 l004-000 )
+      ( obj-at p023 l003-000 )
+      ( obj-at p024 l004-000 )
+      ( obj-at p025 l000-000 )
+      ( obj-at p026 l003-001 )
+      ( obj-at p027 l003-000 )
+      ( obj-at p028 l000-001 )
+      ( obj-at p029 l003-000 )
+      ( obj-at p030 l001-001 )
+      ( obj-at p031 l000-000 )
+      ( obj-at p032 l000-000 )
+      ( obj-at p033 l000-001 )
+      ( obj-at p034 l002-000 )
+      ( obj-at p035 l003-003 )
+      ( obj-at p036 l003-003 )
+      ( obj-at p037 l004-002 )
+      ( obj-at p038 l004-003 )
+      ( obj-at p039 l003-000 )
+      ( obj-at p040 l002-001 )
+      ( obj-at p041 l002-002 )
+      ( obj-at p042 l002-002 )
+      ( obj-at p043 l004-003 )
+      ( obj-at p044 l003-003 )
+      ( obj-at p045 l003-000 )
+      ( obj-at p046 l002-000 )
+      ( obj-at p047 l000-000 )
+      ( obj-at p048 l004-002 )
+      ( obj-at p049 l000-000 )
+      ( obj-at p050 l003-003 )
+      ( obj-at p051 l003-000 )
+      ( obj-at p052 l000-000 )
+      ( obj-at p053 l004-001 )
+      ( obj-at p054 l002-002 )
+      ( obj-at p055 l003-002 )
+      ( obj-at p056 l002-000 )
+      ( obj-at p057 l003-001 )
+      ( obj-at p058 l004-002 )
+      ( obj-at p059 l000-000 )
+      ( obj-at p060 l000-001 )
+      ( obj-at p061 l003-000 )
+      ( obj-at p062 l001-000 )
+      ( obj-at p063 l003-001 )
+      ( obj-at p064 l004-003 )
+      ( obj-at p065 l003-001 )
+      ( obj-at p066 l004-002 )
+      ( obj-at p067 l001-001 )
+      ( obj-at p068 l002-000 )
+      ( obj-at p069 l002-000 )
+      ( obj-at p070 l003-000 )
+      ( obj-at p071 l004-000 )
+      ( obj-at p072 l002-000 )
+      ( obj-at p073 l002-001 )
+      ( obj-at p074 l001-000 )
+      ( obj-at p075 l001-000 )
+      ( obj-at p076 l001-000 )
+      ( obj-at p077 l000-001 )
+      ( obj-at p078 l003-002 )
+      ( obj-at p079 l004-002 )
+      ( obj-at p080 l003-000 )
+      ( obj-at p081 l003-003 )
+      ( obj-at p082 l000-001 )
+      ( obj-at p083 l004-001 )
+      ( obj-at p084 l004-003 )
+      ( obj-at p085 l003-001 )
+      ( obj-at p086 l003-002 )
+      ( obj-at p087 l001-001 )
+      ( obj-at p088 l003-001 )
+      ( obj-at p089 l004-003 )
+      ( obj-at p090 l004-003 )
+      ( obj-at p091 l004-001 )
+      ( obj-at p092 l002-000 )
+      ( obj-at p093 l003-000 )
+      ( obj-at p094 l004-003 )
+      ( obj-at p095 l003-000 )
+      ( obj-at p096 l003-002 )
+      ( obj-at p097 l004-001 )
+      ( obj-at p098 l002-002 )
+      ( obj-at p099 l004-001 )
+      ( obj-at p100 l004-000 )
+      ( obj-at p101 l000-000 )
+      ( obj-at p102 l004-003 )
+      ( obj-at p103 l002-000 )
+      ( obj-at p104 l003-003 )
+      ( obj-at p105 l003-003 )
+      ( obj-at p106 l002-000 )
+      ( obj-at p107 l003-001 )
+      ( obj-at p108 l004-000 )
+      ( obj-at p109 l000-001 )
+      ( obj-at p110 l001-000 )
+      ( obj-at p111 l004-003 )
+      ( obj-at p112 l003-001 )
+      ( obj-at p113 l004-000 )
+      ( obj-at p114 l003-002 )
+      ( obj-at p115 l001-001 )
+      ( obj-at p116 l002-000 )
+      ( obj-at p117 l003-003 )
+      ( obj-at p118 l002-000 )
+      ( obj-at p119 l001-001 )
+      ( obj-at p120 l001-000 )
+      ( obj-at p121 l003-000 )
+      ( obj-at p122 l000-000 )
+      ( obj-at p123 l003-003 )
+      ( obj-at p124 l000-000 )
+      ( obj-at p125 l001-001 )
+      ( obj-at p126 l004-001 )
+      ( obj-at p127 l002-000 )
+      ( obj-at p128 l001-000 )
+      ( obj-at p129 l004-003 )
+      ( obj-at p130 l002-000 )
+      ( obj-at p131 l000-001 )
+      ( obj-at p132 l003-002 )
+      ( obj-at p133 l004-000 )
+      ( obj-at p134 l002-001 )
+      ( obj-at p135 l000-000 )
+      ( obj-at p136 l002-001 )
+      ( obj-at p137 l003-002 )
+      ( obj-at p138 l002-000 )
+      ( obj-at p139 l004-000 )
+      ( obj-at p140 l001-001 )
+      ( obj-at p141 l001-000 )
+      ( obj-at p142 l004-002 )
+      ( obj-at p143 l002-001 )
+      ( obj-at p144 l001-001 )
+      ( obj-at p145 l004-001 )
+      ( obj-at p146 l000-000 )
+      ( obj-at p147 l004-002 )
+      ( obj-at p148 l003-002 )
+      ( obj-at p149 l004-001 )
+      ( obj-at p150 l000-000 )
+      ( obj-at p151 l001-001 )
+      ( obj-at p152 l000-001 )
+      ( obj-at p153 l004-003 )
+      ( obj-at p154 l003-000 )
+      ( obj-at p155 l003-001 )
+      ( obj-at p156 l004-000 )
+      ( obj-at p157 l000-001 )
+      ( obj-at p158 l000-000 )
+      ( obj-at p159 l004-002 )
+      ( obj-at p160 l001-000 )
+      ( obj-at p161 l002-000 )
+      ( obj-at p162 l003-003 )
+      ( obj-at p163 l004-002 )
+      ( obj-at p164 l001-000 )
+      ( obj-at p165 l002-001 )
+      ( obj-at p166 l003-000 )
+      ( obj-at p167 l000-001 )
+      ( obj-at p168 l003-003 )
+      ( obj-at p169 l003-000 )
+      ( obj-at p170 l004-002 )
+      ( obj-at p171 l003-002 )
+      ( obj-at p172 l004-001 )
+      ( obj-at p173 l004-003 )
+      ( obj-at p174 l002-001 )
+    )
+  )
+)
+

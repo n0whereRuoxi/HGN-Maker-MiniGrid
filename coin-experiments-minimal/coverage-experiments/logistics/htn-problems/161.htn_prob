@@ -1,0 +1,90 @@
+( define ( htn-problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :htn :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    c000 - city
+    c001 - city
+    c002 - city
+    t000-000 - truck
+    t000-001 - truck
+    t000-002 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t001-002 - truck
+    t002-000 - truck
+    l000-000 - location
+    l000-001 - location
+    l000-002 - location
+    l000-003 - location
+    l000-004 - location
+    l001-000 - location
+    l001-001 - location
+    l001-002 - location
+    l001-003 - location
+    l001-004 - location
+    l001-005 - location
+    l002-000 - location
+    l002-001 - location
+    l002-002 - location
+    l002-003 - location
+    l002-004 - location
+    l002-005 - location
+    p000 - obj
+    p001 - obj
+    p002 - obj
+    p003 - obj
+    p004 - obj
+    p005 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l000-002 c000 )
+    ( in-city l000-003 c000 )
+    ( in-city l000-004 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l001-002 c001 )
+    ( in-city l001-003 c001 )
+    ( in-city l001-004 c001 )
+    ( in-city l001-005 c001 )
+    ( in-city l002-000 c002 )
+    ( in-city l002-001 c002 )
+    ( in-city l002-002 c002 )
+    ( in-city l002-003 c002 )
+    ( in-city l002-004 c002 )
+    ( in-city l002-005 c002 )
+    ( airport l000-002 )
+    ( airport l001-004 )
+    ( airport l002-002 )
+    ( truck-at t000-000 l000-001 )
+    ( truck-at t000-001 l000-003 )
+    ( truck-at t000-002 l000-001 )
+    ( truck-at t001-000 l001-002 )
+    ( truck-at t001-001 l001-005 )
+    ( truck-at t001-002 l001-000 )
+    ( truck-at t002-000 l002-000 )
+    ( airplane-at a000 l000-002 )
+    ( obj-at p000 l000-002 )
+    ( obj-at p001 l002-005 )
+    ( obj-at p002 l002-000 )
+    ( obj-at p003 l000-003 )
+    ( obj-at p004 l002-000 )
+    ( obj-at p005 l000-000 )
+  )
+
+  ( :tasks
+    ( DELIVER-PKG p000 l001-005 )
+    ( DELIVER-PKG p001 l000-000 )
+    ( DELIVER-PKG p002 l000-004 )
+    ( DELIVER-PKG p003 l001-000 )
+    ( DELIVER-PKG p004 l002-001 )
+    ( DELIVER-PKG p005 l000-000 )
+  )
+)
+

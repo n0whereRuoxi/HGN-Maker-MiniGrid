@@ -1,0 +1,205 @@
+( define ( problem probname )
+  ( :domain blocks4 )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    b020 - block
+    b023 - block
+    b024 - block
+    b021 - block
+    b022 - block
+    b017 - block
+    b013 - block
+    b018 - block
+    b012 - block
+    b019 - block
+    b008 - block
+    b007 - block
+    b005 - block
+    b009 - block
+    b006 - block
+    b015 - block
+    b014 - block
+    b011 - block
+    b016 - block
+    b010 - block
+    b039 - block
+    b033 - block
+    b040 - block
+    b036 - block
+    b038 - block
+    b042 - block
+    b044 - block
+    b041 - block
+    b037 - block
+    b043 - block
+    b030 - block
+    b031 - block
+    b035 - block
+    b034 - block
+    b032 - block
+    b003 - block
+    b004 - block
+    b001 - block
+    b002 - block
+    b000 - block
+    b045 - block
+    b047 - block
+    b049 - block
+    b050 - block
+    b048 - block
+    b029 - block
+    b025 - block
+    b027 - block
+    b028 - block
+    b026 - block
+    b051 - block
+    b054 - block
+    b053 - block
+    b052 - block
+    b046 - block
+  )
+
+  ( :init
+    ( on-table b020 )
+    ( on b023 b020 )
+    ( on b024 b023 )
+    ( on b021 b024 )
+    ( on b022 b021 )
+    ( clear b022 )
+    ( on-table b017 )
+    ( on b013 b017 )
+    ( on b018 b013 )
+    ( on b012 b018 )
+    ( on b019 b012 )
+    ( clear b019 )
+    ( on-table b008 )
+    ( on b007 b008 )
+    ( on b005 b007 )
+    ( on b009 b005 )
+    ( on b006 b009 )
+    ( clear b006 )
+    ( on-table b015 )
+    ( on b014 b015 )
+    ( on b011 b014 )
+    ( on b016 b011 )
+    ( on b010 b016 )
+    ( clear b010 )
+    ( on-table b039 )
+    ( on b033 b039 )
+    ( on b040 b033 )
+    ( on b036 b040 )
+    ( on b038 b036 )
+    ( clear b038 )
+    ( on-table b042 )
+    ( on b044 b042 )
+    ( on b041 b044 )
+    ( on b037 b041 )
+    ( on b043 b037 )
+    ( clear b043 )
+    ( on-table b030 )
+    ( on b031 b030 )
+    ( on b035 b031 )
+    ( on b034 b035 )
+    ( on b032 b034 )
+    ( clear b032 )
+    ( on-table b003 )
+    ( on b004 b003 )
+    ( on b001 b004 )
+    ( on b002 b001 )
+    ( on b000 b002 )
+    ( clear b000 )
+    ( on-table b045 )
+    ( on b047 b045 )
+    ( on b049 b047 )
+    ( on b050 b049 )
+    ( on b048 b050 )
+    ( clear b048 )
+    ( on-table b029 )
+    ( on b025 b029 )
+    ( on b027 b025 )
+    ( on b028 b027 )
+    ( on b026 b028 )
+    ( clear b026 )
+    ( on-table b051 )
+    ( on b054 b051 )
+    ( on b053 b054 )
+    ( on b052 b053 )
+    ( on b046 b052 )
+    ( clear b046 )
+    ( hand-empty )
+  )
+  ( :goal
+    ( and
+      ( on-table b018 )
+      ( on b017 b018 )
+      ( on b019 b017 )
+      ( on b016 b019 )
+      ( on b015 b016 )
+      ( clear b015 )
+      ( on-table b028 )
+      ( on b036 b028 )
+      ( on b038 b036 )
+      ( on b040 b038 )
+      ( on b041 b040 )
+      ( clear b041 )
+      ( on-table b048 )
+      ( on b045 b048 )
+      ( on b047 b045 )
+      ( on b046 b047 )
+      ( on b049 b046 )
+      ( clear b049 )
+      ( on-table b043 )
+      ( on b042 b043 )
+      ( on b044 b042 )
+      ( on b032 b044 )
+      ( on b039 b032 )
+      ( clear b039 )
+      ( on-table b004 )
+      ( on b009 b004 )
+      ( on b002 b009 )
+      ( on b008 b002 )
+      ( on b007 b008 )
+      ( clear b007 )
+      ( on-table b012 )
+      ( on b010 b012 )
+      ( on b011 b010 )
+      ( on b014 b011 )
+      ( on b013 b014 )
+      ( clear b013 )
+      ( on-table b025 )
+      ( on b020 b025 )
+      ( on b021 b020 )
+      ( on b026 b021 )
+      ( on b023 b026 )
+      ( clear b023 )
+      ( on-table b050 )
+      ( on b054 b050 )
+      ( on b051 b054 )
+      ( clear b051 )
+      ( on-table b024 )
+      ( on b037 b024 )
+      ( on b034 b037 )
+      ( on b035 b034 )
+      ( on b030 b035 )
+      ( clear b030 )
+      ( on-table b005 )
+      ( on b000 b005 )
+      ( on b001 b000 )
+      ( on b006 b001 )
+      ( on b003 b006 )
+      ( clear b003 )
+      ( on-table b022 )
+      ( on b033 b022 )
+      ( on b029 b033 )
+      ( on b031 b029 )
+      ( on b027 b031 )
+      ( clear b027 )
+      ( on-table b053 )
+      ( clear b053 )
+      ( on-table b052 )
+      ( clear b052 )
+    )
+  )
+)
+

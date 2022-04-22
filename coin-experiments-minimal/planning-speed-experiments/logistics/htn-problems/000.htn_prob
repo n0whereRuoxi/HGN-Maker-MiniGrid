@@ -1,0 +1,56 @@
+( define ( htn-problem probname )
+
+  ( :domain logistics )
+
+  ( :requirements :strips :htn :typing :equality )
+
+  ( :objects
+    a000 - airplane
+    a001 - airplane
+    c000 - city
+    c001 - city
+    t000-000 - truck
+    t000-001 - truck
+    t000-002 - truck
+    t000-003 - truck
+    t000-004 - truck
+    t001-000 - truck
+    t001-001 - truck
+    t001-002 - truck
+    l000-000 - location
+    l000-001 - location
+    l001-000 - location
+    l001-001 - location
+    l001-002 - location
+    l001-003 - location
+    p000 - obj
+  )
+
+  ( :init
+    ( in-city l000-000 c000 )
+    ( in-city l000-001 c000 )
+    ( in-city l001-000 c001 )
+    ( in-city l001-001 c001 )
+    ( in-city l001-002 c001 )
+    ( in-city l001-003 c001 )
+    ( airport l000-001 )
+    ( airport l001-003 )
+    ( airport l001-001 )
+    ( truck-at t000-000 l000-001 )
+    ( truck-at t000-001 l000-001 )
+    ( truck-at t000-002 l000-000 )
+    ( truck-at t000-003 l000-000 )
+    ( truck-at t000-004 l000-001 )
+    ( truck-at t001-000 l001-003 )
+    ( truck-at t001-001 l001-000 )
+    ( truck-at t001-002 l001-000 )
+    ( airplane-at a000 l000-001 )
+    ( airplane-at a001 l000-001 )
+    ( obj-at p000 l000-000 )
+  )
+
+  ( :tasks
+    ( DELIVER-PKG p000 l001-003 )
+  )
+)
+

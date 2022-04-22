@@ -1,0 +1,77 @@
+( define ( problem probname )
+
+  ( :domain zeno-travel )
+
+  ( :requirements :strips :typing )
+
+  ( :objects
+    level00 - flevel
+    level01 - flevel
+    level02 - flevel
+    aircraft000 - aircraft
+    aircraft001 - aircraft
+    aircraft002 - aircraft
+    aircraft003 - aircraft
+    aircraft004 - aircraft
+    aircraft005 - aircraft
+    aircraft006 - aircraft
+    aircraft007 - aircraft
+    aircraft008 - aircraft
+    person000 - person
+    person001 - person
+    person002 - person
+    person003 - person
+    person004 - person
+    city000 - city
+    city001 - city
+    city002 - city
+    city003 - city
+    city004 - city
+    city005 - city
+    city006 - city
+    city007 - city
+    city008 - city
+    city009 - city
+    city010 - city
+    city011 - city
+  )
+
+  ( :init
+    ( next level00 level01 )
+    ( next level01 level02 )
+    ( aircraft-at aircraft000 city007 )
+    ( aircraft-at aircraft001 city003 )
+    ( aircraft-at aircraft002 city010 )
+    ( aircraft-at aircraft003 city000 )
+    ( aircraft-at aircraft004 city000 )
+    ( aircraft-at aircraft005 city000 )
+    ( aircraft-at aircraft006 city010 )
+    ( aircraft-at aircraft007 city007 )
+    ( aircraft-at aircraft008 city006 )
+    ( person-at person000 city011 )
+    ( person-at person001 city010 )
+    ( person-at person002 city004 )
+    ( person-at person003 city007 )
+    ( person-at person004 city007 )
+    ( fuel-level aircraft000 level02 )
+    ( fuel-level aircraft001 level00 )
+    ( fuel-level aircraft002 level01 )
+    ( fuel-level aircraft003 level00 )
+    ( fuel-level aircraft004 level00 )
+    ( fuel-level aircraft005 level00 )
+    ( fuel-level aircraft006 level01 )
+    ( fuel-level aircraft007 level02 )
+    ( fuel-level aircraft008 level02 )
+  )
+
+  ( :goal
+    ( and
+      ( person-at person000 city005 )
+      ( person-at person001 city007 )
+      ( person-at person002 city010 )
+      ( person-at person003 city007 )
+      ( person-at person004 city008 )
+    )
+  )
+)
+

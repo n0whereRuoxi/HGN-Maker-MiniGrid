@@ -1,0 +1,31 @@
+( define ( problem probname )
+  ( :domain satellite )
+  ( :requirements :strips :typing :equality )
+
+  ( :objects
+    sat000 - satellite
+    dir000 - direction
+    dir001 - direction
+    dir002 - direction
+    dir003 - direction
+    mode000 - mode
+    mode001 - mode
+    mode002 - mode
+    inst000-000 - instrument
+  )
+
+  ( :init
+    ( pointing sat000 dir002 )
+    ( power_avail sat000 )
+    ( on_board inst000-000 sat000 )
+    ( supports inst000-000 mode002 )
+    ( calibration_target inst000-000 dir001 )
+    ( not_calibrated inst000-000 )
+  )
+  ( :goal
+    ( and
+      ( have_image dir001 mode002 )
+    )
+  )
+)
+
