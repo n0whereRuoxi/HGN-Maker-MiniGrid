@@ -234,6 +234,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
   std::vector<HtnTaskList *> l_vHtnTaskDeliverN;
   std::vector<HtnTaskList *> l_vHtnTaskMakeNPile;
   std::vector<HtnTaskList *> l_vHtnTaskMakeNCrate;
+  std::vector<HtnTaskList *> l_vHtnTasks;
   try
   {
     std::cout << "Reading strip domain file " << l_sStripsDomainFile << std::endl;
@@ -302,7 +303,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
           l_vHtnTaskMakeNPile.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Pile.pddl" ) ) );
         }
       }
-      else {
+      else if (l_sDomainName == "depots") {
         std::cout << "Reading task files for depots domain with curriculum: " << std::endl;
         for (int i = 1; i < l_iProblemNumber + 1; i++) {
           std::cout << "Reading task: task_Make-" + std::to_string(i) + "Crate.pddl" << std::endl;
@@ -310,6 +311,16 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
             ReadFile( l_sDir + "task_Make-" + std::to_string(i) + "Crate.pddl" ) ) );
         }
       }
+      else {
+        std::cout << "Reading task files for satellite domain with curriculum: " << std::endl;
+        std::cout << "Reading task: task_calibrate_instrument.pddl" << std::endl;
+        l_vHtnTasks.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), 
+            ReadFile( l_sDir + "tasks_calibrate_instrument.pddl" ) ) );
+        std::cout << "Reading task: tasks_get_image.pddl" << std::endl;
+        l_vHtnTasks.push_back(new HtnTaskList( std::tr1::shared_ptr< HtnDomain >( new HtnDomain( *l_pHtnDomain ) ), 
+            ReadFile( l_sDir + "tasks_get_image.pddl" ) ) );
+      }
+    }
     }
     std::cout << " Done reading task file " << l_sTasksFile << std::endl;
   }
@@ -365,7 +376,7 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
             l_vHtnTaskMakeNPile[l_iProblemNumber-1],
             l_pHtnDomain );
     }
-    else {
+    else if (l_sDomainName == "depots") {
       LearnMethodsFromExactSequence(0,6, l_pStripsPlan,
                 l_vHtnTaskMakeNCrate[0],
                 l_pHtnDomain );
@@ -375,6 +386,18 @@ HtnDomain * DoOneExperiment(std::string l_sDomainName, int l_iProblemNumber, int
                 l_pHtnDomain );
       }
     }
+    else {
+      LearnMethodsFromExactSequence(0,3, l_pStripsPlan,
+                l_vHtnTasks[0],
+                l_pHtnDomain );
+      LearnMethodsFromExactSequence(3,5, l_pStripsPlan,
+                l_vHtnTasks[1],
+                l_pHtnDomain );      
+      LearnMethodsFromExactSequence(0,5, l_pStripsPlan,
+                l_vHtnTasks[1],
+                l_pHtnDomain );
+    }
+
   }
   else 
     LearnMethods( l_pStripsPlan,
